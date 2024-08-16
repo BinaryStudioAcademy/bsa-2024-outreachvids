@@ -1,7 +1,7 @@
 name: Feature
 description: Abstract feature description
 title: "FEAT:"
-projects: "BinaryStudioAcademy/bsa-2024-outreachvids"
+projects: "BinaryStudioAcademy/30"
 body:
   - type: textarea
     id: what-feature
