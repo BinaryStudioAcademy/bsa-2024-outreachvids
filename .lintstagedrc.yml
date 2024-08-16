@@ -1,0 +1,1 @@
+'*': npm run lint:editor && npm run lint:fs && npm run lint:format

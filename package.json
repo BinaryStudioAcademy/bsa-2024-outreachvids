@@ -1,0 +1,52 @@
+{
+    "name": "project",
+    "private": "true",
+    "engines": {
+        "node": "20.x.x",
+        "npm": "10.x.x"
+    },
+    "workspaces": [
+        "shared",
+        "backend",
+        "frontend"
+    ],
+    "scripts": {
+        "postinstall": "npm run build:shared",
+        "build:shared": "npm run build -w shared",
+        "build:frontend": "npm run build -w frontend",
+        "build:backend": "npm run build -w backend",
+        "lint:editor": "editorconfig-checker",
+        "lint:fs": "ls-lint",
+        "lint:type": "npm run lint:type --workspaces --if-present",
+        "lint:js": "npm run lint:js --workspaces --if-present -- --max-warnings=0",
+        "lint:css": "npm run lint:css --workspaces --if-present",
+        "lint:format": "prettier --check \"**/*.{ts,tsx,json,md,scss,html,yml}\"",
+        "lint": "npm run lint:editor && npm run lint:fs && npm run lint:format && npm run lint:type && npm run lint:js && npm run lint:css",
+        "format": "prettier --write \"**/*.{ts,tsx,json,md,css,html,yml}\""
+    },
+    "devDependencies": {
+        "@commitlint/cli": "19.4.0",
+        "@commitlint/config-conventional": "19.2.2",
+        "@ls-lint/ls-lint": "2.2.3",
+        "@typescript-eslint/eslint-plugin": "6.19.1",
+        "danger": "12.3.3",
+        "editorconfig-checker": "5.1.8",
+        "eslint": "8.56.0",
+        "eslint-plugin-import": "2.29.1",
+        "eslint-plugin-simple-import-sort": "8.0.0",
+        "eslint-plugin-sonarjs": "0.23.0",
+        "eslint-plugin-unicorn": "50.0.1",
+        "lint-staged": "15.2.9",
+        "prettier": "3.3.3",
+        "simple-git-hooks": "2.11.1",
+        "stylelint": "16.8.1",
+        "stylelint-config-standard": "36.0.0",
+        "stylelint-order": "6.0.4",
+        "tsc-alias": "1.8.2",
+        "typescript": "5.3.3"
+    },
+    "simple-git-hooks": {
+        "pre-commit": "npx lint-staged",
+        "commit-msg": "npx commitlint --edit $1"
+    }
+}

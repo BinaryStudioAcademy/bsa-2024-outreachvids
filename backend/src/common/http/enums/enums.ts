@@ -1,0 +1,1 @@
+export { HttpCode } from 'shared';

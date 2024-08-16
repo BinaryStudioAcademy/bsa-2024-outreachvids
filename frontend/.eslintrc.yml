@@ -1,0 +1,37 @@
+env:
+    browser: true
+
+settings:
+    react:
+        version: 'detect'
+
+parserOptions:
+    project:
+        - ./tsconfig.json
+
+extends:
+    - ../.eslintrc.yml
+    - plugin:react/recommended
+    - plugin:react/jsx-runtime
+    - plugin:react-hooks/recommended
+    - plugin:jsx-a11y/recommended
+
+rules:
+    react/prop-types:
+        - off
+    react/jsx-no-bind:
+        - error
+        - ignoreRefs: true
+
+overrides:
+    - files:
+          - vite.config.ts
+          - postcss.config.js
+      rules:
+          import/no-default-export:
+              - off
+    - files:
+          - vite-env.d.ts
+      rules:
+          unicorn/prevent-abbreviations:
+              - off

@@ -1,0 +1,20 @@
+root: '*'
+
+workflows: '.github/**/*'
+
+shared: 'shared/**/*'
+
+backend:
+    - any:
+          - 'backend/**/*'
+          - '!backend/.env.example'
+
+frontend:
+    - any:
+          - 'frontend/**/*'
+          - '!frontend/.env.example'
+
+ENV:
+    - 'backend/.env.example'
+    - 'frontend/.env.example'
+    - 'lambdas/.env.example'

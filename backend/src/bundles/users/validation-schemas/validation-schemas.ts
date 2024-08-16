@@ -1,0 +1,1 @@
+export { userSignUpValidationSchema } from 'shared';

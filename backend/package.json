@@ -1,0 +1,45 @@
+{
+    "name": "backend",
+    "type": "module",
+    "engines": {
+        "node": "20.x.x",
+        "npm": "10.x.x"
+    },
+    "scripts": {
+        "lint:type": "npx tsc --noEmit",
+        "lint:js": "npx eslint \"src/**/*.ts\"",
+        "lint": "npm run lint:type && npm run lint:js",
+        "start:dev": "nodemon --exec tsx src/index.ts",
+        "migrate:dev": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:latest",
+        "migrate:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:make -x ts",
+        "migrate:dev:down": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:down",
+        "migrate:dev:rollback": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:rollback --all",
+        "build": "tsc && tsc-alias",
+        "start": "node ./src/index.js"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "5.0.2",
+        "@types/convict": "6.1.6",
+        "@types/swagger-jsdoc": "6.0.4",
+        "nodemon": "3.1.4",
+        "ts-node": "10.9.2",
+        "ts-paths-esm-loader": "1.4.3",
+        "tsx": "4.17.0"
+    },
+    "dependencies": {
+        "@fastify/static": "7.0.4",
+        "@fastify/swagger": "8.15.0",
+        "@fastify/swagger-ui": "4.0.1",
+        "bcrypt": "5.1.1",
+        "convict": "6.2.4",
+        "dotenv": "16.4.5",
+        "fastify": "4.28.1",
+        "knex": "3.1.0",
+        "objection": "3.1.4",
+        "pg": "8.12.0",
+        "pino": "9.3.2",
+        "pino-pretty": "10.3.1",
+        "shared": "*",
+        "swagger-jsdoc": "6.2.8"
+    }
+}

@@ -1,0 +1,27 @@
+ls:
+    .dir: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .scss: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .ts: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .tsx: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .png: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .jpg: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .jpeg: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .svg: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .webp: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .gif: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .ttf: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .woff: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    .woff2: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
+    backend/src/migrations:
+        .ts: snake_case
+
+ignore:
+    - .git
+    - node_modules
+    - build
+    - shared/build
+    - shared/node_modules
+    - frontend/build
+    - frontend/node_modules
+    - backend/build
+    - backend/node_modules

@@ -1,0 +1,22 @@
+env:
+    node: true
+
+parserOptions:
+    project:
+        - ./tsconfig.json
+
+extends:
+    - ../.eslintrc.yml
+
+overrides:
+    - files:
+          - knexfile.ts
+      rules:
+          'import/no-default-export':
+              - off
+    - files:
+          - src/migrations/*.ts
+      rules:
+          'unicorn/filename-case':
+              - error
+              - case: snakeCase

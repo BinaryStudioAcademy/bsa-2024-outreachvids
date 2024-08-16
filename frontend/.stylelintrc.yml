@@ -1,0 +1,5 @@
+extends:
+    - ../.stylelintrc.yml
+
+rules:
+    at-rule-no-unknown: true

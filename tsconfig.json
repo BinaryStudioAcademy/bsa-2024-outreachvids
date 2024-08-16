@@ -1,0 +1,16 @@
+{
+    "include": ["**/*.ts", "**/*.js"],
+    "exclude": ["commitlint.config.ts", "dangerfile.ts"],
+    "compilerOptions": {
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "target": "ESNext",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext"
+    }
+}

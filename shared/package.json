@@ -1,0 +1,20 @@
+{
+    "name": "shared",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "build/index.js",
+    "types": "src/index.ts",
+    "engines": {
+        "node": "20.x.x",
+        "npm": "10.x.x"
+    },
+    "scripts": {
+        "lint:type": "npx tsc --noEmit",
+        "lint:js": "npx eslint \"src/**/*.ts\"",
+        "lint": "npm run lint:type && npm run lint:js",
+        "build": "tsc && tsc-alias"
+    },
+    "dependencies": {
+        "zod": "3.23.8"
+    }
+}
