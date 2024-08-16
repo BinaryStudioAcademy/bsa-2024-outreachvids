@@ -29,7 +29,7 @@ TBD
 
 ## 🏃‍♂️ Simple Start
 
-1. Install packages: **`npm run install`**
+1. Install packages: **`npm install`**
 2. Fill ENVs
 3. Install pre-commit hooks: **`npx simple-git-hooks`**
 4. Run migrations: **`npm run migrate:dev -w backend`**

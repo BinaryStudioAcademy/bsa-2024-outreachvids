@@ -1,9 +1,3 @@
-root: '*'
-
-workflows: '.github/**/*'
-
-shared: 'shared/**/*'
-
 backend:
     - any:
           - 'backend/**/*'
