@@ -61,7 +61,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             type="password"
                             label="Repeat password"
                             placeholder="Repeat your password"
-                            name="repeatPassword"
+                            name="confirmPassword"
                         />
                         <Button type="submit" label="Sign up" />
                     </VStack>

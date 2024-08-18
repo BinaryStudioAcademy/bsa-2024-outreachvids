@@ -6,7 +6,7 @@ type UserSignUpRequestValidationDto = {
     name: z.ZodString;
     email: z.ZodString;
     password: z.ZodString;
-    repeatPassword: z.ZodString;
+    confirmPassword: z.ZodString;
 };
 
 const userSignUp = z
@@ -22,7 +22,7 @@ const userSignUp = z
                 message: UserValidationMessage.EMAIL_WRONG,
             }),
         password: z.string().trim(),
-        repeatPassword: z.string().trim(),
+        confirmPassword: z.string().trim(),
     })
     .required();
 
