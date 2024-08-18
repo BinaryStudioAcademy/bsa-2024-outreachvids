@@ -36,6 +36,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                     <VStack spacing={4} align="flex-start">
                         <Input
                             type="text"
+                            label="Full Name"
+                            placeholder="Enter your full name"
+                            name="name"
+                        />
+                        <Input
+                            type="text"
                             label="Email"
                             placeholder="Enter your email"
                             name="email"
@@ -45,6 +51,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             label="Password"
                             placeholder="Enter your password"
                             name="password"
+                        />
+                        <Input
+                            type="password"
+                            label="Repeat password"
+                            placeholder="Repeat your password"
+                            name="repeatPassword"
                         />
                         <Button type="submit" label="Sign up" />
                     </VStack>
