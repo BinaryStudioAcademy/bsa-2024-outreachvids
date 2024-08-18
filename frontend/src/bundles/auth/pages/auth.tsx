@@ -1,3 +1,4 @@
+import { Center, SimpleGrid } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -50,7 +51,10 @@ const Auth: React.FC = () => {
     return (
         <>
             state: {dataStatus}
-            {getScreen(pathname)}
+            <SimpleGrid columns={2}>
+                <Center bgColor="background.600">{getScreen(pathname)}</Center>
+                <Center bgColor="background.900">LOGO</Center>
+            </SimpleGrid>
         </>
     );
 };
