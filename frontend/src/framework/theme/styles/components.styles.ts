@@ -78,6 +78,16 @@ const components = {
             },
         },
     },
+    Button: {
+        variants: {
+            ghostIcon: {
+                color: 'white',
+                _hover: {
+                    color: 'brand.secondary.300',
+                },
+            },
+        },
+    },
 };
 
 export { components };

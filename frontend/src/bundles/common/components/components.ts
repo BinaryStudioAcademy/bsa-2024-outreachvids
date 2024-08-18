@@ -4,12 +4,18 @@ export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
     Box,
+    Center,
     Circle,
     ChakraProvider as ComponentsProvider,
     Flex,
     Heading,
+    IconButton,
+    InputGroup,
+    InputRightElement,
+    SimpleGrid,
     Text,
     VStack,
 } from '@chakra-ui/react';
