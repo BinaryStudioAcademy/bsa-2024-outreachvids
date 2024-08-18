@@ -82,19 +82,37 @@ const components = {
         variants: {
             solid: {
                 color: 'white',
-                bgColor: 'brand.secondary.300',
+                bgColor: colors.brand.secondary[300],
                 _hover: {
-                    bg: 'brand.secondary.600',
+                    bg: colors.brand.secondary[600],
                     _disabled: {
-                        bg: 'brand.secondary.600',
+                        bg: colors.brand.secondary[600],
                     },
                 },
             },
             ghostIcon: {
                 color: 'white',
                 _hover: {
-                    color: 'brand.secondary.300',
+                    color: colors.brand.secondary[300],
                 },
+            },
+        },
+    },
+    Link: {
+        variants: {
+            primary: {
+                color: 'text.default',
+            },
+            secondary: {
+                color: colors.brand.secondary[300],
+                _hover: {
+                    color: colors.brand.secondary[600],
+                },
+            },
+        },
+        baseStyle: {
+            _hover: {
+                textDecoration: 'none',
             },
         },
     },

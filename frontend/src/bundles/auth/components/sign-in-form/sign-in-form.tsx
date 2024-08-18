@@ -34,15 +34,17 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <FormProvider value={form}>
             <Box w="55%" color="white">
-                <Heading as="h1" color="white">
+                <Heading as="h1" color="white" mb="0.4rem">
                     Sign In
                 </Heading>
-                <Text>
+                <Text mb="1.5rem">
                     Don’t have an account?{' '}
-                    <Link to={AppRoute.SIGN_UP}>Go to registration</Link>
+                    <Link to={AppRoute.SIGN_UP} variant="secondary">
+                        Go to registration
+                    </Link>
                 </Text>
                 <form onSubmit={handleSubmit}>
-                    <VStack spacing={4} align="flex-start">
+                    <VStack spacing="1.2rem" align="flex-start">
                         <Input
                             type="text"
                             label="Email"
