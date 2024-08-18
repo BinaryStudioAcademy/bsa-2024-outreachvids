@@ -4,8 +4,11 @@ import {
     FormProvider,
     Heading,
     Input,
+    Link,
+    Text,
     VStack,
 } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
@@ -30,8 +33,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <FormProvider value={form}>
             <Box bg="brand.200" w={64} p={6} rounded="md">
-                <Heading as="h1">Sign Up</Heading>
-
+                <Heading as="h1">Create an account</Heading>
+                <Text fontSize='sm'>Already registerd?
+                    <Link to={AppRoute.SIGN_IN}>Log In</Link>
+                </Text>
                 <form onSubmit={handleSubmit}>
                     <VStack spacing={4} align="flex-start">
                         <Input
