@@ -1,17 +1,61 @@
-import { Button, Heading } from '~/bundles/common/components/components.js';
+import { PasswordInput } from '~/bundles/auth/components/common/components.js';
+import {
+    Box,
+    Button,
+    FormProvider,
+    Heading,
+    Input,
+    Link,
+    Text,
+    VStack,
+} from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import {
+    type UserSignInRequestDto,
+    userSignInValidationSchema,
+} from '~/bundles/users/users.js';
+
+import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants.js';
 
 type Properties = {
-    onSubmit: () => void;
+    onSubmit: (payload: UserSignInRequestDto) => void;
 };
 
-const SignInForm: React.FC<Properties> = () => (
-    <>
-        <Heading as="h1">Sign In</Heading>
+const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
+    const form = useAppForm<UserSignInRequestDto>({
+        initialValues: DEFAULT_SIGN_IN_PAYLOAD,
+        validationSchema: userSignInValidationSchema,
+        onSubmit,
+    });
 
-        <form>
-            <Button label="Sign in" />
-        </form>
-    </>
-);
+    const { handleSubmit, errors } = form;
+
+    return (
+        <FormProvider value={form}>
+            <Box w="55%" color="white">
+                <Heading as="h1" color="white">
+                    Sign In
+                </Heading>
+                <Text>
+                    Don’t have an account?{' '}
+                    <Link to={AppRoute.SIGN_UP}>Go to registration</Link>
+                </Text>
+                <form onSubmit={handleSubmit}>
+                    <VStack spacing={4} align="flex-start">
+                        <Input
+                            type="text"
+                            label="Email"
+                            placeholder="user@gmail.com"
+                            name="email"
+                        />
+                        <PasswordInput hasError={Boolean(errors.password)} />
+                        <Button type="submit" label="Sign in" size="lg" />
+                    </VStack>
+                </form>
+            </Box>
+        </FormProvider>
+    );
+};
 
 export { SignInForm };
