@@ -80,6 +80,16 @@ const components = {
     },
     Button: {
         variants: {
+            solid: {
+                color: 'white',
+                bgColor: 'brand.secondary.300',
+                _hover: {
+                    bg: 'brand.secondary.600',
+                    _disabled: {
+                        bg: 'brand.secondary.600',
+                    },
+                },
+            },
             ghostIcon: {
                 color: 'white',
                 _hover: {
