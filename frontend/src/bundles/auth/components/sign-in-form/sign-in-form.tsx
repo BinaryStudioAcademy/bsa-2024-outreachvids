@@ -52,7 +52,12 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                             name="email"
                         />
                         <PasswordInput hasError={Boolean(errors.password)} />
-                        <Button type="submit" label="Sign in" size="lg" />
+                        <Button
+                            type="submit"
+                            label="Sign in"
+                            size="lg"
+                            sx={{ mt: '1rem' }}
+                        />
                     </VStack>
                 </form>
             </Box>
