@@ -14,6 +14,7 @@ type Properties<T extends FormValues> = {
     label: string;
     name: FieldInputProps<T>['name'];
     placeholder?: string;
+    icon?: 'right' | 'none';
 };
 
 const Input = <T extends FormValues>({
@@ -21,6 +22,7 @@ const Input = <T extends FormValues>({
     label,
     name,
     placeholder = '',
+    icon = 'none',
 }: Properties<T>): JSX.Element => {
     const [field, meta] = useFormField({ name });
 
@@ -36,6 +38,7 @@ const Input = <T extends FormValues>({
                 type={type}
                 placeholder={placeholder}
                 error={error}
+                style={{ paddingRight: icon === 'right' ? '2.5rem' : 0 }}
                 as={LibraryInput}
             />
             <FormErrorMessage>{error}</FormErrorMessage>

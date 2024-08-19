@@ -26,6 +26,7 @@ const PasswordInput: React.FC<Properties> = ({ hasError }) => {
                 label="Password"
                 placeholder="••••••••"
                 name="password"
+                icon="right"
             />
             <InputRightElement top="unset" bottom={hasError ? '1.5rem' : 0}>
                 <IconButton
