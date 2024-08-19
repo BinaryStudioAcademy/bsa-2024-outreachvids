@@ -1,4 +1,6 @@
-import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { Navigate } from 'react-router-dom';
+
+import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -40,6 +42,10 @@ const Auth: React.FC = () => {
 
         return null;
     };
+
+    if(dataStatus === DataStatus.FULFILLED) {
+        return <Navigate to={AppRoute.ROOT} replace />;
+    }
 
     return (
         <>
