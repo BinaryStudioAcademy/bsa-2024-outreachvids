@@ -1,16 +1,26 @@
-import { PasswordInput } from '~/bundles/auth/components/common/components.js';
+import {
+    FormError,
+    FormHeader,
+    PasswordInput,
+} from '~/bundles/auth/components/common/components.js';
 import {
     Box,
     Button,
     FormProvider,
-    Heading,
     Input,
     Link,
-    Text,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import {
+    AppRoute,
+    DataStatus,
+    UserValidationMessage,
+} from '~/bundles/common/enums/enums.js';
+import {
+    useAppForm,
+    useAppSelector,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignInRequestDto,
     userSignInValidationSchema,
@@ -23,28 +33,37 @@ type Properties = {
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
+    const { dataStatus, errorMessage } = useAppSelector(({ auth }) => ({
+        dataStatus: auth.dataStatus,
+        errorMessage: auth.errorMessage,
+    }));
     const form = useAppForm<UserSignInRequestDto>({
         initialValues: DEFAULT_SIGN_IN_PAYLOAD,
         validationSchema: userSignInValidationSchema,
         onSubmit,
     });
 
-    const { handleSubmit, errors } = form;
+    const { handleSubmit, errors, values } = form;
+
+    const isEmpty = useMemo(
+        () => Object.values(values).some((value) => value.trim().length === 0),
+        [values],
+    );
 
     return (
         <FormProvider value={form}>
             <Box w="55%" color="white">
-                {/* TODO: Add logo */}
-                <h2 style={{ marginBottom: '50px' }}>LOGO</h2>
-                <Heading as="h1" color="white" mb="0.4rem">
-                    Sign In
-                </Heading>
-                <Text mb="1.5rem">
-                    Don’t have an account?{' '}
-                    <Link to={AppRoute.SIGN_UP} variant="secondary">
-                        Go to registration
-                    </Link>
-                </Text>
+                <FormHeader
+                    headerText="Sign In"
+                    subheader={
+                        <>
+                            Don’t have an account?{' '}
+                            <Link to={AppRoute.SIGN_UP} variant="secondary">
+                                Go to registration
+                            </Link>
+                        </>
+                    }
+                />
                 <form onSubmit={handleSubmit}>
                     <VStack spacing="1.2rem" align="flex-start">
                         <Input
@@ -54,11 +73,19 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                             name="email"
                         />
                         <PasswordInput hasError={Boolean(errors.password)} />
+                        <FormError
+                            isVisible={dataStatus === DataStatus.REJECTED}
+                            message={
+                                errorMessage ||
+                                UserValidationMessage.INVALID_DATA
+                            }
+                        />
                         <Button
                             type="submit"
                             label="Sign in"
                             size="lg"
                             sx={{ mt: '1rem' }}
+                            isDisabled={isEmpty}
                         />
                     </VStack>
                 </form>

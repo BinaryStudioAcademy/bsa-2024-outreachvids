@@ -4,6 +4,7 @@ const UserValidationMessage = {
     FIELD_REQUIRE: 'Please fill out this field',
     EMAIL_INVALID: 'Please enter a valid email',
     PASSWORD_LENGTH: 'Password must have from 6 to 12 characters',
+    INVALID_DATA: 'Incorrect email or password. Please try again.',
 } as const;
 
 export { UserValidationMessage };

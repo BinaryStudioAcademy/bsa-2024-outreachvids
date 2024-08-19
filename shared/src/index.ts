@@ -9,6 +9,7 @@ export {
     UsersApiPath,
     userSignInValidationSchema,
     userSignUpValidationSchema,
+    UserValidationMessage,
 } from './bundles/users/users.js';
 export {
     ApiPath,

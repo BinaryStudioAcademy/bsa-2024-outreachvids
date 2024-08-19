@@ -11,6 +11,8 @@ export {
     Circle,
     ChakraProvider as ComponentsProvider,
     Flex,
+    FormControl,
+    FormErrorMessage,
     Heading,
     IconButton,
     InputGroup,
