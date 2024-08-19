@@ -1,6 +1,6 @@
 import { Box, Circle, Flex, Text } from '@chakra-ui/react';
 
-import { spin } from './libs/constants/constants.js';
+import { SPIN_ANIMATION } from './libs/constants/constants.js';
 
 const Loader = (): JSX.Element => {
     return (
@@ -19,7 +19,7 @@ const Loader = (): JSX.Element => {
                     borderWidth="5px"
                     borderColor="shadow.200"
                     borderTopColor="brand.secondary.300"
-                    animation={`${spin} 1s linear infinite`}
+                    animation={`${SPIN_ANIMATION} 1s linear infinite`}
                 ></Circle>
             </Box>
             <Text fontSize="lg" marginTop="10px">
