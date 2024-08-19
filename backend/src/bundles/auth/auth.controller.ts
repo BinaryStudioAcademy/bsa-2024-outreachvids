@@ -1,4 +1,8 @@
-import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
+import {
+    type UserSignInRequestDto,
+    type UserSignUpRequestDto,
+    userSignInValidationSchema,
+} from '~/bundles/users/users.js';
 import { userSignUpValidationSchema } from '~/bundles/users/users.js';
 import {
     type ApiHandlerOptions,
@@ -19,6 +23,20 @@ class AuthController extends BaseController {
         super(logger, ApiPath.AUTH);
 
         this.authService = authService;
+
+        this.addRoute({
+            path: AuthApiPath.SIGN_IN,
+            method: 'POST',
+            validation: {
+                body: userSignInValidationSchema,
+            },
+            handler: (options) =>
+                this.signIn(
+                    options as ApiHandlerOptions<{
+                        body: UserSignInRequestDto;
+                    }>,
+                ),
+        });
 
         this.addRoute({
             path: AuthApiPath.SIGN_UP,
@@ -65,6 +83,17 @@ class AuthController extends BaseController {
      *                    type: object
      *                    $ref: '#/components/schemas/User'
      */
+    private async signIn(
+        options: ApiHandlerOptions<{
+            body: UserSignInRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            payload: await this.authService.signIn(options.body),
+            status: HttpCode.OK,
+        };
+    }
+
     private async signUp(
         options: ApiHandlerOptions<{
             body: UserSignUpRequestDto;
