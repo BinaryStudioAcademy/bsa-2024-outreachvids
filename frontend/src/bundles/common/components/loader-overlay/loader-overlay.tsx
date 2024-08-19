@@ -2,9 +2,13 @@ import { Fade, Flex } from '@chakra-ui/react';
 
 import { Loader } from '../loader/loader.js';
 
-const LoaderOverlay = (): JSX.Element => {
+type Properties = {
+    isOpen: boolean;
+};
+
+const LoaderOverlay = ({ isOpen }: Properties): JSX.Element => {
     return (
-        <Fade in={true}>
+        <Fade in={isOpen}>
             <Flex
                 width="full"
                 height="full"
