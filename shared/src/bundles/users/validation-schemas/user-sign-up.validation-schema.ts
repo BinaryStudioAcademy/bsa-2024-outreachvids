@@ -18,31 +18,31 @@ const userSignUp = z
             .string()
             .trim()
             .min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
-                message: UserValidationMessage.EMAIL_WRONG,
+                message: UserValidationMessage.EMAIL_INVALID,
             })
             .max(UserValidationRule.EMAIL_MAXIMUM_LENGTH, {
-                message: UserValidationMessage.EMAIL_WRONG,
+                message: UserValidationMessage.EMAIL_INVALID,
             })
             .email({
-                message: UserValidationMessage.EMAIL_WRONG,
+                message: UserValidationMessage.EMAIL_INVALID,
             }),
         password: z
             .string()
             .trim()
             .min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-                message: UserValidationMessage.PASS_WRONG,
+                message: UserValidationMessage.PASSWORD_LENGTH,
             })
             .max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
-                message: UserValidationMessage.PASS_WRONG,
+                message: UserValidationMessage.PASSWORD_LENGTH,
             }),
         confirmPassword: z
             .string()
             .trim()
             .min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-                message: UserValidationMessage.PASS_WRONG,
+                message: UserValidationMessage.PASSWORD_LENGTH,
             })
             .max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
-                message: UserValidationMessage.PASS_WRONG,
+                message: UserValidationMessage.PASSWORD_LENGTH,
             }),
     })
     .required()
