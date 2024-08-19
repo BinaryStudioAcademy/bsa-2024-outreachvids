@@ -1,12 +1,11 @@
 import { Fade, Flex } from '@chakra-ui/react';
 
-import { Loader } from '../loader/loader.js';
-
 type Properties = {
     isOpen: boolean;
+    children: React.ReactNode;
 };
 
-const LoaderOverlay = ({ isOpen }: Properties): JSX.Element => {
+const Overlay = ({ isOpen, children }: Properties): JSX.Element => {
     return (
         <Fade in={isOpen}>
             <Flex
@@ -18,10 +17,10 @@ const LoaderOverlay = ({ isOpen }: Properties): JSX.Element => {
                 justifyContent="center"
                 alignItems="center"
             >
-                <Loader />
+                {children}
             </Flex>
         </Fade>
     );
 };
 
-export { LoaderOverlay };
+export { Overlay };
