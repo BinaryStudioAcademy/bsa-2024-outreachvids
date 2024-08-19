@@ -71,7 +71,11 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                             placeholder="user@gmail.com"
                             name="email"
                         />
-                        <PasswordInput hasError={Boolean(errors.password)} />
+                        <PasswordInput
+                            label="Password"
+                            name="password"
+                            hasError={Boolean(errors.password)}
+                        />
                         <FormError
                             isVisible={dataStatus === DataStatus.REJECTED}
                             message={UserValidationMessage.INVALID_DATA}

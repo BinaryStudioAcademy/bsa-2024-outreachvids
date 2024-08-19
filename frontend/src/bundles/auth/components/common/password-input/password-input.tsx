@@ -9,10 +9,12 @@ import {
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
 type Properties = {
+    label: string;
+    name: string;
     hasError: boolean;
 };
 
-const PasswordInput: React.FC<Properties> = ({ hasError }) => {
+const PasswordInput: React.FC<Properties> = ({ label, name, hasError }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
     const handlePasswordIconClick = useCallback((): void => {
@@ -25,9 +27,9 @@ const PasswordInput: React.FC<Properties> = ({ hasError }) => {
         <InputGroup size="md">
             <Input
                 type={isPasswordVisible ? 'text' : 'password'}
-                label="Password"
+                label={label}
                 placeholder="••••••••"
-                name="password"
+                name={name}
                 icon="right"
             />
             <InputRightElement top="unset" bottom={hasError ? '24px' : 0}>
