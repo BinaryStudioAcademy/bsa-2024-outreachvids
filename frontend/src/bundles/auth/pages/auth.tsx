@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
+import { Center, SimpleGrid } from '~/bundles/common/components/components.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -30,6 +31,10 @@ const Auth: React.FC = () => {
         [dispatch],
     );
 
+    if(dataStatus === DataStatus.FULFILLED) {
+        return <Navigate to={AppRoute.ROOT} replace />;
+    }
+
     const getScreen = (screen: string): React.ReactNode => {
         switch (screen) {
             case AppRoute.SIGN_IN: {
@@ -43,15 +48,18 @@ const Auth: React.FC = () => {
         return null;
     };
 
-    if(dataStatus === DataStatus.FULFILLED) {
-        return <Navigate to={AppRoute.ROOT} replace />;
-    }
-
     return (
-        <>
-            state: {dataStatus}
-            {getScreen(pathname)}
-        </>
+        <SimpleGrid columns={2} height="100vh">
+            {/* TODO: Replace with valid loader */}
+            {dataStatus === DataStatus.PENDING && (
+                <p style={{ position: 'absolute', top: 0, color: 'white' }}>
+                    Loading...
+                </p>
+            )}
+            <Center bgColor="background.600">{getScreen(pathname)}</Center>
+            {/* TODO: Add logo */}
+            <Center bgColor="background.900">LOGO</Center>
+        </SimpleGrid>
     );
 };
 
