@@ -1,20 +1,22 @@
-import { Flex } from '@chakra-ui/react';
+import { Fade, Flex } from '@chakra-ui/react';
 
-import { Loader } from '../components.js';
+import { Loader } from '../loader/loader.js';
 
 const LoaderOverlay = (): JSX.Element => {
     return (
-        <Flex
-            width="full"
-            height="calc(100vh)"
-            position="absolute"
-            background="shadow.700"
-            color="white"
-            justifyContent="center"
-            alignItems="center"
-        >
-            <Loader />
-        </Flex>
+        <Fade in={true}>
+            <Flex
+                width="full"
+                height="full"
+                position="absolute"
+                background="shadow.700"
+                color="white"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <Loader />
+            </Flex>
+        </Fade>
     );
 };
 
