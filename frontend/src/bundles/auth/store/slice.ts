@@ -8,14 +8,12 @@ import { signIn, signUp } from './actions.js';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    user: UserSignInResponseDto | undefined;
-    errorMessage: string | undefined;
+    user: UserSignInResponseDto | null;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
-    user: undefined,
-    errorMessage: undefined,
+    user: null,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -30,9 +28,8 @@ const { reducer, actions, name } = createSlice({
             state.user = action.payload;
             state.dataStatus = DataStatus.FULFILLED;
         });
-        builder.addCase(signIn.rejected, (state, action) => {
-            state.user = undefined;
-            state.errorMessage = action.error.message;
+        builder.addCase(signIn.rejected, (state) => {
+            state.user = null;
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(signUp.pending, (state) => {

@@ -13,27 +13,29 @@ type Properties = {
 };
 
 const PasswordInput: React.FC<Properties> = ({ hasError }) => {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
     const handlePasswordIconClick = useCallback((): void => {
-        setShowPassword((previousShowPassword) => !previousShowPassword);
+        setIsPasswordVisible(
+            (previousIsPasswordVisible) => !previousIsPasswordVisible,
+        );
     }, []);
 
     return (
         <InputGroup size="md">
             <Input
-                type={showPassword ? 'text' : 'password'}
+                type={isPasswordVisible ? 'text' : 'password'}
                 label="Password"
                 placeholder="••••••••"
                 name="password"
                 icon="right"
             />
-            <InputRightElement top="unset" bottom={hasError ? '1.5rem' : 0}>
+            <InputRightElement top="unset" bottom={hasError ? '24px' : 0}>
                 <IconButton
                     aria-label={
-                        showPassword ? 'Hide password' : 'Show password'
+                        isPasswordVisible ? 'Hide password' : 'Show password'
                     }
-                    icon={showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    icon={isPasswordVisible ? <ViewIcon /> : <ViewOffIcon />}
                     onClick={handlePasswordIconClick}
                     variant="ghostIcon"
                 />

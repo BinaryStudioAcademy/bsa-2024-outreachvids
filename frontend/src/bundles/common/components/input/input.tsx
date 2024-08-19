@@ -38,7 +38,7 @@ const Input = <T extends FormValues>({
                 type={type}
                 placeholder={placeholder}
                 error={error}
-                style={{ paddingRight: icon === 'right' ? '2.5rem' : 0 }}
+                style={{ paddingRight: icon === 'right' ? '40px' : 0 }}
                 as={LibraryInput}
             />
             <FormErrorMessage>{error}</FormErrorMessage>

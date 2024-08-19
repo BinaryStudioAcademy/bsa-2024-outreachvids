@@ -10,10 +10,10 @@ const FormHeader: React.FC<Properties> = ({ headerText, subheader }) => {
         <>
             {/* TODO: Add logo */}
             <h2 style={{ marginBottom: '50px' }}>LOGO</h2>
-            <Heading as="h1" color="white" mb="0.4rem">
+            <Heading as="h1" color="white" mb="6px">
                 {headerText}
             </Heading>
-            <Text mb="1.5rem">{subheader}</Text>
+            <Text mb="24px">{subheader}</Text>
         </>
     );
 };

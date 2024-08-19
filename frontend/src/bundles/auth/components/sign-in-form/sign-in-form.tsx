@@ -33,9 +33,8 @@ type Properties = {
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { dataStatus, errorMessage } = useAppSelector(({ auth }) => ({
+    const { dataStatus } = useAppSelector(({ auth }) => ({
         dataStatus: auth.dataStatus,
-        errorMessage: auth.errorMessage,
     }));
     const form = useAppForm<UserSignInRequestDto>({
         initialValues: DEFAULT_SIGN_IN_PAYLOAD,
@@ -65,7 +64,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                     }
                 />
                 <form onSubmit={handleSubmit}>
-                    <VStack spacing="1.2rem" align="flex-start">
+                    <VStack spacing="20px" align="flex-start">
                         <Input
                             type="text"
                             label="Email"
@@ -75,16 +74,13 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                         <PasswordInput hasError={Boolean(errors.password)} />
                         <FormError
                             isVisible={dataStatus === DataStatus.REJECTED}
-                            message={
-                                errorMessage ||
-                                UserValidationMessage.INVALID_DATA
-                            }
+                            message={UserValidationMessage.INVALID_DATA}
                         />
                         <Button
                             type="submit"
                             label="Sign in"
                             size="lg"
-                            sx={{ mt: '1rem' }}
+                            sx={{ mt: '16px' }}
                             isDisabled={isEmpty}
                         />
                     </VStack>
