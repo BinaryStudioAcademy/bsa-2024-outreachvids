@@ -1,9 +1,6 @@
-import { Box, Circle, Flex, keyframes, Text } from '@chakra-ui/react';
+import { Box, Circle, Flex, Text } from '@chakra-ui/react';
 
-const spin = keyframes`
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg)}
-`;
+import { spin } from './libs/constants/constants.js';
 
 const Loader = (): JSX.Element => {
     return (
