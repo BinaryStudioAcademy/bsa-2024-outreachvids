@@ -24,6 +24,10 @@ const userSignUp = z
         password: z.string().trim(),
         confirmPassword: z.string().trim(),
     })
-    .required();
+    .required()
+    .refine((data) => data.password === data.confirmPassword, {
+        message: UserValidationMessage.PASS_DONT_MATCH,
+        path: ['confirmPassword'],
+    });
 
 export { userSignUp };
