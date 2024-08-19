@@ -7,7 +7,7 @@
         "npm": "10.x.x"
     },
     "scripts": {
-        "lint:css": "npx stylelint \"src/**/*.scss\"",
+        "lint:css": "npx stylelint \"src/**/*.scss\" --aei",
         "lint:js": "npx eslint \"src/**/*.{ts,tsx}\"",
         "lint:type": "npx tsc --noEmit",
         "lint": "npm run lint:type && npm run lint:js",
