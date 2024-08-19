@@ -1,11 +1,20 @@
+import { Flex } from '@chakra-ui/react';
+
 import { Loader } from '../components.js';
-import styles from './styles.module.css';
 
 const LoaderOverlay = (): JSX.Element => {
     return (
-        <div className={styles['container']}>
+        <Flex
+            width="full"
+            height="calc(100vh)"
+            position="absolute"
+            background="shadow.700"
+            color="white"
+            justifyContent="center"
+            alignItems="center"
+        >
             <Loader />
-        </div>
+        </Flex>
     );
 };
 
