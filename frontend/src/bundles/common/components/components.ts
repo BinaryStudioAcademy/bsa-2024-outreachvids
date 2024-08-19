@@ -1,7 +1,6 @@
 export { Button } from './button/button.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
-export { Loader } from './loader/loader.js';
 export { LoaderOverlay } from './loader-overlay/loader-overlay.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export {
