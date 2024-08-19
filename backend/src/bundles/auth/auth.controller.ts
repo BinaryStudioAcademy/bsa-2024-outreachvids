@@ -2,7 +2,10 @@ import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
 } from '~/bundles/users/users.js';
-import { userSignUpValidationSchema } from '~/bundles/users/users.js';
+import {
+    userSignInValidationSchema,
+    userSignUpValidationSchema,
+} from '~/bundles/users/users.js';
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -27,7 +30,7 @@ class AuthController extends BaseController {
             path: AuthApiPath.SIGN_IN,
             method: 'POST',
             validation: {
-                body: userSignUpValidationSchema,
+                body: userSignInValidationSchema,
             },
             handler: (options) =>
                 this.signIn(
