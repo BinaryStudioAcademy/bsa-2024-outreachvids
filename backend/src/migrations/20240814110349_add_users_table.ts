@@ -9,6 +9,7 @@ const ColumnName = {
     PASSWORD_SALT: 'password_salt',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
+    NAME: 'name',
 };
 
 async function up(knex: Knex): Promise<void> {
@@ -30,6 +31,9 @@ async function up(knex: Knex): Promise<void> {
             .dateTime(ColumnName.UPDATED_AT)
             .notNullable()
             .defaultTo(knex.fn.now());
+        table
+            .string(ColumnName.NAME)
+            .notNullable();
     });
 }
 

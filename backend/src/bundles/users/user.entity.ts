@@ -5,6 +5,8 @@ class UserEntity implements Entity {
 
     private 'email': string;
 
+    private 'name': string;
+
     private 'passwordHash': string;
 
     private 'passwordSalt': string;
@@ -12,16 +14,19 @@ class UserEntity implements Entity {
     private constructor({
         id,
         email,
+        name,
         passwordHash,
         passwordSalt,
     }: {
         id: number | null;
         email: string;
+        name: string;
         passwordHash: string;
         passwordSalt: string;
     }) {
         this.id = id;
         this.email = email;
+        this.name = name;
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
     }
@@ -29,17 +34,20 @@ class UserEntity implements Entity {
     public static initialize({
         id,
         email,
+        name,
         passwordHash,
         passwordSalt,
     }: {
         id: number;
         email: string;
+        name: string;
         passwordHash: string;
         passwordSalt: string;
     }): UserEntity {
         return new UserEntity({
             id,
             email,
+            name,
             passwordHash,
             passwordSalt,
         });
@@ -47,16 +55,19 @@ class UserEntity implements Entity {
 
     public static initializeNew({
         email,
+        name,
         passwordHash,
         passwordSalt,
     }: {
         email: string;
+        name: string;
         passwordHash: string;
         passwordSalt: string;
     }): UserEntity {
         return new UserEntity({
             id: null,
             email,
+            name,
             passwordHash,
             passwordSalt,
         });
@@ -65,20 +76,24 @@ class UserEntity implements Entity {
     public toObject(): {
         id: number;
         email: string;
+        name: string;
     } {
         return {
             id: this.id as number,
             email: this.email,
+            name: this.name,
         };
     }
 
     public toNewObject(): {
         email: string;
+        name: string;
         passwordHash: string;
         passwordSalt: string;
     } {
         return {
             email: this.email,
+            name: this.name,
             passwordHash: this.passwordHash,
             passwordSalt: this.passwordSalt,
         };

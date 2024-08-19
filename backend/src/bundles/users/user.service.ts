@@ -35,6 +35,7 @@ class UserService implements Service {
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
+                name: payload.name,
                 passwordSalt: salt, // TODO
                 passwordHash: hash, // TODO
             }),
