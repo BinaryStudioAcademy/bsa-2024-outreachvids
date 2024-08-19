@@ -5,6 +5,7 @@ import {
     Heading,
     Input,
     Link,
+    PasswordInput,
     Text,
     VStack,
 } from '~/bundles/common/components/components.js';
@@ -51,16 +52,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             placeholder="Enter your email"
                             name="email"
                         />
-                        <Input
-                            type="password"
+                        <PasswordInput
                             label="Password"
-                            placeholder="Enter your password"
+                            placeHolder="Enter your password"
                             name="password"
                         />
-                        <Input
-                            type="password"
+                        <PasswordInput
                             label="Repeat password"
-                            placeholder="Repeat your password"
+                            placeHolder="Repeat your password"
                             name="confirmPassword"
                         />
                         <Button type="submit" label="Sign up" />
