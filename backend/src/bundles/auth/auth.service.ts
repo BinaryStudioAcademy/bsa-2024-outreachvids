@@ -1,10 +1,12 @@
 import {
-    type UserSignInRequestDto,
-    type UserSignInResponseDto,
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/types/types.js';
 import { type UserService } from '~/bundles/users/user.service.js';
+import {
+    type UserSignInRequestDto,
+    type UserSignInResponseDto,
+} from '~/bundles/users/users.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { cryptService } from '~/common/services/services.js';
 
