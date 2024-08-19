@@ -1,0 +1,11 @@
+.container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--chakra-colors-white);
+    text-align: center;
+    background: var(--chakra-colors-shadow-700);
+}
