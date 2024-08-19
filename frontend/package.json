@@ -9,8 +9,10 @@
     "scripts": {
         "lint:css": "npx stylelint \"src/**/*.scss\"",
         "lint:js": "npx eslint \"src/**/*.{ts,tsx}\"",
+        "lint:js:fix": "npx eslint --fix \"src/**/*.{ts,tsx}\"",
         "lint:type": "npx tsc --noEmit",
         "lint": "npm run lint:type && npm run lint:js",
+        "lint:fix": "npm run lint:js:fix",
         "start:dev": "vite",
         "build": "tsc -p tsconfig.build.json && vite build",
         "preview": "vite preview"
@@ -27,6 +29,7 @@
         "vite": "5.4.0"
     },
     "dependencies": {
+        "@chakra-ui/icons": "2.1.1",
         "@chakra-ui/react": "2.8.2",
         "@emotion/react": "11.13.0",
         "@emotion/styled": "11.13.0",
