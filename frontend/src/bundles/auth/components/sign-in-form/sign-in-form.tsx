@@ -34,6 +34,8 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <FormProvider value={form}>
             <Box w="55%" color="white">
+                {/* TODO: Add logo */}
+                <h2 style={{ marginBottom: '50px' }}>LOGO</h2>
                 <Heading as="h1" color="white" mb="0.4rem">
                     Sign In
                 </Heading>
