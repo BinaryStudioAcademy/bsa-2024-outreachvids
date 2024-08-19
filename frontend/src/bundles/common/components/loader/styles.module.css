@@ -1,0 +1,47 @@
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    color: var(--chakra-colors-text-default);
+    background-color: var(--chakra-colors-white);
+    border-radius: 50%;
+}
+
+.spinner-overlay {
+    position: absolute;
+    inset: 0;
+    border: 5px solid var(--chakra-colors-shadow-200);
+    border-top: 5px solid var(--chakra-colors-brand-secondary-300);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loader-text {
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
