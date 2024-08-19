@@ -11,18 +11,39 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
     .object<UserSignUpRequestValidationDto>({
-        name: z.string().trim(),
+        name: z
+            .string()
+            .trim(),
         email: z
             .string()
             .trim()
             .min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
-                message: UserValidationMessage.EMAIL_REQUIRE,
+                message: UserValidationMessage.EMAIL_WRONG,
+            })
+            .max(UserValidationRule.EMAIL_MAXIMUM_LENGTH, {
+                message: UserValidationMessage.EMAIL_WRONG,
             })
             .email({
                 message: UserValidationMessage.EMAIL_WRONG,
             }),
-        password: z.string().trim(),
-        confirmPassword: z.string().trim(),
+        password: z
+            .string()
+            .trim()
+            .min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
+                message: UserValidationMessage.PASS_WRONG,
+            })
+            .max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
+                message: UserValidationMessage.PASS_WRONG,
+            }),
+        confirmPassword: z
+            .string()
+            .trim()
+            .min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
+                message: UserValidationMessage.PASS_WRONG,
+            })
+            .max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
+                message: UserValidationMessage.PASS_WRONG,
+            }),
     })
     .required()
     .refine((data) => data.password === data.confirmPassword, {

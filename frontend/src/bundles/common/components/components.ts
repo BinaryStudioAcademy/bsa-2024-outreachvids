@@ -6,6 +6,8 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export {
     Box,
     ChakraProvider as ComponentsProvider,
+    FormControl,
+    FormErrorMessage,
     Heading,
     InputGroup,
     InputRightElement,

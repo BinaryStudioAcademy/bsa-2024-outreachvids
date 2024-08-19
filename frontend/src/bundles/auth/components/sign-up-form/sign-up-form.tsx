@@ -1,3 +1,5 @@
+import { UserValidationMessage } from 'shared/src/bundles/users/users.js';
+
 import {
     Box,
     Button,
@@ -9,8 +11,9 @@ import {
     Text,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { FormError } from '~/bundles/common/components/form-error/form-error.js';
+import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
+import { useAppForm, useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
@@ -23,13 +26,17 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
+    const { dataStatus } = useAppSelector(({ auth }) => ({
+        dataStatus: auth.dataStatus,
+    }));
     const form = useAppForm<UserSignUpRequestDto>({
         initialValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
         onSubmit,
+        mode: 'onChange',
     });
 
-    const { handleSubmit } = form;
+    const { handleSubmit, isValid } = form;
 
     return (
         <FormProvider value={form}>
@@ -43,26 +50,30 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         <Input
                             type="text"
                             label="Full Name"
-                            placeholder="Enter your full name"
+                            placeholder="Name"
                             name="name"
                         />
                         <Input
-                            type="text"
+                            type="email"
                             label="Email"
-                            placeholder="Enter your email"
+                            placeholder="user@gmail.com"
                             name="email"
                         />
                         <PasswordInput
                             label="Password"
-                            placeHolder="Enter your password"
+                            placeHolder="••••••••"
                             name="password"
                         />
                         <PasswordInput
                             label="Repeat password"
-                            placeHolder="Repeat your password"
+                            placeHolder="••••••••"
                             name="confirmPassword"
                         />
-                        <Button type="submit" label="Sign up" />
+                        <FormError
+                            hasError={dataStatus === DataStatus.REJECTED}
+                            errorMessage={ UserValidationMessage.USER_IS_NOT_AVAILABLE }
+                        />
+                        <Button type="submit" label="Sign up" isDisabled={!isValid}/>
                     </VStack>
                 </form>
             </Box>
