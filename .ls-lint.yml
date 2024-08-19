@@ -16,7 +16,7 @@ ls:
         .ts: snake_case
 
 ignore:
-    - .git
+    - .github
     - node_modules
     - build
     - shared/build
