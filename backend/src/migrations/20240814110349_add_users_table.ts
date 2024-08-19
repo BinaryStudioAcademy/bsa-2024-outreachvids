@@ -20,6 +20,9 @@ async function up(knex: Knex): Promise<void> {
             .notNullable()
             .primary()
             .defaultTo(knex.raw('uuid_generate_v4()'));
+        table
+            .string(ColumnName.NAME)
+            .notNullable();
         table.string(ColumnName.EMAIL).unique().notNullable();
         table.text(ColumnName.PASSWORD_HASH).notNullable();
         table.text(ColumnName.PASSWORD_SALT).notNullable();
@@ -31,9 +34,6 @@ async function up(knex: Knex): Promise<void> {
             .dateTime(ColumnName.UPDATED_AT)
             .notNullable()
             .defaultTo(knex.fn.now());
-        table
-            .string(ColumnName.NAME)
-            .notNullable();
     });
 }
 
