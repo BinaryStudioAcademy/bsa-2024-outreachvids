@@ -45,11 +45,8 @@ class AuthService {
                 status: HttpCode.BAD_REQUEST,
             });
         }
-        
         const id = user.toObject().id;
-
         const token = await tokenService.createToken(id);
-
         return { ...user.toObject(), token };
     }
 
