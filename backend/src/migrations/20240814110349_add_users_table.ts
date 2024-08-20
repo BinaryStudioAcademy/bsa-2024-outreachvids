@@ -9,7 +9,6 @@ const ColumnName = {
     PASSWORD_SALT: 'password_salt',
     CREATED_AT: 'created_at',
     UPDATED_AT: 'updated_at',
-    NAME: 'name',
 };
 
 async function up(knex: Knex): Promise<void> {
@@ -20,9 +19,6 @@ async function up(knex: Knex): Promise<void> {
             .notNullable()
             .primary()
             .defaultTo(knex.raw('uuid_generate_v4()'));
-        table
-            .string(ColumnName.NAME)
-            .notNullable();
         table.string(ColumnName.EMAIL).unique().notNullable();
         table.text(ColumnName.PASSWORD_HASH).notNullable();
         table.text(ColumnName.PASSWORD_SALT).notNullable();
