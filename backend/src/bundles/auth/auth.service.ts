@@ -50,7 +50,7 @@ class AuthService {
 
         const token = await createToken(id);
 
-        return { 'id': id, 'email': email, 'token': token };
+        return { id, email, token };
     }
 
     public signUp(
