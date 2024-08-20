@@ -22,6 +22,7 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
+import { WHITE_ROUTES } from '../constants/constants.js';
 import { authenticateJWT } from '../plugins/plugins.js';
 import {
     type ServerApp,
@@ -125,7 +126,7 @@ class BaseServerApp implements ServerApp {
 
     private registerPlugins(): void {
         this.app.register(authenticateJWT, {
-            routesWhiteList: ['/api/v1/users/'],
+            routesWhiteList: WHITE_ROUTES,
         });
     }
 
