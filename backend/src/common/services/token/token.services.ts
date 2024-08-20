@@ -10,20 +10,20 @@ class TokenService {
         this.EXPIRATION_TIME = expirationTime;
     }
 
-public async createToken(userId: number): Promise<string> {
+    public async createToken(userId: number): Promise<string> {
         return await new SignJWT({ userId })
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime(this.EXPIRATION_TIME)
             .sign(this.SECRET_KEY);
     }
 
-public async verifyToken(token: string): Promise<TokenPayload | null> {
-    try {
-        const { payload } = await jwtVerify(token, this.SECRET_KEY);
-        return payload;
-    } catch {
-        return null;
-    }
+    public async verifyToken(token: string): Promise<TokenPayload | null> {
+        try {
+            const { payload } = await jwtVerify(token, this.SECRET_KEY);
+            return payload;
+        } catch {
+            return null;
+        }
     }
 }
 
