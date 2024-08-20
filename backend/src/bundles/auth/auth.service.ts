@@ -53,10 +53,13 @@ class AuthService {
         return { ...user.toObject(), token };
     }
 
-    public signUp(
+    public async signUp(
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
-        return this.userService.create(userRequestDto);
+        const user = await this.userService.create(userRequestDto);
+        const id = user.id;
+        const token = await tokenService.createToken(id);
+        return { ...user, token };
     }
 }
 
