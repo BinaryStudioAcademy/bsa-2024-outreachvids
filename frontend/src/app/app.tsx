@@ -31,7 +31,11 @@ const App: React.FC = () => {
 
     return (
         <>
-            <Header />
+            {pathname === AppRoute.SIGN_UP ||
+            pathname === AppRoute.SIGN_IN ? null : (
+                <Header />
+            )}
+
             <img src={reactLogo} width="30" alt="logo" />
 
             <ul>
