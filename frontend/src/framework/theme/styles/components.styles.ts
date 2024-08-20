@@ -3,7 +3,7 @@ import { colors } from './colors.styles.js';
 const components = {
     Heading: {
         baseStyle: {
-            color: 'text.white',
+            color: colors.white,
             fontFamily: 'Poppins, sans-serif',
             textAlign: 'left',
         },
@@ -27,7 +27,7 @@ const components = {
     },
     Text: {
         baseStyle: {
-            color: 'text.white',
+            color: colors.white,
             fontFamily: 'Poppins, sans-serif',
             textAlign: 'left',
         },
@@ -52,25 +52,24 @@ const components = {
                 fontWeight: '600',
                 lineHeight: '16px',
             },
-            color: colors.text.accent,
         },
     },
     Button: {
         variants: {
             solid: {
                 color: colors.white,
-                bgColor: colors.brand.secondary[300],
+                bgColor: colors.brand.orange,
                 _hover: {
-                    bg: colors.brand.secondary[600],
+                    bg: colors.brand.hover,
                     _disabled: {
-                        bg: colors.brand.secondary[600],
+                        bg: colors.brand.hover,
                     },
                 },
             },
             ghostIcon: {
                 color: colors.white,
                 _hover: {
-                    color: colors.brand.secondary[300],
+                    color: colors.brand.orange,
                 },
             },
         },
@@ -81,9 +80,9 @@ const components = {
                 color: colors.text.default,
             },
             secondary: {
-                color: colors.brand.secondary[300],
+                color: colors.brand.orange,
                 _hover: {
-                    color: colors.brand.secondary[600],
+                    color: colors.brand.hover,
                 },
             },
         },
@@ -99,7 +98,7 @@ const components = {
                 field: {
                     _focus: {
                         borderWidth: '2px',
-                        borderColor: colors.brand.secondary[300],
+                        borderColor: colors.brand.orange,
                         boxShadow: 'none',
                     },
                     _placeholder: {
@@ -107,7 +106,7 @@ const components = {
                     },
                     _invalid: {
                         borderWidth: '2px',
-                        borderColor: colors.brand.secondary[900],
+                        borderColor: colors.brand.error,
                         boxShadow: 'none',
                     },
                     _autofill: {
@@ -123,7 +122,7 @@ const components = {
     FormError: {
         baseStyle: {
             text: {
-                color: colors.brand.secondary[900],
+                color: colors.brand.error,
             },
         },
     },
