@@ -20,9 +20,9 @@ const Header = (): JSX.Element => {
                 width="full"
                 alignItems="center"
                 maxWidth="1440px"
-                margin="0 auto"
+                justifyContent="space-between"
             >
-                <Text fontSize="xl" fontWeight="bold">
+                <Text fontSize="xl" fontWeight="lighter">
                     Logo
                 </Text>
             </Flex>
