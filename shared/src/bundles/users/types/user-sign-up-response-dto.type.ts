@@ -1,7 +1,7 @@
 type UserSignUpResponseDto = {
     id: number;
     email: string;
-    token: string;
+    token?: string;
 };
 
 export { type UserSignUpResponseDto };
