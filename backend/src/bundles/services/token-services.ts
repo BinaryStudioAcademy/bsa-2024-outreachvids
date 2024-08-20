@@ -5,10 +5,10 @@ const SECRET_KEY = new TextEncoder().encode('your_secret_key');
 const EXPIRATION_TIME = '24h'; 
 
 interface TokenPayload extends JWTPayload {
-  userId: string;
+  userId: number;
 }
 
-const createToken = async (userId: string): Promise<string> => {
+const createToken = async (userId: number): Promise<string> => {
   return await new SignJWT({ userId })
     .setProtectedHeader({ alg: 'HS256' })
     .setExpirationTime(EXPIRATION_TIME)

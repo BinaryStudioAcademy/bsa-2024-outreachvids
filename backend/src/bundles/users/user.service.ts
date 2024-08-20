@@ -1,8 +1,9 @@
-import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { cryptService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
+import { UserEntity } from '../../bundles/users/user.entity.js';
+import { createToken } from '../services/token-services.js';
 import {
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
@@ -39,8 +40,10 @@ class UserService implements Service {
                 passwordHash: hash, // TODO
             }),
         );
+        const { id, email } = user.toObject();
+        const token = await createToken(id);
 
-        return user.toObject();
+        return { 'id': id, 'email': email, 'token': token };
     }
 
     public update(): ReturnType<Service['update']> {
