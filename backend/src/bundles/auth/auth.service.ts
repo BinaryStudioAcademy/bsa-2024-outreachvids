@@ -8,9 +8,8 @@ import {
     type UserSignInResponseDto,
 } from '~/bundles/users/users.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
-import { cryptService } from '~/common/services/services.js';
+import { cryptService, tokenService } from '~/common/services/services.js';
 
-import { tokenService } from '../../common/services/token/token-services.js';
 import { UserValidationMessage } from './enums/enums.js';
 
 class AuthService {

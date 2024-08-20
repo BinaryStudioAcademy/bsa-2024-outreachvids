@@ -1,9 +1,8 @@
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { cryptService } from '~/common/services/services.js';
+import { cryptService, tokenService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
 import { UserEntity } from '../../bundles/users/user.entity.js';
-import { tokenService } from '../../common/services/token/token-services.js';
 import {
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,

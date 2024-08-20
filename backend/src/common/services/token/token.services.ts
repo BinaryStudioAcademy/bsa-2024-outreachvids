@@ -27,6 +27,4 @@ public async verifyToken(token: string): Promise<TokenPayload | null> {
 }
 }
 
-const tokenService = new TokenService('your_secret_key', '24h');
-
-export { tokenService };
+export { TokenService };
