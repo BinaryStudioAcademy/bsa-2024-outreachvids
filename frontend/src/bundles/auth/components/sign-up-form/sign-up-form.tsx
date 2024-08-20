@@ -4,21 +4,18 @@ import {
     Box,
     Button,
     FormProvider,
-    Heading,
     Input,
     Link,
-    PasswordInput,
-    Text,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { FormError } from '~/bundles/common/components/form-error/form-error.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
-import { useAppForm, useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import { useAppForm, useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
 
+import { FormError, FormHeader, PasswordInput } from '../common/components.js';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 
 type Properties = {
@@ -33,18 +30,29 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
         initialValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
         onSubmit,
-        mode: 'onChange',
     });
 
-    const { handleSubmit, isValid } = form;
+    const { handleSubmit, errors, values } = form;
+
+    const isEmpty = useMemo(
+        () => Object.values(values).some((value) => value.trim().length === 0),
+        [values],
+    );
 
     return (
         <FormProvider value={form}>
-            <Box bg="brand.200" w={64} p={6} rounded="md">
-                <Heading as="h1">Create an account</Heading>
-                <Text fontSize='sm'>Already registerd?
-                    <Link to={AppRoute.SIGN_IN}>Log In</Link>
-                </Text>
+            <Box w="55%" color="white">
+                <FormHeader
+                    headerText="Create an account"
+                    subheader={
+                        <>
+                            Already registerd?{' '}
+                            <Link to={AppRoute.SIGN_IN} variant="secondary">
+                                Log In
+                            </Link>
+                        </>
+                    }
+                />
                 <form onSubmit={handleSubmit}>
                     <VStack spacing={4} align="flex-start">
                         <Input
@@ -61,19 +69,25 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                         />
                         <PasswordInput
                             label="Password"
-                            placeHolder="••••••••"
                             name="password"
+                            hasError={Boolean(errors.password)}
                         />
                         <PasswordInput
                             label="Repeat password"
-                            placeHolder="••••••••"
                             name="confirmPassword"
+                            hasError={Boolean(errors.confirmPassword)}
                         />
                         <FormError
-                            hasError={dataStatus === DataStatus.REJECTED}
-                            errorMessage={ UserValidationMessage.USER_IS_NOT_AVAILABLE }
+                            isVisible={ dataStatus === DataStatus.REJECTED }
+                            message={ UserValidationMessage.USER_IS_NOT_AVAILABLE }
                         />
-                        <Button type="submit" label="Sign up" isDisabled={!isValid}/>
+                        <Button
+                            type="submit"
+                            label="Sign up"
+                            size="lg"
+                            sx={{ mt: '16px' }}
+                            isDisabled={isEmpty}
+                        />
                     </VStack>
                 </form>
             </Box>
