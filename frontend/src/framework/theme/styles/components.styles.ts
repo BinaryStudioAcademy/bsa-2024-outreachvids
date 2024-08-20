@@ -18,6 +18,19 @@ const components = {
                     },
                 },
             },
+            primaryOutlined: {
+                color: colors.background[300],
+                border: '1px solid',
+                borderColor: colors.background[300],
+                _hover: {
+                    color: 'white',
+                    bg: colors.background[300],
+                    _disabled: {
+                        color: colors.background[300],
+                        bg: 'none',
+                    },
+                },
+            },
             ghostIcon: {
                 color: colors.white,
                 _hover: {
