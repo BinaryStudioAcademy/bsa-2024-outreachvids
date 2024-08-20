@@ -1,9 +1,5 @@
 import reactLogo from '~/assets/img/react.svg';
-import {
-    Header,
-    Link,
-    RouterOutlet,
-} from '~/bundles/common/components/components.js';
+import { Link, RouterOutlet } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -31,11 +27,6 @@ const App: React.FC = () => {
 
     return (
         <>
-            {pathname === AppRoute.SIGN_UP ||
-            pathname === AppRoute.SIGN_IN ? null : (
-                <Header />
-            )}
-
             <img src={reactLogo} width="30" alt="logo" />
 
             <ul>
