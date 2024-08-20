@@ -42,7 +42,7 @@ class UserService implements Service {
         const { id, email } = user.toObject();
         const token = await tokenService.createToken(id);
 
-        return { 'id': id, 'email': email, 'token': token };
+        return { id, email, token };
     }
 
     public update(): ReturnType<Service['update']> {
