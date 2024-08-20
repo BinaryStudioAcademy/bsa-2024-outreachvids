@@ -1,8 +1,8 @@
-import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
-import { cryptService } from '~/common/services/services.js';
+import { cryptService, tokenService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
+import { UserEntity } from '../../bundles/users/user.entity.js';
 import {
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
@@ -18,6 +18,10 @@ class UserService implements Service {
 
     public find(): ReturnType<Service['find']> {
         return Promise.resolve(null);
+    }
+
+    public async findByEmail(email: string): Promise<UserEntity | null> {
+        return await this.userRepository.findByEmail(email);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
@@ -39,8 +43,10 @@ class UserService implements Service {
                 passwordHash: hash, // TODO
             }),
         );
+        const { id, email } = user.toObject();
+        const token = await tokenService.createToken(id);
 
-        return user.toObject();
+        return { id, email, token };
     }
 
     public update(): ReturnType<Service['update']> {
