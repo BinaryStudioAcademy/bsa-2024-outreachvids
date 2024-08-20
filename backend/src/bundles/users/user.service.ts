@@ -24,7 +24,7 @@ class UserService implements Service {
         return await this.userRepository.findByEmail(email);
     }
 
-    public async findById(userId: string): Promise<UserEntity | null> {
+    public async findById(userId: number): Promise<UserEntity | null> {
         return await this.userRepository.findById(userId);
     }
 
