@@ -24,7 +24,7 @@ public async verifyToken(token: string): Promise<TokenPayload | null> {
     } catch {
         return null;
     }
-}
+    }
 }
 
 export { TokenService };
