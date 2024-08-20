@@ -10,8 +10,10 @@ type Properties = {
     variant?: 'primary' | 'secondary';
 };
 
-const Link: React.FC<Properties> = ({ children, to, variant = 'primary'  }) => (
-    <LibraryLink as={NavLink} to={to} variant={variant}>{children}</LibraryLink>
+const Link: React.FC<Properties> = ({ children, to, variant = 'primary' }) => (
+    <LibraryLink as={NavLink} to={to} variant={variant}>
+        {children}
+    </LibraryLink>
 );
 
 export { Link };

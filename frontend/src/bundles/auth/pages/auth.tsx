@@ -31,7 +31,7 @@ const Auth: React.FC = () => {
         [dispatch],
     );
 
-    if(dataStatus === DataStatus.FULFILLED) {
+    if (dataStatus === DataStatus.FULFILLED) {
         return <Navigate to={AppRoute.ROOT} replace />;
     }
 

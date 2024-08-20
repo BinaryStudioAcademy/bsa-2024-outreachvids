@@ -9,7 +9,11 @@ import {
     VStack,
 } from '~/bundles/common/components/components.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
-import { useAppForm, useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppForm,
+    useAppSelector,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
@@ -78,8 +82,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             hasError={Boolean(errors.confirmPassword)}
                         />
                         <FormError
-                            isVisible={ dataStatus === DataStatus.REJECTED }
-                            message={ UserValidationMessage.USER_IS_NOT_AVAILABLE }
+                            isVisible={dataStatus === DataStatus.REJECTED}
+                            message={
+                                UserValidationMessage.USER_IS_NOT_AVAILABLE
+                            }
                         />
                         <Button
                             type="submit"

@@ -8,7 +8,7 @@ import { signUp } from './actions.js';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
-    user: UserSignUpResponseDto  | undefined | null;
+    user: UserSignUpResponseDto | undefined | null;
 };
 
 const initialState: State = {
