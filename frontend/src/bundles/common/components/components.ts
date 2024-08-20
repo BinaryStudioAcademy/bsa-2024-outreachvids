@@ -1,6 +1,7 @@
 export { Button } from './button/button.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
+export { Modal } from './modal/modal.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export {
     Box,
