@@ -6,16 +6,16 @@ import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 const publicRoutes = [
     {
         path: AppRoute.SIGN_IN,
-        element: <Auth />
+        element: <Auth />,
     },
     {
         path: AppRoute.SIGN_UP,
-        element: <Auth />
+        element: <Auth />,
     },
     {
         path: AppRoute.ANY,
-        element: <Navigate to={AppRoute.SIGN_IN} />
-    }
+        element: <Navigate to={AppRoute.SIGN_IN} />,
+    },
 ];
 
 export { publicRoutes };
