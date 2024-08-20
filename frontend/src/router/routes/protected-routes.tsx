@@ -10,10 +10,6 @@ const protectedRoutes = {
     children: [
         //TODO Add protected routes here in element property and specify the correct path
         {
-            path: AppRoute.PROTECTED,
-            element: <div>test</div>,
-        },
-        {
             path: AppRoute.ANY,
             element: <Navigate to={AppRoute.ROOT} />,
         },
