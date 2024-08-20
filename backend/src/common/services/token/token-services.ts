@@ -1,27 +1,32 @@
-import { type JWTPayload } from 'jose';
-import { jwtVerify,SignJWT } from 'jose';
+import { type JWTPayload as TokenPayload } from 'jose';
+import { jwtVerify, SignJWT } from 'jose';
 
-const SECRET_KEY = new TextEncoder().encode('your_secret_key');
-const EXPIRATION_TIME = '24h';
+class TokenService {
+  private SECRET_KEY: Uint8Array;
+  private EXPIRATION_TIME: string;
 
-interface TokenPayload extends JWTPayload {
-    userId: number;
-}
+  public constructor(secretKey: string, expirationTime: string) {
+      this.SECRET_KEY = new TextEncoder().encode(secretKey);
+      this.EXPIRATION_TIME = expirationTime;
+  }
 
-const createToken = async (userId: number): Promise<string> => {
-    return await new SignJWT({ userId })
-        .setProtectedHeader({ alg: 'HS256' })
-        .setExpirationTime(EXPIRATION_TIME)
-        .sign(SECRET_KEY);
-};
+public async createToken(userId: number): Promise<string> {
+      return await new SignJWT({ userId })
+          .setProtectedHeader({ alg: 'HS256' })
+          .setExpirationTime(this.EXPIRATION_TIME)
+          .sign(this.SECRET_KEY);
+  }
 
-const verifyToken = async (token: string): Promise<TokenPayload | null> => {
+public async verifyToken(token: string): Promise<TokenPayload | null> {
     try {
-        const { payload } = await jwtVerify(token, SECRET_KEY);
-        return payload as TokenPayload;
+        const { payload } = await jwtVerify(token, this.SECRET_KEY);
+        return payload;
     } catch {
         return null;
     }
-};
+}
+}
 
-export { createToken, verifyToken };
+const tokenService = new TokenService('your_secret_key', '24h');
+
+export { tokenService };
