@@ -10,7 +10,7 @@ const colors = {
         orange: '#ff6e1c',
         hover: '#eb5500',
         green: '#3BAF28',
-        error: '#e13b00'
+        error: '#e13b00',
     },
     shadow: {
         200: 'rgba(0, 0, 0, 0.2)',
