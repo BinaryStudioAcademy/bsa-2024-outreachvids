@@ -6,6 +6,7 @@ export {
     Box,
     ChakraProvider as ComponentsProvider,
     Heading,
+    Text,
     VStack,
 } from '@chakra-ui/react';
 export { FormikProvider as FormProvider } from 'formik';
