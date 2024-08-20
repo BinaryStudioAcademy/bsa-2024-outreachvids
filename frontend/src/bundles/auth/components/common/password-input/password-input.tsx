@@ -32,7 +32,7 @@ const PasswordInput: React.FC<Properties> = ({ label, name, hasError }) => {
                 name={name}
                 icon="right"
             />
-            <InputRightElement top="unset" bottom={hasError ? '27px' : 0}>
+            <InputRightElement top="unset" bottom={hasError ? '25px' : 0}>
                 <IconButton
                     aria-label={
                         isPasswordVisible ? 'Hide password' : 'Show password'
