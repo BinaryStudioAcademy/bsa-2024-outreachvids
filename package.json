@@ -48,5 +48,9 @@
     "simple-git-hooks": {
         "pre-commit": "npx lint-staged",
         "commit-msg": "npx commitlint --edit $1"
+    },
+    "dependencies": {
+        "fastify-plugin": "4.5.1",
+        "jose": "5.7.0"
     }
 }
