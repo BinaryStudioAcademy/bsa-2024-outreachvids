@@ -45,11 +45,12 @@ class AuthService {
                 status: HttpCode.BAD_REQUEST,
             });
         }
+        
         const id = user.toObject().id;
 
         const token = await tokenService.createToken(id);
 
-        return { id, email, token };
+        return { ...user.toObject(), token };
     }
 
     public signUp(
