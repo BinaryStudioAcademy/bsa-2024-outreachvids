@@ -11,9 +11,7 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
     .object<UserSignUpRequestValidationDto>({
-        name: z
-            .string()
-            .trim(),
+        name: z.string().trim(),
         email: z
             .string()
             .trim()

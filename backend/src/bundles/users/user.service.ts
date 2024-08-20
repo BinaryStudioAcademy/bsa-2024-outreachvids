@@ -36,8 +36,8 @@ class UserService implements Service {
             UserEntity.initializeNew({
                 email: payload.email,
                 name: payload.name,
-                passwordSalt: salt, 
-                passwordHash: hash, 
+                passwordSalt: salt,
+                passwordHash: hash,
             }),
         );
 
