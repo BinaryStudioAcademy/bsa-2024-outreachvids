@@ -20,7 +20,7 @@ const Loader = (): JSX.Element => {
                     borderColor="shadow.200"
                     borderTopColor="brand.secondary.300"
                     animation={`${SPIN_ANIMATION} 1s linear infinite`}
-                ></Circle>
+                />
             </Box>
             <Text fontSize="lg" marginTop="10px">
                 Loading...
