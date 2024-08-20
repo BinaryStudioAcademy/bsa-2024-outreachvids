@@ -3,7 +3,7 @@ import { cryptService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
 import { UserEntity } from '../../bundles/users/user.entity.js';
-import { createToken } from '../services/token-services.js';
+import { createToken } from '../../common/services/token/token-services.js';
 import {
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,

@@ -10,7 +10,7 @@ import {
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { cryptService } from '~/common/services/services.js';
 
-import { createToken } from '../services/token-services.js';
+import { createToken } from '../../common/services/token/token-services.js';
 import { UserValidationMessage } from './enums/enums.js';
 
 class AuthService {
