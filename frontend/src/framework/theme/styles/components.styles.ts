@@ -58,18 +58,18 @@ const components = {
         variants: {
             solid: {
                 color: colors.white,
-                bgColor: colors.brand.orange,
+                bgColor: colors.brand.secondary[300],
                 _hover: {
-                    bg: colors.brand.hover,
+                    bg: colors.brand.secondary[600],
                     _disabled: {
-                        bg: colors.brand.hover,
+                        bg: colors.brand.secondary[600],
                     },
                 },
             },
             ghostIcon: {
                 color: colors.white,
                 _hover: {
-                    color: colors.brand.orange,
+                    color: colors.brand.secondary[300],
                 },
             },
         },
@@ -80,9 +80,9 @@ const components = {
                 color: colors.text.default,
             },
             secondary: {
-                color: colors.brand.orange,
+                color: colors.brand.secondary[300],
                 _hover: {
-                    color: colors.brand.hover,
+                    color: colors.brand.secondary[600],
                 },
             },
         },
@@ -98,7 +98,7 @@ const components = {
                 field: {
                     _focus: {
                         borderWidth: '2px',
-                        borderColor: colors.brand.orange,
+                        borderColor: colors.brand.secondary[300],
                         boxShadow: 'none',
                     },
                     _placeholder: {
@@ -106,7 +106,7 @@ const components = {
                     },
                     _invalid: {
                         borderWidth: '2px',
-                        borderColor: colors.brand.error,
+                        borderColor: colors.brand.secondary[900],
                         boxShadow: 'none',
                     },
                     _autofill: {
@@ -122,7 +122,7 @@ const components = {
     FormError: {
         baseStyle: {
             text: {
-                color: colors.brand.error,
+                color: colors.brand.secondary[900],
             },
         },
     },
