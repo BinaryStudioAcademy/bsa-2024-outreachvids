@@ -1,10 +1,14 @@
 export { Button } from './button/button.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
+export { Loader } from './loader/loader.js';
+export { Overlay } from './overlay/overlay.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export {
     Box,
+    Circle,
     ChakraProvider as ComponentsProvider,
+    Flex,
     Heading,
     Text,
     VStack,
