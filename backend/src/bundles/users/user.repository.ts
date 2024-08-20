@@ -20,6 +20,12 @@ class UserRepository implements Repository {
         return user ? UserEntity.initialize(user) : null;
     }
 
+    public async findById(userId: string): Promise<UserEntity | null> {
+        const user = await this.userModel.query().findById(userId).execute();
+
+        return user ? UserEntity.initialize(user) : null;
+    }
+
     public async findAll(): Promise<UserEntity[]> {
         const users = await this.userModel.query().execute();
 

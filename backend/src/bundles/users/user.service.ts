@@ -24,6 +24,10 @@ class UserService implements Service {
         return await this.userRepository.findByEmail(email);
     }
 
+    public async findById(userId: string): Promise<UserEntity | null> {
+        return await this.userRepository.findById(userId);
+    }
+
     public async findAll(): Promise<UserGetAllResponseDto> {
         const items = await this.userRepository.findAll();
 
