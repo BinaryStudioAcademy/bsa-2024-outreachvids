@@ -10,7 +10,6 @@ const ProtectedRoute: React.FC = () => {
     if (dataStatus !== DataStatus.FULFILLED) {
         return <Navigate to={AppRoute.SIGN_IN} replace />;
     }
-
     return <RouterOutlet />;
 };
 
