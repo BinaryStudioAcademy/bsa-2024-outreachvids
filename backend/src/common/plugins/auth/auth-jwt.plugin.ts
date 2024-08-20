@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin';
 import { HttpCode, HttpError, HttpHeader } from 'shared';
 
-import { type UserEntity, userService } from '~/bundles/users/users.js';
+import { userService } from '~/bundles/users/users.js';
 import { tokenService } from '~/common/services/services.js';
 
 import { ErrorMessage, Hook } from './enums/enums.js';
@@ -9,12 +9,6 @@ import { ErrorMessage, Hook } from './enums/enums.js';
 type Options = {
     routesWhiteList: string[];
 };
-
-declare module 'fastify' {
-    interface FastifyRequest {
-        user: UserEntity;
-    }
-}
 
 const authenticateJWT = fp<Options>((fastify, options, done) => {
     fastify.decorateRequest('user', null);
