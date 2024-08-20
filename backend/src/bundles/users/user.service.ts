@@ -3,7 +3,7 @@ import { cryptService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
 import { UserEntity } from '../../bundles/users/user.entity.js';
-import { createToken } from '../../common/services/token/token-services.js';
+import { tokenService } from '../../common/services/token/token-services.js';
 import {
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
@@ -41,7 +41,7 @@ class UserService implements Service {
             }),
         );
         const { id, email } = user.toObject();
-        const token = await createToken(id);
+        const token = await tokenService.createToken(id);
 
         return { 'id': id, 'email': email, 'token': token };
     }

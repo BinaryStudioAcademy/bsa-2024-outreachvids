@@ -10,7 +10,7 @@ import {
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { cryptService } from '~/common/services/services.js';
 
-import { createToken } from '../../common/services/token/token-services.js';
+import { tokenService } from '../../common/services/token/token-services.js';
 import { UserValidationMessage } from './enums/enums.js';
 
 class AuthService {
@@ -48,7 +48,7 @@ class AuthService {
         }
         const id = user.toObject().id;
 
-        const token = await createToken(id);
+        const token = await tokenService.createToken(id);
 
         return { id, email, token };
     }
