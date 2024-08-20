@@ -6,8 +6,11 @@ export { Overlay } from './overlay/overlay.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export {
     Box,
+    Circle,
     ChakraProvider as ComponentsProvider,
+    Flex,
     Heading,
+    Text,
     VStack,
 } from '@chakra-ui/react';
 export { FormikProvider as FormProvider } from 'formik';
