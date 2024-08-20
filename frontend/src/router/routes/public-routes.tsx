@@ -14,7 +14,7 @@ const publicRoutes = [
     },
     {
         path: AppRoute.ANY,
-        element: <Navigate to={AppRoute.SIGN_IN} />,
+        element: <Navigate to={AppRoute.SIGN_IN} replace />,
     },
 ];
 

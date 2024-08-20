@@ -11,7 +11,7 @@ const protectedRoutes = {
         //TODO Add protected routes here in element property and specify the correct path
         {
             path: AppRoute.ANY,
-            element: <Navigate to={AppRoute.ROOT} />,
+            element: <Navigate to={AppRoute.ROOT} replace/>,
         },
     ],
 };
