@@ -25,6 +25,11 @@ class TokenService {
             return null;
         }
     }
+
+    public async getUserIdFromToken(token: string): Promise<number | null> {
+        const payload = await this.verifyToken(token);
+        return payload?.['userId'] as number || null;
+    }
 }
 
 export { TokenService };
