@@ -22,6 +22,7 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
+import { authenticateJWT } from '../plugins/plugins.js';
 import {
     type ServerApp,
     type ServerAppApi,
@@ -122,6 +123,12 @@ class BaseServerApp implements ServerApp {
         );
     }
 
+    private registerPlugins(): void {
+        this.app.register(authenticateJWT, {
+            routesWhiteList: ['/api/v1/users/'],
+        });
+    }
+
     private initValidationCompiler(): void {
         this.app.setValidatorCompiler(
             ({ schema }: { schema: ValidationSchema }) => {
@@ -199,6 +206,8 @@ class BaseServerApp implements ServerApp {
         await this.initServe();
 
         await this.initMiddlewares();
+
+        this.registerPlugins();
 
         this.initValidationCompiler();
 
