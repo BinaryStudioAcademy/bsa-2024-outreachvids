@@ -1,4 +1,3 @@
-import { createStandaloneToast } from '@chakra-ui/react';
 import {
     type Middleware,
     isRejected,
@@ -6,11 +5,8 @@ import {
 } from '@reduxjs/toolkit';
 import { type ServerValidationErrorResponse } from 'shared';
 
-import { theme } from '~/framework/theme/theme.js';
+import { toastService } from '../services/services.js';
 
-import { stringToReactNode } from '../helpers/helpers.js';
-
-const { toast } = createStandaloneToast({ theme: theme });
 const toastId = 'redux-store-error';
 
 const errorMiddleware: Middleware = () => {
@@ -28,16 +24,8 @@ const errorMiddleware: Middleware = () => {
             }
         }
 
-        if (message !== '' && !toast.isActive(toastId)) {
-            toast({
-                id: toastId,
-                title: 'An error occurred.',
-                description: stringToReactNode(message),
-                status: 'error',
-                duration: 7000,
-                isClosable: true,
-                position: 'top-right',
-            });
+        if (message !== '' && !toastService.isActive(toastId)) {
+            toastService.error(message, toastId, 'An error occurred.');
         }
 
         return next(action);
