@@ -10,11 +10,12 @@ class UserRepository implements Repository {
         this.userModel = userModel;
     }
 
-    public async find(payload: string | number): Promise<UserEntity | null> {
-        const user = await this.userModel
-            .query()
-            .findOne({ payload })
-            .execute();
+    public find(): ReturnType<Repository['find']> {
+        return Promise.resolve(null);
+    }
+
+    public async findByEmail(email: string): Promise<UserEntity | null> {
+        const user = await this.userModel.query().findOne({ email }).execute();
 
         return user ? UserEntity.initialize(user) : null;
     }

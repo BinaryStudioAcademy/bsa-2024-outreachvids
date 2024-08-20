@@ -23,7 +23,7 @@ class AuthService {
         userRequestDto: UserSignInRequestDto,
     ): Promise<UserSignInResponseDto> {
         const { email, password } = userRequestDto;
-        const user = await this.userService.find(email);
+        const user = await this.userService.findByEmail(email);
 
         if (!user) {
             throw new HttpError({
