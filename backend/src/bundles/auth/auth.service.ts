@@ -56,7 +56,6 @@ class AuthService {
     public signUp(
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
-        
         return this.userService.create(userRequestDto);
     }
 }
