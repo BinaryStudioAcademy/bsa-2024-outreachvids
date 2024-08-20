@@ -12,6 +12,5 @@ const routes = [{
         ...publicRoutes,
     ],
 }];
-    
+
 export { routes };
-      
