@@ -20,7 +20,11 @@ const authenticateJWT = fp<Options>((fastify, options, done) => {
     fastify.decorateRequest('user', null);
 
     fastify.addHook(Hook.PRE_HANDLER, async (request) => {
-        if (options.routesWhiteList.includes(request.url)) {
+        const isRouteInWhiteList = options.routesWhiteList.includes(
+            request.url,
+        );
+
+        if (isRouteInWhiteList) {
             return;
         }
 
