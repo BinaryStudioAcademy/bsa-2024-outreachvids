@@ -1,12 +1,12 @@
-name: Feature
-description: Abstract feature description
-title: 'FEAT:'
+name: Task
+description: Abstract task description
+title: 'TASK:'
 projects: 'BinaryStudioAcademy/30'
 body:
     - type: textarea
       id: what-feature
       attributes:
-          label: What feature?
+          label: What task?
           placeholder: Add descriptions
       validations:
           required: true
@@ -15,8 +15,3 @@ body:
       attributes:
           label: Add screenshots
           placeholder: Add screenshots, mockups, etc.
-    - type: textarea
-      id: acceptance-criteria
-      attributes:
-          label: Acceptance criteria
-          placeholder: Add acceptance criteria.

@@ -2,7 +2,7 @@ name: Bug Report
 description: Report a bug
 title: 'BUG:'
 labels: ['BUG']
-projects: "BinaryStudioAcademy/30"
+projects: 'BinaryStudioAcademy/30'
 body:
     - type: markdown
       attributes:
