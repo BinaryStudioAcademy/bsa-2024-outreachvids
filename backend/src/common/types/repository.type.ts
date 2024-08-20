@@ -4,6 +4,7 @@ type Repository<T = unknown> = {
     create(payload: unknown): Promise<T>;
     update(): Promise<T>;
     delete(): Promise<boolean>;
+    findById(userId: string): Promise<T | null>;
 };
 
 export { type Repository };
