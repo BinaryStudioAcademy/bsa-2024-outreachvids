@@ -11,11 +11,17 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
     .object<UserSignUpRequestValidationDto>({
-        fullName: z.string({ required_error: UserValidationMessage.FIELD_REQUIRE })
+        fullName: z
+            .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
-            .refine((value) => value.split(/\s+/).length >= UserValidationRule.FULL_NAME_MINIMUM_WORD_LENGTH, {
-                message: UserValidationMessage.NAME_MIN_TWO_WORDS,
-            }),
+            .refine(
+                (value) =>
+                    value.split(/\s+/).length >=
+                    UserValidationRule.FULL_NAME_MINIMUM_WORD_LENGTH,
+                {
+                    message: UserValidationMessage.NAME_MIN_TWO_WORDS,
+                },
+            ),
         email: z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
