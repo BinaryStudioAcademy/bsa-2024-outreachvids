@@ -12,6 +12,10 @@ type EnvironmentSchema = {
         POOL_MIN: number;
         POOL_MAX: number;
     };
+    TOKEN: {
+        SECRET_KEY: string;
+        EXPIRATION_TIME: string;
+    };
 };
 
 export { type EnvironmentSchema };
