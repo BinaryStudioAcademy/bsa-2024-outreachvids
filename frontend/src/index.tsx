@@ -12,6 +12,8 @@ import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { store } from '~/framework/store/store.js';
 import { theme } from '~/framework/theme/theme.js';
 
+import { VideoEditor } from './bundles/video-editor/pages/video-editor.js';
+
 const routes = [
     {
         path: AppRoute.ROOT,
@@ -28,6 +30,10 @@ const routes = [
             {
                 path: AppRoute.SIGN_UP,
                 element: <Auth />,
+            },
+            {
+                path: AppRoute.VIDEO_EDITOR,
+                element: <VideoEditor />,
             },
         ],
     },
