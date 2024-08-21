@@ -16,16 +16,12 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public find(): ReturnType<Service['find']> {
-        return Promise.resolve(null);
+    public async find(userId: number): Promise<UserEntity | null> {
+        return await this.userRepository.findById(userId);
     }
 
     public async findByEmail(email: string): Promise<UserEntity | null> {
         return await this.userRepository.findByEmail(email);
-    }
-
-    public async findById(userId: number): Promise<UserEntity | null> {
-        return await this.userRepository.findById(userId);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
