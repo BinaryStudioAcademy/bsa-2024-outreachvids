@@ -23,13 +23,11 @@ const VideoModal = ({ isOpen, closeModal }: Properties): JSX.Element => {
                 maxWidth="90%"
                 maxHeight="90%"
                 height="full"
-                overflow="hidden"
+                overflow="auto"
             >
                 <ModalHeader
                     backgroundColor="gray.100"
-                    width="100%"
-                    maxWidth="290px"
-                    paddingLeft="40px"
+                    width="290px"
                     padding="33px 44px 0px"
                 >
                     Create video
