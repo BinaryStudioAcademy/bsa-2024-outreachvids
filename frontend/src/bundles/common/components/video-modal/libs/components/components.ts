@@ -1,1 +1,1 @@
-export { VideoModalSideBar } from './video-modal-side-bar/video-modal-side-bar.js';
+export { VideoModalContent } from './video-modal-content/video-modal-content.js';
