@@ -11,9 +11,11 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
     .object<UserSignUpRequestValidationDto>({
-        name: z.string().trim(),
+        name: z
+            .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
+            .trim(),
         email: z
-            .string()
+            .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
             .min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
                 message: UserValidationMessage.EMAIL_INVALID,
@@ -25,7 +27,7 @@ const userSignUp = z
                 message: UserValidationMessage.EMAIL_INVALID,
             }),
         password: z
-            .string()
+            .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
             .min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
                 message: UserValidationMessage.PASSWORD_LENGTH,
@@ -34,7 +36,7 @@ const userSignUp = z
                 message: UserValidationMessage.PASSWORD_LENGTH,
             }),
         confirmPassword: z
-            .string()
+            .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
             .min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
                 message: UserValidationMessage.PASSWORD_LENGTH,
