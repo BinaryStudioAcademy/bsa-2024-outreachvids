@@ -10,8 +10,10 @@ class UserRepository implements Repository {
         this.userModel = userModel;
     }
 
-    public find(): ReturnType<Repository['find']> {
-        return Promise.resolve(null);
+    public async find(userId: number): Promise<UserEntity | null> {
+        const user = await this.userModel.query().findById(userId).execute();
+
+        return user ? UserEntity.initialize(user) : null;
     }
 
     public async findByEmail(email: string): Promise<UserEntity | null> {
@@ -20,11 +22,11 @@ class UserRepository implements Repository {
         return user ? UserEntity.initialize(user) : null;
     }
 
-    public async findById(userId: number): Promise<UserEntity | null> {
-        const user = await this.userModel.query().findById(userId).execute();
+    // public async findById(userId: number): Promise<UserEntity | null> {
+    //     const user = await this.userModel.query().findById(userId).execute();
 
-        return user ? UserEntity.initialize(user) : null;
-    }
+    //     return user ? UserEntity.initialize(user) : null;
+    // }
 
     public async findAll(): Promise<UserEntity[]> {
         const users = await this.userModel.query().execute();
