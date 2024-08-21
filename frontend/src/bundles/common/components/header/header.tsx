@@ -1,6 +1,12 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
-const Header = (): JSX.Element => {
+type Properties = {
+    left?: React.ReactNode;
+    center?: React.ReactNode;
+    right?: React.ReactNode;
+};
+
+const Header: React.FC<Properties> = ({ left, center, right }) => {
     return (
         <Flex
             as="header"
@@ -8,24 +14,23 @@ const Header = (): JSX.Element => {
             position="sticky"
             top="0"
             left="0"
-            width="100%"
+            width="full"
             backgroundColor="background.900"
-            color="white"
             boxShadow="md"
             zIndex="1000"
             padding="4"
             marginBottom="20px"
+            alignItems="center"
+            justifyContent="space-between"
         >
-            <Flex
-                width="full"
-                alignItems="center"
-                maxWidth="1440px"
-                justifyContent="space-between"
-            >
-                <Text fontSize="xl" fontWeight="lighter">
+            {left ?? (
+                // {/* TODO: Add logo */}
+                <Text fontSize="xl" fontWeight="lighter" color="white">
                     Logo
                 </Text>
-            </Flex>
+            )}
+            <Box>{center}</Box>
+            <Box>{right}</Box>
         </Flex>
     );
 };
