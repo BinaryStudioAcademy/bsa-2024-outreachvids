@@ -52,14 +52,3 @@ jobs:
 
               run: |
                   npx danger ci --failOnErrors --text-only
-
-            - name: Add Folder Labels
-              uses: actions/labeler@v4
-              with:
-                  repo-token: '${{ secrets.GITHUB_TOKEN }}'
-                  sync-labels: true
-
-            - name: Add Environment Labels
-              uses: ffittschen/pr-branch-labeler@v1
-              with:
-                  repo-token: '${{ secrets.GITHUB_TOKEN }}'

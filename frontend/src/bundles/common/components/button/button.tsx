@@ -6,7 +6,7 @@ type Properties = {
 };
 
 const Button: React.FC<Properties> = ({ type = 'button', label }) => (
-    <LibraryButton type={type} color="brand.900" width="full">
+    <LibraryButton type={type} width="full">
         {label}
     </LibraryButton>
 );

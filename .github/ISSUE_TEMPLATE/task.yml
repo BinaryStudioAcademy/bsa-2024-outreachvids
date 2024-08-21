@@ -1,0 +1,17 @@
+name: Task
+description: Abstract task description
+title: 'TASK:'
+projects: 'BinaryStudioAcademy/30'
+body:
+    - type: textarea
+      id: what-feature
+      attributes:
+          label: What task?
+          placeholder: Add descriptions
+      validations:
+          required: true
+    - type: textarea
+      id: screenshots
+      attributes:
+          label: Add screenshots
+          placeholder: Add screenshots, mockups, etc.
