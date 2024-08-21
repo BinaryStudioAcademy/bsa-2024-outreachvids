@@ -4,6 +4,7 @@ export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { VideoModal } from './video-modal/video-modal.js';
 export {
     Box,
     ChakraProvider as ComponentsProvider,

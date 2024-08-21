@@ -1,7 +1,46 @@
-import { VideoModalSideBar } from './libs/components/components.js';
+import {
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalHeader,
+    ModalOverlay,
+} from '@chakra-ui/react';
 
-const VideoModal = (): JSX.Element => {
-    return <VideoModalSideBar />;
+import { VideoModalContent } from './libs/components/components.js';
+
+type Properties = {
+    isOpen: boolean;
+    closeModal: () => void;
+};
+
+const VideoModal = ({ isOpen, closeModal }: Properties): JSX.Element => {
+    return (
+        <Modal isOpen={isOpen} onClose={closeModal} isCentered>
+            <ModalOverlay />
+            <ModalContent
+                borderRadius="17px"
+                maxWidth="90%"
+                maxHeight="90%"
+                height="full"
+                overflow="hidden"
+            >
+                <ModalHeader
+                    backgroundColor="gray.100"
+                    width="100%"
+                    maxWidth="290px"
+                    paddingLeft="40px"
+                    padding="33px 44px 0px"
+                >
+                    Create video
+                </ModalHeader>
+                <ModalCloseButton margin="20px" />
+                <ModalBody padding="0px">
+                    <VideoModalContent />
+                </ModalBody>
+            </ModalContent>
+        </Modal>
+    );
 };
 
 export { VideoModal };
