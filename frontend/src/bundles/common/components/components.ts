@@ -7,6 +7,8 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export {
     Box,
     Circle,
+    CloseButton,
+    Collapse,
     ChakraProvider as ComponentsProvider,
     Flex,
     Heading,
