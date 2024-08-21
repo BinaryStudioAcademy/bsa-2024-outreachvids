@@ -68,6 +68,20 @@ class BaseConfig implements Config {
                     default: null,
                 },
             },
+            TOKEN: {
+                SECRET_KEY: {
+                    doc: 'Secret key for token generation',
+                    format: String,
+                    env: 'SECRET_KEY',
+                    default: null,
+                },
+                EXPIRATION_TIME: {
+                    doc: 'Token expiration time',
+                    format: String,
+                    env: 'EXPIRATION_TIME',
+                    default: null,
+                },
+            },
         });
     }
 }
