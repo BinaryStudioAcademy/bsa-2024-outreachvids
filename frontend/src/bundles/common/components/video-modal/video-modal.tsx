@@ -7,7 +7,7 @@ import {
     ModalOverlay,
 } from '@chakra-ui/react';
 
-import { VideoModalContent } from './libs/components/components.js';
+import { VideoModalContent } from './components/components.js';
 
 type Properties = {
     isOpen: boolean;
