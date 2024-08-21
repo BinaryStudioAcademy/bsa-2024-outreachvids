@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { UserValidationMessage, UserValidationRule } from '../enums/enums.js';
 
 type UserSignUpRequestValidationDto = {
-    name: z.ZodString;
+    name: z.ZodEffects<z.ZodString, string, string>;
     email: z.ZodString;
     password: z.ZodString;
     confirmPassword: z.ZodString;
@@ -11,9 +11,13 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
     .object<UserSignUpRequestValidationDto>({
-        name: z.string().trim(),
+        name: z.string({ required_error: UserValidationMessage.FIELD_REQUIRE })
+            .trim()
+            .refine((value) => value.split(/\s+/).length >= 2, {
+                message: UserValidationMessage.NAME_MIN_TWO_WORDS,
+            }),
         email: z
-            .string()
+            .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
             .min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
                 message: UserValidationMessage.EMAIL_WRONG,
@@ -25,22 +29,22 @@ const userSignUp = z
                 message: UserValidationMessage.EMAIL_WRONG,
             }),
         password: z
-            .string()
+            .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
             .min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-                message: UserValidationMessage.PASS_WRONG,
+                message: UserValidationMessage.PASSWORD_LENGTH,
             })
             .max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
-                message: UserValidationMessage.PASS_WRONG,
+                message: UserValidationMessage.PASSWORD_LENGTH,
             }),
         confirmPassword: z
-            .string()
+            .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
             .min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-                message: UserValidationMessage.PASS_WRONG,
+                message: UserValidationMessage.PASSWORD_LENGTH,
             })
             .max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
-                message: UserValidationMessage.PASS_WRONG,
+                message: UserValidationMessage.PASSWORD_LENGTH,
             }),
     })
     .required()
