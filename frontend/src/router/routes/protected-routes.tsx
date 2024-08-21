@@ -1,6 +1,5 @@
 import { Navigate } from 'react-router-dom';
 
-import { App } from '~/app/app.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
 
@@ -11,10 +10,6 @@ const protectedRoutes = {
     element: <ProtectedRoute />,
     children: [
         //TODO Add protected routes here in element property and specify the correct path
-        {
-            path: AppRoute.ROOT,
-            element: <App />,
-        },
         {
             path: AppRoute.STUDIO,
             element: <Studio />,
