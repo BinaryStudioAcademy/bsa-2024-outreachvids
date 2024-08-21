@@ -5,17 +5,19 @@ import { userService } from '~/bundles/users/users.js';
 import { tokenService } from '~/common/services/services.js';
 
 import { ErrorMessage, Hook } from './enums/enums.js';
+import { type Route } from './types/types.js';
 
 type Options = {
-    routesWhiteList: string[];
+    routesWhiteList: Route[];
 };
 
-const authenticateJWT = fp<Options>((fastify, options, done) => {
+const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
     fastify.decorateRequest('user', null);
 
     fastify.addHook(Hook.PRE_HANDLER, async (request) => {
-        const isRouteInWhiteList = options.routesWhiteList.includes(
-            request.url,
+        const isRouteInWhiteList = routesWhiteList.some(
+            (route) =>
+                route.path === request.url && route.method === request.method,
         );
 
         if (isRouteInWhiteList) {
