@@ -5,6 +5,7 @@ const colors = {
         200: '#b3e0ff',
         secondary: {
             300: '#ff6e1c',
+            600: '#eb5500',
         },
     },
     shadow: {
