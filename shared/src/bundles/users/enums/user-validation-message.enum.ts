@@ -5,6 +5,7 @@ const UserValidationMessage = {
     EMAIL_INVALID: 'Please enter a valid email',
     PASSWORD_LENGTH: 'Password must have from 6 to 12 characters',
     INVALID_DATA: 'Incorrect email or password. Please try again.',
+    WRONG_CREDENTIALS: 'Email or password are incorrect',
 } as const;
 
 export { UserValidationMessage };

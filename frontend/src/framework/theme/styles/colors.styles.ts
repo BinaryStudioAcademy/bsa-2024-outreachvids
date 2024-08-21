@@ -7,9 +7,8 @@ const colors = {
         50: '#e2e1ec',
     },
     brand: {
-        900: '#1a365d',
-        200: '#b3e0ff',
         secondary: {
+            50: '#3BAF28',
             300: '#ff6e1c',
             600: '#eb5500',
             900: '#e13b00',
