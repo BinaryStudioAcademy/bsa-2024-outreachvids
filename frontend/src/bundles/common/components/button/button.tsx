@@ -6,6 +6,7 @@ import {
 type Properties = {
     label: string;
     type?: 'button' | 'submit';
+    variant?: string;
     size?: 'md' | 'lg';
     isDisabled?: boolean;
     sx?: SystemStyleObject;
@@ -14,13 +15,15 @@ type Properties = {
 const Button: React.FC<Properties> = ({
     label,
     type = 'button',
+    variant = 'solid',
     size = 'md',
     isDisabled = false,
     sx = {},
 }) => (
     <LibraryButton
         type={type}
-        width="full"
+        w="full"
+        variant={variant}
         size={size}
         isDisabled={isDisabled}
         sx={sx}

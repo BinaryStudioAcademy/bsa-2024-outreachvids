@@ -6,6 +6,7 @@ export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { VideoModal } from './video-modal/video-modal.js';
+export { DownloadIcon } from '@chakra-ui/icons';
 export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
     Box,
