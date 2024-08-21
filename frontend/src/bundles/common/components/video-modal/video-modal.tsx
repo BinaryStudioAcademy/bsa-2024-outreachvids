@@ -11,12 +11,12 @@ import { VideoModalContent } from './components/components.js';
 
 type Properties = {
     isOpen: boolean;
-    closeModal: () => void;
+    onModalClose: () => void;
 };
 
-const VideoModal = ({ isOpen, closeModal }: Properties): JSX.Element => {
+const VideoModal = ({ isOpen, onModalClose }: Properties): JSX.Element => {
     return (
-        <Modal isOpen={isOpen} onClose={closeModal} isCentered>
+        <Modal isOpen={isOpen} onClose={onModalClose} isCentered>
             <ModalOverlay />
             <ModalContent
                 borderRadius="17px"
