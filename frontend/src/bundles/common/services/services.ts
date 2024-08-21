@@ -1,1 +1,4 @@
-export { type ToastService, toastService } from './toast/toast.js';
+export {
+    type NotificationService,
+    notificationService,
+} from './notification/notification.js';

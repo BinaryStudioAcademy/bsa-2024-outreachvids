@@ -5,9 +5,9 @@ import {
 } from '@reduxjs/toolkit';
 import { type ServerValidationErrorResponse } from 'shared';
 
-import { toastService } from '../services/services.js';
+import { notificationService } from '../services/services.js';
 
-const toastId = 'redux-store-error';
+const notificationId = 'redux-store-error';
 
 const errorMiddleware: Middleware = () => {
     return (next) => (action) => {
@@ -24,8 +24,12 @@ const errorMiddleware: Middleware = () => {
             }
         }
 
-        if (message !== '' && !toastService.isActive(toastId)) {
-            toastService.error(message, toastId, 'An error occurred.');
+        if (message && !notificationService.isActive(notificationId)) {
+            notificationService.error({
+                message,
+                id: notificationId,
+                title: 'An error occurred.',
+            });
         }
 
         return next(action);
