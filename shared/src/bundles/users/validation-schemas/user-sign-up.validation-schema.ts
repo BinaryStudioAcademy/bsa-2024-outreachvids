@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { UserValidationMessage, UserValidationRule } from '../enums/enums.js';
 
 type UserSignUpRequestValidationDto = {
-    name: z.ZodEffects<z.ZodString, string, string>;
+    fullName: z.ZodEffects<z.ZodString, string, string>;
     email: z.ZodString;
     password: z.ZodString;
     confirmPassword: z.ZodString;
@@ -11,9 +11,9 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
     .object<UserSignUpRequestValidationDto>({
-        name: z.string({ required_error: UserValidationMessage.FIELD_REQUIRE })
+        fullName: z.string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
-            .refine((value) => value.split(/\s+/).length >= 2, {
+            .refine((value) => value.split(/\s+/).length >= UserValidationRule.FULL_NAME_MINIMUM_WORD_LENGTH, {
                 message: UserValidationMessage.NAME_MIN_TWO_WORDS,
             }),
         email: z
