@@ -12,8 +12,8 @@ type Properties = {
 };
 
 const Button: React.FC<Properties> = ({
-    type = 'button',
     label,
+    type = 'button',
     size = 'md',
     isDisabled = false,
     sx = {},
