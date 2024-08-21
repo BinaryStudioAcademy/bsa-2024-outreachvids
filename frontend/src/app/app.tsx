@@ -39,6 +39,9 @@ const App: React.FC = () => {
                 <li>
                     <Link to={AppRoute.SIGN_UP}>Sign up</Link>
                 </li>
+                <li>
+                    <Link to={AppRoute.VIDEO_EDITOR}>Video Editor</Link>
+                </li>
             </ul>
             <p>Current path: {pathname}</p>
 
