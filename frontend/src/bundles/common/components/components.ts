@@ -7,8 +7,11 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
     Box,
+    Circle,
     ChakraProvider as ComponentsProvider,
+    Flex,
     Heading,
+    Text,
     VStack,
 } from '@chakra-ui/react';
 export { FormikProvider as FormProvider } from 'formik';
