@@ -6,7 +6,12 @@ type Properties = {
 
 const Tab = ({ label }: Properties): JSX.Element => {
     return (
-        <ChakraTab borderRadius="10px" _selected={{ backgroundColor: '' }}>
+        <ChakraTab
+            justifyContent="stretch"
+            borderRadius="10px"
+            textAlign="left"
+            _selected={{ backgroundColor: 'gray.300' }}
+        >
             {label}
         </ChakraTab>
     );
