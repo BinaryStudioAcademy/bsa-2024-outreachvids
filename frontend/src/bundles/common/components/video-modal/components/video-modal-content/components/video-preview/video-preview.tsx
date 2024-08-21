@@ -14,11 +14,11 @@ const VideoPreview = (): JSX.Element => {
         VideoPreviewValues.PORTRAIT,
     );
 
-    const setPortraitView = useCallback((): void => {
+    const handleSetPortraitView = useCallback((): void => {
         setView(VideoPreviewValues.PORTRAIT);
     }, []);
 
-    const setLandscapeView = useCallback((): void => {
+    const handleSetLandscapeView = useCallback((): void => {
         setView(VideoPreviewValues.LANDSCAPE);
     }, []);
 
@@ -45,7 +45,7 @@ const VideoPreview = (): JSX.Element => {
                         padding="5px"
                         height="16px"
                     />
-                    <Text>
+                    <Text color="gray.400">
                         {view === VideoPreviewValues.PORTRAIT
                             ? VideoSizeLabel.PORTRAIT
                             : VideoSizeLabel.LANDSCAPE}
@@ -57,7 +57,7 @@ const VideoPreview = (): JSX.Element => {
                 <Button
                     backgroundColor="brand.secondary.300"
                     color="white"
-                    onMouseEnter={setLandscapeView}
+                    onMouseEnter={handleSetLandscapeView}
                     _hover={{ bg: 'brand.secondary.600' }}
                 >
                     Use landscape
@@ -65,7 +65,7 @@ const VideoPreview = (): JSX.Element => {
                 <Button
                     backgroundColor="brand.secondary.300"
                     color="white"
-                    onMouseEnter={setPortraitView}
+                    onMouseEnter={handleSetPortraitView}
                     _hover={{ bg: 'brand.secondary.600' }}
                 >
                     Use portrait
