@@ -1,7 +1,7 @@
 import { TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 
-import { Tab, VideoPreview } from './libs/components/components.js';
+import { Tab, VideoPreview } from './components/components.js';
 
 const VideoModalContent = (): JSX.Element => {
     return (
