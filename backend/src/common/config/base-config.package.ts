@@ -81,8 +81,8 @@ class BaseConfig implements Config {
                     env: 'EXPIRATION_TIME',
                     default: null,
                 },
-        },
-    });
+            },
+        });
     }
 }
 
