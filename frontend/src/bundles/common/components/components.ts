@@ -8,6 +8,7 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export { DownloadIcon } from '@chakra-ui/icons';
 export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+export { createIcon } from '@chakra-ui/react';
 export {
     Box,
     Center,
