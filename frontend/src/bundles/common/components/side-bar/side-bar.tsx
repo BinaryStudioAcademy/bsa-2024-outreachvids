@@ -11,6 +11,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
+import { UserCard, UserCircle } from '~/bundles/users/components/components.js';
 
 import { Size } from '../icon/icon.js';
 import {
@@ -64,6 +65,10 @@ const SideBar = (): JSX.Element => {
                 _hover={{ bg: 'none' }}
                 justifyContent={isCollapsed ? 'center' : 'flex-end'}
             />
+            <Box mb="30px">
+                {/* ToDo: Add this username value dynamically */}
+                {isCollapsed ? <UserCircle username="FN" /> : <UserCard />}
+            </Box>
 
             <Box>
                 <CollapseButtonLink
