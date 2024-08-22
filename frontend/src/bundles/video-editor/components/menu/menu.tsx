@@ -1,12 +1,31 @@
 import { Box, Flex, VStack } from '~/bundles/common/components/components.js';
+import { isEmptyArray, isNullOrUndefined } from '~/bundles/common/helpers/helpers.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import { type MenuItem } from '../../types/types.js';
 
 type MenuProperties = {
     items: MenuItem[];
+    activeIndex: number | null;
+    setActiveIndex: (index: number) => void;
 };
 
-const Menu: React.FC<MenuProperties> = ({ items }) => {
+const Menu: React.FC<MenuProperties> = ({ items, activeIndex, setActiveIndex }) => {
+    const handleClick = useCallback(
+        (index: number) => {
+            return () => {
+                if (isEmptyArray(items) || index >= items.length)
+                    {return;}
+
+                const item = items[index];
+                if(isNullOrUndefined(item)) {return;}
+
+                setActiveIndex(index);
+                item.onClick();
+            };
+        },
+        [setActiveIndex, items]
+    );
     return (
         <Box
             sx={{
@@ -26,7 +45,7 @@ const Menu: React.FC<MenuProperties> = ({ items }) => {
                 {items.map((item, index) => (
                     <Flex
                         key={index}
-                        onClick={item.onClick}
+                        onClick={handleClick(index)}
                         sx={{
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -35,6 +54,7 @@ const Menu: React.FC<MenuProperties> = ({ items }) => {
                             gap: 1,
                             cursor: 'pointer',
                             borderRadius: '8px',
+                            bg: activeIndex === index ? 'background.600' : 'transparent',
                             _hover: {
                                 bg: 'background.600',
                             },
