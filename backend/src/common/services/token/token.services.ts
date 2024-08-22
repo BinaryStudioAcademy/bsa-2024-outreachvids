@@ -28,7 +28,7 @@ class TokenService {
 
     public async getUserIdFromToken(token: string): Promise<number | null> {
         const payload = await this.verifyToken(token);
-        return (payload?.['userId'] as number) || null;
+        return (payload?.['userId'] as number) ?? null;
     }
 }
 
