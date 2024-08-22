@@ -18,7 +18,7 @@ const userSignUp = z
                 (value) =>
                     value.split(/\s+/).length >= 2,
                 {
-                    message: UserValidationMessage.NAME_MIN_TWO_WORDS,
+                    message: 'Full name should have a minimum of two words.',
                 },
             ),
         email: z
