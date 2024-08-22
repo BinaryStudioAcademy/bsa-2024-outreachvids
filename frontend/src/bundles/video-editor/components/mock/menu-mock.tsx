@@ -7,9 +7,7 @@ const TemplatesContent: React.FC = () => (
 const AvatarsContent: React.FC = () => <div>This is the Avatars content.</div>;
 const ScriptHeader: React.FC = () => (
     <Flex justifyContent={'space-between'} w={'280px'}>
-        <div>
-            Script
-        </div>
+        <div>Script</div>
         <div>
             <ChatGhptIcon />
         </div>

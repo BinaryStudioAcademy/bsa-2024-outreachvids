@@ -1,4 +1,10 @@
-import { AssetsIcon, AvatarIcon, ScriptIcon, TemplatesIcon, TextIcon } from '~/bundles/common/components/icons/icons.js';
+import {
+    AssetsIcon,
+    AvatarIcon,
+    ScriptIcon,
+    TemplatesIcon,
+    TextIcon,
+} from '~/bundles/common/components/icons/icons.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
 import { Menu, MenuBody } from '../components/components.js';
@@ -17,10 +23,15 @@ const VideoEditor: React.FC = () => {
     const [activeContent, setActiveContent] = useState<React.ReactNode | null>(
         null,
     );
-    const [activeTitle, setActiveTitle] = useState<string | React.ReactNode>('');
+    const [activeTitle, setActiveTitle] = useState<string | React.ReactNode>(
+        '',
+    );
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleMenuClick = (header: string | React.ReactNode, content: React.ReactNode): void => {
+    const handleMenuClick = (
+        header: string | React.ReactNode,
+        content: React.ReactNode,
+    ): void => {
         setActiveContent(content);
         setActiveTitle(header);
         setIsOpen(true);
@@ -61,8 +72,16 @@ const VideoEditor: React.FC = () => {
 
     return (
         <>
-            <Menu items={menuItems} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
-            <MenuBody title={activeTitle} isOpen={isOpen} onClose={resetActiveItem}>
+            <Menu
+                items={menuItems}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+            />
+            <MenuBody
+                title={activeTitle}
+                isOpen={isOpen}
+                onClose={resetActiveItem}
+            >
                 {activeContent}
             </MenuBody>
         </>
