@@ -14,13 +14,9 @@ const userSignUp = z
         fullName: z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
-            .refine(
-                (value) =>
-                    value.split(/\s+/).length >= 2,
-                {
-                    message: 'Full name should have a minimum of two words.',
-                },
-            ),
+            .refine((value) => value.split(/\s+/).length >= 2, {
+                message: 'Full name should have a minimum of two words.',
+            }),
         email: z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
