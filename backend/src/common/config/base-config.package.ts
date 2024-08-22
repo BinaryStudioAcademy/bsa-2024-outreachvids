@@ -41,6 +41,12 @@ class BaseConfig implements Config {
                     env: 'PORT',
                     default: null,
                 },
+                OPEN_AI_KEY: {
+                    doc: 'Key for Open Ai',
+                    format: String,
+                    env: 'OPEN_AI_KEY',
+                    default: null,
+                },
             },
             DB: {
                 CONNECTION_STRING: {
