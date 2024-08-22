@@ -16,7 +16,7 @@ const timeAxisMarkers: MarkerDefinition[] = [
 		value: hoursToMilliseconds(24),
 		getLabel: (date: Date) => format(date, 'E'),
 	},
-	{
+    {
 		value: hoursToMilliseconds(2),
 		minRangeSize: hoursToMilliseconds(24),
 		getLabel: (date: Date) => format(date, 'k'),
