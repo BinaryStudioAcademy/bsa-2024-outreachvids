@@ -85,6 +85,12 @@ const components = {
                     color: colors.brand.secondary[300],
                 },
             },
+            icon: {
+                color: colors.white,
+                bg: 'none',
+                _active: { bg: 'none' },
+                _hover: { bg: 'none' },
+            },
         },
     },
     Link: {
