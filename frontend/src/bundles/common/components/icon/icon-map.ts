@@ -1,10 +1,9 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
-
-import { HomeIcon, LogOutIcon } from './components/icons.js';
+import { faHouse, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const IconMap = {
-    HOME: HomeIcon,
-    LOG_OUT: LogOutIcon,
+    HOME: faHouse,
+    LOG_OUT: faRightFromBracket,
     ARROW_LEFT: ArrowLeftIcon,
     ARROW_RIGHT: ArrowRightIcon,
 } as const;

@@ -1,7 +1,6 @@
-import { useLocation } from 'react-router-dom';
-
 import { Link } from '~/bundles/common/components/components.js';
 import { type AppRoute } from '~/bundles/common/enums/enums.js';
+import { useLocation } from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import {

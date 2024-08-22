@@ -1,5 +1,4 @@
-import { useCallback, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
     Box,
@@ -10,6 +9,12 @@ import {
     Spacer,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
+import {
+    useCallback,
+    useLocation,
+    useNavigate,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { Size } from '../icon/icon.js';
@@ -23,7 +28,7 @@ const SideBar = (): JSX.Element => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
-    const toggle = useCallback(
+    const handleToggle = useCallback(
         (): void => setIsCollapsed(!isCollapsed),
         [isCollapsed],
     );
@@ -32,7 +37,7 @@ const SideBar = (): JSX.Element => {
         return pathname === page ? 'white' : 'background.600';
     };
 
-    const logOut = useCallback(() => {
+    const handleLogOut = useCallback(() => {
         //ToDo: log out user with token
         navigate(AppRoute.SIGN_IN);
     }, [navigate]);
@@ -49,7 +54,6 @@ const SideBar = (): JSX.Element => {
             pb="20px"
         >
             <IconButton
-                bg="none"
                 aria-label={isCollapsed ? 'expand' : 'collapse'}
                 icon={
                     isCollapsed ? (
@@ -58,18 +62,17 @@ const SideBar = (): JSX.Element => {
                         <Icon as={IconMap.ARROW_LEFT} />
                     )
                 }
-                mb="10px"
-                onClick={toggle}
-                _active={{ bg: 'none' }}
-                _hover={{ bg: 'none' }}
+                onClick={handleToggle}
                 justifyContent={isCollapsed ? 'center' : 'flex-end'}
+                variant="icon"
             />
 
             <Box>
                 <CollapseButtonLink
                     icon={
                         <Icon
-                            as={IconMap.HOME}
+                            as={FontAwesomeIcon}
+                            icon={IconMap.HOME}
                             boxSize={Size.LG}
                             color={activeIconPage('/')}
                         />
@@ -86,14 +89,15 @@ const SideBar = (): JSX.Element => {
                 color="brand.secondary.600"
                 icon={
                     <Icon
-                        as={IconMap.LOG_OUT}
+                        as={FontAwesomeIcon}
+                        icon={IconMap.LOG_OUT}
                         boxSize={Size.LG}
                         color="brand.secondary.600"
                     />
                 }
                 isCollapsed={isCollapsed}
                 label={'log out'}
-                handleClick={logOut}
+                handleClick={handleLogOut}
             />
         </Flex>
     );

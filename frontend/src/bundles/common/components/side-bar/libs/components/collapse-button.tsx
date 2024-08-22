@@ -3,21 +3,21 @@ import { type ReactElement } from 'react';
 import { Box } from '~/bundles/common/components/components.js';
 
 type Properties = {
-    bg?: string;
-    color?: string;
-    handleClick?: () => void;
     icon: ReactElement;
     isCollapsed: boolean;
     label: string;
+    bg?: string;
+    color?: string;
+    handleClick?: () => void;
 };
 
 const CollapseButton = ({
-    bg = 'none',
-    color = 'white',
-    handleClick = (): void => {},
     icon,
     isCollapsed,
     label,
+    bg = 'none',
+    color = 'white',
+    handleClick = (): void => {},
 }: Properties): JSX.Element => {
     return (
         <Box
