@@ -10,7 +10,6 @@ export { SideBar } from './side-bar/side-bar.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export { DownloadIcon } from '@chakra-ui/icons';
 export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-export { Icon } from '@chakra-ui/react';
 export {
     Box,
     Center,
@@ -20,6 +19,7 @@ export {
     FormControl,
     FormErrorMessage,
     Heading,
+    Icon,
     IconButton,
     InputGroup,
     InputRightElement,
