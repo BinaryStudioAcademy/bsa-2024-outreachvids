@@ -68,6 +68,32 @@ class BaseConfig implements Config {
                     default: null,
                 },
             },
+            AWS_S3: {
+                ACCESS_KEY_ID: {
+                    doc: 'AWS S3 access key id',
+                    format: String,
+                    env: 'AWS_S3_ACCESS_KEY_ID',
+                    default: null,
+                },
+                SECRET_ACCESS_KEY: {
+                    doc: 'AWS S3 access key id',
+                    format: String,
+                    env: 'AWS_S3_SECRET_ACCESS_KEY',
+                    default: null,
+                },
+                REGION: {
+                    doc: 'AWS S3 region',
+                    format: String,
+                    env: 'AWS_S3_REGION',
+                    default: null,
+                },
+                BUCKET_NAME: {
+                    doc: 'AWS S3 bucket name',
+                    format: String,
+                    env: 'AWS_S3_BUCKET_NAME',
+                    default: null,
+                },
+            },
         });
     }
 }
