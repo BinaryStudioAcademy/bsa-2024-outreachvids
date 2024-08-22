@@ -53,7 +53,7 @@ class AuthController extends BaseController {
      *                  format: email
      *                password:
      *                  type: string
-     *                name:
+     *                fullName:
      *                  type: string
      *      responses:
      *        201:
