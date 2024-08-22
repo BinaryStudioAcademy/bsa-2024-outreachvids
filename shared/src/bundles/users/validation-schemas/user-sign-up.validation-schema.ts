@@ -52,10 +52,6 @@ const userSignUp = z
                 message: UserValidationMessage.PASSWORD_LENGTH,
             }),
     })
-    .required()
-    .refine((data) => data.password === data.confirmPassword, {
-        message: UserValidationMessage.PASS_DONT_MATCH,
-        path: ['confirmPassword'],
-    });
+    .required();
 
 export { userSignUp };
