@@ -1,10 +1,6 @@
 import { Box, Flex, VStack } from '~/bundles/common/components/components.js';
 
-type MenuItem = {
-    label: string;
-    icon: React.ReactNode;
-    onClick: () => void;
-};
+import { type MenuItem } from '../../types/types.js';
 
 type MenuProperties = {
     items: MenuItem[];
@@ -12,20 +8,52 @@ type MenuProperties = {
 
 const Menu: React.FC<MenuProperties> = ({ items }) => {
     return (
-        <Box w="7%" h="100%" color="white" bg="background.900">
-            <VStack spacing={6} align="stretch" p={4} w="100%">
+        <Box
+            sx={{
+                position: 'fixed',
+                left: 0,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                h: 'auto',
+                w: '84px',
+                bg: 'background.900',
+                color: 'white',
+                borderTopRightRadius: 'xl',
+                borderBottomRightRadius: 'xl',
+            }}
+        >
+            <VStack spacing={1} align="stretch" p={2} w="100%">
                 {items.map((item, index) => (
                     <Flex
                         key={index}
-                        flexDirection="column"
-                        alignItems="center"
-                        padding={2}
-                        gap={1}
-                        cursor="pointer"
                         onClick={item.onClick}
+                        sx={{
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            p: 2,
+                            w: '66px',
+                            gap: 1,
+                            cursor: 'pointer',
+                            borderRadius: '8px',
+                            _hover: {
+                                bg: 'background.600',
+                            },
+                        }}
                     >
-                        {item.icon}
-                        <div>{item.label}</div>
+                        <Box
+                            sx={{
+                                fontSize: 'xl'
+                            }}
+                        >
+                            {item.icon}
+                        </Box>
+                        <Box
+                            sx={{
+                                fontSize: '12px'
+                            }}
+                        >
+                            {item.label}
+                        </Box>
                     </Flex>
                 ))}
             </VStack>
