@@ -1,5 +1,7 @@
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
 
+import { VideoCard } from '../video-card/video-card.js';
+
 const VideoSection: React.FC = () => {
     return (
         <>
@@ -8,12 +10,11 @@ const VideoSection: React.FC = () => {
                     Videos
                 </Heading>
                 <SimpleGrid minChildWidth="253px" spacing="20px">
-                    <Box bg="tomato" height="80px"></Box>
-                    <Box bg="tomato" height="80px"></Box>
-                    <Box bg="tomato" height="80px"></Box>
-                    <Box bg="tomato" height="80px"></Box>
-                    <Box bg="tomato" height="80px"></Box>
-                    <Box bg="tomato" height="80px"></Box>
+                    <VideoCard />
+                    <VideoCard />
+                    <VideoCard />
+                    <VideoCard />
+                    <VideoCard />
                 </SimpleGrid>
             </Box>
         </>
