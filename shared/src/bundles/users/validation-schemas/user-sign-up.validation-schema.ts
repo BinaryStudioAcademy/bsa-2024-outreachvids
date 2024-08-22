@@ -16,8 +16,7 @@ const userSignUp = z
             .trim()
             .refine(
                 (value) =>
-                    value.split(/\s+/).length >=
-                    UserValidationRule.FULL_NAME_MINIMUM_WORD_LENGTH,
+                    value.split(/\s+/).length >= 2,
                 {
                     message: UserValidationMessage.NAME_MIN_TWO_WORDS,
                 },
