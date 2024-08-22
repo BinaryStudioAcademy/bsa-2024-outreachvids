@@ -9,6 +9,7 @@ import {
     StoreProvider,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { Home } from '~/bundles/home/pages/home.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
 import { store } from '~/framework/store/store.js';
 import { theme } from '~/framework/theme/theme.js';
@@ -20,7 +21,7 @@ const routes = [
         children: [
             {
                 path: AppRoute.ROOT,
-                element: 'Root',
+                element: <Home />,
             },
             {
                 path: AppRoute.SIGN_IN,
