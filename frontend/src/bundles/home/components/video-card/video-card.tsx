@@ -1,8 +1,9 @@
-import { Box, Flex, Icon, Image, Text } from '@chakra-ui/react';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { faEllipsisVertical, faPen } from '@fortawesome/free-solid-svg-icons';
 
 import photo from '~/assets/img/photo.png';
+
+import { IconComponent } from './icon-component.js';
 
 const VideoCard: React.FC = () => {
     return (
@@ -25,29 +26,26 @@ const VideoCard: React.FC = () => {
                         borderRadius="5px"
                     />
 
-                    <Flex
-                        position="absolute"
+                    <IconComponent
+                        icon={faPen}
+                        buttonSize="48px"
+                        iconSize="20px"
+                        horizontalPosition="left"
+                        horizontalPositionValue="calc(50% - 12.5px)"
                         top="50%"
-                        left="50%"
                         transform="translate(-50%, -50%)"
-                        backgroundColor="white"
                         borderRadius="full"
-                        w="48px"
-                        h="48px"
-                        alignItems="center"
-                        justifyContent="center"
-                        opacity="0"
-                        transition="opacity 0.3s ease"
-                        _groupHover={{ opacity: 1 }}
-                    >
-                        <Icon
-                            as={FontAwesomeIcon}
-                            icon={faPen}
-                            height="20px"
-                            width="20px"
-                            color="background.600"
-                        />
-                    </Flex>
+                    />
+
+                    <IconComponent
+                        icon={faEllipsisVertical}
+                        buttonSize="20px"
+                        iconSize="10px"
+                        horizontalPosition="right"
+                        horizontalPositionValue="5px"
+                        top="5px"
+                        borderRadius="2px"
+                    />
                 </Box>
 
                 <Box padding="7px 10px 5px 5px">
