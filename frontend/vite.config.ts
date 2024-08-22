@@ -19,7 +19,34 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
             reactPlugin(),
             VitePWA({
                 registerType: 'autoUpdate',
-                devOptions: { enabled: true },
+                injectRegister: false,
+
+                pwaAssets: {
+                    disabled: false,
+                    config: true,
+                },
+
+                manifest: {
+                    name: 'OutreachVids',
+                    short_name: 'OV',
+                    description:
+                        'Create personalized sales videos using generated video content and AI-generated avatars.',
+                    theme_color: '#eb5500',
+                    background_color: '#0a0049',
+                },
+
+                workbox: {
+                    globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+                    cleanupOutdatedCaches: true,
+                    clientsClaim: true,
+                },
+
+                devOptions: {
+                    enabled: true,
+                    navigateFallback: 'index.html',
+                    suppressWarnings: true,
+                    type: 'module',
+                },
             }),
         ],
         server: {
