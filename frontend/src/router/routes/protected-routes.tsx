@@ -1,5 +1,4 @@
-import { Navigate } from 'react-router-dom';
-
+import { NotFound } from '~/bundles/common/components/not-found/not-found.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
 
@@ -16,7 +15,7 @@ const protectedRoutes = {
         },
         {
             path: AppRoute.ANY,
-            element: <Navigate to={AppRoute.ROOT} replace />,
+            element: <NotFound />,
         },
     ],
 };
