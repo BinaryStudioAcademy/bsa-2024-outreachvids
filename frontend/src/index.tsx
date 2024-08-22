@@ -9,6 +9,7 @@ import {
     StoreProvider,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { Studio } from '~/bundles/studio/pages/studio.js';
 import { store } from '~/framework/store/store.js';
 import { theme } from '~/framework/theme/theme.js';
 
@@ -28,6 +29,10 @@ const routes = [
             {
                 path: AppRoute.SIGN_UP,
                 element: <Auth />,
+            },
+            {
+                path: AppRoute.STUDIO,
+                element: <Studio />,
             },
         ],
     },
