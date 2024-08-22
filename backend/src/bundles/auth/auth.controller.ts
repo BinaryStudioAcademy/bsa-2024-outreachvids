@@ -55,6 +55,55 @@ class AuthController extends BaseController {
 
     /**
      * @swagger
+     * /auth/sign-in:
+     *    post:
+     *      description: Sign in user into the application
+     *      requestBody:
+     *        description: User auth data
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              properties:
+     *                email:
+     *                  type: string
+     *                  format: email
+     *                password:
+     *                  type: string
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  message:
+     *                    type: object
+     *                    $ref: '#/components/schemas/User'
+     *        400:
+     *          description: Failed operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                  type: object
+     *                  $ref: '#/components/schemas/Error'
+     */
+
+    private async signIn(
+        options: ApiHandlerOptions<{
+            body: UserSignInRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            payload: await this.authService.signIn(options.body),
+            status: HttpCode.OK,
+        };
+    }
+
+    /**
+     * @swagger
      * /auth/sign-up:
      *    post:
      *      description: Sign up user into the application
@@ -83,16 +132,7 @@ class AuthController extends BaseController {
      *                    type: object
      *                    $ref: '#/components/schemas/User'
      */
-    private async signIn(
-        options: ApiHandlerOptions<{
-            body: UserSignInRequestDto;
-        }>,
-    ): Promise<ApiHandlerResponse> {
-        return {
-            payload: await this.authService.signIn(options.body),
-            status: HttpCode.OK,
-        };
-    }
+
 
     private async signUp(
         options: ApiHandlerOptions<{
