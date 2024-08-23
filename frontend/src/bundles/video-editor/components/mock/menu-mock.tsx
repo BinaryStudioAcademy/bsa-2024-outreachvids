@@ -1,5 +1,9 @@
-import { Flex } from '~/bundles/common/components/components.js';
-import { ChatGhptIcon } from '~/bundles/common/components/icons/icons.js';
+import {
+    faCloudArrowUp,
+    Flex,
+    FontAwesomeIcon,
+    Icon,
+} from '~/bundles/common/components/components.js';
 
 const TemplatesContent: React.FC = () => (
     <div>This is the Templates content.</div>
@@ -9,7 +13,7 @@ const ScriptHeader: React.FC = () => (
     <Flex justifyContent={'space-between'} w={'280px'}>
         <div>Script</div>
         <div>
-            <ChatGhptIcon />
+            <Icon as={FontAwesomeIcon} icon={faCloudArrowUp} />
         </div>
     </Flex>
 );

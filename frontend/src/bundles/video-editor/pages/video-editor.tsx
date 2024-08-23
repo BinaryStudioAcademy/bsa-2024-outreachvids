@@ -1,10 +1,12 @@
 import {
-    AssetsIcon,
-    AvatarIcon,
-    ScriptIcon,
-    TemplatesIcon,
-    TextIcon,
-} from '~/bundles/common/components/icons/icons.js';
+    faCircleUser,
+    faCloudArrowUp,
+    faFont,
+    faT,
+    faTableColumns,
+    FontAwesomeIcon,
+    Icon,
+} from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
 import { Menu, MenuBody } from '../components/components.js';
@@ -45,27 +47,27 @@ const VideoEditor: React.FC = () => {
     const menuItems: MenuItem[] = [
         {
             label: 'Templates',
-            icon: <TemplatesIcon />,
+            icon: <Icon as={FontAwesomeIcon} icon={faTableColumns} />,
             onClick: () => handleMenuClick('Templates', <TemplatesContent />),
         },
         {
             label: 'Avatars',
-            icon: <AvatarIcon />,
+            icon: <Icon as={FontAwesomeIcon} icon={faCircleUser} />,
             onClick: () => handleMenuClick('Avatars', <AvatarsContent />),
         },
         {
             label: 'Script',
-            icon: <ScriptIcon />,
+            icon: <Icon as={FontAwesomeIcon} icon={faFont} />,
             onClick: () => handleMenuClick(<ScriptHeader />, <ScriptContent />),
         },
         {
             label: 'Text',
-            icon: <TextIcon />,
+            icon: <Icon as={FontAwesomeIcon} icon={faT} />,
             onClick: () => handleMenuClick('Text', <TextContent />),
         },
         {
             label: 'Assets',
-            icon: <AssetsIcon />,
+            icon: <Icon as={FontAwesomeIcon} icon={faCloudArrowUp} />,
             onClick: () => handleMenuClick('Assets', <AssetsContent />),
         },
     ];
