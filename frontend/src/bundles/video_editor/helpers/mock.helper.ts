@@ -1,16 +1,15 @@
 import { minutesToMilliseconds } from 'date-fns';
 import  { type ItemDefinition, type Range, type RowDefinition, type Span } from 'dnd-timeline';
-import { nanoid } from 'nanoid';
 
 const generateMockRows = (count: number): RowDefinition[] => {
 	const rows = [0];
 	rows.length = count;
 	rows.fill(0);
 	return rows
-		.map((): RowDefinition => {
+		.map((_, index): RowDefinition => {
 			const disabled = false;
 
-			let id = `row-${nanoid(4)}`;
+			let id = `${index + 1}`;
 			if (disabled) {
 				id += ' (disabled)';
 			}
@@ -53,14 +52,14 @@ const generateMockItems = (
 ): ItemDefinition[] => {
     const items = Array.from({ length: count }).fill(0);
 
-    return items.map((): ItemDefinition => {
+    return items.map((_, index): ItemDefinition => {
         const row = rows[Math.floor(Math.random() * rows.length)];
         const rowId = row?.id;
         const disabled = false;
 
         const span = generateRandomSpan(range);
 
-        let id = `item-${nanoid(4)}`;
+        let id = `${index + 1}`;
         if (disabled) {
             id += ' (disabled)';
         }
