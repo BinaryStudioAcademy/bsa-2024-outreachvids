@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { UserValidationMessage, UserValidationRule } from '../enums/enums.js';
 
 type UserSignUpRequestValidationDto = {
-    fullName: z.ZodEffects<z.ZodString, string, string>;
+    name: z.ZodString;
     email: z.ZodString;
     password: z.ZodString;
     confirmPassword: z.ZodString;
@@ -11,23 +11,20 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
     .object<UserSignUpRequestValidationDto>({
-        fullName: z
+        name: z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
-            .trim()
-            .refine((value) => value.split(/\s+/).length >= 2, {
-                message: 'Full name should have a minimum of two words.',
-            }),
+            .trim(),
         email: z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
             .min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
-                message: UserValidationMessage.EMAIL_WRONG,
+                message: UserValidationMessage.EMAIL_INVALID,
             })
             .max(UserValidationRule.EMAIL_MAXIMUM_LENGTH, {
-                message: UserValidationMessage.EMAIL_WRONG,
+                message: UserValidationMessage.EMAIL_INVALID,
             })
             .email({
-                message: UserValidationMessage.EMAIL_WRONG,
+                message: UserValidationMessage.EMAIL_INVALID,
             }),
         password: z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
@@ -48,6 +45,10 @@ const userSignUp = z
                 message: UserValidationMessage.PASSWORD_LENGTH,
             }),
     })
-    .required();
+    .required()
+    .refine((data) => data.password === data.confirmPassword, {
+        message: UserValidationMessage.PASS_DONT_MATCH,
+        path: ['confirmPassword'],
+    });
 
 export { userSignUp };
