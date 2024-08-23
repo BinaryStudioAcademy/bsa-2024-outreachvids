@@ -1,7 +1,11 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import photo from '~/assets/img/photo.png';
 import {
     Box,
     Flex,
+    Icon,
+    IconButton,
     Image,
     Text,
 } from '~/bundles/common/components/components.js';
@@ -9,8 +13,6 @@ import {
     faEllipsisVertical,
     faPen,
 } from '~/bundles/common/fa-icons/fa-icons.js';
-
-import { IconComponent } from './icon-component.js';
 
 const VideoCard: React.FC = () => {
     return (
@@ -32,25 +34,44 @@ const VideoCard: React.FC = () => {
                     borderRadius="5px"
                 />
 
-                <IconComponent
-                    icon={faPen}
-                    buttonSize="48px"
-                    iconSize="20px"
-                    horizontalPosition="left"
-                    horizontalPositionValue="calc(50% - 12.5px)"
-                    top="50%"
-                    transform="translate(-50%, -50%)"
-                    borderRadius="full"
+                <IconButton
+                    aria-label="Video options"
+                    position="absolute"
+                    bg="white"
+                    top="5px"
+                    right="5px"
+                    size="xs"
+                    opacity="0"
+                    transition="opacity 0.3s ease"
+                    _groupHover={{ opacity: 1 }}
+                    icon={
+                        <Icon
+                            as={FontAwesomeIcon}
+                            icon={faEllipsisVertical}
+                            color="background.600"
+                        />
+                    }
                 />
 
-                <IconComponent
-                    icon={faEllipsisVertical}
-                    buttonSize="20px"
-                    iconSize="10px"
-                    horizontalPosition="right"
-                    horizontalPositionValue="5px"
-                    top="5px"
-                    borderRadius="2px"
+                <IconButton
+                    aria-label="Edit video"
+                    isRound={true}
+                    size="lg"
+                    position="absolute"
+                    bg="white"
+                    top="50%"
+                    left="calc(50% - 12.5px)"
+                    transform="translate(-50%, -50%)"
+                    opacity="0"
+                    transition="opacity 0.3s ease"
+                    _groupHover={{ opacity: 1 }}
+                    icon={
+                        <Icon
+                            as={FontAwesomeIcon}
+                            icon={faPen}
+                            color="background.600"
+                        />
+                    }
                 />
             </Box>
 
