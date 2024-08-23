@@ -27,6 +27,8 @@
         "tsx": "4.17.0"
     },
     "dependencies": {
+        "@fastify/cookie": "9.4.0",
+        "@fastify/session": "10.9.0",
         "@fastify/static": "7.0.4",
         "@fastify/swagger": "8.15.0",
         "@fastify/swagger-ui": "4.0.1",
