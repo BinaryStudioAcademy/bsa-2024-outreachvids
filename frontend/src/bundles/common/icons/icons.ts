@@ -1,4 +1,8 @@
-export { DownloadIcon, ViewIcon, ViewOffIcon } from './chakra-icon/chakra-icon.js';
+export {
+    DownloadIcon,
+    ViewIcon,
+    ViewOffIcon,
+} from './chakra-icon/chakra-icon.js';
 export {
     faCircleUser,
     faCloudArrowUp,

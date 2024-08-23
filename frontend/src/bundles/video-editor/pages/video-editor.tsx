@@ -1,4 +1,7 @@
-import { FontAwesomeIcon, Icon } from '~/bundles/common/components/components.js';
+import {
+    FontAwesomeIcon,
+    Icon,
+} from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import {
     faCircleUser,
