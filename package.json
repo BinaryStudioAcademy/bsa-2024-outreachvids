@@ -19,9 +19,12 @@
         "lint:fs": "ls-lint",
         "lint:type": "npm run lint:type --workspaces --if-present",
         "lint:js": "npm run lint:js --workspaces --if-present -- --max-warnings=0",
+        "lint:js:fix": "eslint --fix \"**/*.{ts,tsx}\" --max-warnings=0",
         "lint:css": "npm run lint:css --workspaces --if-present",
+        "lint:css:fix": "stylelint --fix \"**/*.{scss,css}\"",
         "lint:format": "prettier --check \"**/*.{ts,tsx,json,md,scss,html,yml}\"",
         "lint": "npm run lint:editor && npm run lint:fs && npm run lint:format && npm run lint:type && npm run lint:js && npm run lint:css",
+        "lint:fix": "npm run lint:fix -w frontend && npm run lint:fix -w backend",
         "format": "prettier --write \"**/*.{ts,tsx,json,md,css,html,yml}\""
     },
     "devDependencies": {
