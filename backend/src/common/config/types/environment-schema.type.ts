@@ -12,6 +12,11 @@ type EnvironmentSchema = {
         POOL_MIN: number;
         POOL_MAX: number;
     };
+    AZURE: {
+        COGNITIVE_SERVICE_KEY: string;
+        COGNITIVE_SERVICE_ENDPOINT: string;
+        COGNITIVE_SERVICE_REGION: string;
+    };
 };
 
 export { type EnvironmentSchema };

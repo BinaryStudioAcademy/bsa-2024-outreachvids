@@ -68,6 +68,26 @@ class BaseConfig implements Config {
                     default: null,
                 },
             },
+            AZURE: {
+                COGNITIVE_SERVICE_KEY: {
+                    doc: 'Azure Cognitive Service API key',
+                    format: String,
+                    env: 'AZURE_COGNITIVE_SERVICE_KEY',
+                    default: null,
+                },
+                COGNITIVE_SERVICE_ENDPOINT: {
+                    doc: 'Azure Cognitive Service endpoint',
+                    format: String,
+                    env: 'AZURE_COGNITIVE_SERVICE_ENDPOINT',
+                    default: null,
+                },
+                COGNITIVE_SERVICE_REGION: {
+                    doc: 'Azure Cognitive Service region',
+                    format: String,
+                    env: 'AZURE_COGNITIVE_SERVICE_REGION',
+                    default: null,
+                },
+            },
         });
     }
 }
