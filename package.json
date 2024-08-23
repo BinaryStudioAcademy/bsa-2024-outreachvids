@@ -24,7 +24,7 @@
         "lint:css:fix": "stylelint --fix \"**/*.{scss,css}\"",
         "lint:format": "prettier --check \"**/*.{ts,tsx,json,md,scss,html,yml}\"",
         "lint": "npm run lint:editor && npm run lint:fs && npm run lint:format && npm run lint:type && npm run lint:js && npm run lint:css",
-        "lint:fix": "npm run lint:editor && npm run lint:fs && npm run lint:format && npm run lint:type && npm run lint:js:fix && npm run lint:css:fix",
+        "lint:fix": "npm run lint:fix -w frontend && npm run lint:fix -w backend",
         "format": "prettier --write \"**/*.{ts,tsx,json,md,css,html,yml}\""
     },
     "devDependencies": {
