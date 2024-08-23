@@ -1,7 +1,7 @@
 const ApiPath = {
     USERS: '/users',
     AUTH: '/auth',
-    OPEN_AI: '/openai',
+    CHAT: '/chat',
 } as const;
 
 export { ApiPath };
