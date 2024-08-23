@@ -47,6 +47,12 @@ class BaseConfig implements Config {
                     env: 'OPEN_AI_KEY',
                     default: null,
                 },
+                SESSION_KEY: {
+                    doc: 'Key for sessions',
+                    format: String,
+                    env: 'SESSION_KEY',
+                    default: null,
+                },
             },
             DB: {
                 CONNECTION_STRING: {
