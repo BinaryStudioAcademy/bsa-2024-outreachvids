@@ -1,17 +1,25 @@
+import { UserValidationMessage } from 'shared/src/bundles/users/users.js';
+
 import {
     Box,
     Button,
     FormProvider,
-    Heading,
     Input,
+    Link,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
+import {
+    useAppForm,
+    useAppSelector,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
 
+import { FormError, FormHeader, PasswordInput } from '../common/components.js';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 
 type Properties = {
@@ -19,34 +27,73 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
+    const { dataStatus } = useAppSelector(({ auth }) => ({
+        dataStatus: auth.dataStatus,
+    }));
     const form = useAppForm<UserSignUpRequestDto>({
         initialValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
         onSubmit,
     });
 
-    const { handleSubmit } = form;
+    const { handleSubmit, errors, values } = form;
+
+    const isEmpty = useMemo(
+        () => Object.values(values).some((value) => value.trim().length === 0),
+        [values],
+    );
 
     return (
         <FormProvider value={form}>
-            <Box bg="brand.200" w={64} p={6} rounded="md">
-                <Heading as="h1">Sign Up</Heading>
-
+            <Box w="55%" color="white">
+                <FormHeader
+                    headerText="Create an account"
+                    subheader={
+                        <>
+                            Already registerd?{' '}
+                            <Link to={AppRoute.SIGN_IN} variant="secondary">
+                                Log In
+                            </Link>
+                        </>
+                    }
+                />
                 <form onSubmit={handleSubmit}>
                     <VStack spacing={4} align="flex-start">
                         <Input
                             type="text"
-                            label="Email"
-                            placeholder="Enter your email"
-                            name="email"
+                            label="Full Name"
+                            placeholder="Name"
+                            name="name"
                         />
                         <Input
-                            type="password"
-                            label="Password"
-                            placeholder="Enter your password"
-                            name="password"
+                            type="email"
+                            label="Email"
+                            placeholder="user@gmail.com"
+                            name="email"
                         />
-                        <Button type="submit" label="Sign up" />
+                        <PasswordInput
+                            label="Password"
+                            name="password"
+                            hasError={Boolean(errors.password)}
+                        />
+                        <PasswordInput
+                            label="Repeat password"
+                            name="confirmPassword"
+                            hasError={Boolean(errors.confirmPassword)}
+                        />
+                        <FormError
+                            isVisible={dataStatus === DataStatus.REJECTED}
+                            message={
+                                UserValidationMessage.USER_IS_NOT_AVAILABLE
+                            }
+                        />
+                        <Button
+                            type="submit"
+                            label="Sign up"
+                            size="lg"
+                            sx={{ mt: '16px' }}
+                            isDisabled={isEmpty}
+                        />
                     </VStack>
                 </form>
             </Box>
