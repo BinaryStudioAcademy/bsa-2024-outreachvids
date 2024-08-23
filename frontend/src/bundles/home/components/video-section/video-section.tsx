@@ -6,7 +6,7 @@ import {
     SimpleGrid,
 } from '~/bundles/common/components/components.js';
 
-import { VideoCard } from '../video-card/video-card.js';
+import { VideoCard } from '../components.js';
 
 const VideoSection: React.FC = () => {
     return (

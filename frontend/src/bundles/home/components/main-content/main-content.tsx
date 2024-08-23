@@ -1,6 +1,6 @@
 import { Box } from '~/bundles/common/components/components.js';
 
-import { VideoSection } from '../video-section/video-section.js';
+import { VideoSection } from '../components.js';
 
 const MainContent: React.FC = () => {
     return (
