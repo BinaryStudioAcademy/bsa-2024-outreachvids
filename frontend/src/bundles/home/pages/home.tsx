@@ -4,13 +4,11 @@ import { MainContent } from '../components/components.js';
 
 const Home: React.FC = () => {
     return (
-        <>
-            <Box bg="background.900" height="100vh">
-                <Header />
-                {/* Sidebar */}
-                <MainContent />
-            </Box>
-        </>
+        <Box bg="background.900" height="100vh">
+            <Header />
+            {/* Sidebar */}
+            <MainContent />
+        </Box>
     );
 };
 
