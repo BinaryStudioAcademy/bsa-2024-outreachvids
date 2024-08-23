@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Badge, Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
 
 import { VideoCard } from '../video-card/video-card.js';
 
@@ -9,16 +9,14 @@ const VideoSection: React.FC = () => {
                 <Heading color="typography.900" variant="H3" marginRight="11px">
                     Videos
                 </Heading>
-                <Box
-                    w="34px"
-                    h="23px"
-                    bg="#D1D4DB"
+                <Badge
                     color="background.600"
-                    textAlign="center"
-                    borderRadius="3px"
+                    bg="#D1D4DB"
+                    fontWeight="400"
+                    padding="2px 10px"
                 >
                     23
-                </Box>
+                </Badge>
             </Flex>
             <SimpleGrid minChildWidth="253px" spacing="20px">
                 <VideoCard />
