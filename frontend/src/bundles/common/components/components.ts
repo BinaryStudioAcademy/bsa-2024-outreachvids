@@ -7,8 +7,6 @@ export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { VideoModal } from './video-modal/video-modal.js';
-export { DownloadIcon } from '@chakra-ui/icons';
-export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
     Box,
     Center,
@@ -28,13 +26,6 @@ export {
     Text,
     VStack,
 } from '@chakra-ui/react';
-export {
-    faCircleUser,
-    faCloudArrowUp,
-    faFont,
-    faT,
-    faTableColumns,
-} from '@fortawesome/free-solid-svg-icons';
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { FormikProvider as FormProvider } from 'formik';
 export { Provider as StoreProvider } from 'react-redux';

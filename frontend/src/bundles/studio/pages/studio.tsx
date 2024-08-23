@@ -1,9 +1,9 @@
 import {
     Button,
-    DownloadIcon,
     Header,
     IconButton,
 } from '~/bundles/common/components/components.js';
+import { DownloadIcon } from '~/bundles/common/icons/icons.js';
 
 const Studio: React.FC = () => {
     return (

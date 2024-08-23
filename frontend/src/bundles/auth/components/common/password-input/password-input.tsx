@@ -2,11 +2,10 @@ import {
     IconButton,
     Input,
     InputGroup,
-    InputRightElement,
-    ViewIcon,
-    ViewOffIcon,
+    InputRightElement
 } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import { ViewIcon, ViewOffIcon } from '~/bundles/common/icons/icons.js';
 
 type Properties = {
     label: string;

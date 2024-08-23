@@ -1,13 +1,12 @@
+import { FontAwesomeIcon, Icon } from '~/bundles/common/components/components.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import {
     faCircleUser,
     faCloudArrowUp,
     faFont,
     faT,
     faTableColumns,
-    FontAwesomeIcon,
-    Icon,
-} from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+} from '~/bundles/common/icons/icons.js';
 
 import { Menu, MenuBody } from '../components/components.js';
 import {

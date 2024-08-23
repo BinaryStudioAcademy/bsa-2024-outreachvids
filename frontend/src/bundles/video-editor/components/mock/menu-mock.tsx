@@ -1,9 +1,9 @@
 import {
-    faCloudArrowUp,
     Flex,
     FontAwesomeIcon,
     Icon,
 } from '~/bundles/common/components/components.js';
+import { faCloudArrowUp } from '~/bundles/common/icons/icons.js';
 
 const TemplatesContent: React.FC = () => (
     <div>This is the Templates content.</div>
