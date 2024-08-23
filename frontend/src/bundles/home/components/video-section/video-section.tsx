@@ -1,4 +1,10 @@
-import { Badge, Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
+import {
+    Badge,
+    Box,
+    Flex,
+    Heading,
+    SimpleGrid,
+} from '~/bundles/common/components/components.js';
 
 import { VideoCard } from '../video-card/video-card.js';
 

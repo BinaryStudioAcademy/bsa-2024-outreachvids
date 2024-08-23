@@ -1,6 +1,7 @@
-import { Flex, Icon } from '@chakra-ui/react';
 import { type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { Flex, Icon } from '~/bundles/common/components/components.js';
 
 type Properties = {
     icon: IconDefinition;

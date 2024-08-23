@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box } from '~/bundles/common/components/components.js';
 
 import { VideoSection } from '../video-section/video-section.js';
 

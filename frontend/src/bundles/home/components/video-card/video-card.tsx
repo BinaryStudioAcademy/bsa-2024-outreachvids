@@ -1,7 +1,12 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { faEllipsisVertical, faPen } from '@fortawesome/free-solid-svg-icons';
 
 import photo from '~/assets/img/photo.png';
+import {
+    Box,
+    Flex,
+    Image,
+    Text,
+} from '~/bundles/common/components/components.js';
 
 import { IconComponent } from './icon-component.js';
 
