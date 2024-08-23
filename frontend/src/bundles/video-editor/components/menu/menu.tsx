@@ -7,17 +7,13 @@ import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import { type MenuItem } from '../../types/types.js';
 
-type MenuProperties = {
+type Properties = {
     items: MenuItem[];
     activeIndex: number | null;
     setActiveIndex: (index: number) => void;
 };
 
-const Menu: React.FC<MenuProperties> = ({
-    items,
-    activeIndex,
-    setActiveIndex,
-}) => {
+const Menu: React.FC<Properties> = ({ items, activeIndex, setActiveIndex }) => {
     const handleClick = useCallback(
         (index: number) => {
             return () => {
