@@ -1,5 +1,3 @@
-import { faEllipsisVertical, faPen } from '@fortawesome/free-solid-svg-icons';
-
 import photo from '~/assets/img/photo.png';
 import {
     Box,
@@ -7,6 +5,10 @@ import {
     Image,
     Text,
 } from '~/bundles/common/components/components.js';
+import {
+    faEllipsisVertical,
+    faPen,
+} from '~/bundles/common/fa-icons/fa-icons.js';
 
 import { IconComponent } from './icon-component.js';
 
