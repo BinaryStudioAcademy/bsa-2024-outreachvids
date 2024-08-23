@@ -18,9 +18,17 @@ const Item = (properties: ItemProperties): JSX.Element => {
             <div style={itemContentStyle}>
                 <div
                     style={{
-                        border: '1px solid white',
                         width: '100%',
                         overflow: 'hidden',
+                        margin: '2px',
+                        borderRadius: '5px',
+                        backgroundColor: 'lightblue',
+                        color: 'darkblue',
+                        textAlign: 'center',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100%', 
                     }}
                 >
                     {properties.children}
