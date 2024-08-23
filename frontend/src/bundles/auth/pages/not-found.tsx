@@ -1,5 +1,6 @@
-import { Box, Center, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+
+import { Box, Center, Text } from '~/bundles/common/components/components.js';
 
 const NotFound: React.FC = () => {
     const circleAnimation = {
@@ -65,7 +66,7 @@ const NotFound: React.FC = () => {
                 </motion.svg>
                 <Text
                     fontSize="2xl"
-                    color="brand.secondary.900"
+                    color="white"
                     mt={4}
                     as="span"
                 >

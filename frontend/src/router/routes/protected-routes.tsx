@@ -1,4 +1,4 @@
-import { NotFound } from '~/bundles/common/components/components.js';
+import { NotFound } from '~/bundles/auth/pages/not-found.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
 
