@@ -8,7 +8,9 @@
     "scripts": {
         "lint:type": "npx tsc --noEmit",
         "lint:js": "npx eslint \"src/**/*.ts\"",
+        "lint:js:fix": "npx eslint --fix \"src/**/*.ts\"",
         "lint": "npm run lint:type && npm run lint:js",
+        "lint:fix": "npm run lint:type && npm run lint:js:fix",
         "start:dev": "nodemon --exec tsx src/index.ts",
         "migrate:dev": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:latest",
         "migrate:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:make -x ts",
