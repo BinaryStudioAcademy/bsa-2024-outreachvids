@@ -11,19 +11,21 @@ class FileService {
     private config: BaseConfig;
     private client: S3Client;
     private bucketName: string;
+    private cfDistributionId: string;
 
     public constructor(config: BaseConfig) {
         this.config = config;
 
         this.client = new S3Client({
             credentials: {
-                accessKeyId: this.config.ENV.AWS_S3.ACCESS_KEY_ID,
-                secretAccessKey: this.config.ENV.AWS_S3.SECRET_ACCESS_KEY,
+                accessKeyId: this.config.ENV.AWS.ACCESS_KEY_ID,
+                secretAccessKey: this.config.ENV.AWS.SECRET_ACCESS_KEY,
             },
-            region: this.config.ENV.AWS_S3.REGION,
+            region: this.config.ENV.AWS.S3.REGION,
         });
 
-        this.bucketName = this.config.ENV.AWS_S3.BUCKET_NAME;
+        this.bucketName = this.config.ENV.AWS.S3.BUCKET_NAME;
+        this.cfDistributionId = this.config.ENV.AWS.CLOUDFRONT.DISTRIBUTION_ID;
     }
 
     public uploadFile = async (
@@ -48,6 +50,10 @@ class FileService {
         return await getSignedUrl(this.client, getFileObject, {
             expiresIn: 3600,
         });
+    };
+
+    public getCloudFrontFileUrl = (fileName: string): string => {
+        return `https://${this.cfDistributionId}.cloudfront.net/${fileName}`;
     };
 }
 

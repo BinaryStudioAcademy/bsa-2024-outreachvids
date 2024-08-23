@@ -12,11 +12,16 @@ type EnvironmentSchema = {
         POOL_MIN: number;
         POOL_MAX: number;
     };
-    AWS_S3: {
+    AWS: {
         ACCESS_KEY_ID: string;
         SECRET_ACCESS_KEY: string;
-        REGION: string;
-        BUCKET_NAME: string;
+        S3: {
+            REGION: string;
+            BUCKET_NAME: string;
+        };
+        CLOUDFRONT: {
+            DISTRIBUTION_ID: string;
+        };
     };
 };
 

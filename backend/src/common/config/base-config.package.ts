@@ -68,30 +68,40 @@ class BaseConfig implements Config {
                     default: null,
                 },
             },
-            AWS_S3: {
+            AWS: {
                 ACCESS_KEY_ID: {
-                    doc: 'AWS S3 access key id',
+                    doc: 'AWS access key id',
                     format: String,
-                    env: 'AWS_S3_ACCESS_KEY_ID',
+                    env: 'AWS_ACCESS_KEY_ID',
                     default: null,
                 },
                 SECRET_ACCESS_KEY: {
-                    doc: 'AWS S3 access key id',
+                    doc: 'AWS secret access key',
                     format: String,
-                    env: 'AWS_S3_SECRET_ACCESS_KEY',
+                    env: 'AWS_SECRET_ACCESS_KEY',
                     default: null,
                 },
-                REGION: {
-                    doc: 'AWS S3 region',
-                    format: String,
-                    env: 'AWS_S3_REGION',
-                    default: null,
+                S3: {
+                    REGION: {
+                        doc: 'AWS S3 region',
+                        format: String,
+                        env: 'AWS_S3_REGION',
+                        default: null,
+                    },
+                    BUCKET_NAME: {
+                        doc: 'AWS S3 bucket name',
+                        format: String,
+                        env: 'AWS_S3_BUCKET_NAME',
+                        default: null,
+                    },
                 },
-                BUCKET_NAME: {
-                    doc: 'AWS S3 bucket name',
-                    format: String,
-                    env: 'AWS_S3_BUCKET_NAME',
-                    default: null,
+                CLOUDFRONT: {
+                    DISTRIBUTION_ID: {
+                        doc: 'AWS CloudFront distribution id',
+                        format: String,
+                        env: 'AWS_CLOUDFRONT_DISTRIBUTION_ID',
+                        default: null,
+                    },
                 },
             },
         });
