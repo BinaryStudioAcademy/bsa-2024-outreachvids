@@ -37,6 +37,17 @@ class ChatController extends BaseController {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: ChatPath.ROOT,
+            method: HTTPMethod.DELETE,
+            handler: (options) =>
+                this.clearChat(
+                    options as ApiHandlerOptions<{
+                        session: SessionChatHistory;
+                    }>,
+                ),
+        });
     }
 
     private async generateChatAnswer(
@@ -65,6 +76,18 @@ class ChatController extends BaseController {
 
         return {
             payload: generatedText,
+            status: HttpCode.OK,
+        };
+    }
+
+    private clearChat(
+        options: ApiHandlerOptions<{
+            session: SessionChatHistory;
+        }>,
+    ): ApiHandlerResponse {
+        this.openAIService.clearChatHistory(options.session);
+        return {
+            payload: true,
             status: HttpCode.OK,
         };
     }

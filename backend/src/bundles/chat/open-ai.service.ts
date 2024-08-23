@@ -8,6 +8,7 @@ import { type OpenAIRole } from './libs/enums/open-ai-role.enum.js';
 import {
     type Message,
     type OpenAIService as OpenAIServiceModule,
+    type SessionChatHistory,
 } from './libs/types/types.js';
 
 class OpenAIService implements OpenAIServiceModule {
@@ -36,6 +37,10 @@ class OpenAIService implements OpenAIServiceModule {
         };
 
         chatHistory.push(newUserMessage);
+    }
+
+    public clearChatHistory(session: SessionChatHistory): void {
+        session.chatHistory = [];
     }
 
     public async generateText(messages: Message[]): Promise<string> {
