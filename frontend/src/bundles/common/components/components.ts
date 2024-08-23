@@ -8,7 +8,6 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export { DownloadIcon } from '@chakra-ui/icons';
 export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-export { createIcon } from '@chakra-ui/react';
 export {
     Box,
     Center,
@@ -20,6 +19,7 @@ export {
     FormControl,
     FormErrorMessage,
     Heading,
+    Icon,
     IconButton,
     InputGroup,
     InputRightElement,
@@ -27,6 +27,14 @@ export {
     Text,
     VStack,
 } from '@chakra-ui/react';
+export {
+    faCircleUser,
+    faCloudArrowUp,
+    faFont,
+    faT,
+    faTableColumns,
+} from '@fortawesome/free-solid-svg-icons';
+export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { FormikProvider as FormProvider } from 'formik';
 export { Provider as StoreProvider } from 'react-redux';
 export { Outlet as RouterOutlet } from 'react-router-dom';
