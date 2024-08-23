@@ -1,5 +1,5 @@
 type UserSignUpRequestDto = {
-    fullName: string;
+    name: string;
     email: string;
     password: string;
     confirmPassword: string;
