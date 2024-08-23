@@ -1,8 +1,4 @@
 import { Box, Flex, VStack } from '~/bundles/common/components/components.js';
-import {
-    isEmptyArray,
-    isNullOrUndefined,
-} from '~/bundles/common/helpers/helpers.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import { type MenuItem } from '../../types/types.js';
@@ -17,12 +13,12 @@ const Menu: React.FC<Properties> = ({ items, activeIndex, setActiveIndex }) => {
     const handleClick = useCallback(
         (index: number) => {
             return () => {
-                if (isEmptyArray(items) || index >= items.length) {
+                if (!items || items.length === 0 || index >= items.length) {
                     return;
                 }
 
                 const item = items[index];
-                if (isNullOrUndefined(item)) {
+                if (!item) {
                     return;
                 }
 
