@@ -64,12 +64,7 @@ const NotFound: React.FC = () => {
                         />
                     </g>
                 </motion.svg>
-                <Text
-                    fontSize="2xl"
-                    color="white"
-                    mt={4}
-                    as="span"
-                >
+                <Text fontSize="2xl" color="white" mt={4} as="span">
                     [Page not found]
                 </Text>
             </Box>
