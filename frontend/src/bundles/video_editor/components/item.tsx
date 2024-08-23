@@ -21,7 +21,7 @@ const Item = (properties: ItemProperties): JSX.Element => {
                         width: '100%',
                         overflow: 'hidden',
                         margin: '2px',
-                        borderRadius: '5px',
+                        borderRadius: '15px',
                         backgroundColor: 'lightblue',
                         color: 'darkblue',
                         textAlign: 'center',
