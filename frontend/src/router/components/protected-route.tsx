@@ -1,13 +1,9 @@
-import { Navigate } from 'react-router-dom';
-
 import { RouterOutlet } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
-// import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import { Navigate } from '~/bundles/common/hooks/hooks.js';
 
 const ProtectedRoute: React.FC = () => {
-    // const user = useAppSelector((state) => state.auth.user);
-
-    // TODO: for implementing persistence. The following line is temporary
+    // TODO: When persistence is implemented, the user will be taken from the store. The following line is temporary
     const user = true;
 
     if (!user) {
