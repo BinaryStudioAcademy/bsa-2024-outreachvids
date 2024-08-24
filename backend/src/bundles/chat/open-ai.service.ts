@@ -66,7 +66,7 @@ class OpenAIService implements OpenAIServiceModule {
         let totalTokens = this.countTokens(messages);
 
         while (totalTokens > maxTokens) {
-            const removedMessage = messages[1];
+            const removedMessage = messages[0];
 
             if (!removedMessage) {
                 break;
