@@ -1,3 +1,5 @@
+import { type FastifySessionObject } from '@fastify/session';
+
 import {
     type ApiHandlerOptions,
     type ApiHandlerResponse,
@@ -7,11 +9,9 @@ import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
+import { MAX_TOKEN } from './libs/constants/max-token.constant.js';
 import { ChatPath, OpenAIRole } from './libs/enums/enums.js';
-import {
-    type GenerateTextRequestDto,
-    type SessionChatHistory,
-} from './libs/types/types.js';
+import { type GenerateTextRequestDto } from './libs/types/types.js';
 import { textGenerationValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 import { type OpenAIService } from './open-ai.service.js';
 
@@ -25,7 +25,7 @@ class ChatController extends BaseController {
 
         this.addRoute({
             path: ChatPath.ROOT,
-            method: HTTPMethod.POST,
+            method: HTTPMethod.PUT,
             validation: {
                 body: textGenerationValidationSchema,
             },
@@ -33,7 +33,7 @@ class ChatController extends BaseController {
                 this.generateChatAnswer(
                     options as ApiHandlerOptions<{
                         body: GenerateTextRequestDto;
-                        session: SessionChatHistory;
+                        session: FastifySessionObject;
                     }>,
                 ),
         });
@@ -44,16 +44,49 @@ class ChatController extends BaseController {
             handler: (options) =>
                 this.clearChat(
                     options as ApiHandlerOptions<{
-                        session: SessionChatHistory;
+                        session: FastifySessionObject;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: ChatPath.ROOT,
+            method: HTTPMethod.POST,
+            handler: (options) =>
+                this.deleteSession(
+                    options as ApiHandlerOptions<{
+                        session: FastifySessionObject;
                     }>,
                 ),
         });
     }
 
+    private deleteSession(
+        options: ApiHandlerOptions<{
+            session: FastifySessionObject;
+        }>,
+    ): ApiHandlerResponse {
+        const { session } = options;
+
+        session.destroy((error) => {
+            if (error) {
+                return {
+                    payload: false,
+                    status: HttpCode.INTERNAL_SERVER_ERROR,
+                };
+            }
+        });
+
+        return {
+            payload: true,
+            status: HttpCode.OK,
+        };
+    }
+
     private async generateChatAnswer(
         options: ApiHandlerOptions<{
             body: GenerateTextRequestDto;
-            session: SessionChatHistory;
+            session: FastifySessionObject;
         }>,
     ): Promise<ApiHandlerResponse> {
         const { body, session } = options;
@@ -63,6 +96,8 @@ class ChatController extends BaseController {
             body.message,
             OpenAIRole.USER,
         );
+
+        this.openAIService.deleteOldMessages(session.chatHistory, MAX_TOKEN);
 
         const generatedText = await this.openAIService.generateText(
             session.chatHistory,
@@ -82,10 +117,10 @@ class ChatController extends BaseController {
 
     private clearChat(
         options: ApiHandlerOptions<{
-            session: SessionChatHistory;
+            session: FastifySessionObject;
         }>,
     ): ApiHandlerResponse {
-        this.openAIService.clearChatHistory(options.session);
+        this.openAIService.clearChatHistory(options.session.chatHistory);
         return {
             payload: true,
             status: HttpCode.OK,
