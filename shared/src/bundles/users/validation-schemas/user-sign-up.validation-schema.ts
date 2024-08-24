@@ -50,12 +50,9 @@ const userSignUp = z
         message: UserValidationMessage.PASS_DONT_MATCH,
         path: ['confirmPassword'],
     })
-    .refine(
-        (data) => data.name.split(/\s+/).length >= 2,
-        {
-            message: UserValidationMessage.FULL_NAME_INVALID,
-            path: ['name'],
-        }
-    );
+    .refine((data) => data.name.split(/\s+/).length >= 2, {
+        message: UserValidationMessage.FULL_NAME_INVALID,
+        path: ['name'],
+    });
 
 export { userSignUp };
