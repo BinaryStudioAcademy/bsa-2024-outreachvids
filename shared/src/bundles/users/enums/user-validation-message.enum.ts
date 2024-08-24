@@ -9,7 +9,6 @@ const UserValidationMessage = {
     WRONG_CREDENTIALS: 'Email or password are incorrect',
     USER_IS_NOT_AVAILABLE:
         'User with this email already exists. Log in if it is you',
-    FULL_NAME_INVALID: 'Name must have at least two words',
 } as const;
 
 export { UserValidationMessage };
