@@ -72,7 +72,7 @@ class OpenAIService implements OpenAIServiceModule {
                 break;
             }
 
-            messages.splice(1, 1);
+            messages.splice(0, 1);
 
             totalTokens -= this.modelEncoding.encode(
                 removedMessage.content,
