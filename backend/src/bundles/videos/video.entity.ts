@@ -32,7 +32,7 @@ class VideoEntity implements Entity {
         name,
         url,
     }: {
-        id: string | null;
+        id: string;
         userId: string;
         name: string;
         url: string;
@@ -62,12 +62,30 @@ class VideoEntity implements Entity {
         });
     }
 
-    public toObject(): null {
-        return null;
+    public toObject(): {
+        id: string;
+        userId: string;
+        name: string;
+        url: string;
+    } {
+        return {
+            id: this.id as string,
+            userId: this.userId,
+            name: this.name,
+            url: this.url,
+        };
     }
 
-    public toNewObject(): null {
-        return null;
+    public toNewObject(): {
+        userId: string;
+        name: string;
+        url: string;
+    } {
+        return {
+            userId: this.userId,
+            name: this.name,
+            url: this.url,
+        };
     }
 }
 
