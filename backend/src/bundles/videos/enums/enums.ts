@@ -1,0 +1,1 @@
+export { VideoValidationMessage } from 'shared';

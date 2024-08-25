@@ -2,6 +2,7 @@ import { type VideoRepository } from '~/bundles/videos/video.repository.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
+import { VideoValidationMessage } from './enums/enums.js';
 import {
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
@@ -19,7 +20,7 @@ class VideoService implements Service {
 
         if (!video) {
             throw new HttpError({
-                message: 'Video with this id does not exist',
+                message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
                 status: HttpCode.BAD_REQUEST,
             });
         }
