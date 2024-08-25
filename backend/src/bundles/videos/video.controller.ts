@@ -9,6 +9,7 @@ import { HttpCode } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { VideosApiPath } from './enums/enums.js';
+import { type VideoGetOneRequestDto } from './types/types.js';
 
 class VideoController extends BaseController {
     private videoService: VideoService;
@@ -30,7 +31,7 @@ class VideoController extends BaseController {
             handler: (options) =>
                 this.find(
                     options as ApiHandlerOptions<{
-                        params: { videoId: string };
+                        params: VideoGetOneRequestDto;
                     }>,
                 ),
         });
@@ -45,7 +46,7 @@ class VideoController extends BaseController {
 
     private async find(
         options: ApiHandlerOptions<{
-            params: { videoId: string };
+            params: VideoGetOneRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
