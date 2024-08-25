@@ -21,8 +21,19 @@ class VideoRepository implements Repository {
         return videos.map((it) => VideoEntity.initialize(it));
     }
 
-    public create(entity: VideoEntity): Promise<VideoEntity> {
-        return Promise.resolve(entity);
+    public async create(entity: VideoEntity): Promise<VideoEntity> {
+        const { userId, name, url } = entity.toNewObject();
+        const item = await this.videoModel
+            .query()
+            .insert({
+                userId,
+                name,
+                url,
+            })
+            .returning('*')
+            .execute();
+
+        return VideoEntity.initialize(item);
     }
 
     public update(): ReturnType<Repository['update']> {
