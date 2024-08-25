@@ -5,3 +5,4 @@ export {
     type VideoGetAllResponseDto,
     type VideoGetOneRequestDto,
 } from './types/types.js';
+export { createVideo as createVideoValidationSchema } from './validation-schemas/validation-schemas.js';
