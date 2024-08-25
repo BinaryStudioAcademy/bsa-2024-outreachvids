@@ -1,5 +1,5 @@
 import { type VideoGetAllItemResponseDto } from './types.js';
 
-type VideoGetAllResponseDto = VideoGetAllItemResponseDto[];
+type VideoGetAllResponseDto = { items: VideoGetAllItemResponseDto[] };
 
 export { type VideoGetAllResponseDto };
