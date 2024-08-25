@@ -9,7 +9,11 @@ import { HttpCode } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { VideosApiPath } from './enums/enums.js';
-import { type VideoGetOneRequestDto } from './types/types.js';
+import {
+    type CreateVideoRequestDto,
+    type VideoGetOneRequestDto,
+} from './types/types.js';
+import { createVideoValidationSchema } from './validation-schemas/validation-schemas.js';
 
 class VideoController extends BaseController {
     private videoService: VideoService;
@@ -35,6 +39,20 @@ class VideoController extends BaseController {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: VideosApiPath.ROOT,
+            method: 'POST',
+            validation: {
+                body: createVideoValidationSchema,
+            },
+            handler: (options) =>
+                this.create(
+                    options as ApiHandlerOptions<{
+                        body: CreateVideoRequestDto;
+                    }>,
+                ),
+        });
     }
 
     private async findAll(): Promise<ApiHandlerResponse> {
@@ -52,6 +70,17 @@ class VideoController extends BaseController {
         return {
             status: HttpCode.OK,
             payload: await this.videoService.find(options.params.videoId),
+        };
+    }
+
+    private async create(
+        options: ApiHandlerOptions<{
+            body: CreateVideoRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.CREATED,
+            payload: await this.videoService.create(options.body),
         };
     }
 }

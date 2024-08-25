@@ -1,0 +1,1 @@
+export { createVideoValidationSchema } from 'shared';
