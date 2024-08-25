@@ -25,8 +25,8 @@ const getRandomInRange = (min: number, max: number): number => {
 	return Math.random() * (max - min) + min;
 };
 
-const DEFAULT_MIN_DURATION = minutesToMilliseconds(60);
-const DEFAULT_MAX_DURATION = minutesToMilliseconds(360);
+const DEFAULT_MIN_DURATION = minutesToMilliseconds(1);
+const DEFAULT_MAX_DURATION = minutesToMilliseconds(3);
 
 const generateRandomSpan = (
 	range: Range,
