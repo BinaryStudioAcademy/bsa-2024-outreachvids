@@ -1,9 +1,11 @@
+import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoRepository } from '~/bundles/videos/video.repository.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
 import { VideoValidationMessage } from './enums/enums.js';
 import {
+    type CreateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
 } from './types/types.js';
@@ -36,8 +38,14 @@ class VideoService implements Service {
         };
     }
 
-    public create(payload: null): ReturnType<Service['create']> {
-        return Promise.resolve(payload);
+    public async create(
+        payload: CreateVideoRequestDto,
+    ): Promise<VideoGetAllItemResponseDto> {
+        const video = await this.videoRepository.create(
+            VideoEntity.initializeNew(payload),
+        );
+
+        return video.toObject();
     }
 
     public update(): ReturnType<Service['update']> {
