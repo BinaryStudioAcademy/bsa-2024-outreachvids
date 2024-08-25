@@ -1,1 +1,1 @@
-export { VideoValidationMessage } from 'shared';
+export { VideosApiPath, VideoValidationMessage } from 'shared';

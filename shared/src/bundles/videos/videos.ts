@@ -1,4 +1,4 @@
-export { VideoValidationMessage } from './enums/enums.js';
+export { VideosApiPath, VideoValidationMessage } from './enums/enums.js';
 export {
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
