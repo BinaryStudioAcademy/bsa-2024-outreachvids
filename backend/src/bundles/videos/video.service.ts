@@ -6,6 +6,7 @@ import { type Service } from '~/common/types/types.js';
 import { VideoValidationMessage } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
+    type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
 } from './types/types.js';
@@ -50,7 +51,7 @@ class VideoService implements Service {
 
     public async update(
         videoId: string,
-        data: { userId?: string; name?: string; url?: string },
+        data: UpdateVideoRequestDto,
     ): Promise<VideoGetAllItemResponseDto> {
         const updatedVideo = await this.videoRepository.update(videoId, data);
 

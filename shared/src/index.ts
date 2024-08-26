@@ -13,6 +13,7 @@ export {
 } from './bundles/users/users.js';
 export {
     type CreateVideoRequestDto,
+    type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
     type VideoGetOneRequestDto,

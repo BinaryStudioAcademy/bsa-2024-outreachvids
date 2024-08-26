@@ -1,6 +1,7 @@
 export { VideosApiPath, VideoValidationMessage } from './enums/enums.js';
 export {
     type CreateVideoRequestDto,
+    type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
     type VideoGetOneRequestDto,

@@ -1,3 +1,4 @@
+import { type UpdateVideoRequestDto } from '~/bundles/videos/types/types.js';
 import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoModel } from '~/bundles/videos/video.model.js';
 import { type Repository } from '~/common/types/types.js';
@@ -38,7 +39,7 @@ class VideoRepository implements Repository {
 
     public async update(
         videoId: string,
-        data: { userId?: string; name?: string; url?: string },
+        data: UpdateVideoRequestDto,
     ): Promise<VideoEntity | null> {
         const updatedItem = await this.videoModel
             .query()
