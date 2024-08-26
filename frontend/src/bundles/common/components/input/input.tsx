@@ -15,7 +15,7 @@ type Properties<T extends FormValues> = {
     name: FieldInputProps<T>['name'];
     placeholder?: string;
     icon?: 'right' | 'none';
-    sx?: object
+    sx?: object;
 };
 
 const Input = <T extends FormValues>({
@@ -24,7 +24,7 @@ const Input = <T extends FormValues>({
     name,
     placeholder = '',
     icon = 'none',
-    sx = {}
+    sx = {},
 }: Properties<T>): JSX.Element => {
     const [field, meta] = useFormField({ name });
 
