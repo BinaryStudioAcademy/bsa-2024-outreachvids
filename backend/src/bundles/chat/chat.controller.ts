@@ -8,8 +8,8 @@ import {
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
+import { MAX_TOKEN } from '~/common/services/open-ai/libs/constants/constants.js';
 
-import { MAX_TOKEN } from '../../common/services/open-ai/libs/constants/max-token.constant.js';
 import {
     ChatPath,
     OpenAIRole,
