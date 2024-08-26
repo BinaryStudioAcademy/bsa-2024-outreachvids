@@ -49,8 +49,13 @@ class VideoRepository implements Repository {
         return updatedItem ? VideoEntity.initialize(updatedItem) : null;
     }
 
-    public delete(): ReturnType<Repository['delete']> {
-        return Promise.resolve(true);
+    public async delete(videoId: string): Promise<boolean> {
+        const numberOfDeletedRows = await this.videoModel
+            .query()
+            .deleteById(videoId)
+            .execute();
+
+        return Boolean(numberOfDeletedRows);
     }
 }
 
