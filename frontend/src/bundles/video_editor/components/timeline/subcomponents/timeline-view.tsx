@@ -69,19 +69,19 @@ interface TimelineProperties {
     items: ItemDefinition[];
 }
 
-const TimelineView = (properties: TimelineProperties): JSX.Element => {
+const TimelineView: React.FC<TimelineProperties> = ({ rows, items }) => {
     const { setTimelineRef, style, range } = useTimelineContext();
 
     const groupedSubrows = useMemo(
-        () => groupItemsToSubrows(properties.items, range),
-        [properties.items, range],
+        () => groupItemsToSubrows(items, range),
+        [items, range],
     );
     return (
         <div ref={setTimelineRef} style={style}>
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor />
 
-            {properties.rows.map((row) => (
+            {rows.map((row) => (
                 <Row id={row.id} key={row.id} >
                     {groupedSubrows[row.id]?.map((subrow, index) => (
                         <Subrow key={`${row.id}-${index}`}>
