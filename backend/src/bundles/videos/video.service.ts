@@ -48,8 +48,20 @@ class VideoService implements Service {
         return video.toObject();
     }
 
-    public update(): ReturnType<Service['update']> {
-        return Promise.resolve(null);
+    public async update(
+        videoId: string,
+        data: { userId?: string; name?: string; url?: string },
+    ): Promise<VideoGetAllItemResponseDto> {
+        const updatedVideo = await this.videoRepository.update(videoId, data);
+
+        if (!updatedVideo) {
+            throw new HttpError({
+                message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
+                status: HttpCode.BAD_REQUEST,
+            });
+        }
+
+        return updatedVideo.toObject();
     }
 
     public delete(): ReturnType<Service['delete']> {
