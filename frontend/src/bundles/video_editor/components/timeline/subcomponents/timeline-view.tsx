@@ -31,24 +31,24 @@ const timeAxisMarkers: MarkerDefinition[] = [
         value: minutesToMilliseconds(30),
         maxRangeSize: hoursToMilliseconds(24),
         minRangeSize: hoursToMilliseconds(12),
-        getLabel: (date: Date) => format(date, 'm'),
+        getLabel: (date: Date) => format(date, 'hh:mm'),
     },
     {
         value: minutesToMilliseconds(15),
         maxRangeSize: hoursToMilliseconds(12),
-        getLabel: (date: Date) => format(date, 'm'),
+        getLabel: (date: Date) => format(date, 'hh:mm'),
     },
     {
         value: minutesToMilliseconds(5),
         maxRangeSize: hoursToMilliseconds(6),
         minRangeSize: hoursToMilliseconds(3),
-        getLabel: (date: Date) => format(date, 'm'),
+        getLabel: (date: Date) => format(date, 'hh:mm'),
     },
     {
         value: minutesToMilliseconds(5),
         maxRangeSize: hoursToMilliseconds(3),
         minRangeSize: hoursToMilliseconds(1),
-        getLabel: (date: Date) => format(date, 'm'),
+        getLabel: (date: Date) => format(date, 'HH:mm'),
     },
     {
         value: secondsToMilliseconds(30),
