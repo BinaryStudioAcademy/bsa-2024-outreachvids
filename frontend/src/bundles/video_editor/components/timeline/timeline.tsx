@@ -3,13 +3,13 @@ import { useCallback, useState } from 'react';
 
 import { TimelineView } from './subcomponents/timeline-view.js';
 
-interface TimelineProperties {
+type Properties = {
 	initialRange: Range;
 	initialRows: RowDefinition[];
 	initialItems: ItemDefinition[];
-  }
+  };
 
-  const Timeline: React.FC<TimelineProperties> = ({ initialRange, initialRows, initialItems }) => {
+  const Timeline: React.FC<Properties> = ({ initialRange, initialRows, initialItems }) => {
 
 	const [range, setRange] = useState(initialRange);
 	const [rows] = useState(initialRows);
