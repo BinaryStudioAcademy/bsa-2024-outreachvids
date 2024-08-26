@@ -11,6 +11,7 @@ import { type Logger } from '~/common/logger/logger.js';
 import { VideosApiPath } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
+    type UpdateVideoRequestDto,
     type VideoGetOneRequestDto,
 } from './types/types.js';
 import { createVideoValidationSchema } from './validation-schemas/validation-schemas.js';
@@ -53,6 +54,19 @@ class VideoController extends BaseController {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: VideosApiPath.VIDEO,
+            method: 'PATCH',
+            validation: {},
+            handler: (options) =>
+                this.update(
+                    options as ApiHandlerOptions<{
+                        params: VideoGetOneRequestDto;
+                        body: UpdateVideoRequestDto;
+                    }>,
+                ),
+        });
     }
 
     private async findAll(): Promise<ApiHandlerResponse> {
@@ -81,6 +95,21 @@ class VideoController extends BaseController {
         return {
             status: HttpCode.CREATED,
             payload: await this.videoService.create(options.body),
+        };
+    }
+
+    private async update(
+        options: ApiHandlerOptions<{
+            params: VideoGetOneRequestDto;
+            body: UpdateVideoRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.videoService.update(
+                options.params.videoId,
+                options.body,
+            ),
         };
     }
 }
