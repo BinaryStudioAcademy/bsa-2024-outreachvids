@@ -96,10 +96,10 @@ class BaseConfig implements Config {
                     },
                 },
                 CLOUDFRONT: {
-                    DISTRIBUTION_ID: {
-                        doc: 'AWS CloudFront distribution id',
+                    DOMAIN_ID: {
+                        doc: 'AWS CloudFront domain id',
                         format: String,
-                        env: 'AWS_CLOUDFRONT_DISTRIBUTION_ID',
+                        env: 'AWS_CLOUDFRONT_DOMAIN_ID',
                         default: null,
                     },
                 },

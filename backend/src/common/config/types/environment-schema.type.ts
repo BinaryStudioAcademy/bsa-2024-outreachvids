@@ -20,7 +20,7 @@ type EnvironmentSchema = {
             BUCKET_NAME: string;
         };
         CLOUDFRONT: {
-            DISTRIBUTION_ID: string;
+            DOMAIN_ID: string;
         };
     };
 };
