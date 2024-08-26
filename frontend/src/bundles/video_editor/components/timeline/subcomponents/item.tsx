@@ -1,17 +1,17 @@
 import { type Span, useItem } from 'dnd-timeline';
 
-interface ItemProperties {
+type Properties = {
 	id: string;
 	span: Span;
 	children: React.ReactNode;
-}
-const Item = (properties: ItemProperties): JSX.Element => {
+};
+const Item = ({ id, span }: Properties): JSX.Element => {
     const { setNodeRef, attributes, listeners, itemStyle, itemContentStyle } =
         useItem({
-            id: properties.id,
-            span: properties.span,
+            id,
+            span,
         });
-
+        
     return (
         <div ref={setNodeRef} style={itemStyle} {...listeners} {...attributes}>
             <div style={itemContentStyle}>
