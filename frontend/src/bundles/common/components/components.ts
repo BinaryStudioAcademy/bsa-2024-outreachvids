@@ -1,4 +1,5 @@
 export { Button } from './button/button.js';
+export { CreateAvatar } from './create-avatar/create-avatar.js';
 export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
