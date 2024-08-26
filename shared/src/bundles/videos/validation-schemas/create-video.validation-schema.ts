@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { VideoValidationMessage } from '../enums/enums.js';
+
 type CreateVideoValidationDto = {
     userId: z.ZodString;
     name: z.ZodString;
@@ -9,19 +11,19 @@ type CreateVideoValidationDto = {
 const createVideo = z
     .object<CreateVideoValidationDto>({
         userId: z
-            .string({ required_error: 'User id is required' })
+            .string({ required_error: VideoValidationMessage.USER_ID_REQUIRE })
             .trim()
-            .uuid({ message: 'Invalid UUID' }),
+            .uuid({ message: VideoValidationMessage.UUID_WRONG }),
         name: z
-            .string({ required_error: 'The video name is required' })
+            .string({ required_error: VideoValidationMessage.NAME_REQUIRE })
             .trim()
             .min(1, {
-                message: 'The video name should have at least 1 character',
+                message: VideoValidationMessage.NAME_LENGTH,
             }),
         url: z
-            .string({ required_error: 'The video url is required' })
+            .string({ required_error: VideoValidationMessage.URL_REQUIRE })
             .trim()
-            .url({ message: 'Invalid url' }),
+            .url({ message: VideoValidationMessage.URL_WRONG }),
     })
     .required();
 
