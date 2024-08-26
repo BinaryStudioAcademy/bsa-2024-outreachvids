@@ -36,8 +36,16 @@ class VideoRepository implements Repository {
         return VideoEntity.initialize(item);
     }
 
-    public update(): ReturnType<Repository['update']> {
-        return Promise.resolve(null);
+    public async update(
+        videoId: string,
+        data: { userId?: string; name?: string; url?: string },
+    ): Promise<VideoEntity | null> {
+        const updatedItem = await this.videoModel
+            .query()
+            .patchAndFetchById(videoId, data)
+            .execute();
+
+        return updatedItem ? VideoEntity.initialize(updatedItem) : null;
     }
 
     public delete(): ReturnType<Repository['delete']> {

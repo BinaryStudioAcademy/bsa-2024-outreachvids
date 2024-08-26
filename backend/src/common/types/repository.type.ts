@@ -2,7 +2,7 @@ type Repository<T = unknown> = {
     find(id: string): Promise<T | null>;
     findAll(): Promise<T[]>;
     create(payload: unknown): Promise<T>;
-    update(): Promise<T>;
+    update(id: string, payload: unknown): Promise<T>;
     delete(): Promise<boolean>;
 };
 
