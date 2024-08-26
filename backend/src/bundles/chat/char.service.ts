@@ -27,10 +27,6 @@ class ChatService implements ChatServiceT {
         chatHistory.push(newUserMessage);
     }
 
-    public clearChatHistory(messages: Message[]): void {
-        messages.splice(0, messages.length);
-    }
-
     private countTokens(messages: Message[]): number {
         return messages.reduce(
             (sum, message) =>
@@ -39,22 +35,27 @@ class ChatService implements ChatServiceT {
         );
     }
 
-    public deleteOldMessages(messages: Message[], maxTokens: number): void {
+    public deleteOldMessages(
+        messages: Message[],
+        maxTokens: number,
+    ): Message[] {
         let totalTokens = this.countTokens(messages);
+        let updatedMessages = [...messages];
 
-        while (totalTokens > maxTokens) {
-            const removedMessage = messages[0];
+        while (totalTokens > maxTokens && updatedMessages.length > 0) {
+            const [removedMessage, ...rest] = updatedMessages;
+            updatedMessages = rest;
 
             if (!removedMessage) {
                 break;
             }
 
-            messages.splice(0, 1);
-
             totalTokens -= this.modelEncoding.encode(
                 removedMessage.content,
             ).length;
         }
+
+        return updatedMessages;
     }
 }
 
