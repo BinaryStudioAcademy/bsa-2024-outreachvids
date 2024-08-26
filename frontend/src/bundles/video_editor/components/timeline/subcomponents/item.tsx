@@ -5,13 +5,14 @@ type Properties = {
 	span: Span;
 	children: React.ReactNode;
 };
-const Item = ({ id, span }: Properties): JSX.Element => {
+
+const Item: React.FC<Properties> = ({ id, span, children }) => {
     const { setNodeRef, attributes, listeners, itemStyle, itemContentStyle } =
         useItem({
             id,
             span,
         });
-        
+
     return (
         <div ref={setNodeRef} style={itemStyle} {...listeners} {...attributes}>
             <div style={itemContentStyle}>
@@ -30,7 +31,7 @@ const Item = ({ id, span }: Properties): JSX.Element => {
                         height: '100%', 
                     }}
                 >
-                    {properties.children}
+                    {children}
                 </div>
             </div>
         </div>
