@@ -14,7 +14,10 @@ import {
     type UpdateVideoRequestDto,
     type VideoGetOneRequestDto,
 } from './types/types.js';
-import { createVideoValidationSchema } from './validation-schemas/validation-schemas.js';
+import {
+    createVideoValidationSchema,
+    updateVideoValidationSchema,
+} from './validation-schemas/validation-schemas.js';
 
 class VideoController extends BaseController {
     private videoService: VideoService;
@@ -58,7 +61,9 @@ class VideoController extends BaseController {
         this.addRoute({
             path: VideosApiPath.VIDEO,
             method: 'PATCH',
-            validation: {},
+            validation: {
+                body: updateVideoValidationSchema,
+            },
             handler: (options) =>
                 this.update(
                     options as ApiHandlerOptions<{

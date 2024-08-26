@@ -1,1 +1,4 @@
-export { createVideoValidationSchema } from 'shared';
+export {
+    createVideoValidationSchema,
+    updateVideoValidationSchema,
+} from 'shared';

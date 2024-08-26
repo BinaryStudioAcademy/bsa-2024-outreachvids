@@ -18,6 +18,7 @@ export {
     type VideoGetAllResponseDto,
     type VideoGetOneRequestDto,
     createVideoValidationSchema,
+    updateVideoValidationSchema,
     VideosApiPath,
     VideoValidationMessage,
 } from './bundles/videos/videos.js';
