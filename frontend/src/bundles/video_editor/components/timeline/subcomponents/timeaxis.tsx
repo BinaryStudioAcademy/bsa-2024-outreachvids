@@ -24,8 +24,7 @@ const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
     const side = direction === 'rtl' ? 'right' : 'left';
 
     const markers = useMemo(() => {
-        const sortedMarkers = [...properties.markers];
-        sortedMarkers.sort((a, b) => b.value - a.value);
+        const sortedMarkers = properties.markers.toSorted((a, b) => b.value - a.value);
         const delta = sortedMarkers.at(-1)?.value ?? 0;
         const rangeSize = range.end - range.start;
         const startTime = Math.floor(range.start / delta) * delta;
