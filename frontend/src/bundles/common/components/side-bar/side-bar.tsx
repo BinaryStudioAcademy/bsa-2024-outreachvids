@@ -5,7 +5,6 @@ import {
     Flex,
     Icon,
     IconButton,
-    IconMap,
     Spacer,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -15,10 +14,10 @@ import {
     useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { IconMap, Size } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { UserCard, UserCircle } from '~/bundles/users/components/components.js';
 
-import { Size } from '../icon/icon.js';
 import {
     CollapseButton,
     CollapseButtonLink,
