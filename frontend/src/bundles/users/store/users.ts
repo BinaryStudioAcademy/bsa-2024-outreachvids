@@ -1,9 +1,10 @@
-import { loadAll } from './actions.js';
+import { loadAll, loadCurrent } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
     loadAll,
+    loadCurrent,
 };
 
 export { allActions as actions };

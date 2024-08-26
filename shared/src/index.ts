@@ -2,6 +2,7 @@ export { AuthApiPath } from './bundles/auth/auth.js';
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetCurrentResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,

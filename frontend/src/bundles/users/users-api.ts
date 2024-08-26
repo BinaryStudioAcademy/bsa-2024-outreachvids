@@ -4,7 +4,10 @@ import { BaseHttpApi } from '~/framework/http-api/http-api.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
 import { UsersApiPath } from './enums/enums.js';
-import { type UserGetAllResponseDto } from './types/types.js';
+import {
+    type UserGetAllResponseDto,
+    type UserGetCurrentResponseDto,
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -28,6 +31,19 @@ class UserApi extends BaseHttpApi {
         );
 
         return await response.json<UserGetAllResponseDto>();
+    }
+
+    public async getCurrent(): Promise<UserGetCurrentResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(UsersApiPath.CURRENT, {}),
+            {
+                method: 'GET',
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+
+        return await response.json<UserGetCurrentResponseDto>();
     }
 }
 
