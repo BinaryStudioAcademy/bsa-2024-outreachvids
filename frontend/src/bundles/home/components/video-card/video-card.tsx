@@ -9,10 +9,7 @@ import {
     Image,
     Text,
 } from '~/bundles/common/components/components.js';
-import {
-    faEllipsisVertical,
-    faPen,
-} from '~/bundles/common/fa-icons/fa-icons.js';
+import { IconMap } from '~/bundles/common/icons/icons.js';
 
 const VideoCard: React.FC = () => {
     return (
@@ -47,7 +44,7 @@ const VideoCard: React.FC = () => {
                     icon={
                         <Icon
                             as={FontAwesomeIcon}
-                            icon={faEllipsisVertical}
+                            icon={IconMap.OPTIONS_VERTICAL}
                             color="background.600"
                         />
                     }
@@ -68,7 +65,7 @@ const VideoCard: React.FC = () => {
                     icon={
                         <Icon
                             as={FontAwesomeIcon}
-                            icon={faPen}
+                            icon={IconMap.PEN}
                             color="background.600"
                         />
                     }
