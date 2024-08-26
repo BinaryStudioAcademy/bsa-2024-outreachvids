@@ -1,7 +1,9 @@
 import { type ValueOf } from 'shared';
 import { type Tiktoken, encoding_for_model } from 'tiktoken';
 
-import { type OpenAIRole } from './libs/enums/open-ai-role.enum.js';
+import { CHAT_MODEL } from '~/common/services/open-ai/libs/constants/constants.js';
+import { type OpenAIRole } from '~/common/services/open-ai/libs/enums/enums.js';
+
 import {
     type ChatService as ChatServiceT,
     type Message,
@@ -11,7 +13,7 @@ class ChatService implements ChatServiceT {
     private modelEncoding: Tiktoken;
 
     public constructor() {
-        this.modelEncoding = encoding_for_model('gpt-4o-mini');
+        this.modelEncoding = encoding_for_model(CHAT_MODEL);
     }
 
     public addMessageToHistory(

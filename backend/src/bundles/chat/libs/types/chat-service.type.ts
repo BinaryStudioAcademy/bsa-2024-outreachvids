@@ -1,6 +1,7 @@
 import { type ValueOf } from 'shared';
 
-import { type OpenAIRole } from '../enums/enums.js';
+import { type OpenAIRole } from '~/common/services/open-ai/libs/enums/enums.js';
+
 import { type Message } from './message.type.js';
 
 type ChatService = {
