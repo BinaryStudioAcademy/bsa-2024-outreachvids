@@ -1,5 +1,4 @@
-import { type RowDefinition } from 'dnd-timeline';
-import { useRow } from 'dnd-timeline';
+import { type RowDefinition, useRow } from 'dnd-timeline';
 
 interface RowProperties extends RowDefinition {
 	children: React.ReactNode;

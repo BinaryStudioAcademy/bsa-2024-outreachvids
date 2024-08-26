@@ -1,5 +1,4 @@
-import { type Span } from 'dnd-timeline';
-import { useItem } from 'dnd-timeline';
+import { type Span, useItem } from 'dnd-timeline';
 
 interface ItemProperties {
 	id: string;
