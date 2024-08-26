@@ -39,11 +39,11 @@ class VideoRepository implements Repository {
 
     public async update(
         videoId: string,
-        data: UpdateVideoRequestDto,
+        payload: UpdateVideoRequestDto,
     ): Promise<VideoEntity | null> {
         const updatedItem = await this.videoModel
             .query()
-            .patchAndFetchById(videoId, data)
+            .patchAndFetchById(videoId, payload)
             .execute();
 
         return updatedItem ? VideoEntity.initialize(updatedItem) : null;

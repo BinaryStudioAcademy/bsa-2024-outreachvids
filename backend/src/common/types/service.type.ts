@@ -4,7 +4,7 @@ type Service<T = unknown> = {
         items: T[];
     }>;
     create(payload: unknown): Promise<T>;
-    update(id: string, data: unknown): Promise<T>;
+    update(id: string, payload: unknown): Promise<T>;
     delete(): Promise<boolean>;
 };
 

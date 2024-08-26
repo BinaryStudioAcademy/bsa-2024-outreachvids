@@ -51,9 +51,12 @@ class VideoService implements Service {
 
     public async update(
         videoId: string,
-        data: UpdateVideoRequestDto,
+        payload: UpdateVideoRequestDto,
     ): Promise<VideoGetAllItemResponseDto> {
-        const updatedVideo = await this.videoRepository.update(videoId, data);
+        const updatedVideo = await this.videoRepository.update(
+            videoId,
+            payload,
+        );
 
         if (!updatedVideo) {
             throw new HttpError({
