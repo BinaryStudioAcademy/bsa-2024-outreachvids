@@ -46,10 +46,21 @@ class ChatController extends BaseController {
         });
 
         this.addRoute({
-            path: ChatPath.ROOT,
+            path: ChatPath.CLEAR,
             method: HTTPMethod.DELETE,
             handler: (options) =>
                 this.clearChat(
+                    options as ApiHandlerOptions<{
+                        session: FastifySessionObject;
+                    }>,
+                ),
+        });
+
+        this.addRoute({
+            path: ChatPath.END,
+            method: HTTPMethod.DELETE,
+            handler: (options) =>
+                this.deleteSession(
                     options as ApiHandlerOptions<{
                         session: FastifySessionObject;
                     }>,
@@ -71,7 +82,10 @@ class ChatController extends BaseController {
             OpenAIRole.USER,
         );
 
-        this.chatService.deleteOldMessages(session.chatHistory, MAX_TOKEN);
+        session.chatHistory = this.chatService.deleteOldMessages(
+            session.chatHistory,
+            MAX_TOKEN,
+        );
 
         const generatedText = await this.openAIService.generateText(
             session.chatHistory,
@@ -94,7 +108,29 @@ class ChatController extends BaseController {
             session: FastifySessionObject;
         }>,
     ): ApiHandlerResponse {
-        this.chatService.clearChatHistory(options.session.chatHistory);
+        options.session.chatHistory = [];
+        return {
+            payload: true,
+            status: HttpCode.OK,
+        };
+    }
+
+    private deleteSession(
+        options: ApiHandlerOptions<{
+            session: FastifySessionObject;
+        }>,
+    ): ApiHandlerResponse {
+        const { session } = options;
+
+        session.destroy((error) => {
+            if (error) {
+                return {
+                    payload: false,
+                    status: HttpCode.INTERNAL_SERVER_ERROR,
+                };
+            }
+        });
+
         return {
             payload: true,
             status: HttpCode.OK,
