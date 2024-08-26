@@ -68,8 +68,8 @@ class VideoService implements Service {
         return updatedVideo.toObject();
     }
 
-    public delete(): ReturnType<Service['delete']> {
-        return Promise.resolve(true);
+    public async delete(videoId: string): Promise<boolean> {
+        return await this.videoRepository.delete(videoId);
     }
 }
 
