@@ -1,0 +1,1 @@
+export { chatFormValidationSchema } from 'shared';
