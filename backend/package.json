@@ -42,6 +42,7 @@
         "pino": "9.3.2",
         "pino-pretty": "10.3.1",
         "shared": "*",
-        "swagger-jsdoc": "6.2.8"
+        "swagger-jsdoc": "6.2.8",
+        "jose": "5.7.0"
     }
 }
