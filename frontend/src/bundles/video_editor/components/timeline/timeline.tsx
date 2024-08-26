@@ -24,14 +24,8 @@ type Properties = {
 		const activeItemId = event.active.id;
 
 		setItems((previous) =>
-			previous.map((item) => {
-				if (item.id !== activeItemId) {return item;}
-
-				return {
-					...item,
-					span: updatedSpan,
-				};
-			}),
+			previous.map((item) => item.id !== activeItemId ? item : 
+				{ ...item, span: updatedSpan}
 		);
 	}, []);
 	const onDragEnd = useCallback((event: DragEndEvent) => {
