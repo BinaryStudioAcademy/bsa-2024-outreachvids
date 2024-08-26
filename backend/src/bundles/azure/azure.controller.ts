@@ -51,17 +51,17 @@ class AzureController extends BaseController {
      *   get:
      *     summary: Get avatar configuration
      *     parameters:
-     *       - in: query
+     *       - in: body
      *         name: character
      *         required: true
      *         schema:
      *           type: string
-     *       - in: query
+     *       - in: body
      *         name: style
      *         required: true
      *         schema:
      *           type: string
-     *       - in: query
+     *       - in: body
      *         name: voiceName
      *         required: true
      *         schema:
@@ -81,13 +81,13 @@ class AzureController extends BaseController {
      *                 voiceName:
      *                   type: string
      */
-    private getAvatarConfig(
+    private async getAvatarConfig(
         options: ApiHandlerOptions<{ body: AzureGetAvatarRequestDto }>,
-    ): ApiHandlerResponse {
+    ): Promise<ApiHandlerResponse> {
         const { character, style, voiceName } = options.body;
 
         return {
-            payload: this.azureService.getAvatarConfig(
+            payload: await this.azureService.getAvatarConfig(
                 character,
                 style,
                 voiceName,

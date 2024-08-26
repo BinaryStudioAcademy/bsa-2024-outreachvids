@@ -16,6 +16,9 @@ type EnvironmentSchema = {
         COGNITIVE_SERVICE_KEY: string;
         COGNITIVE_SERVICE_ENDPOINT: string;
         COGNITIVE_SERVICE_REGION: string;
+        ICE_URL: string;
+        ICE_USERNAME: string;
+        ICE_CREDENTIALS: string;
     };
 };
 

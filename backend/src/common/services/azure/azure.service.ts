@@ -1,55 +1,68 @@
-import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
+import * as speechSDK from 'microsoft-cognitiveservices-speech-sdk';
 
 import { config } from '~/common/config/config.js';
 
 class AzureService {
-    private speechConfig: sdk.SpeechConfig;
+    private speechConfig: speechSDK.SpeechConfig;
 
     public constructor() {
         const key = config.ENV.AZURE.COGNITIVE_SERVICE_KEY;
         const region = config.ENV.AZURE.COGNITIVE_SERVICE_REGION;
 
-        this.speechConfig = sdk.SpeechConfig.fromSubscription(key, region);
+        this.speechConfig = speechSDK.SpeechConfig.fromSubscription(key, region);
     }
 
-    public getAvatar(
+    public async getAvatar(
         character: string,
         style: string,
         voiceName: string,
-    ): sdk.AvatarConfig {
+    ): Promise<speechSDK.AvatarSynthesizer> {
         this.speechConfig.speechSynthesisVoiceName = voiceName;
+        const iceUrl = config.ENV.AZURE.ICE_URL;
+        const iceUsername = config.ENV.AZURE.ICE_USERNAME;
+        const iceCredentials = config.ENV.AZURE.ICE_CREDENTIALS;
 
-        const videoFormat = new sdk.AvatarVideoFormat();
+        const videoFormat = new speechSDK.AvatarVideoFormat();
         videoFormat.setCropRange(
-            new sdk.Coordinate(600, 50),
-            new sdk.Coordinate(1320, 1080),
+            new speechSDK.Coordinate(600, 50),
+            new speechSDK.Coordinate(1320, 1080),
         );
 
-        const avatarConfig = new sdk.AvatarConfig(
+        const avatarConfig = new speechSDK.AvatarConfig(
             character,
             style,
             videoFormat,
         );
         avatarConfig.backgroundColor = '#FFFFFFFF';
+        const avatarSynthesizer = new speechSDK.AvatarSynthesizer(this.speechConfig, avatarConfig);
+        const peerConnection = new RTCPeerConnection({
+            iceServers: [{
+                urls: [iceUrl],
+                username: iceUsername,
+                credential: iceCredentials,
+            }]
+        });
 
-        return avatarConfig;
+        await avatarSynthesizer.startAvatarAsync(peerConnection);
+
+        return avatarSynthesizer;
     }
 
     public async textToSpeech(text: string): Promise<ArrayBuffer> {
         return new Promise((resolve, reject) => {
-            const synthesizer = new sdk.SpeechSynthesizer(this.speechConfig);
+            const synthesizer = new speechSDK.SpeechSynthesizer(this.speechConfig);
             synthesizer.speakTextAsync(
                 text,
                 (result) => {
                     if (
                         result.reason ===
-                        sdk.ResultReason.SynthesizingAudioCompleted
+                        speechSDK.ResultReason.SynthesizingAudioCompleted
                     ) {
                         resolve(result.audioData);
                     } else {
                         reject(
                             new Error(
-                                `Speech synthesis canceled, reason = ${sdk.ResultReason[result.reason]}`,
+                                `Speech synthesis canceled, reason = ${speechSDK.ResultReason[result.reason]}`,
                             ),
                         );
                     }

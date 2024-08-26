@@ -27,8 +27,6 @@
         "tsx": "4.17.0"
     },
     "dependencies": {
-        "@azure/cognitiveservices-computervision": "8.2.0",
-        "@azure/ms-rest-js": "2.7.0",
         "@fastify/static": "7.0.4",
         "@fastify/swagger": "8.15.0",
         "@fastify/swagger-ui": "4.0.1",

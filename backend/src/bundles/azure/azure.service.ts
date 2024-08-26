@@ -1,4 +1,4 @@
-import { type AvatarConfig } from 'microsoft-cognitiveservices-speech-sdk';
+import { type AvatarSynthesizer } from 'microsoft-cognitiveservices-speech-sdk';
 
 import { AzureService as BaseAzureService } from '~/common/services/azure/azure.service.js';
 
@@ -9,12 +9,12 @@ class AzureService {
         this.baseAzureService = new BaseAzureService();
     }
 
-    public getAvatarConfig(
+    public async getAvatarConfig(
         character: string,
         style: string,
         voiceName: string,
-    ): AvatarConfig {
-        return this.baseAzureService.getAvatar(character, style, voiceName);
+    ): Promise<AvatarSynthesizer> {
+        return await this.baseAzureService.getAvatar(character, style, voiceName);
     }
 
     public async textToSpeech(text: string): Promise<ArrayBuffer> {

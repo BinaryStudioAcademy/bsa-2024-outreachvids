@@ -87,6 +87,24 @@ class BaseConfig implements Config {
                     env: 'AZURE_COGNITIVE_SERVICE_REGION',
                     default: null,
                 },
+                ICE_URL: {
+                    doc: 'Azure Cognitive url to get avatar',
+                    format: String,
+                    env: 'ICE_URL',
+                    default: null,
+                },
+                ICE_USERNAME: {
+                    doc: 'Azure Cognitive username',
+                    format: String,
+                    env: 'ICE_USERNAME',
+                    default: null,
+                },
+                ICE_CREDENTIALS: {
+                    doc: 'Azure Cognitive Service credentials',
+                    format: String,
+                    env: 'ICE_CREDENTIALS',
+                    default: null,
+                },
             },
         });
     }
