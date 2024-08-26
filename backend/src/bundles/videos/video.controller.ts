@@ -72,6 +72,17 @@ class VideoController extends BaseController {
                     }>,
                 ),
         });
+
+        this.addRoute({
+            path: VideosApiPath.VIDEO,
+            method: 'DELETE',
+            handler: (options) =>
+                this.delete(
+                    options as ApiHandlerOptions<{
+                        params: VideoGetOneRequestDto;
+                    }>,
+                ),
+        });
     }
 
     private async findAll(): Promise<ApiHandlerResponse> {
@@ -115,6 +126,17 @@ class VideoController extends BaseController {
                 options.params.videoId,
                 options.body,
             ),
+        };
+    }
+
+    private async delete(
+        options: ApiHandlerOptions<{
+            params: VideoGetOneRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HttpCode.OK,
+            payload: await this.videoService.delete(options.params.videoId),
         };
     }
 }
