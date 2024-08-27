@@ -1,6 +1,7 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
@@ -127,6 +128,13 @@ class BaseServerApp implements ServerApp {
     private registerPlugins(): void {
         this.app.register(authenticateJWT, {
             routesWhiteList: WHITE_ROUTES,
+        });
+
+        this.app.register(fastifyMultipart, {
+            limits: {
+                fileSize: Number.POSITIVE_INFINITY,
+                files: 1,
+            },
         });
     }
 
