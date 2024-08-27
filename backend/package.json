@@ -29,6 +29,9 @@
         "tsx": "4.17.0"
     },
     "dependencies": {
+        "@aws-sdk/client-s3": "3.635.0",
+        "@aws-sdk/s3-request-presigner": "3.635.0",
+        "@fastify/multipart": "8.3.0",
         "@fastify/cookie": "9.4.0",
         "@fastify/session": "10.9.0",
         "@fastify/static": "7.0.4",
