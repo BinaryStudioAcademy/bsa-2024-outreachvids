@@ -4,22 +4,22 @@ import { useTimelineContext } from 'dnd-timeline';
 import { Box } from '~/bundles/common/components/components.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
 
-interface Marker {
+type Marker = {
     label?: string;
     sideDelta: number;
     heightMultiplier: number;
-}
+};
 
-interface MarkerDefinition {
+type MarkerDefinition = {
     value: number;
     maxRangeSize?: number;
     minRangeSize?: number;
     getLabel?: (time: Date) => string;
-}
+};
 
-interface TimeAxisProperties {
+type TimeAxisProperties = {
     markers: MarkerDefinition[];
-}
+};
 
 const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
     const { range, direction, sidebarWidth, valueToPixels } =

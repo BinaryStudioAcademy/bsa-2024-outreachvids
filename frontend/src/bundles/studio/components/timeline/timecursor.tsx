@@ -8,9 +8,9 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
-interface TimeCursorProperties {
+type TimeCursorProperties = {
     interval?: number;
-}
+};
 
 const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
     const timeCursorReference = useReference<HTMLDivElement>(null);

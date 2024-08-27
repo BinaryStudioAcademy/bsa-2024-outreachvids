@@ -1,10 +1,9 @@
 import { Box } from '~/bundles/common/components/components.js';
 
-interface SubrowProperties {
+type Properties = {
     children: React.ReactNode;
-}
-
-const Subrow = (properties: SubrowProperties): JSX.Element => {
+};
+const Subrow = (properties: Properties): JSX.Element => {
     return (
         <Box height="50px" position="relative">
             {properties.children}

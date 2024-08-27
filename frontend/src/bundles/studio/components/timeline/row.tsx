@@ -2,10 +2,11 @@ import { type RowDefinition, useRow } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
 
-interface RowProperties extends RowDefinition {
+type Properties = RowDefinition & {
     children: React.ReactNode;
-}
-const Row = (properties: RowProperties): JSX.Element => {
+};
+
+const Row = (properties: Properties): JSX.Element => {
     const { setNodeRef, rowWrapperStyle, rowStyle } = useRow({
         id: properties.id,
     });
