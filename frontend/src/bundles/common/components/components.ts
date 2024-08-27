@@ -6,8 +6,9 @@ export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { Stepper } from './stepper/stepper.js';
 export { VideoModal } from './video-modal/video-modal.js';
-export { DownloadIcon } from '@chakra-ui/icons';
+export { ArrowBackIcon, DownloadIcon } from '@chakra-ui/icons';
 export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
     Box,
@@ -18,6 +19,7 @@ export {
     FormControl,
     FormErrorMessage,
     Heading,
+    Icon,
     IconButton,
     InputGroup,
     InputRightElement,
