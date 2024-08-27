@@ -1,9 +1,7 @@
-import { Box, Flex } from '@chakra-ui/react';
-
 import { IconMap, Size } from '../../icons/icons.js';
-import { Header, Icon, IconButton } from '../components.js';
-import { Step } from './common/components/components.js';
-import { getStepStatus } from './common/helpers/helpers.js';
+import { Box, Flex, Header, Icon, IconButton } from '../components.js';
+import { Step } from './components/components.js';
+import { getStepStatus } from './helpers/helpers.js';
 
 type Properties = {
     steps: string[];
