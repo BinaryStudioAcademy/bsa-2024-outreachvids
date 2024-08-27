@@ -1,3 +1,3 @@
-const CHAT_MODEL = 'gpt-4o-mini' as const;
+const CHAT_MODEL = 'gpt-4o-mini';
 
 export { CHAT_MODEL };
