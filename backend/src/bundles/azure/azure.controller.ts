@@ -21,7 +21,7 @@ class AzureController extends BaseController {
         super(logger, ApiPath.AZURE);
 
         this.azureService = azureService;
-
+        
         this.addRoute({
             path: AzureApiPath.AVATAR,
             method: 'POST',

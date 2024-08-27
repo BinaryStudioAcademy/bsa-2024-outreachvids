@@ -35,6 +35,7 @@ class AzureService {
         );
         avatarConfig.backgroundColor = '#FFFFFFFF';
         const avatarSynthesizer = new speechSDK.AvatarSynthesizer(this.speechConfig, avatarConfig);
+
         const peerConnection = new RTCPeerConnection({
             iceServers: [{
                 urls: [iceUrl],
@@ -42,6 +43,8 @@ class AzureService {
                 credential: iceCredentials,
             }]
         });
+        peerConnection.addTransceiver('video', { direction: 'sendrecv' });
+        peerConnection.addTransceiver('audio', { direction: 'sendrecv' });
 
         await avatarSynthesizer.startAvatarAsync(peerConnection);
 
