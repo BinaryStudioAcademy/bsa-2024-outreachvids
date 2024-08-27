@@ -6,7 +6,7 @@ import { type ValueOf } from '~/bundles/common/types/types.js';
 import {
     type CollapseButtonProperties,
     CollapseButton,
-} from './collapse-button.js';
+} from '../collapse-button/collapse-button.js';
 
 type Properties = Omit<CollapseButtonProperties, 'bg' | 'handleClick'> & {
     to: ValueOf<typeof AppRoute>;

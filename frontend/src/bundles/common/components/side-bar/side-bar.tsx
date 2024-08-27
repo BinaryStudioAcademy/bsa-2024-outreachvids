@@ -14,14 +14,11 @@ import {
     useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { IconMap, Size } from '~/bundles/common/icons/icons.js';
+import { IconName, Size } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { UserCard, UserCircle } from '~/bundles/users/components/components.js';
 
-import {
-    CollapseButton,
-    CollapseButtonLink,
-} from './libs/components/components.js';
+import { CollapseButton, CollapseButtonLink } from './components/components.js';
 
 const SideBar = (): JSX.Element => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -56,11 +53,13 @@ const SideBar = (): JSX.Element => {
             <IconButton
                 aria-label={isCollapsed ? 'expand' : 'collapse'}
                 icon={
-                    isCollapsed ? (
-                        <Icon as={IconMap.ARROW_RIGHT} />
-                    ) : (
-                        <Icon as={IconMap.ARROW_LEFT} />
-                    )
+                    <Icon
+                        as={
+                            isCollapsed
+                                ? IconName.ARROW_RIGHT
+                                : IconName.ARROW_LEFT
+                        }
+                    />
                 }
                 onClick={handleToggle}
                 justifyContent={isCollapsed ? 'center' : 'flex-end'}
@@ -76,13 +75,13 @@ const SideBar = (): JSX.Element => {
                     icon={
                         <Icon
                             as={FontAwesomeIcon}
-                            icon={IconMap.HOME}
+                            icon={IconName.HOME}
                             boxSize={Size.LG}
-                            color={activeIconPage('/')}
+                            color={activeIconPage(AppRoute.ROOT)}
                         />
                     }
                     label="Home"
-                    to="/"
+                    to={AppRoute.ROOT}
                     isCollapsed={isCollapsed}
                 />
             </Box>
@@ -94,7 +93,7 @@ const SideBar = (): JSX.Element => {
                 icon={
                     <Icon
                         as={FontAwesomeIcon}
-                        icon={IconMap.LOG_OUT}
+                        icon={IconName.LOG_OUT}
                         boxSize={Size.LG}
                         color="brand.secondary.600"
                     />
