@@ -12,7 +12,6 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
 
     const side = direction === 'rtl' ? 'right' : 'left'; 
 
-    const isVisible = true;
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null); 
 
@@ -38,7 +37,6 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
         properties.interval,
         range.start,
         valueToPixels,
-        isVisible,
         cursorPosition,
     ]);
 
