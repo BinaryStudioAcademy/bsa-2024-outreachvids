@@ -1,7 +1,7 @@
 import { config } from '../config/config.js';
 import { CryptService } from './crypt/crypt.service.js';
-import { TokenService } from './token/token.services.js';
 import { FileService } from './file/file.service.js';
+import { TokenService } from './token/token.services.js';
 
 const cryptService = new CryptService();
 const fileService = new FileService(config);
