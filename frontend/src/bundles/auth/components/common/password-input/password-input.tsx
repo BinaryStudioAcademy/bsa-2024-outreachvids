@@ -39,7 +39,13 @@ const PasswordInput: React.FC<Properties> = ({ label, name, hasError }) => {
                     }
                     as={Icon}
                     icon={
-                        <Icon as={isPasswordVisible ? IconName.VIEW : IconName.VIEW_OFF} />
+                        <Icon
+                            as={
+                                isPasswordVisible
+                                    ? IconName.VIEW
+                                    : IconName.VIEW_OFF
+                            }
+                        />
                     }
                     onClick={handlePasswordIconClick}
                     variant="ghostIcon"
