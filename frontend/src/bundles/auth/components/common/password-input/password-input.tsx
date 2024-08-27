@@ -12,9 +12,15 @@ type Properties = {
     label: string;
     name: string;
     hasError: boolean;
+    required?: boolean;
 };
 
-const PasswordInput: React.FC<Properties> = ({ label, name, hasError }) => {
+const PasswordInput: React.FC<Properties> = ({
+    label,
+    name,
+    hasError,
+    required = false,
+}) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
     const handlePasswordIconClick = useCallback((): void => {
@@ -31,6 +37,7 @@ const PasswordInput: React.FC<Properties> = ({ label, name, hasError }) => {
                 placeholder="••••••••"
                 name={name}
                 icon="right"
+                required={required}
             />
             <InputRightElement top="unset" bottom={hasError ? '25px' : 0}>
                 <IconButton
