@@ -1,6 +1,7 @@
 import { minutesToMilliseconds } from 'date-fns';
 import { useTimelineContext } from 'dnd-timeline';
 
+import { Box } from '../../../../common/components/components.js';
 import { useMemo } from '../../../../common/hooks/hooks.js';
 
 interface Marker {
@@ -61,7 +62,7 @@ const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
     }, [range, valueToPixels, properties.markers]);
 
     return (
-        <div
+        <Box
             style={{
                 height: '20px',
                 position: 'relative',
@@ -70,7 +71,7 @@ const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
             }}
         >
             {markers.map((marker, index) => (
-                <div
+                <Box
                     key={`${marker.sideDelta}-${index}`}
                     style={{
                         position: 'absolute',
@@ -83,14 +84,14 @@ const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
                         [side]: `${marker.sideDelta}px`,
                     }}
                 >
-                    <div
+                    <Box
                         style={{
                             width: '1px',
                             height: `${100 * marker.heightMultiplier}%`,
                         }}
                     />
                     {marker.label ? (
-                        <div
+                        <Box
                             style={{
                                 paddingLeft: '3px',
                                 alignSelf: 'flex-start',
@@ -98,11 +99,11 @@ const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
                             }}
                         >
                             {marker.label}
-                        </div>
+                        </Box>
                     ) : null}
-                </div>
+                </Box>
             ))}
-        </div>
+        </Box>
     );
 };
 

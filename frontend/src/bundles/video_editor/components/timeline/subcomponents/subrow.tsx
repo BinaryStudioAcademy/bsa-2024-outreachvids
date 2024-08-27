@@ -1,3 +1,4 @@
+import { Box } from '../../../../common/components/components.js';
 
 interface SubrowProperties {
 	children: React.ReactNode;
@@ -5,7 +6,9 @@ interface SubrowProperties {
 
 const Subrow = (properties: SubrowProperties): JSX.Element => {
     return (
-        <div style={{ height: 50, position: 'relative' }}>{properties.children}</div>
+        <Box height="50px" position="relative">
+        {properties.children}
+    </Box>
     );
 };
 

@@ -1,5 +1,6 @@
 import { useTimelineContext } from 'dnd-timeline';
 
+import { Box } from '../../../../common/components/components.js';
 import { useCallback, useLayoutEffect, useRef as useReference, useState } from '../../../../common/hooks/hooks.js';
 
 interface TimeCursorProperties {
@@ -85,33 +86,29 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
     }, []);
 
     return (
-        <div
-            ref={timeCursorReference} 
-            style={{
-                height: '100%', 
-                width: '5px', 
-                zIndex: 3, 
-                backgroundColor: 'red',
-                position: 'absolute',
-                cursor: 'pointer',
-            }}
+        <Box
+            ref={timeCursorReference}
+            height="100%"
+            width="5px"
+            zIndex={3}
+            backgroundColor="red"
+            position="absolute"
+            cursor="pointer"
             role="button"
             tabIndex={0}
             onMouseDown={handleMouseDown}
         >
-            <div
-                style={{
-                    width: 0,
-                    height: 0,
-                    borderLeft: '5px solid transparent',
-                    borderRight: '5px solid transparent',
-                    borderBottom: '5px solid red',
-                    position: 'absolute',
-                    top: '-5px',
-                    left: '-2.5px',
-                }}
+            <Box
+                width={0}
+                height={0}
+                borderLeft="5px solid transparent"
+                borderRight="5px solid transparent"
+                borderBottom="5px solid red"
+                position="absolute"
+                top="-5px"
+                left="-2.5px"
             />
-        </div>
+        </Box>
     );
 };
 

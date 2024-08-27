@@ -1,5 +1,7 @@
 import { type Span, useItem } from 'dnd-timeline';
 
+import { Box, Flex } from '../../../../common/components/components.js';
+
 type Properties = {
 	id: string;
 	span: Span;
@@ -13,29 +15,26 @@ const Item: React.FC<Properties> = ({ id, span, children }) => {
             span,
         });
 
-    return (
-        <div ref={setNodeRef} style={itemStyle} {...listeners} {...attributes}>
-            <div style={itemContentStyle}>
-                <div
-                    style={{
-                        width: '100%',
-                        overflow: 'hidden',
-                        margin: '2px',
-                        borderRadius: '15px',
-                        backgroundColor: 'lightblue',
-                        color: 'darkblue',
-                        textAlign: 'center',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100%', 
-                    }}
-                >
-                    {children}
-                </div>
-            </div>
-        </div>
-    );
+        return (
+            <Box ref={setNodeRef} {...listeners} {...attributes} style={itemStyle}>
+                <Box style={itemContentStyle}>
+                    <Flex
+                        width="100%"
+                        overflow="hidden"
+                        margin="2px"
+                        borderRadius="15px"
+                        backgroundColor="lightblue"
+                        color="darkblue"
+                        textAlign="center"
+                        justifyContent="center"
+                        alignItems="center"
+                        height="100%"
+                    >
+                        {children}
+                    </Flex>
+                </Box>
+            </Box>
+        );
 };
 
 export { Item };
