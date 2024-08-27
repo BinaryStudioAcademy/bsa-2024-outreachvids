@@ -33,7 +33,6 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialRows, initialItem
             }),
         );
     }, []);
-	
     const onDragEnd = useCallback((event: DragEndEvent) => {
         const activeRowId = event.over?.id as string;
         const updatedSpan = event.active.data.current.getSpanFromDragEvent?.(event);
