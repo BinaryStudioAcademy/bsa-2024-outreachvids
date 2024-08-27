@@ -4,10 +4,10 @@ import {
     groupItemsToSubrows,
     useTimelineContext,
 } from 'dnd-timeline';
-import {} from 'dnd-timeline';
 
-import { useMemo } from '../../../../common/hooks/hooks.js';
-import { timeAxisMarkers } from '../../../helpers/time-axis-markers.js';
+import { useMemo } from '~/bundles/common/hooks/hooks.js';
+import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
+
 import { Item } from './item.js';
 import { Row } from './row.js';
 import { Subrow } from './subrow.js';

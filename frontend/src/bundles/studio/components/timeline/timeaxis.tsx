@@ -1,8 +1,8 @@
 import { minutesToMilliseconds } from 'date-fns';
 import { useTimelineContext } from 'dnd-timeline';
 
-import { Box } from '../../../../common/components/components.js';
-import { useMemo } from '../../../../common/hooks/hooks.js';
+import { Box } from '~/bundles/common/components/components.js';
+import { useMemo } from '~/bundles/common/hooks/hooks.js';
 
 interface Marker {
     label?: string;

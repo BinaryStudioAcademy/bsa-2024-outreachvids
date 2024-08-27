@@ -1,6 +1,6 @@
 import { type Span, useItem } from 'dnd-timeline';
 
-import { Box, Flex } from '../../../../common/components/components.js';
+import { Box, Flex } from '~/bundles/common/components/components.js';
 
 type Properties = {
     id: string;

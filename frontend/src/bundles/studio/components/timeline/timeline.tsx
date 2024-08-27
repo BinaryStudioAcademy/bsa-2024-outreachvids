@@ -7,8 +7,9 @@ import {
     TimelineContext,
 } from 'dnd-timeline';
 
-import { useCallback, useState } from '../../../common/hooks/hooks.js';
-import { TimelineView } from './subcomponents/timeline-view.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+
+import { TimelineView } from './timeline-view.js';
 
 type Properties = {
     initialRange: Range;

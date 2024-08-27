@@ -5,7 +5,7 @@ import {
     secondsToMilliseconds,
 } from 'date-fns';
 
-import { type MarkerDefinition } from '../components/timeline/subcomponents/timeaxis.js';
+import { type MarkerDefinition } from '~/bundles/studio/components/timeline/timeaxis.js';
 
 const timeAxisMarkers: MarkerDefinition[] = [
     {

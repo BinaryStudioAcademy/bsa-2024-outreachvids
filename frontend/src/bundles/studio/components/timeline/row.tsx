@@ -1,6 +1,6 @@
 import { type RowDefinition, useRow } from 'dnd-timeline';
 
-import { Box } from '../../../../common/components/components.js';
+import { Box } from '~/bundles/common/components/components.js';
 
 interface RowProperties extends RowDefinition {
     children: React.ReactNode;

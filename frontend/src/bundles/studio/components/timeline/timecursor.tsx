@@ -1,12 +1,12 @@
 import { useTimelineContext } from 'dnd-timeline';
 
-import { Box } from '../../../../common/components/components.js';
+import { Box } from '~/bundles/common/components/components.js';
 import {
     useCallback,
     useLayoutEffect,
     useRef as useReference,
     useState,
-} from '../../../../common/hooks/hooks.js';
+} from '~/bundles/common/hooks/hooks.js';
 
 interface TimeCursorProperties {
     interval?: number;
