@@ -41,7 +41,7 @@ const Step = ({
                             backgroundColor:
                                 step === 'completed' ? 'white' : '#35399a',
                             order: -1,
-                      }
+                        }
             }
         >
             <Box>{selectIcon(step)}</Box>
