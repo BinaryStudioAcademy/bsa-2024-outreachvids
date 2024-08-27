@@ -54,7 +54,7 @@ class AuthService {
     ): Promise<UserSignUpResponseDto> {
         const { email } = userRequestDto;
         const emailExists = await this.userService.findByEmail(email);
-        if(emailExists){
+        if (emailExists) {
             throw new HttpError({
                 message: UserValidationMessage.EMAIL_ALREADY_EXISTS,
                 status: HttpCode.BAD_REQUEST,
