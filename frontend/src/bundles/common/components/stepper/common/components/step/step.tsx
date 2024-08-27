@@ -32,15 +32,15 @@ const Step = ({
                 step === 'lastIncompleted' || step === 'lastCompleted'
                     ? {}
                     : {
-                          zIndex: -1,
-                          content: '\'\'',
-                          position: 'relative',
-                          top: '1.5rem',
-                          left: '50%',
-                          height: '2px',
-                          backgroundColor:
-                              step === 'completed' ? 'white' : '#35399a',
-                          order: -1,
+                            zIndex: -1,
+                            content: '\'\'',
+                            position: 'relative',
+                            top: '1.5rem',
+                            left: '50%',
+                            height: '2px',
+                            backgroundColor:
+                                step === 'completed' ? 'white' : '#35399a',
+                            order: -1,
                       }
             }
         >
