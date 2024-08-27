@@ -15,7 +15,7 @@ import {
     OpenAIRole,
 } from '../../common/services/open-ai/libs/enums/enums.js';
 import { type OpenAIService } from '../../common/services/open-ai/open-ai.service.js';
-import { type ChatService } from './char.service.js';
+import { type ChatService } from './chat.service.js';
 import { type GenerateTextRequestDto } from './libs/types/types.js';
 import { textGenerationValidationSchema } from './libs/validation-schemas/validation-schemas.js';
 
