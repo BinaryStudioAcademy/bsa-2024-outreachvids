@@ -12,9 +12,8 @@ type Properties = {
   const Timeline: React.FC<Properties> = ({ initialRange, initialRows, initialItems }) => {
 
 	const [range, setRange] = useState(initialRange);
-	const [rows] = useState(initialRows);
 	const [items, setItems] = useState(initialItems);
-
+	const rows = initialRows;
 	const onResizeEnd = useCallback((event: ResizeEndEvent) => {
 		const updatedSpan =
 			event.active.data.current.getSpanFromResizeEvent?.(event);
@@ -24,10 +23,17 @@ type Properties = {
 		const activeItemId = event.active.id;
 
 		setItems((previous) =>
-			previous.map((item) => item.id !== activeItemId ? item : 
-				{ ...item, span: updatedSpan}
+			previous.map((item) => {
+				if (item.id !== activeItemId) {return item;}
+
+				return {
+					...item,
+					span: updatedSpan,
+				};
+			}),
 		);
 	}, []);
+	
 	const onDragEnd = useCallback((event: DragEndEvent) => {
 		const activeRowId = event.over?.id as string;
 		const updatedSpan = event.active.data.current.getSpanFromDragEvent?.(event);
