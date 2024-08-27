@@ -71,6 +71,33 @@ class ChatController extends BaseController {
         });
     }
 
+    /**
+     * @swagger
+     * /chat/:
+     *    post:
+     *      description: Returns generated text by Open AI
+     *      requestBody:
+     *        description: User message
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              properties:
+     *                message:
+     *                  type: string
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  generatedText:
+     *                    type: string
+     */
+
     private async generateChatAnswer(
         options: ApiHandlerOptions<{
             body: GenerateTextRequestDto;
@@ -101,10 +128,30 @@ class ChatController extends BaseController {
         );
 
         return {
-            payload: generatedText,
+            payload: { generatedText },
             status: HttpCode.OK,
         };
     }
+
+    /**
+     * @swagger
+     * /chat/clear:
+     *    delete:
+     *      description: Clears chat history
+     *      requestBody:
+     *        description: User message
+     *        required: false
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  isCleared:
+     *                    type: boolean
+     */
 
     private clearChat(
         options: ApiHandlerOptions<{
@@ -113,11 +160,39 @@ class ChatController extends BaseController {
     ): ApiHandlerResponse {
         options.session.chatHistory = [];
         return {
-            payload: true,
+            payload: { isCleared: true },
             status: HttpCode.OK,
         };
     }
 
+    /**
+     * @swagger
+     * /chat/end:
+     *    delete:
+     *      description: Clears chat history
+     *      requestBody:
+     *        description: User message
+     *        required: false
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  isDeleted:
+     *                    type: boolean
+     *        500:
+     *          description: Failed operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                  type: object
+     *                  properties:
+     *                    isDeleted:
+     *                      type: boolean
+     */
     private deleteSession(
         options: ApiHandlerOptions<{
             session: FastifySessionObject;
@@ -128,14 +203,14 @@ class ChatController extends BaseController {
         session.destroy((error) => {
             if (error) {
                 return {
-                    payload: false,
+                    payload: { isDeleted: false },
                     status: HttpCode.INTERNAL_SERVER_ERROR,
                 };
             }
         });
 
         return {
-            payload: true,
+            payload: { isDeleted: true },
             status: HttpCode.OK,
         };
     }
