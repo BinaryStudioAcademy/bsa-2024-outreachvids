@@ -16,16 +16,19 @@ class FileService {
     public constructor(config: BaseConfig) {
         this.config = config;
 
-        this.client = new S3Client({
+        this.client = this.initClient();
+        this.bucketName = this.config.ENV.AWS.S3.BUCKET_NAME;
+        this.cfDistributionId = this.config.ENV.AWS.CLOUDFRONT.DOMAIN_ID;
+    }
+
+    private initClient(): S3Client {
+        return new S3Client({
             credentials: {
                 accessKeyId: this.config.ENV.AWS.ACCESS_KEY_ID,
                 secretAccessKey: this.config.ENV.AWS.SECRET_ACCESS_KEY,
             },
             region: this.config.ENV.AWS.S3.REGION,
         });
-
-        this.bucketName = this.config.ENV.AWS.S3.BUCKET_NAME;
-        this.cfDistributionId = this.config.ENV.AWS.CLOUDFRONT.DISTRIBUTION_ID;
     }
 
     public uploadFile = async (
