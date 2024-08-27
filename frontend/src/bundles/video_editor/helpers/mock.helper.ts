@@ -2,44 +2,44 @@ import { minutesToMilliseconds } from 'date-fns';
 import  { type ItemDefinition, type Range, type RowDefinition, type Span } from 'dnd-timeline';
 
 const generateMockRows = (count: number): RowDefinition[] => {
-	return Array.from({ length: count }).fill(0)
-		.map((_, index): RowDefinition => {
-			const disabled = false;
+    return Array.from({ length: count }).fill(0)
+        .map((_, index): RowDefinition => {
+            const disabled = false;
 
-			let id = `${index + 1}`;
-			if (disabled) {
-				id += ' (disabled)';
-			}
+            let id = `${index + 1}`;
+            if (disabled) {
+                id += ' (disabled)';
+            }
 
-			return {
-				id,
-				disabled,
-			};
-		});
+            return {
+                id,
+                disabled,
+            };
+        });
 };
 
 const getRandomInRange = (min: number, max: number): number => {
-	return Math.random() * (max - min) + min;
+    return Math.random() * (max - min) + min;
 };
 
 const DEFAULT_MIN_DURATION = minutesToMilliseconds(1);
 const DEFAULT_MAX_DURATION = minutesToMilliseconds(3);
 
 const generateRandomSpan = (
-	range: Range,
-	minDuration: number = DEFAULT_MIN_DURATION,
-	maxDuration: number = DEFAULT_MAX_DURATION,
+    range: Range,
+    minDuration: number = DEFAULT_MIN_DURATION,
+    maxDuration: number = DEFAULT_MAX_DURATION,
 ): Span => {
-	const duration = getRandomInRange(minDuration, maxDuration);
+    const duration = getRandomInRange(minDuration, maxDuration);
 
-	const start = getRandomInRange(range.start, range.end - duration);
+    const start = getRandomInRange(range.start, range.end - duration);
 
-	const end = start + duration;
+    const end = start + duration;
 
-	return {
-		start: start,
-		end: end,
-	};
+    return {
+        start: start,
+        end: end,
+    };
 };
 
 const generateMockItems = (

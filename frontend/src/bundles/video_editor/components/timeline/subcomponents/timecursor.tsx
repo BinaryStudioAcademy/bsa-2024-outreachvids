@@ -4,34 +4,34 @@ import { Box } from '../../../../common/components/components.js';
 import { useCallback, useLayoutEffect, useRef as useReference, useState } from '../../../../common/hooks/hooks.js';
 
 interface TimeCursorProperties {
-    interval?: number; 
+    interval?: number;
 }
 
 const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
-    const timeCursorReference = useReference<HTMLDivElement>(null); 
+    const timeCursorReference = useReference<HTMLDivElement>(null);
     const renderTimeReference = useReference(Date.now());
-    const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } = useTimelineContext(); 
+    const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } = useTimelineContext();
 
-    const side = direction === 'rtl' ? 'right' : 'left'; 
+    const side = direction === 'rtl' ? 'right' : 'left';
 
     const [isDragging, setIsDragging] = useState(false);
-    const [cursorPosition, setCursorPosition] = useState<number | null>(null); 
+    const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
     useLayoutEffect(() => {
         const offsetCursor = (): void => {
             if (!timeCursorReference.current || cursorPosition !== null) {
                 return;
             }
-            const timeDelta = Date.now() - renderTimeReference.current; 
-            const timeDeltaInPixels = valueToPixels(timeDelta); 
+            const timeDelta = Date.now() - renderTimeReference.current;
+            const timeDeltaInPixels = valueToPixels(timeDelta);
 
-            const sideDelta = sidebarWidth + timeDeltaInPixels; 
+            const sideDelta = sidebarWidth + timeDeltaInPixels;
             timeCursorReference.current.style[side] = `${sideDelta}px`;
         };
         offsetCursor();
         const interval = setInterval(offsetCursor, properties.interval || 1000);
         return () => {
-            clearInterval(interval); 
+            clearInterval(interval);
         };
     }, [
         side,
@@ -50,15 +50,15 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
                 return;
             }
 
-            const newCursorPosition = event.clientX - sidebarWidth; 
-            setCursorPosition(newCursorPosition); 
+            const newCursorPosition = event.clientX - sidebarWidth;
+            setCursorPosition(newCursorPosition);
         };
 
         const handleMouseUp = (event: MouseEvent): void => {
-            setIsDragging(false); 
+            setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
             renderTimeReference.current = Date.now() - pixelsToValue(newCursorPosition);
-            setCursorPosition(null); 
+            setCursorPosition(null);
         };
 
         if (isDragging) {
@@ -77,12 +77,12 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
 
     useLayoutEffect(() => {
         if (cursorPosition !== null && timeCursorReference.current) {
-            timeCursorReference.current.style[side] = `${cursorPosition + sidebarWidth}px`; 
+            timeCursorReference.current.style[side] = `${cursorPosition + sidebarWidth}px`;
         }
     }, [cursorPosition, side, sidebarWidth, timeCursorReference]);
 
     const handleMouseDown = useCallback(() => {
-        setIsDragging(true); 
+        setIsDragging(true);
     }, []);
 
     return (

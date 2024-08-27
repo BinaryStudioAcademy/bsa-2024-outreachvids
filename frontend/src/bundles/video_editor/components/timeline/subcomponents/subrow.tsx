@@ -1,7 +1,7 @@
 import { Box } from '../../../../common/components/components.js';
 
 interface SubrowProperties {
-	children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 const Subrow = (properties: SubrowProperties): JSX.Element => {

@@ -3,9 +3,9 @@ import { type Span, useItem } from 'dnd-timeline';
 import { Box, Flex } from '../../../../common/components/components.js';
 
 type Properties = {
-	id: string;
-	span: Span;
-	children: React.ReactNode;
+    id: string;
+    span: Span;
+    children: React.ReactNode;
 };
 
 const Item: React.FC<Properties> = ({ id, span, children }) => {
