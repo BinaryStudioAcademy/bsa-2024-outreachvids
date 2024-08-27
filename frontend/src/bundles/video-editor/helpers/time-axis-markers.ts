@@ -1,4 +1,9 @@
-import { format, hoursToMilliseconds, minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
+import {
+    format,
+    hoursToMilliseconds,
+    minutesToMilliseconds,
+    secondsToMilliseconds,
+} from 'date-fns';
 
 import { type MarkerDefinition } from '../components/timeline/subcomponents/timeaxis.js';
 

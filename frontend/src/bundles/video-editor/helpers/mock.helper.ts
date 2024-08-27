@@ -1,8 +1,14 @@
 import { minutesToMilliseconds } from 'date-fns';
-import  { type ItemDefinition, type Range, type RowDefinition, type Span } from 'dnd-timeline';
+import {
+    type ItemDefinition,
+    type Range,
+    type RowDefinition,
+    type Span,
+} from 'dnd-timeline';
 
 const generateMockRows = (count: number): RowDefinition[] => {
-    return Array.from({ length: count }).fill(0)
+    return Array.from({ length: count })
+        .fill(0)
         .map((_, index): RowDefinition => {
             const disabled = false;
 

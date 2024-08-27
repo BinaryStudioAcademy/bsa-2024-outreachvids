@@ -1,4 +1,11 @@
-import { type DragEndEvent, type ItemDefinition, type Range, type ResizeEndEvent,type RowDefinition, TimelineContext  } from 'dnd-timeline';
+import {
+    type DragEndEvent,
+    type ItemDefinition,
+    type Range,
+    type ResizeEndEvent,
+    type RowDefinition,
+    TimelineContext,
+} from 'dnd-timeline';
 
 import { useCallback, useState } from '../../../common/hooks/hooks.js';
 import { TimelineView } from './subcomponents/timeline-view.js';
@@ -7,10 +14,13 @@ type Properties = {
     initialRange: Range;
     initialRows: RowDefinition[];
     initialItems: ItemDefinition[];
-    };
+};
 
-const Timeline: React.FC<Properties> = ({ initialRange, initialRows, initialItems }) => {
-
+const Timeline: React.FC<Properties> = ({
+    initialRange,
+    initialRows,
+    initialItems,
+}) => {
     const [range, setRange] = useState(initialRange);
     const [items, setItems] = useState(initialItems);
     const rows = initialRows;
@@ -18,13 +28,17 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialRows, initialItem
         const updatedSpan =
             event.active.data.current.getSpanFromResizeEvent?.(event);
 
-        if (!updatedSpan) {return;}
+        if (!updatedSpan) {
+            return;
+        }
 
         const activeItemId = event.active.id;
 
         setItems((previous) =>
             previous.map((item) => {
-                if (item.id !== activeItemId) {return item;}
+                if (item.id !== activeItemId) {
+                    return item;
+                }
 
                 return {
                     ...item,
@@ -35,15 +49,20 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialRows, initialItem
     }, []);
     const onDragEnd = useCallback((event: DragEndEvent) => {
         const activeRowId = event.over?.id as string;
-        const updatedSpan = event.active.data.current.getSpanFromDragEvent?.(event);
+        const updatedSpan =
+            event.active.data.current.getSpanFromDragEvent?.(event);
 
-        if (!updatedSpan || !activeRowId) {return;}
+        if (!updatedSpan || !activeRowId) {
+            return;
+        }
 
         const activeItemId = event.active.id;
 
         setItems((previous) =>
             previous.map((item) => {
-                if (item.id !== activeItemId) {return item;}
+                if (item.id !== activeItemId) {
+                    return item;
+                }
 
                 return {
                     ...item,

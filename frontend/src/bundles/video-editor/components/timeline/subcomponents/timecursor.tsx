@@ -1,7 +1,12 @@
 import { useTimelineContext } from 'dnd-timeline';
 
 import { Box } from '../../../../common/components/components.js';
-import { useCallback, useLayoutEffect, useRef as useReference, useState } from '../../../../common/hooks/hooks.js';
+import {
+    useCallback,
+    useLayoutEffect,
+    useRef as useReference,
+    useState,
+} from '../../../../common/hooks/hooks.js';
 
 interface TimeCursorProperties {
     interval?: number;
@@ -10,7 +15,8 @@ interface TimeCursorProperties {
 const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
     const timeCursorReference = useReference<HTMLDivElement>(null);
     const renderTimeReference = useReference(Date.now());
-    const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } = useTimelineContext();
+    const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
+        useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
 
@@ -57,7 +63,8 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
         const handleMouseUp = (event: MouseEvent): void => {
             setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
-            renderTimeReference.current = Date.now() - pixelsToValue(newCursorPosition);
+            renderTimeReference.current =
+                Date.now() - pixelsToValue(newCursorPosition);
             setCursorPosition(null);
         };
 
@@ -73,11 +80,19 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [isDragging, sidebarWidth, side, pixelsToValue, renderTimeReference, timeCursorReference]);
+    }, [
+        isDragging,
+        sidebarWidth,
+        side,
+        pixelsToValue,
+        renderTimeReference,
+        timeCursorReference,
+    ]);
 
     useLayoutEffect(() => {
         if (cursorPosition !== null && timeCursorReference.current) {
-            timeCursorReference.current.style[side] = `${cursorPosition + sidebarWidth}px`;
+            timeCursorReference.current.style[side] =
+                `${cursorPosition + sidebarWidth}px`;
         }
     }, [cursorPosition, side, sidebarWidth, timeCursorReference]);
 

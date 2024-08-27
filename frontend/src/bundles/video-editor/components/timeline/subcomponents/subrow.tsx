@@ -7,8 +7,8 @@ interface SubrowProperties {
 const Subrow = (properties: SubrowProperties): JSX.Element => {
     return (
         <Box height="50px" position="relative">
-        {properties.children}
-    </Box>
+            {properties.children}
+        </Box>
     );
 };
 

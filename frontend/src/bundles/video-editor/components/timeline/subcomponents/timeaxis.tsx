@@ -22,23 +22,29 @@ interface TimeAxisProperties {
 }
 
 const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
-    const { range, direction, sidebarWidth, valueToPixels } = useTimelineContext();
+    const { range, direction, sidebarWidth, valueToPixels } =
+        useTimelineContext();
     const side = direction === 'rtl' ? 'right' : 'left';
 
     const markers = useMemo(() => {
-        const sortedMarkers = properties.markers.toSorted((a, b) => b.value - a.value);
+        const sortedMarkers = properties.markers.toSorted(
+            (a, b) => b.value - a.value,
+        );
         const delta = sortedMarkers.at(-1)?.value ?? 0;
         const rangeSize = range.end - range.start;
         const startTime = Math.floor(range.start / delta) * delta;
         const endTime = range.end;
-        const timezoneOffset = minutesToMilliseconds(new Date().getTimezoneOffset());
+        const timezoneOffset = minutesToMilliseconds(
+            new Date().getTimezoneOffset(),
+        );
         const markerSideDeltas: Marker[] = [];
 
         for (let time = startTime; time <= endTime; time += delta) {
             const multiplierIndex = sortedMarkers.findIndex(
                 (marker) =>
                     (time - timezoneOffset) % marker.value === 0 &&
-                    (!marker.maxRangeSize || rangeSize <= marker.maxRangeSize) &&
+                    (!marker.maxRangeSize ||
+                        rangeSize <= marker.maxRangeSize) &&
                     (!marker.minRangeSize || rangeSize >= marker.minRangeSize),
             );
 
@@ -67,7 +73,8 @@ const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
                 height: '20px',
                 position: 'relative',
                 overflow: 'hidden',
-                [side === 'right' ? 'marginRight' : 'marginLeft']: `${sidebarWidth}px`,
+                [side === 'right' ? 'marginRight' : 'marginLeft']:
+                    `${sidebarWidth}px`,
             }}
         >
             {markers.map((marker, index) => (

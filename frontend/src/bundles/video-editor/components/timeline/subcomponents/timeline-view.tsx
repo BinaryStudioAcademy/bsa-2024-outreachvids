@@ -1,5 +1,9 @@
-
-import  { type ItemDefinition, type RowDefinition, groupItemsToSubrows, useTimelineContext } from 'dnd-timeline';
+import {
+    type ItemDefinition,
+    type RowDefinition,
+    groupItemsToSubrows,
+    useTimelineContext,
+} from 'dnd-timeline';
 import {} from 'dnd-timeline';
 
 import { useMemo } from '../../../../common/hooks/hooks.js';
@@ -28,11 +32,15 @@ const TimelineView: React.FC<TimelineProperties> = ({ rows, items }) => {
             <TimeCursor />
 
             {rows.map((row) => (
-                <Row id={row.id} key={row.id} >
+                <Row id={row.id} key={row.id}>
                     {groupedSubrows[row.id]?.map((subrow, index) => (
                         <Subrow key={`${row.id}-${index}`}>
                             {subrow.map((item) => (
-                                <Item id={item.id} key={item.id} span={item.span}>
+                                <Item
+                                    id={item.id}
+                                    key={item.id}
+                                    span={item.span}
+                                >
                                     {`Item ${item.id}`}
                                 </Item>
                             ))}
