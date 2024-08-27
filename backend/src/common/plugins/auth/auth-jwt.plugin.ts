@@ -40,7 +40,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
             });
         }
 
-        const user = await userService.find(userId);
+        const user = await userService.findById(userId);
 
         if (!user) {
             throw new HttpError({
