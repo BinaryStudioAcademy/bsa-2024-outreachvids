@@ -7,7 +7,7 @@ import {
     faTableColumns,
 } from '@fortawesome/free-solid-svg-icons';
 
-const IconEnum = {
+const IconName = {
     DOWNLOAD: DownloadIcon,
     VIEW: ViewIcon,
     VIEW_OFF: ViewOffIcon,
@@ -18,4 +18,4 @@ const IconEnum = {
     TEXT: faT,
 } as const;
 
-export { IconEnum };
+export { IconName };

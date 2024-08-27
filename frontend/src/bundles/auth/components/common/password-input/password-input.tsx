@@ -6,7 +6,7 @@ import {
     InputRightElement,
 } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
-import { IconEnum } from '~/bundles/common/icons/icons.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 
 type Properties = {
     label: string;
@@ -39,7 +39,7 @@ const PasswordInput: React.FC<Properties> = ({ label, name, hasError }) => {
                     }
                     as={Icon}
                     icon={
-                        <Icon as={isPasswordVisible ? IconEnum.VIEW : IconEnum.VIEW_OFF} />
+                        <Icon as={isPasswordVisible ? IconName.VIEW : IconName.VIEW_OFF} />
                     }
                     onClick={handlePasswordIconClick}
                     variant="ghostIcon"
