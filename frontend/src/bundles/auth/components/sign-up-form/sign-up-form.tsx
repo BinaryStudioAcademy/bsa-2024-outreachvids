@@ -64,22 +64,26 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             label="Full Name"
                             placeholder="Name"
                             name="name"
+                            required={true}
                         />
                         <Input
                             type="email"
                             label="Email"
                             placeholder="user@gmail.com"
                             name="email"
+                            required={true}
                         />
                         <PasswordInput
                             label="Password"
                             name="password"
                             hasError={Boolean(errors.password)}
+                            required={true}
                         />
                         <PasswordInput
                             label="Repeat password"
                             name="confirmPassword"
                             hasError={Boolean(errors.confirmPassword)}
+                            required={true}
                         />
                         <FormError
                             isVisible={dataStatus === DataStatus.REJECTED}
