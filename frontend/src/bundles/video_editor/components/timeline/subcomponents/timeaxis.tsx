@@ -1,6 +1,7 @@
 import { minutesToMilliseconds } from 'date-fns';
 import { useTimelineContext } from 'dnd-timeline';
-import { useMemo } from 'react';
+
+import { useMemo } from '../../../../common/hooks/hooks.js';
 
 interface Marker {
     label?: string;

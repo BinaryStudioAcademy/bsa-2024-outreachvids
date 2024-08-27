@@ -1,13 +1,14 @@
 import { useTimelineContext } from 'dnd-timeline';
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+
+import { useCallback, useLayoutEffect, useRef as useReference, useState } from '../../../../common/hooks/hooks.js';
 
 interface TimeCursorProperties {
     interval?: number; 
 }
 
 const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
-    const timeCursorReference = useRef<HTMLDivElement>(null); 
-    const renderTimeReference = useRef(Date.now());
+    const timeCursorReference = useReference<HTMLDivElement>(null); 
+    const renderTimeReference = useReference(Date.now());
     const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } = useTimelineContext(); 
 
     const side = direction === 'rtl' ? 'right' : 'left'; 
@@ -38,6 +39,8 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
         range.start,
         valueToPixels,
         cursorPosition,
+        renderTimeReference,
+        timeCursorReference,
     ]);
 
     useLayoutEffect(() => {
@@ -69,17 +72,17 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [isDragging, sidebarWidth, side, pixelsToValue]);
+    }, [isDragging, sidebarWidth, side, pixelsToValue, renderTimeReference, timeCursorReference]);
 
     useLayoutEffect(() => {
         if (cursorPosition !== null && timeCursorReference.current) {
             timeCursorReference.current.style[side] = `${cursorPosition + sidebarWidth}px`; 
         }
-    }, [cursorPosition, side, sidebarWidth]);
+    }, [cursorPosition, side, sidebarWidth, timeCursorReference]);
 
     const handleMouseDown = useCallback(() => {
         setIsDragging(true); 
-        },[]);
+    }, []);
 
     return (
         <div
@@ -95,7 +98,6 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
             role="button"
             tabIndex={0}
             onMouseDown={handleMouseDown}
-
         >
             <div
                 style={{

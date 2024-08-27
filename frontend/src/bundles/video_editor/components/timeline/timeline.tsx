@@ -1,6 +1,6 @@
 import { type DragEndEvent, type ItemDefinition, type Range, type ResizeEndEvent,type RowDefinition, TimelineContext  } from 'dnd-timeline';
-import { useCallback, useState } from 'react';
 
+import { useCallback, useState } from '../../../common/hooks/hooks.js';
 import { TimelineView } from './subcomponents/timeline-view.js';
 
 type Properties = {
