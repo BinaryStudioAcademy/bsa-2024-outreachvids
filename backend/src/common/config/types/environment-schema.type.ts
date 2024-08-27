@@ -16,6 +16,17 @@ type EnvironmentSchema = {
         SECRET_KEY: string;
         EXPIRATION_TIME: string;
     };
+    AWS: {
+        ACCESS_KEY_ID: string;
+        SECRET_ACCESS_KEY: string;
+        S3: {
+            REGION: string;
+            BUCKET_NAME: string;
+        };
+        CLOUDFRONT: {
+            DOMAIN_ID: string;
+        };
+    };
 };
 
 export { type EnvironmentSchema };

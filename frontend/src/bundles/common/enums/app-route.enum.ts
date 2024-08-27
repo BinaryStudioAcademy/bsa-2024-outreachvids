@@ -3,6 +3,7 @@ const AppRoute = {
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
     STUDIO: '/studio',
+    ANY: '*',
 } as const;
 
 export { AppRoute };

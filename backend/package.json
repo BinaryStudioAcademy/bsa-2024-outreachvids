@@ -8,7 +8,9 @@
     "scripts": {
         "lint:type": "npx tsc --noEmit",
         "lint:js": "npx eslint \"src/**/*.ts\"",
+        "lint:js:fix": "npx eslint --fix \"src/**/*.ts\"",
         "lint": "npm run lint:type && npm run lint:js",
+        "lint:fix": "npm run lint:type && npm run lint:js:fix",
         "start:dev": "nodemon --exec tsx src/index.ts",
         "migrate:dev": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:latest",
         "migrate:dev:make": "node --loader ts-paths-esm-loader ../node_modules/knex/bin/cli.js migrate:make -x ts",
@@ -27,6 +29,9 @@
         "tsx": "4.17.0"
     },
     "dependencies": {
+        "@aws-sdk/client-s3": "3.635.0",
+        "@aws-sdk/s3-request-presigner": "3.635.0",
+        "@fastify/multipart": "8.3.0",
         "@fastify/static": "7.0.4",
         "@fastify/swagger": "8.15.0",
         "@fastify/swagger-ui": "4.0.1",
