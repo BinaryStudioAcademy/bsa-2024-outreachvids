@@ -9,7 +9,7 @@ import {
     Image,
     Text,
 } from '~/bundles/common/components/components.js';
-import { IconMap } from '~/bundles/common/icons/icons.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 
 const VideoCard: React.FC = () => {
     return (
@@ -44,7 +44,7 @@ const VideoCard: React.FC = () => {
                     icon={
                         <Icon
                             as={FontAwesomeIcon}
-                            icon={IconMap.OPTIONS_VERTICAL}
+                            icon={IconName.OPTIONS_VERTICAL}
                             color="background.600"
                         />
                     }
@@ -65,7 +65,7 @@ const VideoCard: React.FC = () => {
                     icon={
                         <Icon
                             as={FontAwesomeIcon}
-                            icon={IconMap.PEN}
+                            icon={IconName.PEN}
                             color="background.600"
                         />
                     }
