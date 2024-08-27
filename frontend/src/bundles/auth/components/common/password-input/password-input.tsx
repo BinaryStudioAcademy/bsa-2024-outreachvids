@@ -44,7 +44,6 @@ const PasswordInput: React.FC<Properties> = ({
                     aria-label={
                         isPasswordVisible ? 'Hide password' : 'Show password'
                     }
-                    as={Icon}
                     icon={
                         <Icon
                             as={
