@@ -8,7 +8,7 @@ export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Stepper } from './stepper/stepper.js';
 export { VideoModal } from './video-modal/video-modal.js';
-export { ArrowBackIcon, DownloadIcon } from '@chakra-ui/icons';
+export { DownloadIcon } from '@chakra-ui/icons';
 export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
     Box,
