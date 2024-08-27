@@ -49,18 +49,7 @@ class ChatController extends BaseController {
         });
 
         this.addRoute({
-            path: ChatPath.CLEAR,
-            method: HTTPMethod.DELETE,
-            handler: (options) =>
-                this.clearChat(
-                    options as ApiHandlerOptions<{
-                        session: FastifySessionObject;
-                    }>,
-                ),
-        });
-
-        this.addRoute({
-            path: ChatPath.END,
+            path: ChatPath.ROOT,
             method: HTTPMethod.DELETE,
             handler: (options) =>
                 this.deleteSession(
@@ -106,7 +95,7 @@ class ChatController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         const { body, session } = options;
 
-        this.chatService.addMessageToHistory(
+        session.chatHistory = this.chatService.addMessageToHistory(
             session.chatHistory,
             body.message,
             OpenAIRole.USER,
@@ -121,7 +110,7 @@ class ChatController extends BaseController {
             session.chatHistory,
         );
 
-        this.chatService.addMessageToHistory(
+        session.chatHistory = this.chatService.addMessageToHistory(
             session.chatHistory,
             generatedText,
             OpenAIRole.ASSISTANT,
@@ -135,39 +124,7 @@ class ChatController extends BaseController {
 
     /**
      * @swagger
-     * /chat/clear:
-     *    delete:
-     *      description: Clears chat history
-     *      requestBody:
-     *        description: User message
-     *        required: false
-     *      responses:
-     *        200:
-     *          description: Successful operation
-     *          content:
-     *            application/json:
-     *              schema:
-     *                type: object
-     *                properties:
-     *                  isCleared:
-     *                    type: boolean
-     */
-
-    private clearChat(
-        options: ApiHandlerOptions<{
-            session: FastifySessionObject;
-        }>,
-    ): ApiHandlerResponse {
-        options.session.chatHistory = [];
-        return {
-            payload: { isCleared: true },
-            status: HttpCode.OK,
-        };
-    }
-
-    /**
-     * @swagger
-     * /chat/end:
+     * /chat/:
      *    delete:
      *      description: Clears chat history
      *      requestBody:
