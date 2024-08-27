@@ -20,13 +20,13 @@ class ChatService implements ChatServiceT {
         chatHistory: Message[],
         userMessage: string,
         role: ValueOf<typeof OpenAIRole>,
-    ): void {
+    ): Message[] {
         const newUserMessage = {
             content: userMessage,
             role,
         };
 
-        chatHistory.push(newUserMessage);
+        return [...chatHistory, newUserMessage];
     }
 
     private countTokens(messages: Message[]): number {

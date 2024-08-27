@@ -9,7 +9,7 @@ type ChatService = {
         chatHistory: Message[],
         userMessage: string,
         role: ValueOf<typeof OpenAIRole>,
-    ): void;
+    ): Message[];
     deleteOldMessages(messages: Message[], maxTokens: number): void;
 };
 
