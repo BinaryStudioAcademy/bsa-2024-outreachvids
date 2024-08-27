@@ -69,7 +69,16 @@ class VideoService implements Service {
     }
 
     public async delete(videoId: string): Promise<boolean> {
-        return await this.videoRepository.delete(videoId);
+        const isVideoDeleted = await this.videoRepository.delete(videoId);
+
+        if (!isVideoDeleted) {
+            throw new HttpError({
+                message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
+                status: HttpCode.BAD_REQUEST,
+            });
+        }
+
+        return isVideoDeleted;
     }
 }
 
