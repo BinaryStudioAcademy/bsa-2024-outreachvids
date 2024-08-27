@@ -1,13 +1,14 @@
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
-
+import { type ChatFormRequestDto } from '../../types/types.js';
 import { ChatForm } from '../chat-form/chat-form.js';
 
-const ChatFooter: React.FC = () => {
-    const handleSubmit = useCallback((): void => {}, []);
+type Properties = {
+    onSendMessage: (payload: ChatFormRequestDto) => void;
+};
 
+const ChatFooter: React.FC<Properties> = ({ onSendMessage }) => {
     return (
         <>
-            <ChatForm onSubmit={handleSubmit} />
+            <ChatForm onSubmit={onSendMessage} />
         </>
     );
 };

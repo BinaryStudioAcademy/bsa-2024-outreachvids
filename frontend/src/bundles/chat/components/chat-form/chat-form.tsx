@@ -28,19 +28,20 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <FormProvider value={form}>
             <form onSubmit={handleSubmit}>
-                <Flex alignItems={'center'}>
+                <Flex alignItems={'center'} w={'100%'} gap={5}>
                     <Input
                         type="text"
                         label=""
                         placeholder="Send a message"
                         name="message"
+                        sx={{ w: '100%' }}
                     />
                     <Button
                         type="submit"
                         label="Send"
                         size="md"
-                        sx={{ mt: '16px' }}
                         isDisabled={isEmpty}
+                        sx={{ w: '100px' }}
                     />
                 </Flex>
             </form>
