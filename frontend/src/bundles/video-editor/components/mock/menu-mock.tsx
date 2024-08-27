@@ -3,7 +3,7 @@ import {
     FontAwesomeIcon,
     Icon,
 } from '~/bundles/common/components/components.js';
-import { faCloudArrowUp } from '~/bundles/common/icons/icons.js';
+import { IconMap } from '~/bundles/common/icons/icons.js';
 
 const TemplatesContent: React.FC = () => (
     <div>This is the Templates content.</div>
@@ -13,7 +13,7 @@ const ScriptHeader: React.FC = () => (
     <Flex justifyContent={'space-between'} w={'280px'}>
         <div>Script</div>
         <div>
-            <Icon as={FontAwesomeIcon} icon={faCloudArrowUp} />
+            <Icon as={FontAwesomeIcon} icon={IconMap.UPLOAD} />
         </div>
     </Flex>
 );

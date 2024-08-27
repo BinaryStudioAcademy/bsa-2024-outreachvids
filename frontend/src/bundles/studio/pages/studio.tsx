@@ -1,9 +1,10 @@
 import {
     Button,
     Header,
+    Icon,
     IconButton,
 } from '~/bundles/common/components/components.js';
-import { DownloadIcon } from '~/bundles/common/icons/icons.js';
+import { IconMap } from '~/bundles/common/icons/icons.js';
 
 const Studio: React.FC = () => {
     return (
@@ -20,7 +21,7 @@ const Studio: React.FC = () => {
                     <IconButton
                         variant="primaryOutlined"
                         aria-label="Download"
-                        icon={<DownloadIcon />}
+                        icon={<Icon as={IconMap.DOWNLOAD} />}
                     />
                 }
             />
