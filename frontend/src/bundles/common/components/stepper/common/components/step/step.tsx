@@ -15,7 +15,7 @@ const Step = ({
 }): JSX.Element => {
     const afterStyles = {
         zIndex: -1,
-        content: `${''}`,
+        content: '""',
         position: 'relative',
         top: '1.5rem',
         left: '50%',
@@ -32,7 +32,7 @@ const Step = ({
                 textAlign: 'center',
             }}
             _before={{
-                content: `${''}`,
+                content: '""',
                 position: 'relative',
                 zIndex: 1,
                 display: 'block',
