@@ -1,4 +1,6 @@
+
 import {
+    type SystemStyleObject,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -15,7 +17,7 @@ type Properties<T extends FormValues> = {
     name: FieldInputProps<T>['name'];
     placeholder?: string;
     icon?: 'right' | 'none';
-    sx?: object;
+    sx?: SystemStyleObject;
 };
 
 const Input = <T extends FormValues>({
