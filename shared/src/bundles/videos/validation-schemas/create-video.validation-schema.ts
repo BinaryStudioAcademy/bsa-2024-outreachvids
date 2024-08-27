@@ -13,6 +13,7 @@ const createVideo = z
         userId: z
             .string({ required_error: VideoValidationMessage.USER_ID_REQUIRED })
             .trim()
+            .min(1, { message: VideoValidationMessage.USER_ID_REQUIRED })
             .uuid({ message: VideoValidationMessage.UUID_WRONG }),
         name: z
             .string({ required_error: VideoValidationMessage.NAME_REQUIRED })
