@@ -25,6 +25,7 @@ const VideoSection: React.FC = () => {
                 </Badge>
             </Flex>
             <SimpleGrid minChildWidth="253px" spacing="20px">
+                {/* TODO: Update this mocked data */}
                 <VideoCard />
                 <VideoCard />
                 <VideoCard />
