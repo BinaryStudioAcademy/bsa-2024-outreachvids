@@ -63,7 +63,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             type="text"
                             label="Full Name"
                             placeholder="Name"
-                            name="fullName"
+                            name="name"
                         />
                         <Input
                             type="email"
