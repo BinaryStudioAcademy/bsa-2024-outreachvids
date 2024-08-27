@@ -13,6 +13,17 @@ const Step = ({
         | 'lastCompleted';
     stepDescription: string;
 }): JSX.Element => {
+    const afterStyles = {
+        zIndex: -1,
+        content: '\'\'',
+        position: 'relative',
+        top: '1.5rem',
+        left: '50%',
+        height: '2px',
+        backgroundColor: step === 'completed' ? 'white' : '#35399a',
+        order: -1,
+    };
+
     return (
         <Flex
             sx={{
@@ -31,17 +42,7 @@ const Step = ({
             _after={
                 step === 'lastIncompleted' || step === 'lastCompleted'
                     ? {}
-                    : {
-                            zIndex: -1,
-                            content: '\'\'',
-                            position: 'relative',
-                            top: '1.5rem',
-                            left: '50%',
-                            height: '2px',
-                            backgroundColor:
-                                step === 'completed' ? 'white' : '#35399a',
-                            order: -1,
-                        }
+                    : afterStyles
             }
         >
             <Box>{selectIcon(step)}</Box>
