@@ -31,11 +31,6 @@ const PasswordInput: React.FC<Properties> = ({ label, name, hasError }) => {
                 placeholder="••••••••"
                 name={name}
                 icon="right"
-                sx={{
-                    '::-ms-clear, ::-ms-reveal': {
-                        display: 'none',
-                    },
-                }}
             />
             <InputRightElement top="unset" bottom={hasError ? '25px' : 0}>
                 <IconButton

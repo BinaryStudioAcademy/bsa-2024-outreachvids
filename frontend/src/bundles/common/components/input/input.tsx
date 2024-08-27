@@ -1,5 +1,4 @@
 import {
-    type SystemStyleObject,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -16,7 +15,6 @@ type Properties<T extends FormValues> = {
     name: FieldInputProps<T>['name'];
     placeholder?: string;
     icon?: 'right' | 'none';
-    sx?: SystemStyleObject;
 };
 
 const Input = <T extends FormValues>({
@@ -25,7 +23,6 @@ const Input = <T extends FormValues>({
     name,
     placeholder = '',
     icon = 'none',
-    sx = {},
 }: Properties<T>): JSX.Element => {
     const [field, meta] = useFormField({ name });
 
@@ -43,7 +40,6 @@ const Input = <T extends FormValues>({
                 error={error}
                 style={{ paddingRight: icon === 'right' ? '40px' : 0 }}
                 as={LibraryInput}
-                sx={sx}
             />
             <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
