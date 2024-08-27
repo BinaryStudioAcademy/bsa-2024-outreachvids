@@ -99,7 +99,7 @@ class VideoController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.videoService.find(options.params.videoId),
+            payload: await this.videoService.find(options.params.id),
         };
     }
 
@@ -123,7 +123,7 @@ class VideoController extends BaseController {
         return {
             status: HttpCode.OK,
             payload: await this.videoService.update(
-                options.params.videoId,
+                options.params.id,
                 options.body,
             ),
         };
@@ -136,7 +136,7 @@ class VideoController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.videoService.delete(options.params.videoId),
+            payload: await this.videoService.delete(options.params.id),
         };
     }
 }

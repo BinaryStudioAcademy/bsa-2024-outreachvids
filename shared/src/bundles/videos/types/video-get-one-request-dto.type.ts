@@ -1,5 +1,5 @@
 type VideoGetOneRequestDto = {
-    videoId: string;
+    id: string;
 };
 
 export { type VideoGetOneRequestDto };

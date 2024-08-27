@@ -1,6 +1,6 @@
 const VideosApiPath = {
     ROOT: '/',
-    VIDEO: '/:videoId',
+    VIDEO: '/:id',
 } as const;
 
 export { VideosApiPath };
