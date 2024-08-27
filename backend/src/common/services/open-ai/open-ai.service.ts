@@ -1,4 +1,4 @@
-import OpenAI, { type OpenAI as OpenAIType } from 'openai';
+import OpenAI from 'openai';
 
 import { type BaseConfig } from '~/common/config/base-config.package.js';
 
@@ -8,14 +8,14 @@ import { type OpenAIService as OpenAIServiceType } from './libs/types/types.js';
 
 class OpenAIService implements OpenAIServiceType {
     private config: BaseConfig;
-    private openAi: OpenAIType;
+    private openAi: OpenAI;
 
     public constructor(config: BaseConfig) {
         this.config = config;
         this.openAi = this.initOpenAi();
     }
 
-    private initOpenAi = (): OpenAIType => {
+    private initOpenAi = (): OpenAI => {
         return new OpenAI({
             apiKey: this.config.ENV.APP.OPEN_AI_KEY,
         });
