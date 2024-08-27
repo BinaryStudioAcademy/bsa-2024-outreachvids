@@ -11,4 +11,3 @@ const expirationTime = config.ENV.TOKEN.EXPIRATION_TIME;
 const tokenService = new TokenService(secretKey, expirationTime);
 
 export { cryptService, fileService, tokenService };
-
