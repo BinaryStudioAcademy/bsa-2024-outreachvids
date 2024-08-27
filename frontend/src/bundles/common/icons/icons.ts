@@ -1,1 +1,1 @@
-export { IconMap } from './icons-map.js';
+export { IconEnum } from './icons-map.js';

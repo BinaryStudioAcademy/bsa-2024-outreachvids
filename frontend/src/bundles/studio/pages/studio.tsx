@@ -4,7 +4,7 @@ import {
     Icon,
     IconButton,
 } from '~/bundles/common/components/components.js';
-import { IconMap } from '~/bundles/common/icons/icons.js';
+import { IconEnum } from '~/bundles/common/icons/icons.js';
 
 const Studio: React.FC = () => {
     return (
@@ -21,7 +21,7 @@ const Studio: React.FC = () => {
                     <IconButton
                         variant="primaryOutlined"
                         aria-label="Download"
-                        icon={<Icon as={IconMap.DOWNLOAD} />}
+                        icon={<Icon as={IconEnum.DOWNLOAD} />}
                     />
                 }
             />

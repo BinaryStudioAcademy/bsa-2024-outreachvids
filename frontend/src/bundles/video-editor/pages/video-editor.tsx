@@ -3,7 +3,7 @@ import {
     Icon,
 } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
-import { IconMap } from '~/bundles/common/icons/icons.js';
+import { IconEnum } from '~/bundles/common/icons/icons.js';
 
 import { Menu, MenuBody } from '../components/components.js';
 import {
@@ -43,27 +43,27 @@ const VideoEditor: React.FC = () => {
     const menuItems: MenuItem[] = [
         {
             label: 'Templates',
-            icon: <Icon as={FontAwesomeIcon} icon={IconMap.TEMPLATE} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconEnum.TEMPLATE} />,
             onClick: () => handleMenuClick('Templates', <TemplatesContent />),
         },
         {
             label: 'Avatars',
-            icon: <Icon as={FontAwesomeIcon} icon={IconMap.AVATAR} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconEnum.AVATAR} />,
             onClick: () => handleMenuClick('Avatars', <AvatarsContent />),
         },
         {
             label: 'Script',
-            icon: <Icon as={FontAwesomeIcon} icon={IconMap.SCRIPT} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconEnum.SCRIPT} />,
             onClick: () => handleMenuClick(<ScriptHeader />, <ScriptContent />),
         },
         {
             label: 'Text',
-            icon: <Icon as={FontAwesomeIcon} icon={IconMap.TEXT} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconEnum.TEXT} />,
             onClick: () => handleMenuClick('Text', <TextContent />),
         },
         {
             label: 'Assets',
-            icon: <Icon as={FontAwesomeIcon} icon={IconMap.UPLOAD} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconEnum.UPLOAD} />,
             onClick: () => handleMenuClick('Assets', <AssetsContent />),
         },
     ];
@@ -73,7 +73,7 @@ const VideoEditor: React.FC = () => {
             <Menu
                 items={menuItems}
                 activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
+                onActiveIndexSet={setActiveIndex}
             />
             <MenuBody
                 title={activeTitle}

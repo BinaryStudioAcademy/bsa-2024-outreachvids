@@ -6,10 +6,14 @@ import { type MenuItem } from '../../types/types.js';
 type Properties = {
     items: MenuItem[];
     activeIndex: number | null;
-    setActiveIndex: (index: number) => void;
+    onActiveIndexSet: (index: number) => void;
 };
 
-const Menu: React.FC<Properties> = ({ items, activeIndex, setActiveIndex }) => {
+const Menu: React.FC<Properties> = ({
+    items,
+    activeIndex,
+    onActiveIndexSet,
+}) => {
     const handleClick = useCallback(
         (index: number) => {
             return () => {
@@ -22,11 +26,11 @@ const Menu: React.FC<Properties> = ({ items, activeIndex, setActiveIndex }) => {
                     return;
                 }
 
-                setActiveIndex(index);
+                onActiveIndexSet(index);
                 item.onClick();
             };
         },
-        [setActiveIndex, items],
+        [onActiveIndexSet, items],
     );
     return (
         <Box
