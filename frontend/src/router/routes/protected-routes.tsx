@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { AIChat } from '~/bundles/chat/pages/ai-chat.js';
+import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
 
@@ -16,7 +16,7 @@ const protectedRoutes = {
             element: (
                 <>
                     <Studio />
-                    <AIChat />
+                    <ChatModal />
                 </>
             ),
         },

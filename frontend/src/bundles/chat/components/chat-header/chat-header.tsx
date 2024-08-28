@@ -14,10 +14,11 @@ const ChatHeader: React.FC<Properties> = ({ title, comment }) => {
                 bg: 'background.600',
                 p: '20px',
                 color: 'white',
-                borderTopStartRadius: 'xl',
+                borderTopLeftRadius: 'xl',
+                borderTopRightRadius: 'xl',
             }}
         >
-            <Heading as="h3">{title}</Heading>
+            <Heading as="h6">{title}</Heading>
             <Text>{comment}</Text>
         </Box>
     );

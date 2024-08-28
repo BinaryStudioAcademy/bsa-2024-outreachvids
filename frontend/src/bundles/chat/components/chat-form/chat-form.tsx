@@ -4,7 +4,11 @@ import {
     FormProvider,
     Input,
 } from '~/bundles/common/components/components.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppForm,
+    useCallback,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 
 import { type ChatRequestDto, chatFormValidationSchema } from '../../chat.js';
 import { DEFAULT_CHAT_FORM_PAYLOAD } from './constants/constants.js';
@@ -17,11 +21,25 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }) => {
     const form = useAppForm<ChatRequestDto>({
         initialValues: DEFAULT_CHAT_FORM_PAYLOAD,
         validationSchema: chatFormValidationSchema,
-        onSubmit,
+        onSubmit: (data: ChatRequestDto, { resetForm }) => {
+            onSubmit(data);
+            resetForm();
+        },
     });
-    const { handleSubmit } = form;
+    const { handleSubmit, values, setFieldValue } = form;
 
-    const isEmpty = false;
+    const handleInputChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>): void => {
+            void setFieldValue('message', event.target.value);
+        },
+        [setFieldValue],
+    );
+
+    const isEmpty = useMemo(
+        () => Object.values(values).some((value) => value.trim().length === 0),
+        [values],
+    );
+
     return (
         <FormProvider value={form}>
             <form onSubmit={handleSubmit}>
@@ -31,6 +49,8 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }) => {
                         label=""
                         placeholder="Send a message"
                         name="message"
+                        value={values.message}
+                        onChange={handleInputChange}
                         sx={{ w: '100%' }}
                     />
                     <Button

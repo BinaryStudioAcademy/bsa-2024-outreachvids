@@ -18,6 +18,8 @@ type Properties<T extends FormValues> = {
     placeholder?: string;
     icon?: 'right' | 'none';
     sx?: SystemStyleObject;
+    value?: string | number | undefined;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input = <T extends FormValues>({
@@ -28,6 +30,8 @@ const Input = <T extends FormValues>({
     placeholder = '',
     icon = 'none',
     sx = {},
+    value = undefined,
+    onChange,
 }: Properties<T>): JSX.Element => {
     const [field, meta] = useFormField({ name });
 
@@ -43,9 +47,11 @@ const Input = <T extends FormValues>({
                 type={type}
                 placeholder={placeholder}
                 error={error}
+                value={value}
                 style={{ paddingRight: icon === 'right' ? '40px' : 0 }}
                 as={LibraryInput}
                 sx={sx}
+                onChange={onChange}
             />
             <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
