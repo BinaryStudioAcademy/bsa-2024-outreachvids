@@ -4,6 +4,7 @@ export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
+export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export { DownloadIcon } from '@chakra-ui/icons';
