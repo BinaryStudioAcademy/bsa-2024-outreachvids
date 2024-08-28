@@ -10,17 +10,19 @@ import { Field } from 'formik';
 import { useFormField } from '~/bundles/common/hooks/hooks.js';
 
 type Properties<T extends FormValues> = {
-    type?: 'text' | 'email' | 'number' | 'password';
     label: string;
     name: FieldInputProps<T>['name'];
+    type?: 'text' | 'email' | 'number' | 'password';
+    required?: boolean;
     placeholder?: string;
     icon?: 'right' | 'none';
 };
 
 const Input = <T extends FormValues>({
-    type = 'text',
     label,
     name,
+    type = 'text',
+    required = false,
     placeholder = '',
     icon = 'none',
 }: Properties<T>): JSX.Element => {
@@ -30,7 +32,7 @@ const Input = <T extends FormValues>({
     const hasError = Boolean(error) && touched;
 
     return (
-        <FormControl isInvalid={hasError}>
+        <FormControl isInvalid={hasError} isRequired={required}>
             <FormLabel htmlFor={name}>{label}</FormLabel>
             <Field
                 {...field}

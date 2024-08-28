@@ -1,8 +1,8 @@
 import OpenAI from 'openai';
 
+import { type Message } from '~/bundles/chat/libs/types/types.js';
 import { type BaseConfig } from '~/common/config/base-config.package.js';
 
-import { type Message } from '../../../bundles/chat/libs/types/types.js';
 import { CHAT_MODEL, MAX_TOKEN } from './libs/constants/constants.js';
 import { type OpenAIService as OpenAIServiceType } from './libs/types/types.js';
 
