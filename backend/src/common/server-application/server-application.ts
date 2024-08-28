@@ -1,6 +1,6 @@
 import { authController } from '~/bundles/auth/auth.js';
-import { azureController } from '~/bundles/azure/azure.js';
 import { userController } from '~/bundles/users/users.js';
+import { videoController } from '~/bundles/videos/videos.js';
 import { config } from '~/common/config/config.js';
 import { database } from '~/common/database/database.js';
 import { logger } from '~/common/logger/logger.js';
@@ -13,7 +13,7 @@ const apiV1 = new BaseServerAppApi(
     config,
     ...authController.routes,
     ...userController.routes,
-    ...azureController.routes,
+    ...videoController.routes,
 );
 const serverApp = new BaseServerApp({
     config,

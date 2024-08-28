@@ -1,7 +1,7 @@
 const ApiPath = {
     USERS: '/users',
     AUTH: '/auth',
-    AZURE: '/azure',
+    VIDEOS: '/videos',
 } as const;
 
 export { ApiPath };

@@ -5,6 +5,7 @@ type EnvironmentSchema = {
     APP: {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
+        OPEN_AI_KEY: string;
     };
     DB: {
         CONNECTION_STRING: string;
@@ -12,13 +13,17 @@ type EnvironmentSchema = {
         POOL_MIN: number;
         POOL_MAX: number;
     };
-    AZURE: {
-        COGNITIVE_SERVICE_KEY: string;
-        COGNITIVE_SERVICE_ENDPOINT: string;
-        COGNITIVE_SERVICE_REGION: string;
-        ICE_URL: string;
-        ICE_USERNAME: string;
-        ICE_CREDENTIALS: string;
+
+    AWS: {
+        ACCESS_KEY_ID: string;
+        SECRET_ACCESS_KEY: string;
+        S3: {
+            REGION: string;
+            BUCKET_NAME: string;
+        };
+        CLOUDFRONT: {
+            DOMAIN_ID: string;
+        };
     };
 };
 
