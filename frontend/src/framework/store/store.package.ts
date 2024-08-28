@@ -11,6 +11,7 @@ import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as usersReducer } from '~/bundles/users/store/users.js';
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
+import { storage } from '~/framework/storage/storage.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -20,6 +21,7 @@ type RootReducer = {
 type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
+    storage: typeof storage;
 };
 
 class Store {
@@ -52,6 +54,7 @@ class Store {
         return {
             authApi,
             userApi,
+            storage,
         };
     }
 }
