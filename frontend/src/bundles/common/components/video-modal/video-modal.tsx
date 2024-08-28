@@ -3,7 +3,6 @@ import {
     ModalBody,
     ModalCloseButton,
     ModalContent,
-    ModalHeader,
     ModalOverlay,
 } from '@chakra-ui/react';
 
@@ -25,15 +24,8 @@ const VideoModal = ({ isOpen, onModalClose }: Properties): JSX.Element => {
                 height="full"
                 overflow="auto"
             >
-                <ModalHeader
-                    backgroundColor="gray.100"
-                    width="290px"
-                    padding="33px 44px 0px"
-                >
-                    Create video
-                </ModalHeader>
-                <ModalCloseButton margin="20px" />
-                <ModalBody padding="0px">
+                <ModalCloseButton margin="20px" zIndex={10} />
+                <ModalBody padding={0}>
                     <VideoModalContent />
                 </ModalBody>
             </ModalContent>
