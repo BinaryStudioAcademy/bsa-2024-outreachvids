@@ -1,5 +1,5 @@
 type UserSignInResponseDto = {
-    id: number;
+    id: string;
     email: string;
     token?: string;
 };
