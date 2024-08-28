@@ -16,17 +16,17 @@ type MarkerDefinition = {
     getLabel?: (time: Date) => string;
 };
 
-type TimeAxisProperties = {
+type Properties = {
     markers: MarkerDefinition[];
 };
 
-const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
+const TimeAxis: React.FC<Properties> =({ markers }: Properties): JSX.Element => {
     const { range, direction, sidebarWidth, valueToPixels } =
         useTimelineContext();
     const side = direction === 'rtl' ? 'right' : 'left';
 
-    const markers = useMemo(() => {
-        const sortedMarkers = properties.markers.toSorted(
+    const computedMarkers = useMemo(() => {
+        const sortedMarkers = markers.toSorted(
             (a, b) => b.value - a.value,
         );
         const delta = sortedMarkers.at(-1)?.value ?? 0;
@@ -62,7 +62,7 @@ const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
         }
 
         return markerSideDeltas;
-    }, [range, valueToPixels, properties.markers]);
+    }, [range, valueToPixels, markers]);
 
     return (
         <Box
@@ -74,7 +74,7 @@ const TimeAxis = (properties: TimeAxisProperties): JSX.Element => {
                     `${sidebarWidth}px`,
             }}
         >
-            {markers.map((marker, index) => (
+            {computedMarkers.map((marker, index) => (
                 <Box
                     key={`${marker.sideDelta}-${index}`}
                     style={{

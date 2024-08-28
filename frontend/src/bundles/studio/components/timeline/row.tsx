@@ -6,10 +6,8 @@ type Properties = RowDefinition & {
     children: React.ReactNode;
 };
 
-const Row = (properties: Properties): JSX.Element => {
-    const { setNodeRef, rowWrapperStyle, rowStyle } = useRow({
-        id: properties.id,
-    });
+const Row: React.FC<Properties> =({ id, children }: Properties): JSX.Element => {
+    const { setNodeRef, rowWrapperStyle, rowStyle } = useRow({ id });
 
     return (
         <Box style={{ ...rowWrapperStyle, minHeight: 50 }}>
@@ -17,7 +15,7 @@ const Row = (properties: Properties): JSX.Element => {
                 ref={setNodeRef}
                 style={{ ...rowStyle, border: '1px solid white' }}
             >
-                {properties.children}
+                {children}
             </Box>
         </Box>
     );

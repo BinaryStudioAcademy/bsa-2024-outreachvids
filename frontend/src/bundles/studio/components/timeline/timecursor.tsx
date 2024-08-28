@@ -8,11 +8,11 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
-type TimeCursorProperties = {
+type Properties = {
     interval?: number;
 };
 
-const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
+const TimeCursor: React.FC<Properties> =({ interval }: Properties): JSX.Element | null => {
     const timeCursorReference = useReference<HTMLDivElement>(null);
     const renderTimeReference = useReference(Date.now());
     const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
@@ -35,14 +35,14 @@ const TimeCursor = (properties: TimeCursorProperties): JSX.Element | null => {
             timeCursorReference.current.style[side] = `${sideDelta}px`;
         };
         offsetCursor();
-        const interval = setInterval(offsetCursor, properties.interval || 1000);
+        const cursorUpdateInterval = setInterval(offsetCursor, interval || 1000);
         return () => {
-            clearInterval(interval);
+            clearInterval(cursorUpdateInterval);
         };
     }, [
         side,
         sidebarWidth,
-        properties.interval,
+        interval,
         range.start,
         valueToPixels,
         cursorPosition,
