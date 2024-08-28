@@ -21,7 +21,11 @@ import { UserCard, UserCircle } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
 
-const Sidebar = (): JSX.Element => {
+type Properties = {
+    children: React.ReactNode;
+};
+
+const Sidebar = ({ children }: Properties): JSX.Element => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -45,70 +49,72 @@ const Sidebar = (): JSX.Element => {
     }, [navigate]);
 
     return (
-        <Flex
-            w={isCollapsed ? '60px' : '260px'}
-            bg="background.900"
-            height="100vh"
-            position="fixed"
-            flexDirection="column"
-            justifyContent="space-between"
-            p="10px"
-            pb="20px"
-        >
-            <IconButton
-                aria-label={isCollapsed ? 'expand' : 'collapse'}
-                icon={
-                    <Icon
-                        as={
-                            isCollapsed
-                                ? IconName.ARROW_RIGHT
-                                : IconName.ARROW_LEFT
-                        }
-                    />
-                }
-                onClick={handleToggle}
-                justifyContent={isCollapsed ? 'center' : 'flex-end'}
-                variant="icon"
-            />
-            <Box mb="30px">
-                {/* ToDo: Add this username value dynamically */}
-                {isCollapsed ? <UserCircle username="FN" /> : <UserCard />}
+        <Flex w="100%" h="100vh">
+            <Flex
+                w={isCollapsed ? '60px' : '270px'}
+                bg="background.900"
+                height="100vh"
+                position="fixed"
+                flexDirection="column"
+                justifyContent="space-between"
+                p="10px"
+                pb="20px"
+            >
+                <IconButton
+                    aria-label={isCollapsed ? 'expand' : 'collapse'}
+                    icon={
+                        <Icon
+                            as={
+                                isCollapsed
+                                    ? IconName.ARROW_RIGHT
+                                    : IconName.ARROW_LEFT
+                            }
+                        />
+                    }
+                    onClick={handleToggle}
+                    justifyContent={isCollapsed ? 'center' : 'flex-end'}
+                    variant="icon"
+                />
+                <Box mb="30px">
+                    {/* ToDo: Add this username value dynamically */}
+                    {isCollapsed ? <UserCircle username="FN" /> : <UserCard />}
+                </Box>
+                <Box>
+                    <Link to={AppRoute.ROOT}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.ROOT)}
+                            icon={
+                                <Icon
+                                    as={FontAwesomeIcon}
+                                    icon={IconName.HOME}
+                                    boxSize={5}
+                                    color={activeIconPage(AppRoute.ROOT)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="Home"
+                        />
+                    </Link>
+                </Box>
+                <Spacer />
+                <SidebarItem
+                    color="brand.secondary.600"
+                    icon={
+                        <Icon
+                            as={FontAwesomeIcon}
+                            icon={IconName.LOG_OUT}
+                            boxSize={5}
+                            color="brand.secondary.600"
+                        />
+                    }
+                    isCollapsed={isCollapsed}
+                    label={'log out'}
+                    handleClick={handleLogOut}
+                />
+            </Flex>
+            <Box flex="1" ml={isCollapsed ? '60px' : '270px'}>
+                {children}
             </Box>
-
-            <Box>
-                <Link to={AppRoute.ROOT}>
-                    <SidebarItem
-                        bg={activeButtonPage(AppRoute.ROOT)}
-                        icon={
-                            <Icon
-                                as={FontAwesomeIcon}
-                                icon={IconName.HOME}
-                                boxSize={5}
-                                color={activeIconPage(AppRoute.ROOT)}
-                            />
-                        }
-                        isCollapsed={isCollapsed}
-                        label="Home"
-                    />
-                </Link>
-            </Box>
-
-            <Spacer />
-
-            <SidebarItem
-                color="brand.secondary.600"
-                icon={
-                    <Icon
-                        as={FontAwesomeIcon}
-                        icon={IconName.LOG_OUT}
-                        boxSize={5}
-                        color="brand.secondary.600"
-                    />
-                }
-                isCollapsed={isCollapsed}
-                label={'log out'}
-                handleClick={handleLogOut}
-            />
         </Flex>
     );
 };
