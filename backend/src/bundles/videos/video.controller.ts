@@ -19,6 +19,25 @@ import {
     updateVideoValidationSchema,
 } from './validation-schemas/validation-schemas.js';
 
+/**
+ * @swagger
+ * components:
+ *    schemas:
+ *      Video:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: string
+ *            format: uuid
+ *          userId:
+ *            type: string
+ *            format: uuid
+ *          name:
+ *            type: string
+ *          url:
+ *            type: string
+ *            format: url
+ */
 class VideoController extends BaseController {
     private videoService: VideoService;
 
@@ -85,12 +104,61 @@ class VideoController extends BaseController {
         });
     }
 
+    /**
+     * @swagger
+     * /videos:
+     *    get:
+     *      description: Get all videos
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  items:
+     *                    type: array
+     *                    description: A list of video objects
+     *                    items:
+     *                      $ref: '#/components/schemas/Video'
+     */
+
     private async findAll(): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
             payload: await this.videoService.findAll(),
         };
     }
+
+    /**
+     * @swagger
+     * /videos/{id}:
+     *    get:
+     *      parameters:
+     *        - in: path
+     *          name: id
+     *          required: true
+     *          schema:
+     *            type: string
+     *            format: uuid
+     *          description: The video id
+     *      description: Get video by id
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Video'
+     *        404:
+     *          description: Failed operation. The resource was not found.
+     *          content:
+     *            application/json:
+     *              schema:
+     *                  type: object
+     *                  $ref: '#/components/schemas/Error'
+     */
 
     private async find(
         options: ApiHandlerOptions<{
@@ -103,6 +171,37 @@ class VideoController extends BaseController {
         };
     }
 
+    /**
+     * @swagger
+     * /videos:
+     *    post:
+     *      description: Create new video
+     *      requestBody:
+     *        description: Video data
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              required: [userId, name, url]
+     *              properties:
+     *                userId:
+     *                  type: string
+     *                  format: uuid
+     *                name:
+     *                  type: string
+     *                url:
+     *                  type: string
+     *                  format: url
+     *      responses:
+     *        201:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Video'
+     */
+
     private async create(
         options: ApiHandlerOptions<{
             body: CreateVideoRequestDto;
@@ -113,6 +212,50 @@ class VideoController extends BaseController {
             payload: await this.videoService.create(options.body),
         };
     }
+
+    /**
+     * @swagger
+     * /videos/{id}:
+     *    patch:
+     *      parameters:
+     *        - in: path
+     *          name: id
+     *          required: true
+     *          schema:
+     *            type: string
+     *            format: uuid
+     *          description: The video id
+     *      description: Update video by id
+     *      requestBody:
+     *        description: Video data
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              properties:
+     *                userId:
+     *                  type: string
+     *                  format: uuid
+     *                name:
+     *                  type: string
+     *                url:
+     *                  type: string
+     *                  format: url
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                $ref: '#/components/schemas/Video'
+     *        404:
+     *          description: Failed operation. The resource was not found.
+     *          content:
+     *            application/json:
+     *              schema:
+     *                  type: object
+     *                  $ref: '#/components/schemas/Error'
+     */
 
     private async update(
         options: ApiHandlerOptions<{
@@ -128,6 +271,35 @@ class VideoController extends BaseController {
             ),
         };
     }
+
+    /**
+     * @swagger
+     * /videos/{id}:
+     *    delete:
+     *      parameters:
+     *        - in: path
+     *          name: id
+     *          required: true
+     *          schema:
+     *            type: string
+     *            format: uuid
+     *          description: The video id
+     *      description: Delete video by id
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: boolean
+     *        404:
+     *          description: Failed operation. The resource was not found.
+     *          content:
+     *            application/json:
+     *              schema:
+     *                  type: object
+     *                  $ref: '#/components/schemas/Error'
+     */
 
     private async delete(
         options: ApiHandlerOptions<{
