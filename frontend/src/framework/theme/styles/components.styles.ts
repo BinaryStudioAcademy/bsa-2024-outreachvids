@@ -106,6 +106,9 @@ const components = {
         },
     },
     Input: {
+        baseStyle: {
+            field: { fontSize: 'sm' },
+        },
         variants: {
             outline: {
                 field: {
@@ -133,9 +136,15 @@ const components = {
         },
     },
     Select: {
+        baseStyle: {
+            field: { fontSize: 'sm' },
+        },
         variants: {
             outline: {
                 field: {
+                    _hover: {
+                        cursor: 'pointer',
+                    },
                     _focus: {
                         borderWidth: '2px',
                         borderColor: colors.brand.secondary[300],
@@ -154,6 +163,9 @@ const components = {
         },
     },
     Textarea: {
+        baseStyle: {
+            fontSize: 'sm',
+        },
         variants: {
             outline: {
                 _focus: {
@@ -170,6 +182,11 @@ const components = {
                     boxShadow: 'none',
                 },
             },
+        },
+    },
+    FormLabel: {
+        baseStyle: {
+            fontSize: 'sm',
         },
     },
     FormError: {
