@@ -1,5 +1,6 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import {
+    faCircleUser,
     faEllipsisVertical,
     faHouse,
     faPen,
@@ -7,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const IconName = {
+    AVATAR: faCircleUser,
     HOME: faHouse,
     LOG_OUT: faRightFromBracket,
     ARROW_LEFT: ArrowLeftIcon,
