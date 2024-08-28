@@ -11,14 +11,11 @@ class BaseConfig implements Config {
 
     public ENV: EnvironmentSchema;
 
-    private envSchema: TConfig<EnvironmentSchema>;
-
     public constructor(logger: Logger) {
         this.logger = logger;
 
         config();
 
-        this.envSchema = this.createEnvSchema();
         this.envSchema.load({});
         this.envSchema.validate({
             allowed: 'strict',
@@ -29,7 +26,7 @@ class BaseConfig implements Config {
         this.logger.info('.env file found and successfully parsed!');
     }
 
-    private createEnvSchema(): TConfig<EnvironmentSchema> {
+    private get envSchema(): TConfig<EnvironmentSchema> {
         return convict<EnvironmentSchema>({
             APP: {
                 ENVIRONMENT: {
