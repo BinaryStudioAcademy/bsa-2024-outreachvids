@@ -10,6 +10,7 @@ const UserValidationMessage = {
     NAME_MIN_TWO_WORDS: 'Name must contain at least two words',
     USER_IS_NOT_AVAILABLE:
         'User with this email already exists. Log in if it is you',
+    FULL_NAME_INVALID: 'Name must have at least two words',
 } as const;
 
 export { UserValidationMessage };

@@ -1,7 +1,7 @@
 import { type UserSignUpRequestDto } from '~/bundles/users/users.js';
 
 const DEFAULT_SIGN_UP_PAYLOAD: UserSignUpRequestDto = {
-    fullName: '',
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',

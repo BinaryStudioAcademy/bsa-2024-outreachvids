@@ -5,7 +5,7 @@ class UserEntity implements Entity {
 
     private 'email': string;
 
-    private 'fullName': string;
+    private 'name': string;
 
     private 'passwordHash': string;
 
@@ -14,19 +14,19 @@ class UserEntity implements Entity {
     private constructor({
         id,
         email,
-        fullName,
+        name,
         passwordHash,
         passwordSalt,
     }: {
         id: number | null;
         email: string;
-        fullName: string;
+        name: string;
         passwordHash: string;
         passwordSalt: string;
     }) {
         this.id = id;
         this.email = email;
-        this.fullName = fullName;
+        this.name = name;
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
     }
@@ -34,20 +34,20 @@ class UserEntity implements Entity {
     public static initialize({
         id,
         email,
-        fullName,
+        name,
         passwordHash,
         passwordSalt,
     }: {
         id: number;
         email: string;
-        fullName: string;
+        name: string;
         passwordHash: string;
         passwordSalt: string;
     }): UserEntity {
         return new UserEntity({
             id,
             email,
-            fullName,
+            name,
             passwordHash,
             passwordSalt,
         });
@@ -55,19 +55,19 @@ class UserEntity implements Entity {
 
     public static initializeNew({
         email,
-        fullName,
+        name,
         passwordHash,
         passwordSalt,
     }: {
         email: string;
-        fullName: string;
+        name: string;
         passwordHash: string;
         passwordSalt: string;
     }): UserEntity {
         return new UserEntity({
             id: null,
             email,
-            fullName,
+            name,
             passwordHash,
             passwordSalt,
         });
@@ -76,24 +76,24 @@ class UserEntity implements Entity {
     public toObject(): {
         id: number;
         email: string;
-        fullName: string;
+        name: string;
     } {
         return {
             id: this.id as number,
             email: this.email,
-            fullName: this.fullName,
+            name: this.name,
         };
     }
 
     public toNewObject(): {
         email: string;
-        fullName: string;
+        name: string;
         passwordHash: string;
         passwordSalt: string;
     } {
         return {
             email: this.email,
-            fullName: this.fullName,
+            name: this.name,
             passwordHash: this.passwordHash,
             passwordSalt: this.passwordSalt,
         };
