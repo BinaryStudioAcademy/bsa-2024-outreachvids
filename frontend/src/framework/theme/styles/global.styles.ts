@@ -12,6 +12,9 @@ const global = {
         flexGrow: 1,
         flexDirection: 'column',
     },
+    'input::-ms-clear, input::-ms-reveal': {
+        display: 'none',
+    },
 };
 
 export { global };
