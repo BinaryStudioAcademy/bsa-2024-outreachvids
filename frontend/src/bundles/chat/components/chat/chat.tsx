@@ -12,7 +12,7 @@ import {
 
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
-import { type ChatFormRequestDto, type Message } from '../../types/types.js';
+import { type ChatRequestDto, type Message } from '../../types/types.js';
 import { ChatBody } from '../chat-body/chat-body.js';
 import { ChatFooter } from '../chat-footer/chat-footer.js';
 import { ChatHeader } from '../chat-header/chat-header.js';
@@ -22,7 +22,7 @@ const Chat: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
 
     const handleSendMessage = useCallback(
-        (payload: ChatFormRequestDto) => {
+        (payload: ChatRequestDto) => {
             const userMessage: Message = {
                 id: messages.length + 1,
                 sender: 'user',
@@ -57,7 +57,7 @@ const Chat: React.FC = () => {
                 closeOnOverlayClick={false}
                 isOpen={isOpen}
                 onClose={onClose}
-                size={'xl'}
+                size={'5xl'}
             >
                 <ModalOverlay />
                 <ModalContent>

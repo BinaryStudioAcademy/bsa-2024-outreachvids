@@ -1,0 +1,1 @@
+export { ChatApiPath } from 'shared';

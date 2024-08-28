@@ -1,8 +1,8 @@
-import { type ChatFormRequestDto } from '../../types/types.js';
+import { type ChatRequestDto } from '../../types/types.js';
 import { ChatForm } from '../chat-form/chat-form.js';
 
 type Properties = {
-    onSendMessage: (payload: ChatFormRequestDto) => void;
+    onSendMessage: (payload: ChatRequestDto) => void;
 };
 
 const ChatFooter: React.FC<Properties> = ({ onSendMessage }) => {

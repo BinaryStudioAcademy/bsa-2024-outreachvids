@@ -9,7 +9,14 @@ type Properties = {
 
 const ChatHeader: React.FC<Properties> = ({ title, comment }) => {
     return (
-        <Box sx={{ bg: 'background.600', p: '20px', color: 'white' }}>
+        <Box
+            sx={{
+                bg: 'background.600',
+                p: '20px',
+                color: 'white',
+                borderTopStartRadius: 'xl',
+            }}
+        >
             <Heading as="h3">{title}</Heading>
             <Text>{comment}</Text>
         </Box>

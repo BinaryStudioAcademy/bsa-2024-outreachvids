@@ -13,10 +13,11 @@ const MessageBox: React.FC<Properties> = ({ message }) => {
         <Box
             key={id}
             alignSelf={sender === 'user' ? 'flex-end' : 'flex-start'}
-            bg={sender === 'user' ? 'blue.100' : 'gray.100'}
+            bg={'background.50'}
+            color={'black'}
             p={3}
             borderRadius="md"
-            maxWidth="75%"
+            maxWidth="100%"
         >
             <Text>{text}</Text>
         </Box>
