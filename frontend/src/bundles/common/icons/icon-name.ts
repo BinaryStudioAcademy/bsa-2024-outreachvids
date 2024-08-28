@@ -1,11 +1,18 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
-import { faHouse, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import {
+    faEllipsisVertical,
+    faHouse,
+    faPen,
+    faRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons';
 
 const IconName = {
     HOME: faHouse,
     LOG_OUT: faRightFromBracket,
     ARROW_LEFT: ArrowLeftIcon,
     ARROW_RIGHT: ArrowRightIcon,
-} as const;
+    OPTIONS_VERTICAL: faEllipsisVertical,
+    PEN: faPen,
+};
 
 export { IconName };
