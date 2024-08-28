@@ -1,6 +1,6 @@
 const UsersApiPath = {
     ROOT: '/',
-    CURRENT: '/currentUser',
+    CURRENT: '/current-user',
 } as const;
 
 export { UsersApiPath };

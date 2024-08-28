@@ -3,6 +3,7 @@ import {
     type ApiHandlerResponse,
     BaseController,
 } from '~/common/controller/controller.js';
+import { type ApiHandlerOptions } from '~/common/controller/types/types.js';
 import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
@@ -37,6 +38,13 @@ class UserController extends BaseController {
             method: 'GET',
             handler: () => this.findAll(),
         });
+
+        this.addRoute({
+            path: UsersApiPath.CURRENT,
+            method: 'GET',
+            handler: (handlerOptions: ApiHandlerOptions) =>
+                this.getCurrent(handlerOptions),
+        });
     }
 
     /**
@@ -58,6 +66,13 @@ class UserController extends BaseController {
         return {
             status: HttpCode.OK,
             payload: await this.userService.findAll(),
+        };
+    }
+
+    private getCurrent({ user }: ApiHandlerOptions): ApiHandlerResponse {
+        return {
+            status: HttpCode.OK,
+            payload: user,
         };
     }
 }
