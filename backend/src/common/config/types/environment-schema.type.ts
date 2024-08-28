@@ -5,6 +5,7 @@ type EnvironmentSchema = {
     APP: {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
+        OPEN_AI_KEY: string;
     };
     DB: {
         CONNECTION_STRING: string;
@@ -15,6 +16,17 @@ type EnvironmentSchema = {
     TOKEN: {
         SECRET_KEY: string;
         EXPIRATION_TIME: string;
+    };
+    AWS: {
+        ACCESS_KEY_ID: string;
+        SECRET_ACCESS_KEY: string;
+        S3: {
+            REGION: string;
+            BUCKET_NAME: string;
+        };
+        CLOUDFRONT: {
+            DOMAIN_ID: string;
+        };
     };
 };
 

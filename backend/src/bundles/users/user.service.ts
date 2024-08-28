@@ -16,8 +16,8 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public async find(userId: number): Promise<UserEntity | null> {
-        return await this.userRepository.find(userId);
+    public async findById(userId: number): Promise<UserEntity | null> {
+        return await this.userRepository.findById(userId);
     }
 
     public async findByEmail(email: string): Promise<UserEntity | null> {
@@ -39,7 +39,7 @@ class UserService implements Service {
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
                 email: payload.email,
-                name: payload.name,
+                fullName: payload.fullName,
                 passwordSalt: salt,
                 passwordHash: hash,
             }),

@@ -70,11 +70,13 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                             label="Email"
                             placeholder="user@gmail.com"
                             name="email"
+                            required
                         />
                         <PasswordInput
                             label="Password"
                             name="password"
                             hasError={Boolean(errors.password)}
+                            required
                         />
                         <FormError
                             isVisible={dataStatus === DataStatus.REJECTED}

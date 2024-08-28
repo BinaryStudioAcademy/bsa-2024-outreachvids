@@ -41,6 +41,12 @@ class BaseConfig implements Config {
                     env: 'PORT',
                     default: null,
                 },
+                OPEN_AI_KEY: {
+                    doc: 'Key for Open Ai',
+                    format: String,
+                    env: 'OPEN_AI_KEY',
+                    default: null,
+                },
             },
             DB: {
                 CONNECTION_STRING: {
@@ -80,6 +86,42 @@ class BaseConfig implements Config {
                     format: String,
                     env: 'EXPIRATION_TIME',
                     default: null,
+                },
+            },
+            AWS: {
+                ACCESS_KEY_ID: {
+                    doc: 'AWS access key id',
+                    format: String,
+                    env: 'AWS_ACCESS_KEY_ID',
+                    default: null,
+                },
+                SECRET_ACCESS_KEY: {
+                    doc: 'AWS secret access key',
+                    format: String,
+                    env: 'AWS_SECRET_ACCESS_KEY',
+                    default: null,
+                },
+                S3: {
+                    REGION: {
+                        doc: 'AWS S3 region',
+                        format: String,
+                        env: 'AWS_S3_REGION',
+                        default: null,
+                    },
+                    BUCKET_NAME: {
+                        doc: 'AWS S3 bucket name',
+                        format: String,
+                        env: 'AWS_S3_BUCKET_NAME',
+                        default: null,
+                    },
+                },
+                CLOUDFRONT: {
+                    DOMAIN_ID: {
+                        doc: 'AWS CloudFront domain id',
+                        format: String,
+                        env: 'AWS_CLOUDFRONT_DOMAIN_ID',
+                        default: null,
+                    },
                 },
             },
         });

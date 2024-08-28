@@ -10,7 +10,7 @@ class UserRepository implements Repository {
         this.userModel = userModel;
     }
 
-    public async find(userId: number): Promise<UserEntity | null> {
+    public async findById(userId: number): Promise<UserEntity | null> {
         const user = await this.userModel.query().findById(userId).execute();
 
         return user ? UserEntity.initialize(user) : null;
@@ -29,14 +29,14 @@ class UserRepository implements Repository {
     }
 
     public async create(entity: UserEntity): Promise<UserEntity> {
-        const { email, name, passwordSalt, passwordHash } =
+        const { email, fullName, passwordSalt, passwordHash } =
             entity.toNewObject();
 
         const item = await this.userModel
             .query()
             .insert({
                 email,
-                name,
+                fullName,
                 passwordSalt,
                 passwordHash,
             })

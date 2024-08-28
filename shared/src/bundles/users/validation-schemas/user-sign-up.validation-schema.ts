@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { UserValidationMessage, UserValidationRule } from '../enums/enums.js';
 
 type UserSignUpRequestValidationDto = {
-    name: z.ZodString;
+    fullName: z.ZodString;
     email: z.ZodString;
     password: z.ZodString;
     confirmPassword: z.ZodString;
@@ -11,7 +11,7 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
     .object<UserSignUpRequestValidationDto>({
-        name: z
+        fullName: z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim(),
         email: z
@@ -46,13 +46,13 @@ const userSignUp = z
             }),
     })
     .required()
+    .refine((data) => data.fullName.split(/\s+/).length >= 2, {
+        message: UserValidationMessage.FULL_NAME_INVALID,
+        path: ['name'],
+    })
     .refine((data) => data.password === data.confirmPassword, {
         message: UserValidationMessage.PASS_DONT_MATCH,
         path: ['confirmPassword'],
-    })
-    .refine((data) => data.name.split(/\s+/).length >= 2, {
-        message: UserValidationMessage.FULL_NAME_INVALID,
-        path: ['name'],
     });
 
 export { userSignUp };
