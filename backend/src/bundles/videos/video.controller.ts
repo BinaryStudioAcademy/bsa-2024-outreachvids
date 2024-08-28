@@ -53,7 +53,7 @@ class VideoController extends BaseController {
         });
 
         this.addRoute({
-            path: VideosApiPath.VIDEO,
+            path: VideosApiPath.ID,
             method: 'GET',
             handler: (options) =>
                 this.find(
@@ -78,7 +78,7 @@ class VideoController extends BaseController {
         });
 
         this.addRoute({
-            path: VideosApiPath.VIDEO,
+            path: VideosApiPath.ID,
             method: 'PATCH',
             validation: {
                 body: updateVideoValidationSchema,
@@ -93,7 +93,7 @@ class VideoController extends BaseController {
         });
 
         this.addRoute({
-            path: VideosApiPath.VIDEO,
+            path: VideosApiPath.ID,
             method: 'DELETE',
             handler: (options) =>
                 this.delete(
