@@ -68,7 +68,21 @@ class UserController extends BaseController {
             payload: await this.userService.findAll(),
         };
     }
-
+    /**
+     * @swagger
+     * /users/current-user:
+     *    get:
+     *      description: Returns current authorized user
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                items:
+     *                  $ref: '#/components/schemas/User'
+     */
     private getCurrent({ user }: ApiHandlerOptions): ApiHandlerResponse {
         return {
             status: HttpCode.OK,
