@@ -120,6 +120,8 @@ class AuthController extends BaseController {
      *                  format: email
      *                password:
      *                  type: string
+     *                fullName:
+     *                  type: string
      *      responses:
      *        201:
      *          description: Successful operation
@@ -131,6 +133,13 @@ class AuthController extends BaseController {
      *                  message:
      *                    type: object
      *                    $ref: '#/components/schemas/User'
+     *        400:
+     *          description: Failed operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                  type: object
+     *                  $ref: '#/components/schemas/Error'
      */
 
     private async signUp(
