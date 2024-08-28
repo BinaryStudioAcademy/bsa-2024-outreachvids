@@ -11,7 +11,7 @@ type Properties = {
     handleClick?: () => void;
 };
 
-const CollapseButton = ({
+const SidebarItem = ({
     icon,
     isCollapsed,
     label,
@@ -42,4 +42,4 @@ const CollapseButton = ({
     );
 };
 
-export { type Properties as CollapseButtonProperties, CollapseButton };
+export { SidebarItem };

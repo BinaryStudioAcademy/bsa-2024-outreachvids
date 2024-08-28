@@ -5,6 +5,7 @@ import {
     Flex,
     Icon,
     IconButton,
+    Link,
     Spacer,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -14,13 +15,13 @@ import {
     useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { IconName, Size } from '~/bundles/common/icons/icons.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { UserCard, UserCircle } from '~/bundles/users/components/components.js';
 
-import { CollapseButton, CollapseButtonLink } from './components/components.js';
+import { SidebarItem } from './components/components.js';
 
-const SideBar = (): JSX.Element => {
+const Sidebar = (): JSX.Element => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -29,6 +30,10 @@ const SideBar = (): JSX.Element => {
         (): void => setIsCollapsed(!isCollapsed),
         [isCollapsed],
     );
+
+    const activeButtonPage = (page: ValueOf<typeof AppRoute>): string => {
+        return pathname === page ? 'background.600' : '';
+    };
 
     const activeIconPage = (page: ValueOf<typeof AppRoute>): string => {
         return pathname === page ? 'white' : 'background.600';
@@ -71,30 +76,32 @@ const SideBar = (): JSX.Element => {
             </Box>
 
             <Box>
-                <CollapseButtonLink
-                    icon={
-                        <Icon
-                            as={FontAwesomeIcon}
-                            icon={IconName.HOME}
-                            boxSize={Size.LG}
-                            color={activeIconPage(AppRoute.ROOT)}
-                        />
-                    }
-                    label="Home"
-                    to={AppRoute.ROOT}
-                    isCollapsed={isCollapsed}
-                />
+                <Link to={AppRoute.ROOT}>
+                    <SidebarItem
+                        bg={activeButtonPage(AppRoute.ROOT)}
+                        icon={
+                            <Icon
+                                as={FontAwesomeIcon}
+                                icon={IconName.HOME}
+                                boxSize={5}
+                                color={activeIconPage(AppRoute.ROOT)}
+                            />
+                        }
+                        isCollapsed={isCollapsed}
+                        label="Home"
+                    />
+                </Link>
             </Box>
 
             <Spacer />
 
-            <CollapseButton
+            <SidebarItem
                 color="brand.secondary.600"
                 icon={
                     <Icon
                         as={FontAwesomeIcon}
                         icon={IconName.LOG_OUT}
-                        boxSize={Size.LG}
+                        boxSize={5}
                         color="brand.secondary.600"
                     />
                 }
@@ -106,4 +113,4 @@ const SideBar = (): JSX.Element => {
     );
 };
 
-export { SideBar };
+export { Sidebar };
