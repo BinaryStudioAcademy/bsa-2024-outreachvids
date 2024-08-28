@@ -37,13 +37,15 @@ const TimeAxis: React.FC<Properties> = ({
         const markerSideDeltas: Marker[] = [];
 
         for (let time = startTime; time <= endTime; time += delta) {
-            const multiplierIndex = sortedMarkers.findIndex(
-                (marker) =>
-                    (time - timezoneOffset) % marker.value === 0 &&
-                    (!marker.maxRangeSize ||
-                        rangeSize <= marker.maxRangeSize) &&
-                    (!marker.minRangeSize || rangeSize >= marker.minRangeSize),
-            );
+            const multiplierIndex = sortedMarkers.findIndex((marker) => {
+                const timeOffset = (time - timezoneOffset) % marker.value === 0;
+                const isWithinMaxRange =
+                    !marker.maxRangeSize || rangeSize <= marker.maxRangeSize;
+                const isWithinMinRange =
+                    !marker.minRangeSize || rangeSize >= marker.minRangeSize;
+
+                return timeOffset && isWithinMaxRange && isWithinMinRange;
+            });
 
             if (multiplierIndex === -1) {
                 continue;
