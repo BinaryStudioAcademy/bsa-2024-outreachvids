@@ -24,7 +24,7 @@ class VideoService implements Service {
         if (!video) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.BAD_REQUEST,
+                status: HttpCode.NOT_FOUND,
             });
         }
 
@@ -61,7 +61,7 @@ class VideoService implements Service {
         if (!updatedVideo) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.BAD_REQUEST,
+                status: HttpCode.NOT_FOUND,
             });
         }
 
@@ -74,7 +74,7 @@ class VideoService implements Service {
         if (!isVideoDeleted) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.BAD_REQUEST,
+                status: HttpCode.NOT_FOUND,
             });
         }
 
