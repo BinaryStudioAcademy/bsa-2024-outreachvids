@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Box, Icon } from '~/bundles/common/components/components.js';
-import { IconName, Size } from '~/bundles/common/icons/icons.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { type Step as StepType } from '../../types/step.type.js';
 
@@ -14,7 +14,7 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
         return (
             <Box>
                 <Box backgroundColor="background.900" display="inline-flex">
-                    <Icon as={IconName.CHECK_CIRCLE} boxSize={Size.XS} />
+                    <Icon as={IconName.CHECK_CIRCLE} boxSize={3} />
                 </Box>
             </Box>
         );
@@ -39,7 +39,7 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
                     <Icon
                         as={FontAwesomeIcon}
                         icon={IconName.CIRCLE}
-                        boxSize={Size.XS}
+                        boxSize={3}
                     />
                 </Box>
             </Box>
@@ -48,11 +48,7 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
     return (
         <Box>
             <Box color="background.600" display="inline-flex">
-                <Icon
-                    as={FontAwesomeIcon}
-                    icon={IconName.CIRCLE}
-                    boxSize={Size.XS}
-                />
+                <Icon as={FontAwesomeIcon} icon={IconName.CIRCLE} boxSize={3} />
             </Box>
         </Box>
     );

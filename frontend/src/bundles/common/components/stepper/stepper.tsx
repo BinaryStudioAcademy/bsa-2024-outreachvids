@@ -1,4 +1,4 @@
-import { IconName, Size } from '../../icons/icons.js';
+import { IconName } from '../../icons/icons.js';
 import { Box, Flex, Header, Icon, IconButton } from '../components.js';
 import { Step } from './components/components.js';
 import { getStepStatus } from './helpers/helpers.js';
@@ -25,7 +25,7 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
         <IconButton
             variant="ghostIcon"
             aria-label="back"
-            icon={<Icon as={IconName.ARROW_BACK} boxSize={Size.SM} />}
+            icon={<Icon as={IconName.ARROW_BACK} boxSize={4} />}
         />
     );
 
