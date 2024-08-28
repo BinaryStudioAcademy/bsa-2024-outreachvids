@@ -2,7 +2,7 @@ import {
     FormControl,
     FormErrorMessage,
     FormLabel,
-    Input as LibraryInput,
+    Textarea as LibraryTextarea,
 } from '@chakra-ui/react';
 import {
     type FieldInputProps,
@@ -15,19 +15,15 @@ import { useFormField } from '~/bundles/common/hooks/hooks.js';
 type Properties<T extends FormValues> = {
     label: string;
     name: FieldInputProps<T>['name'];
-    type?: 'text' | 'email' | 'number' | 'password';
     required?: boolean;
     placeholder?: string;
-    icon?: 'right' | 'none';
 };
 
-const Input = <T extends FormValues>({
+const Textarea = <T extends FormValues>({
     label,
     name,
-    type = 'text',
     required = false,
     placeholder = '',
-    icon = 'none',
 }: Properties<T>): JSX.Element => {
     const { field, error, isValid } = useFormField({ name });
 
@@ -37,15 +33,13 @@ const Input = <T extends FormValues>({
             <Field
                 {...field}
                 id={name}
-                type={type}
                 placeholder={placeholder}
                 error={error}
-                style={{ paddingRight: icon === 'right' ? '40px' : 0 }}
-                as={LibraryInput}
+                as={LibraryTextarea}
             />
             <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
     );
 };
 
-export { Input };
+export { Textarea };
