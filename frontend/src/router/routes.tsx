@@ -1,10 +1,9 @@
 import { App } from '~/app/app.js';
 import { Auth } from '~/bundles/auth/pages/auth.js';
+import { ProtectedRoute } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import { NotFound } from '~/bundles/common/pages/not-found/not-found.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
-
-import { ProtectedRoute } from '../bundles/common/components/components.js';
 
 const routes = [
     {

@@ -19,7 +19,6 @@ const Header: React.FC<Properties> = ({ left, center, right }) => {
             boxShadow="md"
             zIndex="1000"
             padding="4"
-            marginBottom="20px"
             alignItems="center"
             justifyContent="space-between"
         >
