@@ -16,7 +16,7 @@ class AzureService {
         character: string,
         style: string,
         voiceName: string,
-    ): Promise<speechSDK.AvatarSynthesizer> {
+    ): Promise<speechSDK.SynthesisResult> {
         this.speechConfig.speechSynthesisVoiceName = voiceName;
         const iceUrl = config.ENV.AZURE.ICE_URL;
         const iceUsername = config.ENV.AZURE.ICE_USERNAME;
@@ -46,9 +46,7 @@ class AzureService {
         peerConnection.addTransceiver('video', { direction: 'sendrecv' });
         peerConnection.addTransceiver('audio', { direction: 'sendrecv' });
 
-        await avatarSynthesizer.startAvatarAsync(peerConnection);
-
-        return avatarSynthesizer;
+        return await avatarSynthesizer.startAvatarAsync(peerConnection);
     }
 
     public async textToSpeech(text: string): Promise<ArrayBuffer> {
