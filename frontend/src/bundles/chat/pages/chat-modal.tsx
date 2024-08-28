@@ -1,12 +1,9 @@
 import {
-    Button,
     Modal,
     ModalCloseButton,
     ModalContent,
     ModalOverlay,
-    useDisclosure,
-} from '@chakra-ui/react';
-
+} from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -18,8 +15,12 @@ import { MessageSender } from '../enums/message-sender.js';
 import { actions as chatActions } from '../store/chat.js';
 import { type GenerateTextRequestDto, type Message } from '../types/types.js';
 
-const ChatModal: React.FC = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+type Properties = {
+    isChatOpen: boolean;
+    onModalChatClose: () => void;
+};
+
+const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
     const dispatch = useAppDispatch();
     const { messages } = useAppSelector(({ chat }) => ({
         messages: chat.messages,
@@ -40,22 +41,25 @@ const ChatModal: React.FC = () => {
         [dispatch, messages],
     );
 
+    const handleCloseChat = useCallback(
+        () => {
+            onModalChatClose();
+            void dispatch(chatActions.deleteChat({}));
+        },
+        [dispatch, onModalChatClose],
+    );
+
     return (
         <>
-            <Button onClick={onOpen}>Open Modal</Button>
-
             <Modal
                 closeOnOverlayClick={false}
-                isOpen={isOpen}
-                onClose={onClose}
+                isOpen={isChatOpen}
+                onClose={handleCloseChat}
                 size={'5xl'}
             >
                 <ModalOverlay />
                 <ModalContent
-                    borderTopLeftRadius={'xl'}
-                    borderTopRightRadius={'xl'}
-                    borderBottomLeftRadius={'xl'}
-                    borderBottomRightRadius={'xl'}
+                    borderRadius={'xl'}
                 >
                     <ModalCloseButton color="white" />
                     <Chat

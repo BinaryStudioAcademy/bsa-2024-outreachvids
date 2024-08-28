@@ -50,6 +50,7 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(deleteChat.fulfilled, (state) => {
+            state.messages = [];
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(deleteChat.rejected, (state) => {

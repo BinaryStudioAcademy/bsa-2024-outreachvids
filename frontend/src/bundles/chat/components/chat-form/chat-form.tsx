@@ -46,7 +46,7 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <FormProvider value={form}>
             <form onSubmit={handleSubmit}>
-                <Flex alignItems={'center'} w={'100%'} gap={5}>
+                <Flex alignItems={'flex-start'} w={'100%'} gap={5}>
                     <Input
                         type="text"
                         label=""

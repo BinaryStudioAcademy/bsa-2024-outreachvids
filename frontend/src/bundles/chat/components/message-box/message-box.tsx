@@ -25,9 +25,6 @@ const MessageBox: React.FC<Properties> = ({ message }) => {
                     sender === MessageSender.USER ? 'flex-end' : 'flex-start'
                 }
             >
-                {/* <Text fontSize="sm" color="gray.500" mt={2}>
-                    {timeStamp.toLocaleString()}
-                </Text> */}
                 <Text
                     color={'black'}
                     bg={'background.50'}
