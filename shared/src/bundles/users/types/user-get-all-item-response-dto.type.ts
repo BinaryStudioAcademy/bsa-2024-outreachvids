@@ -1,5 +1,5 @@
 type UserGetAllItemResponseDto = {
-    id: number;
+    id: string;
     email: string;
 };
 

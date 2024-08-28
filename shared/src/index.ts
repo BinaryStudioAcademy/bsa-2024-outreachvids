@@ -12,6 +12,17 @@ export {
     UserValidationMessage,
 } from './bundles/users/users.js';
 export {
+    type CreateVideoRequestDto,
+    type UpdateVideoRequestDto,
+    type VideoGetAllItemResponseDto,
+    type VideoGetAllResponseDto,
+    type VideoGetOneRequestDto,
+    createVideoValidationSchema,
+    updateVideoValidationSchema,
+    VideosApiPath,
+    VideoValidationMessage,
+} from './bundles/videos/videos.js';
+export {
     ApiPath,
     AppEnvironment,
     ContentType,
