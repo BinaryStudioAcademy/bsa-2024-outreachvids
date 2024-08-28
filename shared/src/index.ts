@@ -2,6 +2,8 @@ export { AuthApiPath } from './bundles/auth/auth.js';
 export {
     type ChatRequestDto,
     type ChatResponseDto,
+    type DeleteChatRequestDto,
+    type DeleteChatResponseDto,
     ChatApiPath,
     chatFormValidationSchema,
 } from './bundles/chat/chat.js';

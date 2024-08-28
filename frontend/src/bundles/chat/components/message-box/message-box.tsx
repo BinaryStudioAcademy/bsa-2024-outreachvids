@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from '~/bundles/common/components/components.js';
 
+import { MessageSender } from '../../enums/enums.js';
 import { type Message } from '../../types/types.js';
 
 type Properties = {
@@ -11,14 +12,18 @@ const MessageBox: React.FC<Properties> = ({ message }) => {
 
     return (
         <Box
-            alignSelf={sender === 'user' ? 'flex-start' : 'flex-end'}
+            alignSelf={
+                sender === MessageSender.USER ? 'flex-start' : 'flex-end'
+            }
             width="100%"
         >
             <Flex
-                ml={sender === 'user' ? 0 : 3}
-                mr={sender === 'user' ? 3 : 0}
+                ml={sender === MessageSender.USER ? 0 : 3}
+                mr={sender === MessageSender.USER ? 3 : 0}
                 direction={'column'}
-                alignItems={sender === 'user' ? 'flex-end' : 'flex-start'}
+                alignItems={
+                    sender === MessageSender.USER ? 'flex-end' : 'flex-start'
+                }
             >
                 {/* <Text fontSize="sm" color="gray.500" mt={2}>
                     {timeStamp.toLocaleString()}

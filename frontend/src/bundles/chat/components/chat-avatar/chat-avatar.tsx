@@ -1,7 +1,10 @@
 import { Box, Text } from '~/bundles/common/components/components.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
+
+import { MessageSender } from '../../enums/enums.js';
 
 type Properties = {
-    sender: 'user' | 'ai';
+    sender: ValueOf<typeof MessageSender>;
     imageUrl?: string;
     initials?: string;
 };
@@ -15,7 +18,7 @@ const ChatAvatar: React.FC<Properties> = ({ sender, imageUrl, initials }) => {
             w="40px"
             h="40px"
             borderRadius="full"
-            bg={sender === 'user' ? 'blue.500' : 'green.500'}
+            bg={sender === MessageSender.USER ? 'blue.500' : 'green.500'}
             color="white"
             fontSize="md"
             fontWeight="bold"

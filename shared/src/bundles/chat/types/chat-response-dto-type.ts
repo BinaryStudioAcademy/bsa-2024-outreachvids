@@ -1,5 +1,4 @@
 type ChatResponseDto = {
-    id: string;
     message: string;
 };
 

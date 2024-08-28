@@ -7,43 +7,37 @@ import {
     useDisclosure,
 } from '@chakra-ui/react';
 
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks.js';
 
 import { Chat } from '../components/components.js';
+import { MessageSender } from '../enums/message-sender.js';
+import { actions as chatActions } from '../store/chat.js';
 import { type ChatRequestDto, type Message } from '../types/types.js';
 
 const ChatModal: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [messages, setMessages] = useState<Message[]>([]);
+    const dispatch = useAppDispatch();
+    const { messages } = useAppSelector(({ chat }) => ({
+        messages: chat.messages,
+    }));
 
     const handleSendMessage = useCallback(
         (payload: ChatRequestDto) => {
             const userMessage: Message = {
                 id: messages.length + 1,
-                sender: 'user',
+                sender: MessageSender.USER,
                 text: payload.message,
                 timeStamp: new Date(),
             };
 
-            setMessages((previousMessages) => [
-                ...previousMessages,
-                userMessage,
-            ]);
-
-            setTimeout(() => {
-                const aiMessage: Message = {
-                    id: messages.length + 2,
-                    sender: 'ai',
-                    text: `AI response to "${payload.message}"`,
-                    timeStamp: new Date(),
-                };
-                setMessages((previousMessages) => [
-                    ...previousMessages,
-                    aiMessage,
-                ]);
-            }, 1000);
+            void dispatch(chatActions.addMessage(userMessage));
+            void dispatch(chatActions.sendMessage(payload));
         },
-        [messages, setMessages],
+        [dispatch, messages],
     );
 
     return (

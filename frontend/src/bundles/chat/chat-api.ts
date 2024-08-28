@@ -4,7 +4,12 @@ import { BaseHttpApi } from '~/framework/http-api/http-api.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
 import { ChatApiPath } from './enums/enums.js';
-import { type ChatRequestDto, type ChatResponseDto } from './types/types.js';
+import {
+    type ChatRequestDto,
+    type ChatResponseDto,
+    type DeleteChatRequestDto,
+    type DeleteChatResponseDto
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -31,6 +36,22 @@ class ChatApi extends BaseHttpApi {
         );
 
         return await response.json<ChatResponseDto>();
+    }
+
+    public async deleteChat(
+        payload: DeleteChatRequestDto,
+    ): Promise<DeleteChatResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(ChatApiPath.DELETE_CHAT, {}),
+            {
+                method: 'DELETE',
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return await response.json<DeleteChatResponseDto>();
     }
 }
 

@@ -1,5 +1,6 @@
 import { Flex, VStack } from '~/bundles/common/components/components.js';
 
+import { MessageSender } from '../../enums/enums.js';
 import { type Message, type MessageGroup } from '../../types/types.js';
 import { ChatAvatar } from '../chat-avatar/chat-avatar.js';
 import { MessageBox } from '../message-box/message-box.js';
@@ -29,17 +30,23 @@ const MessageList: React.FC<Properties> = ({ messages }) => {
                 return (
                     <Flex
                         key={groupIndex}
-                        direction={sender === 'user' ? 'row-reverse' : 'row'}
+                        direction={
+                            sender === MessageSender.USER
+                                ? 'row-reverse'
+                                : 'row'
+                        }
                         alignItems="flex-start"
                     >
                         <ChatAvatar
                             sender={sender}
-                            initials={sender === 'user' ? 'U' : 'A'}
+                            initials={sender === MessageSender.USER ? 'U' : 'A'}
                         />
                         <VStack
                             spacing={2}
                             align={
-                                sender === 'user' ? 'flex-end' : 'flex-start'
+                                sender === MessageSender.USER
+                                    ? 'flex-end'
+                                    : 'flex-start'
                             }
                             width={'max'}
                         >
