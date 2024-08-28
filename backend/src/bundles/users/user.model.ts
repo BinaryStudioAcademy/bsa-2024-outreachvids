@@ -6,6 +6,8 @@ import {
 class UserModel extends AbstractModel {
     public 'email': string;
 
+    public 'fullName': string;
+
     public 'passwordHash': string;
 
     public 'passwordSalt': string;

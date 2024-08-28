@@ -1,6 +1,7 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
@@ -122,6 +123,15 @@ class BaseServerApp implements ServerApp {
         );
     }
 
+    private registerPlugins(): void {
+        this.app.register(fastifyMultipart, {
+            limits: {
+                fileSize: Number.POSITIVE_INFINITY,
+                files: 1,
+            },
+        });
+    }
+
     private initValidationCompiler(): void {
         this.app.setValidatorCompiler(
             ({ schema }: { schema: ValidationSchema }) => {
@@ -199,6 +209,8 @@ class BaseServerApp implements ServerApp {
         await this.initServe();
 
         await this.initMiddlewares();
+
+        this.registerPlugins();
 
         this.initValidationCompiler();
 
