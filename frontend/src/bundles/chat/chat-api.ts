@@ -5,10 +5,10 @@ import { type Storage } from '~/framework/storage/storage.js';
 
 import { ChatApiPath } from './enums/enums.js';
 import {
-    type ChatRequestDto,
-    type ChatResponseDto,
     type DeleteChatRequestDto,
-    type DeleteChatResponseDto
+    type DeleteChatResponseDto,
+    type GenerateTextRequestDto,
+    type GenerateTextResponseDto,
 } from './types/types.js';
 
 type Constructor = {
@@ -23,8 +23,8 @@ class ChatApi extends BaseHttpApi {
     }
 
     public async sendMessage(
-        payload: ChatRequestDto,
-    ): Promise<ChatResponseDto> {
+        payload: GenerateTextRequestDto,
+    ): Promise<GenerateTextResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(ChatApiPath.SEND_MESSAGE, {}),
             {
@@ -35,7 +35,7 @@ class ChatApi extends BaseHttpApi {
             },
         );
 
-        return await response.json<ChatResponseDto>();
+        return await response.json<GenerateTextResponseDto>();
     }
 
     public async deleteChat(

@@ -1,1 +1,1 @@
-export { chatFormValidationSchema } from 'shared';
+export { textGenerationValidationSchema } from 'shared';

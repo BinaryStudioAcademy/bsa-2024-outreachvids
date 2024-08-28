@@ -10,18 +10,21 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 
-import { type ChatRequestDto, chatFormValidationSchema } from '../../chat.js';
+import {
+    type GenerateTextRequestDto,
+    textGenerationValidationSchema,
+} from '../../chat.js';
 import { DEFAULT_CHAT_FORM_PAYLOAD } from './constants/constants.js';
 
 type Properties = {
-    onSubmit: (payload: ChatRequestDto) => void;
+    onSubmit: (payload: GenerateTextRequestDto) => void;
 };
 
 const ChatForm: React.FC<Properties> = ({ onSubmit }) => {
-    const form = useAppForm<ChatRequestDto>({
+    const form = useAppForm<GenerateTextRequestDto>({
         initialValues: DEFAULT_CHAT_FORM_PAYLOAD,
-        validationSchema: chatFormValidationSchema,
-        onSubmit: (data: ChatRequestDto, { resetForm }) => {
+        validationSchema: textGenerationValidationSchema,
+        onSubmit: (data: GenerateTextRequestDto, { resetForm }) => {
             onSubmit(data);
             resetForm();
         },

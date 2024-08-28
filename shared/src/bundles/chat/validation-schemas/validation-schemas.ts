@@ -1,1 +1,1 @@
-export { chatForm } from './chat-form.validation-schema.js';
+export { textGeneration } from './generate-text.validation-schema.js';

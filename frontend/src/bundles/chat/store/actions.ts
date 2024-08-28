@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-    type ChatRequestDto,
-    type ChatResponseDto,
     type DeleteChatRequestDto,
     type DeleteChatResponseDto,
+    type GenerateTextRequestDto,
+    type GenerateTextResponseDto,
 } from 'shared';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
@@ -11,8 +11,8 @@ import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import { name as sliceName } from './slice.js';
 
 const sendMessage = createAsyncThunk<
-    ChatResponseDto,
-    ChatRequestDto,
+    GenerateTextResponseDto,
+    GenerateTextRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/send-message`, (sendMessagePayload, { extra }) => {
     const { chatApi } = extra;

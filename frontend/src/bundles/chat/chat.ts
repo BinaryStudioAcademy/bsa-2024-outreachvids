@@ -11,5 +11,5 @@ const chatApi = new ChatApi({
 });
 
 export { chatApi };
-export { type ChatRequestDto } from './types/types.js';
-export { chatFormValidationSchema } from './validation-schemas/validation-schemas.js';
+export { type GenerateTextRequestDto } from './types/types.js';
+export { textGenerationValidationSchema } from './validation-schemas/validation-schemas.js';

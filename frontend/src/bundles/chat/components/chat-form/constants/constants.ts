@@ -1,6 +1,6 @@
-import { type ChatRequestDto } from '~/bundles/chat/types/types.js';
+import { type GenerateTextRequestDto } from '~/bundles/chat/types/types.js';
 
-const DEFAULT_CHAT_FORM_PAYLOAD: ChatRequestDto = {
+const DEFAULT_CHAT_FORM_PAYLOAD: GenerateTextRequestDto = {
     message: '',
 };
 

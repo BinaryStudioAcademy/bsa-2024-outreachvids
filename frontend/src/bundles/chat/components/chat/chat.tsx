@@ -1,13 +1,16 @@
 import { Box } from '~/bundles/common/components/components.js';
 
-import { type ChatRequestDto, type Message } from '../../types/types.js';
+import {
+    type GenerateTextRequestDto,
+    type Message,
+} from '../../types/types.js';
 import { ChatBody } from '../chat-body/chat-body.js';
 import { ChatFooter } from '../chat-footer/chat-footer.js';
 import { ChatHeader } from '../chat-header/chat-header.js';
 
 type Properties = {
     messages: Message[];
-    onSendMessage: (payload: ChatRequestDto) => void;
+    onSendMessage: (payload: GenerateTextRequestDto) => void;
     headerTitle: string;
     headerComment: string;
 };

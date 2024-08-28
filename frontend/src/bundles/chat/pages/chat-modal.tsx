@@ -16,7 +16,7 @@ import {
 import { Chat } from '../components/components.js';
 import { MessageSender } from '../enums/message-sender.js';
 import { actions as chatActions } from '../store/chat.js';
-import { type ChatRequestDto, type Message } from '../types/types.js';
+import { type GenerateTextRequestDto, type Message } from '../types/types.js';
 
 const ChatModal: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,7 +26,7 @@ const ChatModal: React.FC = () => {
     }));
 
     const handleSendMessage = useCallback(
-        (payload: ChatRequestDto) => {
+        (payload: GenerateTextRequestDto) => {
             const userMessage: Message = {
                 id: messages.length + 1,
                 sender: MessageSender.USER,

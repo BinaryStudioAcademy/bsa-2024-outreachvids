@@ -1,10 +1,10 @@
 import { Box } from '~/bundles/common/components/components.js';
 
-import { type ChatRequestDto } from '../../types/types.js';
+import { type GenerateTextRequestDto } from '../../types/types.js';
 import { ChatForm } from '../chat-form/chat-form.js';
 
 type Properties = {
-    onSendMessage: (payload: ChatRequestDto) => void;
+    onSendMessage: (payload: GenerateTextRequestDto) => void;
 };
 
 const ChatFooter: React.FC<Properties> = ({ onSendMessage }) => {
