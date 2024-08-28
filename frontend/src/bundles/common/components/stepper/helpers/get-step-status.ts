@@ -1,4 +1,6 @@
-import { type Step as StepType } from '../types/step.type.js';
+import { type ValueOf } from 'shared';
+
+import { Step } from '../enums/enums.js';
 
 type Properties = {
     stepName: string;
@@ -12,20 +14,20 @@ const getStepStatus = ({
     index,
     currentStep,
     steps,
-}: Properties): StepType => {
+}: Properties): ValueOf<typeof Step> => {
     if (index < steps.indexOf(currentStep)) {
-        return 'completed';
+        return Step.COMPLETED;
     }
     if (currentStep === steps.at(-1)) {
-        return 'lastCompleted';
+        return Step.LAST_COMPLETED;
     }
     if (index === steps.length - 1) {
-        return 'lastUncompleted';
+        return Step.LAST_UNCOMPLETED;
     }
     if (currentStep === stepName) {
-        return 'current';
+        return Step.CURRENT;
     }
-    return 'default';
+    return Step.DEFAULT;
 };
 
 export { getStepStatus };

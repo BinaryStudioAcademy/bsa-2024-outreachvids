@@ -8,18 +8,6 @@ type Properties = {
     currentStep: string;
 };
 
-const stepsElements: React.FC<Properties> = ({ steps, currentStep }) => {
-    return steps.map((stepName, index) => {
-        return (
-            <Step
-                key={index}
-                stepDescription={stepName}
-                step={getStepStatus({ stepName, index, currentStep, steps })}
-            />
-        );
-    });
-};
-
 const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
     const backButton = (
         <IconButton
@@ -48,7 +36,20 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
                     color: 'white',
                 }}
             >
-                {stepsElements({ steps, currentStep })}
+                {steps.map((stepName, index) => {
+                    return (
+                        <Step
+                            key={index}
+                            stepDescription={stepName}
+                            step={getStepStatus({
+                                stepName,
+                                index,
+                                currentStep,
+                                steps,
+                            })}
+                        />
+                    );
+                })}
             </Flex>
         </Box>
     );

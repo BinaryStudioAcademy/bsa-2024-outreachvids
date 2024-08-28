@@ -1,10 +1,12 @@
+import { type ValueOf } from 'shared';
+
 import { Flex, Text } from '~/bundles/common/components/components.js';
 
-import { type Step as StepType } from '../../types/step.type.js';
+import { Step as StepEnum } from '../../enums/enums.js';
 import { StepIcon } from '../step-icon/step-icon.js';
 
 type Properties = {
-    step: StepType;
+    step: ValueOf<typeof StepEnum>;
     stepDescription: string;
 };
 
@@ -16,7 +18,8 @@ const Step: React.FC<Properties> = ({ step, stepDescription }) => {
         top: '24px',
         left: '50%',
         height: '2px',
-        backgroundColor: step === 'completed' ? 'white' : 'background.600',
+        backgroundColor:
+            step === StepEnum.COMPLETED ? 'white' : 'background.600',
         order: -1,
     };
 
@@ -36,7 +39,8 @@ const Step: React.FC<Properties> = ({ step, stepDescription }) => {
                 margin: '11px auto 0',
             }}
             _after={
-                step === 'lastUncompleted' || step === 'lastCompleted'
+                step === StepEnum.LAST_UNCOMPLETED ||
+                step === StepEnum.LAST_COMPLETED
                     ? {}
                     : afterStyles
             }
@@ -48,7 +52,8 @@ const Step: React.FC<Properties> = ({ step, stepDescription }) => {
                     marginTop: '5px',
                     textAlign: 'center',
                     color:
-                        step === 'default' || step === 'lastUncompleted'
+                        step === StepEnum.DEFAULT ||
+                        step === StepEnum.LAST_UNCOMPLETED
                             ? 'background.600'
                             : 'white',
                 }}

@@ -1,16 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { type ValueOf } from 'shared';
 
 import { Box, Icon } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import { type Step as StepType } from '../../types/step.type.js';
+import { Step } from '../../enums/enums.js';
 
 type Properties = {
-    step: StepType;
+    step: ValueOf<typeof Step>;
 };
 
 const StepIcon: React.FC<Properties> = ({ step }) => {
-    if (step === 'completed') {
+    if (step === Step.COMPLETED) {
         return (
             <Box>
                 <Box backgroundColor="background.900" display="inline-flex">
@@ -20,7 +21,7 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
         );
     }
 
-    if (step === 'current' || step === 'lastCompleted') {
+    if (step === Step.CURRENT || step === Step.LAST_COMPLETED) {
         return (
             <Box>
                 <Box
