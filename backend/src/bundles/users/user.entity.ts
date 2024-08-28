@@ -1,7 +1,7 @@
 import { type Entity } from '~/common/types/types.js';
 
 class UserEntity implements Entity {
-    private 'id': number | null;
+    private 'id': string | null;
 
     private 'email': string;
 
@@ -18,7 +18,7 @@ class UserEntity implements Entity {
         passwordHash,
         passwordSalt,
     }: {
-        id: number | null;
+        id: string | null;
         email: string;
         fullName: string;
         passwordHash: string;
@@ -38,7 +38,7 @@ class UserEntity implements Entity {
         passwordHash,
         passwordSalt,
     }: {
-        id: number;
+        id: string;
         email: string;
         fullName: string;
         passwordHash: string;
@@ -74,12 +74,12 @@ class UserEntity implements Entity {
     }
 
     public toObject(): {
-        id: number;
+        id: string;
         email: string;
         fullName: string;
     } {
         return {
-            id: this.id as number,
+            id: this.id as string,
             email: this.email,
             fullName: this.fullName,
         };
