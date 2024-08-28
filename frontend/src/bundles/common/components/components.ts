@@ -26,4 +26,4 @@ export {
 } from '@chakra-ui/react';
 export { FormikProvider as FormProvider } from 'formik';
 export { Provider as StoreProvider } from 'react-redux';
-export { Outlet as RouterOutlet } from 'react-router-dom';
+export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';

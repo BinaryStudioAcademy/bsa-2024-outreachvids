@@ -1,5 +1,5 @@
 import { Auth } from '~/bundles/auth/pages/auth.js';
-import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 const publicRoutes = [
     {
