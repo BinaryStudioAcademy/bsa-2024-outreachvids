@@ -6,7 +6,10 @@ type Properties = RowDefinition & {
     children: React.ReactNode;
 };
 
-const Row: React.FC<Properties> =({ id, children }: Properties): JSX.Element => {
+const Row: React.FC<Properties> = ({
+    id,
+    children,
+}: Properties): JSX.Element => {
     const { setNodeRef, rowWrapperStyle, rowStyle } = useRow({ id });
 
     return (

@@ -4,7 +4,9 @@ type Properties = {
     children: React.ReactNode;
 };
 
-const Subrow: React.FC<Properties> =({ children }: Properties): JSX.Element => {
+const Subrow: React.FC<Properties> = ({
+    children,
+}: Properties): JSX.Element => {
     return (
         <Box height="50px" position="relative">
             {children}

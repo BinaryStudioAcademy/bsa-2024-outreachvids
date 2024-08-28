@@ -20,15 +20,15 @@ type Properties = {
     markers: MarkerDefinition[];
 };
 
-const TimeAxis: React.FC<Properties> =({ markers }: Properties): JSX.Element => {
+const TimeAxis: React.FC<Properties> = ({
+    markers,
+}: Properties): JSX.Element => {
     const { range, direction, sidebarWidth, valueToPixels } =
         useTimelineContext();
     const side = direction === 'rtl' ? 'right' : 'left';
 
     const computedMarkers = useMemo(() => {
-        const sortedMarkers = markers.toSorted(
-            (a, b) => b.value - a.value,
-        );
+        const sortedMarkers = markers.toSorted((a, b) => b.value - a.value);
         const delta = sortedMarkers.at(-1)?.value ?? 0;
         const rangeSize = range.end - range.start;
         const startTime = Math.floor(range.start / delta) * delta;
