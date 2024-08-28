@@ -52,6 +52,13 @@ const components = {
                 fontWeight: '600',
                 lineHeight: '16px',
             },
+            title: {
+                color: colors.typography[900],
+                fontSize: '18px',
+                fontWeight: '700',
+                lineHeight: '27px',
+                marginBottom: '10px',
+            },
         },
     },
     Button: {
