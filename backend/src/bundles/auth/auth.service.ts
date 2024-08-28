@@ -54,7 +54,6 @@ class AuthService {
     public async signUp(
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
-
         const { email } = userRequestDto;
         const emailExists = await this.userService.findByEmail(email);
         if (emailExists) {
