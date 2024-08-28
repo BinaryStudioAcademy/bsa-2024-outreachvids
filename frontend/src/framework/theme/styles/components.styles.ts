@@ -132,6 +132,46 @@ const components = {
             },
         },
     },
+    Select: {
+        variants: {
+            outline: {
+                field: {
+                    _focus: {
+                        borderWidth: '2px',
+                        borderColor: colors.brand.secondary[300],
+                        boxShadow: 'none',
+                    },
+                    _placeholder: {
+                        color: colors.typography[300],
+                    },
+                    _invalid: {
+                        borderWidth: '2px',
+                        borderColor: colors.brand.secondary[900],
+                        boxShadow: 'none',
+                    },
+                },
+            },
+        },
+    },
+    Textarea: {
+        variants: {
+            outline: {
+                _focus: {
+                    borderWidth: '2px',
+                    borderColor: colors.brand.secondary[300],
+                    boxShadow: 'none',
+                },
+                _placeholder: {
+                    color: colors.typography[300],
+                },
+                _invalid: {
+                    borderWidth: '2px',
+                    borderColor: colors.brand.secondary[900],
+                    boxShadow: 'none',
+                },
+            },
+        },
+    },
     FormError: {
         baseStyle: {
             text: {
