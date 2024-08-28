@@ -9,7 +9,7 @@ type Properties = {
     step: StepType;
 };
 
-const StepIcon = ({ step }: Properties): JSX.Element => {
+const StepIcon: React.FC<Properties> = ({ step }) => {
     if (step === 'completed') {
         return (
             <Box>

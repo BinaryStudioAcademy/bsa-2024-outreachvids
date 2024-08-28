@@ -8,7 +8,7 @@ type Properties = {
     currentStep: string;
 };
 
-const stepsElements = ({ steps, currentStep }: Properties): JSX.Element[] => {
+const stepsElements: React.FC<Properties> = ({ steps, currentStep }) => {
     return steps.map((stepName, index) => {
         return (
             <Step
