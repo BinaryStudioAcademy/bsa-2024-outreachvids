@@ -9,12 +9,12 @@ import { ApiPath } from '~/common/enums/enums.js';
 import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { MAX_TOKEN } from '~/common/services/open-ai/libs/constants/constants.js';
-
 import {
     ChatPath,
     OpenAIRole,
-} from '../../common/services/open-ai/libs/enums/enums.js';
-import { type OpenAIService } from '../../common/services/open-ai/open-ai.service.js';
+} from '~/common/services/open-ai/libs/enums/enums.js';
+import { type OpenAIService } from '~/common/services/open-ai/open-ai.service.js';
+
 import { type ChatService } from './chat.service.js';
 import { type GenerateTextRequestDto } from './libs/types/types.js';
 import { textGenerationValidationSchema } from './libs/validation-schemas/validation-schemas.js';

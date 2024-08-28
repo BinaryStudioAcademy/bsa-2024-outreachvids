@@ -17,13 +17,13 @@ import { ServerErrorType } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
+import { session } from '~/common/plugins/session/session.plugin.js';
 import {
     type ServerCommonErrorResponse,
     type ServerValidationErrorResponse,
     type ValidationSchema,
 } from '~/common/types/types.js';
 
-import { session } from '../plugins/plugins.js';
 import {
     type ServerApp,
     type ServerAppApi,

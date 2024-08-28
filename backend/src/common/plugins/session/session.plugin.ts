@@ -3,8 +3,7 @@ import fastifySession from '@fastify/session';
 import fp from 'fastify-plugin';
 
 import { type BaseConfig } from '~/common/config/base-config.package.js';
-
-import { ControllerHook } from '../libs/enums/enums.js';
+import { ControllerHook } from '~/common/plugins/libs/enums/enums.js';
 
 type Options = {
     services: {
