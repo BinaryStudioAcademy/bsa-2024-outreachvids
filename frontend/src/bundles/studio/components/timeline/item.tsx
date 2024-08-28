@@ -8,7 +8,7 @@ type Properties = {
     children: React.ReactNode;
 };
 
-const Item: React.FC<Properties> = ({ id, span, children }) => {
+const Item: React.FC<Properties> = ({ id, span, children }): JSX.Element  => {
     const { setNodeRef, attributes, listeners, itemStyle, itemContentStyle } =
         useItem({
             id,
