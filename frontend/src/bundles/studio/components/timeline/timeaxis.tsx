@@ -96,7 +96,7 @@ const TimeAxis: React.FC<Properties> = ({
                             height: `${100 * marker.heightMultiplier}%`,
                         }}
                     />
-                    {marker.label ? (
+                    {marker.label && (
                         <Box
                             style={{
                                 paddingLeft: '3px',
@@ -106,7 +106,7 @@ const TimeAxis: React.FC<Properties> = ({
                         >
                             {marker.label}
                         </Box>
-                    ) : null}
+                    )}
                 </Box>
             ))}
         </Box>
