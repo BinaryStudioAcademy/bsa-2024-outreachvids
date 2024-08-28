@@ -49,9 +49,17 @@ class AuthService {
         return user.toObject();
     }
 
-    public signUp(
+    public async signUp(
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
+        const { email } = userRequestDto;
+        const emailExists = await this.userService.findByEmail(email);
+        if (emailExists) {
+            throw new HttpError({
+                message: UserValidationMessage.EMAIL_ALREADY_EXISTS,
+                status: HttpCode.BAD_REQUEST,
+            });
+        }
         return this.userService.create(userRequestDto);
     }
 }
