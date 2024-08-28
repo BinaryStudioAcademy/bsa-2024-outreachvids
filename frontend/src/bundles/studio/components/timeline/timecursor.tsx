@@ -14,7 +14,7 @@ type Properties = {
 
 const TimeCursor: React.FC<Properties> = ({
     interval,
-}: Properties): JSX.Element | null => {
+}: Properties): JSX.Element => {
     const timeCursorReference = useReference<HTMLDivElement>(null);
     const renderTimeReference = useReference(Date.now());
     const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
