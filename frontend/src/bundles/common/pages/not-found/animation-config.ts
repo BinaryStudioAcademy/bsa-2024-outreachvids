@@ -11,4 +11,4 @@ const circleTransition = {
     duration: 2,
 };
 
-export { circleTransition,circleVariants };
+export { circleTransition, circleVariants };

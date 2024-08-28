@@ -1,4 +1,7 @@
-import { Navigate, RouterOutlet } from '~/bundles/common/components/components.js';
+import {
+    Navigate,
+    RouterOutlet,
+} from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 const ProtectedRoute: React.FC = () => {
