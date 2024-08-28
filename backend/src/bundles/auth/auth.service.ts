@@ -54,6 +54,15 @@ class AuthService {
     public async signUp(
         userRequestDto: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
+
+        const { email } = userRequestDto;
+        const emailExists = await this.userService.findByEmail(email);
+        if (emailExists) {
+            throw new HttpError({
+                message: UserValidationMessage.EMAIL_ALREADY_EXISTS,
+                status: HttpCode.BAD_REQUEST,
+            });
+        }
         const user = await this.userService.create(userRequestDto);
         const id = user.id;
         const token = await tokenService.createToken(id);

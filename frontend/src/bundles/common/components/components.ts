@@ -10,6 +10,7 @@ export { VideoModal } from './video-modal/video-modal.js';
 export { DownloadIcon } from '@chakra-ui/icons';
 export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
+    Badge,
     Box,
     Center,
     Circle,
@@ -18,7 +19,9 @@ export {
     FormControl,
     FormErrorMessage,
     Heading,
+    Icon,
     IconButton,
+    Image,
     InputGroup,
     InputRightElement,
     SimpleGrid,
