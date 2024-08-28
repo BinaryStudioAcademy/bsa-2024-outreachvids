@@ -4,7 +4,7 @@ import {
     Heading,
 } from '~/bundles/common/components/components.js';
 
-import { Animated404 } from './animated404.js';
+import { Animated404 } from '../../components/animated404/animated404.js';
 
 const NotFound: React.FC = () => {
     return (

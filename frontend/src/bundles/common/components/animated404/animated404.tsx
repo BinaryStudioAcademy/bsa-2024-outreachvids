@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 
-import { circleTransition, circleVariants } from './animation-config.js';
+import {
+    CIRCLE_TRANSITION,
+    CIRCLE_VARIANTS,
+} from './libs/constants/animation-config.js';
 
 const Animated404: React.FC = () => (
     <motion.svg
@@ -48,9 +51,9 @@ const Animated404: React.FC = () => (
                 cy="41"
                 r="1"
                 fill="white"
-                variants={circleVariants}
+                variants={CIRCLE_VARIANTS}
                 animate="animate"
-                transition={circleTransition}
+                transition={CIRCLE_TRANSITION}
             />
         </g>
     </motion.svg>
