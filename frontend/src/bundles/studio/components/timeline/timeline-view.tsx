@@ -19,7 +19,10 @@ interface TimelineProperties {
     items: ItemDefinition[];
 }
 
-const TimelineView: React.FC<TimelineProperties> = ({ rows, items }): JSX.Element  => {
+const TimelineView: React.FC<TimelineProperties> = ({
+    rows,
+    items,
+}): JSX.Element => {
     const { setTimelineRef, style, range } = useTimelineContext();
 
     const groupedSubrows = useMemo(

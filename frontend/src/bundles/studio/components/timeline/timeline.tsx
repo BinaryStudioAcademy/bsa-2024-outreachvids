@@ -21,7 +21,7 @@ const Timeline: React.FC<Properties> = ({
     initialRange,
     initialRows,
     initialItems,
-}): JSX.Element  => {
+}): JSX.Element => {
     const [range, setRange] = useState(initialRange);
     const [items, setItems] = useState(initialItems);
     const rows = initialRows;
