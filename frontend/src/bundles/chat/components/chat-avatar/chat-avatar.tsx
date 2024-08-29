@@ -1,4 +1,4 @@
-import { Box, Text } from '~/bundles/common/components/components.js';
+import { Box, Image, Text } from '~/bundles/common/components/components.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { MessageSender } from '../../enums/enums.js';
@@ -24,7 +24,7 @@ const ChatAvatar: React.FC<Properties> = ({ sender, imageUrl, initials }) => {
             fontWeight="bold"
         >
             {imageUrl ? (
-                <Box as="img"
+                <Image
                     src={imageUrl}
                     alt={initials}
                     sx={{
