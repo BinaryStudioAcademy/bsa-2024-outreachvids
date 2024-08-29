@@ -9,7 +9,11 @@ import {
 
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import { Tab, VideoPreview } from './components/components.js';
+import {
+    GenerateScriptView,
+    Tab,
+    VideoPreview,
+} from './components/components.js';
 
 const VideoModalContent = (): JSX.Element => {
     return (
@@ -31,6 +35,10 @@ const VideoModalContent = (): JSX.Element => {
                     h="full"
                 >
                     <Tab icon={IconName.PLAY} label="Start from scratch" />
+                    <Tab
+                        icon={IconName.FILE_LINES}
+                        label="Generate script with AI"
+                    />
                 </TabList>
             </VStack>
             <TabPanels>
@@ -41,6 +49,9 @@ const VideoModalContent = (): JSX.Element => {
                     justifyContent="center"
                 >
                     <VideoPreview />
+                </TabPanel>
+                <TabPanel p="0px 24px">
+                    <GenerateScriptView />
                 </TabPanel>
             </TabPanels>
         </Tabs>
