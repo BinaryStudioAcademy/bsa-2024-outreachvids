@@ -71,7 +71,7 @@ class UserController extends BaseController {
     }
     /**
      * @swagger
-     * /users/current-user:
+     * /users/current:
      *    get:
      *      description: Returns current authorized user
      *      responses:
