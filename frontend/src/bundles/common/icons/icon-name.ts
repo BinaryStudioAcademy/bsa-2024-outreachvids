@@ -13,6 +13,6 @@ const IconName = {
     ARROW_RIGHT: ArrowRightIcon,
     OPTIONS_VERTICAL: faEllipsisVertical,
     PEN: faPen,
-};
+} as const;
 
 export { IconName };

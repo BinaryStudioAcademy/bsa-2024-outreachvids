@@ -8,7 +8,7 @@ type Properties = {
     label: string;
     bg?: string;
     color?: string;
-    handleClick?: () => void;
+    onClick?: () => void;
 };
 
 const SidebarItem = ({
@@ -17,7 +17,7 @@ const SidebarItem = ({
     label,
     bg = 'none',
     color = 'white',
-    handleClick = (): void => {},
+    onClick = (): void => {},
 }: Properties): JSX.Element => {
     return (
         <Box
@@ -34,7 +34,7 @@ const SidebarItem = ({
             bg={bg}
             borderRadius="10px"
             p="10px"
-            onClick={handleClick}
+            onClick={onClick}
         >
             {icon}
             {isCollapsed ? '' : label}
