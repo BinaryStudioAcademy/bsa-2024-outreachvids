@@ -49,7 +49,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     }, [navigate]);
 
     return (
-        <Flex w="100%" h="100vh">
+        <Flex w="100%">
             <Flex
                 w={isCollapsed ? '60px' : '270px'}
                 bg="background.900"
