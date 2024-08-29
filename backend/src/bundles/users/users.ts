@@ -11,6 +11,8 @@ const userController = new UserController(logger, userService);
 
 export { userController, userService };
 export {
+    type CurrentUser,
+    type UserGetCurrentResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,

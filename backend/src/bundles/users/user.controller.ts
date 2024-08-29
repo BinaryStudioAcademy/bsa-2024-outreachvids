@@ -1,4 +1,5 @@
 import { type UserService } from '~/bundles/users/user.service.js';
+import { type UserGetCurrentResponseDto } from '~/bundles/users/users.js';
 import {
     type ApiHandlerResponse,
     BaseController,
@@ -86,7 +87,7 @@ class UserController extends BaseController {
     private getCurrent({ user }: ApiHandlerOptions): ApiHandlerResponse {
         return {
             status: HttpCode.OK,
-            payload: user,
+            payload: user as UserGetCurrentResponseDto,
         };
     }
 }
