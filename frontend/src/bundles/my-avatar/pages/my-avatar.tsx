@@ -12,12 +12,12 @@ const MyAvatar = (): JSX.Element => {
         <>
             <Header />
             <Sidebar>
-                <Box bg="background.900" pr="20px">
+                <Box bg="background.900" pr="25px">
                     <Box
                         bg="background.50"
-                        height="100vh"
-                        p="20px"
-                        borderRadius="xl"
+                        height="calc(100vh - 75px)"
+                        p="25px"
+                        borderTopRadius="xl"
                     >
                         <Text variant="title">My Avatar</Text>
                         <CreateAvatar />

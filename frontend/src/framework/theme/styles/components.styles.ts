@@ -57,7 +57,7 @@ const components = {
                 fontSize: '18px',
                 fontWeight: '700',
                 lineHeight: '27px',
-                marginBottom: '10px',
+                marginBottom: '5px',
             },
         },
     },
