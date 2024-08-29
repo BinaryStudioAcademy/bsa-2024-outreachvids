@@ -64,7 +64,12 @@ const Auth: React.FC = () => {
             )}
             <Center bgColor="background.600">{getScreen(pathname)}</Center>
             {/* TODO: Add logo */}
-            <Center bgColor="background.900" display={{ base: 'none', sm: 'flex' }}>LOGO</Center>
+            <Center
+                bgColor="background.900"
+                display={{ base: 'none', sm: 'flex' }}
+            >
+                LOGO
+            </Center>
         </SimpleGrid>
     );
 };
