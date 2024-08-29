@@ -37,14 +37,9 @@ const Timeline: React.FC<Properties> = ({
 
         setItems((previous) =>
             previous.map((item) => {
-                if (item.id !== activeItemId) {
-                    return item;
-                }
-
-                return {
-                    ...item,
-                    span: updatedSpan,
-                };
+                return item.id === activeItemId
+                    ? { ...item, span: updatedSpan }
+                    : item;
             }),
         );
     }, []);
