@@ -64,7 +64,7 @@ class AuthService {
             });
         }
         const user = await this.userService.create(userRequestDto);
-        const id = user.id;
+        const { id } = user;
         const token = await tokenService.createToken(id);
         return { ...user, token };
     }
