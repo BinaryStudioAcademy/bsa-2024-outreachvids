@@ -30,7 +30,7 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <FormProvider value={form}>
             <form onSubmit={handleSubmit}>
-                <VStack spacing="20px" w="35%" minWidth="256px" mt="20px">
+                <VStack width="256px" spacing="20px" mt="20px">
                     <Textarea
                         label="Topic"
                         name="topic"
