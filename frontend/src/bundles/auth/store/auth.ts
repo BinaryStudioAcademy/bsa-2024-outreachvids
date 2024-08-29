@@ -1,4 +1,4 @@
-import { loadCurrentUser,signIn, signUp } from './actions.js';
+import { loadCurrentUser, signIn, signUp } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
