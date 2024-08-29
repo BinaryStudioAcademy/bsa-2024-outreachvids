@@ -9,7 +9,7 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export { Sidebar } from './sidebar/sidebar.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export { DownloadIcon } from '@chakra-ui/icons';
-export { BellIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
     Badge,
     Box,
