@@ -47,7 +47,7 @@ class AuthService {
         }
 
         const userObject = user.toObject();
-        const id = { userObject };
+        const { id } = userObject;
         const token = await tokenService.createToken(id);
         return { ...userObject, token };
     }
