@@ -1,7 +1,7 @@
 import { type Entity } from '~/common/types/types.js';
 
 class FileEntity implements Entity {
-    private 'id': number | null;
+    private 'id': string | null;
     private 'url': string;
     private 'type': 'video' | 'photo';
 
@@ -10,7 +10,7 @@ class FileEntity implements Entity {
         url,
         type,
     }: {
-        id: number | null;
+        id: string | null;
         url: string;
         type: 'video' | 'photo';
     }) {
@@ -24,7 +24,7 @@ class FileEntity implements Entity {
         url,
         type,
     }: {
-        id: number;
+        id: string;
         url: string;
         type: 'video' | 'photo';
     }): FileEntity {
@@ -50,12 +50,12 @@ class FileEntity implements Entity {
     }
 
     public toObject(): {
-        id: number;
+        id: string;
         url: string;
         type: 'video' | 'photo';
     } {
         return {
-            id: this.id as number,
+            id: this.id as string,
             url: this.url,
             type: this.type,
         };
