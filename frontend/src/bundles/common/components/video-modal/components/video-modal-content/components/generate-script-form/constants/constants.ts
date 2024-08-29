@@ -2,7 +2,7 @@ import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/vide
 
 const DEFAULT_GENERATE_SCRIPT_PAYLOAD: GenerateVideoScriptRequestDto = {
     topic: '',
-    language: '',
+    language: 'english',
     tone: '',
     additionalInfo: '',
 };
