@@ -23,6 +23,8 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
+import { WHITE_ROUTES } from '../constants/constants.js';
+import { authenticateJWT } from '../plugins/plugins.js';
 import {
     type ServerApp,
     type ServerAppApi,
@@ -124,6 +126,10 @@ class BaseServerApp implements ServerApp {
     }
 
     private registerPlugins(): void {
+        this.app.register(authenticateJWT, {
+            routesWhiteList: WHITE_ROUTES,
+        });
+
         this.app.register(fastifyMultipart, {
             limits: {
                 fileSize: Number.POSITIVE_INFINITY,
