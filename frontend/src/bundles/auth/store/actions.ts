@@ -1,7 +1,8 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, unwrapResult } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
+    type UserGetCurrentResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -15,11 +16,12 @@ const signIn = createAsyncThunk<
     UserSignInResponseDto,
     UserSignInRequestDto,
     AsyncThunkConfig
->(`${sliceName}/sign-in`, async (signInPayload, { extra }) => {
+>(`${sliceName}/sign-in`, async (signInPayload, { extra, dispatch }) => {
     const { authApi, storage } = extra;
     const response = await authApi.signIn(signInPayload);
     if (response.token) {
         await storage.set(StorageKey.TOKEN, response.token);
+        await dispatch(loadCurrentUser()).then(unwrapResult);
     }
     return response;
 });
@@ -28,13 +30,24 @@ const signUp = createAsyncThunk<
     UserSignUpResponseDto,
     UserSignUpRequestDto,
     AsyncThunkConfig
->(`${sliceName}/sign-up`, async (registerPayload, { extra }) => {
+>(`${sliceName}/sign-up`, async (registerPayload, { extra, dispatch }) => {
     const { authApi, storage } = extra;
     const response = await authApi.signUp(registerPayload);
     if (response.token) {
         await storage.set(StorageKey.TOKEN, response.token);
+        await dispatch(loadCurrentUser()).then(unwrapResult);
     }
     return response;
 });
 
-export { signIn, signUp };
+const loadCurrentUser = createAsyncThunk<
+    UserGetCurrentResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/load-current-user`, (_, { extra }) => {
+    const { userApi } = extra;
+
+    return userApi.getCurrent();
+});
+
+export { loadCurrentUser, signIn, signUp };

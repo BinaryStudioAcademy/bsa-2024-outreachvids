@@ -1,4 +1,3 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import { Navigate } from 'react-router-dom';
 
 import { Center, SimpleGrid } from '~/bundles/common/components/components.js';
@@ -9,7 +8,6 @@ import {
     useCallback,
     useLocation,
 } from '~/bundles/common/hooks/hooks.js';
-import { actions as userActions } from '~/bundles/users/store/users.js';
 import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
@@ -21,24 +19,20 @@ import { actions as authActions } from '../store/auth.js';
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
     const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
+        dataStatus: auth.authDataStatus,
     }));
     const { pathname } = useLocation();
 
     const handleSignInSubmit = useCallback(
         (payload: UserSignInRequestDto): void => {
-            void dispatch(authActions.signIn(payload))
-                .then(unwrapResult)
-                .then(() => dispatch(userActions.loadCurrent()));
+            void dispatch(authActions.signIn(payload));
         },
         [dispatch],
     );
 
     const handleSignUpSubmit = useCallback(
         (payload: UserSignUpRequestDto): void => {
-            void dispatch(authActions.signUp(payload))
-                .then(unwrapResult)
-                .then(() => dispatch(userActions.loadCurrent()));
+            void dispatch(authActions.signUp(payload));
         },
         [dispatch],
     );

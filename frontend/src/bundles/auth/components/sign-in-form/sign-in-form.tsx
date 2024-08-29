@@ -34,7 +34,7 @@ type Properties = {
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
+        dataStatus: auth.authDataStatus,
     }));
     const form = useAppForm<UserSignInRequestDto>({
         initialValues: DEFAULT_SIGN_IN_PAYLOAD,

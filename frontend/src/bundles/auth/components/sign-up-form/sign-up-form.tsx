@@ -28,7 +28,7 @@ type Properties = {
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
+        dataStatus: auth.authDataStatus,
     }));
     const form = useAppForm<UserSignUpRequestDto>({
         initialValues: DEFAULT_SIGN_UP_PAYLOAD,

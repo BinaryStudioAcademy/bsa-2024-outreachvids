@@ -1,6 +1,7 @@
 type UserGetCurrentResponseDto = {
-    id: number;
+    id: string;
     email: string;
+    fullName: string;
 };
 
 export { type UserGetCurrentResponseDto };
