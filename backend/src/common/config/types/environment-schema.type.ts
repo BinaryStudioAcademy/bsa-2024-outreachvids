@@ -5,6 +5,7 @@ type EnvironmentSchema = {
     APP: {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
+        OPEN_AI_KEY: string;
     };
     DB: {
         CONNECTION_STRING: string;

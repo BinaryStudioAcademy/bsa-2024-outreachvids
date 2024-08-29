@@ -8,6 +8,7 @@ export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
+    Badge,
     Box,
     Center,
     Circle,
@@ -20,6 +21,7 @@ export {
     Heading,
     Icon,
     IconButton,
+    Image,
     InputGroup,
     InputRightElement,
     SimpleGrid,
