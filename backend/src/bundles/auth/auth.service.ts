@@ -8,7 +8,7 @@ import {
     type UserSignInResponseDto,
 } from '~/bundles/users/users.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
-import { cryptService } from '~/common/services/services.js';
+import { cryptService, tokenService } from '~/common/services/services.js';
 
 import { UserValidationMessage } from './enums/enums.js';
 
@@ -46,7 +46,10 @@ class AuthService {
             });
         }
 
-        return user.toObject();
+        const userObject = user.toObject();
+        const { id } = userObject;
+        const token = await tokenService.createToken(id);
+        return { ...userObject, token };
     }
 
     public async signUp(
@@ -60,7 +63,10 @@ class AuthService {
                 status: HttpCode.BAD_REQUEST,
             });
         }
-        return this.userService.create(userRequestDto);
+        const user = await this.userService.create(userRequestDto);
+        const { id } = user;
+        const token = await tokenService.createToken(id);
+        return { ...user, token };
     }
 }
 
