@@ -44,6 +44,13 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
+    files {
+        uuid id PK
+        string url
+        enum type "Values: 'video', 'photo'"
+        datetime created_at
+        datetime updated_at
+    }
     users ||--o{ videos : have
 ```
 
