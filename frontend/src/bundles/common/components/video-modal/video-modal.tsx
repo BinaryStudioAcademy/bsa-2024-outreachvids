@@ -13,7 +13,7 @@ type Properties = {
     onModalClose: () => void;
 };
 
-const VideoModal = ({ isOpen, onModalClose }: Properties): JSX.Element => {
+const VideoModal: React.FC<Properties> = ({ isOpen, onModalClose }) => {
     return (
         <Modal isOpen={isOpen} onClose={onModalClose} isCentered>
             <ModalOverlay />

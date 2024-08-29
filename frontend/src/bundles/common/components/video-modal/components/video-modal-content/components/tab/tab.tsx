@@ -7,7 +7,7 @@ type Properties = {
     icon: IconDefinition;
 };
 
-const Tab = ({ label, icon }: Properties): JSX.Element => {
+const Tab: React.FC<Properties> = ({ label, icon }) => {
     return (
         <ChakraTab
             justifyContent="stretch"

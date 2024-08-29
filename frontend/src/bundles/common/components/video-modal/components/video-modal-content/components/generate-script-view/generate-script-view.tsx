@@ -14,7 +14,7 @@ import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/vide
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
 
-const GenerateScriptView = (): JSX.Element => {
+const GenerateScriptView: React.FC = () => {
     const handleGenerateVideoScriptSubmit = useCallback(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (payload: GenerateVideoScriptRequestDto): void => {

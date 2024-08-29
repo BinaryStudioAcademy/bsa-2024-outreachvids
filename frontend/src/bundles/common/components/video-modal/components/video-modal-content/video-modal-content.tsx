@@ -15,7 +15,7 @@ import {
     VideoPreview,
 } from './components/components.js';
 
-const VideoModalContent = (): JSX.Element => {
+const VideoModalContent: React.FC = () => {
     return (
         <Tabs orientation="vertical" variant="unstyled" height="full">
             <VStack gap={0}>
