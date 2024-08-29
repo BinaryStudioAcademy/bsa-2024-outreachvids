@@ -6,7 +6,8 @@ import {
     Tabs,
     VStack,
 } from '@chakra-ui/react';
-import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
+
+import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { Tab, VideoPreview } from './components/components.js';
 
@@ -29,7 +30,7 @@ const VideoModalContent = (): JSX.Element => {
                     minWidth="290px"
                     h="full"
                 >
-                    <Tab icon={faPlay} label="Start from scratch" />
+                    <Tab icon={IconName.PLAY} label="Start from scratch" />
                 </TabList>
             </VStack>
             <TabPanels>
