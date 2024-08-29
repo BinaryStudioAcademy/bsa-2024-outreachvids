@@ -24,10 +24,10 @@ const ChatAvatar: React.FC<Properties> = ({ sender, imageUrl, initials }) => {
             fontWeight="bold"
         >
             {imageUrl ? (
-                <img
+                <Box as="img"
                     src={imageUrl}
                     alt={initials}
-                    style={{
+                    sx={{
                         borderRadius: '50%',
                         width: '100%',
                         height: '100%',
