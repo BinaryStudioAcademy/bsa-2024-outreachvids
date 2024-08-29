@@ -41,13 +41,10 @@ const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
         [dispatch, messages],
     );
 
-    const handleCloseChat = useCallback(
-        () => {
-            onModalChatClose();
-            void dispatch(chatActions.deleteChat({}));
-        },
-        [dispatch, onModalChatClose],
-    );
+    const handleCloseChat = useCallback(() => {
+        onModalChatClose();
+        void dispatch(chatActions.deleteChat({}));
+    }, [dispatch, onModalChatClose]);
 
     return (
         <>
@@ -58,9 +55,7 @@ const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
                 size={'5xl'}
             >
                 <ModalOverlay />
-                <ModalContent
-                    borderRadius={'xl'}
-                >
+                <ModalContent borderRadius={'xl'}>
                     <ModalCloseButton color="white" />
                     <Chat
                         messages={messages}
