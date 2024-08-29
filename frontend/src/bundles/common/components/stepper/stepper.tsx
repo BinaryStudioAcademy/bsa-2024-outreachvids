@@ -21,7 +21,8 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
         <Box
             sx={{
                 position: 'relative',
-                width: '340px',
+                maxWidth: '340px',
+                minWidth: '300px',
                 height: '100%',
             }}
         >
