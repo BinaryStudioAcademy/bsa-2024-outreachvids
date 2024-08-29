@@ -1,6 +1,7 @@
-import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
 import { type Repository } from '~/common/types/types.js';
+
+import { UserEntity } from '../../bundles/users/user.entity.js';
 
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
@@ -9,8 +10,10 @@ class UserRepository implements Repository {
         this.userModel = userModel;
     }
 
-    public find(): ReturnType<Repository['find']> {
-        return Promise.resolve(null);
+    public async find(userId: string): Promise<UserEntity | null> {
+        const user = await this.userModel.query().findById(userId).execute();
+
+        return user ? UserEntity.initialize(user) : null;
     }
 
     public async findByEmail(email: string): Promise<UserEntity | null> {
