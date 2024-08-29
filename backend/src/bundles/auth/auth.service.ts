@@ -46,9 +46,10 @@ class AuthService {
             });
         }
 
-        const id = user.toObject().id;
+        const userObject = user.toObject();
+        const { id } = userObject;
         const token = await tokenService.createToken(id);
-        return { ...user.toObject(), token };
+        return { ...userObject, token };
     }
 
     public async signUp(
@@ -63,7 +64,7 @@ class AuthService {
             });
         }
         const user = await this.userService.create(userRequestDto);
-        const id = user.id;
+        const { id } = user;
         const token = await tokenService.createToken(id);
         return { ...user, token };
     }
