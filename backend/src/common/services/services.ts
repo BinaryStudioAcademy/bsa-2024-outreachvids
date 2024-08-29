@@ -12,4 +12,4 @@ const secretKey = config.ENV.TOKEN.SECRET_KEY;
 const expirationTime = config.ENV.TOKEN.EXPIRATION_TIME;
 const tokenService = new TokenService(secretKey, expirationTime);
 
-export { azureAIService,cryptService, fileService, tokenService };
+export { azureAIService, cryptService, fileService, tokenService };
