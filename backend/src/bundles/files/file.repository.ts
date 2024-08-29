@@ -17,12 +17,15 @@ class FilesRepository implements Repository<FileEntity> {
         throw new Error('Method not implemented');
     }
 
-    public async create(payload: { url: string; type: 'video' | 'photo' }): Promise<FileEntity> {
+    public async create(payload: {
+        url: string;
+        type: 'video' | 'photo';
+    }): Promise<FileEntity> {
         const newFile = await this.fileModel
             .query()
             .insert({
                 url: payload.url,
-                type: payload.type
+                type: payload.type,
             })
             .returning('*');
 

@@ -1,5 +1,4 @@
 import { authController } from '~/bundles/auth/auth.js';
-import { fileController } from '~/bundles/files/files.js';
 import { userController } from '~/bundles/users/users.js';
 import { config } from '~/common/config/config.js';
 import { database } from '~/common/database/database.js';
@@ -13,7 +12,6 @@ const apiV1 = new BaseServerAppApi(
     config,
     ...authController.routes,
     ...userController.routes,
-    ...fileController.routes,
 );
 const serverApp = new BaseServerApp({
     config,

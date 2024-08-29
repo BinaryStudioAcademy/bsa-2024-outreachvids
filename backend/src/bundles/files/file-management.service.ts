@@ -1,22 +1,40 @@
 import { type FileEntity } from '~/bundles/files/file.entity.js';
 import { type FilesRepository } from '~/bundles/files/file.repository.js';
-import { type FileService } from '~/common/services/file/file.service.js';
 
 class FileManagementService {
-    private fileService: FileService;
     private filesRepository: FilesRepository;
 
-    public constructor(fileService: FileService, filesRepository: FilesRepository) {
-        this.fileService = fileService;
+    public constructor(filesRepository: FilesRepository) {
         this.filesRepository = filesRepository;
     }
 
-    public async uploadAndStoreFile(fileBuffer: Buffer, fileName: string, fileType: 'video' | 'photo'): Promise<FileEntity> {
-        await this.fileService.uploadFile(fileBuffer, fileName);
+    private determineFileType(fileName: string): 'video' | 'photo' {
+        const extension = fileName.split('.').pop()?.toLowerCase();
 
-        const fileUrl = this.fileService.getCloudFrontFileUrl(fileName);
+        if (!extension) {
+            throw new Error(
+                'Unable to determine file type: No extension found',
+            );
+        }
 
-        return this.filesRepository.create({
+        const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+        const videoExtensions = ['mp4', 'mov', 'avi', 'mkv'];
+
+        if (photoExtensions.includes(extension)) {
+            return 'photo';
+        } else if (videoExtensions.includes(extension)) {
+            return 'video';
+        } else {
+            throw new Error('Unsupported file type');
+        }
+    }
+
+    public async storeFileInfo(
+        fileUrl: string,
+        fileName: string,
+    ): Promise<FileEntity> {
+        const fileType = this.determineFileType(fileName);
+        return await this.filesRepository.create({
             url: fileUrl,
             type: fileType,
         });
