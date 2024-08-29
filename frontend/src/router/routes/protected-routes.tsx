@@ -17,11 +17,7 @@ const protectedRoutes = {
         },
         {
             path: AppRoute.STUDIO,
-            element: (
-                <>
-                    <Studio />
-                </>
-            ),
+            element: <Studio />,
         },
         {
             path: AppRoute.ANY,
