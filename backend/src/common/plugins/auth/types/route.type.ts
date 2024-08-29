@@ -1,5 +1,5 @@
 type Route = {
-    path: string;
+    path: string | RegExp;
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 };
 
