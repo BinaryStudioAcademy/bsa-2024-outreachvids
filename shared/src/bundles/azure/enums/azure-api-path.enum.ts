@@ -1,6 +1,6 @@
 const AzureApiPath = {
     ROOT: '/',
-    AVATAR: '/avatar',
+    AVATAR_VOICES: '/get-avatar-voices',
     TEXT_TO_SPEECH: '/text-to-speech',
 } as const;
 

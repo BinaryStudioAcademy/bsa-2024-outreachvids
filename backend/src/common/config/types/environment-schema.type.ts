@@ -13,7 +13,6 @@ type EnvironmentSchema = {
         POOL_MIN: number;
         POOL_MAX: number;
     };
-
     AWS: {
         ACCESS_KEY_ID: string;
         SECRET_ACCESS_KEY: string;
@@ -24,6 +23,11 @@ type EnvironmentSchema = {
         CLOUDFRONT: {
             DOMAIN_ID: string;
         };
+    };
+    AZURE: {
+        AZURE_SERVICE_KEY: string;
+        AZURE_SERVICE_REGION: string;
+        AZURE_SERVICE_ENDPOINT: string;
     };
 };
 

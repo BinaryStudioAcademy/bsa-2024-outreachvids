@@ -110,6 +110,26 @@ class BaseConfig implements Config {
                     },
                 },
             },
+            AZURE: {
+                AZURE_SERVICE_KEY: {
+                    doc: 'Azure service key',
+                    format: String,
+                    env: 'AZURE_SERVICE_KEY',
+                    default: null,
+                },
+                AZURE_SERVICE_REGION: {
+                    doc: 'Azure service region',
+                    format: String,
+                    env: 'AZURE_SERVICE_REGION',
+                    default: null,
+                },
+                AZURE_SERVICE_ENDPOINT: {
+                    doc: 'Azure service endpoint',
+                    format: String,
+                    env: 'AZURE_SERVICE_ENDPOINT',
+                    default: null,
+                },
+            },
         });
     }
 }
