@@ -2,9 +2,14 @@ import { config } from '../config/config.js';
 import { AzureAIService } from './azure/azure-ai.service.js';
 import { CryptService } from './crypt/crypt.service.js';
 import { FileService } from './file/file.service.js';
+import { TokenService } from './token/token.services.js';
 
 const cryptService = new CryptService();
 const fileService = new FileService(config);
 const azureAIService = new AzureAIService(config);
 
-export { azureAIService, cryptService, fileService };
+const secretKey = config.ENV.TOKEN.SECRET_KEY;
+const expirationTime = config.ENV.TOKEN.EXPIRATION_TIME;
+const tokenService = new TokenService(secretKey, expirationTime);
+
+export { azureAIService,cryptService, fileService, tokenService };

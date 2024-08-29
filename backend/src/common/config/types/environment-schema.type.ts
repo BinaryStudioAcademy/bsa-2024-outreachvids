@@ -13,6 +13,10 @@ type EnvironmentSchema = {
         POOL_MIN: number;
         POOL_MAX: number;
     };
+    TOKEN: {
+        SECRET_KEY: string;
+        EXPIRATION_TIME: string;
+    };
     AWS: {
         ACCESS_KEY_ID: string;
         SECRET_ACCESS_KEY: string;

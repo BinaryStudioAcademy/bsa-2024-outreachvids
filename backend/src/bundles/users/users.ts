@@ -16,6 +16,7 @@ export {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from './types/types.js';
+export { type UserEntity } from './user.entity.js';
 export { UserModel } from './user.model.js';
 export {
     userSignInValidationSchema,
