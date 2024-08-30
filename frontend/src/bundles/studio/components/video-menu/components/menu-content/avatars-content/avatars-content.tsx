@@ -1,7 +1,7 @@
 import avatar from '~/assets/img/avatar.png';
 import { SimpleGrid, Text } from '~/bundles/common/components/components.js';
 
-import { AvatarCard } from '../components/components.js';
+import { AvatarCard } from './components/components.js';
 
 const AvatarsContent: React.FC = () => {
     {
