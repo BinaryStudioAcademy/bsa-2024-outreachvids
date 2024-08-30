@@ -8,7 +8,7 @@ env:
 on:
     push:
         branches:
-            - next
+            - task/OV-86-add-deployment
     workflow_dispatch:
 
 jobs:
