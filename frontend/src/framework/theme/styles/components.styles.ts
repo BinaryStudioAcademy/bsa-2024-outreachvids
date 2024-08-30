@@ -65,6 +65,9 @@ const components = {
                         bg: colors.brand.secondary[600],
                     },
                 },
+                _active: {
+                    bgColor: colors.brand.secondary[900],
+                },
             },
             primaryOutlined: {
                 color: colors.background[300],
