@@ -9,7 +9,7 @@ import {
 
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
-import { TimelineView } from './timeline-view.js';
+import { TimelineView } from './timeline-view/timeline-view.js';
 
 type Properties = {
     initialRange: Range;
