@@ -27,7 +27,7 @@
         "lint:fix": "npm run lint:fix -w frontend && npm run lint:fix -w backend",
         "format": "prettier --write \"**/*.{ts,tsx,json,md,css,html,yml}\"",
         "migrate": "npm run migrate:dev -w backend",
-        "prestart": "npm install --include=dev && npm run migrate && npm run build",
+        "prestart": "npm install --include=dev && npm run build && npm run migrate",
         "start": "cd ./build/backend && npm run start"
     },
     "devDependencies": {
