@@ -32,10 +32,11 @@
         "@aws-sdk/client-s3": "3.635.0",
         "@aws-sdk/s3-request-presigner": "3.635.0",
         "@fastify/multipart": "8.3.0",
+        "@fastify/cookie": "9.4.0",
+        "@fastify/session": "10.9.0",
         "@fastify/static": "7.0.4",
         "@fastify/swagger": "8.15.0",
         "@fastify/swagger-ui": "4.0.1",
-        "axios": "1.7.5",
         "bcrypt": "5.1.1",
         "convict": "6.2.4",
         "dotenv": "16.4.5",
@@ -50,6 +51,7 @@
         "pino": "9.3.2",
         "pino-pretty": "10.3.1",
         "shared": "*",
-        "swagger-jsdoc": "6.2.8"
+        "swagger-jsdoc": "6.2.8",
+        "tiktoken": "1.0.16"
     }
 }
