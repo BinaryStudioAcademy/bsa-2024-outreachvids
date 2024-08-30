@@ -51,7 +51,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
             <Flex
                 w={isCollapsed ? '60px' : '270px'}
                 bg="background.900"
-                height="100vh"
+                height="calc(100vh - 75px)"
                 position="fixed"
                 flexDirection="column"
                 justifyContent="space-between"
