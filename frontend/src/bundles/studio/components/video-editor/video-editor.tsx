@@ -5,7 +5,7 @@ import {
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import { Menu, MenuBody } from '../components/components.js';
+import { Menu, MenuBody } from './components/components.js';
 import {
     AssetsContent,
     AvatarsContent,
@@ -13,8 +13,8 @@ import {
     ScriptHeader,
     TemplatesContent,
     TextContent,
-} from '../components/mock/menu-mock.js';
-import { type MenuItem } from '../types/menu-item.type.js';
+} from './components/mock/menu-mock.js';
+import { type MenuItem } from './types/menu-item.type.js';
 
 const VideoEditor: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
