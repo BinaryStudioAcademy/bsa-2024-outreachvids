@@ -42,7 +42,6 @@ class AzureAIController extends BaseController {
      * /azure-ai/voices:
      *   get:
      *     summary: Get available voices
-     *     tags: [Azure AI]
      *     responses:
      *       200:
      *         description: Successful response
@@ -51,7 +50,7 @@ class AzureAIController extends BaseController {
      *             schema:
      *               type: array
      *               items:
-     *                 $ref: '#/components/schemas/VoiceModel'
+     *                 type: object
      */
     private async getVoices(): Promise<ApiHandlerResponse> {
         const voices = await this.azureAIService.getVoices();
@@ -66,7 +65,6 @@ class AzureAIController extends BaseController {
      * /azure-ai/generate-speech:
      *   post:
      *     summary: Generate speech from text
-     *     tags: [Azure AI]
      *     requestBody:
      *       required: true
      *       content:
@@ -77,22 +75,24 @@ class AzureAIController extends BaseController {
      *       200:
      *         description: Successful response
      *         content:
-     *           audio/mpeg:
+     *           application/json:
      *             schema:
-     *               type: string
-     *               format: binary
+     *               type: object
+     *                 properties:
+     *                   payload:
+     *                   type: string
      */
     private async generateSpeech(
         options: ApiHandlerOptions<{ body: AzureTextToSpeechRequestDto }>,
     ): Promise<ApiHandlerResponse> {
         const { text, voice } = options.body;
-        const audioBuffer = await this.azureAIService.generateSpeech(
+        const audioFileUrl = await this.azureAIService.generateSpeech(
             text,
             voice,
         );
         return {
             status: HttpCode.OK,
-            payload: audioBuffer,
+            payload: audioFileUrl,
         };
     }
 }

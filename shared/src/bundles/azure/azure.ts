@@ -1,5 +1,5 @@
 export { AzureApiPath } from './enums/enums.js';
 export {
-    type AzureGetAvatarResponseDto,
+    type AzureGetAvatarVoicesResponseDto,
     type AzureTextToSpeechRequestDto,
 } from './types/types.js';

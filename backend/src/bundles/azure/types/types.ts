@@ -1,4 +1,4 @@
 export {
-    type AzureGetAvatarResponseDto,
+    type AzureGetAvatarVoicesResponseDto,
     type AzureTextToSpeechRequestDto,
 } from 'shared';

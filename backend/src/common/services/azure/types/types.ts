@@ -1,1 +1,1 @@
-export { type AzureGetAvatarResponseDto } from 'shared';
+export { type AzureGetAvatarVoicesResponseDto } from 'shared';
