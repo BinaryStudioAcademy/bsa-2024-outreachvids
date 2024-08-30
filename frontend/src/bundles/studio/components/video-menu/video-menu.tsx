@@ -29,13 +29,13 @@ const VideoMenu: React.FC = () => {
     });
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleMenuClick = (
-        header: string | React.ReactNode,
-        content: React.ReactNode,
-    ): void => {
-        setActiveItem({ title: header, content });
-        setIsOpen(true);
-    };
+    const handleMenuClick = useCallback(
+        (header: string | React.ReactNode, content: React.ReactNode): void => {
+            setActiveItem({ title: header, content });
+            setIsOpen(true);
+        },
+        [],
+    );
 
     const resetActiveItem = useCallback((): void => {
         setIsOpen(false);
