@@ -78,8 +78,8 @@ class AzureAIController extends BaseController {
      *           application/json:
      *             schema:
      *               type: object
-     *                 properties:
-     *                   payload:
+     *               properties:
+     *                 payload:
      *                   type: string
      */
     private async generateSpeech(
