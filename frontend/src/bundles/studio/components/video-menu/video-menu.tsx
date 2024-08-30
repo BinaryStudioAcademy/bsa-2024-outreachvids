@@ -9,8 +9,6 @@ import { Menu, MenuBody } from './components/components.js';
 import {
     AssetsContent,
     AvatarsContent,
-    ScriptContent,
-    ScriptHeader,
     TemplatesContent,
     TextContent,
 } from './components/mock/menu-mock.js';
@@ -54,7 +52,7 @@ const VideoMenu: React.FC = () => {
         {
             label: 'Script',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.SCRIPT} />,
-            onClick: () => handleMenuClick(<ScriptHeader />, <ScriptContent />),
+            onClick: () => handleMenuClick('Script', <>Script Content</>),
         },
         {
             label: 'Text',
