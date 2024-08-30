@@ -8,6 +8,13 @@ const AvatarCard: React.FC = () => {
             height="162px"
             alignItems="flex-end"
             borderRadius="7px"
+            borderWidth="1px"
+            borderColor="transparent"
+            transition="all 0.3s ease"
+            _hover={{
+                backgroundColor: 'background.600',
+                borderColor: 'brand.secondary.300',
+            }}
         >
             <Image
                 boxSize="130px"
