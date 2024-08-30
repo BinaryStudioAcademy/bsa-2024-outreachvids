@@ -1,7 +1,10 @@
-import avatar from '~/assets/img/avatar.png';
 import { Flex, Image } from '~/bundles/common/components/components.js';
 
-const AvatarCard: React.FC = () => {
+type Properties = {
+    preview: string;
+};
+
+const AvatarCard: React.FC<Properties> = ({ preview }) => {
     return (
         <Flex
             bg="background.700"
@@ -19,7 +22,7 @@ const AvatarCard: React.FC = () => {
             <Image
                 boxSize="130px"
                 objectFit="cover"
-                src={avatar}
+                src={preview}
                 alt="Avatar preview"
                 borderRadius="7px"
             />
