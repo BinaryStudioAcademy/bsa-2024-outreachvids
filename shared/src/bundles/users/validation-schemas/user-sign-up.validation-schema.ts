@@ -48,7 +48,7 @@ const userSignUp = z
     .required()
     .refine((data) => data.fullName.split(/\s+/).length >= 2, {
         message: UserValidationMessage.FULL_NAME_INVALID,
-        path: ['name'],
+        path: ['fullName'],
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: UserValidationMessage.PASS_DONT_MATCH,

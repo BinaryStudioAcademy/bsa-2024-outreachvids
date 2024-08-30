@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import {
     Box,
     Flex,
@@ -53,7 +51,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
             <Flex
                 w={isCollapsed ? '60px' : '270px'}
                 bg="background.900"
-                height="100vh"
+                height="calc(100vh - 75px)"
                 position="fixed"
                 flexDirection="column"
                 justifyContent="space-between"
@@ -85,8 +83,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                             bg={activeButtonPage(AppRoute.ROOT)}
                             icon={
                                 <Icon
-                                    as={FontAwesomeIcon}
-                                    icon={IconName.HOME}
+                                    as={IconName.HOME}
                                     boxSize={5}
                                     color={activeIconPage(AppRoute.ROOT)}
                                 />
@@ -100,8 +97,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                             bg={activeButtonPage(AppRoute.MY_AVATAR)}
                             icon={
                                 <Icon
-                                    as={FontAwesomeIcon}
-                                    icon={IconName.AVATAR}
+                                    as={IconName.AVATAR}
                                     boxSize={5}
                                     color={activeIconPage(AppRoute.MY_AVATAR)}
                                 />
@@ -116,8 +112,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                     color="brand.secondary.600"
                     icon={
                         <Icon
-                            as={FontAwesomeIcon}
-                            icon={IconName.LOG_OUT}
+                            as={IconName.LOG_OUT}
                             boxSize={5}
                             color="brand.secondary.600"
                         />
