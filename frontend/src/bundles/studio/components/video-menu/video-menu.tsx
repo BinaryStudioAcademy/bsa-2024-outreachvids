@@ -6,9 +6,9 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { Menu, MenuBody } from './components/components.js';
+import { AvatarsContent } from './components/menu-content/content.js';
 import {
     AssetsContent,
-    AvatarsContent,
     ScriptContent,
     ScriptHeader,
     TemplatesContent,
