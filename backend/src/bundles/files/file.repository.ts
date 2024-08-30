@@ -2,19 +2,19 @@ import { FileEntity } from '~/bundles/files/file.entity.js';
 import { type FileModel } from '~/bundles/files/file.model.js';
 import { type Repository } from '~/common/types/types.js';
 
-class FilesRepository implements Repository<FileEntity> {
+class FilesRepository implements Repository {
     private fileModel: typeof FileModel;
 
     public constructor(fileModel: typeof FileModel) {
         this.fileModel = fileModel;
     }
 
-    public find(): Promise<FileEntity> {
-        throw new Error('Method not implemented');
+    public find(): ReturnType<Repository['find']> {
+        return Promise.resolve(null);
     }
 
-    public findAll(): Promise<FileEntity[]> {
-        throw new Error('Method not implemented');
+    public findAll(): ReturnType<Repository['findAll']> {
+        return Promise.resolve([]);
     }
 
     public async create(payload: {
@@ -36,12 +36,12 @@ class FilesRepository implements Repository<FileEntity> {
         });
     }
 
-    public update(): Promise<FileEntity> {
-        throw new Error('Method not implemented.');
+    public update(): ReturnType<Repository['update']> {
+        return Promise.resolve(null);
     }
 
-    public delete(): Promise<boolean> {
-        throw new Error('Method not implemented.');
+    public delete(): ReturnType<Repository['delete']> {
+        return Promise.resolve(true);
     }
 }
 

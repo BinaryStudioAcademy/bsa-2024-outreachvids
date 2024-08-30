@@ -1,19 +1,17 @@
 import { type Entity } from '~/common/types/types.js';
 
+import {
+    type FileEntityProperties,
+    type FileType,
+    type NewFileEntityProperties,
+} from './types/types.js';
+
 class FileEntity implements Entity {
     private 'id': string | null;
     private 'url': string;
-    private 'type': 'video' | 'photo';
+    private 'type': FileType;
 
-    private constructor({
-        id,
-        url,
-        type,
-    }: {
-        id: string | null;
-        url: string;
-        type: 'video' | 'photo';
-    }) {
+    private constructor({ id, url, type }: FileEntityProperties) {
         this.id = id;
         this.url = url;
         this.type = type;
@@ -23,11 +21,7 @@ class FileEntity implements Entity {
         id,
         url,
         type,
-    }: {
-        id: string;
-        url: string;
-        type: 'video' | 'photo';
-    }): FileEntity {
+    }: FileEntityProperties): FileEntity {
         return new FileEntity({
             id,
             url,
@@ -38,10 +32,7 @@ class FileEntity implements Entity {
     public static initializeNew({
         url,
         type,
-    }: {
-        url: string;
-        type: 'video' | 'photo';
-    }): FileEntity {
+    }: NewFileEntityProperties): FileEntity {
         return new FileEntity({
             id: null,
             url,
@@ -49,11 +40,7 @@ class FileEntity implements Entity {
         });
     }
 
-    public toObject(): {
-        id: string;
-        url: string;
-        type: 'video' | 'photo';
-    } {
+    public toObject(): FileEntityProperties {
         return {
             id: this.id as string,
             url: this.url,
@@ -61,10 +48,7 @@ class FileEntity implements Entity {
         };
     }
 
-    public toNewObject(): {
-        url: string;
-        type: 'video' | 'photo';
-    } {
+    public toNewObject(): NewFileEntityProperties {
         return {
             url: this.url,
             type: this.type,

@@ -5,6 +5,7 @@ const HttpCode = {
     NOT_FOUND: 404,
     UNPROCESSED_ENTITY: 422,
     INTERNAL_SERVER_ERROR: 500,
+    UNSUPPORTED_MEDIA_TYPE: 415,
 } as const;
 
 export { HttpCode };
