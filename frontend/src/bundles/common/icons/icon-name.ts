@@ -1,14 +1,14 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
+import { faEllipsisVertical, faPen } from '@fortawesome/free-solid-svg-icons';
+
 import {
-    faEllipsisVertical,
-    faHouse,
-    faPen,
-    faRightFromBracket,
-} from '@fortawesome/free-solid-svg-icons';
+    HouseIcon,
+    RightFromBracketIcon,
+} from './helper/icon-conversion.helper.js';
 
 const IconName = {
-    HOME: faHouse,
-    LOG_OUT: faRightFromBracket,
+    HOME: HouseIcon,
+    LOG_OUT: RightFromBracketIcon,
     ARROW_LEFT: ArrowLeftIcon,
     ARROW_RIGHT: ArrowRightIcon,
     OPTIONS_VERTICAL: faEllipsisVertical,
