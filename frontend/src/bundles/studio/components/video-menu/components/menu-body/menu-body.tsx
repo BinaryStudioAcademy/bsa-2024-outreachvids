@@ -30,7 +30,7 @@ const MenuBody: React.FC<Properties> = ({
                         left: '100px',
                         height: '72vh',
                         width: '335px',
-                        p: 2,
+                        p: 4,
                         zIndex: 1000,
                         borderRadius: '8px',
                         boxShadow: 'lg',
@@ -39,7 +39,7 @@ const MenuBody: React.FC<Properties> = ({
                     }}
                 >
                     <Flex justifyContent="space-between" alignItems="center">
-                        <Heading as="h3">{title}</Heading>
+                        <Heading variant="H3">{title}</Heading>
                         <CloseButton onClick={onClose} color="background.600" />
                     </Flex>
                     <VStack mt={4} spacing={4} align="start">
