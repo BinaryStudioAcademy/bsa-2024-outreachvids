@@ -6,7 +6,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import { VideoEditor } from '../components/video-editor/video-editor.js';
+import { VideoMenu } from '../components/video-menu/video-menu.js';
 
 const Studio: React.FC = () => {
     return (
@@ -27,7 +27,7 @@ const Studio: React.FC = () => {
                     />
                 }
             />
-            <VideoEditor />
+            <VideoMenu />
         </>
     );
 };

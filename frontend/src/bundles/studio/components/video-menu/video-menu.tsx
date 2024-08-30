@@ -16,7 +16,7 @@ import {
 } from './components/mock/menu-mock.js';
 import { type MenuItem } from './types/menu-item.type.js';
 
-const VideoEditor: React.FC = () => {
+const VideoMenu: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const [activeContent, setActiveContent] = useState<React.ReactNode | null>(
         null,
@@ -86,4 +86,4 @@ const VideoEditor: React.FC = () => {
     );
 };
 
-export { VideoEditor };
+export { VideoMenu };
