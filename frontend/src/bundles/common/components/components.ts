@@ -6,6 +6,7 @@ export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { Textarea } from './textarea/textarea.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
     Badge,
