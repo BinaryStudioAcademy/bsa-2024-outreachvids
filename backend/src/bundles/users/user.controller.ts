@@ -18,12 +18,13 @@ import { UsersApiPath } from './enums/enums.js';
  *        type: object
  *        properties:
  *          id:
- *            type: number
- *            format: number
- *            minimum: 1
+ *            type: string
+ *            format: uuid
  *          email:
  *            type: string
  *            format: email
+ *          fullName:
+ *            type: string
  */
 class UserController extends BaseController {
     private userService: UserService;
@@ -58,9 +59,12 @@ class UserController extends BaseController {
      *          content:
      *            application/json:
      *              schema:
-     *                type: array
-     *                items:
-     *                  $ref: '#/components/schemas/User'
+     *                type: object
+     *                properties:
+     *                  items:
+     *                    type: array
+     *                    items:
+     *                      $ref: '#/components/schemas/User'
      */
     private async findAll(): Promise<ApiHandlerResponse> {
         return {
