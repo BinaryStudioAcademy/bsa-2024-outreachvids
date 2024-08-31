@@ -135,33 +135,6 @@ const components = {
             },
         },
     },
-    Textarea: {
-        baseStyle: {
-            fontSize: 'sm',
-        },
-        variants: {
-            outline: {
-                _focus: {
-                    borderWidth: '2px',
-                    borderColor: colors.brand.secondary[300],
-                    boxShadow: 'none',
-                },
-                _placeholder: {
-                    color: colors.typography[300],
-                },
-                _invalid: {
-                    borderWidth: '2px',
-                    borderColor: colors.brand.secondary[900],
-                    boxShadow: 'none',
-                },
-            },
-        },
-    },
-    FormLabel: {
-        baseStyle: {
-            fontSize: 'sm',
-        },
-    },
     FormError: {
         baseStyle: {
             text: {

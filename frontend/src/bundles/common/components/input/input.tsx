@@ -26,10 +26,13 @@ const Input = <T extends FormValues>({
     placeholder = '',
     icon = 'none',
 }: Properties<T>): JSX.Element => {
-    const { field, error, isValid } = useFormField({ name });
+    const [field, meta] = useFormField({ name });
+
+    const { error, touched } = meta;
+    const hasError = Boolean(error) && touched;
 
     return (
-        <FormControl isInvalid={!isValid} isRequired={required}>
+        <FormControl isInvalid={hasError} isRequired={required}>
             <FormLabel htmlFor={name}>{label}</FormLabel>
             <Field
                 {...field}
