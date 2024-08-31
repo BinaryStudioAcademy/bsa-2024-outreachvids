@@ -88,6 +88,12 @@ const components = {
                     color: colors.brand.secondary[300],
                 },
             },
+            ghostIconDark: {
+                color: colors.background[300],
+                _hover: {
+                    color: colors.brand.secondary[300],
+                },
+            },
         },
     },
     Link: {

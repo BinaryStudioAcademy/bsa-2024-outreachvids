@@ -1,4 +1,10 @@
-import { DownloadIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import {
+    AddIcon,
+    CloseIcon,
+    DownloadIcon,
+    ViewIcon,
+    ViewOffIcon,
+} from '@chakra-ui/icons';
 import {
     faCircleUser,
     faCloudArrowUp,
@@ -20,6 +26,8 @@ const IconName = {
     TEMPLATE: faTableColumns,
     SCRIPT: faFont,
     TEXT: faT,
+    ADD: AddIcon,
+    CLOSE: CloseIcon,
 } as const;
 
 export { IconName };
