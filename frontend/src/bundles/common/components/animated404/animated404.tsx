@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import {
     CIRCLE_TRANSITION,
     CIRCLE_VARIANTS,
-} from './libs/constants/animation-config.js';
+} from './libs/constants/constants.js';
 
 const Animated404: React.FC = () => (
     <motion.svg
