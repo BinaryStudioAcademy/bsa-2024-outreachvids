@@ -23,6 +23,13 @@ const { reducer, actions, name } = createSlice({
 
             state.scripts.push(script);
         },
+        editScript(state, action: PayloadAction<Script>) {
+            const { id, text } = action.payload;
+
+            state.scripts = state.scripts.map((script) =>
+                script.id === id ? { ...script, text } : script,
+            );
+        },
         deleteScript(state, action: PayloadAction<string>) {
             state.scripts = state.scripts.filter(
                 (script) => script.id !== action.payload,
