@@ -19,7 +19,7 @@ import { actions as authActions } from '../store/auth.js';
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
     const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.authDataStatus,
+        dataStatus: auth.dataStatus,
     }));
     const { pathname } = useLocation();
 
