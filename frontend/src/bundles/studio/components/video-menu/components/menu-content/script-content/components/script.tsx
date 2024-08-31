@@ -47,21 +47,18 @@ const Script: React.FC<Properties> = ({ id, text }) => {
             >
                 <EditablePreview
                     h="full"
+                    w="full"
                     p="8px 16px"
-                    sx={{
-                        overflow: 'auto',
-                        border: '1px solid',
-                        borderColor: 'background.600',
-                    }}
+                    overflow="auto"
+                    border="1px solid"
+                    borderColor="background.600"
                 />
                 <EditableTextarea
                     h="full"
                     p="8px 16px"
                     resize="none"
-                    sx={{
-                        border: '1px solid',
-                        borderColor: 'background.300',
-                    }}
+                    border="1px solid"
+                    borderColor="background.300"
                     _focus={{
                         boxShadow: 'none',
                     }}

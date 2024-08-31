@@ -6,6 +6,7 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { Menu, MenuBody } from './components/components.js';
+import { ScriptContent } from './components/menu-content/content.js';
 import {
     AssetsContent,
     AvatarsContent,
@@ -54,7 +55,7 @@ const VideoMenu: React.FC = () => {
         {
             label: 'Script',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.SCRIPT} />,
-            onClick: () => handleMenuClick('Script', <>Script Content</>),
+            onClick: () => handleMenuClick('Script', <ScriptContent />),
         },
         {
             label: 'Text',
