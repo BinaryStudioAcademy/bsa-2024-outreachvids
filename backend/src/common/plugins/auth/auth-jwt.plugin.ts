@@ -40,9 +40,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
             });
         }
 
-        const user = await userService
-            .findById(userId)
-            .then((user) => user?.toObject());
+        const user = await userService.findById(userId);
 
         if (!user) {
             throw new HttpError({
@@ -50,8 +48,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
                 status: HttpCode.BAD_REQUEST,
             });
         }
-
-        request.user = user;
+        request.user = user.toObject();
     });
 
     done();
