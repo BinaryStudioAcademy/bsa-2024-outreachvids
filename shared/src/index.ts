@@ -1,5 +1,17 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type CreateNotificationRequestDto,
+    type NotificationGetAllItemResponseDto,
+    type NotificationGetAllResponseDto,
+    type NotificationGetOneRequestDto,
+    type NotificationType,
+    type UpdateNotificationRequestDto,
+    createNotificationValidationSchema,
+    NotificationsApiPath,
+    NotificationValidationMessage,
+    updateNotificationValidationSchema,
+} from './bundles/notifications/notifications.js';
+export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserSignInRequestDto,
