@@ -8,14 +8,14 @@ export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
-export { DownloadIcon } from '@chakra-ui/icons';
-export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
     Badge,
     Box,
     Center,
     Checkbox,
     Circle,
+    CloseButton,
+    Collapse,
     ChakraProvider as ComponentsProvider,
     Flex,
     FormControl,
@@ -36,6 +36,7 @@ export {
     Text,
     VStack,
 } from '@chakra-ui/react';
+export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { FormikProvider as FormProvider } from 'formik';
 export { Provider as StoreProvider } from 'react-redux';
 export { Outlet as RouterOutlet } from 'react-router-dom';
