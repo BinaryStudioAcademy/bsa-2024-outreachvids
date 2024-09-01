@@ -27,7 +27,7 @@ const ScriptContent: React.FC = () => {
     }, [dispatch]);
 
     return (
-        <VStack w="full" spacing="20px" pt="50px">
+        <VStack w="full" spacing="20px" p="20px 0">
             {scripts.length === 0 ? (
                 <Text variant="body1" width="60%" textAlign="center">
                     To add a script press a button below.
