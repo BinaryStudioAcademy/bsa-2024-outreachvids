@@ -1,4 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { type PlayerRef } from '@remotion/player';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
     Box,
@@ -12,33 +14,145 @@ import {
     SliderTrack,
     Text,
 } from '~/bundles/common/components/components.js';
-import { type PlayerOptions } from '~/bundles/common/components/upload-video/components/video-player/libs/types/types.js';
+import {
+    type PlayerOptions,
+    type VideoDuration,
+} from '~/bundles/common/components/upload-video/components/video-player/libs/types/types.js';
 import { IconName } from '~/bundles/common/icons/icon-name.js';
 
+import { VideoEvent } from './libs/enums/enums.js';
+import { getTime } from './libs/helpers/helpers.js';
+import { useAnimationFrame } from './libs/hooks/hooks.js';
+
 type Properties = {
-    handlePlayPause: () => void;
-    handleSeek: (value: number) => void;
-    handleVolumeSeekUp: (value: number) => void;
-    handleMute: () => void;
-    handleOnSeekMouseUp: (value: number) => void;
-    handleOnSeekMouseDown: () => void;
-    playerOptions: PlayerOptions;
-    duration: string;
-    currentTime: string;
+    videoPlayerReference: React.RefObject<PlayerRef>;
+    duration: VideoDuration;
 };
 
 const Control = ({
-    handlePlayPause,
-    handleSeek,
-    handleMute,
-    handleVolumeSeekUp,
-    handleOnSeekMouseUp,
-    handleOnSeekMouseDown,
-    playerOptions,
-    currentTime,
+    videoPlayerReference,
     duration,
 }: Properties): JSX.Element => {
-    const { played, isPlaying, volume, isMuted } = playerOptions;
+    const [videoState, setVideoState] = useState<PlayerOptions>({
+        isPlaying: false,
+        isMuted: false,
+        wasPlaying: true,
+        volume: 0.5,
+        played: 0,
+    });
+
+    const time = getTime({
+        played: videoState.played,
+        durationInSeconds: duration.inSeconds,
+    });
+
+    const handleVideoEnd = useCallback(() => {
+        setVideoState({
+            ...videoState,
+            isPlaying: false,
+            played: 0,
+            isMuted: videoPlayerReference.current?.isMuted() as boolean,
+            wasPlaying: true,
+        });
+    }, [videoState, videoPlayerReference]);
+
+    const updateSlider = (): void => {
+        if (videoPlayerReference.current?.isPlaying()) {
+            const currentTime =
+                videoPlayerReference.current.getCurrentFrame() /
+                duration.inFrames;
+
+            setVideoState((previousState) => {
+                return {
+                    ...previousState,
+                    played: currentTime * 100,
+                };
+            });
+        }
+    };
+
+    useAnimationFrame(updateSlider, videoState.isPlaying);
+
+    useEffect(() => {
+        const player = videoPlayerReference.current;
+        player?.addEventListener(VideoEvent.ENDED, handleVideoEnd);
+
+        return () => {
+            if (player) {
+                player.removeEventListener(VideoEvent.ENDED, handleVideoEnd);
+            }
+        };
+    }, [videoPlayerReference, handleVideoEnd]);
+
+    const handlePlayPause = useCallback(() => {
+        videoPlayerReference.current?.toggle();
+        setVideoState({
+            ...videoState,
+            isPlaying: videoPlayerReference.current?.isPlaying() as boolean,
+            wasPlaying: !videoPlayerReference.current?.isPlaying() as boolean,
+        });
+    }, [videoState, videoPlayerReference]);
+
+    const handleSeek = useCallback(
+        (value: number) => {
+            const currentTime = (duration.inFrames / 100) * value;
+
+            setVideoState({
+                ...videoState,
+                played: value,
+            });
+            (videoPlayerReference.current as PlayerRef).seekTo(currentTime);
+        },
+        [videoState, videoPlayerReference, duration.inFrames],
+    );
+
+    const handleOnSeekMouseDown = useCallback(() => {
+        setVideoState({
+            ...videoState,
+            isPlaying: false,
+        });
+        (videoPlayerReference.current as PlayerRef).pause();
+    }, [videoState, videoPlayerReference]);
+
+    const handleOnSeekMouseUp = useCallback(() => {
+        videoState.wasPlaying
+            ? videoPlayerReference.current?.pause()
+            : videoPlayerReference.current?.play();
+
+        setVideoState({
+            ...videoState,
+            isPlaying: videoPlayerReference.current?.isPlaying() ? true : false,
+        });
+    }, [videoState, videoPlayerReference]);
+
+    const handleMute = useCallback(() => {
+        videoPlayerReference.current?.isMuted()
+            ? videoPlayerReference.current?.unmute()
+            : videoPlayerReference.current?.mute();
+        setVideoState({
+            ...videoState,
+            isMuted: !videoPlayerReference.current?.isMuted() as boolean,
+        });
+    }, [videoState, videoPlayerReference]);
+
+    const handleVolumeSeekUp = useCallback(
+        (value: number) => {
+            const newVolume = value / 100;
+
+            if (newVolume > 0 && videoPlayerReference.current?.isMuted()) {
+                videoPlayerReference.current?.unmute();
+            }
+
+            setVideoState({
+                ...videoState,
+                volume: newVolume,
+                isMuted: newVolume === 0 ? true : false,
+            });
+            videoPlayerReference.current?.setVolume(newVolume);
+        },
+        [videoState, videoPlayerReference],
+    );
+
     return (
         <Flex
             borderRadius="12px"
@@ -62,9 +176,9 @@ const Control = ({
                     backgroundColor="background.600"
                     p={0}
                     borderRadius="50%"
-                    aria-label={isPlaying ? 'pause' : 'play'}
+                    aria-label={videoState.isPlaying ? 'pause' : 'play'}
                     icon={
-                        isPlaying ? (
+                        videoState.isPlaying ? (
                             <Icon as={FontAwesomeIcon} icon={IconName.PAUSE} />
                         ) : (
                             <Icon as={FontAwesomeIcon} icon={IconName.PLAY} />
@@ -72,18 +186,16 @@ const Control = ({
                     }
                 />
 
-                <Box
-                    onPointerDownCapture={handleOnSeekMouseDown}
-                    padding="1px 10px"
-                >
+                <Box padding="1px 10px">
                     <Slider
                         width="270px"
-                        onChangeEnd={handleOnSeekMouseUp}
+                        onPointerDownCapture={handleOnSeekMouseDown}
+                        onPointerUpCapture={handleOnSeekMouseUp}
                         onChange={handleSeek}
                         min={0}
                         max={100}
                         step={0.1}
-                        value={played * 100}
+                        value={videoState.played}
                     >
                         <SliderTrack backgroundColor="background.100">
                             <SliderFilledTrack backgroundColor="brand.secondary.300" />
@@ -91,19 +203,18 @@ const Control = ({
                         <SliderThumb />
                     </Slider>
                 </Box>
-                <Text fontSize="13px">
-                    {currentTime} : {duration}
-                </Text>
+                <Text fontSize="13px">{time}</Text>
 
                 <IconButton
                     width="10px"
                     onClick={handleMute}
                     backgroundColor="background.600"
-                    p={0}
                     borderRadius="50%"
-                    aria-label={isMuted ? 'Unmute volume' : 'Mute volume'}
+                    aria-label={
+                        videoState.isMuted ? 'Unmute volume' : 'Mute volume'
+                    }
                     icon={
-                        isMuted ? (
+                        videoState.isMuted ? (
                             <Icon
                                 as={FontAwesomeIcon}
                                 icon={IconName.VOLUME_OFF}
@@ -115,12 +226,13 @@ const Control = ({
                 />
 
                 <Slider
-                    value={volume * 100}
+                    marginLeft="10px"
+                    value={videoState.volume * 100}
                     onChange={handleVolumeSeekUp}
                     min={0}
                     max={100}
                     step={1}
-                    width="50px"
+                    width="40px"
                 >
                     <SliderTrack backgroundColor="background.900">
                         <SliderFilledTrack backgroundColor="brand.secondary.300" />
