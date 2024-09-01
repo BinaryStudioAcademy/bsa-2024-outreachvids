@@ -36,6 +36,7 @@ const CheckboxForm = ({ handleRemoveVideo }: Properties): JSX.Element => {
 
     return (
         <>
+            {/* TODO : UPDATE TEXTS ON CHECKBOXES*/}
             <Text width="560px" color="gray">
                 For an optimal, more realistic avatar, please confirm your video
                 meet these requirements:
