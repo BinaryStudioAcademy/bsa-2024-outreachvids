@@ -1,100 +1,45 @@
-import { useCallback, useRef, useState } from 'react';
-import { type OnProgressProps } from 'react-player/base';
-import ReactPlayer from 'react-player/file';
+import { getVideoMetadata } from '@remotion/media-utils';
+import { type PlayerRef, Player } from '@remotion/player';
+import { useEffect, useRef, useState } from 'react';
 
 import { Box } from '~/bundles/common/components/components.js';
+import { notificationService } from '~/bundles/common/services/services.js';
 
-import { Control } from './components/components.js';
-import { formatTime } from './libs/helpers/helpers.js';
-import { type PlayerOptions } from './libs/types/types.js';
+import { Control, UserVideo } from './components/components.js';
+import { ErrorId, ErrorMessage, ErrorTitle } from './libs/enums/enums.js';
+import { type VideoDuration } from './libs/types/types.js';
 
 type Properties = {
     videoSource: string;
 };
 
 const VideoPlayer = ({ videoSource }: Properties): JSX.Element => {
-    const videoPlayerReference = useRef<ReactPlayer | null>(null);
+    const videoPlayerReference = useRef<PlayerRef>(null);
 
-    const currentTime = videoPlayerReference.current
-        ? videoPlayerReference.current.getCurrentTime()
-        : 0;
-
-    const duration = videoPlayerReference.current
-        ? videoPlayerReference.current.getDuration()
-        : 0;
-
-    const formatCurrentTime = formatTime(currentTime);
-
-    const formatDuration = formatTime(duration);
-
-    const [videoState, setVideoState] = useState<PlayerOptions>({
-        isPlaying: true,
-        isMuted: false,
-        volume: 0.5,
-        played: 0,
-        isSeeking: false,
+    const [duration, setDuration] = useState<VideoDuration>({
+        inFrames: 1,
+        inSeconds: 1,
     });
 
-    const handlePlayPause = useCallback(() => {
-        setVideoState({ ...videoState, isPlaying: !videoState.isPlaying });
-    }, [videoState]);
-
-    const onProgress = useCallback(
-        (state: OnProgressProps) => {
-            if (!videoState.isSeeking && videoState.isPlaying) {
-                setVideoState({ ...videoState, played: state.played });
-
-                if (state.played === 1) {
-                    setVideoState({
-                        ...videoState,
-                        isPlaying: false,
-                        played: state.played,
-                    });
-                }
-            }
-        },
-        [videoState],
-    );
-
-    const handleSeek = useCallback(
-        (value: number) => {
-            setVideoState({
-                ...videoState,
-                played: value / 100,
+    useEffect(() => {
+        if (!videoPlayerReference.current) {
+            return;
+        }
+        getVideoMetadata(videoSource)
+            .then(({ durationInSeconds }) => {
+                setDuration({
+                    inFrames: Math.round(durationInSeconds * 30),
+                    inSeconds: Math.round(durationInSeconds),
+                });
+            })
+            .catch(() => {
+                notificationService.error({
+                    id: ErrorId.METADATA,
+                    title: ErrorTitle.METADATA,
+                    message: ErrorMessage.METADATA,
+                });
             });
-            (videoPlayerReference.current as ReactPlayer).seekTo(value / 100);
-        },
-        [videoState],
-    );
-
-    const handleOnSeekMouseDown = useCallback(() => {
-        setVideoState({ ...videoState, isSeeking: true });
-    }, [videoState]);
-
-    const handleOnSeekMouseUp = useCallback(
-        (value: number) => {
-            setVideoState({ ...videoState, isSeeking: false });
-            (videoPlayerReference.current as ReactPlayer).seekTo(value / 100);
-        },
-        [videoState],
-    );
-
-    const handleVolumeSeekUp = useCallback(
-        (value: number) => {
-            const newVolume = value / 100;
-
-            setVideoState({
-                ...videoState,
-                volume: newVolume,
-                isMuted: newVolume === 0 ? true : false,
-            });
-        },
-        [videoState],
-    );
-
-    const handleMute = useCallback(() => {
-        setVideoState({ ...videoState, isMuted: !videoState.isMuted });
-    }, [videoState]);
+    }, [videoSource]);
 
     return (
         <Box
@@ -111,27 +56,19 @@ const VideoPlayer = ({ videoSource }: Properties): JSX.Element => {
                 borderColor: 'background.900',
             }}
         >
-            <ReactPlayer
-                width="100%"
-                height="100%"
+            <Player
+                component={UserVideo}
+                inputProps={{ src: videoSource }}
                 ref={videoPlayerReference}
-                muted={videoState.isMuted}
-                volume={videoState.volume}
-                url={videoSource}
-                playing={videoState.isPlaying}
-                onProgress={onProgress}
+                durationInFrames={duration.inFrames}
+                compositionWidth={570}
+                compositionHeight={278}
+                fps={30}
             />
 
             <Control
-                playerOptions={videoState}
-                handlePlayPause={handlePlayPause}
-                handleOnSeekMouseDown={handleOnSeekMouseDown}
-                handleOnSeekMouseUp={handleOnSeekMouseUp}
-                handleMute={handleMute}
-                handleSeek={handleSeek}
-                handleVolumeSeekUp={handleVolumeSeekUp}
-                duration={formatDuration}
-                currentTime={formatCurrentTime}
+                duration={duration}
+                videoPlayerReference={videoPlayerReference}
             />
         </Box>
     );
