@@ -1,13 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-    type DeleteChatRequestDto,
-    type DeleteChatResponseDto,
-    type GenerateTextRequestDto,
-    type GenerateTextResponseDto,
-} from 'shared';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 
+import { type DeleteChatResponseDto, type GenerateTextRequestDto, type GenerateTextResponseDto } from '../types/types.js';
 import { name as sliceName } from './slice.js';
 
 const sendMessage = createAsyncThunk<
@@ -22,12 +17,12 @@ const sendMessage = createAsyncThunk<
 
 const deleteChat = createAsyncThunk<
     DeleteChatResponseDto,
-    DeleteChatRequestDto,
+    undefined,
     AsyncThunkConfig
->(`${sliceName}/delete-chat`, (deleteChatPayload, { extra }) => {
+>(`${sliceName}/delete-chat`, (_, { extra }) => {
     const { chatApi } = extra;
 
-    return chatApi.deleteChat(deleteChatPayload);
+    return chatApi.deleteChat();
 });
 
 export { deleteChat, sendMessage };

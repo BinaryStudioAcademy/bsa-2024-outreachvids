@@ -1,6 +1,5 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
-    type DeleteChatRequestDto,
     type DeleteChatResponseDto,
     type GenerateTextRequestDto,
     type GenerateTextResponseDto,

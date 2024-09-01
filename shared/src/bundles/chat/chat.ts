@@ -1,6 +1,5 @@
 export { ChatApiPath } from './enums/enums.js';
 export {
-    type DeleteChatRequestDto,
     type DeleteChatResponseDto,
     type GenerateTextRequestDto,
     type GenerateTextResponseDto,

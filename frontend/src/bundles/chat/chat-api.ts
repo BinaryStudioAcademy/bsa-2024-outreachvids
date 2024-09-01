@@ -5,7 +5,6 @@ import { type Storage } from '~/framework/storage/storage.js';
 
 import { ChatApiPath } from './enums/enums.js';
 import {
-    type DeleteChatRequestDto,
     type DeleteChatResponseDto,
     type GenerateTextRequestDto,
     type GenerateTextResponseDto,
@@ -38,15 +37,12 @@ class ChatApi extends BaseHttpApi {
         return await response.json<GenerateTextResponseDto>();
     }
 
-    public async deleteChat(
-        payload: DeleteChatRequestDto,
-    ): Promise<DeleteChatResponseDto> {
+    public async deleteChat(): Promise<DeleteChatResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(ChatApiPath.DELETE_CHAT, {}),
             {
                 method: 'DELETE',
                 contentType: ContentType.JSON,
-                payload: JSON.stringify(payload),
                 hasAuth: true,
             },
         );

@@ -43,7 +43,7 @@ const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
 
     const handleCloseChat = useCallback(() => {
         onModalChatClose();
-        void dispatch(chatActions.deleteChat({}));
+        void dispatch(chatActions.deleteChat());
     }, [dispatch, onModalChatClose]);
 
     return (
