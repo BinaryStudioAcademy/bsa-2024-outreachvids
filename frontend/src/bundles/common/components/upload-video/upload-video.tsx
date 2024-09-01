@@ -21,6 +21,7 @@ const UploadVideo = (): JSX.Element => {
     return (
         <Flex
             maxWidth="864px"
+            width="full"
             backgroundColor="white"
             minHeight="550px"
             flexDirection="column"
