@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type PlayerRef } from '@remotion/player';
-import { useCallback, useEffect, useState } from 'react';
 
 import {
     Box,
@@ -18,6 +17,11 @@ import {
     type PlayerOptions,
     type VideoDuration,
 } from '~/bundles/common/components/upload-video/components/video-player/libs/types/types.js';
+import {
+    useCallback,
+    useEffect,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icon-name.js';
 
 import { VideoEvent } from './libs/enums/enums.js';
