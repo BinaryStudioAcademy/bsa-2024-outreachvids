@@ -1,4 +1,4 @@
-export { ChatApiPath } from './enums/chat-api-path.enum.js';
+export { ChatApiPath } from './enums/enums.js';
 export {
     type DeleteChatRequestDto,
     type DeleteChatResponseDto,

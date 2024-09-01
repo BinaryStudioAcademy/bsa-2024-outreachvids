@@ -48,6 +48,7 @@ export {
     type HttpOptions,
     HttpCode,
     HttpHeader,
+    HTTPMethod,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';
 export { configureString } from './helpers/helpers.js';

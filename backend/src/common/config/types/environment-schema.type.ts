@@ -6,12 +6,17 @@ type EnvironmentSchema = {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
         OPEN_AI_KEY: string;
+        SESSION_KEY: string;
     };
     DB: {
         CONNECTION_STRING: string;
         DIALECT: string;
         POOL_MIN: number;
         POOL_MAX: number;
+    };
+    TOKEN: {
+        SECRET_KEY: string;
+        EXPIRATION_TIME: string;
     };
     AWS: {
         ACCESS_KEY_ID: string;
