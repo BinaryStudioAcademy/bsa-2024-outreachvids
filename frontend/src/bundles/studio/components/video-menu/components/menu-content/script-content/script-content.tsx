@@ -13,6 +13,7 @@ import { IconName } from '~/bundles/common/icons/icon-name.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Script } from './components/script.js';
+import { NEW_SCRIPT_TEXT } from './constants/constants.js';
 
 const ScriptContent: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -21,9 +22,7 @@ const ScriptContent: React.FC = () => {
     }));
 
     const handleAddScript = useCallback((): void => {
-        void dispatch(
-            studioActions.addScript('Simply type your script to get started!'),
-        );
+        void dispatch(studioActions.addScript(NEW_SCRIPT_TEXT));
     }, [dispatch]);
 
     return (
