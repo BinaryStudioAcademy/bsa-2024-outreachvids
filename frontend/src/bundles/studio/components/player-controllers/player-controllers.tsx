@@ -4,6 +4,7 @@ import {
     Flex,
     Icon,
     IconButton,
+    Tooltip,
 } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -26,43 +27,66 @@ const PlayerControllers: React.FC = () => {
             borderWidth="1px"
         >
             <Flex alignItems="center" gap="11px" position="relative">
-                <IconButton
-                    aria-label="Step back"
-                    isRound={true}
-                    size="xs"
-                    variant="gray"
-                    icon={
-                        <Icon
-                            as={FontAwesomeIcon}
-                            icon={IconName.PLAY_STEP_BACK}
-                        />
-                    }
-                />
-                <IconButton
-                    aria-label={isPlaying ? 'Pause' : 'Play'}
-                    isRound={true}
-                    size="sm"
-                    variant="gray"
-                    icon={
-                        <Icon
-                            as={FontAwesomeIcon}
-                            icon={isPlaying ? IconName.PAUSE : IconName.PLAY}
-                        />
-                    }
-                    onClick={handleClick}
-                />
-                <IconButton
-                    aria-label="Step next"
-                    isRound={true}
-                    size="xs"
-                    variant="gray"
-                    icon={
-                        <Icon
-                            as={FontAwesomeIcon}
-                            icon={IconName.PLAY_STEP_NEXT}
-                        />
-                    }
-                />
+                <Tooltip
+                    hasArrow
+                    label="Skip to the previous scene"
+                    placement="top"
+                >
+                    <IconButton
+                        aria-label="Step back"
+                        isRound={true}
+                        size="xs"
+                        variant="gray"
+                        icon={
+                            <Icon
+                                as={FontAwesomeIcon}
+                                icon={IconName.PLAY_STEP_BACK}
+                            />
+                        }
+                    />
+                </Tooltip>
+
+                <Tooltip
+                    hasArrow
+                    label={isPlaying ? 'Pause' : 'Play'}
+                    placement="top"
+                >
+                    <IconButton
+                        aria-label={isPlaying ? 'Pause' : 'Play video'}
+                        isRound={true}
+                        size="sm"
+                        variant="gray"
+                        icon={
+                            <Icon
+                                as={FontAwesomeIcon}
+                                icon={
+                                    isPlaying ? IconName.PAUSE : IconName.PLAY
+                                }
+                            />
+                        }
+                        onClick={handleClick}
+                    />
+                </Tooltip>
+
+                <Tooltip
+                    hasArrow
+                    label="Skip to the next scene"
+                    placement="top"
+                >
+                    <IconButton
+                        aria-label="Step next"
+                        isRound={true}
+                        size="xs"
+                        variant="gray"
+                        icon={
+                            <Icon
+                                as={FontAwesomeIcon}
+                                icon={IconName.PLAY_STEP_NEXT}
+                            />
+                        }
+                    />
+                </Tooltip>
+
                 <TimeDisplay />
             </Flex>
         </Flex>

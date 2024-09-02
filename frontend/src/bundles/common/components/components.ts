@@ -28,6 +28,7 @@ export {
     InputRightElement,
     SimpleGrid,
     Text,
+    Tooltip,
     VStack,
 } from '@chakra-ui/react';
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
