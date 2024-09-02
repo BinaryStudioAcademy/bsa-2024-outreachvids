@@ -1,79 +1,40 @@
 import { minutesToMilliseconds } from 'date-fns';
-import {
-    type ItemDefinition,
-    type Range,
-    type RowDefinition,
-    type Span,
-} from 'dnd-timeline';
-
-const generateMockRows = (count: number): RowDefinition[] => {
-    return Array.from({ length: count })
-        .fill(0)
-        .map((_, index): RowDefinition => {
-            const disabled = false;
-
-            let id = `${index + 1}`;
-            if (disabled) {
-                id += ' (disabled)';
-            }
-
-            return {
-                id,
-                disabled,
-            };
-        });
-};
+import { type ItemDefinition } from 'dnd-timeline';
 
 const getRandomInRange = (min: number, max: number): number => {
     return Math.random() * (max - min) + min;
 };
 
-const DEFAULT_MIN_DURATION = minutesToMilliseconds(1);
-const DEFAULT_MAX_DURATION = minutesToMilliseconds(3);
+const generateMockItems = (count: number): ItemDefinition[] => {
+    let avatarsStart = 0;
+    let scriptsStart = 0;
 
-const generateRandomSpan = (
-    range: Range,
-    minDuration: number = DEFAULT_MIN_DURATION,
-    maxDuration: number = DEFAULT_MAX_DURATION,
-): Span => {
-    const duration = getRandomInRange(minDuration, maxDuration);
+    return Array.from({ length: count })
+        .fill(0)
+        .map((_, index): ItemDefinition => {
+            const rowId = getRandomInRange(0, 2) <= 1 ? 'avatars' : 'scripts';
 
-    const start = getRandomInRange(range.start, range.end - duration);
-
-    const end = start + duration;
-
-    return {
-        start: start,
-        end: end,
-    };
+            switch (rowId) {
+                case 'avatars': {
+                    const duration = minutesToMilliseconds(8);
+                    const span = {
+                        start: avatarsStart,
+                        end: avatarsStart + duration,
+                    };
+                    avatarsStart += duration;
+                    return { id: `${index + 1}`, rowId, span };
+                }
+                case 'scripts': {
+                    const duration = minutesToMilliseconds(4);
+                    const span = {
+                        start: scriptsStart,
+                        end: scriptsStart + duration,
+                    };
+                    scriptsStart += duration;
+                    return { id: `${index + 1}`, rowId, span };
+                }
+            }
+        });
 };
 
-const generateMockItems = (
-    count: number,
-    range: Range,
-    rows: RowDefinition[],
-): ItemDefinition[] => {
-    const items = Array.from({ length: count }).fill(0);
-
-    return items.map((_, index): ItemDefinition => {
-        const row = rows[Math.floor(Math.random() * rows.length)];
-        const rowId = row?.id;
-        const disabled = false;
-
-        const span = generateRandomSpan(range);
-
-        let id = `${index + 1}`;
-        if (disabled) {
-            id += ' (disabled)';
-        }
-
-        return {
-            id,
-            rowId: rowId || '',
-            span,
-            disabled,
-        };
-    });
-};
-
-export { generateMockItems, generateMockRows, generateRandomSpan };
+export { generateMockItems };

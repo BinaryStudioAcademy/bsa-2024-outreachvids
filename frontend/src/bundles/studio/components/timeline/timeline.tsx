@@ -3,7 +3,6 @@ import {
     type ItemDefinition,
     type Range,
     type ResizeEndEvent,
-    type RowDefinition,
     TimelineContext,
 } from 'dnd-timeline';
 
@@ -13,18 +12,16 @@ import { TimelineView } from './timeline-view/timeline-view.js';
 
 type Properties = {
     initialRange: Range;
-    initialRows: RowDefinition[];
     initialItems: ItemDefinition[];
 };
 
 const Timeline: React.FC<Properties> = ({
     initialRange,
-    initialRows,
     initialItems,
 }): JSX.Element => {
     const [range, setRange] = useState(initialRange);
     const [items, setItems] = useState(initialItems);
-    const rows = initialRows;
+
     const onResizeEnd = useCallback((event: ResizeEndEvent) => {
         const updatedSpan =
             event.active.data.current.getSpanFromResizeEvent?.(event);
@@ -43,7 +40,15 @@ const Timeline: React.FC<Properties> = ({
             }),
         );
     }, []);
+
     const onDragEnd = useCallback((event: DragEndEvent) => {
+        if (
+            event.active.data.current['type'] !==
+            event.over?.data.current?.['type']
+        ) {
+            return;
+        }
+
         const activeRowId = event.over?.id as string;
         const updatedSpan =
             event.active.data.current.getSpanFromDragEvent?.(event);
@@ -76,7 +81,7 @@ const Timeline: React.FC<Properties> = ({
             onResizeEnd={onResizeEnd}
             onRangeChanged={setRange}
         >
-            <TimelineView items={items} rows={rows} />
+            <TimelineView items={items} />
         </TimelineContext>
     );
 };
