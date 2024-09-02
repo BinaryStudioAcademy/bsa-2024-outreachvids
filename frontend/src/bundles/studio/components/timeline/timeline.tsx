@@ -72,20 +72,28 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
         setItems((previousItems) => {
             const activeRow = previousItems[activeItemType];
 
-            const newActiveItemIndex = activeRow.findIndex(
-                ({ span }) => spanStart > span.start && spanStart < span.end,
-            );
-
-            if (newActiveItemIndex === -1) {
-                return previousItems;
-            }
-
             const previousActiveItemIndex = activeRow.findIndex(
                 ({ id }) => id === activeItemId,
             );
 
             if (previousActiveItemIndex === -1) {
                 return previousItems;
+            }
+
+            const newActiveItemIndex = activeRow.findIndex(
+                ({ span }) => spanStart > span.start && spanStart < span.end,
+            );
+
+            if (newActiveItemIndex === -1) {
+                const orderedItems = [
+                    ...activeRow.toSpliced(previousActiveItemIndex, 1),
+                    activeRow[previousActiveItemIndex] as TimelineItemWithSpan,
+                ];
+
+                return setItemsSpan({
+                    ...previousItems,
+                    [activeItemType]: orderedItems,
+                });
             }
 
             const orderedItems = activeRow
