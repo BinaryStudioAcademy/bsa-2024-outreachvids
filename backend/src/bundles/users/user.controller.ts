@@ -5,7 +5,7 @@ import {
 } from '~/common/controller/controller.js';
 import { type ApiHandlerOptions } from '~/common/controller/types/types.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
@@ -36,7 +36,7 @@ class UserController extends BaseController {
 
         this.addRoute({
             path: UsersApiPath.ROOT,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: () => this.findAll(),
         });
 

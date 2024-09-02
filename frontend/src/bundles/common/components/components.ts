@@ -7,6 +7,8 @@ export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { Select } from './select/select.js';
+export { Textarea } from './textarea/textarea.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
     Badge,
