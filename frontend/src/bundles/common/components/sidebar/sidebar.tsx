@@ -15,7 +15,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
-import { UserCard, UserCircle } from '~/bundles/users/components/components.js';
+import { UserAvatar, UserCard } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
 
@@ -75,7 +75,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                 />
                 <Box mb="30px">
                     {/* ToDo: Add this username value dynamically */}
-                    {isCollapsed ? <UserCircle username="FN" /> : <UserCard />}
+                    {isCollapsed ? <UserAvatar username="FN" /> : <UserCard />}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>
