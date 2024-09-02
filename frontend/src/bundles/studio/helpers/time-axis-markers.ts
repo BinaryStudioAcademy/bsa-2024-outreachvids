@@ -5,7 +5,18 @@ import {
     secondsToMilliseconds,
 } from 'date-fns';
 
-import { type MarkerDefinition } from '~/bundles/studio/components/timeline/timeaxis/timeaxis.js';
+type Marker = {
+    label?: string;
+    sideDelta: number;
+    heightMultiplier: number;
+};
+
+type MarkerDefinition = {
+    value: number;
+    maxRangeSize?: number;
+    minRangeSize?: number;
+    getLabel?: (time: Date) => string;
+};
 
 const timeAxisMarkers: MarkerDefinition[] = [
     {
@@ -61,4 +72,4 @@ const timeAxisMarkers: MarkerDefinition[] = [
     },
 ];
 
-export { timeAxisMarkers };
+export { type Marker, type MarkerDefinition,timeAxisMarkers };
