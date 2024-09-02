@@ -1,14 +1,40 @@
 import { App } from '~/app/app.js';
-import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
-
-import { protectedRoutes } from './routes/protected-routes.js';
-import { publicRoutes } from './routes/public-routes.js';
+import { Auth } from '~/bundles/auth/pages/auth.js';
+import { ProtectedRoute } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { Home } from '~/bundles/home/pages/home.js';
+import { Studio } from '~/bundles/studio/pages/studio.js';
 
 const routes = [
     {
         path: AppRoute.ROOT,
         element: <App />,
-        children: [protectedRoutes, ...publicRoutes],
+        children: [
+            {
+                path: AppRoute.SIGN_IN,
+                element: <Auth />,
+            },
+            {
+                path: AppRoute.SIGN_UP,
+                element: <Auth />,
+            },
+            {
+                path: AppRoute.ROOT,
+                element: (
+                    <ProtectedRoute>
+                        <Home />,
+                    </ProtectedRoute>
+                ),
+            },
+            {
+                path: AppRoute.STUDIO,
+                element: (
+                    <ProtectedRoute>
+                        <Studio />,
+                    </ProtectedRoute>
+                ),
+            },
+        ],
     },
 ];
 
