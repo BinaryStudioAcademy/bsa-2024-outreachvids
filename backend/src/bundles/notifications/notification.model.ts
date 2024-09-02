@@ -3,8 +3,12 @@ import {
     DatabaseTableName,
 } from '~/common/database/database.js';
 
+import { type NotificationType } from './types/types.js';
+
 class NotificationModel extends AbstractModel {
-    public 'type': 'render';
+    public 'userId': string;
+
+    public 'type': NotificationType;
 
     public 'isRead': boolean;
 
