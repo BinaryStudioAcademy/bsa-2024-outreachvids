@@ -1,10 +1,13 @@
 import { DownloadIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
+    faBackwardStep,
     faCircleUser,
     faCloudArrowUp,
     faEllipsisVertical,
     faFileLines,
     faFont,
+    faForwardStep,
+    faPause,
     faPen,
     faPlay,
     faScroll,
@@ -16,6 +19,9 @@ const IconName = {
     PEN: faPen,
     FILE_LINES: faFileLines,
     PLAY: faPlay,
+    PLAY_STEP_BACK: faBackwardStep,
+    PLAY_STEP_NEXT: faForwardStep,
+    PAUSE: faPause,
     SCROLL: faScroll,
     OPTIONS_VERTICAL: faEllipsisVertical,
     DOWNLOAD: DownloadIcon,
