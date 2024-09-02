@@ -18,7 +18,7 @@ class NotificationService implements Service {
         this.notificationRepository = notificationRepository;
     }
 
-    public find(): ReturnType<Service['find']> {
+    public findById(): ReturnType<Service['findById']> {
         return Promise.resolve(null);
     }
 

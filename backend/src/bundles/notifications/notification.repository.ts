@@ -11,7 +11,7 @@ class NotificationRepository implements Repository {
         this.notificationModel = notificationModel;
     }
 
-    public find(): ReturnType<Repository['find']> {
+    public findById(): ReturnType<Repository['findById']> {
         return Promise.resolve(null);
     }
 
