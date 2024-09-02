@@ -11,15 +11,29 @@ type Properties = {
 };
 
 const Item: React.FC<Properties> = ({ id, type, span, children }) => {
-    const { setNodeRef, attributes, listeners, itemStyle, itemContentStyle } =
-        useItem({
-            id,
-            span,
-            data: { type },
-        });
+    const {
+        setNodeRef,
+        attributes,
+        listeners,
+        itemStyle,
+        itemContentStyle,
+        isDragging,
+    } = useItem({
+        id,
+        span,
+        data: { type },
+    });
 
     return (
-        <Box ref={setNodeRef} {...listeners} {...attributes} style={itemStyle}>
+        <Box
+            ref={setNodeRef}
+            {...listeners}
+            {...attributes}
+            style={{
+                ...itemStyle,
+                zIndex: isDragging ? '100' : 'auto',
+            }}
+        >
             <Box style={itemContentStyle}>
                 <Flex
                     width="100%"
