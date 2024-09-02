@@ -5,35 +5,37 @@ import {
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import { Menu, MenuBody } from '../components/components.js';
+import { Menu, MenuBody } from './components/components.js';
+import { AvatarsContent } from './components/menu-content/content.js';
 import {
     AssetsContent,
-    AvatarsContent,
     ScriptContent,
     ScriptHeader,
     TemplatesContent,
     TextContent,
-} from '../components/mock/menu-mock.js';
-import { type MenuItem } from '../types/menu-item.type.js';
+} from './components/mock/menu-mock.js';
+import { type MenuItem } from './types/menu-item.type.js';
 
-const VideoEditor: React.FC = () => {
+type ActiveItem = {
+    title: string | React.ReactNode;
+    content: React.ReactNode | null;
+};
+
+const VideoMenu: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [activeContent, setActiveContent] = useState<React.ReactNode | null>(
-        null,
-    );
-    const [activeTitle, setActiveTitle] = useState<string | React.ReactNode>(
-        '',
-    );
+    const [activeItem, setActiveItem] = useState<ActiveItem>({
+        title: '',
+        content: null,
+    });
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleMenuClick = (
-        header: string | React.ReactNode,
-        content: React.ReactNode,
-    ): void => {
-        setActiveContent(content);
-        setActiveTitle(header);
-        setIsOpen(true);
-    };
+    const handleMenuClick = useCallback(
+        (header: string | React.ReactNode, content: React.ReactNode): void => {
+            setActiveItem({ title: header, content });
+            setIsOpen(true);
+        },
+        [],
+    );
 
     const resetActiveItem = useCallback((): void => {
         setIsOpen(false);
@@ -76,14 +78,14 @@ const VideoEditor: React.FC = () => {
                 onActiveIndexSet={setActiveIndex}
             />
             <MenuBody
-                title={activeTitle}
+                title={activeItem.title}
                 isOpen={isOpen}
                 onClose={resetActiveItem}
             >
-                {activeContent}
+                {activeItem.content}
             </MenuBody>
         </>
     );
 };
 
-export { VideoEditor };
+export { VideoMenu };
