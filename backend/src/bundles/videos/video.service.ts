@@ -18,8 +18,8 @@ class VideoService implements Service {
         this.videoRepository = videoRepository;
     }
 
-    public async find(videoId: string): Promise<VideoGetAllItemResponseDto> {
-        const video = await this.videoRepository.find(videoId);
+    public async findById(id: string): Promise<VideoGetAllItemResponseDto> {
+        const video = await this.videoRepository.findById(id);
 
         if (!video) {
             throw new HttpError({
@@ -50,13 +50,10 @@ class VideoService implements Service {
     }
 
     public async update(
-        videoId: string,
+        id: string,
         payload: UpdateVideoRequestDto,
     ): Promise<VideoGetAllItemResponseDto> {
-        const updatedVideo = await this.videoRepository.update(
-            videoId,
-            payload,
-        );
+        const updatedVideo = await this.videoRepository.update(id, payload);
 
         if (!updatedVideo) {
             throw new HttpError({
@@ -68,8 +65,8 @@ class VideoService implements Service {
         return updatedVideo.toObject();
     }
 
-    public async delete(videoId: string): Promise<boolean> {
-        const isVideoDeleted = await this.videoRepository.delete(videoId);
+    public async delete(id: string): Promise<boolean> {
+        const isVideoDeleted = await this.videoRepository.delete(id);
 
         if (!isVideoDeleted) {
             throw new HttpError({
