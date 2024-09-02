@@ -13,12 +13,7 @@ import {
     TemplatesContent,
     TextContent,
 } from './components/mock/menu-mock.js';
-import { type MenuItem } from './types/menu-item.type.js';
-
-type ActiveItem = {
-    title: string | React.ReactNode;
-    content: React.ReactNode | null;
-};
+import { type ActiveItem, type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -29,7 +24,7 @@ const VideoMenu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleMenuClick = useCallback(
-        (header: string | React.ReactNode, content: React.ReactNode): void => {
+        (header: string, content: React.ReactNode): void => {
             setActiveItem({ title: header, content });
             setIsOpen(true);
         },
