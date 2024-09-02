@@ -7,6 +7,7 @@ export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';
+export { Sidebar } from './sidebar/sidebar.js';
 export { Textarea } from './textarea/textarea.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
@@ -30,6 +31,7 @@ export {
     InputGroup,
     InputRightElement,
     SimpleGrid,
+    Spacer,
     Text,
     VStack,
 } from '@chakra-ui/react';
