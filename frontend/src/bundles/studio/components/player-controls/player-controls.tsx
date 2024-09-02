@@ -11,7 +11,7 @@ import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { TimeDisplay } from './components/components.js';
 
-const PlayerControllers: React.FC = () => {
+const PlayerControls: React.FC = () => {
     // Mocked data. Update later
     const currentTime = 5;
     const duration = 10;
@@ -97,4 +97,4 @@ const PlayerControllers: React.FC = () => {
     );
 };
 
-export { PlayerControllers };
+export { PlayerControls };
