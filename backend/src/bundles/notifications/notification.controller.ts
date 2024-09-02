@@ -38,7 +38,7 @@ import {
  *            default: false
  *          type:
  *            type: string
- *            enum: ['render']
+ *            enum: [render]
  */
 
 class NotificationController extends BaseController {
@@ -91,7 +91,7 @@ class NotificationController extends BaseController {
 
     /**
      * @swagger
-     * /notifications:
+     * /api/v1/notifications/:
      *    get:
      *      description: Get all unread notifications
      *      responses:
@@ -117,7 +117,7 @@ class NotificationController extends BaseController {
 
     /**
      * @swagger
-     * /notifications:
+     * /api/v1/notifications/:
      *    post:
      *      description: Create new notification
      *      requestBody:
@@ -127,7 +127,6 @@ class NotificationController extends BaseController {
      *          application/json:
      *            schema:
      *              type: object
-     *              required: [userId, isRead, type]
      *              properties:
      *                userId:
      *                  type: string
@@ -137,7 +136,7 @@ class NotificationController extends BaseController {
      *                  default: false
      *                type:
      *                  type: string
-     *                  enum [render]
+     *                  enum: [render]
      *      responses:
      *        201:
      *          description: Successful operation
@@ -159,7 +158,7 @@ class NotificationController extends BaseController {
 
     /**
      * @swagger
-     * /notifications/{id}:
+     * /api/v1/notifications/{id}:
      *    patch:
      *      parameters:
      *        - in: path
