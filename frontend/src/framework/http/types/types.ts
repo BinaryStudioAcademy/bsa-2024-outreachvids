@@ -1,1 +1,1 @@
-export { type Http, type HttpOptions } from 'shared';
+export { type Http, type HttpMethod, type HttpOptions } from 'shared';

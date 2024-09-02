@@ -4,10 +4,12 @@ import {
     faCloudArrowDown,
     faCloudArrowUp,
     faEllipsisVertical,
+    faFileLines,
     faFont,
     faPause,
     faPen,
     faPlay,
+    faScroll,
     faT,
     faTableColumns,
     faVolumeHigh,
@@ -16,7 +18,9 @@ import {
 
 const IconName = {
     PEN: faPen,
+    FILE_LINES: faFileLines,
     PLAY: faPlay,
+    SCROLL: faScroll,
     PAUSE: faPause,
     VOLUME: faVolumeHigh,
     VOLUME_OFF: faVolumeOff,

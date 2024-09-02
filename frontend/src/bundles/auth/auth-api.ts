@@ -5,7 +5,7 @@ import {
     type UserSignUpRequestDto,
     type UserSignUpResponseDto,
 } from '~/bundles/users/users.js';
-import { type Http } from '~/framework/http/http.js';
+import { type Http, HTTPMethod } from '~/framework/http/http.js';
 import { BaseHttpApi } from '~/framework/http-api/http-api.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
@@ -28,7 +28,7 @@ class AuthApi extends BaseHttpApi {
         const response = await this.load(
             this.getFullEndpoint(AuthApiPath.SIGN_IN, {}),
             {
-                method: 'POST',
+                method: HTTPMethod.POST,
                 contentType: ContentType.JSON,
                 payload: JSON.stringify(payload),
                 hasAuth: false,
@@ -44,7 +44,7 @@ class AuthApi extends BaseHttpApi {
         const response = await this.load(
             this.getFullEndpoint(AuthApiPath.SIGN_UP, {}),
             {
-                method: 'POST',
+                method: HTTPMethod.POST,
                 contentType: ContentType.JSON,
                 payload: JSON.stringify(payload),
                 hasAuth: false,

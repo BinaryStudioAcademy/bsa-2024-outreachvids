@@ -6,6 +6,8 @@ export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { Select } from './select/select.js';
+export { Textarea } from './textarea/textarea.js';
 export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
