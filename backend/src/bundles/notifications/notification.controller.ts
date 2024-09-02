@@ -5,7 +5,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { idParametersValidationSchema } from '~/common/validation-schemas/validation-schemas.js';
 
@@ -54,13 +54,13 @@ class NotificationController extends BaseController {
 
         this.addRoute({
             path: NotificationsApiPath.ROOT,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: () => this.findAll(),
         });
 
         this.addRoute({
             path: NotificationsApiPath.ROOT,
-            method: 'POST',
+            method: HTTPMethod.POST,
             validation: {
                 body: createNotificationValidationSchema,
             },
@@ -74,7 +74,7 @@ class NotificationController extends BaseController {
 
         this.addRoute({
             path: NotificationsApiPath.ID,
-            method: 'PATCH',
+            method: HTTPMethod.PATCH,
             validation: {
                 body: updateNotificationValidationSchema,
                 params: idParametersValidationSchema,
