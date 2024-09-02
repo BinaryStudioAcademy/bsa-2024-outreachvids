@@ -1,3 +1,5 @@
-type NotificationGetOneRequestDto = { id: string };
+type NotificationGetOneRequestDto = {
+    id: string;
+};
 
 export { type NotificationGetOneRequestDto };
