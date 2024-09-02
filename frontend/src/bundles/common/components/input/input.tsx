@@ -4,8 +4,11 @@ import {
     FormLabel,
     Input as LibraryInput,
 } from '@chakra-ui/react';
-import { type FieldInputProps, type FormikValues as FormValues } from 'formik';
-import { Field } from 'formik';
+import {
+    type FieldInputProps,
+    type FormikValues as FormValues,
+    Field,
+} from 'formik';
 
 import { useFormField } from '~/bundles/common/hooks/hooks.js';
 
@@ -26,13 +29,10 @@ const Input = <T extends FormValues>({
     placeholder = '',
     icon = 'none',
 }: Properties<T>): JSX.Element => {
-    const [field, meta] = useFormField({ name });
-
-    const { error, touched } = meta;
-    const hasError = Boolean(error) && touched;
+    const { field, error, isValid } = useFormField({ name });
 
     return (
-        <FormControl isInvalid={hasError} isRequired={required}>
+        <FormControl isInvalid={!isValid} isRequired={required}>
             <FormLabel htmlFor={name}>{label}</FormLabel>
             <Field
                 {...field}

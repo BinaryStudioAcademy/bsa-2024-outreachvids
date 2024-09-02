@@ -1,0 +1,42 @@
+name: Continuous Delivery
+
+env:
+    AWS_REGION: eu-north-1
+    EBS_APP_NAME: bsa-2024-outreachvids
+    ENVIRONMENT: next
+
+on:
+    push:
+        branches:
+            - next
+    workflow_dispatch:
+
+jobs:
+    cd:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Source Code
+              uses: actions/checkout@v4
+
+            - name: Install NodeJS
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: .nvmrc
+
+            - name: Zipping Deployment Package
+              run: |
+                  zip -r build.zip . -x .github
+
+            - name: Deploy to EB
+              uses: einaregilsson/beanstalk-deploy@v21
+              with:
+                  use_existing_version_if_available: true
+                  aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+                  aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+                  region: ${{ env.AWS_REGION }}
+                  application_name: ${{ env.EBS_APP_NAME }}
+                  environment_name: ${{ env.ENVIRONMENT }}
+                  version_label: ${{ github.sha }}
+                  deployment_package: ./build.zip
+                  wait_for_environment_recovery: 300

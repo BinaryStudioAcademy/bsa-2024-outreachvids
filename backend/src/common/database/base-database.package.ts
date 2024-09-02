@@ -32,9 +32,17 @@ class BaseDatabase implements Database {
     }
 
     private get initialConfig(): TKnex.Config {
+        const sslConfig =
+            this.appConfig.ENV.APP.ENVIRONMENT === AppEnvironment.DEVELOPMENT
+                ? null
+                : { ssl: { rejectUnauthorized: false } };
+
         return {
             client: this.appConfig.ENV.DB.DIALECT,
-            connection: this.appConfig.ENV.DB.CONNECTION_STRING,
+            connection: {
+                connectionString: this.appConfig.ENV.DB.CONNECTION_STRING,
+                ...(!!sslConfig && sslConfig),
+            },
             pool: {
                 min: this.appConfig.ENV.DB.POOL_MIN,
                 max: this.appConfig.ENV.DB.POOL_MAX,
