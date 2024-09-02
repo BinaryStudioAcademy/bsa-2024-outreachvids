@@ -130,13 +130,27 @@ const Control = ({
     }, [videoState, videoPlayerReference]);
 
     const handleMute = useCallback(() => {
-        videoPlayerReference.current?.isMuted()
+        const isCurrentlyMuted = videoPlayerReference.current?.isMuted();
+
+        isCurrentlyMuted
             ? videoPlayerReference.current?.unmute()
             : videoPlayerReference.current?.mute();
+
+        const newVolume =
+            isCurrentlyMuted && videoState.volume === 0
+                ? 0.2
+                : videoState.volume;
+        const isMuted = !isCurrentlyMuted;
+
         setVideoState({
             ...videoState,
-            isMuted: !videoPlayerReference.current?.isMuted() as boolean,
+            volume: newVolume,
+            isMuted: isMuted,
         });
+
+        if (newVolume !== videoState.volume) {
+            videoPlayerReference.current?.setVolume(newVolume);
+        }
     }, [videoState, videoPlayerReference]);
 
     const handleVolumeSeekUp = useCallback(
