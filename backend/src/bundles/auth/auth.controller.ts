@@ -10,7 +10,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { type AuthService } from './auth.service.js';
@@ -26,7 +26,7 @@ class AuthController extends BaseController {
 
         this.addRoute({
             path: AuthApiPath.SIGN_IN,
-            method: 'POST',
+            method: HTTPMethod.POST,
             validation: {
                 body: userSignInValidationSchema,
             },
@@ -40,7 +40,7 @@ class AuthController extends BaseController {
 
         this.addRoute({
             path: AuthApiPath.SIGN_UP,
-            method: 'POST',
+            method: HTTPMethod.POST,
             validation: {
                 body: userSignUpValidationSchema,
             },
