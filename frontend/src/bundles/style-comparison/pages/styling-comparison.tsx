@@ -145,7 +145,7 @@ const StylingComparison: React.FC = () => {
                 <ChakraProvider theme={theme}>
                     <div>
                         <ThemeStylingButton
-                            label="Custom Styled Button"
+                            label="Custom Theme Styled Button"
                             onClick={handleThemeButtonClick}
                         />
                     </div>
