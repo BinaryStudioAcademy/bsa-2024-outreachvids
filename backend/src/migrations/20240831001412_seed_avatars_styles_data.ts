@@ -31,115 +31,134 @@ async function up(knex: Knex): Promise<void> {
             id: '31d92ae7-b778-4fa1-b21a-2669f2269c1d',
             avatar_id: avatars.harry,
             style_id: styles.business,
-            img_url: 'https://speech.microsoft.com/assets/avatar/harry/harry-business-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/harry/harry-business-thumbnail.png',
         },
         {
             id: '39636998-3fb0-405c-81a0-0f7e9cce4433',
             avatar_id: avatars.harry,
             style_id: styles.casual,
-            img_url: 'https://speech.microsoft.com/assets/avatar/harry/harry-casual-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/harry/harry-casual-thumbnail.png',
         },
         {
             id: 'e1c0832b-842f-4321-bd14-89a03b89e2fd',
             avatar_id: avatars.harry,
             style_id: styles.youthful,
-            img_url: 'https://speech.microsoft.com/assets/avatar/harry/harry-youthful-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/harry/harry-youthful-thumbnail.png',
         },
         {
             id: '105bb25d-5fa5-436d-b841-bc5e94ad12b2',
             avatar_id: avatars.jeff,
             style_id: styles.business,
-            img_url: 'https://speech.microsoft.com/assets/avatar/jeff/jeff-business-thumbnail-bg.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/jeff/jeff-business-thumbnail-bg.png',
         },
         {
             id: '5163e793-fb1d-4f87-8648-ea1a1563e6d0',
             avatar_id: avatars.jeff,
             style_id: styles.formal,
-            img_url: 'https://speech.microsoft.com/assets/avatar/jeff/jeff-formal-thumbnail-bg.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/jeff/jeff-formal-thumbnail-bg.png',
         },
         {
             id: '8e6cd9df-31cb-47aa-b167-361283732db8',
             avatar_id: avatars.lisa,
             style_id: styles.casualSitting,
-            img_url: 'https://speech.microsoft.com/assets/avatar/lisa/lisa-casual-sitting-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/lisa/lisa-casual-sitting-thumbnail.png',
         },
         {
             id: '8ad9c1a4-7845-4889-a3f8-79bb3abb9642',
             avatar_id: avatars.lisa,
             style_id: styles.gracefulSitting,
-            img_url: 'https://speech.microsoft.com/assets/avatar/lisa/lisa-graceful-sitting-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/lisa/lisa-graceful-sitting-thumbnail.png',
         },
         {
             id: 'a6e42c42-b098-490f-95b6-07c8402c636d',
             avatar_id: avatars.lisa,
             style_id: styles.gracefulStanding,
-            img_url: 'https://speech.microsoft.com/assets/avatar/lisa/lisa-graceful-standing-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/lisa/lisa-graceful-standing-thumbnail.png',
         },
         {
             id: 'd8034a65-7fe8-48ef-9e76-237b462ef5bb',
             avatar_id: avatars.lisa,
             style_id: styles.technicalSitting,
-            img_url: 'https://speech.microsoft.com/assets/avatar/lisa/lisa-technical-sitting-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/lisa/lisa-technical-sitting-thumbnail.png',
         },
         {
             id: 'f05aee3d-c76e-4a3d-b4c4-ca9d777f8de6',
             avatar_id: avatars.lisa,
             style_id: styles.technicalStanding,
-            img_url: 'https://speech.microsoft.com/assets/avatar/lisa/lisa-technical-standing-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/lisa/lisa-technical-standing-thumbnail.png',
         },
         {
             id: '061418b3-9316-4e2e-ab62-78633be47f15',
             avatar_id: avatars.lori,
             style_id: styles.casual,
-            img_url: 'https://speech.microsoft.com/assets/avatar/lori/lori-casual-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/lori/lori-casual-thumbnail.png',
         },
         {
             id: '40bde735-8ce4-42a7-a0f8-a90a3d584de8',
             avatar_id: avatars.lori,
             style_id: styles.graceful,
-            img_url: 'https://speech.microsoft.com/assets/avatar/lori/lori-graceful-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/lori/lori-graceful-thumbnail.png',
         },
         {
             id: 'e310a316-e4ac-404f-bff2-76efaf247ec9',
             avatar_id: avatars.lori,
             style_id: styles.formal,
-            img_url: 'https://speech.microsoft.com/assets/avatar/lori/lori-formal-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/lori/lori-formal-thumbnail.png',
         },
         {
             id: 'f24c1d23-db5c-4da3-8a34-8492d9ceb313',
             avatar_id: avatars.max,
             style_id: styles.business,
-            img_url: 'https://speech.microsoft.com/assets/avatar/max/max-business-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/max/max-business-thumbnail.png',
         },
         {
             id: '4953696e-cc3f-4d89-a2a0-7d01bf875779',
             avatar_id: avatars.max,
             style_id: styles.casual,
-            img_url: 'https://speech.microsoft.com/assets/avatar/max/max-casual-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/max/max-casual-thumbnail.png',
         },
         {
             id: '31515e5e-dddf-4b87-887d-45eedc8aab67',
             avatar_id: avatars.max,
             style_id: styles.formal,
-            img_url: 'https://speech.microsoft.com/assets/avatar/max/max-formal-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/max/max-formal-thumbnail.png',
         },
         {
             id: '084e2e1b-099a-4c4c-aa99-ab507d698bad',
             avatar_id: avatars.meg,
             style_id: styles.formal,
-            img_url: 'https://speech.microsoft.com/assets/avatar/meg/meg-formal-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/meg/meg-formal-thumbnail.png',
         },
         {
             id: '93a4f900-4653-4782-95bf-e2a6d3804130',
             avatar_id: avatars.meg,
             style_id: styles.casual,
-            img_url: 'https://speech.microsoft.com/assets/avatar/meg/meg-casual-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/meg/meg-casual-thumbnail.png',
         },
         {
             id: '3dd729eb-cfa5-46f4-a084-91b4d0b324cb',
             avatar_id: avatars.meg,
             style_id: styles.business,
-            img_url: 'https://speech.microsoft.com/assets/avatar/meg/meg-business-thumbnail.png',
+            img_url:
+                'https://speech.microsoft.com/assets/avatar/meg/meg-business-thumbnail.png',
         },
     ]);
 }
