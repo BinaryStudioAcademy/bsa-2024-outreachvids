@@ -2,19 +2,10 @@ import { useTimelineContext } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
-
-type Marker = {
-    label?: string;
-    sideDelta: number;
-    heightMultiplier: number;
-};
-
-type MarkerDefinition = {
-    value: number;
-    maxRangeSize?: number;
-    minRangeSize?: number;
-    getLabel?: (time: Date) => string;
-};
+import {
+    type Marker,
+    type MarkerDefinition,
+} from '~/bundles/studio/helpers/time-axis-markers.js';
 
 type Properties = {
     markers: MarkerDefinition[];
@@ -113,5 +104,4 @@ const TimeAxis: React.FC<Properties> = ({
     );
 };
 
-export { type MarkerDefinition };
 export { TimeAxis };

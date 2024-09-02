@@ -3,7 +3,6 @@ import {
     CloseButton,
     Flex,
     Heading,
-    VStack,
 } from '~/bundles/common/components/components.js';
 
 type Properties = {
@@ -30,7 +29,7 @@ const MenuBody: React.FC<Properties> = ({
                         left: '100px',
                         height: '72vh',
                         width: '335px',
-                        p: 2,
+                        padding: '12px 18px 0 18px',
                         zIndex: 1000,
                         borderRadius: '8px',
                         boxShadow: 'lg',
@@ -38,13 +37,27 @@ const MenuBody: React.FC<Properties> = ({
                         color: 'white',
                     }}
                 >
-                    <Flex justifyContent="space-between" alignItems="center">
-                        <Heading as="h3">{title}</Heading>
+                    <Flex
+                        justifyContent="space-between"
+                        alignItems="center"
+                        marginBottom="30px"
+                    >
+                        <Heading variant="H3">{title}</Heading>
                         <CloseButton onClick={onClose} color="background.600" />
                     </Flex>
-                    <VStack mt={4} spacing={4} align="start">
+                    <Box
+                        sx={{
+                            overflowY: 'auto',
+                            maxHeight: 'calc(100% - 65px)',
+                            msOverflowStyle: 'none', // Hide scrollbar in IE and Edge
+                            scrollbarWidth: 'none', // Hide scrollbar in Firefox
+                            '&::-webkit-scrollbar': {
+                                display: 'none', // Hide scrollbar in Chrome, Safari, and Opera
+                            },
+                        }}
+                    >
                         {children}
-                    </VStack>
+                    </Box>
                 </Box>
             )}
         </>

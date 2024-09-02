@@ -12,11 +12,13 @@ type Properties = {
     interval?: number;
 };
 
+const now = Date.now();
+
 const TimeCursor: React.FC<Properties> = ({
     interval,
 }: Properties): JSX.Element => {
     const timeCursorReference = useReference<HTMLDivElement>(null);
-    const renderTimeReference = useReference(Date.now());
+    const renderTimeReference = useReference(now);
     const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
         useTimelineContext();
 
@@ -30,7 +32,7 @@ const TimeCursor: React.FC<Properties> = ({
             if (!timeCursorReference.current || cursorPosition !== null) {
                 return;
             }
-            const timeDelta = Date.now() - renderTimeReference.current;
+            const timeDelta = now - renderTimeReference.current;
             const timeDeltaInPixels = valueToPixels(timeDelta);
 
             const sideDelta = sidebarWidth + timeDeltaInPixels;
@@ -39,7 +41,7 @@ const TimeCursor: React.FC<Properties> = ({
         offsetCursor();
         const cursorUpdateInterval = setInterval(
             offsetCursor,
-            interval || 1000,
+            interval ?? 1000,
         );
         return () => {
             clearInterval(cursorUpdateInterval);
@@ -69,7 +71,7 @@ const TimeCursor: React.FC<Properties> = ({
             setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
             renderTimeReference.current =
-                Date.now() - pixelsToValue(newCursorPosition);
+                now - pixelsToValue(newCursorPosition);
             setCursorPosition(null);
         };
 
@@ -95,7 +97,7 @@ const TimeCursor: React.FC<Properties> = ({
     ]);
 
     useLayoutEffect(() => {
-        if (cursorPosition !== null && timeCursorReference.current) {
+        if (cursorPosition && timeCursorReference.current) {
             timeCursorReference.current.style[side] =
                 `${cursorPosition + sidebarWidth}px`;
         }

@@ -6,6 +6,8 @@ type EnvironmentSchema = {
         PORT: number;
         ENVIRONMENT: ValueOf<typeof AppEnvironment>;
         OPEN_AI_KEY: string;
+        SESSION_KEY: string;
+        ORIGIN: string;
     };
     DB: {
         CONNECTION_STRING: string;

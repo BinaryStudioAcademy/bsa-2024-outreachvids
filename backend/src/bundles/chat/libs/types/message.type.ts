@@ -1,6 +1,6 @@
 import { type ValueOf } from 'shared';
 
-import { type OpenAIRole } from '../enums/enums.js';
+import { type OpenAIRole } from '~/common/services/open-ai/libs/enums/enums.js';
 
 type Message = {
     role: ValueOf<typeof OpenAIRole>;
