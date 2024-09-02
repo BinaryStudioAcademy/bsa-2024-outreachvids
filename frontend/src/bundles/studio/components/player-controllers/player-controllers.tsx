@@ -4,9 +4,10 @@ import {
     Flex,
     Icon,
     IconButton,
-    Text,
 } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
+
+import { TimeDisplay } from './components/components.js';
 
 const PlayerControllers: React.FC = () => {
     return (
@@ -51,17 +52,7 @@ const PlayerControllers: React.FC = () => {
                     }
                 />
             </Flex>
-            <Flex gap="2px">
-                <Text color="typography.900" variant="caption">
-                    00:00
-                </Text>
-                <Text color="background.50" variant="caption">
-                    /
-                </Text>
-                <Text color="background.50" variant="caption">
-                    00:10
-                </Text>
-            </Flex>
+            <TimeDisplay />
         </Flex>
     );
 };
