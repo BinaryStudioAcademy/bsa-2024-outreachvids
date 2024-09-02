@@ -36,7 +36,7 @@ const VideoMenu: React.FC = () => {
         [],
     );
 
-    const resetActiveItem = useCallback((): void => {
+    const handleActiveItemReset = useCallback((): void => {
         setIsOpen(false);
         setActiveIndex(null);
     }, []);
@@ -79,7 +79,7 @@ const VideoMenu: React.FC = () => {
             <MenuBody
                 title={activeItem.title}
                 isOpen={isOpen}
-                onClose={resetActiveItem}
+                onClose={handleActiveItemReset}
             >
                 {activeItem.content}
             </MenuBody>
