@@ -1,7 +1,13 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type GenerateTextRequestDto,
+    ChatPath,
+    textGenerationValidationSchema,
+} from './bundles/chat/chat.js';
+export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetCurrentResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -40,6 +46,7 @@ export {
     type HttpOptions,
     HttpCode,
     HttpHeader,
+    HTTPMethod,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';
 export { configureString } from './helpers/helpers.js';

@@ -1,12 +1,12 @@
 import {
+    Icon,
     IconButton,
     Input,
     InputGroup,
     InputRightElement,
-    ViewIcon,
-    ViewOffIcon,
 } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 
 type Properties = {
     label: string;
@@ -44,7 +44,15 @@ const PasswordInput: React.FC<Properties> = ({
                     aria-label={
                         isPasswordVisible ? 'Hide password' : 'Show password'
                     }
-                    icon={isPasswordVisible ? <ViewIcon /> : <ViewOffIcon />}
+                    icon={
+                        <Icon
+                            as={
+                                isPasswordVisible
+                                    ? IconName.VIEW
+                                    : IconName.VIEW_OFF
+                            }
+                        />
+                    }
                     onClick={handlePasswordIconClick}
                     variant="ghostIcon"
                 />

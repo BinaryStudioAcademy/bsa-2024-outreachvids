@@ -25,7 +25,34 @@ Create personalized sales videos using generated video content and AI-generated 
 
 ## 💽 DB Schema
 
-TBD
+```mermaid
+erDiagram
+    users {
+        uuid id PK
+        string email UK
+        string full_name
+        text password_hash
+        text password_salt
+        datetime created_at
+        datetime updated_at
+    }
+    videos {
+        uuid id PK
+        uuid user_id FK
+        string name
+        string url
+        datetime created_at
+        datetime updated_at
+    }
+    files {
+        uuid id PK
+        string url
+        enum type "Values: 'video', 'photo'"
+        datetime created_at
+        datetime updated_at
+    }
+    users ||--o{ videos : have
+```
 
 ## 🏃‍♂️ Simple Start
 

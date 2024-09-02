@@ -65,6 +65,7 @@ class AuthController extends BaseController {
      *          application/json:
      *            schema:
      *              type: object
+     *              required: [email, password]
      *              properties:
      *                email:
      *                  type: string
@@ -77,13 +78,9 @@ class AuthController extends BaseController {
      *          content:
      *            application/json:
      *              schema:
-     *                type: object
-     *                properties:
-     *                  message:
-     *                    type: object
-     *                    $ref: '#/components/schemas/User'
-     *        400:
-     *          description: Failed operation
+     *                $ref: '#/components/schemas/User'
+     *        401:
+     *          description: Failed operation. Unauthorized.
      *          content:
      *            application/json:
      *              schema:
@@ -114,13 +111,16 @@ class AuthController extends BaseController {
      *          application/json:
      *            schema:
      *              type: object
+     *              required: [fullName, email, password, confirmPassword]
      *              properties:
+     *                fullName:
+     *                  type: string
      *                email:
      *                  type: string
      *                  format: email
      *                password:
      *                  type: string
-     *                fullName:
+     *                confirmPassword:
      *                  type: string
      *      responses:
      *        201:
@@ -128,11 +128,7 @@ class AuthController extends BaseController {
      *          content:
      *            application/json:
      *              schema:
-     *                type: object
-     *                properties:
-     *                  message:
-     *                    type: object
-     *                    $ref: '#/components/schemas/User'
+     *                $ref: '#/components/schemas/User'
      *        400:
      *          description: Failed operation
      *          content:
