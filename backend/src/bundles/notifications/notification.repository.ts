@@ -2,6 +2,8 @@ import { NotificationEntity } from '~/bundles/notifications/notification.entity.
 import { type NotificationModel } from '~/bundles/notifications/notification.model.js';
 import { type Repository } from '~/common/types/types.js';
 
+import { type UpdateNotificationRequestDto } from './types/types.js';
+
 class NotificationRepository implements Repository {
     private notificationModel: typeof NotificationModel;
 
@@ -9,21 +11,15 @@ class NotificationRepository implements Repository {
         this.notificationModel = notificationModel;
     }
 
-    public async find(
-        notificationId: string,
-    ): Promise<NotificationEntity | null> {
-        const notification = await this.notificationModel
-            .query()
-            .findById(notificationId)
-            .execute();
-
-        return notification
-            ? NotificationEntity.initialize(notification)
-            : null;
+    public find(): ReturnType<Repository['find']> {
+        return Promise.resolve(null);
     }
 
     public async findAll(): Promise<NotificationEntity[]> {
-        const notifications = await this.notificationModel.query().execute();
+        const notifications = await this.notificationModel
+            .query()
+            .where('isRead', false)
+            .execute();
 
         return notifications.map((it) => NotificationEntity.initialize(it));
     }
@@ -31,13 +27,14 @@ class NotificationRepository implements Repository {
     public async create(
         entity: NotificationEntity,
     ): Promise<NotificationEntity> {
-        const { type, isRead } = entity.toNewObject();
+        const { type, isRead, userId } = entity.toNewObject();
 
         const item = await this.notificationModel
             .query()
             .insert({
                 type,
                 isRead,
+                userId,
             })
             .returning('*')
             .execute();
@@ -45,11 +42,19 @@ class NotificationRepository implements Repository {
         return NotificationEntity.initialize(item);
     }
 
-    public update(): Promise<unknown> {
-        return Promise.resolve(null);
+    public async update(
+        notificationId: string,
+        payload: UpdateNotificationRequestDto,
+    ): Promise<NotificationEntity | null> {
+        const updatedItem = await this.notificationModel
+            .query()
+            .patchAndFetchById(notificationId, payload)
+            .execute();
+
+        return updatedItem ? NotificationEntity.initialize(updatedItem) : null;
     }
 
-    public delete(): Promise<boolean> {
+    public delete(): ReturnType<Repository['delete']> {
         return Promise.resolve(true);
     }
 }
