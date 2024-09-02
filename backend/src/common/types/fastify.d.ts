@@ -1,9 +1,9 @@
 import 'fastify';
 
-import { type UserEntity } from '~/bundles/users/users.js';
+import { type UserGetCurrentResponseDto } from '~/bundles/users/users.js';
 
 declare module 'fastify' {
     interface FastifyRequest {
-        user: UserEntity;
+        user: UserGetCurrentResponseDto;
     }
 }
