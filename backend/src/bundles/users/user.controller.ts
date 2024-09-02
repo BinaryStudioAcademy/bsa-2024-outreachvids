@@ -4,7 +4,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
@@ -17,12 +17,13 @@ import { UsersApiPath } from './enums/enums.js';
  *        type: object
  *        properties:
  *          id:
- *            type: number
- *            format: number
- *            minimum: 1
+ *            type: string
+ *            format: uuid
  *          email:
  *            type: string
  *            format: email
+ *          fullName:
+ *            type: string
  */
 class UserController extends BaseController {
     private userService: UserService;
@@ -34,7 +35,7 @@ class UserController extends BaseController {
 
         this.addRoute({
             path: UsersApiPath.ROOT,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: () => this.findAll(),
         });
     }
@@ -50,9 +51,12 @@ class UserController extends BaseController {
      *          content:
      *            application/json:
      *              schema:
-     *                type: array
-     *                items:
-     *                  $ref: '#/components/schemas/User'
+     *                type: object
+     *                properties:
+     *                  items:
+     *                    type: array
+     *                    items:
+     *                      $ref: '#/components/schemas/User'
      */
     private async findAll(): Promise<ApiHandlerResponse> {
         return {

@@ -1,22 +1,16 @@
 import OpenAI from 'openai';
 
+import { type Message } from '~/bundles/chat/libs/types/types.js';
 import { type BaseConfig } from '~/common/config/base-config.package.js';
 
 import { CHAT_MODEL, MAX_TOKEN } from './libs/constants/constants.js';
-import {
-    type Message,
-    type OpenAIService as OpenAIServiceModule,
-} from './libs/types/types.js';
+import { type OpenAIService as OpenAIServiceType } from './libs/types/types.js';
 
-type Constructor = {
-    config: BaseConfig;
-};
-
-class OpenAIService implements OpenAIServiceModule {
+class OpenAIService implements OpenAIServiceType {
     private config: BaseConfig;
     private openAi: OpenAI;
 
-    public constructor({ config }: Constructor) {
+    public constructor(config: BaseConfig) {
         this.config = config;
         this.openAi = this.initOpenAi();
     }
@@ -33,7 +27,6 @@ class OpenAIService implements OpenAIServiceModule {
             model: CHAT_MODEL,
             max_tokens: MAX_TOKEN,
         });
-
         return completion.choices[0]?.message.content || '';
     }
 }

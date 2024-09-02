@@ -10,7 +10,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { type AuthService } from './auth.service.js';
@@ -26,7 +26,7 @@ class AuthController extends BaseController {
 
         this.addRoute({
             path: AuthApiPath.SIGN_IN,
-            method: 'POST',
+            method: HTTPMethod.POST,
             validation: {
                 body: userSignInValidationSchema,
             },
@@ -40,7 +40,7 @@ class AuthController extends BaseController {
 
         this.addRoute({
             path: AuthApiPath.SIGN_UP,
-            method: 'POST',
+            method: HTTPMethod.POST,
             validation: {
                 body: userSignUpValidationSchema,
             },
@@ -65,6 +65,7 @@ class AuthController extends BaseController {
      *          application/json:
      *            schema:
      *              type: object
+     *              required: [email, password]
      *              properties:
      *                email:
      *                  type: string
@@ -77,13 +78,9 @@ class AuthController extends BaseController {
      *          content:
      *            application/json:
      *              schema:
-     *                type: object
-     *                properties:
-     *                  message:
-     *                    type: object
-     *                    $ref: '#/components/schemas/User'
-     *        400:
-     *          description: Failed operation
+     *                $ref: '#/components/schemas/User'
+     *        401:
+     *          description: Failed operation. Unauthorized.
      *          content:
      *            application/json:
      *              schema:
@@ -114,13 +111,16 @@ class AuthController extends BaseController {
      *          application/json:
      *            schema:
      *              type: object
+     *              required: [fullName, email, password, confirmPassword]
      *              properties:
+     *                fullName:
+     *                  type: string
      *                email:
      *                  type: string
      *                  format: email
      *                password:
      *                  type: string
-     *                fullName:
+     *                confirmPassword:
      *                  type: string
      *      responses:
      *        201:
@@ -128,11 +128,7 @@ class AuthController extends BaseController {
      *          content:
      *            application/json:
      *              schema:
-     *                type: object
-     *                properties:
-     *                  message:
-     *                    type: object
-     *                    $ref: '#/components/schemas/User'
+     *                $ref: '#/components/schemas/User'
      *        400:
      *          description: Failed operation
      *          content:
