@@ -32,7 +32,6 @@ export {
     Text,
     VStack,
 } from '@chakra-ui/react';
-export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { FormikProvider as FormProvider } from 'formik';
 export { Provider as StoreProvider } from 'react-redux';
 export { Outlet as RouterOutlet } from 'react-router-dom';

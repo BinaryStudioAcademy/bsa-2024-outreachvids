@@ -1,8 +1,4 @@
-import {
-    Flex,
-    FontAwesomeIcon,
-    Icon,
-} from '~/bundles/common/components/components.js';
+import { Flex, Icon } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 const TemplatesContent: React.FC = () => (
@@ -13,7 +9,7 @@ const ScriptHeader: React.FC = () => (
     <Flex justifyContent={'space-between'} w={'280px'}>
         <div>Script</div>
         <div>
-            <Icon as={FontAwesomeIcon} icon={IconName.UPLOAD} />
+            <Icon as={IconName.UPLOAD} />
         </div>
     </Flex>
 );

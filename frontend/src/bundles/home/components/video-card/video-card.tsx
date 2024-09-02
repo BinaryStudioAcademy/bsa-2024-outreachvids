@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import photo from '~/assets/img/photo.png';
 import {
     Box,
@@ -43,8 +41,7 @@ const VideoCard: React.FC = () => {
                     _groupHover={{ opacity: 1 }}
                     icon={
                         <Icon
-                            as={FontAwesomeIcon}
-                            icon={IconName.OPTIONS_VERTICAL}
+                            as={IconName.OPTIONS_VERTICAL}
                             color="background.600"
                         />
                     }
@@ -62,13 +59,7 @@ const VideoCard: React.FC = () => {
                     opacity="0"
                     transition="opacity 0.3s ease"
                     _groupHover={{ opacity: 1 }}
-                    icon={
-                        <Icon
-                            as={FontAwesomeIcon}
-                            icon={IconName.PEN}
-                            color="background.600"
-                        />
-                    }
+                    icon={<Icon as={IconName.PEN} color="background.600" />}
                 />
             </Box>
 

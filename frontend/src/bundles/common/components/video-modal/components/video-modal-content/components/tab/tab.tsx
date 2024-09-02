@@ -1,10 +1,9 @@
 import { Icon, Tab as ChakraTab, Text } from '@chakra-ui/react';
-import { type IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { type ElementType } from 'react';
 
 type Properties = {
     label: string;
-    icon: IconDefinition;
+    icon: ElementType;
 };
 
 const Tab: React.FC<Properties> = ({ label, icon }) => {
@@ -15,12 +14,7 @@ const Tab: React.FC<Properties> = ({ label, icon }) => {
             textAlign="left"
             _selected={{ backgroundColor: 'gray.300' }}
         >
-            <Icon
-                as={FontAwesomeIcon}
-                icon={icon}
-                padding="5px"
-                height="16px"
-            />
+            <Icon as={icon} padding="5px" height="16px" />
             <Text variant="bodySmall" color="typography.900">
                 {label}
             </Text>

@@ -1,7 +1,7 @@
 import { Button, Flex, Icon, Text } from '@chakra-ui/react';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
+
+import { IconName } from '~/bundles/common/icons/icons.js';
 
 import {
     VideoPreview as VideoPreviewValues,
@@ -39,12 +39,7 @@ const VideoPreview: React.FC = () => {
                     alignItems="center"
                     color="gray.400"
                 >
-                    <Icon
-                        as={FontAwesomeIcon}
-                        icon={faPlay}
-                        padding="5px"
-                        height="16px"
-                    />
+                    <Icon as={IconName.PLAY} padding="5px" height="16px" />
                     <Text color="gray.400">
                         {view === VideoPreviewValues.PORTRAIT
                             ? VideoSizeLabel.PORTRAIT
