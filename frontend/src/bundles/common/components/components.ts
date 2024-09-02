@@ -6,15 +6,17 @@ export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
+export { Select } from './select/select.js';
 export { Sidebar } from './sidebar/sidebar.js';
+export { Textarea } from './textarea/textarea.js';
 export { VideoModal } from './video-modal/video-modal.js';
-export { DownloadIcon } from '@chakra-ui/icons';
-export { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export {
     Badge,
     Box,
     Center,
     Circle,
+    CloseButton,
+    Collapse,
     ChakraProvider as ComponentsProvider,
     Flex,
     FormControl,
@@ -30,6 +32,7 @@ export {
     Text,
     VStack,
 } from '@chakra-ui/react';
+export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { FormikProvider as FormProvider } from 'formik';
 export { Provider as StoreProvider } from 'react-redux';
 export { Outlet as RouterOutlet } from 'react-router-dom';

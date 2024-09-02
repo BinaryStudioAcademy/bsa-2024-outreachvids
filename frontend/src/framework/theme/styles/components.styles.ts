@@ -57,7 +57,7 @@ const components = {
                 fontSize: '18px',
                 fontWeight: '700',
                 lineHeight: '27px',
-                marginBottom: '10px',
+                marginBottom: '5px',
             },
         },
     },
@@ -119,6 +119,9 @@ const components = {
         },
     },
     Input: {
+        baseStyle: {
+            field: { fontSize: 'sm' },
+        },
         variants: {
             outline: {
                 field: {
@@ -143,6 +146,60 @@ const components = {
                     },
                 },
             },
+        },
+    },
+    Select: {
+        baseStyle: {
+            field: { fontSize: 'sm' },
+        },
+        variants: {
+            outline: {
+                field: {
+                    _hover: {
+                        cursor: 'pointer',
+                    },
+                    _focus: {
+                        borderWidth: '2px',
+                        borderColor: colors.brand.secondary[300],
+                        boxShadow: 'none',
+                    },
+                    _placeholder: {
+                        color: colors.typography[300],
+                    },
+                    _invalid: {
+                        borderWidth: '2px',
+                        borderColor: colors.brand.secondary[900],
+                        boxShadow: 'none',
+                    },
+                },
+            },
+        },
+    },
+    Textarea: {
+        baseStyle: {
+            fontSize: 'sm',
+        },
+        variants: {
+            outline: {
+                _focus: {
+                    borderWidth: '2px',
+                    borderColor: colors.brand.secondary[300],
+                    boxShadow: 'none',
+                },
+                _placeholder: {
+                    color: colors.typography[300],
+                },
+                _invalid: {
+                    borderWidth: '2px',
+                    borderColor: colors.brand.secondary[900],
+                    boxShadow: 'none',
+                },
+            },
+        },
+    },
+    FormLabel: {
+        baseStyle: {
+            fontSize: 'sm',
         },
     },
     FormError: {

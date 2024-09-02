@@ -1,7 +1,13 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type GenerateTextRequestDto,
+    ChatPath,
+    textGenerationValidationSchema,
+} from './bundles/chat/chat.js';
+export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
+    type UserGetCurrentResponseDto,
     type UserSignInRequestDto,
     type UserSignInResponseDto,
     type UserSignUpRequestDto,
@@ -11,6 +17,11 @@ export {
     userSignUpValidationSchema,
     UserValidationMessage,
 } from './bundles/users/users.js';
+export {
+    type GenerateVideoScriptRequestDto,
+    generateVideoScriptValidationSchema,
+    VideoScriptValidationMessage,
+} from './bundles/video-scripts/video-scripts.js';
 export {
     type CreateVideoRequestDto,
     type UpdateVideoRequestDto,
@@ -40,6 +51,7 @@ export {
     type HttpOptions,
     HttpCode,
     HttpHeader,
+    HTTPMethod,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';
 export { configureString } from './helpers/helpers.js';

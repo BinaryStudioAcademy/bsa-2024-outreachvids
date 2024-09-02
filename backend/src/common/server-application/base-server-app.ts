@@ -1,6 +1,7 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import cors from '@fastify/cors';
 import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
@@ -17,12 +18,15 @@ import { ServerErrorType } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
+import { session } from '~/common/plugins/session/session.plugin.js';
 import {
     type ServerCommonErrorResponse,
     type ServerValidationErrorResponse,
     type ValidationSchema,
 } from '~/common/types/types.js';
 
+import { WHITE_ROUTES } from '../constants/constants.js';
+import { authenticateJWT } from '../plugins/plugins.js';
 import {
     type ServerApp,
     type ServerAppApi,
@@ -124,6 +128,22 @@ class BaseServerApp implements ServerApp {
     }
 
     private registerPlugins(): void {
+        this.app.register(cors, {
+            origin: this.config.ENV.APP.ORIGIN,
+            methods: '*',
+            credentials: true,
+        });
+
+        this.app.register(authenticateJWT, {
+            routesWhiteList: WHITE_ROUTES,
+        });
+
+        this.app.register(session, {
+            services: {
+                config: this.config,
+            },
+        });
+
         this.app.register(fastifyMultipart, {
             limits: {
                 fileSize: Number.POSITIVE_INFINITY,

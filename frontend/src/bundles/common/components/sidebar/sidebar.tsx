@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import {
     Box,
     Flex,
@@ -17,7 +15,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
-import { UserCard, UserCircle } from '~/bundles/users/components/components.js';
+import { UserAvatar, UserCard } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
 
@@ -49,11 +47,11 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     }, [navigate]);
 
     return (
-        <Flex w="100%" h="100vh">
+        <Flex w="100%">
             <Flex
                 w={isCollapsed ? '60px' : '270px'}
                 bg="background.900"
-                height="100vh"
+                height="calc(100vh - 75px)"
                 position="fixed"
                 flexDirection="column"
                 justifyContent="space-between"
@@ -77,7 +75,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                 />
                 <Box mb="30px">
                     {/* ToDo: Add this username value dynamically */}
-                    {isCollapsed ? <UserCircle username="FN" /> : <UserCard />}
+                    {isCollapsed ? <UserAvatar username="FN" /> : <UserCard />}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>
@@ -85,8 +83,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                             bg={activeButtonPage(AppRoute.ROOT)}
                             icon={
                                 <Icon
-                                    as={FontAwesomeIcon}
-                                    icon={IconName.HOME}
+                                    as={IconName.HOME}
                                     boxSize={5}
                                     color={activeIconPage(AppRoute.ROOT)}
                                 />
@@ -100,8 +97,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                             bg={activeButtonPage(AppRoute.MY_AVATAR)}
                             icon={
                                 <Icon
-                                    as={FontAwesomeIcon}
-                                    icon={IconName.AVATAR}
+                                    as={IconName.AVATAR}
                                     boxSize={5}
                                     color={activeIconPage(AppRoute.MY_AVATAR)}
                                 />
@@ -116,15 +112,14 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                     color="brand.secondary.600"
                     icon={
                         <Icon
-                            as={FontAwesomeIcon}
-                            icon={IconName.LOG_OUT}
+                            as={IconName.LOG_OUT}
                             boxSize={5}
                             color="brand.secondary.600"
                         />
                     }
                     isCollapsed={isCollapsed}
                     label={'log out'}
-                    handleClick={handleLogOut}
+                    onClick={handleLogOut}
                 />
             </Flex>
             <Box flex="1" ml={isCollapsed ? '60px' : '270px'}>

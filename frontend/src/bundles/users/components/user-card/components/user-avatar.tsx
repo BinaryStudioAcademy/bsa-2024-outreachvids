@@ -4,7 +4,7 @@ type Properties = {
     username: string;
 };
 
-const UserCircle: React.FC<Properties> = ({ username }) => {
+const UserAvatar: React.FC<Properties> = ({ username }) => {
     return (
         <Circle
             size="40px"
@@ -17,4 +17,4 @@ const UserCircle: React.FC<Properties> = ({ username }) => {
     );
 };
 
-export { UserCircle };
+export { UserAvatar };
