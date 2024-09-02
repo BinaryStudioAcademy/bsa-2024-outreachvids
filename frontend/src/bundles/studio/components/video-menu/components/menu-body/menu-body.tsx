@@ -49,10 +49,10 @@ const MenuBody: React.FC<Properties> = ({
                         sx={{
                             overflowY: 'auto',
                             maxHeight: 'calc(100% - 65px)',
-                            msOverflowStyle: 'none', // Hide scrollbar in IE and Edge
-                            scrollbarWidth: 'none', // Hide scrollbar in Firefox
+                            msOverflowStyle: 'none',
+                            scrollbarWidth: 'none',
                             '&::-webkit-scrollbar': {
-                                display: 'none', // Hide scrollbar in Chrome, Safari, and Opera
+                                display: 'none',
                             },
                         }}
                     >
