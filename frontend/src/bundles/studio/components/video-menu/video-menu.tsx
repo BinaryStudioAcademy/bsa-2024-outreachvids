@@ -50,7 +50,7 @@ const VideoMenu: React.FC = () => {
         },
         {
             label: 'Avatars',
-            icon: <Icon as={FontAwesomeIcon} icon={IconName.AVATAR} />,
+            icon: <Icon as={IconName.AVATAR} />,
             onClick: () => handleMenuClick('Avatars', <AvatarsContent />),
         },
         {
