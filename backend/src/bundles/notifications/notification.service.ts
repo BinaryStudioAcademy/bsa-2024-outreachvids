@@ -18,8 +18,8 @@ class NotificationService implements Service {
         this.notificationRepository = notificationRepository;
     }
 
-    public find(id: string): Promise<unknown> {
-        return Promise.resolve(id);
+    public find(): ReturnType<Service['find']> {
+        return Promise.resolve(null);
     }
 
     public async findAll(): Promise<NotificationGetAllResponseDto> {
