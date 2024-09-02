@@ -51,37 +51,7 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
-    avatars {
-        uuid id PK
-        string name
-        string voice_url
-        string voice
-        datetime created_at
-        datetime updated_at
-    }
-    styles {
-        uuid id PK
-        string style
-    }
-    gestures {
-        uuid id PK
-        string gesture
-    }
-    avatars_styles {
-        uuid id PK
-        uuid avatar_id FK
-        uuid style_id FK
-        string img_url
-    }
-    avatars_styles_gestures {
-        uuid avatar_style_id PK,FK
-        uuid gesture_id PK,FK
-    }
     users ||--o{ videos : have
-    avatars_styles ||--o{ avatars : "avatar_id"
-    avatars_styles ||--o{ styles : "style_id"
-    avatars_styles_gestures ||--o{ avatars_styles : "avatar_style_id"
-    avatars_styles_gestures ||--o{ gestures : "gesture_id"
 ```
 
 ## 🏃‍♂️ Simple Start
