@@ -13,7 +13,7 @@ class AvatarService {
         this.avatars = avatars;
     }
 
-    public find({ avatarId }: { avatarId: string }): AvatarGetResponseDto {
+    public findById({ avatarId }: { avatarId: string }): AvatarGetResponseDto {
         const avatar = this.avatars.find((avatar) => avatar.id === avatarId);
 
         if (!avatar) {

@@ -125,7 +125,7 @@ class AvatarController extends BaseController {
         }>,
     ): ApiHandlerResponse {
         const avatarId = options.params.id;
-        const avatar = this.avatarService.find({ avatarId });
+        const avatar = this.avatarService.findById({ avatarId });
 
         return {
             status: HttpCode.OK,
