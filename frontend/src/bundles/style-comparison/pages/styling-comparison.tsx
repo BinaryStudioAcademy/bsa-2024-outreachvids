@@ -24,7 +24,7 @@ const StylingComparison: React.FC = () => {
             <Heading as="h1" mb={4} color="black">
                 Styling Comparison
             </Heading>
-
+            All example code can be found in frontend/src/bundles/style-comparison
             <Box mb={4}>
                 <Heading as="h2" size="md" mb={2} color="black">
                     Inline Styling
@@ -121,7 +121,7 @@ const StylingComparison: React.FC = () => {
                 </Heading>
                 <Text mb={2} color="black" ml={4}>
                     Chakra theme styling involves defining styles in a theme
-                    object and applying them to components using the
+                    object to expand Chakras default theme and applying them to components using the
                     `ChakraProvider` and `theme` props.
                 </Text>
                 <Text mb={2} color="black" ml={4}>
