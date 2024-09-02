@@ -42,7 +42,6 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     };
 
     const handleLogOut = useCallback(() => {
-        //ToDo: log out user with token
         navigate(AppRoute.SIGN_IN);
     }, [navigate]);
 
@@ -74,8 +73,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                     variant="icon"
                 />
                 <Box mb="30px">
-                    {/* ToDo: Add this username value dynamically */}
-                    {isCollapsed ? <UserAvatar username="FN" /> : <UserCard />}
+                    {isCollapsed ? <UserAvatar /> : <UserCard />}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>
