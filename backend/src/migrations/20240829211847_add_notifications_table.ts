@@ -4,6 +4,7 @@ const TABLE_NAME = 'notifications';
 
 const ColumnName = {
     ID: 'id',
+    USER_ID: 'user_id',
     TYPE: 'type',
     IS_READ: 'is_read',
     CREATED_AT: 'created_at',
@@ -18,6 +19,7 @@ async function up(knex: Knex): Promise<void> {
             .notNullable()
             .primary()
             .defaultTo(knex.raw('uuid_generate_v4()'));
+        table.uuid(ColumnName.USER_ID).notNullable();
         table
             .enu(ColumnName.TYPE, ['render'], {
                 useNative: true,
@@ -33,6 +35,10 @@ async function up(knex: Knex): Promise<void> {
             .dateTime(ColumnName.UPDATED_AT)
             .notNullable()
             .defaultTo(knex.fn.now());
+        table
+            .foreign(ColumnName.USER_ID)
+            .references('users.id')
+            .onDelete('CASCADE');
     });
 }
 
