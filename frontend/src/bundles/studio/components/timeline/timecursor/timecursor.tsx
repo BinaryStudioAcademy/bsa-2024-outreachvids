@@ -1,0 +1,137 @@
+import { useTimelineContext } from 'dnd-timeline';
+
+import { Box } from '~/bundles/common/components/components.js';
+import {
+    useCallback,
+    useLayoutEffect,
+    useRef as useReference,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
+
+type Properties = {
+    interval?: number;
+};
+
+const now = Date.now();
+
+const TimeCursor: React.FC<Properties> = ({
+    interval,
+}: Properties): JSX.Element => {
+    const timeCursorReference = useReference<HTMLDivElement>(null);
+    const renderTimeReference = useReference(now);
+    const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
+        useTimelineContext();
+
+    const side = direction === 'rtl' ? 'right' : 'left';
+
+    const [isDragging, setIsDragging] = useState(false);
+    const [cursorPosition, setCursorPosition] = useState<number | null>(null);
+
+    useLayoutEffect(() => {
+        const offsetCursor = (): void => {
+            if (!timeCursorReference.current || cursorPosition !== null) {
+                return;
+            }
+            const timeDelta = now - renderTimeReference.current;
+            const timeDeltaInPixels = valueToPixels(timeDelta);
+
+            const sideDelta = sidebarWidth + timeDeltaInPixels;
+            timeCursorReference.current.style[side] = `${sideDelta}px`;
+        };
+        offsetCursor();
+        const cursorUpdateInterval = setInterval(
+            offsetCursor,
+            interval ?? 1000,
+        );
+        return () => {
+            clearInterval(cursorUpdateInterval);
+        };
+    }, [
+        side,
+        sidebarWidth,
+        interval,
+        range.start,
+        valueToPixels,
+        cursorPosition,
+        renderTimeReference,
+        timeCursorReference,
+    ]);
+
+    useLayoutEffect(() => {
+        const handleMouseMove = (event: MouseEvent): void => {
+            if (!isDragging || !timeCursorReference.current) {
+                return;
+            }
+
+            const newCursorPosition = event.clientX - sidebarWidth;
+            setCursorPosition(newCursorPosition);
+        };
+
+        const handleMouseUp = (event: MouseEvent): void => {
+            setIsDragging(false);
+            const newCursorPosition = event.clientX - sidebarWidth;
+            renderTimeReference.current =
+                now - pixelsToValue(newCursorPosition);
+            setCursorPosition(null);
+        };
+
+        if (isDragging) {
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+        } else {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        }
+
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+    }, [
+        isDragging,
+        sidebarWidth,
+        side,
+        pixelsToValue,
+        renderTimeReference,
+        timeCursorReference,
+    ]);
+
+    useLayoutEffect(() => {
+        if (cursorPosition && timeCursorReference.current) {
+            timeCursorReference.current.style[side] =
+                `${cursorPosition + sidebarWidth}px`;
+        }
+    }, [cursorPosition, side, sidebarWidth, timeCursorReference]);
+
+    const handleMouseDown = useCallback(() => {
+        setIsDragging(true);
+    }, []);
+
+    return (
+        <Box
+            ref={timeCursorReference}
+            height="100%"
+            width="5px"
+            zIndex={3}
+            backgroundColor="red"
+            position="absolute"
+            cursor="pointer"
+            role="button"
+            tabIndex={0}
+            onMouseDown={handleMouseDown}
+        >
+            <Box
+                width={0}
+                height={0}
+                borderLeft="5px solid transparent"
+                borderRight="5px solid transparent"
+                borderBottom="5px solid red"
+                position="absolute"
+                top="-5px"
+                left="-2.5px"
+            />
+        </Box>
+    );
+};
+
+export { TimeCursor };
