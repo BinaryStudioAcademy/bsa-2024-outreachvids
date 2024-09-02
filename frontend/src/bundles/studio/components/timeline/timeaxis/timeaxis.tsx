@@ -11,9 +11,7 @@ type Properties = {
     markers: MarkerDefinition[];
 };
 
-const TimeAxis: React.FC<Properties> = ({
-    markers,
-}: Properties): JSX.Element => {
+const TimeAxis: React.FC<Properties> = ({ markers }) => {
     const { range, direction, sidebarWidth, valueToPixels } =
         useTimelineContext();
     const side = direction === 'rtl' ? 'right' : 'left';

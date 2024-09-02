@@ -15,7 +15,7 @@ interface TimelineProperties {
     items: TimelineRowsWithSpan;
 }
 
-const TimelineView: React.FC<TimelineProperties> = ({ items }): JSX.Element => {
+const TimelineView: React.FC<TimelineProperties> = ({ items }) => {
     const { setTimelineRef, style } = useTimelineContext();
 
     return (

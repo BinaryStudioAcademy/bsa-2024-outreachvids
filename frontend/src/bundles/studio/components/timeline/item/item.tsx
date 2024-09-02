@@ -10,12 +10,7 @@ type Properties = {
     children: React.ReactNode;
 };
 
-const Item: React.FC<Properties> = ({
-    id,
-    type,
-    span,
-    children,
-}): JSX.Element => {
+const Item: React.FC<Properties> = ({ id, type, span, children }) => {
     const { setNodeRef, attributes, listeners, itemStyle, itemContentStyle } =
         useItem({
             id,

@@ -20,10 +20,7 @@ type Properties = {
     initialItems: TimelineRows;
 };
 
-const Timeline: React.FC<Properties> = ({
-    initialRange,
-    initialItems,
-}): JSX.Element => {
+const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
     const [range, setRange] = useState(initialRange);
     const [items, setItems] = useState(setItemsSpan(initialItems));
 

@@ -9,12 +9,7 @@ type Properties = RowDefinition & {
     style?: React.CSSProperties;
 };
 
-const Row: React.FC<Properties> = ({
-    id,
-    type,
-    children,
-    style = {},
-}: Properties): JSX.Element => {
+const Row: React.FC<Properties> = ({ id, type, children, style = {} }) => {
     const { setNodeRef, rowWrapperStyle, rowStyle } = useRow({
         id,
         data: { type },
