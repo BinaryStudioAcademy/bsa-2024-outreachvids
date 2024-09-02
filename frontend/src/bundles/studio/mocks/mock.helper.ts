@@ -58,20 +58,15 @@ const generateMockItems = (
     return items.map((_, index): ItemDefinition => {
         const row = rows[Math.floor(Math.random() * rows.length)];
         const rowId = row?.id;
-        const disabled = false;
 
         const span = generateRandomSpan(range);
 
-        let id = `${index + 1}`;
-        if (disabled) {
-            id += ' (disabled)';
-        }
+        const id = `${index + 1}`;
 
         return {
             id,
             rowId: rowId || '',
             span,
-            disabled,
         };
     });
 };
