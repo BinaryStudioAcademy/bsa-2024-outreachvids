@@ -5,30 +5,29 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { AvatarsApiPath } from './enums/enums.js';
 import { type AvatarGetOneRequestDto } from './types/types.js';
-
 /**
  * @swagger
  * components:
- *    schemas:
- *      Avatar:
- *        type: object
- *        properties:
- *          id:
- *            type: string
- *            format: uuid
- *          name:
- *            type: string
- *          voice:
- *            type: string
- *          voiceUrl:
- *             type:string
- *          styles:
- *             type: array
+ *   schemas:
+ *     Avatar:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *         name:
+ *           type: string
+ *         voice:
+ *           type: string
+ *         voiceUrl:
+ *           type: string
+ *         styles:
+ *           type: array
  *           items:
  *             type: object
  *             properties:
@@ -51,13 +50,13 @@ class AvatarController extends BaseController {
 
         this.addRoute({
             path: AvatarsApiPath.ROOT,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: () => this.findAll(),
         });
 
         this.addRoute({
             path: AvatarsApiPath.ID,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: (options) =>
                 this.find(
                     options as ApiHandlerOptions<{
