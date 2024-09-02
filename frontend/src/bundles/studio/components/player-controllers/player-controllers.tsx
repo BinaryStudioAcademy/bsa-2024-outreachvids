@@ -12,6 +12,10 @@ import { IconName } from '~/bundles/common/icons/icons.js';
 import { TimeDisplay } from './components/components.js';
 
 const PlayerControllers: React.FC = () => {
+    // Mocked data. Update later
+    const currentTime = 5;
+    const duration = 10;
+
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
     const handleClick = useCallback((): void => {
@@ -87,7 +91,7 @@ const PlayerControllers: React.FC = () => {
                     />
                 </Tooltip>
 
-                <TimeDisplay />
+                <TimeDisplay currentTime={currentTime} duration={duration} />
             </Flex>
         </Flex>
     );
