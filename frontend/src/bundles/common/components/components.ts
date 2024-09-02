@@ -38,7 +38,6 @@ export {
     Tooltip,
     VStack,
 } from '@chakra-ui/react';
-export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { FormikProvider as FormProvider } from 'formik';
 export { Fragment } from 'react';
 export { Provider as StoreProvider } from 'react-redux';
