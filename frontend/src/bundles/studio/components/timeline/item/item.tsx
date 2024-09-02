@@ -31,6 +31,7 @@ const Item: React.FC<Properties> = ({ id, type, span, children }) => {
                     justifyContent="center"
                     alignItems="center"
                     marginRight="2px"
+                    border="1px solid"
                 >
                     {children}
                 </Flex>

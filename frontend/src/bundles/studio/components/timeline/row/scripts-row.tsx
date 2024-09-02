@@ -1,3 +1,4 @@
+import { Text } from '~/bundles/common/components/components.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { type TimelineItemWithSpan } from '~/bundles/studio/types/types.js';
 
@@ -17,7 +18,14 @@ const ScriptsRow: React.FC<Properties> = ({ items }) => {
         >
             {items.map((item) => (
                 <Item key={item.id} type={RowNames.SCRIPT} {...item}>
-                    {`Script ${item.id.slice(0, 4)}`}
+                    <Text
+                        variant="bodySmall"
+                        textOverflow="ellipsis"
+                        overflow="hidden"
+                        whiteSpace="nowrap"
+                        color="typography.900"
+                        padding="0 5px"
+                    >{`Script ${item.id}`}</Text>
                 </Item>
             ))}
         </Row>
