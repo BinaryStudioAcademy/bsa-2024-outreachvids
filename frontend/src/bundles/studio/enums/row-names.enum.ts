@@ -1,6 +1,6 @@
-const ItemType = {
+const RowNames = {
     AVATAR: 'avatar',
     SCRIPT: 'script',
 } as const;
 
-export { ItemType };
+export { RowNames };

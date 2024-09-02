@@ -1,13 +1,11 @@
 import { type Span, useItem } from 'dnd-timeline';
 
 import { Box, Flex } from '~/bundles/common/components/components.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
-
-import { type ItemType } from '../enums/item-type.enum.js';
+import { type RowType } from '~/bundles/studio/types/types.js';
 
 type Properties = {
     id: string;
-    type: ValueOf<typeof ItemType>;
+    type: RowType;
     span: Span;
     children: React.ReactNode;
 };
