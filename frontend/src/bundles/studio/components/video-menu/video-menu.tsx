@@ -6,10 +6,12 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { Menu, MenuBody } from './components/components.js';
-import { ScriptContent } from './components/menu-content/content.js';
+import {
+    AvatarsContent,
+    ScriptContent,
+} from './components/menu-content/content.js';
 import {
     AssetsContent,
-    AvatarsContent,
     TemplatesContent,
     TextContent,
 } from './components/mock/menu-mock.js';
