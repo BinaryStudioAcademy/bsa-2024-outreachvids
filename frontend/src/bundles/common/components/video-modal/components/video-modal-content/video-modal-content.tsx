@@ -1,25 +1,57 @@
-import { TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
+import {
+    Heading,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
+    VStack,
+} from '@chakra-ui/react';
 
-import { Tab, VideoPreview } from './components/components.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 
-const VideoModalContent = (): JSX.Element => {
+import {
+    GenerateScriptView,
+    Tab,
+    VideoPreview,
+} from './components/components.js';
+
+const VideoModalContent: React.FC = () => {
     return (
         <Tabs orientation="vertical" variant="unstyled" height="full">
-            <TabList
-                backgroundColor="gray.100"
-                padding="20px 20px 20px"
-                minWidth="290px"
-            >
-                <Tab icon={faPlay} label="Start from scratch" />
-            </TabList>
-            <TabPanels
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-            >
-                <TabPanel>
+            <VStack gap={0}>
+                <Heading
+                    width="290px"
+                    padding="33px 44px 0px"
+                    variant="H3"
+                    color="typography.900"
+                    backgroundColor="gray.100"
+                >
+                    Create video
+                </Heading>
+                <TabList
+                    backgroundColor="gray.100"
+                    padding="20px"
+                    minWidth="290px"
+                    h="full"
+                >
+                    <Tab icon={IconName.PLAY} label="Start from scratch" />
+                    <Tab
+                        icon={IconName.FILE_LINES}
+                        label="Generate script with AI"
+                    />
+                </TabList>
+            </VStack>
+            <TabPanels>
+                <TabPanel
+                    h="full"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                >
                     <VideoPreview />
+                </TabPanel>
+                <TabPanel p="0px 24px">
+                    <GenerateScriptView />
                 </TabPanel>
             </TabPanels>
         </Tabs>
