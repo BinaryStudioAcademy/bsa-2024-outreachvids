@@ -3,6 +3,7 @@ const ApiPath = {
     AUTH: '/auth',
     VIDEOS: '/videos',
     NOTIFICATIONS: '/notifications',
+    CHAT: '/chat',
 } as const;
 
 export { ApiPath };

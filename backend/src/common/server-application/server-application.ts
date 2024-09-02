@@ -1,4 +1,5 @@
 import { authController } from '~/bundles/auth/auth.js';
+import { chatController } from '~/bundles/chat/chat.js';
 import { notificationController } from '~/bundles/notifications/notifications.js';
 import { userController } from '~/bundles/users/users.js';
 import { videoController } from '~/bundles/videos/videos.js';
@@ -16,6 +17,7 @@ const apiV1 = new BaseServerAppApi(
     ...userController.routes,
     ...videoController.routes,
     ...notificationController.routes,
+    ...chatController.routes,
 );
 const serverApp = new BaseServerApp({
     config,
