@@ -65,7 +65,7 @@ const generateMockItems = (
 
         return {
             id,
-            rowId: rowId || '',
+            rowId: rowId ?? '',
             span,
         };
     });
