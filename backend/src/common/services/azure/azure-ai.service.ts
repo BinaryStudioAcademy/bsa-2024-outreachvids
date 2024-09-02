@@ -44,6 +44,7 @@ class AzureAIService {
             .map((data: AzureGetAvatarVoicesResponseDto) => ({
                 DisplayName: data.DisplayName,
                 ShortName: data.ShortName,
+                Locale: data.Locale,
                 Gender: data.Gender,
                 LocaleName: data.LocaleName,
                 StyleList: data.StyleList,
