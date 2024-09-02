@@ -6,7 +6,6 @@ import {
     ViewOffIcon,
 } from '@chakra-ui/icons';
 import {
-    faCircleUser,
     faCloudArrowUp,
     faEllipsisVertical,
     faFileLines,
@@ -19,6 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
+    CircleUserIcon,
     HouseIcon,
     RightFromBracketIcon,
 } from './helper/icon-conversion.helper.js';
@@ -36,7 +36,7 @@ const IconName = {
     DOWNLOAD: DownloadIcon,
     VIEW: ViewIcon,
     VIEW_OFF: ViewOffIcon,
-    AVATAR: faCircleUser,
+    AVATAR: CircleUserIcon,
     UPLOAD: faCloudArrowUp,
     TEMPLATE: faTableColumns,
     SCRIPT: faFont,

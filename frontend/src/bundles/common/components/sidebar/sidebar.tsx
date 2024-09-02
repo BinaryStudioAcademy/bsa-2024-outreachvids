@@ -92,6 +92,20 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                             label="Home"
                         />
                     </Link>
+                    <Link to={AppRoute.MY_AVATAR}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.MY_AVATAR)}
+                            icon={
+                                <Icon
+                                    as={IconName.AVATAR}
+                                    boxSize={5}
+                                    color={activeIconPage(AppRoute.MY_AVATAR)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="My Avatar"
+                        />
+                    </Link>
                 </Box>
                 <Spacer />
                 <SidebarItem
