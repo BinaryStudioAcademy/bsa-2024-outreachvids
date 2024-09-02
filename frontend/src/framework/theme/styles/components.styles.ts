@@ -98,6 +98,17 @@ const components = {
                 _active: { bg: 'none' },
                 _hover: { bg: 'none' },
             },
+            themeExample: {
+                bg: '#3182ce',
+                color: 'white',
+                padding: '8px 16px',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                _hover: {
+                    bg: '#2b6cb0',
+                },
+            },
         },
     },
     Link: {
