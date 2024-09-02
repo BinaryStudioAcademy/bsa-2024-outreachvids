@@ -8,7 +8,7 @@ env:
 on:
     push:
         branches:
-            - fix/OV-123-update-auth-plugin
+            - next
     workflow_dispatch:
 
 jobs:
