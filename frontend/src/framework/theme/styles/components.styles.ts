@@ -66,6 +66,10 @@ const components = {
                     },
                 },
             },
+            gray: {
+                color: colors.typography[600],
+                bgColor: colors.background[50],
+            },
             primaryOutlined: {
                 color: colors.background[300],
                 border: '1px solid',
