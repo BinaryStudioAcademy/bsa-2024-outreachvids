@@ -14,12 +14,11 @@ const PlayerControllers: React.FC = () => {
         <Flex
             justifyContent="center"
             alignItems="center"
-            gap="15px"
             height="45px"
             borderColor="background.50"
             borderWidth="1px"
         >
-            <Flex alignItems="center" gap="11px">
+            <Flex alignItems="center" gap="11px" position="relative">
                 <IconButton
                     aria-label="Step back"
                     isRound={true}
@@ -51,8 +50,8 @@ const PlayerControllers: React.FC = () => {
                         />
                     }
                 />
+                <TimeDisplay />
             </Flex>
-            <TimeDisplay />
         </Flex>
     );
 };
