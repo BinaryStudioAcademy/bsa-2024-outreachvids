@@ -86,10 +86,10 @@ class AvatarController extends BaseController {
      *                    items:
      *                      $ref: '#/components/schemas/Avatar'
      */
-    private async findAll(): Promise<ApiHandlerResponse> {
+    private findAll(): ApiHandlerResponse {
         return {
             status: HttpCode.OK,
-            payload: await this.avatarService.findAll(),
+            payload: this.avatarService.findAll(),
         };
     }
 
@@ -120,13 +120,13 @@ class AvatarController extends BaseController {
      *                  type: object
      *                  $ref: '#/components/schemas/Error'
      */
-    private async find(
+    private find(
         options: ApiHandlerOptions<{
             params: AvatarGetOneRequestDto;
         }>,
-    ): Promise<ApiHandlerResponse> {
-        const { params } = options;
-        const avatar = await this.avatarService.find(params.id);
+    ): ApiHandlerResponse {
+        const avatarId = options.params.id;
+        const avatar = this.avatarService.find({ avatarId });
 
         return {
             status: HttpCode.OK,

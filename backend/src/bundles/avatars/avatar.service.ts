@@ -1,6 +1,5 @@
 import { HttpCode, HttpError } from '~/common/http/http.js';
 
-import { type AvatarRepository } from './avatar.repository.js';
 import { AvatarValidationMessage } from './enums/enums.js';
 import {
     type AvatarGetAllResponseDto,
@@ -8,14 +7,14 @@ import {
 } from './types/types.js';
 
 class AvatarService {
-    private avatarRepository: AvatarRepository;
+    private avatars: AvatarGetResponseDto[];
 
-    public constructor(avatarRepository: AvatarRepository) {
-        this.avatarRepository = avatarRepository;
+    public constructor(avatars: AvatarGetResponseDto[]) {
+        this.avatars = avatars;
     }
 
-    public async find(avatarId: string): Promise<AvatarGetResponseDto> {
-        const avatar = await this.avatarRepository.find(avatarId);
+    public find({ avatarId }: { avatarId: string }): AvatarGetResponseDto {
+        const avatar = this.avatars.find((avatar) => avatar.id === avatarId);
 
         if (!avatar) {
             throw new HttpError({
@@ -24,14 +23,14 @@ class AvatarService {
             });
         }
 
-        return avatar.toObject();
+        return avatar;
     }
 
-    public async findAll(): Promise<AvatarGetAllResponseDto> {
-        const avatars = await this.avatarRepository.findAll();
+    public findAll(): AvatarGetAllResponseDto {
+        const avatars = this.avatars;
 
         return {
-            items: avatars.map((it) => it.toObject()),
+            items: avatars,
         };
     }
 }
