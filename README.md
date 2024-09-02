@@ -56,6 +56,8 @@ erDiagram
         string name
         string voice_url
         string voice
+        datetime created_at
+        datetime updated_at
     }
     styles {
         uuid id PK
