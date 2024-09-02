@@ -29,6 +29,11 @@ export {
     UserValidationMessage,
 } from './bundles/users/users.js';
 export {
+    type GenerateVideoScriptRequestDto,
+    generateVideoScriptValidationSchema,
+    VideoScriptValidationMessage,
+} from './bundles/video-scripts/video-scripts.js';
+export {
     type CreateVideoRequestDto,
     type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
