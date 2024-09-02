@@ -2,7 +2,10 @@ import { useTimelineContext } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
-import { type Marker,type MarkerDefinition } from '~/bundles/studio/helpers/time-axis-markers.js';
+import {
+    type Marker,
+    type MarkerDefinition,
+} from '~/bundles/studio/helpers/time-axis-markers.js';
 
 type Properties = {
     markers: MarkerDefinition[];
