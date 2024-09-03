@@ -1,5 +1,5 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
-import { type Http } from '~/framework/http/http.js';
+import { type Http, HTTPMethod } from '~/framework/http/http.js';
 import { BaseHttpApi } from '~/framework/http-api/http-api.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
@@ -27,7 +27,7 @@ class ChatApi extends BaseHttpApi {
         const response = await this.load(
             this.getFullEndpoint(ChatApiPath.ROOT, {}),
             {
-                method: 'POST',
+                method: HTTPMethod.POST,
                 contentType: ContentType.JSON,
                 payload: JSON.stringify(payload),
                 hasAuth: true,
@@ -41,7 +41,7 @@ class ChatApi extends BaseHttpApi {
         const response = await this.load(
             this.getFullEndpoint(ChatApiPath.ROOT, {}),
             {
-                method: 'DELETE',
+                method: HTTPMethod.DELETE,
                 contentType: ContentType.JSON,
                 payload: JSON.stringify({}),
                 hasAuth: true,
