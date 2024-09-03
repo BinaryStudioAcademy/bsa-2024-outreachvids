@@ -36,14 +36,14 @@ const UploadVideo: React.FC = () => {
             {videoSource ? (
                 <>
                     <VideoPlayer videoSource={videoSource} />
-                    <CheckboxForm handleRemoveVideo={handleRemoveVideo} />
+                    <CheckboxForm onVideoRemove={handleRemoveVideo} />
                 </>
             ) : (
                 <>
                     <VideoDropzone
                         videoSource={videoSource}
-                        handleRemoveVideo={handleRemoveVideo}
-                        handleSetVideo={handleSetVideo}
+                        onRemoveVideo={handleRemoveVideo}
+                        onSetVideo={handleSetVideo}
                     />
                     <Button sx={{ width: '222px' }} label={'Next step'} />
                 </>
