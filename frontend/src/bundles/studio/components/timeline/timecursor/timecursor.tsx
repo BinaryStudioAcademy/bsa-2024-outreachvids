@@ -1,3 +1,4 @@
+import { secondsToMilliseconds } from 'date-fns';
 import { useTimelineContext } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
@@ -41,7 +42,7 @@ const TimeCursor: React.FC<Properties> = ({
         offsetCursor();
         const cursorUpdateInterval = setInterval(
             offsetCursor,
-            interval ?? 1000,
+            interval ?? secondsToMilliseconds(1),
         );
         return () => {
             clearInterval(cursorUpdateInterval);

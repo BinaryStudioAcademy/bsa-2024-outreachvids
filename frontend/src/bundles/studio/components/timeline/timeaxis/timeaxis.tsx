@@ -1,3 +1,4 @@
+import { minutesToMilliseconds } from 'date-fns';
 import { useTimelineContext } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
@@ -24,7 +25,9 @@ const TimeAxis: React.FC<Properties> = ({
         const rangeSize = range.end - range.start;
         const startTime = Math.floor(range.start / delta) * delta;
         const endTime = range.end;
-        const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
+        const timezoneOffset = minutesToMilliseconds(
+            new Date().getTimezoneOffset(),
+        );
         const markerSideDeltas: Marker[] = [];
 
         for (let time = startTime; time <= endTime; time += delta) {
