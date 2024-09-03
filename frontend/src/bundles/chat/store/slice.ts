@@ -1,11 +1,10 @@
-import { type PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
 import { MessageSender } from '../enums/enums.js';
-import { type Message } from '../types/types.js';
+import { type GenerateTextRequestDto, type Message } from '../types/types.js';
 import { deleteChat, sendMessage } from './actions.js';
 
 type State = {
@@ -21,29 +20,36 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'chat',
-    reducers: {
-        addMessage(state, action: PayloadAction<Message>) {
-            state.messages.push(action.payload);
-        },
-    },
+    reducers: {},
     extraReducers(builder) {
         builder.addCase(sendMessage.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
-        builder.addCase(sendMessage.fulfilled, (state, action) => {
-            const { payload } = action;
+        builder.addCase(
+            sendMessage.fulfilled,
+            (state, { payload, meta: { arg } }) => {
+                const requestPayload: GenerateTextRequestDto = arg;
 
-            state.dataStatus = DataStatus.FULFILLED;
+                state.messages.push(
+                    {
+                        sender: MessageSender.USER,
+                        text: requestPayload.message,
+                    },
+                    {
+                        sender: MessageSender.AI,
+                        text: payload.message,
+                    },
+                );
+                state.dataStatus = DataStatus.FULFILLED;
+            },
+        );
+        builder.addCase(sendMessage.rejected, (state, { meta: { arg } }) => {
+            const requestPayload: GenerateTextRequestDto = arg;
 
-            const aiMessage: Message = {
-                id: state.messages.length + 2,
-                sender: MessageSender.AI,
-                text: payload.message,
-                timeStamp: new Date(),
-            };
-            state.messages.push(aiMessage);
-        });
-        builder.addCase(sendMessage.rejected, (state) => {
+            state.messages.push({
+                sender: MessageSender.USER,
+                text: requestPayload.message,
+            });
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(deleteChat.pending, (state) => {

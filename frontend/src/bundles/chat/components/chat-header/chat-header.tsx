@@ -1,5 +1,3 @@
-// import { ModalHeader } from '@chakra-ui/react';
-
 import { Box, Heading, Text } from '~/bundles/common/components/components.js';
 
 type Properties = {

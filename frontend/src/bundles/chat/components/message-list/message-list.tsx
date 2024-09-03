@@ -51,11 +51,8 @@ const MessageList: React.FC<Properties> = ({ messages }) => {
                             }
                             width={'max'}
                         >
-                            {messages.map((message: Message) => (
-                                <MessageBox
-                                    key={message.id}
-                                    message={message}
-                                />
+                            {messages.map((message: Message, index: number) => (
+                                <MessageBox key={index} message={message} />
                             ))}
                         </VStack>
                     </Flex>

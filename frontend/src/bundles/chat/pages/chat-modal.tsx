@@ -11,9 +11,8 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { Chat } from '../components/components.js';
-import { MessageSender } from '../enums/message-sender.js';
 import { actions as chatActions } from '../store/chat.js';
-import { type GenerateTextRequestDto, type Message } from '../types/types.js';
+import { type GenerateTextRequestDto } from '../types/types.js';
 
 type Properties = {
     isChatOpen: boolean;
@@ -28,17 +27,9 @@ const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
 
     const handleSendMessage = useCallback(
         (payload: GenerateTextRequestDto) => {
-            const userMessage: Message = {
-                id: messages.length + 1,
-                sender: MessageSender.USER,
-                text: payload.message,
-                timeStamp: new Date(),
-            };
-
-            void dispatch(chatActions.addMessage(userMessage));
             void dispatch(chatActions.sendMessage(payload));
         },
-        [dispatch, messages],
+        [dispatch],
     );
 
     const handleCloseChat = useCallback(() => {
