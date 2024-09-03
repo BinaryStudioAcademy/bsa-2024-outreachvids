@@ -21,7 +21,7 @@ const TimeCursor: React.FC<Properties> = ({
         useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
-
+    const millisecondPerRefresh = 1000;
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
@@ -39,7 +39,7 @@ const TimeCursor: React.FC<Properties> = ({
         offsetCursor();
         const cursorUpdateInterval = setInterval(
             offsetCursor,
-            interval || 1000,
+            interval || millisecondPerRefresh,
         );
         return () => {
             clearInterval(cursorUpdateInterval);
