@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import {
     Flex,
     Icon,
@@ -41,12 +39,7 @@ const PlayerControls: React.FC = () => {
                         isRound={true}
                         size="xs"
                         variant="gray"
-                        icon={
-                            <Icon
-                                as={FontAwesomeIcon}
-                                icon={IconName.PLAY_STEP_BACK}
-                            />
-                        }
+                        icon={<Icon as={IconName.PLAY_STEP_BACK} />}
                     />
                 </Tooltip>
 
@@ -62,10 +55,7 @@ const PlayerControls: React.FC = () => {
                         variant="gray"
                         icon={
                             <Icon
-                                as={FontAwesomeIcon}
-                                icon={
-                                    isPlaying ? IconName.PAUSE : IconName.PLAY
-                                }
+                                as={isPlaying ? IconName.PAUSE : IconName.PLAY}
                             />
                         }
                         onClick={handleClick}
@@ -82,12 +72,7 @@ const PlayerControls: React.FC = () => {
                         isRound={true}
                         size="xs"
                         variant="gray"
-                        icon={
-                            <Icon
-                                as={FontAwesomeIcon}
-                                icon={IconName.PLAY_STEP_NEXT}
-                            />
-                        }
+                        icon={<Icon as={IconName.PLAY_STEP_NEXT} />}
                     />
                 </Tooltip>
 

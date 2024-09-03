@@ -6,23 +6,23 @@ import {
     ViewOffIcon,
 } from '@chakra-ui/icons';
 import {
-    faBackwardStep,
     faCloudArrowUp,
     faEllipsisVertical,
-    faFileLines,
     faFont,
-    faForwardStep,
-    faPause,
     faPen,
-    faPlay,
     faScroll,
     faT,
     faTableColumns,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
+    backwardStepIcon,
     CircleUserIcon,
+    fileLinesIcon,
+    forwardStepIcon,
     HouseIcon,
+    pauseIcon,
+    playIcon,
     RightFromBracketIcon,
 } from './helper/icon-conversion.helper.js';
 
@@ -32,11 +32,11 @@ const IconName = {
     LOG_OUT: RightFromBracketIcon,
     ARROW_LEFT: ArrowLeftIcon,
     ARROW_RIGHT: ArrowRightIcon,
-    FILE_LINES: faFileLines,
-    PLAY: faPlay,
-    PLAY_STEP_BACK: faBackwardStep,
-    PLAY_STEP_NEXT: faForwardStep,
-    PAUSE: faPause,
+    FILE_LINES: fileLinesIcon,
+    PLAY: playIcon,
+    PLAY_STEP_BACK: backwardStepIcon,
+    PLAY_STEP_NEXT: forwardStepIcon,
+    PAUSE: pauseIcon,
     SCROLL: faScroll,
     OPTIONS_VERTICAL: faEllipsisVertical,
     DOWNLOAD: DownloadIcon,
