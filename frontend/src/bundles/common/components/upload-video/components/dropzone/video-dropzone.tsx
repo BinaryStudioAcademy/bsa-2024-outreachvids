@@ -37,7 +37,7 @@ const VideoDropzone: React.FC<Properties> = ({
         id: DROPZONE_ID,
     });
 
-    const handleFiles = useCallback(
+    const handleUploadFile = useCallback(
         (files: FileList): void => {
             if (files && files.length > 0) {
                 const file = files[0];
@@ -92,16 +92,16 @@ const VideoDropzone: React.FC<Properties> = ({
     const onDrop = useCallback(
         (event: DragEvent<HTMLDivElement>): void => {
             event.preventDefault();
-            handleFiles(event.dataTransfer.files);
+            handleUploadFile(event.dataTransfer.files);
         },
-        [handleFiles],
+        [handleUploadFile],
     );
 
     const onChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>): void => {
-            handleFiles(event.target.files as FileList);
+            handleUploadFile(event.target.files as FileList);
         },
-        [handleFiles],
+        [handleUploadFile],
     );
 
     const onClick = useCallback(() => {
