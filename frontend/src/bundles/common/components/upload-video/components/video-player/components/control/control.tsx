@@ -23,6 +23,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icon-name.js';
 
+import { MIN_VOLUME } from './libs/constants/constants.js';
 import { VideoEvent } from './libs/enums/enums.js';
 import { getTime } from './libs/helpers/helpers.js';
 import { useAnimationFrame } from './libs/hooks/hooks.js';
@@ -132,14 +133,14 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
 
         const newVolume =
             isCurrentlyMuted && videoState.volume === 0
-                ? 0.2
+                ? MIN_VOLUME
                 : videoState.volume;
         const isMuted = !isCurrentlyMuted;
 
         setVideoState({
             ...videoState,
             volume: newVolume,
-            isMuted: isMuted,
+            isMuted,
         });
 
         if (newVolume !== videoState.volume) {
