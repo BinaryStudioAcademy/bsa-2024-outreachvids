@@ -44,7 +44,14 @@ class BaseHttpApi implements HttpApi {
         path: string,
         options: HttpApiOptions,
     ): Promise<HttpApiResponse> {
-        const { method, contentType, payload = null, hasAuth, credentials = 'same-origin', keepAlive = false } = options;
+        const {
+            method,
+            contentType,
+            payload = null,
+            hasAuth,
+            credentials = 'same-origin',
+            keepAlive = false,
+        } = options;
 
         const headers = await this.getHeaders(contentType, hasAuth);
 
@@ -53,7 +60,7 @@ class BaseHttpApi implements HttpApi {
             headers,
             payload,
             credentials,
-            keepAlive
+            keepAlive,
         });
 
         return (await this.checkResponse(response)) as HttpApiResponse;
