@@ -1,5 +1,5 @@
 type GenerateTextResponseDto = {
-    message: string;
+    generatedText: string;
 };
 
 export { type GenerateTextResponseDto };

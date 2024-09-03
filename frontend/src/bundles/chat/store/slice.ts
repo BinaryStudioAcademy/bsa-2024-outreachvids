@@ -37,7 +37,7 @@ const { reducer, actions, name } = createSlice({
                     },
                     {
                         sender: MessageSender.AI,
-                        text: payload.message,
+                        text: payload.generatedText,
                     },
                 );
                 state.dataStatus = DataStatus.FULFILLED;
