@@ -5,7 +5,7 @@ import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { INSTRUCTION } from './libs/constants/constants.js';
 
-const DropzoneInstructions = (): JSX.Element => {
+const DropzoneInstructions: React.FC = () => {
     return (
         <Flex
             flexDirection="column"

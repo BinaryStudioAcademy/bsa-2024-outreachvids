@@ -13,7 +13,7 @@ type Properties = {
     handleRemoveVideo: () => void;
 };
 
-const CheckboxForm = ({ handleRemoveVideo }: Properties): JSX.Element => {
+const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
     const [checkboxes, setCheckboxes] = useState({
         checkbox1: false,
         checkbox2: false,

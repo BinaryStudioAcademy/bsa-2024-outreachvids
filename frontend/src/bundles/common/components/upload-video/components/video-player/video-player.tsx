@@ -13,7 +13,7 @@ type Properties = {
     videoSource: string;
 };
 
-const VideoPlayer = ({ videoSource }: Properties): JSX.Element => {
+const VideoPlayer: React.FC<Properties> = ({ videoSource }) => {
     const videoPlayerReference = useRef<PlayerRef>(null);
 
     const [duration, setDuration] = useState<VideoDuration>({

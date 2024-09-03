@@ -7,7 +7,7 @@ import {
     VideoPlayer,
 } from './components/components.js';
 
-const UploadVideo = (): JSX.Element => {
+const UploadVideo: React.FC = () => {
     const [videoSource, setVideoSource] = useState<string | null>(null);
 
     const handleRemoveVideo = useCallback(() => {

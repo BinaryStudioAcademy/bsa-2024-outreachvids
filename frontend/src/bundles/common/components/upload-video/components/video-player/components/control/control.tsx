@@ -33,10 +33,7 @@ type Properties = {
     duration: VideoDuration;
 };
 
-const Control = ({
-    videoPlayerReference,
-    duration,
-}: Properties): JSX.Element => {
+const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
     const [videoState, setVideoState] = useState<PlayerOptions>({
         isPlaying: false,
         isMuted: false,

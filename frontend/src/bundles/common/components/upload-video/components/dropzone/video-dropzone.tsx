@@ -27,11 +27,11 @@ type Properties = {
     handleSetVideo: (fileUlr: string) => void;
 };
 
-const VideoDropzone = ({
+const VideoDropzone: React.FC<Properties> = ({
     videoSource,
     handleRemoveVideo,
     handleSetVideo,
-}: Properties): JSX.Element => {
+}) => {
     const inputFile = useRef<HTMLInputElement | null>(null);
     const { setNodeRef } = useDroppable({
         id: DROPZONE_ID,

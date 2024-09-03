@@ -4,7 +4,7 @@ type Properties = {
     src: string;
 };
 
-const UserVideo = ({ src }: Properties): JSX.Element => {
+const UserVideo: React.FC<Properties> = ({ src }) => {
     return <Video src={src} width="100%" />;
 };
 
