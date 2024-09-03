@@ -16,7 +16,7 @@ const Row: React.FC<Properties> = ({
         <Box style={{ ...rowWrapperStyle, minHeight: 50 }}>
             <Box
                 ref={setNodeRef}
-                style={{ ...rowStyle, border: '1px solid white' }}
+                style={{ ...rowStyle, border: '1px solid black' }}
             >
                 {children}
             </Box>
