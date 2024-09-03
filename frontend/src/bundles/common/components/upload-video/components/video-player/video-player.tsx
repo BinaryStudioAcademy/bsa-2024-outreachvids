@@ -62,9 +62,13 @@ const VideoPlayer: React.FC<Properties> = ({ videoSource }) => {
                 inputProps={{ src: videoSource }}
                 ref={videoPlayerReference}
                 durationInFrames={duration.inFrames}
-                compositionWidth={570}
-                compositionHeight={278}
+                compositionWidth={1920}
+                compositionHeight={1080}
                 fps={FPS}
+                style={{
+                    width: '570px',
+                    height: '278px',
+                }}
             />
 
             <Control
