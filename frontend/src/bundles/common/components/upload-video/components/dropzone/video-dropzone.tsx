@@ -23,14 +23,14 @@ import { isFileSizeValid, isVideoFile } from './libs/helpers/helpers.js';
 
 type Properties = {
     videoSource: string | null;
-    handleRemoveVideo: () => void;
-    handleSetVideo: (fileUlr: string) => void;
+    onRemoveVideo: () => void;
+    onSetVideo: (fileUlr: string) => void;
 };
 
 const VideoDropzone: React.FC<Properties> = ({
     videoSource,
-    handleRemoveVideo,
-    handleSetVideo,
+    onRemoveVideo,
+    onSetVideo,
 }) => {
     const inputFile = useRef<HTMLInputElement | null>(null);
     const { setNodeRef } = useDroppable({
@@ -70,14 +70,14 @@ const VideoDropzone: React.FC<Properties> = ({
                 videoElement.src = videoURL;
                 videoElement.addEventListener(DOM_EVENT.LOADED_METADATA, () => {
                     if (videoElement.duration > MIN_VIDEO_DURATION) {
-                        handleSetVideo(videoURL);
+                        onSetVideo(videoURL);
                     } else {
                         notificationService.error({
                             message: ERROR_MESSAGE.VIDEO_DURATION,
                             id: ERROR_ID.VIDEO_DURATION,
                             title: ERROR_TITLE.VIDEO_DURATION,
                         });
-                        handleRemoveVideo();
+                        onRemoveVideo();
                     }
                 });
 
@@ -86,10 +86,10 @@ const VideoDropzone: React.FC<Properties> = ({
                 }
             }
         },
-        [handleRemoveVideo, handleSetVideo],
+        [onRemoveVideo, onSetVideo],
     );
 
-    const onDrop = useCallback(
+    const handleDrop = useCallback(
         (event: DragEvent<HTMLDivElement>): void => {
             event.preventDefault();
             handleUploadFile(event.dataTransfer.files);
@@ -97,29 +97,32 @@ const VideoDropzone: React.FC<Properties> = ({
         [handleUploadFile],
     );
 
-    const onChange = useCallback(
+    const handleChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>): void => {
             handleUploadFile(event.target.files as FileList);
         },
         [handleUploadFile],
     );
 
-    const onClick = useCallback(() => {
+    const handleClick = useCallback(() => {
         if (!videoSource && inputFile.current) {
             inputFile.current.click();
         }
     }, [videoSource, inputFile]);
 
-    const onDragOver = useCallback((event: DragEvent<HTMLDivElement>) => {
-        event.preventDefault();
-    }, []);
+    const handleClickDragOver = useCallback(
+        (event: DragEvent<HTMLDivElement>) => {
+            event.preventDefault();
+        },
+        [],
+    );
 
     return (
         <DndContext>
             <Box
                 ref={setNodeRef}
-                onDrop={onDrop}
-                onDragOver={onDragOver}
+                onDrop={handleDrop}
+                onDragOver={handleClickDragOver}
                 position="relative"
                 height="320px"
                 width="570px"
@@ -127,7 +130,7 @@ const VideoDropzone: React.FC<Properties> = ({
                 borderColor={'gray.300'}
                 borderRadius="12px"
                 cursor="pointer"
-                onClick={onClick}
+                onClick={handleClick}
                 transition="0.4s"
                 _hover={{
                     border: '3px dashed gray',
@@ -139,7 +142,7 @@ const VideoDropzone: React.FC<Properties> = ({
                     type="file"
                     accept="video/*"
                     style={{ display: 'none' }}
-                    onChange={onChange}
+                    onChange={handleChange}
                 />
                 <DropzoneInstructions />
             </Box>
