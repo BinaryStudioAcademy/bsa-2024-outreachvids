@@ -39,7 +39,7 @@ const TimeCursor: React.FC<Properties> = ({
         offsetCursor();
         const cursorUpdateInterval = setInterval(
             offsetCursor,
-            interval || millisecondPerRefresh,
+            interval ?? millisecondPerRefresh,
         );
         return () => {
             clearInterval(cursorUpdateInterval);
