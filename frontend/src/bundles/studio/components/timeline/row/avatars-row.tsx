@@ -1,29 +1,25 @@
-import { useTimelineContext } from 'dnd-timeline';
-
 import { Text } from '~/bundles/common/components/components.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
-import {
-    type DestinationPointer,
-    type TimelineItemWithSpan,
-} from '~/bundles/studio/types/types.js';
+import { type TimelineItemWithSpan } from '~/bundles/studio/types/types.js';
 
-import { DragPointer } from '../drag-pointer/drag-pointer.js';
 import { Item } from '../item/item.js';
 import { Row } from './row.js';
 
 type Properties = {
     items: Array<TimelineItemWithSpan>;
-    destinationPointer?: DestinationPointer | null;
+    destinationPointerValue?: number | undefined;
 };
 
-const AvatarsRow: React.FC<Properties> = ({ items, destinationPointer }) => {
-    const { valueToPixels } = useTimelineContext();
-
+const AvatarsRow: React.FC<Properties> = ({
+    items,
+    destinationPointerValue,
+}) => {
     return (
         <Row
             id={RowNames.AVATAR}
             type={RowNames.AVATAR}
             style={{ height: '60px' }}
+            destinationPointerValue={destinationPointerValue}
         >
             {items.map((item) => (
                 <Item key={item.id} type={RowNames.AVATAR} {...item}>
@@ -36,11 +32,6 @@ const AvatarsRow: React.FC<Properties> = ({ items, destinationPointer }) => {
                     >{`Avatar ${item.id.slice(0, 4)}`}</Text>
                 </Item>
             ))}
-            {destinationPointer && (
-                <DragPointer
-                    sx={{ left: valueToPixels(destinationPointer.value) }}
-                />
-            )}
         </Row>
     );
 };

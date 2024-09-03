@@ -26,24 +26,24 @@ const TimelineView: React.FC<Properties> = ({ items, destinationPointer }) => {
         <Box ref={setTimelineRef} style={style}>
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor />
-            <Row id="empty" />
+            <Row id="emptyTop" />
             <AvatarsRow
                 items={items[RowNames.AVATAR]}
-                destinationPointer={
-                    destinationPointer?.type === RowNames.AVATAR
-                        ? destinationPointer
-                        : null
+                destinationPointerValue={
+                    destinationPointer?.type === RowNames.SCRIPT
+                        ? destinationPointer?.value
+                        : undefined
                 }
             />
             <ScriptsRow
                 items={items[RowNames.SCRIPT]}
-                destinationPointer={
+                destinationPointerValue={
                     destinationPointer?.type === RowNames.SCRIPT
-                        ? destinationPointer
-                        : null
+                        ? destinationPointer?.value
+                        : undefined
                 }
             />
-            <Row id="empty" />
+            <Row id="emptyBottom" />
         </Box>
     );
 };
