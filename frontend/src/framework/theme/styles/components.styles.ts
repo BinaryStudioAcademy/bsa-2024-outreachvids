@@ -139,6 +139,18 @@ const components = {
             },
         },
     },
+    Progress: {
+        variants: {
+            stepper: {
+                filledTrack: {
+                    bg: colors.white,
+                },
+                track: {
+                    bg: colors.background[600],
+                },
+            },
+        },
+    },
 };
 
 export { components };
