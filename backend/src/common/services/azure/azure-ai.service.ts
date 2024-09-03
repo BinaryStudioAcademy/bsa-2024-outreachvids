@@ -8,15 +8,24 @@ import { HttpCode, HttpError } from '~/common/http/http.js';
 import { fileService } from '../services.js';
 import { type AzureGetAvatarVoicesResponseDto } from './types/types.js';
 
+interface batchSynthesesAvatar {
+    avatarName: string;
+    avatarStyle: string;
+    textSSML: string;
+    voice: string;
+}
+
 class AzureAIService {
     private config: BaseConfig;
     private azureRegion: string;
     private azureSubscriptionKey: string;
+    private azureEndpoint: string;
 
     public constructor(config: BaseConfig) {
         this.config = config;
         this.azureRegion = config.ENV.AZURE.AZURE_SERVICE_REGION;
         this.azureSubscriptionKey = config.ENV.AZURE.AZURE_SERVICE_KEY;
+        this.azureEndpoint = config.ENV.AZURE.AZURE_SERVICE_ENDPOINT;
     }
 
     public async getAvatarVoices(): Promise<AzureGetAvatarVoicesResponseDto[]> {
@@ -100,6 +109,68 @@ class AzureAIService {
         await fs.unlink(audioFileName);
 
         return fileURL;
+    }
+
+    public async createBatchSynthesesVideo(
+        inputs: batchSynthesesAvatar,
+    ): Promise<string> {
+        const url = `${this.azureEndpoint}/avatar/batchsyntheses/batchjob-${Date.now()}?api-version=2024-08-01`;
+        const requestBody = {
+            inputKind: 'SSML',
+            synthesisConfig: {
+                voice: inputs.voice,
+            },
+            inputs: [
+                {
+                    content: inputs.textSSML,
+                },
+            ],
+            avatarConfig: {
+                talkingAvatarCharacter: inputs.avatarName,
+                talkingAvatarStyle: inputs.avatarStyle,
+                videoFormat: 'webm',
+                videoCodec: 'vp9',
+                subtitleType: 'soft_embedded',
+                backgroundColor: 'transparent',
+            },
+        };
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Ocp-Apim-Subscription-Key': this.azureSubscriptionKey,
+            },
+            body: JSON.stringify(requestBody),
+        });
+
+        if (!response.ok) {
+            throw new HttpError({
+                message: response.statusText,
+                status: HttpCode.INTERNAL_SERVER_ERROR,
+            });
+        }
+        const data = await response.json();
+        return data.id;
+    }
+
+    public async getBatchSynthesesVideo(id: string): Promise<unknown> {
+        const url = `${this.azureEndpoint}/avatar/batchsyntheses/${id}?api-version=2024-08-01`;
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Ocp-Apim-Subscription-Key': this.azureSubscriptionKey,
+            },
+        });
+
+        if (!response.ok) {
+            throw new HttpError({
+                message: response.statusText,
+                status: HttpCode.INTERNAL_SERVER_ERROR,
+            });
+        }
+
+        return await response.json();
     }
 }
 
