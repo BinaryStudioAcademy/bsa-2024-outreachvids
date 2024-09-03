@@ -1,6 +1,7 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import cors from '@fastify/cors';
 import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import swagger, { type StaticDocumentSpec } from '@fastify/swagger';
@@ -127,6 +128,12 @@ class BaseServerApp implements ServerApp {
     }
 
     private registerPlugins(): void {
+        this.app.register(cors, {
+            origin: this.config.ENV.APP.ORIGIN,
+            methods: '*',
+            credentials: true,
+        });
+
         this.app.register(authenticateJWT, {
             routesWhiteList: WHITE_ROUTES,
         });

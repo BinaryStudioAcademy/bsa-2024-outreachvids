@@ -4,10 +4,7 @@ import {
     FormProvider,
     Input,
 } from '~/bundles/common/components/components.js';
-import {
-    useAppForm,
-    useMemo,
-} from '~/bundles/common/hooks/hooks.js';
+import { useAppForm, useMemo } from '~/bundles/common/hooks/hooks.js';
 
 import {
     type GenerateTextRequestDto,
