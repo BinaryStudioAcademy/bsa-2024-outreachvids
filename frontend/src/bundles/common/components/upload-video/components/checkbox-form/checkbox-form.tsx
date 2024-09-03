@@ -10,10 +10,10 @@ import {
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
 type Properties = {
-    handleRemoveVideo: () => void;
+    onVideoRemove: () => void;
 };
 
-const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
+const CheckboxForm: React.FC<Properties> = ({ onVideoRemove }) => {
     const [checkboxes, setCheckboxes] = useState({
         checkbox1: false,
         checkbox2: false,
@@ -23,7 +23,7 @@ const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
 
     const allChecked = Object.values(checkboxes).every(Boolean);
 
-    const onChange = useCallback(
+    const handleChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>): void => {
             const { name, checked } = event.target;
             setCheckboxes({
@@ -51,7 +51,7 @@ const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
                     size="sm"
                     color="background.600"
                     name="checkbox1"
-                    onChange={onChange}
+                    onChange={handleChange}
                 >
                     <Text color="gray">Checkbox</Text>
                 </Checkbox>
@@ -59,7 +59,7 @@ const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
                     size="sm"
                     color="background.600"
                     name="checkbox2"
-                    onChange={onChange}
+                    onChange={handleChange}
                 >
                     <Text color="gray">Checkbox</Text>
                 </Checkbox>
@@ -67,7 +67,7 @@ const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
                     size="sm"
                     color="background.600"
                     name="checkbox3"
-                    onChange={onChange}
+                    onChange={handleChange}
                 >
                     <Text color="gray">Checkbox</Text>
                 </Checkbox>
@@ -75,7 +75,7 @@ const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
                     size="sm"
                     color="background.600"
                     name="checkbox4"
-                    onChange={onChange}
+                    onChange={handleChange}
                 >
                     <Text color="gray">Checkbox</Text>
                 </Checkbox>
@@ -89,7 +89,7 @@ const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
                 <Button
                     label="Upload again"
                     variant="outlined"
-                    onClick={handleRemoveVideo}
+                    onClick={onVideoRemove}
                     sx={{
                         width: '222px',
                     }}
