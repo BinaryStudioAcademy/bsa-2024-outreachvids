@@ -7,16 +7,18 @@ import {
 } from 'dnd-timeline';
 
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
-import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.helper.js';
+import {
+    getDestinationPointerValue,
+    getNewItemIndexBySpan,
+    reorderItemsByIndexes,
+    setItemsSpan,
+} from '~/bundles/studio/helpers/helpers.js';
 import {
     type DestinationPointer,
     type RowType,
     type TimelineRows,
 } from '~/bundles/studio/types/types.js';
 
-import { getDestinationPointerValue } from '../../helpers/get-destination-pointer-value.helper.js';
-import { getNewItemIndexBySpan } from '../../helpers/get-new-item-index-by-span.helper.js';
-import { reorderItemsByIndexes } from '../../helpers/reorder-items-by-indexes.helper.js';
 import { TimelineView } from './timeline-view/timeline-view.js';
 
 type Properties = {

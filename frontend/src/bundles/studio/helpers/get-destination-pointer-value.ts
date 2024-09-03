@@ -1,4 +1,4 @@
-import { type TimelineItemWithSpan } from '../types/timeline-item.type.js';
+import { type TimelineItemWithSpan } from '../types/types.js';
 
 type getDestinationPointerValueParameters = {
     newActiveItemIndex: number;

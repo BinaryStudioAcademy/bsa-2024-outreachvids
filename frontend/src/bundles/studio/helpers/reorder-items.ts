@@ -12,11 +12,17 @@ const reorderItemsByIndexes = ({
     items,
 }: ReorderItemsByIndexesParameters): Array<TimelineItemWithSpan> => {
     const itemsCopy = [...items];
+    const item = itemsCopy[oldIndex] as TimelineItemWithSpan;
 
-    const [removed] = itemsCopy.splice(oldIndex, 1);
-    itemsCopy.splice(newIndex, 0, removed as TimelineItemWithSpan);
+    if (newIndex === oldIndex) {
+        return items;
+    }
 
-    return itemsCopy;
+    if (newIndex > oldIndex) {
+        return itemsCopy.toSpliced(newIndex, 0, item).toSpliced(oldIndex, 1);
+    }
+
+    return itemsCopy.toSpliced(oldIndex, 1).toSpliced(newIndex, 0, item);
 };
 
 export { reorderItemsByIndexes };
