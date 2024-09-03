@@ -19,17 +19,20 @@ import {
     generateMockRows,
 } from '~/bundles/studio/mocks/mock.helper.js';
 
-import { Timeline } from '../components/timeline/timeline.js';
-import { VideoMenu } from '../components/video-menu/video-menu.js';
+import {
+    PlayerControls,
+    Timeline,
+    VideoMenu,
+} from '../components/components.js';
 
 const timezoneOffset = minutesToMilliseconds(new Date().getTimezoneOffset());
 const initialRange: Range = {
     start: timezoneOffset,
     end: minutesToMilliseconds(45) + timezoneOffset,
 };
-const initialRows: RowDefinition[] = generateMockRows(15);
+const initialRows: RowDefinition[] = generateMockRows(2);
 const initialItems: ItemDefinition[] = generateMockItems(
-    10,
+    5,
     initialRange,
     initialRows,
 );
@@ -60,10 +63,10 @@ const Studio: React.FC = () => {
                     left: '0',
                     bottom: '0',
                     width: '100%',
-                    height: '180px',
                     alignItems: 'stretch',
                 }}
             >
+                <PlayerControls />
                 <Box>
                     <Timeline
                         initialRange={initialRange}
