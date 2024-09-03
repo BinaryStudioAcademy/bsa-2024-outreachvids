@@ -72,4 +72,4 @@ const timeAxisMarkers: MarkerDefinition[] = [
     },
 ];
 
-export { type Marker, type MarkerDefinition,timeAxisMarkers };
+export { type Marker, type MarkerDefinition, timeAxisMarkers };
