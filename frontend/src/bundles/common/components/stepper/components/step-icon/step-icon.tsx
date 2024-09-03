@@ -1,12 +1,16 @@
+import { type ValueOf } from 'shared';
+
 import { Box, Icon } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
+import { StepIcon as StepIconEnum } from '../../enums/enums.js';
+
 type Properties = {
-    step: 'complete' | 'active' | 'incomplete';
+    step: ValueOf<typeof StepIconEnum>;
 };
 
 const StepIcon: React.FC<Properties> = ({ step }) => {
-    if (step === 'complete') {
+    if (step === StepIconEnum.COMPLETE) {
         return (
             <Box backgroundColor="background.900" display="inline-flex">
                 <Icon as={IconName.CHECK_CIRCLE} boxSize={3} />
@@ -14,7 +18,7 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
         );
     }
 
-    if (step === 'active') {
+    if (step === StepIconEnum.ACTIVE) {
         return (
             <Box
                 sx={{

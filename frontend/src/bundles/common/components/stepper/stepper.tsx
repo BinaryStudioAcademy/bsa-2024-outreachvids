@@ -13,7 +13,7 @@ import {
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { StepIcon } from './components/components.js';
-import { getActiveStepIndex } from './helpers/helpers.js';
+import { StepIcon as StepIconEnum } from './enums/enums.js';
 
 type Properties = {
     steps: string[];
@@ -21,7 +21,7 @@ type Properties = {
 };
 
 const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
-    const activeStep = getActiveStepIndex({ steps, currentStep });
+    const activeStep = steps.indexOf(currentStep);
     const progressPercent = (activeStep / (steps.length - 1)) * 100;
 
     const backButton = (
@@ -58,9 +58,19 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
                                 width="12px"
                             >
                                 <StepStatus
-                                    complete={<StepIcon step="complete" />}
-                                    active={<StepIcon step="active" />}
-                                    incomplete={<StepIcon step="incomplete" />}
+                                    complete={
+                                        <StepIcon
+                                            step={StepIconEnum.COMPLETE}
+                                        />
+                                    }
+                                    active={
+                                        <StepIcon step={StepIconEnum.ACTIVE} />
+                                    }
+                                    incomplete={
+                                        <StepIcon
+                                            step={StepIconEnum.INCOMPLETE}
+                                        />
+                                    }
                                 />
                                 <Text
                                     as="p"
