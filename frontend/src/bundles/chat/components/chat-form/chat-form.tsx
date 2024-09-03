@@ -6,7 +6,6 @@ import {
 } from '~/bundles/common/components/components.js';
 import {
     useAppForm,
-    useCallback,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 
@@ -29,14 +28,7 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }) => {
             resetForm();
         },
     });
-    const { handleSubmit, values, setFieldValue } = form;
-
-    const handleInputChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>): void => {
-            void setFieldValue('message', event.target.value);
-        },
-        [setFieldValue],
-    );
+    const { handleSubmit, values } = form;
 
     const isEmpty = useMemo(
         () => Object.values(values).some((value) => value.trim().length === 0),
@@ -53,7 +45,6 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }) => {
                         placeholder="Send a message"
                         name="message"
                         value={values.message}
-                        onChange={handleInputChange}
                         sx={{ w: '100%' }}
                     />
                     <Button
