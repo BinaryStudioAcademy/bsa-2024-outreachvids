@@ -7,6 +7,7 @@ import {
 } from 'dnd-timeline';
 
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import {
     getDestinationPointerValue,
     getNewItemIndexBySpan,
@@ -42,6 +43,10 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
 
         const activeItemId = event.active.id;
         const activeItemType = activeItem['type'] as RowType;
+
+        if (activeItemType === RowNames.SCRIPT) {
+            return;
+        }
 
         setItems((previous) =>
             setItemsSpan({
