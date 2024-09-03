@@ -1,8 +1,8 @@
 import { getVideoMetadata } from '@remotion/media-utils';
 import { type PlayerRef, Player } from '@remotion/player';
-import { useEffect, useRef, useState } from 'react';
 
 import { Box } from '~/bundles/common/components/components.js';
+import { useEffect, useRef, useState } from '~/bundles/common/hooks/hooks.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
 import { Control, UserVideo } from './components/components.js';
