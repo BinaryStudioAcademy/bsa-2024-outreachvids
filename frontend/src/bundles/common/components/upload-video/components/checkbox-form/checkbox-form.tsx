@@ -93,12 +93,12 @@ const CheckboxForm: React.FC<Properties> = ({ handleRemoveVideo }) => {
                     sx={{
                         width: '222px',
                     }}
-                ></Button>
+                />
                 <Button
                     label="My footage look good"
                     isDisabled={!allChecked}
                     sx={{ width: '222px' }}
-                ></Button>
+                />
             </Flex>
         </>
     );

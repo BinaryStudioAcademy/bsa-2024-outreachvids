@@ -1,4 +1,9 @@
-import { Flex, Icon, Text } from '~/bundles/common/components/components.js';
+import {
+    Flex,
+    Heading,
+    Icon,
+    Text,
+} from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { INSTRUCTION } from './libs/constants/constants.js';
@@ -11,7 +16,7 @@ const DropzoneInstructions: React.FC = () => {
             justifyContent="center"
             minHeight="300px"
         >
-            <Text color="background.600" fontWeight="bold" fontSize="x-large">
+            <Heading color="background.600" variant="H2">
                 <Icon
                     paddingRight="10px"
                     fontSize="50px"
@@ -19,7 +24,7 @@ const DropzoneInstructions: React.FC = () => {
                     color="background.600"
                 />
                 Drag and drop your footage here
-            </Text>
+            </Heading>
             <Text color="gray" maxWidth="393px">
                 {INSTRUCTION}
             </Text>

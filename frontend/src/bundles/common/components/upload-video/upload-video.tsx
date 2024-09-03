@@ -30,7 +30,7 @@ const UploadVideo: React.FC = () => {
             borderRadius="12px"
             padding="20px 20px 50px"
         >
-            <Text color="background.600" fontWeight="bold" fontSize="larger">
+            <Text color="background.600" variant="title">
                 Upload footage
             </Text>
             {videoSource ? (
@@ -45,10 +45,7 @@ const UploadVideo: React.FC = () => {
                         handleRemoveVideo={handleRemoveVideo}
                         handleSetVideo={handleSetVideo}
                     />
-                    <Button
-                        sx={{ width: '222px' }}
-                        label={'Next step'}
-                    ></Button>
+                    <Button sx={{ width: '222px' }} label={'Next step'} />
                 </>
             )}
         </Flex>
