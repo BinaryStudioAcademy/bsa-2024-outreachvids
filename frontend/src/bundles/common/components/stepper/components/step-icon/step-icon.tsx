@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { Box, Icon } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
@@ -31,13 +29,13 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
                     backgroundColor: 'background.900',
                 }}
             >
-                <Icon as={FontAwesomeIcon} icon={IconName.CIRCLE} boxSize={3} />
+                <Icon as={IconName.CIRCLE} boxSize={3} />
             </Box>
         );
     }
     return (
         <Box color="background.600" display="inline-flex">
-            <Icon as={FontAwesomeIcon} icon={IconName.CIRCLE} boxSize={3} />
+            <Icon as={IconName.CIRCLE} boxSize={3} />
         </Box>
     );
 };

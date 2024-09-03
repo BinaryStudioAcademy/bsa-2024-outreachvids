@@ -1,4 +1,5 @@
 import {
+    faCircle,
     faCircleUser,
     faHouse,
     faRightFromBracket,
@@ -9,5 +10,6 @@ import { iconConverter } from './icon-converter.helper.js';
 const HouseIcon = iconConverter(faHouse);
 const RightFromBracketIcon = iconConverter(faRightFromBracket);
 const CircleUserIcon = iconConverter(faCircleUser);
+const Circle = iconConverter(faCircle);
 
-export { CircleUserIcon, HouseIcon, RightFromBracketIcon };
+export { Circle, CircleUserIcon, HouseIcon, RightFromBracketIcon };

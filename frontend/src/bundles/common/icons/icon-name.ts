@@ -8,7 +8,6 @@ import {
     ViewOffIcon,
 } from '@chakra-ui/icons';
 import {
-    faCircle,
     faCloudArrowUp,
     faEllipsisVertical,
     faFileLines,
@@ -21,6 +20,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
+    Circle,
     CircleUserIcon,
     HouseIcon,
     RightFromBracketIcon,
@@ -45,7 +45,7 @@ const IconName = {
     SCRIPT: faFont,
     TEXT: faT,
     CHECK_CIRCLE: CheckCircleIcon,
-    CIRCLE: faCircle,
+    CIRCLE: Circle,
     ARROW_BACK: ArrowBackIcon,
 } as const;
 
