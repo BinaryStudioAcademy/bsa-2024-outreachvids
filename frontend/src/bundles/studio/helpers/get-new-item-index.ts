@@ -1,13 +1,11 @@
+import { type Span } from 'dnd-timeline';
+
 import { type TimelineItemWithSpan } from '../types/types.js';
 
 const getNewItemIndexBySpan = (
-    activeItem: Pick<TimelineItemWithSpan, 'id' | 'span'>,
+    { start }: Span,
     items: Array<TimelineItemWithSpan>,
 ): number => {
-    const {
-        span: { start },
-    } = activeItem;
-
     if (start < 0) {
         return 0;
     }

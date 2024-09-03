@@ -61,8 +61,6 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
     const onDragMove = useCallback(
         (event: DragMoveEvent) => {
             const activeItem = event.active.data.current;
-            const activeItemId = event.active.id as string;
-            const activeItemType = activeItem['type'] as RowType;
 
             const activeRowId = event.over?.id as string;
             const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
@@ -71,26 +69,23 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
                 return;
             }
 
+            const activeItemType = activeItem['type'] as RowType;
             const activeRowItems = items[activeItemType];
 
             const previousActiveItemIndex = activeRowItems.findIndex(
-                (item) => item.id === activeItemId,
+                (item) => item.id === event.active.id,
             );
 
-            if (previousActiveItemIndex === -1) {
-                return;
-            }
-
             const newActiveItemIndex = getNewItemIndexBySpan(
-                { id: activeItemId, span: updatedSpan },
+                updatedSpan,
                 activeRowItems,
             );
 
             setDestinationPointer({
                 type: activeItemType,
                 value: getDestinationPointerValue({
-                    newActiveItemIndex,
-                    previousActiveItemIndex,
+                    oldIndex: previousActiveItemIndex,
+                    newIndex: newActiveItemIndex,
                     items: activeRowItems,
                 }),
             });
@@ -102,8 +97,6 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
         setDestinationPointer(null);
 
         const activeItem = event.active.data.current;
-        const activeItemId = event.active.id as string;
-        const activeItemType = activeItem['type'] as RowType;
 
         const activeRowId = event.over?.id as string;
         const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
@@ -113,18 +106,15 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
         }
 
         setItems((previousItems) => {
+            const activeItemType = activeItem['type'] as RowType;
             const activeRowItems = previousItems[activeItemType];
 
             const previousActiveItemIndex = activeRowItems.findIndex(
-                (item) => item.id === activeItemId,
+                (item) => item.id === event.active.id,
             );
 
-            if (previousActiveItemIndex === -1) {
-                return previousItems;
-            }
-
             const newActiveItemIndex = getNewItemIndexBySpan(
-                { id: activeItemId, span: updatedSpan },
+                updatedSpan,
                 activeRowItems,
             );
 
