@@ -4,6 +4,7 @@ import { HttpCode, HttpError, HttpHeader } from 'shared';
 import { userService } from '~/bundles/users/users.js';
 import { tokenService } from '~/common/services/services.js';
 
+import { SERVED_PAGE_PATH } from './constants/constants.js';
 import { ErrorMessage, Hook } from './enums/enums.js';
 import { type Route } from './types/types.js';
 import { isRouteInWhiteList } from './utils/utils.js';
@@ -16,6 +17,12 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
     fastify.decorateRequest('user', null);
 
     fastify.addHook(Hook.PRE_HANDLER, async (request) => {
+        const isServedPagePath = request.routeOptions.url === SERVED_PAGE_PATH;
+
+        if (isServedPagePath) {
+            return;
+        }
+
         if (isRouteInWhiteList(routesWhiteList, request)) {
             return;
         }
@@ -40,7 +47,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
             });
         }
 
-        const user = await userService.find(userId);
+        const user = await userService.findById(userId);
 
         if (!user) {
             throw new HttpError({
@@ -48,8 +55,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
                 status: HttpCode.BAD_REQUEST,
             });
         }
-
-        request.user = user;
+        request.user = user.toObject();
     });
 
     done();

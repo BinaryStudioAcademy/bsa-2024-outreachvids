@@ -49,13 +49,14 @@ class BaseController implements Controller {
     private mapRequest(
         request: Parameters<ServerAppRouteParameters['handler']>[0],
     ): ApiHandlerOptions {
-        const { body, query, params, session } = request;
+        const { body, query, params, session, user } = request;
 
         return {
             body,
             query,
             params,
             session,
+            user,
         };
     }
 }
