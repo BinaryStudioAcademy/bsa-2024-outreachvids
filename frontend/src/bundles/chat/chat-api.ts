@@ -25,7 +25,7 @@ class ChatApi extends BaseHttpApi {
         payload: GenerateTextRequestDto,
     ): Promise<GenerateTextResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(ChatApiPath.SEND_MESSAGE, {}),
+            this.getFullEndpoint(ChatApiPath.ROOT, {}),
             {
                 method: 'POST',
                 contentType: ContentType.JSON,
@@ -39,10 +39,11 @@ class ChatApi extends BaseHttpApi {
 
     public async deleteChat(): Promise<DeleteChatResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(ChatApiPath.DELETE_CHAT, {}),
+            this.getFullEndpoint(ChatApiPath.ROOT, {}),
             {
                 method: 'DELETE',
                 contentType: ContentType.JSON,
+                payload: JSON.stringify({}),
                 hasAuth: true,
             },
         );
