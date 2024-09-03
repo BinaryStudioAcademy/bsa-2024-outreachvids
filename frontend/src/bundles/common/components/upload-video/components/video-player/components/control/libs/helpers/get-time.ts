@@ -1,4 +1,4 @@
-import { format } from './format-time.js';
+import { formatTime } from '~/bundles/common/helpers/format-time.js';
 
 type Properties = {
     played: number;
@@ -8,8 +8,8 @@ type Properties = {
 const getTime = ({ played, durationInSeconds }: Properties): string => {
     const currentSecond = Math.round((played * durationInSeconds) / 100);
 
-    const currentTime = format(currentSecond);
-    const duration = format(durationInSeconds);
+    const currentTime = formatTime(currentSecond);
+    const duration = formatTime(durationInSeconds);
 
     return `${currentTime} : ${duration}`;
 };
