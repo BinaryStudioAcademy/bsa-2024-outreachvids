@@ -1,13 +1,8 @@
-import {
-    Flex,
-    Icon,
-    IconButton,
-    Tooltip,
-} from '~/bundles/common/components/components.js';
+import { Flex } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import { TimeDisplay } from './components/components.js';
+import { Control, TimeDisplay } from './components/components.js';
 
 const PlayerControls: React.FC = () => {
     // Mocked data. Update later
@@ -29,52 +24,24 @@ const PlayerControls: React.FC = () => {
             borderWidth="1px"
         >
             <Flex alignItems="center" gap="11px" position="relative">
-                <Tooltip
-                    hasArrow
+                <Control
                     label="Skip to the previous scene"
-                    placement="top"
-                >
-                    <IconButton
-                        aria-label="Step back"
-                        isRound={true}
-                        size="xs"
-                        variant="gray"
-                        icon={<Icon as={IconName.PLAY_STEP_BACK} />}
-                    />
-                </Tooltip>
+                    size="xs"
+                    icon={IconName.PLAY_STEP_BACK}
+                />
 
-                <Tooltip
-                    hasArrow
-                    label={isPlaying ? 'Pause' : 'Play'}
-                    placement="top"
-                >
-                    <IconButton
-                        aria-label={isPlaying ? 'Pause' : 'Play video'}
-                        isRound={true}
-                        size="sm"
-                        variant="gray"
-                        icon={
-                            <Icon
-                                as={isPlaying ? IconName.PAUSE : IconName.PLAY}
-                            />
-                        }
-                        onClick={handleClick}
-                    />
-                </Tooltip>
+                <Control
+                    label={isPlaying ? 'Pause' : 'Play video'}
+                    size="sm"
+                    icon={isPlaying ? IconName.PAUSE : IconName.PLAY}
+                    onClick={handleClick}
+                />
 
-                <Tooltip
-                    hasArrow
+                <Control
                     label="Skip to the next scene"
-                    placement="top"
-                >
-                    <IconButton
-                        aria-label="Step next"
-                        isRound={true}
-                        size="xs"
-                        variant="gray"
-                        icon={<Icon as={IconName.PLAY_STEP_NEXT} />}
-                    />
-                </Tooltip>
+                    size="xs"
+                    icon={IconName.PLAY_STEP_NEXT}
+                />
 
                 <TimeDisplay currentTime={currentTime} duration={duration} />
             </Flex>
