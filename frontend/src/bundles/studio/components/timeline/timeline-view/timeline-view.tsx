@@ -2,7 +2,7 @@ import { useTimelineContext } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
-import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
+import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.helper.js';
 import {
     type DestinationPointer,
     type TimelineRowsWithSpan,
@@ -30,7 +30,7 @@ const TimelineView: React.FC<Properties> = ({ items, destinationPointer }) => {
             <AvatarsRow
                 items={items[RowNames.AVATAR]}
                 destinationPointerValue={
-                    destinationPointer?.type === RowNames.SCRIPT
+                    destinationPointer?.type === RowNames.AVATAR
                         ? destinationPointer?.value
                         : undefined
                 }

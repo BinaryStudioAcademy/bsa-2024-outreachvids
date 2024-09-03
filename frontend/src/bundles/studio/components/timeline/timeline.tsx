@@ -7,14 +7,16 @@ import {
 } from 'dnd-timeline';
 
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
-import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
+import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.helper.js';
 import {
     type DestinationPointer,
     type RowType,
-    type TimelineItemWithSpan,
     type TimelineRows,
 } from '~/bundles/studio/types/types.js';
 
+import { getDestinationPointerValue } from '../../helpers/get-destination-pointer-value.helper.js';
+import { getNewItemIndexBySpan } from '../../helpers/get-new-item-index-by-span.helper.js';
+import { reorderItemsByIndexes } from '../../helpers/reorder-items-by-indexes.helper.js';
 import { TimelineView } from './timeline-view/timeline-view.js';
 
 type Properties = {
@@ -57,6 +59,7 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
     const onDragMove = useCallback(
         (event: DragMoveEvent) => {
             const activeItem = event.active.data.current;
+            const activeItemId = event.active.id as string;
             const activeItemType = activeItem['type'] as RowType;
 
             const activeRowId = event.over?.id as string;
@@ -66,26 +69,28 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
                 return;
             }
 
-            const spanStart = updatedSpan.start;
-            const activeRow = items[activeItemType];
+            const activeRowItems = items[activeItemType];
 
-            let newActiveItemIndex = -1;
+            const previousActiveItemIndex = activeRowItems.findIndex(
+                (item) => item.id === activeItemId,
+            );
 
-            // eslint-disable-next-line unicorn/no-array-for-each
-            activeRow.forEach(({ span, duration }, index) => {
-                if (spanStart > span.start && spanStart < span.end) {
-                    const center = span.start + duration / 2;
+            if (previousActiveItemIndex === -1) {
+                return;
+            }
 
-                    newActiveItemIndex = center > spanStart ? index - 1 : index;
-                }
-            });
+            const newActiveItemIndex = getNewItemIndexBySpan(
+                { id: activeItemId, span: updatedSpan },
+                activeRowItems,
+            );
 
             setDestinationPointer({
                 type: activeItemType,
-                value:
-                    newActiveItemIndex === -1
-                        ? (activeRow.at(-1)?.span.end as number)
-                        : (activeRow[newActiveItemIndex]?.span.end as number),
+                value: getDestinationPointerValue({
+                    newActiveItemIndex,
+                    previousActiveItemIndex,
+                    items: activeRowItems,
+                }),
             });
         },
         [items],
@@ -93,12 +98,10 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
 
     const onDragEnd = useCallback((event: DragEndEvent) => {
         setDestinationPointer(null);
-        const activeItem = event.active.data.current;
-        const activeItemType = activeItem['type'] as RowType;
 
-        if (activeItemType !== event.over?.data.current?.['type']) {
-            return;
-        }
+        const activeItem = event.active.data.current;
+        const activeItemId = event.active.id as string;
+        const activeItemType = activeItem['type'] as RowType;
 
         const activeRowId = event.over?.id as string;
         const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
@@ -107,55 +110,29 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
             return;
         }
 
-        const activeItemId = event.active.id;
-
-        const spanStart = updatedSpan.start;
-
         setItems((previousItems) => {
-            const activeRow = previousItems[activeItemType];
+            const activeRowItems = previousItems[activeItemType];
 
-            const previousActiveItemIndex = activeRow.findIndex(
-                ({ id }) => id === activeItemId,
+            const previousActiveItemIndex = activeRowItems.findIndex(
+                (item) => item.id === activeItemId,
             );
 
             if (previousActiveItemIndex === -1) {
                 return previousItems;
             }
 
-            let newActiveItemIndex = -1;
-
-            // eslint-disable-next-line unicorn/no-array-for-each
-            activeRow.forEach(({ span, duration }, index) => {
-                if (spanStart > span.start && spanStart < span.end) {
-                    const center = span.start + duration / 2;
-
-                    newActiveItemIndex = center > spanStart ? index : index + 1;
-                }
-            });
-
-            if (newActiveItemIndex === -1) {
-                const orderedItems = [
-                    ...activeRow.toSpliced(previousActiveItemIndex, 1),
-                    activeRow[previousActiveItemIndex] as TimelineItemWithSpan,
-                ];
-
-                return setItemsSpan({
-                    ...previousItems,
-                    [activeItemType]: orderedItems,
-                });
-            }
-
-            const orderedItems = activeRow
-                .toSpliced(previousActiveItemIndex, 1)
-                .toSpliced(
-                    newActiveItemIndex,
-                    0,
-                    activeRow[previousActiveItemIndex] as TimelineItemWithSpan,
-                );
+            const newActiveItemIndex = getNewItemIndexBySpan(
+                { id: activeItemId, span: updatedSpan },
+                activeRowItems,
+            );
 
             return setItemsSpan({
                 ...previousItems,
-                [activeItemType]: orderedItems,
+                [activeItemType]: reorderItemsByIndexes({
+                    oldIndex: previousActiveItemIndex,
+                    newIndex: newActiveItemIndex,
+                    items: activeRowItems,
+                }),
             });
         });
     }, []);

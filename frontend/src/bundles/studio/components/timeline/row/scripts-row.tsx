@@ -23,6 +23,7 @@ const ScriptsRow: React.FC<Properties> = ({
         >
             {items.map((item) => (
                 <Item key={item.id} type={RowNames.SCRIPT} {...item}>
+                    {/* TODO: replace text with scripts */}
                     <Text
                         variant="bodySmall"
                         textOverflow="ellipsis"

@@ -5,7 +5,7 @@ import { useMemo } from '~/bundles/common/hooks/hooks.js';
 import {
     type Marker,
     type MarkerDefinition,
-} from '~/bundles/studio/helpers/time-axis-markers.js';
+} from '~/bundles/studio/helpers/time-axis-markers.helper.js';
 
 type Properties = {
     markers: MarkerDefinition[];
