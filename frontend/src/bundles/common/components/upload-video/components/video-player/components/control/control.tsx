@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type PlayerRef } from '@remotion/player';
 
 import {
@@ -194,9 +193,9 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
                     aria-label={videoState.isPlaying ? 'pause' : 'play'}
                     icon={
                         videoState.isPlaying ? (
-                            <Icon as={FontAwesomeIcon} icon={IconName.PAUSE} />
+                            <Icon as={IconName.PAUSE} />
                         ) : (
-                            <Icon as={FontAwesomeIcon} icon={IconName.PLAY} />
+                            <Icon as={IconName.PLAY} />
                         )
                     }
                 />
@@ -230,12 +229,9 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
                     }
                     icon={
                         videoState.isMuted ? (
-                            <Icon
-                                as={FontAwesomeIcon}
-                                icon={IconName.VOLUME_OFF}
-                            />
+                            <Icon as={IconName.VOLUME_OFF} />
                         ) : (
-                            <Icon as={FontAwesomeIcon} icon={IconName.VOLUME} />
+                            <Icon as={IconName.VOLUME} />
                         )
                     }
                 />

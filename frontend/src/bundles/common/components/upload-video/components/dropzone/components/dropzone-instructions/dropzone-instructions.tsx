@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { Flex, Icon, Text } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
@@ -16,9 +14,8 @@ const DropzoneInstructions: React.FC = () => {
             <Text color="background.600" fontWeight="bold" fontSize="x-large">
                 <Icon
                     paddingRight="10px"
-                    fontSize="40px"
-                    as={FontAwesomeIcon}
-                    icon={IconName.CLOUD_ARROW_DOWN}
+                    fontSize="50px"
+                    as={IconName.CLOUD_ARROW_DOWN}
                     color="background.600"
                 />
                 Drag and drop your footage here

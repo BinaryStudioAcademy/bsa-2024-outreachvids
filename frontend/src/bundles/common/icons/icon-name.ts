@@ -6,25 +6,25 @@ import {
     ViewOffIcon,
 } from '@chakra-ui/icons';
 import {
-    faCloudArrowDown,
     faCloudArrowUp,
     faEllipsisVertical,
-    faFileLines,
     faFont,
-    faPause,
     faPen,
-    faPlay,
     faScroll,
     faT,
     faTableColumns,
-    faVolumeHigh,
-    faVolumeOff,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
     CircleUserIcon,
+    CloudArrowDown,
+    FileLines,
     HouseIcon,
+    Pause,
+    Play,
     RightFromBracketIcon,
+    VolumeHigh,
+    VolumeOff,
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
@@ -33,13 +33,13 @@ const IconName = {
     LOG_OUT: RightFromBracketIcon,
     ARROW_LEFT: ArrowLeftIcon,
     ARROW_RIGHT: ArrowRightIcon,
-    FILE_LINES: faFileLines,
-    PLAY: faPlay,
+    FILE_LINES: FileLines,
+    PLAY: Play,
     SCROLL: faScroll,
-    PAUSE: faPause,
-    VOLUME: faVolumeHigh,
-    VOLUME_OFF: faVolumeOff,
-    CLOUD_ARROW_DOWN: faCloudArrowDown,
+    PAUSE: Pause,
+    VOLUME: VolumeHigh,
+    VOLUME_OFF: VolumeOff,
+    CLOUD_ARROW_DOWN: CloudArrowDown,
     OPTIONS_VERTICAL: faEllipsisVertical,
     DOWNLOAD: DownloadIcon,
     VIEW: ViewIcon,
