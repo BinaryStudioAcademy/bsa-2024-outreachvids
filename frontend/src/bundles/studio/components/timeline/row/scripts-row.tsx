@@ -1,15 +1,24 @@
+import { useTimelineContext } from 'dnd-timeline';
+
 import { Text } from '~/bundles/common/components/components.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
-import { type TimelineItemWithSpan } from '~/bundles/studio/types/types.js';
+import {
+    type DestinationPointer,
+    type TimelineItemWithSpan,
+} from '~/bundles/studio/types/types.js';
 
+import { DragPointer } from '../drag-pointer/drag-pointer.js';
 import { Item } from '../item/item.js';
 import { Row } from './row.js';
 
 type Properties = {
     items: Array<TimelineItemWithSpan>;
+    destinationPointer?: DestinationPointer | null;
 };
 
-const ScriptsRow: React.FC<Properties> = ({ items }) => {
+const ScriptsRow: React.FC<Properties> = ({ items, destinationPointer }) => {
+    const { valueToPixels } = useTimelineContext();
+
     return (
         <Row
             id={RowNames.SCRIPT}
@@ -28,6 +37,11 @@ const ScriptsRow: React.FC<Properties> = ({ items }) => {
                     >{`Script ${item.id}`}</Text>
                 </Item>
             ))}
+            {destinationPointer && (
+                <DragPointer
+                    sx={{ left: valueToPixels(destinationPointer.value) }}
+                />
+            )}
         </Row>
     );
 };

@@ -1,9 +1,10 @@
-import { type RowDefinition, useRow } from 'dnd-timeline';
+import { useRow } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
-type Properties = RowDefinition & {
+type Properties = {
+    id: string;
     type?: RowType;
     children?: React.ReactNode;
     style?: React.CSSProperties;

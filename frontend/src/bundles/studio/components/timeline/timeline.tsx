@@ -1,5 +1,6 @@
 import {
     type DragEndEvent,
+    type DragMoveEvent,
     type Range,
     type ResizeEndEvent,
     TimelineContext,
@@ -8,6 +9,7 @@ import {
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import {
+    type DestinationPointer,
     type RowType,
     type TimelineItemWithSpan,
     type TimelineRows,
@@ -23,6 +25,8 @@ type Properties = {
 const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
     const [range, setRange] = useState(initialRange);
     const [items, setItems] = useState(setItemsSpan(initialItems));
+    const [destinationPointer, setDestinationPointer] =
+        useState<DestinationPointer | null>(null);
 
     const onResizeEnd = useCallback((event: ResizeEndEvent) => {
         const activeItem = event.active.data.current;
@@ -50,7 +54,45 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
         );
     }, []);
 
+    const onDragMove = useCallback(
+        (event: DragMoveEvent) => {
+            const activeItem = event.active.data.current;
+            const activeItemType = activeItem['type'] as RowType;
+
+            const activeRowId = event.over?.id as string;
+            const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
+
+            if (!updatedSpan || !activeRowId) {
+                return;
+            }
+
+            const spanStart = updatedSpan.start;
+            const activeRow = items[activeItemType];
+
+            let newActiveItemIndex = -1;
+
+            // eslint-disable-next-line unicorn/no-array-for-each
+            activeRow.forEach(({ span, duration }, index) => {
+                if (spanStart > span.start && spanStart < span.end) {
+                    const center = span.start + duration / 2;
+
+                    newActiveItemIndex = center > spanStart ? index - 1 : index;
+                }
+            });
+
+            setDestinationPointer({
+                type: activeItemType,
+                value:
+                    newActiveItemIndex === -1
+                        ? (activeRow.at(-1)?.span.end as number)
+                        : (activeRow[newActiveItemIndex]?.span.end as number),
+            });
+        },
+        [items],
+    );
+
     const onDragEnd = useCallback((event: DragEndEvent) => {
+        setDestinationPointer(null);
         const activeItem = event.active.data.current;
         const activeItemType = activeItem['type'] as RowType;
 
@@ -80,9 +122,16 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
                 return previousItems;
             }
 
-            const newActiveItemIndex = activeRow.findIndex(
-                ({ span }) => spanStart > span.start && spanStart < span.end,
-            );
+            let newActiveItemIndex = -1;
+
+            // eslint-disable-next-line unicorn/no-array-for-each
+            activeRow.forEach(({ span, duration }, index) => {
+                if (spanStart > span.start && spanStart < span.end) {
+                    const center = span.start + duration / 2;
+
+                    newActiveItemIndex = center > spanStart ? index : index + 1;
+                }
+            });
 
             if (newActiveItemIndex === -1) {
                 const orderedItems = [
@@ -117,8 +166,12 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
             onDragEnd={onDragEnd}
             onResizeEnd={onResizeEnd}
             onRangeChanged={setRange}
+            onDragMove={onDragMove}
         >
-            <TimelineView items={items} />
+            <TimelineView
+                items={items}
+                destinationPointer={destinationPointer}
+            />
         </TimelineContext>
     );
 };

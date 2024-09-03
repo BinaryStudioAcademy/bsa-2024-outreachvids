@@ -1,3 +1,4 @@
+export { type DestinationPointer } from './destination-pointer.type.js';
 export { type RowType } from './row-type.type.js';
 export {
     type TimelineItem,
