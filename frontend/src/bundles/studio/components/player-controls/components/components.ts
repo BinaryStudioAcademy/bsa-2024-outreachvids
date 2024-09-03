@@ -1,2 +1,2 @@
-export { Control } from './control.js';
-export { TimeDisplay } from './time-display.js';
+export { Control } from './control/control.js';
+export { TimeDisplay } from './time-display/time-display.js';
