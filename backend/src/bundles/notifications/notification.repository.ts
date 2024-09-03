@@ -15,7 +15,11 @@ class NotificationRepository implements Repository {
         return Promise.resolve(null);
     }
 
-    public async findAll(): Promise<NotificationEntity[]> {
+    public findAll(): ReturnType<Repository['findAll']> {
+        return Promise.resolve([]);
+    }
+
+    public async findAllUnread(): Promise<NotificationEntity[]> {
         const notifications = await this.notificationModel
             .query()
             .where('isRead', false)

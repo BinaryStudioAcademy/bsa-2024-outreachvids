@@ -22,8 +22,12 @@ class NotificationService implements Service {
         return Promise.resolve(null);
     }
 
-    public async findAll(): Promise<NotificationGetAllResponseDto> {
-        const items = await this.notificationRepository.findAll();
+    public findAll(): ReturnType<Service['findAll']> {
+        return Promise.resolve({ items: [] });
+    }
+
+    public async findAllUnread(): Promise<NotificationGetAllResponseDto> {
+        const items = await this.notificationRepository.findAllUnread();
 
         return {
             items: items.map((it) => it.toObject()),

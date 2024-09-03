@@ -53,9 +53,9 @@ class NotificationController extends BaseController {
         this.notificationService = notificationService;
 
         this.addRoute({
-            path: NotificationsApiPath.ROOT,
+            path: NotificationsApiPath.UNREAD,
             method: HTTPMethod.GET,
-            handler: () => this.findAll(),
+            handler: () => this.findAllUnread(),
         });
 
         this.addRoute({
@@ -91,7 +91,7 @@ class NotificationController extends BaseController {
 
     /**
      * @swagger
-     * /api/v1/notifications/:
+     * /api/v1/notifications/unread:
      *    get:
      *      description: Get all unread notifications
      *      responses:
@@ -108,10 +108,10 @@ class NotificationController extends BaseController {
      *                    items:
      *                      $ref: '#/components/schemas/Notification'
      */
-    private async findAll(): Promise<ApiHandlerResponse> {
+    private async findAllUnread(): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.notificationService.findAll(),
+            payload: await this.notificationService.findAllUnread(),
         };
     }
 
