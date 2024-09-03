@@ -23,7 +23,11 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icon-name.js';
 
-import { MIN_VOLUME } from './libs/constants/constants.js';
+import {
+    MAX_PERCENT,
+    MAX_VOLUME,
+    MIN_VOLUME,
+} from './libs/constants/constants.js';
 import { VideoEvent } from './libs/enums/enums.js';
 import { getTime } from './libs/helpers/helpers.js';
 import { useAnimationFrame } from './libs/hooks/hooks.js';
@@ -38,7 +42,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
         isPlaying: false,
         isMuted: false,
         wasPlaying: true,
-        volume: 0.5,
+        volume: MAX_VOLUME / 2,
         playedPercent: 0,
     });
 
@@ -57,7 +61,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
         });
     }, [videoState, videoPlayerReference]);
 
-    const updateSlider = (): void => {
+    const handleSliderUpdate = (): void => {
         if (videoPlayerReference.current?.isPlaying()) {
             const currentTime =
                 videoPlayerReference.current.getCurrentFrame() /
@@ -66,13 +70,13 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
             setVideoState((previousState) => {
                 return {
                     ...previousState,
-                    playedPercent: currentTime * 100,
+                    playedPercent: currentTime * MAX_PERCENT,
                 };
             });
         }
     };
 
-    useAnimationFrame(updateSlider, videoState.isPlaying);
+    useAnimationFrame(handleSliderUpdate, videoState.isPlaying);
 
     useEffect(() => {
         const player = videoPlayerReference.current;
@@ -94,7 +98,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
 
     const handleSeek = useCallback(
         (value: number) => {
-            const currentTime = (duration.inFrames / 100) * value;
+            const currentTime = (duration.inFrames / MAX_PERCENT) * value;
 
             setVideoState({
                 ...videoState,
@@ -150,7 +154,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
 
     const handleVolumeSeekUp = useCallback(
         (value: number) => {
-            const newVolume = value / 100;
+            const newVolume = value / MAX_PERCENT;
 
             if (newVolume > 0 && videoPlayerReference.current?.isMuted()) {
                 videoPlayerReference.current?.unmute();
@@ -187,26 +191,27 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
                 <IconButton
                     onClick={handlePlayPause}
                     backgroundColor="background.600"
-                    p={0}
                     borderRadius="50%"
                     aria-label={videoState.isPlaying ? 'pause' : 'play'}
                     icon={
-                        videoState.isPlaying ? (
-                            <Icon as={IconName.PAUSE} />
-                        ) : (
-                            <Icon as={IconName.PLAY} />
-                        )
+                        <Icon
+                            as={
+                                videoState.isPlaying
+                                    ? IconName.PAUSE
+                                    : IconName.PLAY
+                            }
+                        />
                     }
                 />
 
-                <Box padding="1px 10px">
+                <Box padding="1px 5px">
                     <Slider
                         width="270px"
                         onPointerDownCapture={handleOnSeekMouseDown}
                         onPointerUpCapture={handleOnSeekMouseUp}
                         onChange={handleSeek}
                         min={0}
-                        max={100}
+                        max={MAX_PERCENT}
                         step={0.1}
                         value={videoState.playedPercent}
                     >
@@ -227,20 +232,22 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
                         videoState.isMuted ? 'Unmute volume' : 'Mute volume'
                     }
                     icon={
-                        videoState.isMuted ? (
-                            <Icon as={IconName.VOLUME_OFF} />
-                        ) : (
-                            <Icon as={IconName.VOLUME} />
-                        )
+                        <Icon
+                            as={
+                                videoState.isMuted
+                                    ? IconName.VOLUME_OFF
+                                    : IconName.VOLUME
+                            }
+                        />
                     }
                 />
 
                 <Slider
-                    marginLeft="10px"
-                    value={videoState.volume * 100}
+                    marginLeft="5px"
+                    value={videoState.volume * MAX_PERCENT}
                     onChange={handleVolumeSeekUp}
                     min={0}
-                    max={100}
+                    max={MAX_PERCENT}
                     step={1}
                     width="40px"
                 >
