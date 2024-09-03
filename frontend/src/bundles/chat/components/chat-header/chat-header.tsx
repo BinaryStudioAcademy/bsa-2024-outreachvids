@@ -18,8 +18,10 @@ const ChatHeader: React.FC<Properties> = ({ title, comment }) => {
                 borderTopRightRadius: 'xl',
             }}
         >
-            <Heading as="h6">{title}</Heading>
-            <Text>{comment}</Text>
+            <Heading variant="H2" mb={2}>
+                {title}
+            </Heading>
+            <Text variant="bodySmall">{comment}</Text>
         </Box>
     );
 };
