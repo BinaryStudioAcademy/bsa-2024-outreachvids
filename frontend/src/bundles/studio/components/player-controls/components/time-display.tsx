@@ -1,6 +1,5 @@
 import { Flex, Text } from '~/bundles/common/components/components.js';
-
-import { formatTime } from '../helpers/format-time.js';
+import { formatTime } from '~/bundles/common/helpers/helpers.js';
 
 type Properties = {
     currentTime: number;
