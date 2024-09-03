@@ -39,11 +39,11 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
         isMuted: false,
         wasPlaying: true,
         volume: 0.5,
-        played: 0,
+        playedPercent: 0,
     });
 
     const time = getTime({
-        played: videoState.played,
+        played: videoState.playedPercent,
         durationInSeconds: duration.inSeconds,
     });
 
@@ -51,7 +51,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
         setVideoState({
             ...videoState,
             isPlaying: false,
-            played: 0,
+            playedPercent: 0,
             isMuted: videoPlayerReference.current?.isMuted() as boolean,
             wasPlaying: true,
         });
@@ -66,7 +66,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
             setVideoState((previousState) => {
                 return {
                     ...previousState,
-                    played: currentTime * 100,
+                    playedPercent: currentTime * 100,
                 };
             });
         }
@@ -98,7 +98,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
 
             setVideoState({
                 ...videoState,
-                played: value,
+                playedPercent: value,
             });
             (videoPlayerReference.current as PlayerRef).seekTo(currentTime);
         },
@@ -208,7 +208,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
                         min={0}
                         max={100}
                         step={0.1}
-                        value={videoState.played}
+                        value={videoState.playedPercent}
                     >
                         <SliderTrack backgroundColor="background.100">
                             <SliderFilledTrack backgroundColor="brand.secondary.300" />

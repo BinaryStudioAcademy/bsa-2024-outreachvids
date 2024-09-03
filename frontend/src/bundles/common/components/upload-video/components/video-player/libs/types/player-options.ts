@@ -3,7 +3,7 @@ type PlayerOptions = {
     wasPlaying: boolean;
     isMuted: boolean;
     volume: number;
-    played: number;
+    playedPercent: number;
 };
 
 export { type PlayerOptions };
