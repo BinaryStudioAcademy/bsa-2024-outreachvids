@@ -1,25 +1,21 @@
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-
-import { Loader } from '~/bundles/common/components/components.js';
+import { Loader, Navigate } from '~/bundles/common/components/components.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
-
-import { useAppSelector } from '../../hooks/hooks.js';
+import { useAppSelector, useEffect, useState } from '~/bundles/common/hooks/hooks.js';
 
 interface Properties {
     children: React.ReactNode;
 }
 
 const ProtectedRoute: React.FC<Properties> = ({ children }) => {
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const user = useAppSelector((state) => state.auth.user);
     const dataStatus = useAppSelector((state) => state.auth.dataStatus);
 
     useEffect(() => {
-        setLoading(false);
+        setIsLoading(false);
     }, []);
 
-    if (loading || dataStatus === DataStatus.PENDING) {
+    if (isLoading || dataStatus === DataStatus.PENDING) {
         return <Loader />;
     }
 
