@@ -1,8 +1,8 @@
 import { Flex, VStack } from '~/bundles/common/components/components.js';
+import { UserAvatar } from '~/bundles/users/components/components.js';
 
 import { MessageSender } from '../../enums/enums.js';
 import { type Message, type MessageGroup } from '../../types/types.js';
-import { ChatAvatar } from '../chat-avatar/chat-avatar.js';
 import { MessageBox } from '../message-box/message-box.js';
 
 type Properties = {
@@ -37,9 +37,10 @@ const MessageList: React.FC<Properties> = ({ messages }) => {
                         }
                         alignItems="flex-start"
                     >
-                        <ChatAvatar
-                            sender={sender}
-                            initials={sender === MessageSender.USER ? 'U' : 'A'}
+                        <UserAvatar
+                            username={
+                                sender === MessageSender.USER ? 'FL' : 'AI'
+                            }
                         />
                         <VStack
                             spacing={2}
