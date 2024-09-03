@@ -25,7 +25,12 @@ export {
     Image,
     InputGroup,
     InputRightElement,
+    Stepper as LibraryStepper,
+    Progress,
     SimpleGrid,
+    Step,
+    StepIndicator,
+    StepStatus,
     Text,
     VStack,
 } from '@chakra-ui/react';
