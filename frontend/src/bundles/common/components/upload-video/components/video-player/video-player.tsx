@@ -6,6 +6,7 @@ import { Box } from '~/bundles/common/components/components.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
 import { Control, UserVideo } from './components/components.js';
+import { FPS } from './libs/constants/constants.js';
 import { ErrorId, ErrorMessage, ErrorTitle } from './libs/enums/enums.js';
 import { type VideoDuration } from './libs/types/types.js';
 
@@ -28,7 +29,7 @@ const VideoPlayer: React.FC<Properties> = ({ videoSource }) => {
         getVideoMetadata(videoSource)
             .then(({ durationInSeconds }) => {
                 setDuration({
-                    inFrames: Math.round(durationInSeconds * 30),
+                    inFrames: Math.round(durationInSeconds * FPS),
                     inSeconds: Math.round(durationInSeconds),
                 });
             })
@@ -63,7 +64,7 @@ const VideoPlayer: React.FC<Properties> = ({ videoSource }) => {
                 durationInFrames={duration.inFrames}
                 compositionWidth={570}
                 compositionHeight={278}
-                fps={30}
+                fps={FPS}
             />
 
             <Control
