@@ -18,13 +18,13 @@ const userSignUp = z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
             .trim()
             .min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
-                message: UserValidationMessage.EMAIL_INVALID,
+                message: UserValidationMessage.EMAIL_WRONG,
             })
             .max(UserValidationRule.EMAIL_MAXIMUM_LENGTH, {
-                message: UserValidationMessage.EMAIL_INVALID,
+                message: UserValidationMessage.EMAIL_WRONG,
             })
             .email({
-                message: UserValidationMessage.EMAIL_INVALID,
+                message: UserValidationMessage.EMAIL_WRONG,
             }),
         password: z
             .string({ required_error: UserValidationMessage.FIELD_REQUIRE })
@@ -48,7 +48,7 @@ const userSignUp = z
     .required()
     .refine((data) => data.fullName.split(/\s+/).length >= 2, {
         message: UserValidationMessage.FULL_NAME_INVALID,
-        path: ['name'],
+        path: ['fullName'],
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: UserValidationMessage.PASS_DONT_MATCH,

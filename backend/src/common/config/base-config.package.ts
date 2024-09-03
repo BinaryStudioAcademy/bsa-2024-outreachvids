@@ -47,6 +47,18 @@ class BaseConfig implements Config {
                     env: 'OPEN_AI_KEY',
                     default: null,
                 },
+                SESSION_KEY: {
+                    doc: 'Key for sessions',
+                    format: String,
+                    env: 'SESSION_KEY',
+                    default: null,
+                },
+                ORIGIN: {
+                    doc: 'Origin',
+                    format: String,
+                    env: 'ORIGIN',
+                    default: null,
+                },
             },
             DB: {
                 CONNECTION_STRING: {
@@ -71,6 +83,20 @@ class BaseConfig implements Config {
                     doc: 'Database pool max count',
                     format: Number,
                     env: 'DB_POOL_MAX',
+                    default: null,
+                },
+            },
+            TOKEN: {
+                SECRET_KEY: {
+                    doc: 'Secret key for token generation',
+                    format: String,
+                    env: 'SECRET_KEY',
+                    default: null,
+                },
+                EXPIRATION_TIME: {
+                    doc: 'Token expiration time',
+                    format: String,
+                    env: 'EXPIRATION_TIME',
                     default: null,
                 },
             },

@@ -5,7 +5,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { VideosApiPath } from './enums/enums.js';
@@ -48,13 +48,13 @@ class VideoController extends BaseController {
 
         this.addRoute({
             path: VideosApiPath.ROOT,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: () => this.findAll(),
         });
 
         this.addRoute({
             path: VideosApiPath.ID,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: (options) =>
                 this.find(
                     options as ApiHandlerOptions<{
@@ -65,7 +65,7 @@ class VideoController extends BaseController {
 
         this.addRoute({
             path: VideosApiPath.ROOT,
-            method: 'POST',
+            method: HTTPMethod.POST,
             validation: {
                 body: createVideoValidationSchema,
             },
@@ -79,7 +79,7 @@ class VideoController extends BaseController {
 
         this.addRoute({
             path: VideosApiPath.ID,
-            method: 'PATCH',
+            method: HTTPMethod.PATCH,
             validation: {
                 body: updateVideoValidationSchema,
             },
@@ -94,7 +94,7 @@ class VideoController extends BaseController {
 
         this.addRoute({
             path: VideosApiPath.ID,
-            method: 'DELETE',
+            method: HTTPMethod.DELETE,
             handler: (options) =>
                 this.delete(
                     options as ApiHandlerOptions<{
@@ -167,7 +167,7 @@ class VideoController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.videoService.find(options.params.id),
+            payload: await this.videoService.findById(options.params.id),
         };
     }
 

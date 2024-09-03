@@ -9,7 +9,7 @@ import {
 } from './libs/enums/enums.js';
 import { type VideoPreview as VideoPreviewType } from './libs/types/types.js';
 
-const VideoPreview = (): JSX.Element => {
+const VideoPreview: React.FC = () => {
     const [view, setView] = useState<VideoPreviewType>(
         VideoPreviewValues.PORTRAIT,
     );

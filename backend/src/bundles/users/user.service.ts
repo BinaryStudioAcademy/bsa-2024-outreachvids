@@ -1,8 +1,8 @@
-import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { cryptService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
+import { UserEntity } from '../../bundles/users/user.entity.js';
 import {
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
@@ -16,8 +16,8 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public find(): ReturnType<Service['find']> {
-        return Promise.resolve(null);
+    public async findById(id: string): Promise<UserEntity | null> {
+        return await this.userRepository.findById(id);
     }
 
     public async findByEmail(email: string): Promise<UserEntity | null> {
