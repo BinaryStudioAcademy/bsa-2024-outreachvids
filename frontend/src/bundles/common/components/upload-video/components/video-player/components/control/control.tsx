@@ -78,9 +78,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
         player?.addEventListener(VideoEvent.ENDED, handleVideoEnd);
 
         return () => {
-            if (player) {
-                player.removeEventListener(VideoEvent.ENDED, handleVideoEnd);
-            }
+            player?.removeEventListener(VideoEvent.ENDED, handleVideoEnd);
         };
     }, [videoPlayerReference, handleVideoEnd]);
 
