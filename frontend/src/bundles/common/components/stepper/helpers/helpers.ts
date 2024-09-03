@@ -1,1 +1,1 @@
-export { getStepStatus } from './get-step-status.js';
+export { getActiveStepIndex } from './get-active-step-index.js';
