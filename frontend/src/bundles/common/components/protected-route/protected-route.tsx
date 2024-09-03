@@ -1,6 +1,10 @@
 import { Loader, Navigate } from '~/bundles/common/components/components.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
-import { useAppSelector, useEffect, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppSelector,
+    useEffect,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 
 interface Properties {
     children: React.ReactNode;
