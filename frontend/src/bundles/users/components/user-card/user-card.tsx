@@ -9,7 +9,7 @@ import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { UserAvatar } from './components/user-avatar.js';
 
 const UserCard: React.FC = () => {
-    const { user } = useAppSelector(({ auth }) => auth);
+    const user = useAppSelector(({ auth }) => auth.user);
 
     return (
         <VStack

@@ -1,8 +1,8 @@
 const getInitials = (fullName: string | undefined): string => {
     if (fullName) {
-        const splittedName = fullName.trim().split(/\s+/);
-        const firstInitial = splittedName[0]?.charAt(0).toUpperCase();
-        const secondInitial = splittedName[1]?.charAt(0).toUpperCase() ?? '';
+        const [firstName, lastName] = fullName.trim().split(/\s+/);
+        const firstInitial = firstName?.charAt(0).toUpperCase();
+        const secondInitial = lastName?.charAt(0).toUpperCase() ?? '';
 
         return `${firstInitial}${secondInitial}`;
     }

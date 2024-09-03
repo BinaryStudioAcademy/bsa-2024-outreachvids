@@ -4,7 +4,7 @@ import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { getInitials } from '../helpers/helpers.js';
 
 const UserAvatar: React.FC = () => {
-    const { user } = useAppSelector(({ auth }) => auth);
+    const user = useAppSelector(({ auth }) => auth.user);
     const initials = getInitials(user?.fullName);
     return (
         <Circle
