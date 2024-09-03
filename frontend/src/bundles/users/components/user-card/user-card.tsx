@@ -25,7 +25,7 @@ const UserCard: React.FC = () => {
                 gap="15px"
                 pl="10px"
             >
-                <UserAvatar />
+                <UserAvatar username={user?.fullName} />
                 <Text>{user?.fullName ?? 'FirstName LastName'}</Text>
             </Flex>
             <Button label="Create video" />

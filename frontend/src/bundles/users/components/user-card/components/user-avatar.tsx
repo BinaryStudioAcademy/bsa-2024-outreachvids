@@ -1,11 +1,13 @@
 import { Circle } from '~/bundles/common/components/components.js';
-import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 
 import { getInitials } from '../helpers/helpers.js';
 
-const UserAvatar: React.FC = () => {
-    const user = useAppSelector(({ auth }) => auth.user);
-    const initials = getInitials(user?.fullName);
+type Properties = {
+    username: string | undefined;
+};
+
+const UserAvatar: React.FC<Properties> = ({ username }) => {
+    const initials = getInitials(username);
     return (
         <Circle
             size="40px"

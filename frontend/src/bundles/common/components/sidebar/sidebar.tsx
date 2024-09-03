@@ -8,6 +8,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
+    useAppSelector,
     useCallback,
     useLocation,
     useNavigate,
@@ -27,6 +28,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const user = useAppSelector(({ auth }) => auth.user);
 
     const handleToggle = useCallback(
         (): void => setIsCollapsed(!isCollapsed),
@@ -73,7 +75,11 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                     variant="icon"
                 />
                 <Box mb="30px">
-                    {isCollapsed ? <UserAvatar /> : <UserCard />}
+                    {isCollapsed ? (
+                        <UserAvatar username={user?.fullName} />
+                    ) : (
+                        <UserCard />
+                    )}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>
