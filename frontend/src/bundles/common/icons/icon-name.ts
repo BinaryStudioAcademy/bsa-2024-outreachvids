@@ -1,6 +1,11 @@
-import { DownloadIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
-    faCircleUser,
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    DownloadIcon,
+    ViewIcon,
+    ViewOffIcon,
+} from '@chakra-ui/icons';
+import {
     faCloudArrowUp,
     faEllipsisVertical,
     faFileLines,
@@ -12,8 +17,18 @@ import {
     faTableColumns,
 } from '@fortawesome/free-solid-svg-icons';
 
+import {
+    CircleUserIcon,
+    HouseIcon,
+    RightFromBracketIcon,
+} from './helper/icon-conversion.helper.js';
+
 const IconName = {
     PEN: faPen,
+    HOME: HouseIcon,
+    LOG_OUT: RightFromBracketIcon,
+    ARROW_LEFT: ArrowLeftIcon,
+    ARROW_RIGHT: ArrowRightIcon,
     FILE_LINES: faFileLines,
     PLAY: faPlay,
     SCROLL: faScroll,
@@ -21,7 +36,7 @@ const IconName = {
     DOWNLOAD: DownloadIcon,
     VIEW: ViewIcon,
     VIEW_OFF: ViewOffIcon,
-    AVATAR: faCircleUser,
+    AVATAR: CircleUserIcon,
     UPLOAD: faCloudArrowUp,
     TEMPLATE: faTableColumns,
     SCRIPT: faFont,
