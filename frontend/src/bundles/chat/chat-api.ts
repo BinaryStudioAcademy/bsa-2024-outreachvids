@@ -30,6 +30,7 @@ class ChatApi extends BaseHttpApi {
                 method: HTTPMethod.POST,
                 contentType: ContentType.JSON,
                 payload: JSON.stringify(payload),
+                credentials: 'include',
                 hasAuth: true,
             },
         );
@@ -44,6 +45,8 @@ class ChatApi extends BaseHttpApi {
                 method: HTTPMethod.DELETE,
                 contentType: ContentType.JSON,
                 payload: JSON.stringify({}),
+                credentials: 'include',
+                keepAlive: true,
                 hasAuth: true,
             },
         );
