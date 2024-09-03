@@ -1,4 +1,5 @@
 import { Chat } from '~/bundles/chat/components/components.js';
+import { useChatCleanup } from '~/bundles/chat/hooks/hooks.js';
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import { type GenerateTextRequestDto } from '~/bundles/chat/types/types.js';
 import {
@@ -31,10 +32,7 @@ const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
         [dispatch],
     );
 
-    const handleCloseChat = useCallback(() => {
-        onModalChatClose();
-        void dispatch(chatActions.deleteChat());
-    }, [dispatch, onModalChatClose]);
+    const { handleCloseChat } = useChatCleanup({ onModalChatClose });
 
     return (
         <>
