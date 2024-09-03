@@ -10,16 +10,10 @@ const generateMockRows = (count: number): RowDefinition[] => {
     return Array.from({ length: count })
         .fill(0)
         .map((_, index): RowDefinition => {
-            const disabled = false;
 
-            let id = `${index + 1}`;
-            if (disabled) {
-                id += ' (disabled)';
-            }
-
+            const id = `${index + 1}`;
             return {
                 id,
-                disabled,
             };
         });
 };
