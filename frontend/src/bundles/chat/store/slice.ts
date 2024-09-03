@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { MessageSender } from '~/bundles/chat/enums/enums.js';
+import {
+    type GenerateTextRequestDto,
+    type Message,
+} from '~/bundles/chat/types/types.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 
-import { MessageSender } from '../enums/enums.js';
-import { type GenerateTextRequestDto, type Message } from '../types/types.js';
 import { deleteChat, sendMessage } from './actions.js';
 
 type State = {
