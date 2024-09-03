@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
 
 import { type BaseConfig } from '~/common/config/base-config.package.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HttpCode, HttpError, HTTPMethod } from '~/common/http/http.js';
 
 import { fileService } from '../services.js';
 import { type GetAvatarVoicesResponseDto } from './types/types.js';
@@ -31,7 +31,7 @@ class AzureAIService {
     public async getAvatarVoices(): Promise<GetAvatarVoicesResponseDto[]> {
         const url = `https://${this.config.ENV.AZURE.AZURE_SERVICE_REGION}.tts.speech.microsoft.com/cognitiveservices/voices/list`;
         const options = {
-            method: 'GET',
+            method: HTTPMethod.GET,
             headers: {
                 'Ocp-Apim-Subscription-Key':
                     this.config.ENV.AZURE.AZURE_SERVICE_KEY,
@@ -134,7 +134,7 @@ class AzureAIService {
             },
         };
         const response = await fetch(url, {
-            method: 'PUT',
+            method: HTTPMethod.PUT,
             headers: {
                 'Content-Type': 'application/json',
                 'Ocp-Apim-Subscription-Key': this.azureSubscriptionKey,
@@ -156,7 +156,7 @@ class AzureAIService {
         const url = `${this.azureEndpoint}/avatar/batchsyntheses/${id}?api-version=2024-08-01`;
 
         const response = await fetch(url, {
-            method: 'GET',
+            method: HTTPMethod.GET,
             headers: {
                 'Ocp-Apim-Subscription-Key': this.azureSubscriptionKey,
             },
