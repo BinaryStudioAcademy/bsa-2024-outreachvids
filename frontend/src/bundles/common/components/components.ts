@@ -7,6 +7,7 @@ export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';
+export { Sidebar } from './sidebar/sidebar.js';
 export { Textarea } from './textarea/textarea.js';
 export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
@@ -34,6 +35,7 @@ export {
     SliderFilledTrack,
     SliderThumb,
     SliderTrack,
+    Spacer,
     Stack,
     Text,
     VStack,
