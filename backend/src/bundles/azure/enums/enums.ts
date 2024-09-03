@@ -1,1 +1,0 @@
-export { AzureApiPath } from 'shared';

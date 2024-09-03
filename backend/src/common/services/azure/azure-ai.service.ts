@@ -6,7 +6,7 @@ import { type BaseConfig } from '~/common/config/base-config.package.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 
 import { fileService } from '../services.js';
-import { type AzureGetAvatarVoicesResponseDto } from './types/types.js';
+import { type GetAvatarVoicesResponseDto } from './types/types.js';
 
 interface batchSynthesesAvatar {
     avatarName: string;
@@ -28,7 +28,7 @@ class AzureAIService {
         this.azureEndpoint = config.ENV.AZURE.AZURE_SERVICE_ENDPOINT;
     }
 
-    public async getAvatarVoices(): Promise<AzureGetAvatarVoicesResponseDto[]> {
+    public async getAvatarVoices(): Promise<GetAvatarVoicesResponseDto[]> {
         const url = `https://${this.config.ENV.AZURE.AZURE_SERVICE_REGION}.tts.speech.microsoft.com/cognitiveservices/voices/list`;
         const options = {
             method: 'GET',
@@ -47,10 +47,9 @@ class AzureAIService {
         const data = await response.json();
         return data
             .filter(
-                (data: AzureGetAvatarVoicesResponseDto) =>
-                    data.Locale === 'en-US',
+                (data: GetAvatarVoicesResponseDto) => data.Locale === 'en-US',
             )
-            .map((data: AzureGetAvatarVoicesResponseDto) => ({
+            .map((data: GetAvatarVoicesResponseDto) => ({
                 DisplayName: data.DisplayName,
                 ShortName: data.ShortName,
                 Locale: data.Locale,

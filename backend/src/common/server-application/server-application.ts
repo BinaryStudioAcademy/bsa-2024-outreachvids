@@ -1,5 +1,5 @@
 import { authController } from '~/bundles/auth/auth.js';
-import { azureController } from '~/bundles/azure/azure.js';
+import { avatarController } from '~/bundles/avatar/avatar.js';
 import { chatController } from '~/bundles/chat/chat.js';
 import { userController } from '~/bundles/users/users.js';
 import { videoController } from '~/bundles/videos/videos.js';
@@ -17,7 +17,7 @@ const apiV1 = new BaseServerAppApi(
     ...userController.routes,
     ...videoController.routes,
     ...chatController.routes,
-    ...azureController.routes,
+    ...avatarController.routes,
 );
 const serverApp = new BaseServerApp({
     config,

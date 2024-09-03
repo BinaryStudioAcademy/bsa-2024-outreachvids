@@ -1,8 +1,8 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
-export { AzureApiPath } from './bundles/azure/azure.js';
+export { AvatarApiPath } from './bundles/azure/azure.js';
 export {
-    type AzureGetAvatarVoicesResponseDto,
-    type AzureTextToSpeechRequestDto,
+    type GetAvatarVoicesResponseDto,
+    type TextToSpeechRequestDto,
 } from './bundles/azure/azure.js';
 export {
     type GenerateTextRequestDto,

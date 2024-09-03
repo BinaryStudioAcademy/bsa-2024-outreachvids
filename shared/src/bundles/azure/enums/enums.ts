@@ -1,1 +1,1 @@
-export { AzureApiPath } from './azure-api-path.enum.js';
+export { AvatarApiPath } from './avatar-api-path.enum.js';

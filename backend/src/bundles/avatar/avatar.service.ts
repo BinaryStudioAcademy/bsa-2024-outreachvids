@@ -1,16 +1,16 @@
 import { HttpError } from '~/common/http/http.js';
 import { type AzureAIService } from '~/common/services/azure/azure-ai.service.js';
 
-import { type AzureGetAvatarVoicesResponseDto } from './types/types.js';
+import { type GetAvatarVoicesResponseDto } from './types/types.js';
 
-class AzureService {
+class AvatarService {
     private azureAIService: AzureAIService;
 
     public constructor(azureAIService: AzureAIService) {
         this.azureAIService = azureAIService;
     }
 
-    public async getVoices(): Promise<AzureGetAvatarVoicesResponseDto[]> {
+    public async getVoices(): Promise<GetAvatarVoicesResponseDto[]> {
         try {
             return await this.azureAIService.getAvatarVoices();
         } catch (error) {
@@ -38,4 +38,4 @@ class AzureService {
     }
 }
 
-export { AzureService };
+export { AvatarService };

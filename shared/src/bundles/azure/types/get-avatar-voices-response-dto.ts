@@ -1,4 +1,4 @@
-type AzureGetAvatarVoicesResponseDto = {
+type GetAvatarVoicesResponseDto = {
     DisplayName: string;
     ShortName: string;
     Gender: string;
@@ -7,4 +7,4 @@ type AzureGetAvatarVoicesResponseDto = {
     StyleList: string[];
 };
 
-export { type AzureGetAvatarVoicesResponseDto };
+export { type GetAvatarVoicesResponseDto };
