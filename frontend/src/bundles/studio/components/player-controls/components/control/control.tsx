@@ -5,10 +5,11 @@ import {
     IconButton,
     Tooltip,
 } from '~/bundles/common/components/components.js';
+import { type IconSize } from '~/bundles/common/icons/icons.js';
 
 type Properties = {
     label: string;
-    size: string;
+    size: IconSize;
     icon: ElementType;
     onClick?: () => void;
 };
