@@ -1,15 +1,15 @@
 import {
+    type GenerateTextRequestDto,
+    textGenerationValidationSchema,
+} from '~/bundles/chat/chat.js';
+import {
     Button,
     Flex,
     FormProvider,
     Input,
 } from '~/bundles/common/components/components.js';
-import { useAppForm, useMemo } from '~/bundles/common/hooks/hooks.js';
+import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
-import {
-    type GenerateTextRequestDto,
-    textGenerationValidationSchema,
-} from '../../chat.js';
 import { DEFAULT_CHAT_FORM_PAYLOAD } from './constants/constants.js';
 
 type Properties = {
@@ -25,12 +25,8 @@ const ChatFooter: React.FC<Properties> = ({ onSendMessage }) => {
             resetForm();
         },
     });
-    const { handleSubmit, values } = form;
 
-    const isEmpty = useMemo(
-        () => Object.values(values).some((value) => value.trim().length === 0),
-        [values],
-    );
+    const { handleSubmit, values } = form;
 
     return (
         <FormProvider value={form}>
@@ -48,7 +44,7 @@ const ChatFooter: React.FC<Properties> = ({ onSendMessage }) => {
                         type="submit"
                         label="Send"
                         size="md"
-                        isDisabled={isEmpty}
+                        isDisabled={values.message.trim().length === 0}
                         sx={{ w: '100px' }}
                     />
                 </Flex>

@@ -1,7 +1,6 @@
+import { MessageSender } from '~/bundles/chat/enums/enums.js';
+import { type Message } from '~/bundles/chat/types/types.js';
 import { Box, Flex, Text } from '~/bundles/common/components/components.js';
-
-import { MessageSender } from '../../enums/enums.js';
-import { type Message } from '../../types/types.js';
 
 type Properties = {
     message: Message;

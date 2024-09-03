@@ -1,3 +1,6 @@
+import { Chat } from '~/bundles/chat/components/components.js';
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
+import { type GenerateTextRequestDto } from '~/bundles/chat/types/types.js';
 import {
     Modal,
     ModalCloseButton,
@@ -9,10 +12,6 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
-
-import { Chat } from '../components/components.js';
-import { actions as chatActions } from '../store/chat.js';
-import { type GenerateTextRequestDto } from '../types/types.js';
 
 type Properties = {
     isChatOpen: boolean;

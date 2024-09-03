@@ -1,12 +1,11 @@
-import { Box } from '~/bundles/common/components/components.js';
-
+import { ChatBody } from '~/bundles/chat/components/chat-body/chat-body.js';
+import { ChatFooter } from '~/bundles/chat/components/chat-footer/chat-footer.js';
+import { ChatHeader } from '~/bundles/chat/components/chat-header/chat-header.js';
 import {
     type GenerateTextRequestDto,
     type Message,
-} from '../../types/types.js';
-import { ChatBody } from '../chat-body/chat-body.js';
-import { ChatFooter } from '../chat-footer/chat-footer.js';
-import { ChatHeader } from '../chat-header/chat-header.js';
+} from '~/bundles/chat/types/types.js';
+import { Box } from '~/bundles/common/components/components.js';
 
 type Properties = {
     messages: Message[];

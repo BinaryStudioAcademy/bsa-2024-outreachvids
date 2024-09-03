@@ -1,7 +1,6 @@
+import { MessageList } from '~/bundles/chat/components/message-list/message-list.js';
+import { type Message } from '~/bundles/chat/types/types.js';
 import { Box } from '~/bundles/common/components/components.js';
-
-import { type Message } from '../../types/types.js';
-import { MessageList } from '../message-list/message-list.js';
 
 type Properties = {
     messages: Message[];
