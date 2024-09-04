@@ -4,7 +4,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { type AvatarService } from './avatar.service.js';
@@ -21,13 +21,13 @@ class AvatarController extends BaseController {
 
         this.addRoute({
             path: AvatarApiPath.AVATAR_VOICES,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: () => this.getVoices(),
         });
 
         this.addRoute({
             path: AvatarApiPath.TEXT_TO_SPEECH,
-            method: 'POST',
+            method: HTTPMethod.POST,
             handler: (options) =>
                 this.generateSpeech(
                     options as ApiHandlerOptions<{

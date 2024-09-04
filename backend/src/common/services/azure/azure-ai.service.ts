@@ -8,12 +8,12 @@ import { HttpCode, HttpError, HTTPMethod } from '~/common/http/http.js';
 import { fileService } from '../services.js';
 import { type GetAvatarVoicesResponseDto } from './types/types.js';
 
-interface batchSynthesesAvatar {
+type BatchSynthesesAvatar = {
     avatarName: string;
     avatarStyle: string;
     textSSML: string;
     voice: string;
-}
+};
 
 class AzureAIService {
     private config: BaseConfig;
@@ -30,6 +30,7 @@ class AzureAIService {
 
     public async getAvatarVoices(): Promise<GetAvatarVoicesResponseDto[]> {
         const url = `https://${this.config.ENV.AZURE.AZURE_SERVICE_REGION}.tts.speech.microsoft.com/cognitiveservices/voices/list`;
+
         const options = {
             method: HTTPMethod.GET,
             headers: {
@@ -37,6 +38,7 @@ class AzureAIService {
                     this.config.ENV.AZURE.AZURE_SERVICE_KEY,
             },
         };
+
         const response = await fetch(url, options);
         if (!response.ok) {
             throw new HttpError({
@@ -44,41 +46,27 @@ class AzureAIService {
                 status: HttpCode.INTERNAL_SERVER_ERROR,
             });
         }
+
         const data = await response.json();
         return data
             .filter(
                 (data: GetAvatarVoicesResponseDto) => data.Locale === 'en-US',
             )
             .map((data: GetAvatarVoicesResponseDto) => ({
-                DisplayName: data.DisplayName,
-                ShortName: data.ShortName,
-                Locale: data.Locale,
-                Gender: data.Gender,
-                LocaleName: data.LocaleName,
-                StyleList: data.StyleList,
+                displayName: data.DisplayName,
+                shortName: data.ShortName,
+                locale: data.Locale,
+                gender: data.Gender,
+                localeName: data.LocaleName,
+                styleList: data.StyleList,
             }));
     }
 
-    public async textToSpeech(
+    private synthesizeSpeech(
+        speechSynthesizer: SpeechSDK.SpeechSynthesizer,
         text: string,
-        voiceName: string,
-    ): Promise<string> {
-        const audioFileName = `ttsConverted_${Date.now()}.wav`;
-        const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
-            this.azureSubscriptionKey,
-            this.azureRegion,
-        );
-        const audioConfig =
-            SpeechSDK.AudioConfig.fromAudioFileOutput(audioFileName);
-        speechConfig.speechSynthesisLanguage = voiceName
-            .split('-', 2)
-            .join('-');
-        speechConfig.speechSynthesisVoiceName = voiceName;
-        const speechSynthesizer = new SpeechSDK.SpeechSynthesizer(
-            speechConfig,
-            audioConfig,
-        );
-        await new Promise<void>((resolve, reject) => {
+    ): Promise<SpeechSDK.SpeechSynthesizer> {
+        return new Promise((resolve, reject) => {
             speechSynthesizer.speakTextAsync(
                 text,
                 (result) => {
@@ -86,15 +74,12 @@ class AzureAIService {
                         result.reason ===
                         SpeechSDK.ResultReason.SynthesizingAudioCompleted
                     ) {
-                        resolve();
+                        speechSynthesizer.close();
+                        resolve(speechSynthesizer);
                     } else {
-                        reject(
-                            new Error(
-                                `Speech synthesis canceled: ${result.errorDetails}`,
-                            ),
-                        );
+                        speechSynthesizer.close();
+                        reject(result.errorDetails);
                     }
-                    speechSynthesizer.close();
                 },
                 (error) => {
                     speechSynthesizer.close();
@@ -102,6 +87,34 @@ class AzureAIService {
                 },
             );
         });
+    }
+
+    public async textToSpeech(
+        text: string,
+        voiceName: string,
+    ): Promise<string> {
+        const audioFileName = `ttsConverted_${Date.now()}.wav`;
+
+        const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
+            this.azureSubscriptionKey,
+            this.azureRegion,
+        );
+
+        const audioConfig =
+            SpeechSDK.AudioConfig.fromAudioFileOutput(audioFileName);
+
+        speechConfig.speechSynthesisLanguage = voiceName
+            .split('-', 2)
+            .join('-');
+        speechConfig.speechSynthesisVoiceName = voiceName;
+
+        const speechSynthesizer = new SpeechSDK.SpeechSynthesizer(
+            speechConfig,
+            audioConfig,
+        );
+
+        await this.synthesizeSpeech(speechSynthesizer, text);
+
         const fileBuffer = await fs.readFile(audioFileName);
         await fileService.uploadFile(fileBuffer, audioFileName);
         const fileURL = await fileService.getFileUrl(audioFileName);
@@ -111,7 +124,7 @@ class AzureAIService {
     }
 
     public async createBatchSynthesesVideo(
-        inputs: batchSynthesesAvatar,
+        inputs: BatchSynthesesAvatar,
     ): Promise<string> {
         const url = `${this.azureEndpoint}/avatar/batchsyntheses/batchjob-${Date.now()}?api-version=2024-08-01`;
         const requestBody = {
@@ -133,6 +146,7 @@ class AzureAIService {
                 backgroundColor: 'transparent',
             },
         };
+
         const response = await fetch(url, {
             method: HTTPMethod.PUT,
             headers: {

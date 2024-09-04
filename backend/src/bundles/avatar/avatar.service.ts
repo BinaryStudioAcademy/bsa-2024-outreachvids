@@ -1,6 +1,7 @@
-import { HttpError } from '~/common/http/http.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type AzureAIService } from '~/common/services/azure/azure-ai.service.js';
 
+import { AvatarTTSErrorMessages } from './enums/enums.js';
 import { type GetAvatarVoicesResponseDto } from './types/types.js';
 
 class AvatarService {
@@ -11,30 +12,23 @@ class AvatarService {
     }
 
     public async getVoices(): Promise<GetAvatarVoicesResponseDto[]> {
-        try {
-            return await this.azureAIService.getAvatarVoices();
-        } catch (error) {
+        const voices = await this.azureAIService.getAvatarVoices();
+
+        if (!voices) {
             throw new HttpError({
-                message: 'Failed to fetch voices',
-                status: 500,
-                cause: error,
+                message: AvatarTTSErrorMessages.VOICES_NOT_GOTTEN,
+                status: HttpCode.BAD_REQUEST,
             });
         }
+
+        return voices;
     }
 
     public async generateSpeech(
         text: string,
         voiceName: string,
     ): Promise<string> {
-        try {
-            return await this.azureAIService.textToSpeech(text, voiceName);
-        } catch (error) {
-            throw new HttpError({
-                message: 'Failed to generate speech',
-                status: 500,
-                cause: error,
-            });
-        }
+        return await this.azureAIService.textToSpeech(text, voiceName);
     }
 }
 
