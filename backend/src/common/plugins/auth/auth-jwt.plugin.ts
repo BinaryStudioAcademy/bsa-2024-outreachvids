@@ -24,10 +24,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
 
         if (!authHeader) {
             throw new HttpError({
-                message:
-                    ErrorMessage.MISSING_TOKEN +
-                    request.url +
-                    request.routeOptions.url,
+                message: ErrorMessage.MISSING_TOKEN,
                 status: HttpCode.UNAUTHORIZED,
             });
         }
