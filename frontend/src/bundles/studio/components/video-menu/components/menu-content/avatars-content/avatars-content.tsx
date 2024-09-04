@@ -9,7 +9,7 @@ const AvatarsContent: React.FC = () => {
     }
     const avatars = [];
     for (let index = 0; index < 10; index++) {
-        avatars.push(<AvatarCard preview={avatar} />);
+        avatars.push(<AvatarCard preview={avatar} key={index} />);
     }
 
     return (

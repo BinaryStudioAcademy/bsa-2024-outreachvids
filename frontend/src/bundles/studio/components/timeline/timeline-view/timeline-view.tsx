@@ -8,11 +8,9 @@ import {
     type TimelineRowsWithSpan,
 } from '~/bundles/studio/types/types.js';
 
+import { Row, TimeAxis, TimeCursor } from '../components.js';
 import { AvatarsRow } from '../row/avatars-row.js';
-import { Row } from '../row/row.js';
 import { ScriptsRow } from '../row/scripts-row.js';
-import { TimeAxis } from '../timeaxis/timeaxis.js';
-import { TimeCursor } from '../timecursor/timecursor.js';
 
 type Properties = {
     items: TimelineRowsWithSpan;

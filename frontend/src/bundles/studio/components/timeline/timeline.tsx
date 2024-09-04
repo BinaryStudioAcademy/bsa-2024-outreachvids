@@ -20,7 +20,7 @@ import {
     type TimelineRows,
 } from '~/bundles/studio/types/types.js';
 
-import { TimelineView } from './timeline-view/timeline-view.js';
+import { TimelineView } from './components.js';
 
 type Properties = {
     initialRange: Range;

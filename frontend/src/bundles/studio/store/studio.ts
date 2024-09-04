@@ -1,12 +1,7 @@
-import { loadCurrentUser, logout, signIn, signUp } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
-    signIn,
-    signUp,
-    loadCurrentUser,
-    logout,
 };
 
 export { allActions as actions };

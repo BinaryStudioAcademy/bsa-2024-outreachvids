@@ -2,6 +2,7 @@ import { useRow, useTimelineContext } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
+import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = {
     id: string;
@@ -33,7 +34,7 @@ const Row: React.FC<Properties> = ({
                 ...style,
             }}
         >
-            <Box ref={setNodeRef} style={rowStyle}>
+            <Box ref={setNodeRef} style={rowStyle} className={styles['row']}>
                 {children}
                 {destinationPointerValue && (
                     <Box

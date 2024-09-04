@@ -2,6 +2,7 @@ import { type Span, useItem } from 'dnd-timeline';
 
 import { Box, Flex } from '~/bundles/common/components/components.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
+import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = {
     id: string;
@@ -46,6 +47,7 @@ const Item: React.FC<Properties> = ({ id, type, span, children }) => {
                     alignItems="center"
                     marginRight="2px"
                     border="1px solid"
+                    className={styles['item']}
                 >
                     {children}
                 </Flex>
