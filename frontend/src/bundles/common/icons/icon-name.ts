@@ -1,6 +1,8 @@
 import {
+    AddIcon,
     ArrowLeftIcon,
     ArrowRightIcon,
+    CloseIcon,
     DownloadIcon,
     ViewIcon,
     ViewOffIcon,
@@ -41,6 +43,8 @@ const IconName = {
     TEMPLATE: faTableColumns,
     SCRIPT: faFont,
     TEXT: faT,
+    ADD: AddIcon,
+    CLOSE: CloseIcon,
 } as const;
 
 export { IconName };
