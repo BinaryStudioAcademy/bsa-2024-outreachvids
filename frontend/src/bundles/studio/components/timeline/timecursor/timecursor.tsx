@@ -12,16 +12,14 @@ type Properties = {
     interval?: number;
 };
 
-const now = Date.now();
-
 const TimeCursor: React.FC<Properties> = ({ interval }) => {
     const timeCursorReference = useReference<HTMLDivElement>(null);
-    const renderTimeReference = useReference(now);
+    const renderTimeReference = useReference(Date.now());
     const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
         useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
-
+    const millisecondPerRefresh = 1000;
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
@@ -30,7 +28,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
             if (!timeCursorReference.current || cursorPosition !== null) {
                 return;
             }
-            const timeDelta = now - renderTimeReference.current;
+            const timeDelta = Date.now() - renderTimeReference.current;
             const timeDeltaInPixels = valueToPixels(timeDelta);
 
             const sideDelta = sidebarWidth + timeDeltaInPixels;
@@ -39,7 +37,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
         offsetCursor();
         const cursorUpdateInterval = setInterval(
             offsetCursor,
-            interval ?? 1000,
+            interval ?? millisecondPerRefresh,
         );
         return () => {
             clearInterval(cursorUpdateInterval);
@@ -69,7 +67,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
             setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
             renderTimeReference.current =
-                now - pixelsToValue(newCursorPosition);
+                Date.now() - pixelsToValue(newCursorPosition);
             setCursorPosition(null);
         };
 
@@ -95,7 +93,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
     ]);
 
     useLayoutEffect(() => {
-        if (cursorPosition && timeCursorReference.current) {
+        if (cursorPosition !== null && timeCursorReference.current) {
             timeCursorReference.current.style[side] =
                 `${cursorPosition + sidebarWidth}px`;
         }
