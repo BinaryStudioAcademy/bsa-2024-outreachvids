@@ -1,14 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { type PayloadAction } from '@reduxjs/toolkit';
 
+import { VideoPreview } from '~/bundles/common/enums/enums.js';
+import { type VideoPreview as VideoPreviewT } from '~/bundles/common/types/types.js';
+
 import { type Script } from '../types/studio.type.js';
 
 type State = {
     scripts: Array<Script>;
+    videoSize: VideoPreviewT;
 };
 
 const initialState: State = {
     scripts: [],
+    videoSize: VideoPreview.LANDSCAPE,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -34,6 +39,12 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.filter(
                 (script) => script.id !== action.payload,
             );
+        },
+        changeVideoSize(state) {
+            state.videoSize =
+                state.videoSize === VideoPreview.LANDSCAPE
+                    ? VideoPreview.PORTRAIT
+                    : VideoPreview.LANDSCAPE;
         },
     },
 });
