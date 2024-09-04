@@ -12,9 +12,8 @@ const getNewItemIndexBySpan = (
 
     let newActiveItemIndex = -1;
 
-    // eslint-disable-next-line unicorn/no-for-loop
-    for (let index = 0; index < items.length; index++) {
-        const { span, duration } = items[index] as TimelineItemWithSpan;
+    for (const [index, item] of items.entries()) {
+        const { span, duration } = item;
 
         if (start > span.start && start < span.end) {
             const center = span.start + duration / 2;
