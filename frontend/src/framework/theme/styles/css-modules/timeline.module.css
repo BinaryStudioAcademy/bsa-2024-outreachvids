@@ -1,0 +1,12 @@
+.item {
+    width: 100%;
+    overflow: hidden;
+    margin: 2px;
+    border-radius: 15px;
+    background-color: lightblue;
+    color: darkblue;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
