@@ -53,6 +53,12 @@ class BaseConfig implements Config {
                     env: 'SESSION_KEY',
                     default: null,
                 },
+                ORIGIN: {
+                    doc: 'Origin',
+                    format: String,
+                    env: 'ORIGIN',
+                    default: null,
+                },
             },
             DB: {
                 CONNECTION_STRING: {
