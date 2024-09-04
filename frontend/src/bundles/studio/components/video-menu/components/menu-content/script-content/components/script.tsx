@@ -8,7 +8,7 @@ import {
 import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icon-name.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
-import { type Script as ScriptT } from '~/bundles/studio/types/studio.type.js';
+import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
 
 type Properties = ScriptT;
 

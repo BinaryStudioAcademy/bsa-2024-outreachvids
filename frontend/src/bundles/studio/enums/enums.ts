@@ -1,0 +1,1 @@
+export { AvatarsApiPath } from 'shared';
