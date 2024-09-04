@@ -167,7 +167,7 @@ class VideoController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.videoService.find(options.params.id),
+            payload: await this.videoService.findById(options.params.id),
         };
     }
 
