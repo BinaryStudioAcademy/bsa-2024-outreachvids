@@ -35,7 +35,6 @@ const Player = ({
             padding="20px"
         >
             <LibraryPlayer
-                controls
                 ref={playerRef}
                 component={VideoComponent}
                 durationInFrames={durationInFrames}
