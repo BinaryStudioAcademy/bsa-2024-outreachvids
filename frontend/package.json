@@ -29,7 +29,6 @@
         "eslint-plugin-react-hooks": "4.6.2",
         "postcss": "8.4.41",
         "vite": "5.4.0",
-        "date-fns": "3.6.0",
         "vite-plugin-pwa": "0.20.1",
         "workbox-core": "7.1.0"
     },
