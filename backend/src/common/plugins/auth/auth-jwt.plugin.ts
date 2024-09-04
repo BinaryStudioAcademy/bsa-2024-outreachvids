@@ -4,7 +4,6 @@ import { HttpCode, HttpError, HttpHeader } from 'shared';
 import { userService } from '~/bundles/users/users.js';
 import { tokenService } from '~/common/services/services.js';
 
-import { SERVED_PAGE_PATH } from './constants/constants.js';
 import { ErrorMessage, Hook } from './enums/enums.js';
 import { type Route } from './types/types.js';
 import { isRouteInWhiteList } from './utils/utils.js';
@@ -17,12 +16,6 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
     fastify.decorateRequest('user', null);
 
     fastify.addHook(Hook.PRE_HANDLER, async (request) => {
-        const isServedPagePath = request.routeOptions.url === SERVED_PAGE_PATH;
-
-        if (isServedPagePath) {
-            return;
-        }
-
         if (isRouteInWhiteList(routesWhiteList, request)) {
             return;
         }
@@ -31,7 +24,10 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
 
         if (!authHeader) {
             throw new HttpError({
-                message: ErrorMessage.MISSING_TOKEN,
+                message:
+                    ErrorMessage.MISSING_TOKEN +
+                    request.url +
+                    request.routeOptions.url,
                 status: HttpCode.UNAUTHORIZED,
             });
         }
