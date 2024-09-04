@@ -1,5 +1,4 @@
 import {
-    type SystemStyleObject,
     Button as LibraryButton,
 } from '@chakra-ui/react';
 
@@ -9,7 +8,7 @@ type Properties = {
     variant?: string;
     size?: 'md' | 'lg';
     isDisabled?: boolean;
-    sx?: SystemStyleObject;
+    className?: string|undefined;
 };
 
 const Button: React.FC<Properties> = ({
@@ -18,7 +17,7 @@ const Button: React.FC<Properties> = ({
     variant = 'solid',
     size = 'md',
     isDisabled = false,
-    sx = {},
+    className,
 }) => (
     <LibraryButton
         type={type}
@@ -26,7 +25,7 @@ const Button: React.FC<Properties> = ({
         variant={variant}
         size={size}
         isDisabled={isDisabled}
-        sx={sx}
+        className={className}
     >
         {label}
     </LibraryButton>
