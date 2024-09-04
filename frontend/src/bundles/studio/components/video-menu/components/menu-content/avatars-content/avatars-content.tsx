@@ -1,16 +1,27 @@
-import avatar from '~/assets/img/avatar.png';
-import { SimpleGrid, Text } from '~/bundles/common/components/components.js';
+import {
+    Fragment,
+    SimpleGrid,
+    Text,
+} from '~/bundles/common/components/components.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { AvatarCard } from './components/components.js';
 
 const AvatarsContent: React.FC = () => {
-    {
-        /* This is mocked data. Should be updated later */
-    }
-    const avatars = [];
-    for (let index = 0; index < 10; index++) {
-        avatars.push(<AvatarCard preview={avatar} key={index} />);
-    }
+    const dispatch = useAppDispatch();
+
+    const { avatars } = useAppSelector(({ studio }) => ({
+        avatars: studio.avatars.items,
+    }));
+
+    useEffect(() => {
+        void dispatch(studioActions.loadAvatars());
+    }, [dispatch]);
 
     return (
         <>
@@ -18,7 +29,16 @@ const AvatarsContent: React.FC = () => {
                 Public avatar
             </Text>
             <SimpleGrid columns={3} spacingX="13px" spacingY="10px">
-                {avatars}
+                {avatars.map(({ id, styles }) => (
+                    <Fragment key={id}>
+                        {styles.map(({ style, imgUrl }) => (
+                            <AvatarCard
+                                key={`${id}-${style}`}
+                                preview={imgUrl}
+                            />
+                        ))}
+                    </Fragment>
+                ))}
             </SimpleGrid>
         </>
     );
