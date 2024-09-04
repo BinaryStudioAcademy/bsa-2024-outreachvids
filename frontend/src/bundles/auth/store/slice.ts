@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getFlag } from '~/bundles/common/components/sidebar/helpers/helpers.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserGetCurrentResponseDto } from '~/bundles/users/users.js';
@@ -9,11 +10,13 @@ import { loadCurrentUser, logout, signIn, signUp } from './actions.js';
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     user: UserGetCurrentResponseDto | null;
+    isSidebarCollapsed: boolean;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     user: null,
+    isSidebarCollapsed: await getFlag(),
 };
 
 const { reducer, actions, name } = createSlice({
