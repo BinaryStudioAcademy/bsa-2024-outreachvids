@@ -9,11 +9,7 @@ import { Box } from '~/bundles/common/components/components.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
 import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
 
-import { Item } from '../item/item.js';
-import { Row } from '../row/row.js';
-import { Subrow } from '../subrow/subrow.js';
-import { TimeAxis } from '../timeaxis/timeaxis.js';
-import { TimeCursor } from '../timecursor/timecursor.js';
+import { Item, Row, Subrow, TimeAxis, TimeCursor, } from '../components.js';
 
 interface TimelineProperties {
     rows: RowDefinition[];
