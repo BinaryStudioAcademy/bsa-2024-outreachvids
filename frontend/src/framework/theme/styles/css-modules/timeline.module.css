@@ -1,0 +1,66 @@
+.item {
+    width: 100%;
+    overflow: hidden;
+    margin: 2px;
+    border-radius: 15px;
+    background-color: lightblue;
+    color: darkblue;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.row {
+    min-height: 50px;
+    border: 1px solid black;
+}
+
+.subrow {
+    height: 50px;
+    position: relative;
+}
+.timeAxis {
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.markerContainer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.markerLine {
+    width: 1px;
+}
+
+.markerLabel {
+    padding-left: 3px;
+    align-self: flex-start;
+}
+
+.timeCursor {
+    height: 100%;
+    width: 5px;
+    z-index: 3;
+    background-color: red;
+    position: absolute;
+    cursor: pointer;
+}
+
+.timeCursorArrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid red;
+    position: absolute;
+    top: -5px;
+    left: -2.5px;
+}
