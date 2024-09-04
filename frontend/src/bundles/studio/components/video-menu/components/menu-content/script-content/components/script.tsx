@@ -1,6 +1,7 @@
-import { Editable, EditablePreview, EditableTextarea } from '@chakra-ui/react';
-
 import {
+    Editable,
+    EditablePreview,
+    EditableTextarea,
     Icon,
     IconButton,
     VStack,
