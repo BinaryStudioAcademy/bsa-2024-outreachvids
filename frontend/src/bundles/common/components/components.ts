@@ -32,6 +32,7 @@ export {
     InputRightElement,
     SimpleGrid,
     Spacer,
+    Tab,
     Text,
     Tooltip,
     VStack,
