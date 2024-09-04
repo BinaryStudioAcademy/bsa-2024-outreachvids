@@ -1,6 +1,7 @@
-import { type Span, useItem } from 'dnd-timeline';
+import { type Span } from 'dnd-timeline';
 
 import { Box, Flex } from '~/bundles/common/components/components.js';
+import { useItem } from '~/bundles/common/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 

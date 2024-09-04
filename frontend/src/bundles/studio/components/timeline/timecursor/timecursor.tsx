@@ -1,11 +1,10 @@
-import { useTimelineContext } from 'dnd-timeline';
-
 import { Box } from '~/bundles/common/components/components.js';
 import {
     useCallback,
     useLayoutEffect,
     useRef as useReference,
     useState,
+    useTimelineContext,
 } from '~/bundles/common/hooks/hooks.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 

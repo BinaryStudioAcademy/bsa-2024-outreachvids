@@ -1,6 +1,5 @@
-import { useRow, useTimelineContext } from 'dnd-timeline';
-
 import { Box } from '~/bundles/common/components/components.js';
+import { useRow, useTimelineContext } from '~/bundles/common/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
