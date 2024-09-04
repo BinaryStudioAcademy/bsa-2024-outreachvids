@@ -27,9 +27,11 @@ export {
     Image,
     InputGroup,
     InputRightElement,
+    ListItem,
     SimpleGrid,
     Spacer,
     Text,
+    UnorderedList,
     VStack,
 } from '@chakra-ui/react';
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

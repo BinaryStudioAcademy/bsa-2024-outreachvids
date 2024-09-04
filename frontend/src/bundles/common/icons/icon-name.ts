@@ -1,6 +1,7 @@
 import {
     ArrowLeftIcon,
     ArrowRightIcon,
+    CheckCircleIcon,
     DownloadIcon,
     ViewIcon,
     ViewOffIcon,
@@ -41,6 +42,7 @@ const IconName = {
     TEMPLATE: faTableColumns,
     SCRIPT: faFont,
     TEXT: faT,
+    CHECK_CIRCLE: CheckCircleIcon,
 } as const;
 
 export { IconName };

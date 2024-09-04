@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
 import { AppRoute } from '~/bundles/common/enums/app-route.enum.js';
+import { CreateAvatar } from '~/bundles/create-avatar/pages/create-avatar.js';
 import { Home } from '~/bundles/home/pages/home.js';
 import { MyAvatar } from '~/bundles/my-avatar/pages/my-avatar.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
@@ -23,6 +24,10 @@ const protectedRoutes = {
         {
             path: AppRoute.MY_AVATAR,
             element: <MyAvatar />,
+        },
+        {
+            path: AppRoute.CREATE_AVATAR,
+            element: <CreateAvatar />,
         },
         {
             path: AppRoute.ANY,
