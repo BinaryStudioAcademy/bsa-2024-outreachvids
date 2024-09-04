@@ -19,6 +19,7 @@ import {
     generateMockRows,
 } from '~/bundles/studio/mocks/mock.helper.js';
 
+import styles from '../components/timeline/styles.module.css';
 import { Timeline } from '../components/timeline/timeline.js';
 import { VideoMenu } from '../components/video-menu/video-menu.js';
 
@@ -54,16 +55,7 @@ const Studio: React.FC = () => {
                 }
             />
             <VideoMenu />
-            <VStack
-                sx={{
-                    position: 'fixed',
-                    left: '0',
-                    bottom: '0',
-                    width: '100%',
-                    height: '180px',
-                    alignItems: 'stretch',
-                }}
-            >
+            <VStack className={styles['timeline']} alignItems={'stretch'}>
                 <Box>
                     <Timeline
                         initialRange={initialRange}
