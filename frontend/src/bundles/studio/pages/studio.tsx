@@ -27,7 +27,7 @@ const initialRange: Range = {
     start: timezoneOffset,
     end: minutesToMilliseconds(45) + timezoneOffset,
 };
-const initialRows: RowDefinition[] = generateMockRows(15);
+const initialRows: RowDefinition[] = generateMockRows(2);
 const initialItems: ItemDefinition[] = generateMockItems(
     10,
     initialRange,
