@@ -7,6 +7,7 @@ import {
     useRef as useReference,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = {
     interval?: number;
@@ -108,26 +109,12 @@ const TimeCursor: React.FC<Properties> = ({
     return (
         <Box
             ref={timeCursorReference}
-            height="100%"
-            width="5px"
-            zIndex={3}
-            backgroundColor="red"
-            position="absolute"
-            cursor="pointer"
+            className={styles['timeCursor']}
             role="button"
             tabIndex={0}
             onMouseDown={handleMouseDown}
         >
-            <Box
-                width={0}
-                height={0}
-                borderLeft="5px solid transparent"
-                borderRight="5px solid transparent"
-                borderBottom="5px solid red"
-                position="absolute"
-                top="-5px"
-                left="-2.5px"
-            />
+            <Box className={styles['timeCursorArrow']} />
         </Box>
     );
 };

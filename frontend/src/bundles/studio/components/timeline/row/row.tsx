@@ -1,6 +1,7 @@
 import { type RowDefinition, useRow } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
+import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = RowDefinition & {
     children: React.ReactNode;
@@ -17,6 +18,7 @@ const Row: React.FC<Properties> = ({
             <Box
                 ref={setNodeRef}
                 style={{ ...rowStyle, border: '1px solid black' }}
+                className={styles['row']}
             >
                 {children}
             </Box>

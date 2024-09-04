@@ -5,6 +5,7 @@ import {
     useTimelineContext,
 } from 'dnd-timeline';
 
+import { Box } from '~/bundles/common/components/components.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
 import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
 
@@ -30,7 +31,7 @@ const TimelineView: React.FC<TimelineProperties> = ({
         [items, range],
     );
     return (
-        <div ref={setTimelineRef} style={style}>
+        <Box ref={setTimelineRef} style={style}>
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor />
 
@@ -51,7 +52,7 @@ const TimelineView: React.FC<TimelineProperties> = ({
                     ))}
                 </Row>
             ))}
-        </div>
+        </Box>
     );
 };
 

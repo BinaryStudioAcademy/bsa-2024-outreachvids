@@ -7,6 +7,7 @@ import {
     type Marker,
     type MarkerDefinition,
 } from '~/bundles/studio/helpers/time-axis-markers.js';
+import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = {
     markers: MarkerDefinition[];
@@ -62,10 +63,8 @@ const TimeAxis: React.FC<Properties> = ({
 
     return (
         <Box
+            className={styles['timeAxis']}
             style={{
-                height: '20px',
-                position: 'relative',
-                overflow: 'hidden',
                 [side === 'right' ? 'marginRight' : 'marginLeft']:
                     `${sidebarWidth}px`,
             }}
@@ -73,28 +72,21 @@ const TimeAxis: React.FC<Properties> = ({
             {computedMarkers.map((marker, index) => (
                 <Box
                     key={`${marker.sideDelta}-${index}`}
+                    className={styles['markerContainer']}
                     style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                        alignItems: 'flex-end',
-                        height: '100%',
                         [side]: `${marker.sideDelta}px`,
                     }}
                 >
                     <Box
+                        className={styles['markerLine']}
                         style={{
-                            width: '1px',
                             height: `${100 * marker.heightMultiplier}%`,
                         }}
                     />
                     {marker.label && (
                         <Box
+                            className={styles['markerLabel']}
                             style={{
-                                paddingLeft: '3px',
-                                alignSelf: 'flex-start',
                                 fontWeight: marker.heightMultiplier * 1000,
                             }}
                         >
