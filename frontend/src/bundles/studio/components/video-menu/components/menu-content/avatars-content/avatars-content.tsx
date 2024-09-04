@@ -1,8 +1,11 @@
 import {
+    Box,
     Fragment,
+    Loader,
     SimpleGrid,
     Text,
 } from '~/bundles/common/components/components.js';
+import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -15,8 +18,9 @@ import { AvatarCard } from './components/components.js';
 const AvatarsContent: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const { avatars } = useAppSelector(({ studio }) => ({
+    const { avatars, dataStatus } = useAppSelector(({ studio }) => ({
         avatars: studio.avatars.items,
+        dataStatus: studio.avatars.dataStatus,
     }));
 
     useEffect(() => {
@@ -28,18 +32,24 @@ const AvatarsContent: React.FC = () => {
             <Text variant="body1" mb="12px">
                 Public avatar
             </Text>
-            <SimpleGrid columns={3} spacingX="13px" spacingY="10px">
-                {avatars.map(({ id, styles }) => (
-                    <Fragment key={id}>
-                        {styles.map(({ style, imgUrl }) => (
-                            <AvatarCard
-                                key={`${id}-${style}`}
-                                preview={imgUrl}
-                            />
-                        ))}
-                    </Fragment>
-                ))}
-            </SimpleGrid>
+            {dataStatus === DataStatus.PENDING ? (
+                <Box mt="100px">
+                    <Loader />
+                </Box>
+            ) : (
+                <SimpleGrid columns={3} spacingX="13px" spacingY="10px">
+                    {avatars.map(({ id, styles }) => (
+                        <Fragment key={id}>
+                            {styles.map(({ style, imgUrl }) => (
+                                <AvatarCard
+                                    key={`${id}-${style}`}
+                                    preview={imgUrl}
+                                />
+                            ))}
+                        </Fragment>
+                    ))}
+                </SimpleGrid>
+            )}
         </>
     );
 };
