@@ -4,6 +4,8 @@ import { type RefObject } from 'react';
 import { Flex } from '~/bundles/common/components/components.js';
 import { VideoPreview } from '~/bundles/common/enums/enums.js';
 
+import { LandscapeStyle, PortraitStyle } from './styles/styles.js';
+
 type Properties = {
     orientation: 'landscape' | 'portrait';
     durationInFrames: number;
@@ -41,15 +43,11 @@ const Player = ({
                 compositionWidth={size.width}
                 compositionHeight={size.height}
                 fps={30}
-                style={{
-                    width:
-                        orientation === VideoPreview.LANDSCAPE ? '40%' : '10%',
-                    minWidth:
-                        orientation === VideoPreview.LANDSCAPE
-                            ? '400px'
-                            : '200px',
-                    objectFit: 'contain',
-                }}
+                style={
+                    orientation === VideoPreview.LANDSCAPE
+                        ? LandscapeStyle
+                        : PortraitStyle
+                }
             />
         </Flex>
     );
