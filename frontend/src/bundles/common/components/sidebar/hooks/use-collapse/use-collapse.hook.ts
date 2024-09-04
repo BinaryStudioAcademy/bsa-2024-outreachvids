@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
-
-import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppSelector,
+    useEffect,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import { MD } from './constants/constants.js';
