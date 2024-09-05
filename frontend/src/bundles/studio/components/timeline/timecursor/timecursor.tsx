@@ -1,5 +1,6 @@
 import { Box } from '~/bundles/common/components/components.js';
 import {
+    useAppSelector,
     useCallback,
     useLayoutEffect,
     useRef as useReference,
@@ -13,8 +14,12 @@ type Properties = {
 };
 
 const TimeCursor: React.FC<Properties> = ({ interval }) => {
+    const { isPlaying } = useAppSelector(({ studio }) => ({
+        isPlaying: studio.player.isPlaying,
+    }));
+
     const timeCursorReference = useReference<HTMLDivElement>(null);
-    const renderTimeReference = useReference(Date.now());
+    const renderTimeReference = useReference(0);
     const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
         useTimelineContext();
 
@@ -34,13 +39,24 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
             const sideDelta = sidebarWidth + timeDeltaInPixels;
             timeCursorReference.current.style[side] = `${sideDelta}px`;
         };
-        offsetCursor();
-        const cursorUpdateInterval = setInterval(
-            offsetCursor,
-            interval ?? millisecondPerRefresh,
-        );
+
+        let cursorUpdateInterval: NodeJS.Timeout | null = null;
+
+        if (isPlaying) {
+            renderTimeReference.current = Date.now();
+
+            offsetCursor();
+
+            cursorUpdateInterval = setInterval(
+                offsetCursor,
+                interval ?? millisecondPerRefresh,
+            );
+        }
+
         return () => {
-            clearInterval(cursorUpdateInterval);
+            if (cursorUpdateInterval) {
+                clearInterval(cursorUpdateInterval);
+            }
         };
     }, [
         side,
@@ -51,6 +67,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
         cursorPosition,
         renderTimeReference,
         timeCursorReference,
+        isPlaying,
     ]);
 
     useLayoutEffect(() => {
