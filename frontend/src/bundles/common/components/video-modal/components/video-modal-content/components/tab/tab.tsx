@@ -1,5 +1,10 @@
-import { Icon, Tab as ChakraTab, Text } from '@chakra-ui/react';
 import { type ElementType } from 'react';
+
+import {
+    Icon,
+    Tab as ChakraTab,
+    Text,
+} from '~/bundles/common/components/components.js';
 
 type Properties = {
     label: string;

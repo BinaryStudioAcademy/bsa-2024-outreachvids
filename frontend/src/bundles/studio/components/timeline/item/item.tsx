@@ -1,6 +1,7 @@
 import { type Span, useItem } from 'dnd-timeline';
 
 import { Box, Flex } from '~/bundles/common/components/components.js';
+import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = {
     id: string;
@@ -18,20 +19,7 @@ const Item: React.FC<Properties> = ({ id, span, children }): JSX.Element => {
     return (
         <Box ref={setNodeRef} {...listeners} {...attributes} style={itemStyle}>
             <Box style={itemContentStyle}>
-                <Flex
-                    width="100%"
-                    overflow="hidden"
-                    margin="2px"
-                    borderRadius="15px"
-                    backgroundColor="lightblue"
-                    color="darkblue"
-                    textAlign="center"
-                    justifyContent="center"
-                    alignItems="center"
-                    height="100%"
-                >
-                    {children}
-                </Flex>
+                <Flex className={styles['item']}>{children}</Flex>
             </Box>
         </Box>
     );

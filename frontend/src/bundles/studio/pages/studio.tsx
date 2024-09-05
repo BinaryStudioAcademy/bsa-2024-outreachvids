@@ -24,11 +24,11 @@ import {
     Timeline,
     VideoMenu,
 } from '../components/components.js';
+import styles from './styles.module.css';
 
-const timezoneOffset = minutesToMilliseconds(new Date().getTimezoneOffset());
 const initialRange: Range = {
-    start: timezoneOffset,
-    end: minutesToMilliseconds(45) + timezoneOffset,
+    start: 0,
+    end: minutesToMilliseconds(2),
 };
 const initialRows: RowDefinition[] = generateMockRows(2);
 const initialItems: ItemDefinition[] = generateMockItems(
@@ -57,15 +57,7 @@ const Studio: React.FC = () => {
                 }
             />
             <VideoMenu />
-            <VStack
-                sx={{
-                    position: 'fixed',
-                    left: '0',
-                    bottom: '0',
-                    width: '100%',
-                    alignItems: 'stretch',
-                }}
-            >
+            <VStack className={styles['timeline']} alignItems={'stretch'}>
                 <PlayerControls />
                 <Box>
                     <Timeline

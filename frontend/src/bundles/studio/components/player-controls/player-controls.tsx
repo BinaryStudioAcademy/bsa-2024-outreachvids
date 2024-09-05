@@ -1,6 +1,6 @@
 import { Flex } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
-import { IconName } from '~/bundles/common/icons/icons.js';
+import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 
 import { Control, TimeDisplay } from './components/components.js';
 
@@ -26,20 +26,20 @@ const PlayerControls: React.FC = () => {
             <Flex alignItems="center" gap="11px" position="relative">
                 <Control
                     label="Skip to the previous scene"
-                    size="xs"
+                    size={IconSize.EXTRA_SMALL}
                     icon={IconName.PLAY_STEP_BACK}
                 />
 
                 <Control
                     label={isPlaying ? 'Pause' : 'Play video'}
-                    size="sm"
+                    size={IconSize.SMALL}
                     icon={isPlaying ? IconName.PAUSE : IconName.PLAY}
                     onClick={handleClick}
                 />
 
                 <Control
                     label="Skip to the next scene"
-                    size="xs"
+                    size={IconSize.EXTRA_SMALL}
                     icon={IconName.PLAY_STEP_NEXT}
                 />
 

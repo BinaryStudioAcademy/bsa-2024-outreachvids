@@ -1,5 +1,6 @@
+import { format, secondsToMilliseconds } from 'date-fns';
+
 import { Flex, Text } from '~/bundles/common/components/components.js';
-import { formatTime } from '~/bundles/common/helpers/helpers.js';
 
 type Properties = {
     currentTime: number;
@@ -10,13 +11,13 @@ const TimeDisplay: React.FC<Properties> = ({ currentTime, duration }) => {
     return (
         <Flex gap="2px" position="absolute" left="100%" marginLeft="15px">
             <Text color="typography.900" variant="caption">
-                {formatTime(currentTime)}
+                {format(new Date(secondsToMilliseconds(currentTime)), 'mm:ss')}
             </Text>
             <Text color="background.50" variant="caption">
                 /
             </Text>
             <Text color="background.50" variant="caption">
-                {formatTime(duration)}
+                {format(new Date(secondsToMilliseconds(duration)), 'mm:ss')}
             </Text>
         </Flex>
     );
