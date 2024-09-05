@@ -5,6 +5,8 @@ import {
     Heading,
 } from '~/bundles/common/components/components.js';
 
+import styles from './styles.module.css';
+
 type Properties = {
     title: string | React.ReactNode;
     children: React.ReactNode;
@@ -21,22 +23,7 @@ const MenuBody: React.FC<Properties> = ({
     return (
         <>
             {isOpen && (
-                <Box
-                    sx={{
-                        position: 'fixed',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        left: '100px',
-                        height: '72vh',
-                        width: '335px',
-                        padding: '12px 18px 0 18px',
-                        zIndex: 1000,
-                        borderRadius: '8px',
-                        boxShadow: 'lg',
-                        bg: 'background.900',
-                        color: 'white',
-                    }}
-                >
+                <Box bg="background.900" className={styles['menu-body']}>
                     <Flex
                         justifyContent="space-between"
                         alignItems="center"
@@ -45,17 +32,7 @@ const MenuBody: React.FC<Properties> = ({
                         <Heading variant="H3">{title}</Heading>
                         <CloseButton onClick={onClose} color="background.600" />
                     </Flex>
-                    <Box
-                        sx={{
-                            overflowY: 'auto',
-                            maxHeight: 'calc(100% - 65px)',
-                            msOverflowStyle: 'none',
-                            scrollbarWidth: 'none',
-                            '&::-webkit-scrollbar': {
-                                display: 'none',
-                            },
-                        }}
-                    >
+                    <Box className={styles['menu-body-content']}>
                         {children}
                     </Box>
                 </Box>
