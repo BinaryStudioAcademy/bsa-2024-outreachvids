@@ -2,8 +2,7 @@ import { Text } from '~/bundles/common/components/components.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { type TimelineItemWithSpan } from '~/bundles/studio/types/types.js';
 
-import { Item } from '../item/item.js';
-import { Row } from './row.js';
+import { Item, Row } from '../components.js';
 
 type Properties = {
     items: Array<TimelineItemWithSpan>;
