@@ -18,7 +18,7 @@ const Player = ({
     playerRef,
     VideoComponent,
 }: Properties): JSX.Element => {
-    const orientation = useAppSelector((state) => state.studio.videoSize);
+    const orientation = useAppSelector(({ studio }) => studio.videoSize);
 
     const size =
         orientation === VideoPreview.LANDSCAPE
