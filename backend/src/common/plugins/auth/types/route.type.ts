@@ -1,6 +1,8 @@
+import { type HttpMethod } from '~/common/http/http.js';
+
 type Route = {
-    path: string;
-    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+    path: string | RegExp;
+    method: HttpMethod;
 };
 
 export { type Route };

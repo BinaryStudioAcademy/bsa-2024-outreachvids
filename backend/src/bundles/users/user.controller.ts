@@ -3,8 +3,9 @@ import {
     type ApiHandlerResponse,
     BaseController,
 } from '~/common/controller/controller.js';
+import { type ApiHandlerOptions } from '~/common/controller/types/types.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode } from '~/common/http/http.js';
+import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
@@ -35,8 +36,15 @@ class UserController extends BaseController {
 
         this.addRoute({
             path: UsersApiPath.ROOT,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: () => this.findAll(),
+        });
+
+        this.addRoute({
+            path: UsersApiPath.CURRENT,
+            method: HTTPMethod.GET,
+            handler: (handlerOptions: ApiHandlerOptions) =>
+                this.getCurrent(handlerOptions),
         });
     }
 
@@ -62,6 +70,27 @@ class UserController extends BaseController {
         return {
             status: HttpCode.OK,
             payload: await this.userService.findAll(),
+        };
+    }
+    /**
+     * @swagger
+     * /users/current:
+     *    get:
+     *      description: Returns current authorized user
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                items:
+     *                  $ref: '#/components/schemas/User'
+     */
+    private getCurrent({ user }: ApiHandlerOptions): ApiHandlerResponse {
+        return {
+            status: HttpCode.OK,
+            payload: user,
         };
     }
 }

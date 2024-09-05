@@ -10,8 +10,8 @@ class VideoRepository implements Repository {
         this.videoModel = videoModel;
     }
 
-    public async find(videoId: string): Promise<VideoEntity | null> {
-        const video = await this.videoModel.query().findById(videoId).execute();
+    public async findById(id: string): Promise<VideoEntity | null> {
+        const video = await this.videoModel.query().findById(id).execute();
 
         return video ? VideoEntity.initialize(video) : null;
     }
@@ -38,21 +38,21 @@ class VideoRepository implements Repository {
     }
 
     public async update(
-        videoId: string,
+        id: string,
         payload: UpdateVideoRequestDto,
     ): Promise<VideoEntity | null> {
         const updatedItem = await this.videoModel
             .query()
-            .patchAndFetchById(videoId, payload)
+            .patchAndFetchById(id, payload)
             .execute();
 
         return updatedItem ? VideoEntity.initialize(updatedItem) : null;
     }
 
-    public async delete(videoId: string): Promise<boolean> {
+    public async delete(id: string): Promise<boolean> {
         const numberOfDeletedRows = await this.videoModel
             .query()
-            .deleteById(videoId)
+            .deleteById(id)
             .execute();
 
         return Boolean(numberOfDeletedRows);

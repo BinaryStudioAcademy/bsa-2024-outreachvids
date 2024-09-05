@@ -2,6 +2,7 @@ const colors = {
     white: '#ffffff',
     background: {
         900: '#0a0049',
+        700: '#231B59',
         600: '#35399a',
         300: '#3c9cf5',
         50: '#e2e1ec',

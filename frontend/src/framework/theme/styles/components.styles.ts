@@ -52,6 +52,13 @@ const components = {
                 fontWeight: '600',
                 lineHeight: '16px',
             },
+            title: {
+                color: colors.typography[900],
+                fontSize: '18px',
+                fontWeight: '700',
+                lineHeight: '27px',
+                marginBottom: '5px',
+            },
         },
     },
     Button: {
@@ -65,6 +72,13 @@ const components = {
                         bg: colors.brand.secondary[600],
                     },
                 },
+                _active: {
+                    bgColor: colors.brand.secondary[900],
+                },
+            },
+            gray: {
+                color: colors.typography[600],
+                bgColor: colors.background[50],
             },
             primaryOutlined: {
                 color: colors.background[300],
@@ -84,6 +98,18 @@ const components = {
                 _hover: {
                     color: colors.brand.secondary[300],
                 },
+            },
+            ghostIconDark: {
+                color: colors.background[300],
+                _hover: {
+                    color: colors.brand.secondary[300],
+                },
+            },
+            icon: {
+                color: colors.white,
+                bg: 'none',
+                _active: { bg: 'none' },
+                _hover: { bg: 'none' },
             },
         },
     },
@@ -106,6 +132,9 @@ const components = {
         },
     },
     Input: {
+        baseStyle: {
+            field: { fontSize: 'sm' },
+        },
         variants: {
             outline: {
                 field: {
@@ -130,6 +159,60 @@ const components = {
                     },
                 },
             },
+        },
+    },
+    Select: {
+        baseStyle: {
+            field: { fontSize: 'sm' },
+        },
+        variants: {
+            outline: {
+                field: {
+                    _hover: {
+                        cursor: 'pointer',
+                    },
+                    _focus: {
+                        borderWidth: '2px',
+                        borderColor: colors.brand.secondary[300],
+                        boxShadow: 'none',
+                    },
+                    _placeholder: {
+                        color: colors.typography[300],
+                    },
+                    _invalid: {
+                        borderWidth: '2px',
+                        borderColor: colors.brand.secondary[900],
+                        boxShadow: 'none',
+                    },
+                },
+            },
+        },
+    },
+    Textarea: {
+        baseStyle: {
+            fontSize: 'sm',
+        },
+        variants: {
+            outline: {
+                _focus: {
+                    borderWidth: '2px',
+                    borderColor: colors.brand.secondary[300],
+                    boxShadow: 'none',
+                },
+                _placeholder: {
+                    color: colors.typography[300],
+                },
+                _invalid: {
+                    borderWidth: '2px',
+                    borderColor: colors.brand.secondary[900],
+                    boxShadow: 'none',
+                },
+            },
+        },
+    },
+    FormLabel: {
+        baseStyle: {
+            fontSize: 'sm',
         },
     },
     FormError: {

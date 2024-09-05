@@ -1,13 +1,17 @@
-import { Icon, Tab as ChakraTab } from '@chakra-ui/react';
-import { type IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { type ElementType } from 'react';
+
+import {
+    Icon,
+    Tab as ChakraTab,
+    Text,
+} from '~/bundles/common/components/components.js';
 
 type Properties = {
     label: string;
-    icon: IconDefinition;
+    icon: ElementType;
 };
 
-const Tab = ({ label, icon }: Properties): JSX.Element => {
+const Tab: React.FC<Properties> = ({ label, icon }) => {
     return (
         <ChakraTab
             justifyContent="stretch"
@@ -15,13 +19,10 @@ const Tab = ({ label, icon }: Properties): JSX.Element => {
             textAlign="left"
             _selected={{ backgroundColor: 'gray.300' }}
         >
-            <Icon
-                as={FontAwesomeIcon}
-                icon={icon}
-                padding="5px"
-                height="16px"
-            />{' '}
-            {label}
+            <Icon as={icon} padding="5px" height="16px" />
+            <Text variant="bodySmall" color="typography.900">
+                {label}
+            </Text>
         </ChakraTab>
     );
 };
