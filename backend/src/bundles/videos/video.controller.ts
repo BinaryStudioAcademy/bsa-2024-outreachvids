@@ -106,9 +106,11 @@ class VideoController extends BaseController {
 
     /**
      * @swagger
-     * /videos:
+     * /videos/:
      *    get:
      *      description: Get all videos
+     *      security:
+     *       - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation
@@ -144,6 +146,8 @@ class VideoController extends BaseController {
      *            format: uuid
      *          description: The video id
      *      description: Get video by id
+     *      security:
+     *       - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation
@@ -173,9 +177,11 @@ class VideoController extends BaseController {
 
     /**
      * @swagger
-     * /videos:
+     * /videos/:
      *    post:
      *      description: Create new video
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: Video data
      *        required: true
@@ -226,6 +232,8 @@ class VideoController extends BaseController {
      *            format: uuid
      *          description: The video id
      *      description: Update video by id
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: Video data
      *        content:
@@ -285,6 +293,8 @@ class VideoController extends BaseController {
      *            format: uuid
      *          description: The video id
      *      description: Delete video by id
+     *      security:
+     *       - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation

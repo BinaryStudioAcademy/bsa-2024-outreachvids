@@ -1,8 +1,5 @@
-import { minutesToMilliseconds } from 'date-fns';
-import { useTimelineContext } from 'dnd-timeline';
-
 import { Box } from '~/bundles/common/components/components.js';
-import { useMemo } from '~/bundles/common/hooks/hooks.js';
+import { useMemo, useTimelineContext } from '~/bundles/common/hooks/hooks.js';
 import {
     type Marker,
     type MarkerDefinition,
@@ -13,9 +10,7 @@ type Properties = {
     markers: MarkerDefinition[];
 };
 
-const TimeAxis: React.FC<Properties> = ({
-    markers,
-}: Properties): JSX.Element => {
+const TimeAxis: React.FC<Properties> = ({ markers }) => {
     const { range, direction, sidebarWidth, valueToPixels } =
         useTimelineContext();
     const side = direction === 'rtl' ? 'right' : 'left';
@@ -53,14 +48,11 @@ const getComputedMarkers = (
     const rangeSize = range.end - range.start;
     const startTime = Math.floor(range.start / delta) * delta;
     const endTime = range.end;
-    const timezoneOffset = minutesToMilliseconds(
-        new Date().getTimezoneOffset(),
-    );
     const markerSideDeltas: Marker[] = [];
 
     for (let time = startTime; time <= endTime; time += delta) {
         const multiplierIndex = sortedMarkers.findIndex((marker) => {
-            const timeOffset = (time - timezoneOffset) % marker.value === 0;
+            const timeOffset = time % marker.value === 0;
             const isWithinMaxRange =
                 !marker.maxRangeSize || rangeSize <= marker.maxRangeSize;
             const isWithinMinRange =

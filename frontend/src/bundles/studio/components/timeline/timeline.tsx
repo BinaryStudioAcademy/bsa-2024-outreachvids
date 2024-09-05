@@ -1,72 +1,139 @@
 import {
     type DragEndEvent,
-    type ItemDefinition,
+    type DragMoveEvent,
     type Range,
     type ResizeEndEvent,
-    type RowDefinition,
     TimelineContext,
 } from 'dnd-timeline';
 
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
+import {
+    getDestinationPointerValue,
+    getNewItemIndexBySpan,
+    reorderItemsByIndexes,
+    setItemsSpan,
+} from '~/bundles/studio/helpers/helpers.js';
+import {
+    type DestinationPointer,
+    type RowType,
+    type TimelineRows,
+} from '~/bundles/studio/types/types.js';
 
 import { TimelineView } from './components.js';
 
 type Properties = {
     initialRange: Range;
-    initialRows: RowDefinition[];
-    initialItems: ItemDefinition[];
+    initialItems: TimelineRows;
 };
 
-const Timeline: React.FC<Properties> = ({
-    initialRange,
-    initialRows,
-    initialItems,
-}): JSX.Element => {
+const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
     const [range, setRange] = useState(initialRange);
-    const [items, setItems] = useState(initialItems);
-    const rows = initialRows;
+    const [items, setItems] = useState(setItemsSpan(initialItems));
+    const [destinationPointer, setDestinationPointer] =
+        useState<DestinationPointer | null>(null);
+
     const onResizeEnd = useCallback((event: ResizeEndEvent) => {
-        const updatedSpan =
-            event.active.data.current.getSpanFromResizeEvent?.(event);
+        const activeItem = event.active.data.current;
+        const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
 
         if (!updatedSpan) {
             return;
         }
 
         const activeItemId = event.active.id;
+        const activeItemType = activeItem['type'] as RowType;
+
+        if (activeItemType === RowNames.SCRIPT) {
+            return;
+        }
 
         setItems((previous) =>
-            previous.map((item) => {
-                return item.id === activeItemId
-                    ? { ...item, span: updatedSpan }
-                    : item;
+            setItemsSpan({
+                ...previous,
+                [activeItemType]: previous[activeItemType].map((item) => {
+                    if (item.id !== activeItemId) {
+                        return item;
+                    }
+
+                    return {
+                        ...item,
+                        duration: updatedSpan.end - updatedSpan.start,
+                    };
+                }),
             }),
         );
     }, []);
+
+    const onDragMove = useCallback(
+        (event: DragMoveEvent) => {
+            const activeItem = event.active.data.current;
+
+            const activeRowId = event.over?.id as string;
+            const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
+
+            if (!updatedSpan || !activeRowId) {
+                return;
+            }
+
+            const activeItemType = activeItem['type'] as RowType;
+            const activeRowItems = items[activeItemType];
+
+            const previousActiveItemIndex = activeRowItems.findIndex(
+                (item) => item.id === event.active.id,
+            );
+
+            const newActiveItemIndex = getNewItemIndexBySpan(
+                updatedSpan,
+                activeRowItems,
+            );
+
+            setDestinationPointer({
+                type: activeItemType,
+                value: getDestinationPointerValue({
+                    oldIndex: previousActiveItemIndex,
+                    newIndex: newActiveItemIndex,
+                    items: activeRowItems,
+                }),
+            });
+        },
+        [items],
+    );
+
     const onDragEnd = useCallback((event: DragEndEvent) => {
+        setDestinationPointer(null);
+
+        const activeItem = event.active.data.current;
+
         const activeRowId = event.over?.id as string;
-        const updatedSpan =
-            event.active.data.current.getSpanFromDragEvent?.(event);
+        const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
 
         if (!updatedSpan || !activeRowId) {
             return;
         }
 
-        const activeItemId = event.active.id;
+        setItems((previousItems) => {
+            const activeItemType = activeItem['type'] as RowType;
+            const activeRowItems = previousItems[activeItemType];
 
-        setItems((previous) =>
-            previous.map((item) => {
-                if (item.id !== activeItemId) {
-                    return item;
-                }
+            const previousActiveItemIndex = activeRowItems.findIndex(
+                (item) => item.id === event.active.id,
+            );
 
-                return {
-                    ...item,
-                    rowId: activeRowId,
-                    span: updatedSpan,
-                };
-            }),
-        );
+            const newActiveItemIndex = getNewItemIndexBySpan(
+                updatedSpan,
+                activeRowItems,
+            );
+
+            return setItemsSpan({
+                ...previousItems,
+                [activeItemType]: reorderItemsByIndexes({
+                    oldIndex: previousActiveItemIndex,
+                    newIndex: newActiveItemIndex,
+                    items: activeRowItems,
+                }),
+            });
+        });
     }, []);
 
     return (
@@ -75,8 +142,12 @@ const Timeline: React.FC<Properties> = ({
             onDragEnd={onDragEnd}
             onResizeEnd={onResizeEnd}
             onRangeChanged={setRange}
+            onDragMove={onDragMove}
         >
-            <TimelineView items={items} rows={rows} />
+            <TimelineView
+                items={items}
+                destinationPointer={destinationPointer}
+            />
         </TimelineContext>
     );
 };
