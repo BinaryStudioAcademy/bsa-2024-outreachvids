@@ -28,7 +28,6 @@
         "eslint-plugin-react-hooks": "4.6.2",
         "postcss": "8.4.41",
         "vite": "5.4.0",
-        "date-fns": "3.6.0",
         "vite-plugin-pwa": "0.20.1",
         "workbox-core": "7.1.0"
     },
@@ -44,6 +43,8 @@
         "dnd-timeline": "2.0.0",
         "@remotion/media-utils": "4.0.201",
         "@remotion/player": "4.0.201",
+        "date-fns": "3.6.0",
+        "dnd-timeline": "2.0.0",
         "formik": "2.4.6",
         "framer-motion": "11.3.24",
         "react": "18.3.1",

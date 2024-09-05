@@ -1,7 +1,9 @@
 import {
+    faBackwardStep,
     faCircleUser,
     faCloudArrowDown,
     faFileLines,
+    faForwardStep,
     faHouse,
     faPause,
     faPlay,
@@ -15,21 +17,28 @@ import { iconConverter } from './icon-converter.helper.js';
 const HouseIcon = iconConverter(faHouse);
 const RightFromBracketIcon = iconConverter(faRightFromBracket);
 const CircleUserIcon = iconConverter(faCircleUser);
-const CloudArrowDown = iconConverter(faCloudArrowDown);
-const Pause = iconConverter(faPause);
-const Play = iconConverter(faPlay);
-const VolumeHigh = iconConverter(faVolumeHigh);
-const VolumeOff = iconConverter(faVolumeOff);
-const FileLines = iconConverter(faFileLines);
+const backwardStepIcon = iconConverter(faBackwardStep);
+const forwardStepIcon = iconConverter(faForwardStep);
+const pauseIcon = iconConverter(faPause);
+const playIcon = iconConverter(faPlay);
+const fileLinesIcon = iconConverter(faFileLines);
+
+const CloudArrowDownIcon = iconConverter(faCloudArrowDown);
+const VolumeHighIcon = iconConverter(faVolumeHigh);
+const VolumeOffIcon = iconConverter(faVolumeOff);
+const FileLinesIcon = iconConverter(faFileLines);
 
 export {
+    backwardStepIcon,
     CircleUserIcon,
-    CloudArrowDown,
-    FileLines,
+    CloudArrowDownIcon,
+    FileLinesIcon,
+    fileLinesIcon,
+    forwardStepIcon,
     HouseIcon,
-    Pause,
-    Play,
+    pauseIcon,
+    playIcon,
     RightFromBracketIcon,
-    VolumeHigh,
-    VolumeOff,
+    VolumeHighIcon,
+    VolumeOffIcon,
 };

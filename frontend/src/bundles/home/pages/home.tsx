@@ -1,13 +1,18 @@
-import { Box, Header } from '~/bundles/common/components/components.js';
+import {
+    Box,
+    Header,
+    Sidebar,
+} from '~/bundles/common/components/components.js';
 
 import { MainContent } from '../components/components.js';
 
 const Home: React.FC = () => {
     return (
-        <Box bg="background.900" height="100vh">
+        <Box bg="background.900" minHeight="100vh" overflow="auto">
             <Header />
-            {/* Sidebar */}
-            <MainContent />
+            <Sidebar>
+                <MainContent />
+            </Sidebar>
         </Box>
     );
 };

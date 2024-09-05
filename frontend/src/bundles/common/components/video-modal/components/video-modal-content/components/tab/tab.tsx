@@ -1,14 +1,14 @@
+import { type ElementType } from 'react';
+
 import {
-    type ComponentWithAs,
-    type IconProps,
     Icon,
     Tab as ChakraTab,
     Text,
-} from '@chakra-ui/react';
+} from '~/bundles/common/components/components.js';
 
 type Properties = {
     label: string;
-    icon: ComponentWithAs<'svg', IconProps>;
+    icon: ElementType;
 };
 
 const Tab: React.FC<Properties> = ({ label, icon }) => {

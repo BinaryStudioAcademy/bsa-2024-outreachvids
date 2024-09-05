@@ -1,0 +1,6 @@
+.overlay {
+    z-index: 101;
+    position: fixed;
+    top: 0;
+    right: 0;
+}

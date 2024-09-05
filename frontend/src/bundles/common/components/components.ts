@@ -40,7 +40,9 @@ export {
     SliderTrack,
     Spacer,
     Stack,
+    Tab,
     Text,
+    Tooltip,
     VStack,
 } from '@chakra-ui/react';
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
