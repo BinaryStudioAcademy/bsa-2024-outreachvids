@@ -6,7 +6,7 @@ import { type Script } from '../types/studio.type.js';
 type State = {
     player: {
         isPlaying: boolean;
-        elapsedTime: number; // in seconds
+        elapsedTime: number; // ms
     };
     scripts: Array<Script>;
 };

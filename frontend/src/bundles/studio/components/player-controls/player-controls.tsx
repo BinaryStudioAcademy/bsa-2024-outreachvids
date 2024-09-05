@@ -11,7 +11,6 @@ import { Control, TimeDisplay } from './components/components.js';
 
 const PlayerControls: React.FC = () => {
     // Mocked data. Update later
-    const currentTime = 5;
     const duration = 10;
 
     const dispatch = useAppDispatch();
@@ -51,7 +50,7 @@ const PlayerControls: React.FC = () => {
                     icon={IconName.PLAY_STEP_NEXT}
                 />
 
-                <TimeDisplay currentTime={currentTime} duration={duration} />
+                <TimeDisplay duration={duration} />
             </Flex>
         </Flex>
     );
