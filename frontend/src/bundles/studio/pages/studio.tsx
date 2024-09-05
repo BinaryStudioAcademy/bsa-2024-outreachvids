@@ -19,8 +19,11 @@ import {
     generateMockRows,
 } from '~/bundles/studio/mocks/mock.helper.js';
 
-import { Timeline } from '../components/timeline/timeline.js';
-import { VideoMenu } from '../components/video-menu/video-menu.js';
+import {
+    PlayerControls,
+    Timeline,
+    VideoMenu,
+} from '../components/components.js';
 import styles from './styles.module.css';
 
 const initialRange: Range = {
@@ -55,6 +58,7 @@ const Studio: React.FC = () => {
             />
             <VideoMenu />
             <VStack className={styles['timeline']} alignItems={'stretch'}>
+                <PlayerControls />
                 <Box>
                     <Timeline
                         initialRange={initialRange}
