@@ -40,7 +40,6 @@
         "@fortawesome/free-solid-svg-icons": "6.6.0",
         "@fortawesome/react-fontawesome": "0.2.2",
         "@reduxjs/toolkit": "2.2.7",
-        "dnd-timeline": "2.0.0",
         "@remotion/media-utils": "4.0.201",
         "@remotion/player": "4.0.201",
         "date-fns": "3.6.0",
