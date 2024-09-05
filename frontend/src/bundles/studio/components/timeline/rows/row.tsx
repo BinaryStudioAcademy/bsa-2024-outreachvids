@@ -1,5 +1,8 @@
 import { Box } from '~/bundles/common/components/components.js';
-import { useRow, useTimelineContext } from '~/bundles/common/hooks/hooks.js';
+import {
+    useTimelineContext,
+    useTimelineRow,
+} from '~/bundles/common/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
@@ -19,7 +22,7 @@ const Row: React.FC<Properties> = ({
     style = {},
 }) => {
     const { valueToPixels } = useTimelineContext();
-    const { setNodeRef, rowWrapperStyle, rowStyle } = useRow({
+    const { setNodeRef, rowWrapperStyle, rowStyle } = useTimelineRow({
         id,
         data: { type },
     });

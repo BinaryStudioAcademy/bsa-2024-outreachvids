@@ -1,7 +1,7 @@
 import { type Span } from 'dnd-timeline';
 
 import { Box, Flex } from '~/bundles/common/components/components.js';
-import { useItem } from '~/bundles/common/hooks/hooks.js';
+import { useTimelineItem } from '~/bundles/common/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
@@ -20,7 +20,7 @@ const Item: React.FC<Properties> = ({ id, type, span, children }) => {
         itemStyle,
         itemContentStyle,
         isDragging,
-    } = useItem({
+    } = useTimelineItem({
         id,
         span,
         data: { type },
