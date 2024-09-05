@@ -1,11 +1,10 @@
-import { useTimelineContext } from 'dnd-timeline';
-
 import { Box } from '~/bundles/common/components/components.js';
 import {
     useCallback,
     useLayoutEffect,
     useRef as useReference,
     useState,
+    useTimelineContext,
 } from '~/bundles/common/hooks/hooks.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
@@ -13,9 +12,7 @@ type Properties = {
     interval?: number;
 };
 
-const TimeCursor: React.FC<Properties> = ({
-    interval,
-}: Properties): JSX.Element => {
+const TimeCursor: React.FC<Properties> = ({ interval }) => {
     const timeCursorReference = useReference<HTMLDivElement>(null);
     const renderTimeReference = useReference(Date.now());
     const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
