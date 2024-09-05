@@ -4,10 +4,16 @@ import { type PayloadAction } from '@reduxjs/toolkit';
 import { type Script } from '../types/studio.type.js';
 
 type State = {
+    player: {
+        isPlaying: boolean;
+    };
     scripts: Array<Script>;
 };
 
 const initialState: State = {
+    player: {
+        isPlaying: false,
+    },
     scripts: [],
 };
 
@@ -34,6 +40,10 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.filter(
                 (script) => script.id !== action.payload,
             );
+        },
+
+        setPlaying(state, action: PayloadAction<boolean>) {
+            state.player.isPlaying = action.payload;
         },
     },
 });
