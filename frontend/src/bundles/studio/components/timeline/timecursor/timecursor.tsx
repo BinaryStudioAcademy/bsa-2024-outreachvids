@@ -8,6 +8,7 @@ import {
     useState,
     useTimelineContext,
 } from '~/bundles/common/hooks/hooks.js';
+import { MILLISECONDS_PER_REFRESH } from '~/bundles/studio/constants/constants.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
@@ -28,7 +29,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
         useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
-    const millisecondPerRefresh = 16;
+
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
@@ -59,7 +60,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
 
             cursorUpdateInterval = setInterval(
                 offsetCursor,
-                interval ?? millisecondPerRefresh,
+                interval ?? MILLISECONDS_PER_REFRESH,
             );
         }
 
