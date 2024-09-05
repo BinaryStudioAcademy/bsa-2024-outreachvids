@@ -10,6 +10,7 @@ import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { chatApi } from '~/bundles/chat/chat.js';
 import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
+import { reducer as studioReducer } from '~/bundles/studio/store/studio.js';
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { storage } from '~/framework/storage/storage.js';
@@ -18,6 +19,7 @@ import { errorMiddleware } from '../../bundles/common/middlewares/error-handling
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
+    studio: ReturnType<typeof studioReducer>;
     chat: ReturnType<typeof chatReducer>;
 };
 
@@ -42,6 +44,7 @@ class Store {
             devTools: config.ENV.APP.ENVIRONMENT !== AppEnvironment.PRODUCTION,
             reducer: {
                 auth: authReducer,
+                studio: studioReducer,
                 chat: chatReducer,
             },
             middleware: (getDefaultMiddleware) => {
