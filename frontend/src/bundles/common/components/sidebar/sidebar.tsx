@@ -51,8 +51,8 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     }, [navigate, dispatch]);
 
     return (
-        <Flex className={styles['sidebar']}>
-            <Flex className={styles['sidebarContainer']}>
+        <Flex w="100%">
+            <Flex w={isCollapsed ? '60px' : '270px'} className={styles['sidebarContainer']}>
                 <IconButton
                     aria-label={isCollapsed ? 'expand' : 'collapse'}
                     icon={
