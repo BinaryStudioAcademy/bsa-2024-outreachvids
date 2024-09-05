@@ -1,5 +1,12 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type AvatarGetAllResponseDto,
+    type AvatarGetOneRequestDto,
+    type AvatarGetResponseDto,
+    AvatarsApiPath,
+    AvatarValidationMessage,
+} from './bundles/avatars/avatars.js';
+export {
     type DeleteChatResponseDto,
     type GenerateTextRequestDto,
     type GenerateTextResponseDto,

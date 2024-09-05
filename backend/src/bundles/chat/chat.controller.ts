@@ -65,6 +65,8 @@ class ChatController extends BaseController {
      * /chat/:
      *    post:
      *      description: Returns generated text by Open AI
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: User message
      *        required: true
@@ -127,6 +129,8 @@ class ChatController extends BaseController {
      * /chat/:
      *    delete:
      *      description: Clears chat history
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: User message
      *        required: false

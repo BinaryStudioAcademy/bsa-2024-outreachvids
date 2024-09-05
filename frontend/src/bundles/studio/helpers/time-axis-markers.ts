@@ -65,10 +65,9 @@ const timeAxisMarkers: MarkerDefinition[] = [
         getLabel: (date: Date) => format(date, 'mm:ss'),
     },
     {
-        value: 1000,
+        value: secondsToMilliseconds(10),
         maxRangeSize: minutesToMilliseconds(10),
-        minRangeSize: minutesToMilliseconds(1),
-        getLabel: (date: Date) => format(date, 's'),
+        getLabel: (date: Date) => format(date, 'mm:ss'),
     },
 ];
 
