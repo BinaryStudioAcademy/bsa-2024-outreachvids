@@ -9,7 +9,7 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
-import { IconName } from '~/bundles/common/icons/icon-name.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Script } from './components/script.js';
