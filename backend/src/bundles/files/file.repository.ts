@@ -1,5 +1,6 @@
 import { FileEntity } from '~/bundles/files/file.entity.js';
 import { type FileModel } from '~/bundles/files/file.model.js';
+import { type FileType } from '~/bundles/files/types/types.js';
 import { type Repository } from '~/common/types/types.js';
 
 class FilesRepository implements Repository {
@@ -19,7 +20,7 @@ class FilesRepository implements Repository {
 
     public async create(payload: {
         url: string;
-        type: 'video' | 'photo';
+        type: FileType;
     }): Promise<FileEntity> {
         const newFile = await this.fileModel
             .query()

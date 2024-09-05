@@ -1,3 +1,4 @@
+export { Animated404 } from './animated404/animated404.js';
 export { Button } from './button/button.js';
 export { Header } from './header/header.js';
 export { Input } from './input/input.js';
@@ -5,6 +6,7 @@ export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
+export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';
 export { Sidebar } from './sidebar/sidebar.js';
@@ -35,4 +37,4 @@ export {
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { FormikProvider as FormProvider } from 'formik';
 export { Provider as StoreProvider } from 'react-redux';
-export { Outlet as RouterOutlet } from 'react-router-dom';
+export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';

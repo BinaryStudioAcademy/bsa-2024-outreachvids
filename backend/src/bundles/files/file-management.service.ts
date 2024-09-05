@@ -2,6 +2,9 @@ import { type FileEntity } from '~/bundles/files/file.entity.js';
 import { type FilesRepository } from '~/bundles/files/file.repository.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 
+import { FileErrorMessage } from './enums/enums.js';
+import { type FileType } from './types/types.js';
+
 class FileManagementService {
     private filesRepository: FilesRepository;
 
@@ -9,12 +12,12 @@ class FileManagementService {
         this.filesRepository = filesRepository;
     }
 
-    private determineFileType(fileName: string): 'video' | 'photo' {
+    private determineFileType(fileName: string): FileType {
         const extension = fileName.split('.').pop()?.toLowerCase();
 
         if (!extension) {
             throw new HttpError({
-                message: 'Unable to determine file type: No extension found',
+                message: FileErrorMessage.NO_EXTENSION,
                 status: HttpCode.INTERNAL_SERVER_ERROR,
             });
         }
@@ -28,7 +31,7 @@ class FileManagementService {
             return 'video';
         } else {
             throw new HttpError({
-                message: 'Unsupported file type',
+                message: FileErrorMessage.UNSUPPORTED_FILE,
                 status: HttpCode.UNSUPPORTED_MEDIA_TYPE,
             });
         }
