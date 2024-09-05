@@ -3,6 +3,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
 
+import styles from '../../../../video-modal.module.css';
 import {
     VideoPreview as VideoPreviewValues,
     VideoSizeLabel,
@@ -23,29 +24,18 @@ const VideoPreview: React.FC = () => {
     }, []);
 
     return (
-        <Flex flexDirection="column" alignItems="center">
+        <Flex className={styles['previewContainer']}>
             <Flex
-                width={view === VideoPreviewValues.PORTRAIT ? '250px' : '720px'}
-                height="444px"
-                borderWidth="1px"
-                borderColor="gray.300"
-                borderRadius="md"
-                justifyContent="center"
-                alignItems="center"
-                mb={4}
+                className={styles['previewBox']}
+                style={{ width: view === VideoPreviewValues.PORTRAIT ? '250px' : '720px' }}
             >
-                <Flex
-                    flexDirection="column"
-                    alignItems="center"
-                    color="gray.400"
-                >
+                <Flex className={styles['previewInnerBox']}>
                     <Icon
                         as={FontAwesomeIcon}
                         icon={faPlay}
-                        padding="5px"
-                        height="16px"
+                        className={styles['previewIcon']}
                     />
-                    <Text color="gray.400">
+                    <Text className={styles['previewText']}>
                         {view === VideoPreviewValues.PORTRAIT
                             ? VideoSizeLabel.PORTRAIT
                             : VideoSizeLabel.LANDSCAPE}
@@ -53,20 +43,16 @@ const VideoPreview: React.FC = () => {
                 </Flex>
             </Flex>
 
-            <Flex justifyContent="center" gap={4}>
+            <Flex className={styles['previewButtonContainer']}>
                 <Button
-                    backgroundColor="brand.secondary.300"
-                    color="white"
+                    className={styles['previewButton']}
                     onMouseEnter={handleSetLandscapeView}
-                    _hover={{ bg: 'brand.secondary.600' }}
                 >
                     Use landscape
                 </Button>
                 <Button
-                    backgroundColor="brand.secondary.300"
-                    color="white"
+                    className={styles['button']}
                     onMouseEnter={handleSetPortraitView}
-                    _hover={{ bg: 'brand.secondary.600' }}
                 >
                     Use portrait
                 </Button>

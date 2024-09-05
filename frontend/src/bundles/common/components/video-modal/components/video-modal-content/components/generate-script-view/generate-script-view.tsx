@@ -11,6 +11,7 @@ import {
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/video-scripts.js';
 
+import styles from '../../../../video-modal.module.css';
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
 
@@ -25,38 +26,25 @@ const GenerateScriptView: React.FC = () => {
 
     return (
         <>
-            <Heading
-                color="typography.900"
-                variant="H3"
-                padding="33px 0px 20px"
-            >
+            <Heading className={styles['scriptViewHeading']} variant="H3">
                 Use Open AI to draft your video script
             </Heading>
             <Tabs variant="unstyled" size="sm">
-                <TabList
-                    w="max-content"
-                    bgColor="gray.100"
-                    borderWidth="1px"
-                    borderRadius="md"
-                    p={1}
-                    gap="10px"
-                >
+                <TabList className={styles['scriptViewTabList']}>
                     <Tab
-                        borderRadius="md"
+                        className={styles['scriptViewTab']}
                         _selected={{
                             color: 'brand.secondary.600',
                             bg: 'white',
                             boxShadow: 'md',
                         }}
-                        px={4}
-                        py={1}
                     >
                         Topic Input
                     </Tab>
                 </TabList>
                 <TabPanels>
-                    <TabPanel p={0}>
-                        <HStack justify="space-between">
+                    <TabPanel className={styles['scriptViewTabPanel']}>
+                        <HStack className={styles['scriptViewHStack']}>
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />
