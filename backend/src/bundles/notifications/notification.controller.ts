@@ -91,9 +91,11 @@ class NotificationController extends BaseController {
 
     /**
      * @swagger
-     * /api/v1/notifications/unread:
+     * /notifications/unread:
      *    get:
      *      description: Get all unread notifications
+     *      security:
+     *       - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation
@@ -117,9 +119,11 @@ class NotificationController extends BaseController {
 
     /**
      * @swagger
-     * /api/v1/notifications/:
+     * /notifications/:
      *    post:
      *      description: Create new notification
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: Notification data
      *        required: true
@@ -158,7 +162,7 @@ class NotificationController extends BaseController {
 
     /**
      * @swagger
-     * /api/v1/notifications/{id}:
+     * /notifications/{id}:
      *    patch:
      *      parameters:
      *        - in: path
@@ -169,6 +173,8 @@ class NotificationController extends BaseController {
      *            format: uuid
      *          description: The notification id
      *      description: Update notification by id
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: Notification data
      *        content:
