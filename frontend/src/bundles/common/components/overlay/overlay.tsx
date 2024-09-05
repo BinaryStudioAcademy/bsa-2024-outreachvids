@@ -1,5 +1,7 @@
 import { Fade, Flex } from '@chakra-ui/react';
 
+import styles from './styles.module.css';
+
 type Properties = {
     isOpen: boolean;
     children: React.ReactNode;
@@ -7,15 +9,14 @@ type Properties = {
 
 const Overlay = ({ isOpen, children }: Properties): JSX.Element => {
     return (
-        <Fade in={isOpen}>
+        <Fade in={isOpen} hidden={!isOpen} className={styles['overlay']}>
             <Flex
-                width="full"
-                height="full"
-                position="absolute"
                 background="shadow.700"
                 color="white"
                 justifyContent="center"
                 alignItems="center"
+                width="100vw"
+                height="100vh"
             >
                 {children}
             </Flex>
