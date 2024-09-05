@@ -7,6 +7,7 @@ import {
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { VideoMenu } from '../components/video-menu/video-menu.js';
+import styles from './Studio.module.css';
 
 const Studio: React.FC = () => {
     return (
@@ -16,7 +17,7 @@ const Studio: React.FC = () => {
                     <Button
                         variant="primaryOutlined"
                         label="Resize"
-                        sx={{ width: '135px' }}
+                        className={styles['resizeButton']}
                     />
                 }
                 right={
