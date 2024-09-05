@@ -11,35 +11,23 @@ import {
 } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
+import styles from './video-card.module.css';
+
 const VideoCard: React.FC = () => {
     return (
-        <Box borderRadius="8px" bg="white" padding="7px">
-            <Box position="relative" role="group">
-                <Image src={photo} alt="Video preview" borderRadius="5px" />
+        <Box className={styles['container']}>
+            <Box className={styles['imageContainer']} role="group">
+                <Image src={photo} alt="Video preview" className={styles['image']} />
 
                 {/* Overlay effect */}
                 <Box
-                    position="absolute"
-                    top="0"
-                    left="0"
-                    width="100%"
-                    height="100%"
-                    bg="rgba(53, 57, 154, 0.3)"
-                    opacity="0"
-                    transition="opacity 0.3s ease"
+                    className={styles['overlay']}
                     _groupHover={{ opacity: 1 }}
-                    borderRadius="5px"
                 />
 
                 <IconButton
                     aria-label="Video options"
-                    position="absolute"
-                    bg="white"
-                    top="5px"
-                    right="5px"
-                    size="xs"
-                    opacity="0"
-                    transition="opacity 0.3s ease"
+                    className={`${styles['iconButton']} ${styles['iconButtonTopRight']}`}
                     _groupHover={{ opacity: 1 }}
                     icon={
                         <Icon
@@ -53,14 +41,7 @@ const VideoCard: React.FC = () => {
                 <IconButton
                     aria-label="Edit video"
                     isRound={true}
-                    size="lg"
-                    position="absolute"
-                    bg="white"
-                    top="50%"
-                    left="calc(50% - 12.5px)"
-                    transform="translate(-50%, -50%)"
-                    opacity="0"
-                    transition="opacity 0.3s ease"
+                    className={`${styles['iconButton']} ${styles['iconButtonCenter']}`}
                     _groupHover={{ opacity: 1 }}
                     icon={
                         <Icon
@@ -72,15 +53,15 @@ const VideoCard: React.FC = () => {
                 />
             </Box>
 
-            <Box padding="7px 10px 5px 5px">
-                <Text variant="button" color="typography.900">
+            <Box className={styles['textContainer']}>
+                <Text variant="button" className={styles['textButton']}>
                     Video Name
                 </Text>
                 <Flex justify="space-between">
-                    <Text variant="caption" color="typography.300">
+                    <Text variant="caption" className={styles['textCaption']}>
                         Aug 9, 2024, 1:24 PM
                     </Text>
-                    <Text variant="caption" color="typography.300">
+                    <Text variant="caption" className={styles['textCaption']}>
                         0,30 sec
                     </Text>
                 </Flex>

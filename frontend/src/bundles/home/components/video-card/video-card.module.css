@@ -1,0 +1,57 @@
+.container {
+    border-radius: 8px;
+    background-color: white;
+    padding: 7px;
+}
+
+.imageContainer {
+    position: relative;
+}
+
+.image {
+    border-radius: 5px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(53, 57, 154, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+}
+
+.iconButton {
+    position: absolute;
+    background-color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.iconButtonTopRight {
+    top: 5px;
+    right: 5px;
+    size: xs;
+}
+
+.iconButtonCenter {
+    top: 50%;
+    left: calc(50% - 12.5px);
+    transform: translate(-50%, -50%);
+    size: lg;
+}
+
+.textContainer {
+    padding: 7px 10px 5px 5px;
+}
+
+.textButton {
+    color: var(--chakra-colors-typography-900);
+}
+
+.textCaption {
+    color: var(--chakra-colors-typography-300);
+}
