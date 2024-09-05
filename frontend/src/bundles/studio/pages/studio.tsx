@@ -16,10 +16,9 @@ import { VideoMenu } from '../components/video-menu/video-menu.js';
 import { mockItems } from '../mocks/mock.helper.js';
 import styles from './styles.module.css';
 
-const timezoneOffset = minutesToMilliseconds(new Date().getTimezoneOffset());
 const initialRange: Range = {
-    start: timezoneOffset,
-    end: minutesToMilliseconds(45) + timezoneOffset,
+    start: minutesToMilliseconds(0),
+    end: minutesToMilliseconds(60),
 };
 
 const Studio: React.FC = () => {
