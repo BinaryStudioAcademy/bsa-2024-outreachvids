@@ -1,7 +1,8 @@
 import { type RowDefinition, useRow } from 'dnd-timeline';
 
 import { Box } from '~/bundles/common/components/components.js';
-import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
+
+import styles from '../timeline.module.css';
 
 type Properties = RowDefinition & {
     children: React.ReactNode;

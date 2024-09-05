@@ -6,7 +6,8 @@ import {
     type Marker,
     type MarkerDefinition,
 } from '~/bundles/studio/helpers/time-axis-markers.js';
-import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
+
+import styles from '../timeline.module.css';
 
 type Properties = {
     markers: MarkerDefinition[];

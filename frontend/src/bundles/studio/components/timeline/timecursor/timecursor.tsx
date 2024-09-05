@@ -7,7 +7,8 @@ import {
     useRef as useReference,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
+
+import styles from '../timeline.module.css';
 
 type Properties = {
     interval?: number;
