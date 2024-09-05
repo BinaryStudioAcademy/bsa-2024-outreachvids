@@ -4,6 +4,10 @@ import { type RefObject } from 'react';
 import { Flex } from '~/bundles/common/components/components.js';
 import { VideoPreview } from '~/bundles/common/enums/enums.js';
 
+import {
+    ASPECT_RATIO_LANDSCAPE,
+    ASPECT_RATIO_PORTRAIT,
+} from './constants/constants.js';
 import { LandscapeStyle, PortraitStyle } from './styles/styles.js';
 
 type Properties = {
@@ -32,7 +36,9 @@ const Player = ({
             maxHeight="60vh"
             height="full"
             aspectRatio={
-                orientation === VideoPreview.LANDSCAPE ? 16 / 9 : 9 / 16
+                orientation === VideoPreview.LANDSCAPE
+                    ? ASPECT_RATIO_LANDSCAPE
+                    : ASPECT_RATIO_PORTRAIT
             }
             padding="20px"
         >
