@@ -8,11 +8,6 @@ const VideoComponent: React.FC = () => {
             <Video
                 src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
                 className={styles['video']}
-                // style={{
-                //     width: '100%',
-                //     height: '100%',
-                //     objectFit: 'cover',
-                // }}
             />
         </AbsoluteFill>
     );
