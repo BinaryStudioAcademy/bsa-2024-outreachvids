@@ -33,8 +33,6 @@ const useCollapse = (): {
     };
 
     useEffect(() => {
-        // setIsCollapsed(isSidebarCollapsed);
-
         window.addEventListener('resize', resize);
 
         return () => {
