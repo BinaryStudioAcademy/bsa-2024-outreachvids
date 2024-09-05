@@ -76,6 +76,10 @@ const components = {
                     bgColor: colors.brand.secondary[900],
                 },
             },
+            gray: {
+                color: colors.typography[600],
+                bgColor: colors.background[50],
+            },
             primaryOutlined: {
                 color: colors.background[300],
                 border: '1px solid',
