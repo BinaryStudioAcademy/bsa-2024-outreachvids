@@ -14,6 +14,22 @@ import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/vide
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getVideoScriptMessageFromPayload = (
+    payload: GenerateVideoScriptRequestDto,
+): string => {
+    const { language, topic, tone, additionalInfo } = payload;
+    const additionalInfoMessage =
+        additionalInfo.length > 0
+            ? `, to make a better script use this additional information: '${additionalInfo}'`
+            : '';
+
+    return `Create the script narration for a video,
+        divided in scene, generate script on topic '${topic}'
+        in '${language}' using a '${tone}' tone ${additionalInfoMessage}.
+    `;
+};
+
 const GenerateScriptView: React.FC = () => {
     const handleGenerateVideoScriptSubmit = useCallback(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -60,7 +76,7 @@ const GenerateScriptView: React.FC = () => {
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />
-                            <GenerateScriptPlaceholder />
+                            <GenerateScriptPlaceholder generatedText="Test" />
                         </HStack>
                     </TabPanel>
                 </TabPanels>
