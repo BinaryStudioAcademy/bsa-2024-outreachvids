@@ -17,9 +17,7 @@ import { NEW_SCRIPT_TEXT } from './constants/constants.js';
 
 const ScriptContent: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { scripts } = useAppSelector(({ studio }) => ({
-        scripts: studio.scripts,
-    }));
+    const scripts = useAppSelector(({ studio }) => studio.scripts);
 
     const handleAddScript = useCallback((): void => {
         void dispatch(studioActions.addScript(NEW_SCRIPT_TEXT));
