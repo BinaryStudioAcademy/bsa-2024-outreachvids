@@ -2,6 +2,8 @@ import { type ReactElement } from 'react';
 
 import { Box } from '~/bundles/common/components/components.js';
 
+import styles from '../../sidebar.module.css';
+
 type Properties = {
     icon: ReactElement;
     isCollapsed: boolean;
@@ -22,18 +24,8 @@ const SidebarItem = ({
     return (
         <Box
             as="button"
-            w="100%"
-            h="50px"
-            color={color}
-            display="flex"
-            justifyContent={isCollapsed ? 'center' : 'flex-start'}
-            alignItems="center"
-            gap="10px"
-            fontSize="1rem"
-            fontWeight="bold"
-            bg={bg}
-            borderRadius="10px"
-            p="10px"
+            className={`${styles['sidebarItem']} ${isCollapsed ? styles['itemJustifyCenter'] : styles['itemJustifyStart']}`}
+            style={{ backgroundColor: bg, color }}
             onClick={onClick}
         >
             {icon}
