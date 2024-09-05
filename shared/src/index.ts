@@ -7,8 +7,10 @@ export {
     AvatarValidationMessage,
 } from './bundles/avatars/avatars.js';
 export {
+    type DeleteChatResponseDto,
     type GenerateTextRequestDto,
-    ChatPath,
+    type GenerateTextResponseDto,
+    ChatApiPath,
     textGenerationValidationSchema,
 } from './bundles/chat/chat.js';
 export {
