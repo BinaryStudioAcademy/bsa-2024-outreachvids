@@ -1,4 +1,4 @@
-import { formatTime } from '~/bundles/common/helpers/format-time.js';
+import { format, secondsToMilliseconds } from 'date-fns';
 
 import { MAX_PERCENT } from '../constants/max-percent.js';
 
@@ -12,8 +12,14 @@ const getTime = ({ played, durationInSeconds }: Properties): string => {
         (played * durationInSeconds) / MAX_PERCENT,
     );
 
-    const currentTime = formatTime(currentSecond);
-    const duration = formatTime(durationInSeconds);
+    const currentTime = format(
+        new Date(secondsToMilliseconds(currentSecond)),
+        'mm:ss',
+    );
+    const duration = format(
+        new Date(secondsToMilliseconds(durationInSeconds)),
+        'mm:ss',
+    );
 
     return `${currentTime} : ${duration}`;
 };
