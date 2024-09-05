@@ -9,7 +9,7 @@ class FilesRepository implements Repository {
         this.fileModel = fileModel;
     }
 
-    public find(): ReturnType<Repository['find']> {
+    public findById(): ReturnType<Repository['findById']> {
         return Promise.resolve(null);
     }
 

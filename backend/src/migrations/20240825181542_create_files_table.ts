@@ -19,7 +19,12 @@ async function up(knex: Knex): Promise<void> {
             .primary()
             .defaultTo(knex.raw('uuid_generate_v4()'));
         table.string(ColumnName.URL).notNullable();
-        table.enum(ColumnName.TYPE, ['video', 'photo']).notNullable();
+        table
+            .enu(ColumnName.TYPE, ['video', 'photo'], {
+                useNative: true,
+                enumName: 'file_type',
+            })
+            .notNullable();
         table
             .dateTime(ColumnName.CREATED_AT)
             .notNullable()
