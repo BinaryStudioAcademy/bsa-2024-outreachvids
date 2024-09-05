@@ -1,4 +1,4 @@
-import { minutesToMilliseconds } from 'date-fns';
+import { secondsToMilliseconds } from 'date-fns';
 import {
     type ItemDefinition,
     type Range,
@@ -21,8 +21,8 @@ const getRandomInRange = (min: number, max: number): number => {
     return Math.random() * (max - min) + min;
 };
 
-const DEFAULT_MIN_DURATION = minutesToMilliseconds(1);
-const DEFAULT_MAX_DURATION = minutesToMilliseconds(3);
+const DEFAULT_MIN_DURATION = secondsToMilliseconds(10);
+const DEFAULT_MAX_DURATION = secondsToMilliseconds(20);
 
 const generateRandomSpan = (
     range: Range,
