@@ -13,7 +13,11 @@ const WHITE_ROUTES = [
     },
     {
         path: /\/v1\/documentation\/.*/,
-        method: 'GET',
+        method: HTTPMethod.GET,
+    },
+    {
+        path: /^(?!\/api\/v1\b).*/,
+        method: HTTPMethod.GET,
     },
 ];
 

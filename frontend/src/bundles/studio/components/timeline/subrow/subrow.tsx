@@ -1,4 +1,5 @@
 import { Box } from '~/bundles/common/components/components.js';
+import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = {
     children: React.ReactNode;
@@ -7,11 +8,7 @@ type Properties = {
 const Subrow: React.FC<Properties> = ({
     children,
 }: Properties): JSX.Element => {
-    return (
-        <Box height="50px" position="relative">
-            {children}
-        </Box>
-    );
+    return <Box className={styles['subrow']}>{children}</Box>;
 };
 
 export { Subrow };
