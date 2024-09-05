@@ -28,8 +28,6 @@ const Row: React.FC<Properties> = ({
         <Box
             style={{
                 ...rowWrapperStyle,
-                margin: '3px 0',
-                minHeight: '30px',
                 ...style,
             }}
         >
