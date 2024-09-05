@@ -26,7 +26,7 @@ async function up(knex: Knex): Promise<void> {
                 enumName: 'notification_type',
             })
             .notNullable();
-        table.boolean(ColumnName.IS_READ).notNullable();
+        table.boolean(ColumnName.IS_READ).notNullable().defaultTo(false);
         table
             .dateTime(ColumnName.CREATED_AT)
             .notNullable()
