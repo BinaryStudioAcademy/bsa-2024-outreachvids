@@ -4,6 +4,7 @@ import { getFlag } from '~/bundles/common/components/sidebar/helpers/helpers.js'
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserGetCurrentResponseDto } from '~/bundles/users/users.js';
+import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import { loadCurrentUser, logout, signIn, signUp } from './actions.js';
 
@@ -22,7 +23,15 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'auth',
-    reducers: {},
+    reducers: {
+        toggleSidebar: (state, action: { payload: boolean }) => {
+            state.isSidebarCollapsed = action.payload;
+            void storage.set(
+                StorageKey.IS_COLLAPSED,
+                JSON.stringify(action.payload),
+            );
+        },
+    },
     extraReducers(builder) {
         builder.addCase(signIn.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;

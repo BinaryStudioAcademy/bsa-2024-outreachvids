@@ -1,9 +1,11 @@
+import { actions as authActions } from '~/bundles/auth/store/auth.js';
 import {
+    useAppDispatch,
     useAppSelector,
+    useCallback,
     useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import { MD } from './constants/constants.js';
 
@@ -14,31 +16,31 @@ const useCollapse = (): {
     const isSidebarCollapsed = useAppSelector(
         ({ auth }) => auth.isSidebarCollapsed,
     );
+    const dispatch = useAppDispatch();
 
     const [isCollapsed, setIsCollapsed] = useState<boolean>(isSidebarCollapsed);
 
-    const resize = (): void => {
+    const resize = useCallback((): void => {
         const isMobile = window.innerWidth < MD;
         setIsCollapsed(isMobile);
-        void storage.set(StorageKey.IS_COLLAPSED, JSON.stringify(isMobile));
-    };
+        dispatch(authActions.toggleSidebar(isMobile));
+    }, [dispatch]);
 
     const setToggle = (): void => {
         const toggle = !isCollapsed;
         setIsCollapsed(toggle);
-        const flag = JSON.stringify(toggle);
-        void storage.set(StorageKey.IS_COLLAPSED, flag);
+        dispatch(authActions.toggleSidebar(toggle));
     };
 
     useEffect(() => {
-        setIsCollapsed(isSidebarCollapsed);
+        // setIsCollapsed(isSidebarCollapsed);
 
         window.addEventListener('resize', resize);
 
         return () => {
             window.removeEventListener('resize', resize);
         };
-    }, [isSidebarCollapsed]);
+    }, [resize]);
 
     return { isCollapsed, setToggle };
 };
