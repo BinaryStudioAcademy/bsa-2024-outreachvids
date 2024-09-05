@@ -51,14 +51,16 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
         setItems((previous) =>
             setItemsSpan({
                 ...previous,
-                [activeItemType]: previous[activeItemType].map((item) =>
-                    item.id === activeItemId
-                        ? {
-                              ...item,
-                              duration: updatedSpan.end - updatedSpan.start,
-                          }
-                        : item,
-                ),
+                [activeItemType]: previous[activeItemType].map((item) => {
+                    if (item.id !== activeItemId) {
+                        return item;
+                    }
+
+                    return {
+                        ...item,
+                        duration: updatedSpan.end - updatedSpan.start,
+                    };
+                }),
             }),
         );
     }, []);
