@@ -12,8 +12,8 @@ import { VideoPreview } from '~/bundles/common/enums/enums.js';
 import { useRef } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
+import { VideoComponent } from '../components/components.js';
 import { VideoMenu } from '../components/video-menu/video-menu.js';
-import { VideoComponent } from './components/video.js';
 
 const Studio: React.FC = () => {
     const playerReference = useRef<PlayerRef>(null);
