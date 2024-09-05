@@ -26,19 +26,21 @@ import {
     generateMockRows,
 } from '~/bundles/studio/mocks/mock.helper.js';
 
-import { VideoComponent } from '../components/components.js';
-import { Timeline } from '../components/timeline/timeline.js';
-import { VideoMenu } from '../components/video-menu/video-menu.js';
+import {
+    PlayerControls,
+    Timeline,
+    VideoComponent,
+    VideoMenu,
+} from '../components/components.js';
 import styles from './styles.module.css';
 
-const timezoneOffset = minutesToMilliseconds(new Date().getTimezoneOffset());
 const initialRange: Range = {
-    start: timezoneOffset,
-    end: minutesToMilliseconds(45) + timezoneOffset,
+    start: 0,
+    end: minutesToMilliseconds(2),
 };
 const initialRows: RowDefinition[] = generateMockRows(2);
 const initialItems: ItemDefinition[] = generateMockItems(
-    10,
+    5,
     initialRange,
     initialRows,
 );
@@ -74,6 +76,7 @@ const Studio: React.FC = () => {
 
             <VideoMenu />
             <VStack className={styles['timeline']} alignItems={'stretch'}>
+                <PlayerControls />
                 <Box>
                     <Timeline
                         initialRange={initialRange}
