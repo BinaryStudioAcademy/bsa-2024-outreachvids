@@ -7,7 +7,7 @@ import { Row } from './row.js';
 
 type Properties = {
     items: Array<TimelineItemWithSpan>;
-    destinationPointerValue?: number | undefined;
+    destinationPointerValue: number | null;
 };
 
 const AvatarsRow: React.FC<Properties> = ({

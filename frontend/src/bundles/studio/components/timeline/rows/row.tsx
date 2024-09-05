@@ -7,7 +7,7 @@ type Properties = {
     id: string;
     type?: RowType;
     children?: React.ReactNode;
-    destinationPointerValue?: number | undefined;
+    destinationPointerValue?: number | null;
     style?: React.CSSProperties;
 };
 

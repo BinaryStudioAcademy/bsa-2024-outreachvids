@@ -33,7 +33,7 @@ const TimelineView: React.FC<Properties> = ({ items, destinationPointer }) => {
                 destinationPointerValue={
                     destinationPointer?.type === RowNames.AVATAR
                         ? destinationPointer?.value
-                        : undefined
+                        : null
                 }
             />
             <ScriptsRow
@@ -41,7 +41,7 @@ const TimelineView: React.FC<Properties> = ({ items, destinationPointer }) => {
                 destinationPointerValue={
                     destinationPointer?.type === RowNames.SCRIPT
                         ? destinationPointer?.value
-                        : undefined
+                        : null
                 }
             />
             <Row id="emptyBottom" />
