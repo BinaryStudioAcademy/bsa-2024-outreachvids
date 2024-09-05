@@ -1,17 +1,24 @@
 import { Box, Circle, Flex, Text } from '@chakra-ui/react';
 
 import { SPIN_ANIMATION } from './libs/constants/constants.js';
-import styles from './loader.module.css';
 
 const Loader = (): JSX.Element => {
     return (
         <Flex flexDirection="column" alignItems="center">
             <Box position="relative" width="100px" height="100px">
-                <Circle className={styles['loaderCircle']}>
+                <Circle
+                    size="full"
+                    backgroundColor="white"
+                    color="text.default"
+                >
                     LOGO
                 </Circle>
                 <Circle
-                    className={styles['loaderCircleAnimation']}
+                    position="absolute"
+                    inset="0"
+                    borderWidth="5px"
+                    borderColor="shadow.200"
+                    borderTopColor="brand.secondary.300"
                     animation={`${SPIN_ANIMATION} 1s linear infinite`}
                 />
             </Box>
