@@ -1,6 +1,11 @@
 import { Flex } from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Control, TimeDisplay } from './components/components.js';
 
@@ -9,11 +14,14 @@ const PlayerControls: React.FC = () => {
     const currentTime = 5;
     const duration = 10;
 
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
+    const { isPlaying } = useAppSelector(({ studio }) => ({
+        isPlaying: studio.player.isPlaying,
+    }));
 
-    const handleClick = useCallback((): void => {
-        setIsPlaying((previous) => !previous);
-    }, []);
+    const handleTogglePlaying = useCallback((): void => {
+        void dispatch(studioActions.setPlaying(!isPlaying));
+    }, [dispatch, isPlaying]);
 
     return (
         <Flex
@@ -34,7 +42,7 @@ const PlayerControls: React.FC = () => {
                     label={isPlaying ? 'Pause' : 'Play video'}
                     size={IconSize.SMALL}
                     icon={isPlaying ? IconName.PAUSE : IconName.PLAY}
-                    onClick={handleClick}
+                    onClick={handleTogglePlaying}
                 />
 
                 <Control
