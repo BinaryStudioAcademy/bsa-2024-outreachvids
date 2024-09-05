@@ -6,6 +6,7 @@ import { type Script } from '../types/studio.type.js';
 type State = {
     player: {
         isPlaying: boolean;
+        elapsedTime: number; // in seconds
     };
     scripts: Array<Script>;
 };
@@ -13,6 +14,7 @@ type State = {
 const initialState: State = {
     player: {
         isPlaying: false,
+        elapsedTime: 0,
     },
     scripts: [],
 };
@@ -44,6 +46,9 @@ const { reducer, actions, name } = createSlice({
 
         setPlaying(state, action: PayloadAction<boolean>) {
             state.player.isPlaying = action.payload;
+        },
+        setElapsedTime(state, action: PayloadAction<number>) {
+            state.player.elapsedTime = action.payload;
         },
     },
 });
