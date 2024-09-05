@@ -1,0 +1,10 @@
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: var(--chakra-colors-shadow-700);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
