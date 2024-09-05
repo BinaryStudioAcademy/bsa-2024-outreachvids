@@ -19,9 +19,9 @@ import {
     generateMockRows,
 } from '~/bundles/studio/mocks/mock.helper.js';
 
-import styles from '../components/timeline/styles.module.css';
 import { Timeline } from '../components/timeline/timeline.js';
 import { VideoMenu } from '../components/video-menu/video-menu.js';
+import styles from './styles.module.css';
 
 const timezoneOffset = minutesToMilliseconds(new Date().getTimezoneOffset());
 const initialRange: Range = {
