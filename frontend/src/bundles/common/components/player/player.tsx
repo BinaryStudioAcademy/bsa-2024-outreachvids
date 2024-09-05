@@ -3,6 +3,8 @@ import { type RefObject } from 'react';
 
 import { Box } from '~/bundles/common/components/components.js';
 
+import styles from './player.module.css';
+
 type Properties = {
     orientation: 'landscape' | 'portrait';
     durationInFrames: number;
@@ -23,11 +25,7 @@ const Player = ({
 
     return (
         <Box
-            height="720px"
-            width="fit-content"
-            maxWidth="100%"
-            overflow="hidden"
-            border="1px solid #FDFDFD"
+            className={styles['outerBox']}
         >
             <LibraryPlayer
                 ref={playerRef}
