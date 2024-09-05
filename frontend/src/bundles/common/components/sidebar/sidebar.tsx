@@ -1,3 +1,4 @@
+import { actions as authActions } from '~/bundles/auth/store/auth.js';
 import {
     Box,
     Flex,
@@ -8,6 +9,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
+    useAppDispatch,
     useCallback,
     useLocation,
     useNavigate,
@@ -27,6 +29,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const handleToggle = useCallback(
         (): void => setIsCollapsed(!isCollapsed),
@@ -42,9 +45,9 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     };
 
     const handleLogOut = useCallback(() => {
-        //ToDo: log out user with token
+        void dispatch(authActions.logout());
         navigate(AppRoute.SIGN_IN);
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     return (
         <Flex w="100%">

@@ -16,7 +16,6 @@ const Header: React.FC<Properties> = ({ left, center, right }) => {
             left="0"
             width="full"
             backgroundColor="background.900"
-            boxShadow="md"
             zIndex="100"
             padding="4"
             alignItems="center"

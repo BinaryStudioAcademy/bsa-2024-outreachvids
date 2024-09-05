@@ -3,20 +3,16 @@ import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { Menu, MenuBody } from './components/components.js';
-import { AvatarsContent } from './components/menu-content/content.js';
+import {
+    AvatarsContent,
+    ScriptContent,
+} from './components/menu-content/content.js';
 import {
     AssetsContent,
-    ScriptContent,
-    ScriptHeader,
     TemplatesContent,
     TextContent,
 } from './components/mock/menu-mock.js';
-import { type MenuItem } from './types/menu-item.type.js';
-
-type ActiveItem = {
-    title: string | React.ReactNode;
-    content: React.ReactNode | null;
-};
+import { type ActiveItem, type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -27,14 +23,14 @@ const VideoMenu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleMenuClick = useCallback(
-        (header: string | React.ReactNode, content: React.ReactNode): void => {
+        (header: string, content: React.ReactNode): void => {
             setActiveItem({ title: header, content });
             setIsOpen(true);
         },
         [],
     );
 
-    const resetActiveItem = useCallback((): void => {
+    const handleActiveItemReset = useCallback((): void => {
         setIsOpen(false);
         setActiveIndex(null);
     }, []);
@@ -53,7 +49,7 @@ const VideoMenu: React.FC = () => {
         {
             label: 'Script',
             icon: <Icon as={IconName.SCRIPT} />,
-            onClick: () => handleMenuClick(<ScriptHeader />, <ScriptContent />),
+            onClick: () => handleMenuClick('Script', <ScriptContent />),
         },
         {
             label: 'Text',
@@ -77,7 +73,7 @@ const VideoMenu: React.FC = () => {
             <MenuBody
                 title={activeItem.title}
                 isOpen={isOpen}
-                onClose={resetActiveItem}
+                onClose={handleActiveItemReset}
             >
                 {activeItem.content}
             </MenuBody>

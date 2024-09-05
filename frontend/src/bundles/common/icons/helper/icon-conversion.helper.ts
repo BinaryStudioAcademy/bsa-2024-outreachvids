@@ -1,10 +1,13 @@
 import {
+    faBackwardStep,
     faCircleUser,
     faCloudArrowUp,
     faEllipsisVertical,
     faFileLines,
     faFont,
+    faForwardStep,
     faHouse,
+    faPause,
     faPen,
     faPlay,
     faRightFromBracket,
@@ -27,14 +30,20 @@ const RightFromBracketIcon = iconConverter(faRightFromBracket);
 const ScrollIcon = iconConverter(faScroll);
 const TIcon = iconConverter(faT);
 const TableColumnsIcon = iconConverter(faTableColumns);
+const BackwardStepIcon = iconConverter(faBackwardStep);
+const ForwardStepIcon = iconConverter(faForwardStep);
+const PauseIcon = iconConverter(faPause);
 
 export {
+    BackwardStepIcon,
     CircleUserIcon,
     CloudArrowUpIcon,
     EllipsisVerticalIcon,
     FileLinesIcon,
     FontIcon,
+    ForwardStepIcon,
     HouseIcon,
+    PauseIcon,
     PenIcon,
     PlayIcon,
     RightFromBracketIcon,
