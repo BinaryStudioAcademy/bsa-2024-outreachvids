@@ -42,7 +42,7 @@ class UserController extends BaseController {
 
         this.addRoute({
             path: UsersApiPath.CURRENT,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: (handlerOptions: ApiHandlerOptions) =>
                 this.getCurrent(handlerOptions),
         });

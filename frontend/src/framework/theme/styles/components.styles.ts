@@ -72,6 +72,9 @@ const components = {
                         bg: colors.brand.secondary[600],
                     },
                 },
+                _active: {
+                    bgColor: colors.brand.secondary[900],
+                },
             },
             primaryOutlined: {
                 color: colors.background[300],
@@ -101,6 +104,12 @@ const components = {
             },
             ghostIcon: {
                 color: colors.white,
+                _hover: {
+                    color: colors.brand.secondary[300],
+                },
+            },
+            ghostIconDark: {
+                color: colors.background[300],
                 _hover: {
                     color: colors.brand.secondary[300],
                 },
