@@ -18,7 +18,7 @@ import styles from './styles.module.css';
 
 const initialRange: Range = {
     start: minutesToMilliseconds(0),
-    end: minutesToMilliseconds(60),
+    end: minutesToMilliseconds(2),
 };
 
 const Studio: React.FC = () => {
