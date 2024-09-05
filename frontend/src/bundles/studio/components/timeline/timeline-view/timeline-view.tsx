@@ -1,7 +1,7 @@
 import { Box } from '~/bundles/common/components/components.js';
-import { useTimelineContext } from '~/bundles/common/hooks/hooks.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
+import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import {
     type DestinationPointer,
     type TimelineRowsWithSpan,

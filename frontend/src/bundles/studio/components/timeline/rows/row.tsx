@@ -2,7 +2,7 @@ import { Box } from '~/bundles/common/components/components.js';
 import {
     useTimelineContext,
     useTimelineRow,
-} from '~/bundles/common/hooks/hooks.js';
+} from '~/bundles/studio/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
