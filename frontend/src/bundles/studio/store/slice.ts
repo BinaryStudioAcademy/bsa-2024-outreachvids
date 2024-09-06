@@ -7,6 +7,7 @@ type State = {
     player: {
         isPlaying: boolean;
         elapsedTime: number; // ms
+        duration: number;
     };
     scripts: Array<Script>;
 };
@@ -15,6 +16,7 @@ const initialState: State = {
     player: {
         isPlaying: false,
         elapsedTime: 0,
+        duration: 80, // Mocked data. Use the end of last scene later.
     },
     scripts: [],
 };
