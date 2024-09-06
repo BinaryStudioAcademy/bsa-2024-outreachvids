@@ -1,10 +1,6 @@
 import { type PlayerRef } from '@remotion/player';
 import { minutesToMilliseconds } from 'date-fns';
-import {
-    type ItemDefinition,
-    type Range,
-    type RowDefinition,
-} from 'dnd-timeline';
+import { type Range } from 'dnd-timeline';
 
 import {
     Box,
@@ -21,10 +17,6 @@ import {
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
-import {
-    generateMockItems,
-    generateMockRows,
-} from '~/bundles/studio/mocks/mock.helper.js';
 
 import {
     PlayerControls,
@@ -32,19 +24,14 @@ import {
     VideoComponent,
     VideoMenu,
 } from '../components/components.js';
+import { mockItems } from '../mocks/mock.helper.js';
+import { actions as studioActionCreator } from '../store/studio.js';
 import styles from './styles.module.css';
 
 const initialRange: Range = {
-    start: 0,
+    start: minutesToMilliseconds(0),
     end: minutesToMilliseconds(2),
 };
-const initialRows: RowDefinition[] = generateMockRows(2);
-const initialItems: ItemDefinition[] = generateMockItems(
-    5,
-    initialRange,
-    initialRows,
-);
-import { actions as studioActionCreator } from '../store/studio.js';
 
 const Studio: React.FC = () => {
     const playerReference = useRef<PlayerRef>(null);
@@ -80,8 +67,7 @@ const Studio: React.FC = () => {
                 <Box>
                     <Timeline
                         initialRange={initialRange}
-                        initialItems={initialItems}
-                        initialRows={initialRows}
+                        initialItems={mockItems}
                     />
                 </Box>
             </VStack>

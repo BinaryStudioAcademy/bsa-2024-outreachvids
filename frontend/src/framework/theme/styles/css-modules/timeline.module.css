@@ -1,25 +1,22 @@
 .item {
     width: 100%;
     overflow: hidden;
-    margin: 2px;
-    border-radius: 15px;
+    margin-right: 2px;
+    border-radius: 10px;
     background-color: lightblue;
     color: darkblue;
     text-align: center;
     justify-content: center;
     align-items: center;
     height: 100%;
+    border: 1px solid;
 }
 
 .row {
-    min-height: 50px;
-    border: 1px solid black;
+    min-height: 30px;
+    margin: 3px 0;
 }
 
-.subrow {
-    height: 50px;
-    position: relative;
-}
 .timeAxis {
     height: 20px;
     position: relative;
