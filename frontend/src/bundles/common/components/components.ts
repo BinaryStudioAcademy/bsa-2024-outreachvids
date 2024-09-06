@@ -18,6 +18,9 @@ export {
     CloseButton,
     Collapse,
     ChakraProvider as ComponentsProvider,
+    Editable,
+    EditablePreview,
+    EditableTextarea,
     Flex,
     FormControl,
     FormErrorMessage,
@@ -29,7 +32,9 @@ export {
     InputRightElement,
     SimpleGrid,
     Spacer,
+    Tab,
     Text,
+    Tooltip,
     VStack,
 } from '@chakra-ui/react';
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
