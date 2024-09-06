@@ -15,7 +15,6 @@ const UserCard: React.FC = () => {
     const openModal = useCallback((): void => {
         setIsModalOpen(true);
     }, []);
-    
     const closeModal = useCallback((): void => {
         setIsModalOpen(false);
     }, []);
