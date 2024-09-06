@@ -1,3 +1,7 @@
+import { type GenerateTextRequestDto } from '~/bundles/chat/chat.js';
+import { MessageSender } from '~/bundles/chat/enums/message-sender.js';
+import { actions as chatActions } from '~/bundles/chat/store/chat.js';
+import { type Message } from '~/bundles/chat/types/types.js';
 import {
     Heading,
     HStack,
@@ -6,16 +10,19 @@ import {
     TabPanel,
     TabPanels,
     Tabs,
-} from '@chakra-ui/react';
-
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
+} from '~/bundles/common/components/components.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/video-scripts.js';
 
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getVideoScriptMessageFromPayload = (
+const generateMessageTemplate = (
     payload: GenerateVideoScriptRequestDto,
 ): string => {
     const { language, topic, tone, additionalInfo } = payload;
@@ -30,14 +37,45 @@ const getVideoScriptMessageFromPayload = (
     `;
 };
 
+const getVideoScriptMessageFromPayload = (
+    payload: GenerateVideoScriptRequestDto,
+    messages: Message[],
+): string => {
+    return messages.length === 0
+        ? generateMessageTemplate(payload)
+        : 'Please, generate another script from the info I have provided before';
+};
+
 const GenerateScriptView: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { messages } = useAppSelector(({ chat }) => ({
+        messages: chat.messages.filter(
+            (message) => message.sender === MessageSender.AI,
+        ),
+    }));
+
     const handleGenerateVideoScriptSubmit = useCallback(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (payload: GenerateVideoScriptRequestDto): void => {
-            // TODO dispatch video script generation action
+            const sendMessageRequest: GenerateTextRequestDto = {
+                message: getVideoScriptMessageFromPayload(payload, messages),
+            };
+            void dispatch(chatActions.sendMessage(sendMessageRequest));
         },
-        [],
+        [messages, dispatch],
     );
+
+    const lastGeneratedText: string = useMemo(() => {
+        if (!messages || messages.length === 0) {
+            return '';
+        }
+
+        const lastMessage = messages.at(-1);
+        if (!lastMessage) {
+            return '';
+        }
+
+        return lastMessage.text;
+    }, [messages]);
 
     return (
         <>
@@ -76,7 +114,9 @@ const GenerateScriptView: React.FC = () => {
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />
-                            <GenerateScriptPlaceholder generatedText="Test" />
+                            <GenerateScriptPlaceholder
+                                generatedText={lastGeneratedText}
+                            />
                         </HStack>
                     </TabPanel>
                 </TabPanels>

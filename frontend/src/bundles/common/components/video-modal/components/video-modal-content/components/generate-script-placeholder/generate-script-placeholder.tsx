@@ -4,12 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
+import styles from './styles.module.css';
+
 type Properties = {
     generatedText: string;
 };
 
 const GenerateScriptPlaceholder: React.FC<Properties> = ({ generatedText }) => {
-    const isGenearatedTextEmpty = useMemo(() => generatedText.length === 0, [generatedText]);
+    const isGenearatedTextEmpty = useMemo(
+        () => generatedText.length === 0,
+        [generatedText],
+    );
 
     return (
         <VStack w="full" p="40px" gap="10px">
@@ -29,6 +34,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ generatedText }) => {
                 minWidth="175px"
                 // textAlign="center"
                 // fontStyle="italic"
+                className={`${styles['line-1']} ${styles['anim-typewriter']}`}
             >
                 {isGenearatedTextEmpty
                     ? 'Here you will see your generated script'

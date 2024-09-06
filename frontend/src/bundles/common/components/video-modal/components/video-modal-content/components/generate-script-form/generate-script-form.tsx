@@ -1,3 +1,4 @@
+import { MessageSender } from '~/bundles/chat/enums/enums.js';
 import {
     Button,
     FormProvider,
@@ -6,7 +7,13 @@ import {
     Textarea,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { useAppForm } from '~/bundles/common/hooks/hooks.js';
+import { DataStatus } from '~/bundles/common/enums/enums.js';
+import {
+    useAppForm,
+    useAppSelector,
+    useCallback,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 import {
     type GenerateVideoScriptRequestDto,
     generateVideoScriptValidationSchema,
@@ -19,6 +26,12 @@ type Properties = {
 };
 
 const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
+    const { messages, dataStatus } = useAppSelector(({ chat }) => ({
+        messages: chat.messages.filter(
+            (message) => message.sender === MessageSender.AI,
+        ),
+        dataStatus: chat.dataStatus,
+    }));
     const form = useAppForm<GenerateVideoScriptRequestDto>({
         initialValues: DEFAULT_GENERATE_SCRIPT_PAYLOAD,
         validationSchema: generateVideoScriptValidationSchema,
@@ -26,6 +39,18 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
     });
 
     const { handleSubmit, values } = form;
+
+    const isTextGenerated: boolean = useMemo(() => {
+        return messages && messages.length > 0;
+    }, [messages]);
+
+    const getButtonLabel = useCallback(() => {
+        if (dataStatus === DataStatus.PENDING) {
+            return 'stop';
+        }
+
+        return isTextGenerated ? 'Re-Generate' : 'Generate script';
+    }, [dataStatus, isTextGenerated]);
 
     return (
         <FormProvider value={form}>
@@ -57,7 +82,7 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
                     />
                     <Button
                         type="submit"
-                        label="Generate script"
+                        label={getButtonLabel()}
                         sx={{ mt: '50px' }}
                         isDisabled={values.topic.trim().length === 0}
                     />
