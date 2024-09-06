@@ -1,33 +1,47 @@
 import { type PlayerRef, Player as LibraryPlayer } from '@remotion/player';
 import { type RefObject } from 'react';
 
-import { Box } from '~/bundles/common/components/components.js';
+import { Flex } from '~/bundles/common/components/components.js';
+import { VideoPreview } from '~/bundles/common/enums/enums.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+
+import {
+    ASPECT_RATIO_LANDSCAPE,
+    ASPECT_RATIO_PORTRAIT,
+} from './constants/constants.js';
+import { LandscapeStyle, PortraitStyle } from './styles/styles.js';
 
 type Properties = {
-    orientation: 'landscape' | 'portrait';
     durationInFrames: number;
     playerRef: RefObject<PlayerRef>;
     VideoComponent: React.FC;
 };
 
 const Player = ({
-    orientation,
     durationInFrames,
     playerRef,
     VideoComponent,
 }: Properties): JSX.Element => {
+    const orientation = useAppSelector(({ studio }) => studio.videoSize);
+
     const size =
-        orientation === 'landscape'
+        orientation === VideoPreview.LANDSCAPE
             ? { width: 1920, height: 1080 }
             : { width: 1080, height: 1920 };
 
     return (
-        <Box
-            height="720px"
-            width="fit-content"
-            maxWidth="100%"
-            overflow="hidden"
-            border="1px solid #FDFDFD"
+        <Flex
+            alignItems="center"
+            justifyContent="center"
+            width="100%"
+            maxHeight="60vh"
+            height="full"
+            aspectRatio={
+                orientation === VideoPreview.LANDSCAPE
+                    ? ASPECT_RATIO_LANDSCAPE
+                    : ASPECT_RATIO_PORTRAIT
+            }
+            padding="20px"
         >
             <LibraryPlayer
                 ref={playerRef}
@@ -36,12 +50,13 @@ const Player = ({
                 compositionWidth={size.width}
                 compositionHeight={size.height}
                 fps={30}
-                style={{
-                    height: '100%',
-                    maxWidth: '100%',
-                }}
+                style={
+                    orientation === VideoPreview.LANDSCAPE
+                        ? LandscapeStyle
+                        : PortraitStyle
+                }
             />
-        </Box>
+        </Flex>
     );
 };
 

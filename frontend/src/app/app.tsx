@@ -7,13 +7,15 @@ import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         void storage.get(StorageKey.TOKEN).then((token) => {
             if (token) {
                 return dispatch(authActions.loadCurrentUser());
             }
         });
-    });
+    }, [dispatch]);
+
     return (
         <>
             <RouterOutlet />
