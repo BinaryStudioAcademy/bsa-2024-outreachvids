@@ -10,7 +10,7 @@ type Properties = {
     size?: 'md' | 'lg';
     isDisabled?: boolean;
     sx?: SystemStyleObject;
-    onClick: () => void;
+    onClick?: () => void;
 };
 
 const Button: React.FC<Properties> = ({
