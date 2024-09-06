@@ -1,15 +1,25 @@
-import { Navigate } from '~/bundles/common/components/components.js';
-import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { Loader, Navigate } from '~/bundles/common/components/components.js';
+import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 
-import { useAppSelector } from '../../hooks/hooks.js';
-
-interface Properties {
+type Properties = {
     children: React.ReactNode;
-}
+};
 
 const ProtectedRoute: React.FC<Properties> = ({ children }) => {
-    const user = useAppSelector((state) => state.auth.user);
-    return user ? children : <Navigate to={AppRoute.SIGN_IN} replace />;
+    const { user, dataStatus } = useAppSelector((state) => state.auth);
+
+    if (dataStatus === DataStatus.PENDING) {
+        return <Loader />;
+    }
+
+    if (dataStatus === DataStatus.REJECTED) {
+        return <Navigate to={AppRoute.SIGN_IN} replace />;
+    }
+
+    if (user) {
+        return <>{children}</>;
+    }
 };
 
 export { ProtectedRoute };
