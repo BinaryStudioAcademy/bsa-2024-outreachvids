@@ -56,7 +56,19 @@ class BaseServerAppApi implements ServerAppApi {
                             },
                         },
                     },
+                    securitySchemes: {
+                        bearerAuth: {
+                            bearerFormat: 'JWT',
+                            scheme: 'bearer',
+                            type: 'http',
+                        },
+                    },
                 },
+                servers: [
+                    {
+                        url: '/api/v1',
+                    },
+                ],
             },
             apis: [`src/bundles/**/*.controller.${controllerExtension}`],
         });
