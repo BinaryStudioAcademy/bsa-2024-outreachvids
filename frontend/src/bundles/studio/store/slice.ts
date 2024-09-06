@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { type PayloadAction } from '@reduxjs/toolkit';
 
-import { DataStatus } from '~/bundles/common/enums/enums.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
+import { DataStatus, VideoPreview } from '~/bundles/common/enums/enums.js';
+import {
+    type ValueOf,
+    type VideoPreview as VideoPreviewT,
+} from '~/bundles/common/types/types.js';
 
 import { type AvatarGetResponseDto, type Script } from '../types/types.js';
 import { loadAvatars } from './actions.js';
@@ -13,6 +16,7 @@ type State = {
         items: Array<AvatarGetResponseDto> | [];
     };
     scripts: Array<Script>;
+    videoSize: VideoPreviewT;
 };
 
 const initialState: State = {
@@ -21,6 +25,7 @@ const initialState: State = {
         items: [],
     },
     scripts: [],
+    videoSize: VideoPreview.LANDSCAPE,
 };
 
 const { reducer, actions, name } = createSlice({
@@ -46,6 +51,12 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.filter(
                 (script) => script.id !== action.payload,
             );
+        },
+        changeVideoSize(state) {
+            state.videoSize =
+                state.videoSize === VideoPreview.LANDSCAPE
+                    ? VideoPreview.PORTRAIT
+                    : VideoPreview.LANDSCAPE;
         },
     },
     extraReducers(builder) {
