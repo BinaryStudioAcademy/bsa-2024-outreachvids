@@ -1,4 +1,5 @@
 import {
+    type SystemStyleObject,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -19,6 +20,8 @@ type Properties<T extends FormValues> = {
     required?: boolean;
     placeholder?: string;
     icon?: 'right' | 'none';
+    sx?: SystemStyleObject;
+    value?: string | number | undefined;
 };
 
 const Input = <T extends FormValues>({
@@ -28,20 +31,24 @@ const Input = <T extends FormValues>({
     required = false,
     placeholder = '',
     icon = 'none',
+    sx = {},
+    value = undefined,
 }: Properties<T>): JSX.Element => {
     const { field, error, isValid } = useFormField({ name });
 
     return (
         <FormControl isInvalid={!isValid} isRequired={required}>
-            <FormLabel htmlFor={name}>{label}</FormLabel>
+            {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
             <Field
                 {...field}
                 id={name}
                 type={type}
                 placeholder={placeholder}
                 error={error}
+                value={value}
                 style={{ paddingRight: icon === 'right' ? '40px' : 0 }}
                 as={LibraryInput}
+                sx={sx}
             />
             <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>

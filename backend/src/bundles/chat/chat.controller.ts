@@ -10,7 +10,7 @@ import { HttpCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { MAX_TOKEN } from '~/common/services/open-ai/libs/constants/constants.js';
 import {
-    ChatPath,
+    ChatApiPath,
     OpenAIRole,
 } from '~/common/services/open-ai/libs/enums/enums.js';
 import { type OpenAIService } from '~/common/services/open-ai/open-ai.service.js';
@@ -34,7 +34,7 @@ class ChatController extends BaseController {
         this.chatService = chatService;
 
         this.addRoute({
-            path: ChatPath.ROOT,
+            path: ChatApiPath.ROOT,
             method: HTTPMethod.POST,
             validation: {
                 body: textGenerationValidationSchema,
@@ -49,7 +49,7 @@ class ChatController extends BaseController {
         });
 
         this.addRoute({
-            path: ChatPath.ROOT,
+            path: ChatApiPath.ROOT,
             method: HTTPMethod.DELETE,
             handler: (options) =>
                 this.deleteSession(
@@ -65,6 +65,8 @@ class ChatController extends BaseController {
      * /chat/:
      *    post:
      *      description: Returns generated text by Open AI
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: User message
      *        required: true
@@ -127,6 +129,8 @@ class ChatController extends BaseController {
      * /chat/:
      *    delete:
      *      description: Clears chat history
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: User message
      *        required: false
