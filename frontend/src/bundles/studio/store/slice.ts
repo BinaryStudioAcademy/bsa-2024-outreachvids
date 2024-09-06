@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { type PayloadAction } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
 import { DataStatus, VideoPreview } from '~/bundles/common/enums/enums.js';
 import {
@@ -34,7 +35,7 @@ const { reducer, actions, name } = createSlice({
     reducers: {
         addScript(state, action: PayloadAction<string>) {
             const script = {
-                id: self.crypto.randomUUID(),
+                id: uuidv4(),
                 text: action.payload,
             };
 
