@@ -1,15 +1,12 @@
-import { format, secondsToMilliseconds } from 'date-fns';
+import { format } from 'date-fns';
 
 import { Flex, Text } from '~/bundles/common/components/components.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 
-type Properties = {
-    duration: number;
-};
-
-const TimeDisplay: React.FC<Properties> = ({ duration }) => {
-    const { elapsedTime } = useAppSelector(({ studio }) => ({
+const TimeDisplay: React.FC = () => {
+    const { elapsedTime, duration } = useAppSelector(({ studio }) => ({
         elapsedTime: studio.player.elapsedTime,
+        duration: studio.player.duration,
     }));
 
     return (
@@ -21,7 +18,7 @@ const TimeDisplay: React.FC<Properties> = ({ duration }) => {
                 /
             </Text>
             <Text color="background.50" variant="caption">
-                {format(new Date(secondsToMilliseconds(duration)), 'mm:ss')}
+                {format(new Date(duration), 'mm:ss')}
             </Text>
         </Flex>
     );

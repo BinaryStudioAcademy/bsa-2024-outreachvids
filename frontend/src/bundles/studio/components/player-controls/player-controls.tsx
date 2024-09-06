@@ -55,7 +55,7 @@ const PlayerControls: React.FC = () => {
                     icon={IconName.PLAY_STEP_NEXT}
                 />
 
-                <TimeDisplay duration={duration} />
+                <TimeDisplay />
             </Flex>
         </Flex>
     );
