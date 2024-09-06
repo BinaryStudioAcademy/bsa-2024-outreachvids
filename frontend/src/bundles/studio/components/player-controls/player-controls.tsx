@@ -10,17 +10,22 @@ import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { Control, TimeDisplay } from './components/components.js';
 
 const PlayerControls: React.FC = () => {
-    // Mocked data. Update later
-    const duration = 10;
-
     const dispatch = useAppDispatch();
-    const { isPlaying } = useAppSelector(({ studio }) => ({
-        isPlaying: studio.player.isPlaying,
-    }));
+    const { isPlaying, elapsedTime, duration } = useAppSelector(
+        ({ studio }) => ({
+            isPlaying: studio.player.isPlaying,
+            elapsedTime: studio.player.elapsedTime,
+            duration: studio.player.duration,
+        }),
+    );
 
     const handleTogglePlaying = useCallback((): void => {
+        if (elapsedTime >= duration) {
+            void dispatch(studioActions.setElapsedTime(0));
+        }
+
         void dispatch(studioActions.setPlaying(!isPlaying));
-    }, [dispatch, isPlaying]);
+    }, [elapsedTime, duration, dispatch, isPlaying]);
 
     return (
         <Flex

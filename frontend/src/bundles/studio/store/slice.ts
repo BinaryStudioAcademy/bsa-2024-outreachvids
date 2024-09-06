@@ -16,7 +16,7 @@ const initialState: State = {
     player: {
         isPlaying: false,
         elapsedTime: 0,
-        duration: 80, // Mocked data. Use the end of last scene later.
+        duration: 80 * 1000, // Mocked data. Use the end of last scene later.
     },
     scripts: [],
 };
