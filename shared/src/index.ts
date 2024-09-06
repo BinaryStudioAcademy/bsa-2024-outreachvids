@@ -12,6 +12,12 @@ export {
     textGenerationValidationSchema,
 } from './bundles/chat/chat.js';
 export {
+    type GenerateSpeechRequestDto,
+    type GenerateSpeechResponseDto,
+    type GetVoicesResponseDto,
+    SpeechApiPath,
+} from './bundles/speech/speech.js';
+export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserGetCurrentResponseDto,
