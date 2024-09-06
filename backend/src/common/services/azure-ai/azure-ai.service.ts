@@ -50,17 +50,19 @@ class AzureAIService {
 
         const data = await response.json();
 
-        const mappedData = data.map((data: AzureGetVoicesResponseDto) => ({
-            name: data.DisplayName,
-            shortName: data.ShortName,
-            locale: data.Locale,
-            localeName: data.LocaleName,
-            voiceType: data.VoiceType,
-        }));
+        const filteredData = data
+            .filter(
+                (data: AzureGetVoicesResponseDto) => data.Locale === 'en-US',
+            )
+            .map((data: AzureGetVoicesResponseDto) => ({
+                name: data.DisplayName,
+                shortName: data.ShortName,
+                locale: data.Locale,
+                localeName: data.LocaleName,
+                voiceType: data.VoiceType,
+            }));
 
-        return mappedData.filter(
-            (data: AzureGetVoicesResponseDto) => data.Locale === 'en-US',
-        );
+        return { items: filteredData };
     }
 
     private synthesizeSpeech(

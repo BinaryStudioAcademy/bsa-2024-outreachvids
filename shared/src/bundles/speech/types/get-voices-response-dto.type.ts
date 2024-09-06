@@ -1,5 +1,7 @@
 import { type Voice } from './voice.type.js';
 
-type GetVoicesResponseDto = Array<Voice>;
+type GetVoicesResponseDto = {
+    items: Array<Voice>;
+};
 
 export { type GetVoicesResponseDto };
