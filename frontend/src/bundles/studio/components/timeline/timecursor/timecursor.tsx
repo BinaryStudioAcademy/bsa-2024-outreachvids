@@ -3,6 +3,7 @@ import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
     useLayoutEffect,
     useRef as useReference,
     useState,
@@ -18,10 +19,13 @@ type Properties = {
 
 const TimeCursor: React.FC<Properties> = ({ interval }) => {
     const dispatch = useAppDispatch();
-    const { isPlaying, elapsedTime } = useAppSelector(({ studio }) => ({
-        isPlaying: studio.player.isPlaying,
-        elapsedTime: studio.player.elapsedTime,
-    }));
+    const { isPlaying, elapsedTime, duration } = useAppSelector(
+        ({ studio }) => ({
+            isPlaying: studio.player.isPlaying,
+            elapsedTime: studio.player.elapsedTime,
+            duration: studio.player.duration,
+        }),
+    );
 
     const timeCursorReference = useReference<HTMLDivElement>(null);
     const renderTimeReference = useReference(0);
@@ -32,6 +36,12 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
 
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
+
+    useEffect(() => {
+        if (elapsedTime >= duration) {
+            void dispatch(studioActions.setPlaying(false));
+        }
+    }, [dispatch, elapsedTime, duration]);
 
     useLayoutEffect(() => {
         const offsetCursor = (): void => {
