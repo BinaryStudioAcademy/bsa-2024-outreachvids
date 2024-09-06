@@ -137,11 +137,6 @@
                 ]
             },
             {
-                "imgUrl": "https://speech.microsoft.com/assets/avatar/lisa/lisa-graceful-standing-thumbnail.png",
-                "style": "graceful-standing",
-                "gestures": []
-            },
-            {
                 "imgUrl": "https://speech.microsoft.com/assets/avatar/lisa/lisa-technical-sitting-thumbnail.png",
                 "style": "technical-sitting",
                 "gestures": [
@@ -165,11 +160,6 @@
                     "point-right-5",
                     "point-right-6"
                 ]
-            },
-            {
-                "imgUrl": "https://speech.microsoft.com/assets/avatar/lisa/lisa-technical-standing-thumbnail.png",
-                "style": "technical-standing",
-                "gestures": []
             }
         ]
     },

@@ -1,53 +1,50 @@
-import {
-    type ItemDefinition,
-    type RowDefinition,
-    groupItemsToSubrows,
-    useTimelineContext,
-} from 'dnd-timeline';
-
 import { Box } from '~/bundles/common/components/components.js';
-import { useMemo } from '~/bundles/common/hooks/hooks.js';
+import { useTimelineContext } from '~/bundles/common/hooks/hooks.js';
+import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
+import {
+    type DestinationPointer,
+    type TimelineRowsWithSpan,
+} from '~/bundles/studio/types/types.js';
 
-import { Item, Row, Subrow, TimeAxis, TimeCursor } from '../components.js';
+import {
+    AvatarsRow,
+    Row,
+    ScriptsRow,
+    TimeAxis,
+    TimeCursor,
+} from '../components.js';
 
-interface TimelineProperties {
-    rows: RowDefinition[];
-    items: ItemDefinition[];
-}
+type Properties = {
+    items: TimelineRowsWithSpan;
+    destinationPointer: DestinationPointer | null;
+};
 
-const TimelineView: React.FC<TimelineProperties> = ({
-    rows,
-    items,
-}): JSX.Element => {
-    const { setTimelineRef, style, range } = useTimelineContext();
+const TimelineView: React.FC<Properties> = ({ items, destinationPointer }) => {
+    const { setTimelineRef, style } = useTimelineContext();
 
-    const groupedSubrows = useMemo(
-        () => groupItemsToSubrows(items, range),
-        [items, range],
-    );
     return (
         <Box ref={setTimelineRef} style={style}>
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor />
-
-            {rows.map((row) => (
-                <Row id={row.id} key={row.id}>
-                    {groupedSubrows[row.id]?.map((subrow, index) => (
-                        <Subrow key={`${row.id}-${index}`}>
-                            {subrow.map((item) => (
-                                <Item
-                                    id={item.id}
-                                    key={item.id}
-                                    span={item.span}
-                                >
-                                    {`Item ${item.id}`}
-                                </Item>
-                            ))}
-                        </Subrow>
-                    ))}
-                </Row>
-            ))}
+            <Row id="emptyTop" />
+            <AvatarsRow
+                items={items[RowNames.AVATAR]}
+                destinationPointerValue={
+                    destinationPointer?.type === RowNames.AVATAR
+                        ? destinationPointer?.value
+                        : null
+                }
+            />
+            <ScriptsRow
+                items={items[RowNames.SCRIPT]}
+                destinationPointerValue={
+                    destinationPointer?.type === RowNames.SCRIPT
+                        ? destinationPointer?.value
+                        : null
+                }
+            />
+            <Row id="emptyBottom" />
         </Box>
     );
 };
