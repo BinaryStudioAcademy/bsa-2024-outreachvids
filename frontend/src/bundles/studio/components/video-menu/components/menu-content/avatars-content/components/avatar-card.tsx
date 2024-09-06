@@ -17,6 +17,7 @@ const AvatarCard: React.FC<Properties> = ({ preview }) => {
             _hover={{
                 backgroundColor: 'background.600',
                 borderColor: 'brand.secondary.300',
+                cursor: 'pointer',
             }}
         >
             <Image

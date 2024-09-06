@@ -91,7 +91,6 @@ class BaseHttpApi implements HttpApi {
 
         if (hasAuth) {
             const token = await this.storage.get<string>(StorageKey.TOKEN);
-
             headers.append(HttpHeader.AUTHORIZATION, `Bearer ${token ?? ''}`);
         }
 

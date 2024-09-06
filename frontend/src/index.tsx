@@ -8,7 +8,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { store } from '~/framework/store/store.js';
 import { theme } from '~/framework/theme/theme.js';
-import { routes } from '~/router/routes.js';
+import { routes } from '~/routes/routes.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
     <StrictMode>
