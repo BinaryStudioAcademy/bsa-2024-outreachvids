@@ -2,15 +2,15 @@ import { Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 
 import { IconName } from '~/bundles/common/icons/icons.js';
+import { type VideoPreview as VideoPreviewT } from '~/bundles/common/types/types.js';
 
 import {
     VideoPreview as VideoPreviewValues,
     VideoSizeLabel,
 } from './libs/enums/enums.js';
-import { type VideoPreview as VideoPreviewType } from './libs/types/types.js';
 
 const VideoPreview: React.FC = () => {
-    const [view, setView] = useState<VideoPreviewType>(
+    const [view, setView] = useState<VideoPreviewT>(
         VideoPreviewValues.PORTRAIT,
     );
 

@@ -1,10 +1,13 @@
 import { Circle } from '~/bundles/common/components/components.js';
 
+import { getInitials } from '../helpers/helpers.js';
+
 type Properties = {
-    username: string;
+    username: string | undefined;
 };
 
 const UserAvatar: React.FC<Properties> = ({ username }) => {
+    const initials = getInitials(username);
     return (
         <Circle
             size="40px"
@@ -12,7 +15,7 @@ const UserAvatar: React.FC<Properties> = ({ username }) => {
             borderColor="brand.secondary.900"
             color="brand.secondary.900"
         >
-            {username}
+            {initials}
         </Circle>
     );
 };
