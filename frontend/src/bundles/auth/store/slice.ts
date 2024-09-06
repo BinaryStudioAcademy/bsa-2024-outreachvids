@@ -58,7 +58,7 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(logout.fulfilled, (state) => {
             state.user = null;
-            state.dataStatus = DataStatus.FULFILLED;
+            state.dataStatus = DataStatus.IDLE;
         });
         builder.addCase(logout.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
