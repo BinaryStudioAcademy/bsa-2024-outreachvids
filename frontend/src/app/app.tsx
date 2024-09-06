@@ -4,6 +4,7 @@ import { useAppDispatch, useEffect } from '~/bundles/common/hooks/hooks.js';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         void dispatch(authActions.loadCurrentUser());
     });

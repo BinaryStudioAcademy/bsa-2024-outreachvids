@@ -10,6 +10,7 @@ type Properties = {
     size?: 'md' | 'lg';
     isDisabled?: boolean;
     sx?: SystemStyleObject;
+    onClick?: () => void;
 };
 
 const Button: React.FC<Properties> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<Properties> = ({
     size = 'md',
     isDisabled = false,
     sx = {},
+    onClick,
 }) => (
     <LibraryButton
         type={type}
@@ -27,6 +29,7 @@ const Button: React.FC<Properties> = ({
         size={size}
         isDisabled={isDisabled}
         sx={sx}
+        onClick={onClick}
     >
         {label}
     </LibraryButton>

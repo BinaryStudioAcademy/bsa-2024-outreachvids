@@ -48,4 +48,13 @@ const loadCurrentUser = createAsyncThunk<
     return userApi.getCurrent();
 });
 
-export { loadCurrentUser, signIn, signUp };
+const logout = createAsyncThunk<Promise<void>, undefined, AsyncThunkConfig>(
+    `${sliceName}/logout`,
+    async (_, { extra }) => {
+        const { storage } = extra;
+
+        await storage.drop(StorageKey.TOKEN);
+    },
+);
+
+export { loadCurrentUser, logout, signIn, signUp };
