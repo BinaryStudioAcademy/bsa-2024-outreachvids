@@ -15,6 +15,7 @@ export {
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
     type GetVoicesResponseDto,
+    generateSpeechValidationSchema,
     SpeechApiPath,
 } from './bundles/speech/speech.js';
 export {
