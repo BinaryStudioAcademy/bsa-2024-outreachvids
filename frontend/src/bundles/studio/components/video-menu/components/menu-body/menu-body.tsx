@@ -3,7 +3,10 @@ import {
     CloseButton,
     Flex,
     Heading,
+    Icon,
+    IconButton,
 } from '~/bundles/common/components/components.js';
+import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.css';
 
@@ -20,6 +23,8 @@ const MenuBody: React.FC<Properties> = ({
     isOpen,
     onClose,
 }) => {
+    const handleChat = useCallback(() => {}, []);
+
     return (
         <>
             {isOpen && (
@@ -30,7 +35,22 @@ const MenuBody: React.FC<Properties> = ({
                         marginBottom="30px"
                     >
                         <Heading variant="H3">{title}</Heading>
-                        <CloseButton onClick={onClose} color="background.600" />
+                        <Flex align="center">
+                            {title === 'Script' ? (
+                                <IconButton
+                                    aria-label="AI icon button"
+                                    icon={<Icon />}
+                                    variant="icon"
+                                    boxSize={5}
+                                    onClick={handleChat}
+                                />
+                            ) : null}
+
+                            <CloseButton
+                                onClick={onClose}
+                                color="background.600"
+                            />
+                        </Flex>
                     </Flex>
                     <Box className={styles['menu-body-content']}>
                         {children}
