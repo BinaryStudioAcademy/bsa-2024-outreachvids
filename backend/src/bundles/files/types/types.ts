@@ -11,8 +11,13 @@ type NewFileEntityProperties = {
     type: FileType;
 };
 
+type PhotoExtension = 'jpg' | 'jpeg' | 'png' | 'gif' | 'bmp';
+type VideoExtension = 'mp4';
+
 export {
     type FileEntityProperties,
     type FileType,
     type NewFileEntityProperties,
+    type PhotoExtension,
+    type VideoExtension,
 };

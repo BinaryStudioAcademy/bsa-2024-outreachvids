@@ -2,6 +2,7 @@ import { type FileEntity } from '~/bundles/files/file.entity.js';
 import { type FilesRepository } from '~/bundles/files/file.repository.js';
 import { HttpCode, HttpError } from '~/common/http/http.js';
 
+import { FILE_TYPE_MAP } from './constants/constants.js';
 import { FileErrorMessage } from './enums/enums.js';
 import { type FileType } from './types/types.js';
 
@@ -22,19 +23,15 @@ class FileManagementService {
             });
         }
 
-        const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-        const videoExtensions = ['mp4'];
+        const fileType = FILE_TYPE_MAP[extension];
 
-        if (photoExtensions.includes(extension)) {
-            return 'photo';
-        } else if (videoExtensions.includes(extension)) {
-            return 'video';
-        } else {
+        if (!fileType) {
             throw new HttpError({
                 message: FileErrorMessage.UNSUPPORTED_FILE,
                 status: HttpCode.UNSUPPORTED_MEDIA_TYPE,
             });
         }
+        return fileType;
     }
 
     public async storeFileInfo(
