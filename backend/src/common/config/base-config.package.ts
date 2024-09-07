@@ -149,6 +149,12 @@ class BaseConfig implements Config {
                     env: 'AZURE_SERVICE_REGION',
                     default: null,
                 },
+                SERVICE_ENDPOINT: {
+                    doc: 'Azure service endpoint',
+                    format: String,
+                    env: 'AZURE_SERVICE_ENDPOINT',
+                    default: null,
+                },
             },
         });
     }
