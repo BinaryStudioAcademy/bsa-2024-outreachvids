@@ -10,6 +10,7 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
     useLocation,
     useNavigate,
@@ -30,6 +31,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const user = useAppSelector(({ auth }) => auth.user);
     const dispatch = useAppDispatch();
 
     const handleToggle = useCallback(
@@ -69,8 +71,11 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                     variant="icon"
                 />
                 <Box mb="30px">
-                    {/* ToDo: Add this username value dynamically */}
-                    {isCollapsed ? <UserAvatar username="FN" /> : <UserCard />}
+                    {isCollapsed ? (
+                        <UserAvatar username={user?.fullName} />
+                    ) : (
+                        <UserCard />
+                    )}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>

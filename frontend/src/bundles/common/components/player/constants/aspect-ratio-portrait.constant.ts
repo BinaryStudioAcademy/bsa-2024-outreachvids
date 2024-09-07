@@ -1,0 +1,3 @@
+const ASPECT_RATIO_PORTRAIT = 9 / 16;
+
+export { ASPECT_RATIO_PORTRAIT };
