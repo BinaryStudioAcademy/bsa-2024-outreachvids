@@ -28,7 +28,12 @@ const VideoPreview: React.FC = () => {
         <Flex className={styles['previewContainer']}>
             <Flex
                 className={styles['previewBox']}
-                style={{ width: view === VideoPreviewValues.PORTRAIT ? '250px' : '720px' }}
+                style={{
+                    width:
+                        view === VideoPreviewValues.PORTRAIT
+                            ? '250px'
+                            : '720px',
+                }}
             >
                 <Flex className={styles['previewInnerBox']}>
                     <Icon

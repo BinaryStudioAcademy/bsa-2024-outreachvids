@@ -31,7 +31,10 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <FormProvider value={form}>
             <form onSubmit={handleSubmit}>
-                <VStack className={styles['scriptFormContainer']} spacing="20px">
+                <VStack
+                    className={styles['scriptFormContainer']}
+                    spacing="20px"
+                >
                     <Textarea
                         label="Topic"
                         name="topic"

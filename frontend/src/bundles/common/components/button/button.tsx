@@ -1,6 +1,4 @@
-import {
-    Button as LibraryButton,
-} from '@chakra-ui/react';
+import { Button as LibraryButton } from '@chakra-ui/react';
 
 type Properties = {
     label: string;
@@ -8,7 +6,7 @@ type Properties = {
     variant?: string;
     size?: 'md' | 'lg';
     isDisabled?: boolean;
-    className?: string|undefined;
+    className?: string | undefined;
     onClick?: () => void;
 };
 

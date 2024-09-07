@@ -52,48 +52,48 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <FormProvider value={form}>
-        <Box className={styles['container']}>
-            <FormHeader
-                headerText="Sign In"
-                subheader={
-                    <>
-                        Don’t have an account?{' '}
-                        <Link to={AppRoute.SIGN_UP} variant="secondary">
-                            Go to registration
-                        </Link>
-                    </>
-                }
-            />
-            <form onSubmit={handleSubmit}>
-                <VStack spacing="20px" align="flex-start">
-                    <Input
-                        type="text"
-                        label="Email"
-                        placeholder="user@gmail.com"
-                        name="email"
-                        required
-                    />
-                    <PasswordInput
-                        label="Password"
-                        name="password"
-                        hasError={Boolean(errors.password)}
-                        required
-                    />
-                    <FormError
-                        isVisible={dataStatus === DataStatus.REJECTED}
-                        message={UserValidationMessage.INVALID_DATA}
-                    />
-                    <Button
-                        type="submit"
-                        label="Sign in"
-                        size="lg"
-                        className={styles['submitButton']}
-                        isDisabled={isEmpty}
-                    />
-                </VStack>
-            </form>
-        </Box>
-    </FormProvider>
+            <Box className={styles['container']}>
+                <FormHeader
+                    headerText="Sign In"
+                    subheader={
+                        <>
+                            Don’t have an account?{' '}
+                            <Link to={AppRoute.SIGN_UP} variant="secondary">
+                                Go to registration
+                            </Link>
+                        </>
+                    }
+                />
+                <form onSubmit={handleSubmit}>
+                    <VStack spacing="20px" align="flex-start">
+                        <Input
+                            type="text"
+                            label="Email"
+                            placeholder="user@gmail.com"
+                            name="email"
+                            required
+                        />
+                        <PasswordInput
+                            label="Password"
+                            name="password"
+                            hasError={Boolean(errors.password)}
+                            required
+                        />
+                        <FormError
+                            isVisible={dataStatus === DataStatus.REJECTED}
+                            message={UserValidationMessage.INVALID_DATA}
+                        />
+                        <Button
+                            type="submit"
+                            label="Sign in"
+                            size="lg"
+                            className={styles['submitButton']}
+                            isDisabled={isEmpty}
+                        />
+                    </VStack>
+                </form>
+            </Box>
+        </FormProvider>
     );
 };
 

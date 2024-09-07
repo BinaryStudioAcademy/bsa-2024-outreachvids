@@ -13,10 +13,7 @@ const GenerateScriptPlaceholder: React.FC = () => {
                 icon={IconName.SCROLL}
                 className={styles['scriptPlaceholderIcon']}
             />
-            <Text
-                className={styles['scriptPlaceholderText']}
-                variant="H3"
-            >
+            <Text className={styles['scriptPlaceholderText']} variant="H3">
                 Here you will see your generated script
             </Text>
         </VStack>

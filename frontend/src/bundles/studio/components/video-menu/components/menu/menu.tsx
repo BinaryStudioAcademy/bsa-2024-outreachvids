@@ -42,7 +42,9 @@ const Menu: React.FC<Properties> = ({
                         key={index}
                         onClick={handleClick(index)}
                         className={`${styles['menuItem']} ${
-                            activeIndex === index ? styles['menuItemActive'] : ''
+                            activeIndex === index
+                                ? styles['menuItemActive']
+                                : ''
                         }`}
                     >
                         <Box className={styles['icon']}>{item.icon}</Box>
