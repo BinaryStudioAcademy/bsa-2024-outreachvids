@@ -23,7 +23,7 @@ const routes = [
                 path: AppRoute.ROOT,
                 element: (
                     <ProtectedRoute>
-                        <Home />,
+                        <Home />
                     </ProtectedRoute>
                 ),
             },
@@ -31,7 +31,7 @@ const routes = [
                 path: AppRoute.STUDIO,
                 element: (
                     <ProtectedRoute>
-                        <Studio />,
+                        <Studio />
                     </ProtectedRoute>
                 ),
             },
@@ -39,7 +39,7 @@ const routes = [
                 path: AppRoute.MY_AVATAR,
                 element: (
                     <ProtectedRoute>
-                        <MyAvatar />,
+                        <MyAvatar />
                     </ProtectedRoute>
                 ),
             },
