@@ -1,6 +1,7 @@
 const ApiPath = {
     USERS: '/users',
     AVATARS: '/avatars',
+    AVATAR: '/avatar',
     AUTH: '/auth',
     VIDEOS: '/videos',
     CHAT: '/chat',
