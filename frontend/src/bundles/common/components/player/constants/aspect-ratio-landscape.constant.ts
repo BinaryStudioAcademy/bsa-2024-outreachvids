@@ -1,0 +1,3 @@
+const ASPECT_RATIO_LANDSCAPE = 16 / 9;
+
+export { ASPECT_RATIO_LANDSCAPE };
