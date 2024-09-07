@@ -1,45 +1,54 @@
-import { Icon, Text, VStack } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { Icon, Text, VStack } from '~/bundles/common/components/components.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
+import { type VideoScript } from '~/bundles/common/types/types.js';
 
-import styles from './styles.module.css';
+import { GenerateScriptScene } from '../generate-script-scene/generate-script-scene.js';
 
 type Properties = {
-    generatedText: string;
+    videoScripts: VideoScript[];
 };
 
-const GenerateScriptPlaceholder: React.FC<Properties> = ({ generatedText }) => {
+const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
     const isGenearatedTextEmpty = useMemo(
-        () => generatedText.length === 0,
-        [generatedText],
+        () => videoScripts.length === 0,
+        [videoScripts],
     );
 
     return (
         <VStack w="full" p="40px" gap="10px">
-            {isGenearatedTextEmpty && (
-                <Icon
-                    as={FontAwesomeIcon}
-                    icon={IconName.SCROLL}
-                    color="brand.secondary.300"
-                    opacity="0.5"
-                    size="2x"
-                />
+            {isGenearatedTextEmpty ? (
+                <>
+                    <Icon
+                        as={FontAwesomeIcon}
+                        icon={IconName.SCROLL}
+                        color="brand.secondary.300"
+                        opacity="0.5"
+                        size="2x"
+                    />
+                    <Text
+                        color="gray.400"
+                        variant="H3"
+                        w="40%"
+                        minWidth="175px"
+                        textAlign="center"
+                        fontStyle="italic"
+                    >
+                        Here you will see your generated script
+                    </Text>
+                </>
+            ) : (
+                <>
+                    {videoScripts.map((videoScript, index) => (
+                        <GenerateScriptScene
+                            key={index}
+                            videoScript={videoScript}
+                        />
+                    ))}
+                </>
             )}
-            <Text
-                color="gray.400"
-                // variant="H3"
-                // w="40%"
-                minWidth="175px"
-                // textAlign="center"
-                // fontStyle="italic"
-                className={`${styles['line-1']} ${styles['anim-typewriter']}`}
-            >
-                {isGenearatedTextEmpty
-                    ? 'Here you will see your generated script'
-                    : generatedText}
-            </Text>
         </VStack>
     );
 };

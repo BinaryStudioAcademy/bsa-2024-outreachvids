@@ -17,6 +17,7 @@ import {
     useCallback,
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
+import { type VideoScript } from '~/bundles/common/types/video-script.type.js';
 import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/video-scripts.js';
 
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
@@ -33,8 +34,10 @@ const generateMessageTemplate = (
 
     return `Create the script narration for a video,
         divided in scene, generate script on topic '${topic}'
-        in '${language}' using a '${tone}' tone ${additionalInfoMessage}.
+        in '${language}' using a '${tone}' tone ${additionalInfoMessage}
     `;
+    // The response must be valid a JSON that has an array of objects with title for the corresponding scene and
+    // the description, dont return any other text, just the JSON.
 };
 
 const getVideoScriptMessageFromPayload = (
@@ -43,7 +46,7 @@ const getVideoScriptMessageFromPayload = (
 ): string => {
     return messages.length === 0
         ? generateMessageTemplate(payload)
-        : 'Please, generate another script from the info I have provided before';
+        : 'Please, generate another script from the info provided before';
 };
 
 const GenerateScriptView: React.FC = () => {
@@ -64,17 +67,27 @@ const GenerateScriptView: React.FC = () => {
         [messages, dispatch],
     );
 
-    const lastGeneratedText: string = useMemo(() => {
+    const lastGeneratedScript: VideoScript[] = useMemo(() => {
         if (!messages || messages.length === 0) {
-            return '';
+            return [];
         }
 
         const lastMessage = messages.at(-1);
         if (!lastMessage) {
-            return '';
+            return [];
         }
 
-        return lastMessage.text;
+        try {
+            const videoScripts: VideoScript[] = JSON.parse(lastMessage.text);
+            return videoScripts;
+        } catch {
+            return [
+                {
+                    title: 'Scene',
+                    description: lastMessage.text,
+                },
+            ];
+        }
     }, [messages]);
 
     return (
@@ -115,7 +128,7 @@ const GenerateScriptView: React.FC = () => {
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />
                             <GenerateScriptPlaceholder
-                                generatedText={lastGeneratedText}
+                                videoScripts={lastGeneratedScript}
                             />
                         </HStack>
                     </TabPanel>
