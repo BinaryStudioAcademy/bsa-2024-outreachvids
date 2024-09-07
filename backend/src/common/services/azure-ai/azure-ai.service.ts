@@ -8,49 +8,34 @@ import {
     type GetVoicesResponseDto,
 } from '~/bundles/speech/types/types.js';
 import { type BaseConfig } from '~/common/config/base-config.package.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
 
 import { type FileService } from '../file/file.service.js';
+import { type TextToSpeechApi } from './apis/text-to-speech-api.js';
 import { type AzureGetVoicesResponseDto } from './types/types.js';
 
 class AzureAIService {
     private fileService: FileService;
+    private textToSpeechApi: TextToSpeechApi;
 
     private subscriptionKey: string;
     private serviceRegion: string;
 
-    public constructor(config: BaseConfig, fileService: FileService) {
+    public constructor(
+        config: BaseConfig,
+        fileService: FileService,
+        textToSpeechApi: TextToSpeechApi,
+    ) {
         this.fileService = fileService;
+        this.textToSpeechApi = textToSpeechApi;
 
         this.subscriptionKey = config.ENV.AZURE.SUBSCRIPTION_KEY;
         this.serviceRegion = config.ENV.AZURE.SERVICE_REGION;
     }
 
-    private getVoicesUrl(): string {
-        return `https://${this.serviceRegion}.tts.speech.microsoft.com/cognitiveservices/voices/list`;
-    }
-
     public async getVoices(): Promise<GetVoicesResponseDto> {
-        const url = this.getVoicesUrl();
+        const response = await this.textToSpeechApi.getVoices();
 
-        const options = {
-            headers: {
-                'Ocp-Apim-Subscription-Key': this.subscriptionKey,
-            },
-        };
-
-        const response = await fetch(url, options);
-
-        if (!response.ok) {
-            throw new HttpError({
-                message: response.statusText,
-                status: HttpCode.INTERNAL_SERVER_ERROR,
-            });
-        }
-
-        const data = await response.json();
-
-        const filteredData = data
+        const data = response
             .filter(
                 (data: AzureGetVoicesResponseDto) => data.Locale === 'en-US',
             )
@@ -62,7 +47,7 @@ class AzureAIService {
                 voiceType: data.VoiceType,
             }));
 
-        return { items: filteredData };
+        return { items: data };
     }
 
     private synthesizeSpeech(
