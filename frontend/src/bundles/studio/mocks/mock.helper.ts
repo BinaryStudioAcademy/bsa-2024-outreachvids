@@ -1,4 +1,5 @@
 import { secondsToMilliseconds } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 import { type TimelineItem, type TimelineRows } from '../types/types.js';
 
@@ -9,7 +10,7 @@ const generateMockItems = (
     return Array.from({ length: count })
         .fill(0)
         .map(() => ({
-            id: self.crypto.randomUUID(),
+            id: uuidv4(),
             duration,
         }));
 };
