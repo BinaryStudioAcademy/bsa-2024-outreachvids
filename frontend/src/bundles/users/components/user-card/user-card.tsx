@@ -5,13 +5,15 @@ import {
     VideoModal,
     VStack,
 } from '~/bundles/common/components/components.js';
-
-import { useAppSelector, useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppSelector,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 
 import { UserAvatar } from './components/user-avatar.js';
 
 const UserCard: React.FC = () => {
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = useCallback((): void => {
         setIsModalOpen(true);
