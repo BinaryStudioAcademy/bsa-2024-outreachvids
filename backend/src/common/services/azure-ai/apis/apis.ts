@@ -8,4 +8,5 @@ const textToSpeechApi = new TextToSpeechApi({
     http: baseHttp,
 });
 
+export { avatarVideoApi } from './avatar-video/avatar-video.js';
 export { textToSpeechApi };
