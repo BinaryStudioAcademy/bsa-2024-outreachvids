@@ -45,7 +45,7 @@ const Menu: React.FC<Properties> = ({
                 color: 'white',
                 borderTopRightRadius: 'xl',
                 borderBottomRightRadius: 'xl',
-                zIndex: 1000,
+                zIndex: 100,
             }}
         >
             <VStack spacing={1} align="stretch" p={2} w="100%">
