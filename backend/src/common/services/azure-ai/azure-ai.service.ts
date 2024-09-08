@@ -14,7 +14,7 @@ import { type BaseConfig } from '~/common/config/base-config.package.js';
 
 import { type FileService } from '../file/file.service.js';
 import { type TextToSpeechApi } from './apis/text-to-speech/text-to-speech-api.js';
-import { DEFAULT_LOCALE } from './constants/constants.js';
+import { DEFAULT_LANGUAGE } from './constants/constants.js';
 import { type AzureGetVoicesResponseDto } from './types/types.js';
 
 class AzureAIService {
@@ -40,13 +40,13 @@ class AzureAIService {
         const response = await this.textToSpeechApi.getVoices();
 
         const data = response
-            .filter(
-                (data: AzureGetVoicesResponseDto) =>
-                    data.Locale === DEFAULT_LOCALE,
+            .filter((data: AzureGetVoicesResponseDto) =>
+                data.Locale.startsWith(DEFAULT_LANGUAGE),
             )
             .map((data: AzureGetVoicesResponseDto) => ({
                 name: data.DisplayName,
                 shortName: data.ShortName,
+                gender: data.Gender,
                 locale: data.Locale,
                 localeName: data.LocaleName,
                 voiceType: data.VoiceType,

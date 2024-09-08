@@ -23,6 +23,8 @@ import { generateSpeechValidationSchema } from './validation-schemas/validation-
  *            type: string
  *          shortName:
  *            type: string
+ *          gender:
+ *            type: string
  *          locale:
  *            type: string
  *          localeName:

@@ -1,3 +1,3 @@
-const DEFAULT_LOCALE = 'en-US';
+const DEFAULT_LANGUAGE = 'en';
 
-export { DEFAULT_LOCALE };
+export { DEFAULT_LANGUAGE };
