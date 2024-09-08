@@ -30,6 +30,7 @@ const Row: React.FC<Properties> = ({ id, type, children, style = {} }) => {
                 ...rowWrapperStyle,
                 ...style,
             }}
+            margin="3px 0"
         >
             <Box ref={setNodeRef} style={rowStyle} className={styles['row']}>
                 {children}
