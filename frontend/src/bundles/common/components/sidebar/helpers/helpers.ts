@@ -1,6 +1,6 @@
 import { storage, StorageKey } from '~/framework/storage/storage.js';
 
-import { MD } from '../hooks/use-collapse/constants/constants.js';
+import { MD } from '../constants/constants.js';
 
 const getFlag = async (): Promise<boolean> => {
     const value = await storage.get(StorageKey.IS_COLLAPSED);

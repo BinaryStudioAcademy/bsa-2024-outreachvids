@@ -10,7 +10,9 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
+    useEffect,
     useLocation,
     useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
@@ -19,7 +21,7 @@ import { type ValueOf } from '~/bundles/common/types/types.js';
 import { UserAvatar, UserCard } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
-import { useCollapse } from './hooks/hooks.js';
+import { MD } from './constants/constants.js';
 
 type Properties = {
     children: React.ReactNode;
@@ -29,11 +31,26 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
-    const { isCollapsed, setToggle } = useCollapse();
+    const isSidebarCollapsed = useAppSelector(
+        ({ auth }) => auth.isSidebarCollapsed,
+    );
+
+    const resize = useCallback((): void => {
+        const isMobile = window.innerWidth < MD;
+        dispatch(authActions.toggleSidebar(isMobile));
+    }, [dispatch]);
+
+    useEffect(() => {
+        window.addEventListener('resize', resize);
+
+        return () => {
+            window.removeEventListener('resize', resize);
+        };
+    }, [resize]);
 
     const handleToggle = useCallback((): void => {
-        setToggle();
-    }, [setToggle]);
+        dispatch(authActions.toggleSidebar(!isSidebarCollapsed));
+    }, [dispatch, isSidebarCollapsed]);
 
     const activeButtonPage = (page: ValueOf<typeof AppRoute>): string => {
         return pathname === page ? 'background.600' : '';
@@ -51,7 +68,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     return (
         <Flex w="100%">
             <Flex
-                w={isCollapsed ? '60px' : '270px'}
+                w={isSidebarCollapsed ? '60px' : '270px'}
                 bg="background.900"
                 height="calc(100vh - 75px)"
                 position="fixed"
@@ -61,23 +78,27 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                 pb="20px"
             >
                 <IconButton
-                    aria-label={isCollapsed ? 'expand' : 'collapse'}
+                    aria-label={isSidebarCollapsed ? 'expand' : 'collapse'}
                     icon={
                         <Icon
                             as={
-                                isCollapsed
+                                isSidebarCollapsed
                                     ? IconName.ARROW_RIGHT
                                     : IconName.ARROW_LEFT
                             }
                         />
                     }
                     onClick={handleToggle}
-                    justifyContent={isCollapsed ? 'center' : 'flex-end'}
+                    justifyContent={isSidebarCollapsed ? 'center' : 'flex-end'}
                     variant="icon"
                 />
                 <Box mb="30px">
                     {/* ToDo: Add this username value dynamically */}
-                    {isCollapsed ? <UserAvatar username="FN" /> : <UserCard />}
+                    {isSidebarCollapsed ? (
+                        <UserAvatar username="FN" />
+                    ) : (
+                        <UserCard />
+                    )}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>
@@ -90,7 +111,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                                     color={activeIconPage(AppRoute.ROOT)}
                                 />
                             }
-                            isCollapsed={isCollapsed}
+                            isCollapsed={isSidebarCollapsed}
                             label="Home"
                         />
                     </Link>
@@ -104,7 +125,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                                     color={activeIconPage(AppRoute.MY_AVATAR)}
                                 />
                             }
-                            isCollapsed={isCollapsed}
+                            isCollapsed={isSidebarCollapsed}
                             label="My Avatar"
                         />
                     </Link>
@@ -119,12 +140,12 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                             color="brand.secondary.600"
                         />
                     }
-                    isCollapsed={isCollapsed}
+                    isCollapsed={isSidebarCollapsed}
                     label={'log out'}
                     onClick={handleLogOut}
                 />
             </Flex>
-            <Box flex="1" ml={isCollapsed ? '60px' : '270px'}>
+            <Box flex="1" ml={isSidebarCollapsed ? '60px' : '270px'}>
                 {children}
             </Box>
         </Flex>
