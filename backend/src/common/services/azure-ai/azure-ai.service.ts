@@ -1,6 +1,11 @@
 import fs from 'node:fs/promises';
 
-import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
+import {
+    AudioConfig,
+    ResultReason,
+    SpeechConfig,
+    SpeechSynthesizer,
+} from 'microsoft-cognitiveservices-speech-sdk';
 
 import {
     type GenerateSpeechRequestDto,
@@ -53,9 +58,9 @@ class AzureAIService {
     }
 
     private synthesizeSpeech(
-        speechSynthesizer: SpeechSDK.SpeechSynthesizer,
+        speechSynthesizer: SpeechSynthesizer,
         text: string,
-    ): Promise<SpeechSDK.SpeechSynthesizer> {
+    ): Promise<SpeechSynthesizer> {
         return new Promise((resolve, reject) => {
             speechSynthesizer.speakTextAsync(
                 text,
@@ -64,7 +69,7 @@ class AzureAIService {
 
                     if (
                         result.reason ===
-                        SpeechSDK.ResultReason.SynthesizingAudioCompleted
+                        ResultReason.SynthesizingAudioCompleted
                     ) {
                         resolve(speechSynthesizer);
                     }
@@ -79,8 +84,8 @@ class AzureAIService {
         });
     }
 
-    private getSpeechConfig(voiceName: string): SpeechSDK.SpeechConfig {
-        const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
+    private getSpeechConfig(voiceName: string): SpeechConfig {
+        const speechConfig = SpeechConfig.fromSubscription(
             this.subscriptionKey,
             this.serviceRegion,
         );
@@ -93,13 +98,12 @@ class AzureAIService {
     private getSpeechSynthesizer(
         audioFileName: string,
         voiceName: string,
-    ): SpeechSDK.SpeechSynthesizer {
+    ): SpeechSynthesizer {
         const speechConfig = this.getSpeechConfig(voiceName);
 
-        const audioConfig =
-            SpeechSDK.AudioConfig.fromAudioFileOutput(audioFileName);
+        const audioConfig = AudioConfig.fromAudioFileOutput(audioFileName);
 
-        return new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+        return new SpeechSynthesizer(speechConfig, audioConfig);
     }
 
     public async textToSpeech({
