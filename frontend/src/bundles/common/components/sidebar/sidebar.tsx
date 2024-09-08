@@ -29,6 +29,7 @@ type Properties = {
 
 const Sidebar = ({ children }: Properties): JSX.Element => {
     const navigate = useNavigate();
+    const user = useAppSelector(({ auth }) => auth.user);
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
     const isCollapsed = useAppSelector(({ auth }) => auth.isSidebarCollapsed);
@@ -91,8 +92,11 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                     variant="icon"
                 />
                 <Box mb="30px">
-                    {/* ToDo: Add this username value dynamically */}
-                    {isCollapsed ? <UserAvatar username="FN" /> : <UserCard />}
+                    {isCollapsed ? (
+                        <UserAvatar username={user?.fullName} />
+                    ) : (
+                        <UserCard />
+                    )}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>

@@ -34,6 +34,7 @@
         "@commitlint/cli": "19.4.0",
         "@commitlint/config-conventional": "19.2.2",
         "@ls-lint/ls-lint": "2.2.3",
+        "@types/uuid": "10.0.0",
         "@typescript-eslint/eslint-plugin": "6.19.1",
         "danger": "12.3.3",
         "editorconfig-checker": "5.1.8",
@@ -54,5 +55,8 @@
     "simple-git-hooks": {
         "pre-commit": "npx lint-staged",
         "commit-msg": "npx commitlint --edit $1"
+    },
+    "dependencies": {
+        "uuid": "10.0.0"
     }
 }
