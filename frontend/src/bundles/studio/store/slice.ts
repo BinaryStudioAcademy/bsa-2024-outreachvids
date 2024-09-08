@@ -25,9 +25,15 @@ import {
     type DestinationPointer,
     type RowType,
     type Scene,
+    type SceneAvatar,
     type Script,
 } from '../types/types.js';
 import { loadAvatars } from './actions.js';
+
+type SelectedItem = {
+    id: string;
+    type: RowType;
+};
 
 type ItemActionPayload = {
     id: string;
@@ -48,6 +54,7 @@ type State = {
     videoSize: VideoPreviewT;
     ui: {
         destinationPointer: DestinationPointer | null;
+        selectedItem: SelectedItem | null;
     };
 };
 
@@ -61,6 +68,7 @@ const initialState: State = {
     videoSize: VideoPreview.LANDSCAPE,
     ui: {
         destinationPointer: null,
+        selectedItem: null,
     },
 };
 
@@ -151,11 +159,14 @@ const { reducer, actions, name } = createSlice({
         ) {
             const { id, span, type } = action.payload;
 
-            const items =
-                type === RowNames.SCENE ? state.scenes : state.scripts;
-            const itemsWithSpan = setItemsSpan(items);
+            const itemsWithSpan =
+                type === RowNames.SCENE
+                    ? setItemsSpan(state.scenes)
+                    : setItemsSpan(state.scripts);
 
-            const previousIndex = items.findIndex((item) => item.id === id);
+            const previousIndex = itemsWithSpan.findIndex(
+                (item) => item.id === id,
+            );
             const newIndex = getNewItemIndexBySpan(span, itemsWithSpan);
 
             const destinationPointer = {
@@ -171,6 +182,31 @@ const { reducer, actions, name } = createSlice({
         },
         removeDestinationPointer(state) {
             state.ui.destinationPointer = null;
+        },
+        selectItem(state, action: PayloadAction<SelectedItem>) {
+            state.ui.selectedItem =
+                state.ui.selectedItem?.id === action.payload.id
+                    ? null
+                    : action.payload;
+        },
+        addAvatarToScene(state, action: PayloadAction<SceneAvatar>) {
+            const selectedItem = state.ui.selectedItem;
+            if (!selectedItem || selectedItem.type !== RowNames.SCENE) {
+                return;
+            }
+
+            state.scenes = state.scenes.map((scene) => {
+                if (scene.id !== state.ui.selectedItem?.id) {
+                    return scene;
+                }
+
+                return {
+                    ...scene,
+                    avatar: {
+                        ...action.payload,
+                    },
+                };
+            });
         },
     },
     extraReducers(builder) {

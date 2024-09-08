@@ -1,7 +1,13 @@
+type SceneAvatar = {
+    id: string;
+    style: string;
+    url: string;
+};
+
 type Scene = {
     id: string;
     duration: number;
-    url?: string;
+    avatar?: SceneAvatar;
 };
 
-export { type Scene };
+export { type Scene, type SceneAvatar };

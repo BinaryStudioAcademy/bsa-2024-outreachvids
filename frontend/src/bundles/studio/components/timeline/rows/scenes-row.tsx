@@ -1,7 +1,8 @@
-import { Text } from '~/bundles/common/components/components.js';
+import { Badge, Image } from '~/bundles/common/components/components.js';
 import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
+import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 import { Item, Row } from '../components.js';
 
@@ -15,15 +16,23 @@ const ScenesRow: React.FC = () => {
             type={RowNames.SCENE}
             style={{ height: '60px' }}
         >
-            {scenesWithSpan.map((item) => (
+            {scenesWithSpan.map((item, index) => (
                 <Item key={item.id} type={RowNames.SCENE} {...item}>
-                    {/* TODO: replace text with avatars */}
-                    {/* <Image src={photo} alt="Video preview" borderRadius="5px" /> */}
-                    <Text
-                        variant="bodySmall"
-                        color="typography.900"
-                        padding="0 5px"
-                    >{`Avatar ${item.id.slice(0, 4)}`}</Text>
+                    <Badge
+                        className={styles['scene-badge']}
+                        variant="solid"
+                        borderRadius="5px"
+                        px="8px"
+                    >
+                        {index + 1}
+                    </Badge>
+                    {item.avatar && (
+                        <Image
+                            src={item.avatar.url}
+                            alt="Video preview"
+                            height="100%"
+                        />
+                    )}
                 </Item>
             ))}
         </Row>

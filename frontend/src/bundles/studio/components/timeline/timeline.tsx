@@ -121,16 +121,33 @@ const Timeline: React.FC<Properties> = ({
             dispatch(studioActions.removeDestinationPointer());
 
             const activeItem = event.active.data.current;
+            const activeItemId = event.active.id as string;
 
+            const activeItemType = activeItem['type'] as RowType;
             const activeRowId = event.over?.id as string;
+
             const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
 
             if (!updatedSpan || !activeRowId) {
                 return;
             }
 
-            const activeItemType = activeItem['type'] as RowType;
-            const activeItemId = event.active.id as string;
+            const {
+                span: { start, end },
+            } = activeItem;
+
+            if (
+                Math.round(updatedSpan.start) === start &&
+                Math.round(updatedSpan.end) == end
+            ) {
+                dispatch(
+                    studioActions.selectItem({
+                        id: activeItemId,
+                        type: activeItemType,
+                    }),
+                );
+                return;
+            }
 
             if (activeItemType === RowNames.SCENE) {
                 dispatch(
