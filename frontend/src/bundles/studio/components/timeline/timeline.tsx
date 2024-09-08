@@ -106,41 +106,44 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
         [dispatch, items],
     );
 
-    const onDragEnd = useCallback((event: DragEndEvent) => {
-        dispatch(studioActions.removeDestinationPointer());
+    const onDragEnd = useCallback(
+        (event: DragEndEvent) => {
+            dispatch(studioActions.removeDestinationPointer());
 
-        const activeItem = event.active.data.current;
+            const activeItem = event.active.data.current;
 
-        const activeRowId = event.over?.id as string;
-        const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
+            const activeRowId = event.over?.id as string;
+            const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
 
-        if (!updatedSpan || !activeRowId) {
-            return;
-        }
+            if (!updatedSpan || !activeRowId) {
+                return;
+            }
 
-        setItems((previousItems) => {
-            const activeItemType = activeItem['type'] as RowType;
-            const activeRowItems = previousItems[activeItemType];
+            setItems((previousItems) => {
+                const activeItemType = activeItem['type'] as RowType;
+                const activeRowItems = previousItems[activeItemType];
 
-            const previousActiveItemIndex = activeRowItems.findIndex(
-                (item) => item.id === event.active.id,
-            );
+                const previousActiveItemIndex = activeRowItems.findIndex(
+                    (item) => item.id === event.active.id,
+                );
 
-            const newActiveItemIndex = getNewItemIndexBySpan(
-                updatedSpan,
-                activeRowItems,
-            );
+                const newActiveItemIndex = getNewItemIndexBySpan(
+                    updatedSpan,
+                    activeRowItems,
+                );
 
-            return setItemsSpan({
-                ...previousItems,
-                [activeItemType]: reorderItemsByIndexes({
-                    oldIndex: previousActiveItemIndex,
-                    newIndex: newActiveItemIndex,
-                    items: activeRowItems,
-                }),
+                return setItemsSpan({
+                    ...previousItems,
+                    [activeItemType]: reorderItemsByIndexes({
+                        oldIndex: previousActiveItemIndex,
+                        newIndex: newActiveItemIndex,
+                        items: activeRowItems,
+                    }),
+                });
             });
-        });
-    }, []);
+        },
+        [dispatch],
+    );
 
     return (
         <TimelineContext

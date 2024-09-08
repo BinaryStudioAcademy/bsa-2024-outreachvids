@@ -8,7 +8,7 @@ type Properties = {
     items: Array<TimelineItemWithSpan>;
 };
 
-const AvatarsRow: React.FC<Properties> = ({ items }) => {
+const ScenesRow: React.FC<Properties> = ({ items }) => {
     return (
         <Row
             id={RowNames.AVATAR}
@@ -30,4 +30,4 @@ const AvatarsRow: React.FC<Properties> = ({ items }) => {
     );
 };
 
-export { AvatarsRow };
+export { ScenesRow };

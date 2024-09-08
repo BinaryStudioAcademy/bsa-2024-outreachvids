@@ -5,8 +5,8 @@ import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import { type TimelineRowsWithSpan } from '~/bundles/studio/types/types.js';
 
 import {
-    AvatarsRow,
     Row,
+    ScenesRow,
     ScriptsRow,
     TimeAxis,
     TimeCursor,
@@ -24,7 +24,7 @@ const TimelineView: React.FC<Properties> = ({ items }) => {
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor />
             <Row id="emptyTop" />
-            <AvatarsRow items={items[RowNames.AVATAR]} />
+            <ScenesRow items={items[RowNames.AVATAR]} />
             <ScriptsRow items={items[RowNames.SCRIPT]} />
             <Row id="emptyBottom" />
         </Box>
