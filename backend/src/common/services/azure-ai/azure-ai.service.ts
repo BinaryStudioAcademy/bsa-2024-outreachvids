@@ -10,7 +10,7 @@ import {
 import { type BaseConfig } from '~/common/config/base-config.package.js';
 
 import { type FileService } from '../file/file.service.js';
-import { type TextToSpeechApi } from './apis/text-to-speech-api.js';
+import { type TextToSpeechApi } from './apis/text-to-speech/text-to-speech-api.js';
 import { DEFAULT_LOCALE } from './constants/constants.js';
 import { type AzureGetVoicesResponseDto } from './types/types.js';
 

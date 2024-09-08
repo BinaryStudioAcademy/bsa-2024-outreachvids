@@ -7,8 +7,8 @@ import {
     HTTPMethod,
 } from '~/common/http/http.js';
 
-import { TextToSpeechApiPath } from '../enums/enums.js';
-import { type AzureGetVoicesResponseDto } from '../types/types.js';
+import { TextToSpeechApiPath } from '../../enums/enums.js';
+import { type AzureGetVoicesResponseDto } from '../../types/types.js';
 
 type Constructor = {
     baseUrl: string;
