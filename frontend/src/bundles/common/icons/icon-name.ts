@@ -43,12 +43,12 @@ const IconName = {
     VIEW: ViewIcon,
     VIEW_OFF: ViewOffIcon,
     AVATAR: CircleUserIcon,
-    ADD: AddIcon,
-    CLOSE: CloseIcon,
     UPLOAD: CloudArrowUpIcon,
     TEMPLATE: TableColumnsIcon,
     SCRIPT: FontIcon,
     TEXT: TIcon,
+    ADD: AddIcon,
+    CLOSE: CloseIcon,
 } as const;
 
 export { IconName };
