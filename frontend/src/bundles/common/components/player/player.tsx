@@ -50,12 +50,11 @@ const Player = ({
                 compositionWidth={size.width}
                 compositionHeight={size.height}
                 fps={30}
-                style={{
-                    maxHeight: '100%',
-                    ...(orientation === VideoPreview.LANDSCAPE
+                style={
+                    orientation === VideoPreview.LANDSCAPE
                         ? LandscapeStyle
-                        : PortraitStyle),
-                }}
+                        : PortraitStyle
+                }
             />
         </Flex>
     );
