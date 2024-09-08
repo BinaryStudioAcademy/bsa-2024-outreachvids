@@ -92,6 +92,8 @@ class SpeechController extends BaseController {
      * /speech/generate:
      *    post:
      *      description: Generate speech from text
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: Data for text to speech generation
      *        required: true
