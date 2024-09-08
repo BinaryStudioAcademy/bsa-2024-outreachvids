@@ -6,19 +6,14 @@ import { Item, Row } from '../components.js';
 
 type Properties = {
     items: Array<TimelineItemWithSpan>;
-    destinationPointerValue: number | null;
 };
 
-const AvatarsRow: React.FC<Properties> = ({
-    items,
-    destinationPointerValue,
-}) => {
+const AvatarsRow: React.FC<Properties> = ({ items }) => {
     return (
         <Row
             id={RowNames.AVATAR}
             type={RowNames.AVATAR}
             style={{ height: '60px' }}
-            destinationPointerValue={destinationPointerValue}
         >
             {items.map((item) => (
                 <Item key={item.id} type={RowNames.AVATAR} {...item}>

@@ -8,7 +8,11 @@ import {
     type VideoPreview as VideoPreviewT,
 } from '~/bundles/common/types/types.js';
 
-import { type AvatarGetResponseDto, type Script } from '../types/types.js';
+import {
+    type AvatarGetResponseDto,
+    type DestinationPointer,
+    type Script,
+} from '../types/types.js';
 import { loadAvatars } from './actions.js';
 
 type State = {
@@ -18,6 +22,9 @@ type State = {
     };
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
+    ui: {
+        destinationPointer: DestinationPointer | null;
+    };
 };
 
 const initialState: State = {
@@ -27,6 +34,9 @@ const initialState: State = {
     },
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
+    ui: {
+        destinationPointer: null,
+    },
 };
 
 const { reducer, actions, name } = createSlice({
@@ -58,6 +68,15 @@ const { reducer, actions, name } = createSlice({
                 state.videoSize === VideoPreview.LANDSCAPE
                     ? VideoPreview.PORTRAIT
                     : VideoPreview.LANDSCAPE;
+        },
+        setDestinationPointer(
+            state,
+            action: PayloadAction<DestinationPointer>,
+        ) {
+            state.ui.destinationPointer = action.payload;
+        },
+        removeDestinationPointer(state) {
+            state.ui.destinationPointer = null;
         },
     },
     extraReducers(builder) {

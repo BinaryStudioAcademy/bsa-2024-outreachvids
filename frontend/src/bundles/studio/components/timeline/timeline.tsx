@@ -6,7 +6,11 @@ import {
     TimelineContext,
 } from 'dnd-timeline';
 
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import {
     getDestinationPointerValue,
@@ -14,8 +18,8 @@ import {
     reorderItemsByIndexes,
     setItemsSpan,
 } from '~/bundles/studio/helpers/helpers.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import {
-    type DestinationPointer,
     type RowType,
     type TimelineRows,
 } from '~/bundles/studio/types/types.js';
@@ -28,10 +32,10 @@ type Properties = {
 };
 
 const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
+    const dispatch = useAppDispatch();
+
     const [range, setRange] = useState(initialRange);
     const [items, setItems] = useState(setItemsSpan(initialItems));
-    const [destinationPointer, setDestinationPointer] =
-        useState<DestinationPointer | null>(null);
 
     const onResizeEnd = useCallback((event: ResizeEndEvent) => {
         const activeItem = event.active.data.current;
@@ -88,20 +92,22 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
                 activeRowItems,
             );
 
-            setDestinationPointer({
+            const destinationPointer = {
                 type: activeItemType,
                 value: getDestinationPointerValue({
                     oldIndex: previousActiveItemIndex,
                     newIndex: newActiveItemIndex,
                     items: activeRowItems,
                 }),
-            });
+            };
+
+            dispatch(studioActions.setDestinationPointer(destinationPointer));
         },
-        [items],
+        [dispatch, items],
     );
 
     const onDragEnd = useCallback((event: DragEndEvent) => {
-        setDestinationPointer(null);
+        dispatch(studioActions.removeDestinationPointer());
 
         const activeItem = event.active.data.current;
 
@@ -144,10 +150,7 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
             onRangeChanged={setRange}
             onDragMove={onDragMove}
         >
-            <TimelineView
-                items={items}
-                destinationPointer={destinationPointer}
-            />
+            <TimelineView items={items} />
         </TimelineContext>
     );
 };
