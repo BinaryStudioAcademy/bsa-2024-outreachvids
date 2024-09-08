@@ -1,21 +1,21 @@
 import { Text } from '~/bundles/common/components/components.js';
+import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
-import { type TimelineItemWithSpan } from '~/bundles/studio/types/types.js';
+import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 
 import { Item, Row } from '../components.js';
 
-type Properties = {
-    items: Array<TimelineItemWithSpan>;
-};
+const ScenesRow: React.FC = () => {
+    const scenes = useAppSelector(({ studio }) => studio.scenes);
+    const scenesWithSpan = useMemo(() => setItemsSpan(scenes), [scenes]);
 
-const ScenesRow: React.FC<Properties> = ({ items }) => {
     return (
         <Row
             id={RowNames.SCENE}
             type={RowNames.SCENE}
             style={{ height: '60px' }}
         >
-            {items.map((item) => (
+            {scenesWithSpan.map((item) => (
                 <Item key={item.id} type={RowNames.SCENE} {...item}>
                     {/* TODO: replace text with avatars */}
                     {/* <Image src={photo} alt="Video preview" borderRadius="5px" /> */}

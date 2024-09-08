@@ -1,8 +1,7 @@
-type Script = {
+type Scene = {
     id: string;
     duration: number;
-    text: string;
     url?: string;
 };
 
-export { type Script };
+export { type Scene };

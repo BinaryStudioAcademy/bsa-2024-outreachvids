@@ -34,15 +34,13 @@ const Row: React.FC<Properties> = ({ id, type, children, style = {} }) => {
         >
             <Box ref={setNodeRef} style={rowStyle} className={styles['row']}>
                 {children}
-                {destinationPointer?.type === type && (
+                {destinationPointer && destinationPointer.type === type && (
                     <Box
                         h="100%"
                         w="1.5px"
                         bgColor="background.900"
                         position="absolute"
-                        left={valueToPixels(
-                            destinationPointer?.value as number,
-                        )}
+                        left={valueToPixels(destinationPointer.value)}
                     />
                 )}
             </Box>

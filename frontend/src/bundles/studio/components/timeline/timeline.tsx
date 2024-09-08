@@ -21,53 +21,49 @@ import {
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import {
     type RowType,
-    type TimelineRows,
+    type TimelineItem,
 } from '~/bundles/studio/types/types.js';
 
 import { TimelineView } from './components.js';
 
 type Properties = {
     initialRange: Range;
-    initialItems: TimelineRows;
+    initialScriptItems: Array<TimelineItem>;
 };
 
-const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
+const Timeline: React.FC<Properties> = ({
+    initialRange,
+    initialScriptItems,
+}) => {
     const dispatch = useAppDispatch();
 
     const [range, setRange] = useState(initialRange);
-    const [items, setItems] = useState(setItemsSpan(initialItems));
+    const [scriptItems, setScriptItems] = useState(
+        setItemsSpan(initialScriptItems),
+    );
 
-    const onResizeEnd = useCallback((event: ResizeEndEvent) => {
-        const activeItem = event.active.data.current;
-        const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
+    const onResizeEnd = useCallback(
+        (event: ResizeEndEvent) => {
+            const activeItem = event.active.data.current;
+            const activeItemType = activeItem['type'] as RowType;
 
-        if (!updatedSpan) {
-            return;
-        }
+            const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
 
-        const activeItemId = event.active.id;
-        const activeItemType = activeItem['type'] as RowType;
+            if (!updatedSpan || activeItemType === RowNames.SCRIPT) {
+                return;
+            }
 
-        if (activeItemType === RowNames.SCRIPT) {
-            return;
-        }
+            const activeItemId = event.active.id as string;
 
-        setItems((previous) =>
-            setItemsSpan({
-                ...previous,
-                [activeItemType]: previous[activeItemType].map((item) => {
-                    if (item.id !== activeItemId) {
-                        return item;
-                    }
-
-                    return {
-                        ...item,
-                        duration: updatedSpan.end - updatedSpan.start,
-                    };
+            dispatch(
+                studioActions.resizeScene({
+                    id: activeItemId,
+                    span: updatedSpan,
                 }),
-            }),
-        );
-    }, []);
+            );
+        },
+        [dispatch],
+    );
 
     const onDragMove = useCallback(
         (event: DragMoveEvent) => {
@@ -80,16 +76,28 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
                 return;
             }
 
+            const activeItemId = event.active.id as string;
             const activeItemType = activeItem['type'] as RowType;
-            const activeRowItems = items[activeItemType];
 
-            const previousActiveItemIndex = activeRowItems.findIndex(
-                (item) => item.id === event.active.id,
+            if (activeItemType === RowNames.SCENE) {
+                dispatch(
+                    studioActions.setDestinationPointer({
+                        id: activeItemId,
+                        span: updatedSpan,
+                        type: activeItemType,
+                    }),
+                );
+
+                return;
+            }
+
+            const previousActiveItemIndex = scriptItems.findIndex(
+                (item) => item.id === activeItemId,
             );
 
             const newActiveItemIndex = getNewItemIndexBySpan(
                 updatedSpan,
-                activeRowItems,
+                scriptItems,
             );
 
             const destinationPointer = {
@@ -97,13 +105,15 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
                 value: getDestinationPointerValue({
                     oldIndex: previousActiveItemIndex,
                     newIndex: newActiveItemIndex,
-                    items: activeRowItems,
+                    items: scriptItems,
                 }),
             };
 
-            dispatch(studioActions.setDestinationPointer(destinationPointer));
+            dispatch(
+                studioActions.updateDestinationPointer(destinationPointer),
+            );
         },
-        [dispatch, items],
+        [dispatch, scriptItems],
     );
 
     const onDragEnd = useCallback(
@@ -119,27 +129,37 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
                 return;
             }
 
-            setItems((previousItems) => {
-                const activeItemType = activeItem['type'] as RowType;
-                const activeRowItems = previousItems[activeItemType];
+            const activeItemType = activeItem['type'] as RowType;
+            const activeItemId = event.active.id as string;
 
-                const previousActiveItemIndex = activeRowItems.findIndex(
-                    (item) => item.id === event.active.id,
+            if (activeItemType === RowNames.SCENE) {
+                dispatch(
+                    studioActions.reorderScenes({
+                        id: activeItemId,
+                        span: updatedSpan,
+                    }),
+                );
+
+                return;
+            }
+
+            setScriptItems((previousItems) => {
+                const previousActiveItemIndex = previousItems.findIndex(
+                    (item) => item.id === activeItemId,
                 );
 
                 const newActiveItemIndex = getNewItemIndexBySpan(
                     updatedSpan,
-                    activeRowItems,
+                    previousItems,
                 );
 
-                return setItemsSpan({
-                    ...previousItems,
-                    [activeItemType]: reorderItemsByIndexes({
+                return setItemsSpan(
+                    reorderItemsByIndexes({
                         oldIndex: previousActiveItemIndex,
                         newIndex: newActiveItemIndex,
-                        items: activeRowItems,
+                        items: previousItems,
                     }),
-                });
+                );
             });
         },
         [dispatch],
@@ -153,7 +173,7 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
             onRangeChanged={setRange}
             onDragMove={onDragMove}
         >
-            <TimelineView items={items} />
+            <TimelineView scriptItems={scriptItems} />
         </TimelineContext>
     );
 };
