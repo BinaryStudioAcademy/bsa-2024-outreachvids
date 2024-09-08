@@ -1,23 +1,22 @@
 import { Text } from '~/bundles/common/components/components.js';
+import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
-import { type TimelineItemWithSpan } from '~/bundles/studio/types/types.js';
+import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 
 import { Item, Row } from '../components.js';
 
-type Properties = {
-    items: Array<TimelineItemWithSpan>;
-};
+const ScriptsRow: React.FC = () => {
+    const scripts = useAppSelector(({ studio }) => studio.scripts);
+    const scriptsWithSpan = useMemo(() => setItemsSpan(scripts), [scripts]);
 
-const ScriptsRow: React.FC<Properties> = ({ items }) => {
     return (
         <Row
             id={RowNames.SCRIPT}
             type={RowNames.SCRIPT}
             style={{ height: '35px' }}
         >
-            {items.map((item) => (
+            {scriptsWithSpan.map((item) => (
                 <Item key={item.id} type={RowNames.SCRIPT} {...item}>
-                    {/* TODO: replace text with scripts */}
                     <Text
                         variant="bodySmall"
                         textOverflow="ellipsis"
@@ -25,7 +24,9 @@ const ScriptsRow: React.FC<Properties> = ({ items }) => {
                         whiteSpace="nowrap"
                         color="typography.900"
                         padding="0 5px"
-                    >{`Script ${item.id}`}</Text>
+                    >
+                        {item.text}
+                    </Text>
                 </Item>
             ))}
         </Row>

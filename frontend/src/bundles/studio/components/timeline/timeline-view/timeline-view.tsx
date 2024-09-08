@@ -1,7 +1,6 @@
 import { Box } from '~/bundles/common/components/components.js';
 import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
-import { type TimelineItemWithSpan } from '~/bundles/studio/types/types.js';
 
 import {
     Row,
@@ -11,11 +10,7 @@ import {
     TimeCursor,
 } from '../components.js';
 
-type Properties = {
-    scriptItems: TimelineItemWithSpan[];
-};
-
-const TimelineView: React.FC<Properties> = ({ scriptItems }) => {
+const TimelineView: React.FC = () => {
     const { setTimelineRef, style } = useTimelineContext();
 
     return (
@@ -24,7 +19,7 @@ const TimelineView: React.FC<Properties> = ({ scriptItems }) => {
             <TimeCursor />
             <Row id="emptyTop" />
             <ScenesRow />
-            <ScriptsRow items={scriptItems} />
+            <ScriptsRow />
             <Row id="emptyBottom" />
         </Box>
     );
