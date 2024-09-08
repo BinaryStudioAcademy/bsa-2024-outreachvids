@@ -31,9 +31,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
-    const isSidebarCollapsed = useAppSelector(
-        ({ auth }) => auth.isSidebarCollapsed,
-    );
+    const isCollapsed = useAppSelector(({ auth }) => auth.isSidebarCollapsed);
 
     const resize = useCallback((): void => {
         const isMobile = window.innerWidth < MD;
@@ -49,8 +47,8 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     }, [resize]);
 
     const handleToggle = useCallback((): void => {
-        dispatch(authActions.toggleSidebar(!isSidebarCollapsed));
-    }, [dispatch, isSidebarCollapsed]);
+        dispatch(authActions.toggleSidebar(!isCollapsed));
+    }, [dispatch, isCollapsed]);
 
     const activeButtonPage = (page: ValueOf<typeof AppRoute>): string => {
         return pathname === page ? 'background.600' : '';
@@ -68,7 +66,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     return (
         <Flex w="100%">
             <Flex
-                w={isSidebarCollapsed ? '60px' : '270px'}
+                w={isCollapsed ? '60px' : '270px'}
                 bg="background.900"
                 height="calc(100vh - 75px)"
                 position="fixed"
@@ -78,27 +76,23 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                 pb="20px"
             >
                 <IconButton
-                    aria-label={isSidebarCollapsed ? 'expand' : 'collapse'}
+                    aria-label={isCollapsed ? 'expand' : 'collapse'}
                     icon={
                         <Icon
                             as={
-                                isSidebarCollapsed
+                                isCollapsed
                                     ? IconName.ARROW_RIGHT
                                     : IconName.ARROW_LEFT
                             }
                         />
                     }
                     onClick={handleToggle}
-                    justifyContent={isSidebarCollapsed ? 'center' : 'flex-end'}
+                    justifyContent={isCollapsed ? 'center' : 'flex-end'}
                     variant="icon"
                 />
                 <Box mb="30px">
                     {/* ToDo: Add this username value dynamically */}
-                    {isSidebarCollapsed ? (
-                        <UserAvatar username="FN" />
-                    ) : (
-                        <UserCard />
-                    )}
+                    {isCollapsed ? <UserAvatar username="FN" /> : <UserCard />}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>
@@ -111,7 +105,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                                     color={activeIconPage(AppRoute.ROOT)}
                                 />
                             }
-                            isCollapsed={isSidebarCollapsed}
+                            isCollapsed={isCollapsed}
                             label="Home"
                         />
                     </Link>
@@ -125,7 +119,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                                     color={activeIconPage(AppRoute.MY_AVATAR)}
                                 />
                             }
-                            isCollapsed={isSidebarCollapsed}
+                            isCollapsed={isCollapsed}
                             label="My Avatar"
                         />
                     </Link>
@@ -140,12 +134,12 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                             color="brand.secondary.600"
                         />
                     }
-                    isCollapsed={isSidebarCollapsed}
+                    isCollapsed={isCollapsed}
                     label={'log out'}
                     onClick={handleLogOut}
                 />
             </Flex>
-            <Box flex="1" ml={isSidebarCollapsed ? '60px' : '270px'}>
+            <Box flex="1" ml={isCollapsed ? '60px' : '270px'}>
                 {children}
             </Box>
         </Flex>
