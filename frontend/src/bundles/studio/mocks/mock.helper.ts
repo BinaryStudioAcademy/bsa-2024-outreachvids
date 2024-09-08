@@ -16,7 +16,7 @@ const generateMockItems = (
 };
 
 const mockItems: TimelineRows = {
-    avatar: generateMockItems(5, secondsToMilliseconds(15)),
+    scene: generateMockItems(5, secondsToMilliseconds(15)),
     script: generateMockItems(8, secondsToMilliseconds(10)),
 };
 

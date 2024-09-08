@@ -24,7 +24,7 @@ const TimelineView: React.FC<Properties> = ({ items }) => {
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor />
             <Row id="emptyTop" />
-            <ScenesRow items={items[RowNames.AVATAR]} />
+            <ScenesRow items={items[RowNames.SCENE]} />
             <ScriptsRow items={items[RowNames.SCRIPT]} />
             <Row id="emptyBottom" />
         </Box>

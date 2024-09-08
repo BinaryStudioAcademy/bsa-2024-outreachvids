@@ -11,12 +11,12 @@ type Properties = {
 const ScenesRow: React.FC<Properties> = ({ items }) => {
     return (
         <Row
-            id={RowNames.AVATAR}
-            type={RowNames.AVATAR}
+            id={RowNames.SCENE}
+            type={RowNames.SCENE}
             style={{ height: '60px' }}
         >
             {items.map((item) => (
-                <Item key={item.id} type={RowNames.AVATAR} {...item}>
+                <Item key={item.id} type={RowNames.SCENE} {...item}>
                     {/* TODO: replace text with avatars */}
                     {/* <Image src={photo} alt="Video preview" borderRadius="5px" /> */}
                     <Text
