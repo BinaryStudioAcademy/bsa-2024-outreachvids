@@ -2,7 +2,7 @@ import {
     Box,
     Center,
     Heading,
-    NotFoundAnimation
+    NotFoundAnimation,
 } from '~/bundles/common/components/components.js';
 
 const NotFound: React.FC = () => {
