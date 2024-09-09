@@ -19,7 +19,7 @@ const UserAvatar: React.FC<Properties> = ({ username, imageUrl }) => {
             {imageUrl ? (
                 <Image
                     src={imageUrl}
-                    alt={username}
+                    alt={initials}
                     sx={{
                         borderRadius: '50%',
                         width: '100%',
