@@ -2,19 +2,30 @@ import {
     Editable,
     EditablePreview,
     EditableTextarea,
+    HStack,
     Icon,
     IconButton,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
+import { AudioPlayer } from '~/bundles/studio/components/audio-player/audio-player.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
+
+// TODO: remove mocked url when script audioUrl will be taken from text-to-speech
+const audioUrl = 'https://d2tm5q3cg1nlwf.cloudfront.net/tts_1725818217391.wav';
 
 type Properties = ScriptT;
 
 const Script: React.FC<Properties> = ({ id, text }) => {
     const dispatch = useAppDispatch();
+
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const handleDeleteScript = useCallback((): void => {
         void dispatch(studioActions.deleteScript(id));
@@ -22,21 +33,44 @@ const Script: React.FC<Properties> = ({ id, text }) => {
 
     const handleEditScript = useCallback(
         (newText: string): void => {
+            if (text === newText) {
+                return;
+            }
+
             void dispatch(studioActions.editScript({ id, text: newText }));
         },
-        [dispatch, id],
+        [dispatch, id, text],
     );
+
+    const toggleIsPlaying = useCallback((): void => {
+        setIsPlaying((previous) => !previous);
+    }, []);
+
+    const handleAudioEnd = useCallback(() => {
+        setIsPlaying(false);
+    }, []);
 
     return (
         <VStack w="full">
-            <IconButton
-                icon={<Icon as={IconName.CLOSE} />}
-                size="sm"
-                variant="ghostIconDark"
-                aria-label="Delete script"
-                alignSelf="end"
-                onClick={handleDeleteScript}
-            />
+            <HStack justify="end" w="full" gap={0}>
+                <IconButton
+                    icon={
+                        <Icon as={isPlaying ? IconName.STOP : IconName.PLAY} />
+                    }
+                    size="sm"
+                    variant="ghostIconDark"
+                    aria-label="Play script"
+                    onClick={toggleIsPlaying}
+                    borderRadius="100%"
+                />
+                <IconButton
+                    icon={<Icon as={IconName.CLOSE} />}
+                    size="sm"
+                    variant="ghostIconDark"
+                    aria-label="Delete script"
+                    onClick={handleDeleteScript}
+                />
+            </HStack>
             <Editable
                 defaultValue={text}
                 isPreviewFocusable={true}
@@ -65,6 +99,13 @@ const Script: React.FC<Properties> = ({ id, text }) => {
                     }}
                 />
             </Editable>
+            {audioUrl && (
+                <AudioPlayer
+                    isPlaying={isPlaying}
+                    audioUrl={audioUrl}
+                    handleAudioEnd={handleAudioEnd}
+                />
+            )}
         </VStack>
     );
 };
