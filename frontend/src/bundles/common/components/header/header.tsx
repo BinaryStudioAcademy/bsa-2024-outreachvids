@@ -1,5 +1,8 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+
+import { Link } from '../link/link.js';
 import styles from './header.module.css';
 
 type Properties = {
@@ -13,7 +16,9 @@ const Header: React.FC<Properties> = ({ left, center, right }) => {
         <Flex as="header" className={styles['header']}>
             {left ?? (
                 // {/* TODO: Add logo */}
-                <Text className={styles['logoText']}>Logo</Text>
+                <Link to={AppRoute.ROOT}>
+                    <Text className={styles['logoText']}>Logo</Text>
+                </Link>
             )}
             <Box>{center}</Box>
             <Box>{right}</Box>

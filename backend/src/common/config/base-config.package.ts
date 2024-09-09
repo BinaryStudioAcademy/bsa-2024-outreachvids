@@ -136,6 +136,20 @@ class BaseConfig implements Config {
                     },
                 },
             },
+            AZURE: {
+                SUBSCRIPTION_KEY: {
+                    doc: 'Azure subscription key',
+                    format: String,
+                    env: 'AZURE_SUBSCRIPTION_KEY',
+                    default: null,
+                },
+                SERVICE_REGION: {
+                    doc: 'Azure service region',
+                    format: String,
+                    env: 'AZURE_SERVICE_REGION',
+                    default: null,
+                },
+            },
         });
     }
 }

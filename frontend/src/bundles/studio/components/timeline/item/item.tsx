@@ -1,7 +1,8 @@
 import { type Span } from 'dnd-timeline';
 
 import { Box, Flex } from '~/bundles/common/components/components.js';
-import { useTimelineItem } from '~/bundles/common/hooks/hooks.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import { useTimelineItem } from '~/bundles/studio/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
 import styles from '../timeline.module.css';
@@ -14,6 +15,8 @@ type Properties = {
 };
 
 const Item: React.FC<Properties> = ({ id, type, span, children }) => {
+    const selectedItem = useAppSelector(({ studio }) => studio.ui.selectedItem);
+
     const {
         setNodeRef,
         attributes,
@@ -36,7 +39,12 @@ const Item: React.FC<Properties> = ({ id, type, span, children }) => {
             zIndex={isDragging ? '100' : 'auto'}
         >
             <Box style={itemContentStyle}>
-                <Flex className={styles['item']}>{children}</Flex>
+                <Flex
+                    className={styles['item']}
+                    data-selected={selectedItem?.id === id}
+                >
+                    {children}
+                </Flex>
             </Box>
         </Box>
     );
