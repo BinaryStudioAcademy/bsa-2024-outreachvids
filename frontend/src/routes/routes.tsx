@@ -47,7 +47,9 @@ const routes = [
             {
                 path: AppRoute.CREATE_AVATAR,
                 element: (
+                    <ProtectedRoute>
                         <CreateAvatar/>
+                    </ProtectedRoute>
                 ),
             },
         ],
