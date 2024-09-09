@@ -23,7 +23,7 @@ const Chat: React.FC<Properties> = ({
     return (
         <Box>
             <ChatHeader title={headerTitle} comment={headerComment} />
-            <Box sx={{ p: '10' }}>
+            <Box p={'10'}>
                 <ChatBody messages={messages} />
                 <ChatFooter onSendMessage={onSendMessage} />
             </Box>
