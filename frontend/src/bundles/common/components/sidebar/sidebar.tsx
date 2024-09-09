@@ -13,6 +13,7 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useLayoutEffect,
     useLocation,
     useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
@@ -22,6 +23,7 @@ import { UserAvatar, UserCard } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
 import { MD } from './constants/constants.js';
+import { getFlag } from './helpers/helpers.js';
 
 type Properties = {
     children: React.ReactNode;
@@ -34,18 +36,27 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     const { pathname } = useLocation();
     const isCollapsed = useAppSelector(({ auth }) => auth.isSidebarCollapsed);
 
-    const resize = useCallback((): void => {
+    const handleResize = useCallback((): void => {
         const isMobile = window.innerWidth < MD;
         dispatch(authActions.toggleSidebar(isMobile));
     }, [dispatch]);
 
+    useLayoutEffect(() => {
+        const setFlag = async (): Promise<void> => {
+            const flag = await getFlag();
+            dispatch(authActions.toggleSidebar(flag));
+        };
+
+        void setFlag();
+    }, [dispatch]);
+
     useEffect(() => {
-        window.addEventListener('resize', resize);
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener('resize', resize);
+            window.removeEventListener('resize', handleResize);
         };
-    }, [resize]);
+    }, [handleResize]);
 
     const handleToggle = useCallback((): void => {
         dispatch(authActions.toggleSidebar(!isCollapsed));

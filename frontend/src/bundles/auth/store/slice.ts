@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getFlag } from '~/bundles/common/components/sidebar/helpers/helpers.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserGetCurrentResponseDto } from '~/bundles/users/users.js';
@@ -17,7 +16,7 @@ type State = {
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     user: null,
-    isSidebarCollapsed: await getFlag(),
+    isSidebarCollapsed: false,
 };
 
 const { reducer, actions, name } = createSlice({
