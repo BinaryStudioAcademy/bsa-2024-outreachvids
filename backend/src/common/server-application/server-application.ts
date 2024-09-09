@@ -1,4 +1,5 @@
 import { authController } from '~/bundles/auth/auth.js';
+import { avatarVideoController } from '~/bundles/avatar-videos/avatar-videos.js';
 import { avatarController } from '~/bundles/avatars/avatars.js';
 import { chatController } from '~/bundles/chat/chat.js';
 import { speechController } from '~/bundles/speech/speech.js';
@@ -20,6 +21,7 @@ const apiV1 = new BaseServerAppApi(
     ...videoController.routes,
     ...chatController.routes,
     ...speechController.routes,
+    ...avatarVideoController.routes,
 );
 
 const serverApp = new BaseServerApp({
