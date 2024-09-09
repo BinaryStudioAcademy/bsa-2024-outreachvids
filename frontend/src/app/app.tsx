@@ -7,11 +7,15 @@ const App: React.FC = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        void storage.has(StorageKey.TOKEN).then((hasToken) => {
+        const verifyTokenAndLoadUser = async (): Promise<void> => {
+            const hasToken = await storage.has(StorageKey.TOKEN);
+
             if (hasToken) {
                 void dispatch(authActions.loadCurrentUser());
             }
-        });
+        };
+
+        void verifyTokenAndLoadUser();
     }, [dispatch]);
     return (
         <>
