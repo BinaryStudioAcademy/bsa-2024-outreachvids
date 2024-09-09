@@ -33,32 +33,18 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
 
             const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
 
-            if (!updatedSpan) {
+            if (!updatedSpan || activeItemType === RowNames.SCRIPT) {
                 return;
             }
 
             const activeItemId = event.active.id as string;
 
-            switch (activeItemType) {
-                case RowNames.SCENE: {
-                    dispatch(
-                        studioActions.resizeScene({
-                            id: activeItemId,
-                            span: updatedSpan,
-                        }),
-                    );
-                    break;
-                }
-                case RowNames.SCRIPT: {
-                    dispatch(
-                        studioActions.resizeScript({
-                            id: activeItemId,
-                            span: updatedSpan,
-                        }),
-                    );
-                    break;
-                }
-            }
+            dispatch(
+                studioActions.resizeScene({
+                    id: activeItemId,
+                    span: updatedSpan,
+                }),
+            );
         },
         [dispatch],
     );

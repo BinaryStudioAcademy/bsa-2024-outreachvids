@@ -100,22 +100,6 @@ const { reducer, actions, name } = createSlice({
                 (script) => script.id !== action.payload,
             );
         },
-        resizeScript(state, action: PayloadAction<ItemActionPayload>) {
-            const { id, span } = action.payload;
-
-            state.scripts = state.scripts.map((item) => {
-                if (item.id !== id) {
-                    return item;
-                }
-
-                const duration = millisecondsToSeconds(span.end - span.start);
-
-                return {
-                    ...item,
-                    duration,
-                };
-            });
-        },
         reorderScripts(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
 
