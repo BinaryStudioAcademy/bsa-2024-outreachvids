@@ -32,6 +32,8 @@ class TextToSpeechApi extends BaseHttpApi {
                         value: config.ENV.AZURE.SUBSCRIPTION_KEY,
                     },
                 ],
+                credentials: 'same-origin',
+                keepAlive: false,
             },
         );
 

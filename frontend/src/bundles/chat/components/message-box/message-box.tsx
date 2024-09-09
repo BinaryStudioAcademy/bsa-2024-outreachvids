@@ -2,6 +2,8 @@ import { MessageSender } from '~/bundles/chat/enums/enums.js';
 import { type Message } from '~/bundles/chat/types/types.js';
 import { Box, Flex, Text } from '~/bundles/common/components/components.js';
 
+import styles from './message-box.module.css';
+
 type Properties = {
     message: Message;
 };
@@ -11,18 +13,10 @@ const MessageBox: React.FC<Properties> = ({ message }) => {
 
     return (
         <Box
-            alignSelf={
-                sender === MessageSender.USER ? 'flex-start' : 'flex-end'
-            }
-            width="100%"
+            className={`${styles['message-box__container']} ${styles[sender === MessageSender.USER ? 'message-box__container--user' : 'message-box__container--ai']}`}
         >
             <Flex
-                ml={sender === MessageSender.USER ? '50px' : '10px'}
-                mr={sender === MessageSender.USER ? '10px' : '50px'}
-                direction={'column'}
-                alignItems={
-                    sender === MessageSender.USER ? 'flex-end' : 'flex-start'
-                }
+                className={`${styles['message-box']} ${styles[sender === MessageSender.USER ? 'message-box--user' : 'message-box--ai']}`}
             >
                 <Text
                     color={'black'}
