@@ -1,10 +1,10 @@
-export { Animated404 } from './animated404/animated404.js';
 export { Button } from './button/button.js';
 export { ComponentsProvider } from './components-provider/components-provider.js';
 export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
+export { NotFoundAnimation } from './not-found-animation/not-found-animation.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';

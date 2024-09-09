@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import {
     CIRCLE_TRANSITION,
     CIRCLE_VARIANTS,
-} from './libs/constants/constants.js';
+} from '../not-found-animation/constants/constants.js';
 
-const Animated404: React.FC = () => (
+const NotFoundAnimation: React.FC = () => (
     <motion.svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 200 82.7"
@@ -59,4 +59,4 @@ const Animated404: React.FC = () => (
     </motion.svg>
 );
 
-export { Animated404 };
+export { NotFoundAnimation };

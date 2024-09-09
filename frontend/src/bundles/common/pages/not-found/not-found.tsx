@@ -2,15 +2,14 @@ import {
     Box,
     Center,
     Heading,
+    NotFoundAnimation
 } from '~/bundles/common/components/components.js';
-
-import { Animated404 } from '../../components/animated404/animated404.js';
 
 const NotFound: React.FC = () => {
     return (
         <Center height="100vh" bg="background.900">
             <Box textAlign="center">
-                <Animated404 />
+                <NotFoundAnimation />
                 <Heading variant="H3" mt={4} as="span">
                     Page not found
                 </Heading>
