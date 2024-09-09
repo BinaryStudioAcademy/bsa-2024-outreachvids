@@ -92,16 +92,10 @@ const { reducer, actions, name } = createSlice({
                 Required<Pick<Script, 'id'>> & Partial<Script>
             >,
         ) {
-            const { id, ...scriptData } = action.payload;
+            const { id, ...updatedScriptData } = action.payload;
 
             state.scripts = state.scripts.map((script) =>
-                script.id === id
-                    ? {
-                          ...script,
-                          duration: MIN_SCRIPT_DURATION,
-                          ...scriptData,
-                      }
-                    : script,
+                script.id === id ? { ...script, ...updatedScriptData } : script,
             );
         },
         deleteScript(state, action: PayloadAction<string>) {
