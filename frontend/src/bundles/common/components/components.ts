@@ -1,4 +1,5 @@
 export { Button } from './button/button.js';
+export { ComponentsProvider } from './components-provider/components-provider.js';
 export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
@@ -20,7 +21,6 @@ export {
     Circle,
     CloseButton,
     Collapse,
-    ChakraProvider as ComponentsProvider,
     Editable,
     EditablePreview,
     EditableTextarea,

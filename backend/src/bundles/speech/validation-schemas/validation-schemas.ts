@@ -1,0 +1,1 @@
+export { generateSpeechValidationSchema } from 'shared';

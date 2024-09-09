@@ -24,7 +24,6 @@ import {
     VideoComponent,
     VideoMenu,
 } from '../components/components.js';
-import { mockItems } from '../mocks/mock.helper.js';
 import { actions as studioActionCreator } from '../store/studio.js';
 import styles from './styles.module.css';
 
@@ -65,10 +64,7 @@ const Studio: React.FC = () => {
             <VStack className={styles['timeline']} alignItems={'stretch'}>
                 <PlayerControls />
                 <Box>
-                    <Timeline
-                        initialRange={initialRange}
-                        initialItems={mockItems}
-                    />
+                    <Timeline initialRange={initialRange} />
                 </Box>
             </VStack>
 

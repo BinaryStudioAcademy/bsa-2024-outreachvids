@@ -6,64 +6,48 @@ import {
     TimelineContext,
 } from 'dnd-timeline';
 
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
-import {
-    getDestinationPointerValue,
-    getNewItemIndexBySpan,
-    reorderItemsByIndexes,
-    setItemsSpan,
-} from '~/bundles/studio/helpers/helpers.js';
-import {
-    type DestinationPointer,
-    type RowType,
-    type TimelineRows,
-} from '~/bundles/studio/types/types.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
+import { type RowType } from '~/bundles/studio/types/types.js';
 
 import { TimelineView } from './components.js';
 
 type Properties = {
     initialRange: Range;
-    initialItems: TimelineRows;
 };
 
-const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
+const Timeline: React.FC<Properties> = ({ initialRange }) => {
+    const dispatch = useAppDispatch();
+
     const [range, setRange] = useState(initialRange);
-    const [items, setItems] = useState(setItemsSpan(initialItems));
-    const [destinationPointer, setDestinationPointer] =
-        useState<DestinationPointer | null>(null);
 
-    const onResizeEnd = useCallback((event: ResizeEndEvent) => {
-        const activeItem = event.active.data.current;
-        const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
+    const onResizeEnd = useCallback(
+        (event: ResizeEndEvent) => {
+            const activeItem = event.active.data.current;
+            const activeItemType = activeItem['type'] as RowType;
 
-        if (!updatedSpan) {
-            return;
-        }
+            const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
 
-        const activeItemId = event.active.id;
-        const activeItemType = activeItem['type'] as RowType;
+            if (!updatedSpan || activeItemType === RowNames.SCRIPT) {
+                return;
+            }
 
-        if (activeItemType === RowNames.SCRIPT) {
-            return;
-        }
+            const activeItemId = event.active.id as string;
 
-        setItems((previous) =>
-            setItemsSpan({
-                ...previous,
-                [activeItemType]: previous[activeItemType].map((item) => {
-                    if (item.id !== activeItemId) {
-                        return item;
-                    }
-
-                    return {
-                        ...item,
-                        duration: updatedSpan.end - updatedSpan.start,
-                    };
+            dispatch(
+                studioActions.resizeScene({
+                    id: activeItemId,
+                    span: updatedSpan,
                 }),
-            }),
-        );
-    }, []);
+            );
+        },
+        [dispatch],
+    );
 
     const onDragMove = useCallback(
         (event: DragMoveEvent) => {
@@ -76,65 +60,76 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
                 return;
             }
 
+            const activeItemId = event.active.id as string;
             const activeItemType = activeItem['type'] as RowType;
-            const activeRowItems = items[activeItemType];
 
-            const previousActiveItemIndex = activeRowItems.findIndex(
-                (item) => item.id === event.active.id,
-            );
-
-            const newActiveItemIndex = getNewItemIndexBySpan(
-                updatedSpan,
-                activeRowItems,
-            );
-
-            setDestinationPointer({
-                type: activeItemType,
-                value: getDestinationPointerValue({
-                    oldIndex: previousActiveItemIndex,
-                    newIndex: newActiveItemIndex,
-                    items: activeRowItems,
+            dispatch(
+                studioActions.setDestinationPointer({
+                    id: activeItemId,
+                    span: updatedSpan,
+                    type: activeItemType,
                 }),
-            });
+            );
         },
-        [items],
+        [dispatch],
     );
 
-    const onDragEnd = useCallback((event: DragEndEvent) => {
-        setDestinationPointer(null);
+    const onDragEnd = useCallback(
+        (event: DragEndEvent) => {
+            dispatch(studioActions.removeDestinationPointer());
 
-        const activeItem = event.active.data.current;
+            const activeItem = event.active.data.current;
+            const activeItemId = event.active.id as string;
 
-        const activeRowId = event.over?.id as string;
-        const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
-
-        if (!updatedSpan || !activeRowId) {
-            return;
-        }
-
-        setItems((previousItems) => {
             const activeItemType = activeItem['type'] as RowType;
-            const activeRowItems = previousItems[activeItemType];
+            const activeRowId = event.over?.id as string;
 
-            const previousActiveItemIndex = activeRowItems.findIndex(
-                (item) => item.id === event.active.id,
-            );
+            const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
 
-            const newActiveItemIndex = getNewItemIndexBySpan(
-                updatedSpan,
-                activeRowItems,
-            );
+            if (!updatedSpan || !activeRowId) {
+                return;
+            }
 
-            return setItemsSpan({
-                ...previousItems,
-                [activeItemType]: reorderItemsByIndexes({
-                    oldIndex: previousActiveItemIndex,
-                    newIndex: newActiveItemIndex,
-                    items: activeRowItems,
-                }),
-            });
-        });
-    }, []);
+            const {
+                span: { start, end },
+            } = activeItem;
+
+            if (
+                Math.round(updatedSpan.start) === start &&
+                Math.round(updatedSpan.end) == end
+            ) {
+                dispatch(
+                    studioActions.selectItem({
+                        id: activeItemId,
+                        type: activeItemType,
+                    }),
+                );
+                return;
+            }
+
+            switch (activeItemType) {
+                case RowNames.SCENE: {
+                    dispatch(
+                        studioActions.reorderScenes({
+                            id: activeItemId,
+                            span: updatedSpan,
+                        }),
+                    );
+                    break;
+                }
+                case RowNames.SCRIPT: {
+                    dispatch(
+                        studioActions.reorderScripts({
+                            id: activeItemId,
+                            span: updatedSpan,
+                        }),
+                    );
+                    break;
+                }
+            }
+        },
+        [dispatch],
+    );
 
     return (
         <TimelineContext
@@ -144,10 +139,7 @@ const Timeline: React.FC<Properties> = ({ initialRange, initialItems }) => {
             onRangeChanged={setRange}
             onDragMove={onDragMove}
         >
-            <TimelineView
-                items={items}
-                destinationPointer={destinationPointer}
-            />
+            <TimelineView />
         </TimelineContext>
     );
 };
