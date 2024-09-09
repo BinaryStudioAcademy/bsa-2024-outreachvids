@@ -1,5 +1,9 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+
+import { Link } from '../link/link.js';
+
 type Properties = {
     left?: React.ReactNode;
     center?: React.ReactNode;
@@ -23,9 +27,11 @@ const Header: React.FC<Properties> = ({ left, center, right }) => {
         >
             {left ?? (
                 // {/* TODO: Add logo */}
-                <Text fontSize="xl" fontWeight="lighter" color="white">
-                    Logo
-                </Text>
+                <Link to={AppRoute.ROOT}>
+                    <Text fontSize="xl" fontWeight="lighter" color="white">
+                        Logo
+                    </Text>
+                </Link>
             )}
             <Box>{center}</Box>
             <Box>{right}</Box>

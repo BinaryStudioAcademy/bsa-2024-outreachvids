@@ -1,8 +1,9 @@
 import { Box } from '~/bundles/common/components/components.js';
+import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import {
     useTimelineContext,
     useTimelineRow,
-} from '~/bundles/common/hooks/hooks.js';
+} from '~/bundles/studio/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
@@ -10,17 +11,13 @@ type Properties = {
     id: string;
     type?: RowType;
     children?: React.ReactNode;
-    destinationPointerValue?: number | null;
     style?: React.CSSProperties;
 };
 
-const Row: React.FC<Properties> = ({
-    id,
-    type,
-    children,
-    destinationPointerValue,
-    style = {},
-}) => {
+const Row: React.FC<Properties> = ({ id, type, children, style = {} }) => {
+    const destinationPointer = useAppSelector(
+        ({ studio }) => studio.ui.destinationPointer,
+    );
     const { valueToPixels } = useTimelineContext();
     const { setNodeRef, rowWrapperStyle, rowStyle } = useTimelineRow({
         id,
@@ -33,16 +30,17 @@ const Row: React.FC<Properties> = ({
                 ...rowWrapperStyle,
                 ...style,
             }}
+            margin="3px 0"
         >
             <Box ref={setNodeRef} style={rowStyle} className={styles['row']}>
                 {children}
-                {destinationPointerValue && (
+                {destinationPointer && destinationPointer.type === type && (
                     <Box
                         h="100%"
                         w="1.5px"
                         bgColor="background.900"
                         position="absolute"
-                        left={valueToPixels(destinationPointerValue)}
+                        left={valueToPixels(destinationPointer.value)}
                     />
                 )}
             </Box>
