@@ -42,6 +42,8 @@ const AvatarsContent: React.FC = () => {
                             {styles.map(({ style, imgUrl }) => (
                                 <AvatarCard
                                     key={`${id}-${style}`}
+                                    id={id}
+                                    style={style}
                                     preview={imgUrl}
                                 />
                             ))}

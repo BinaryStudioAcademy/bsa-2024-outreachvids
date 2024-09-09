@@ -1,0 +1,1 @@
+export { SpeechApiPath } from 'shared';

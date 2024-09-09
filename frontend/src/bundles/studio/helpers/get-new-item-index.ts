@@ -2,9 +2,9 @@ import { type Span } from 'dnd-timeline';
 
 import { type TimelineItemWithSpan } from '../types/types.js';
 
-const getNewItemIndexBySpan = (
+const getNewItemIndexBySpan = <T extends TimelineItemWithSpan>(
     { start }: Span,
-    items: Array<TimelineItemWithSpan>,
+    items: Array<T>,
 ): number => {
     if (start < 0) {
         return 0;
