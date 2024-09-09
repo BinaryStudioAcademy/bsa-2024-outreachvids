@@ -93,6 +93,19 @@ const components = {
                     },
                 },
             },
+            outlined: {
+                color: colors.brand.secondary[300],
+                border: '1px solid',
+                borderColor: colors.brand.secondary[300],
+                _hover: {
+                    color: 'white',
+                    bg: colors.brand.secondary[300],
+                    _disabled: {
+                        color: colors.brand.secondary[600],
+                        bg: 'none',
+                    },
+                },
+            },
             ghostIcon: {
                 color: colors.white,
                 _hover: {

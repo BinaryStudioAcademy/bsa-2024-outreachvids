@@ -1,9 +1,10 @@
 import { Box } from '~/bundles/common/components/components.js';
-import { useMemo, useTimelineContext } from '~/bundles/common/hooks/hooks.js';
+import { useMemo } from '~/bundles/common/hooks/hooks.js';
 import {
     type Marker,
     type MarkerDefinition,
 } from '~/bundles/studio/helpers/time-axis-markers.js';
+import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = {
