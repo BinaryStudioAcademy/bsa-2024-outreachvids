@@ -4,12 +4,12 @@ import { ApiPath, ContentType, HttpHeader, HTTPMethod } from 'shared';
 import { config } from '~/common/config/config.js';
 import { BaseHttpApi } from '~/common/http/http.js';
 
-import { AvatarApiPath } from './libs/enums/enums.js';
+import { AvatarApiPath } from './enums/enums.js';
 import {
     type GetAvatarVideoResponseApiDto,
     type RenderAvatarVideoApiArgument,
     type RenderAvatarVideoApiResponseDto,
-} from './libs/types/types.js';
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
