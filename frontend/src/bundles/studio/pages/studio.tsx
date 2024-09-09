@@ -24,7 +24,7 @@ import {
     VideoComponent,
     VideoMenu,
 } from '../components/components.js';
-import { mockItems } from '../mocks/mock.helper.js';
+import { mockScriptItems } from '../mocks/mock.helper.js';
 import { actions as studioActionCreator } from '../store/studio.js';
 import styles from './styles.module.css';
 
@@ -67,7 +67,7 @@ const Studio: React.FC = () => {
                 <Box>
                     <Timeline
                         initialRange={initialRange}
-                        initialItems={mockItems}
+                        initialScriptItems={mockScriptItems}
                     />
                 </Box>
             </VStack>

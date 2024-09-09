@@ -1,8 +1,9 @@
-import { secondsToMilliseconds } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 
-import { type TimelineItem, type TimelineRows } from '../types/types.js';
+import { MIN_SCRIPT_DURATION } from '../constants/constants.js';
+import { type TimelineItem } from '../types/types.js';
 
+// TODO: remove when timeline will use scripts from store
 const generateMockItems = (
     count: number,
     duration: number,
@@ -15,9 +16,9 @@ const generateMockItems = (
         }));
 };
 
-const mockItems: TimelineRows = {
-    avatar: generateMockItems(5, secondsToMilliseconds(15)),
-    script: generateMockItems(8, secondsToMilliseconds(10)),
-};
+const mockScriptItems: Array<TimelineItem> = generateMockItems(
+    8,
+    MIN_SCRIPT_DURATION,
+);
 
-export { mockItems };
+export { mockScriptItems };

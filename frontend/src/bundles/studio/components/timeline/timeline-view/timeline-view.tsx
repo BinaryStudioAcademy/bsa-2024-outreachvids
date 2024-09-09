@@ -1,26 +1,21 @@
 import { Box } from '~/bundles/common/components/components.js';
-import { useTimelineContext } from '~/bundles/common/hooks/hooks.js';
-import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
-import {
-    type DestinationPointer,
-    type TimelineRowsWithSpan,
-} from '~/bundles/studio/types/types.js';
+import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
+import { type TimelineItemWithSpan } from '~/bundles/studio/types/types.js';
 
 import {
-    AvatarsRow,
     Row,
+    ScenesRow,
     ScriptsRow,
     TimeAxis,
     TimeCursor,
 } from '../components.js';
 
 type Properties = {
-    items: TimelineRowsWithSpan;
-    destinationPointer: DestinationPointer | null;
+    scriptItems: TimelineItemWithSpan[];
 };
 
-const TimelineView: React.FC<Properties> = ({ items, destinationPointer }) => {
+const TimelineView: React.FC<Properties> = ({ scriptItems }) => {
     const { setTimelineRef, style } = useTimelineContext();
 
     return (
@@ -28,22 +23,8 @@ const TimelineView: React.FC<Properties> = ({ items, destinationPointer }) => {
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor />
             <Row id="emptyTop" />
-            <AvatarsRow
-                items={items[RowNames.AVATAR]}
-                destinationPointerValue={
-                    destinationPointer?.type === RowNames.AVATAR
-                        ? destinationPointer?.value
-                        : null
-                }
-            />
-            <ScriptsRow
-                items={items[RowNames.SCRIPT]}
-                destinationPointerValue={
-                    destinationPointer?.type === RowNames.SCRIPT
-                        ? destinationPointer?.value
-                        : null
-                }
-            />
+            <ScenesRow />
+            <ScriptsRow items={scriptItems} />
             <Row id="emptyBottom" />
         </Box>
     );
