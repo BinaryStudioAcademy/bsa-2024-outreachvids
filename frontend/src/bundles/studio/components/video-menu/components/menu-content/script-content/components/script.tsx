@@ -77,7 +77,6 @@ const Script: React.FC<Properties> = ({ id, text, url }) => {
     useEffect(() => {
         if (url) {
             setIsAudioLoading(false);
-            setIsPlaying(true);
         }
     }, [url]);
 
