@@ -15,10 +15,10 @@ import { type BaseConfig } from '~/common/config/base-config.package.js';
 import { type FileService } from '../file/file.service.js';
 import {
     type AvatarVideoApi,
-    type GetAvatarVideoResponseDto,
     type RenderAvatarVideoApiResponseDto,
     type RenderAvatarVideoArgument,
 } from './apis/avatar-video/avatar-video.js';
+import { type GetAvatarVideoResponseApiDto } from './apis/avatar-video/libs/types/types.js';
 import { type TextToSpeechApi } from './apis/text-to-speech/text-to-speech-api.js';
 import { DEFAULT_LANGUAGE } from './constants/constants.js';
 import { getAvatarConfig } from './helpers/helpers.js';
@@ -139,7 +139,7 @@ class AzureAIService {
 
     public async getAvatarVideo(
         id: string,
-    ): Promise<GetAvatarVideoResponseDto> {
+    ): Promise<GetAvatarVideoResponseApiDto> {
         return await this.avatarVideoApi.getAvatarVideo(id);
     }
 

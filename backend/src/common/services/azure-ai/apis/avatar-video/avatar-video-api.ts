@@ -6,7 +6,7 @@ import { BaseHttpApi } from '~/common/http/http.js';
 
 import { AvatarApiPath } from './libs/enums/enums.js';
 import {
-    type GetAvatarVideoResponseDto,
+    type GetAvatarVideoResponseApiDto,
     type RenderAvatarVideoApiArgument,
     type RenderAvatarVideoApiResponseDto,
 } from './libs/types/types.js';
@@ -23,7 +23,7 @@ class AvatarVideoApi extends BaseHttpApi {
 
     public async getAvatarVideo(
         id: string,
-    ): Promise<GetAvatarVideoResponseDto> {
+    ): Promise<GetAvatarVideoResponseApiDto> {
         const response = await this.load(
             this.getFullEndpoint(
                 `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=2024-08-01`,
@@ -41,7 +41,7 @@ class AvatarVideoApi extends BaseHttpApi {
             },
         );
 
-        return await response.json<GetAvatarVideoResponseDto>();
+        return await response.json<GetAvatarVideoResponseApiDto>();
     }
 
     public async deleteAvatarVideo(id: string): Promise<unknown> {

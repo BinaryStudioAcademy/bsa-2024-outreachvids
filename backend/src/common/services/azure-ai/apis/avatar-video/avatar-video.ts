@@ -12,7 +12,7 @@ export { avatarVideoApi };
 export { AvatarVideoApi } from './avatar-video-api.js';
 export { AvatarApiPath } from './libs/enums/enums.js';
 export {
-    type GetAvatarVideoResponseDto,
+    type GetAvatarVideoResponseApiDto,
     type RenderAvatarVideoApiRequestDto,
     type RenderAvatarVideoApiResponseDto,
     type RenderAvatarVideoArgument,
