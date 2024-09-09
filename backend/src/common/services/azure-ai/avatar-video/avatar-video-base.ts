@@ -8,8 +8,8 @@ import {
     type RenderAvatarVideoResponseDto,
 } from '~/common/services/azure-ai/types/types.js';
 
-import { AvatarApiPath } from './libs/enums/enums.js';
-import { type RenderAvatarVideoArgument } from './libs/types/types.js';
+import { AvatarApiPath } from './enums/enums.js';
+import { type RenderAvatarVideoArgument } from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
