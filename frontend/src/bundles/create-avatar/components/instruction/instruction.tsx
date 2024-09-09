@@ -18,7 +18,7 @@ const Instruction: React.FC = () => {
                 <Box>
                     <Flex gap="5px" marginBottom="30px">
                         <Icon
-                            id={styles['iconScreenshots']}
+                            className={styles['iconScreenshots']}
                             boxSize={5}
                             as={IconName.CHECK_CIRCLE}
                         />
@@ -49,7 +49,7 @@ const Instruction: React.FC = () => {
                 <Box>
                     <Flex gap="5px" marginBottom="30px">
                         <Icon
-                            id={styles['iconAvoid']}
+                            className={styles['iconAvoid']}
                             boxSize={5}
                             as={IconName.CHECK_CIRCLE}
                         />

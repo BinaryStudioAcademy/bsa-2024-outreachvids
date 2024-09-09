@@ -21,13 +21,13 @@
     margin-bottom: 30px;
 }
 
-#iconScreenshots {
+.iconScreenshots {
     border-radius: 50%;
     background-color: white;
     color: var(--chakra-colors-brand-secondary-50);
 }
 
-#iconAvoid {
+.iconAvoid {
     border-radius: 50%;
     background-color: white;
     color: var(--chakra-colors-brand-secondary-900);
