@@ -1,6 +1,7 @@
 import {
     faBackwardStep,
     faCircleUser,
+    faCloudArrowDown,
     faCloudArrowUp,
     faEllipsisVertical,
     faFileLines,
@@ -14,42 +15,48 @@ import {
     faScroll,
     faT,
     faTableColumns,
+    faVolumeHigh,
+    faVolumeOff,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { iconConverter } from './icon-converter.helper.js';
 
-const CircleUserIcon = iconConverter(faCircleUser);
-const BackwardStepIcon = iconConverter(faBackwardStep);
-const fileLinesIcon = iconConverter(faFileLines);
-const CloudArrowUpIcon = iconConverter(faCloudArrowUp);
-const EllipsisVerticalIcon = iconConverter(faEllipsisVertical);
-const FileLinesIcon = iconConverter(faFileLines);
-const FontIcon = iconConverter(faFont);
-const HouseIcon = iconConverter(faHouse);
-const PenIcon = iconConverter(faPen);
-const PlayIcon = iconConverter(faPlay);
-const RightFromBracketIcon = iconConverter(faRightFromBracket);
-const ScrollIcon = iconConverter(faScroll);
-const TIcon = iconConverter(faT);
-const TableColumnsIcon = iconConverter(faTableColumns);
-const ForwardStepIcon = iconConverter(faForwardStep);
-const PauseIcon = iconConverter(faPause);
+const CircleUser = iconConverter(faCircleUser);
+const BackwardStep = iconConverter(faBackwardStep);
+const FileLines = iconConverter(faFileLines);
+const CloudArrowUp = iconConverter(faCloudArrowUp);
+const EllipsisVertical = iconConverter(faEllipsisVertical);
+const Font = iconConverter(faFont);
+const House = iconConverter(faHouse);
+const Pen = iconConverter(faPen);
+const Play = iconConverter(faPlay);
+const RightFromBracket = iconConverter(faRightFromBracket);
+const Scroll = iconConverter(faScroll);
+const T = iconConverter(faT);
+const TableColumns = iconConverter(faTableColumns);
+const ForwardStep = iconConverter(faForwardStep);
+const Pause = iconConverter(faPause);
+const CloudArrowDown = iconConverter(faCloudArrowDown);
+const VolumeHigh = iconConverter(faVolumeHigh);
+const VolumeOff = iconConverter(faVolumeOff);
 
 export {
-    BackwardStepIcon,
-    CircleUserIcon,
-    CloudArrowUpIcon,
-    EllipsisVerticalIcon,
-    FileLinesIcon,
-    fileLinesIcon,
-    FontIcon,
-    ForwardStepIcon,
-    HouseIcon,
-    PauseIcon,
-    PenIcon,
-    PlayIcon,
-    RightFromBracketIcon,
-    ScrollIcon,
-    TableColumnsIcon,
-    TIcon,
+    BackwardStep,
+    CircleUser,
+    CloudArrowDown,
+    CloudArrowUp,
+    EllipsisVertical,
+    FileLines,
+    Font,
+    ForwardStep,
+    House,
+    Pause,
+    Pen,
+    Play,
+    RightFromBracket,
+    Scroll,
+    T,
+    TableColumns,
+    VolumeHigh,
+    VolumeOff,
 };

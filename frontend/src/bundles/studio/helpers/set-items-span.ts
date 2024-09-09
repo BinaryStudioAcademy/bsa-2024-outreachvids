@@ -1,34 +1,27 @@
-import { type RowType } from '~/bundles/studio/types/types.js';
+import { secondsToMilliseconds } from 'date-fns';
 
 import {
     type TimelineItem,
-    type TimelineRows,
-    type TimelineRowsWithSpan,
+    type TimelineItemWithSpan,
 } from '../types/types.js';
 
-const setItemsSpan = (
-    rows: TimelineRows | TimelineRowsWithSpan,
-): TimelineRowsWithSpan => {
-    const mappedRows = {} as TimelineRowsWithSpan;
+const setItemsSpan = <T extends TimelineItem>(
+    items: Array<T>,
+): Array<T & TimelineItemWithSpan> => {
+    let start = 0;
 
-    for (const rowName in rows) {
-        let start = 0;
+    return items.map((item) => {
+        const duration = secondsToMilliseconds(item.duration);
 
-        mappedRows[rowName as RowType] = rows[rowName as RowType].map(
-            (item: TimelineItem) => {
-                const updatedItem = {
-                    ...item,
-                    span: { start, end: start + item.duration },
-                };
+        const updatedItem = {
+            ...item,
+            span: { start, end: start + duration },
+        };
 
-                start += item.duration;
+        start += duration;
 
-                return updatedItem;
-            },
-        );
-    }
-
-    return mappedRows;
+        return updatedItem;
+    });
 };
 
 export { setItemsSpan };
