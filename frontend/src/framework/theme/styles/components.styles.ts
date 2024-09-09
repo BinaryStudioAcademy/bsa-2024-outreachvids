@@ -52,6 +52,13 @@ const components = {
                 fontWeight: '600',
                 lineHeight: '16px',
             },
+            title: {
+                color: colors.typography[900],
+                fontSize: '18px',
+                fontWeight: '700',
+                lineHeight: '27px',
+                marginBottom: '5px',
+            },
         },
     },
     Button: {
@@ -65,6 +72,13 @@ const components = {
                         bg: colors.brand.secondary[600],
                     },
                 },
+                _active: {
+                    bgColor: colors.brand.secondary[900],
+                },
+            },
+            gray: {
+                color: colors.typography[600],
+                bgColor: colors.background[50],
             },
             primaryOutlined: {
                 color: colors.background[300],
@@ -79,11 +93,36 @@ const components = {
                     },
                 },
             },
+            outlined: {
+                color: colors.brand.secondary[300],
+                border: '1px solid',
+                borderColor: colors.brand.secondary[300],
+                _hover: {
+                    color: 'white',
+                    bg: colors.brand.secondary[300],
+                    _disabled: {
+                        color: colors.brand.secondary[600],
+                        bg: 'none',
+                    },
+                },
+            },
             ghostIcon: {
                 color: colors.white,
                 _hover: {
                     color: colors.brand.secondary[300],
                 },
+            },
+            ghostIconDark: {
+                color: colors.background[300],
+                _hover: {
+                    color: colors.brand.secondary[300],
+                },
+            },
+            icon: {
+                color: colors.white,
+                bg: 'none',
+                _active: { bg: 'none' },
+                _hover: { bg: 'none' },
             },
         },
     },

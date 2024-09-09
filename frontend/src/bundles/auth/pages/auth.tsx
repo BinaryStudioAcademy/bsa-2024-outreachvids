@@ -1,6 +1,11 @@
 import { Navigate } from 'react-router-dom';
 
-import { Center, SimpleGrid } from '~/bundles/common/components/components.js';
+import {
+    Center,
+    Loader,
+    Overlay,
+    SimpleGrid,
+} from '~/bundles/common/components/components.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -56,12 +61,10 @@ const Auth: React.FC = () => {
 
     return (
         <SimpleGrid columns={{ base: 1, sm: 2 }} height="100vh">
-            {/* TODO: Replace with valid loader */}
-            {dataStatus === DataStatus.PENDING && (
-                <p style={{ position: 'absolute', top: 0, color: 'white' }}>
-                    Loading...
-                </p>
-            )}
+            <Overlay isOpen={dataStatus === DataStatus.PENDING}>
+                <Loader />
+            </Overlay>
+
             <Center bgColor="background.600">{getScreen(pathname)}</Center>
             {/* TODO: Add logo */}
             <Center
