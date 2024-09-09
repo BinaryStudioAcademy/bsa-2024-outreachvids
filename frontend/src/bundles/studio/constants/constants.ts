@@ -1,1 +1,6 @@
 export { MILLISECONDS_PER_REFRESH } from './ms-per-refresh.js';
+
+const MIN_SCENE_DURATION = 15;
+const MIN_SCRIPT_DURATION = 10;
+
+export { MIN_SCENE_DURATION, MIN_SCRIPT_DURATION };

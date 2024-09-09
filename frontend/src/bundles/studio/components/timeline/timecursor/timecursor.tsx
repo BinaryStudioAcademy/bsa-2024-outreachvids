@@ -7,9 +7,9 @@ import {
     useLayoutEffect,
     useRef as useReference,
     useState,
-    useTimelineContext,
 } from '~/bundles/common/hooks/hooks.js';
 import { MILLISECONDS_PER_REFRESH } from '~/bundles/studio/constants/constants.js';
+import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
