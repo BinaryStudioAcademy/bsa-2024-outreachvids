@@ -45,6 +45,7 @@ class BaseHttpApi implements HttpApi {
         const baseHeaders = [
             { key: HttpHeader.CONTENT_TYPE, value: contentType },
         ];
+
         const headers = this.getHeaders([
             ...baseHeaders,
             ...(customHeaders || []),
