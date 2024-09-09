@@ -6,6 +6,7 @@ import {
     Icon,
     IconButton,
     Spinner,
+    Tooltip,
     VStack,
 } from '~/bundles/common/components/components.js';
 import {
@@ -84,15 +85,22 @@ const Script: React.FC<Properties> = ({ id, text, url }) => {
     return (
         <VStack w="full">
             <HStack justify="end" w="full" gap={0}>
-                <IconButton
-                    icon={<Icon as={iconComponent} />}
-                    size="sm"
-                    variant="ghostIconDark"
-                    aria-label="Play script"
-                    onClick={toggleIsPlaying}
-                    borderRadius="100%"
-                    border={url ? '' : '1px dotted'}
-                />
+                <Tooltip
+                    isDisabled={Boolean(url)}
+                    label="Click to update audio"
+                    placement="top"
+                    hasArrow
+                >
+                    <IconButton
+                        icon={<Icon as={iconComponent} />}
+                        size="sm"
+                        variant="ghostIconDark"
+                        aria-label="Play script"
+                        onClick={toggleIsPlaying}
+                        borderRadius="100%"
+                        border={url ? '' : '1px dotted'}
+                    />
+                </Tooltip>
                 <IconButton
                     icon={<Icon as={IconName.CLOSE} />}
                     size="sm"
