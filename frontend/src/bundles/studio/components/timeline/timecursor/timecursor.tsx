@@ -1,5 +1,6 @@
 import { Box } from '~/bundles/common/components/components.js';
 import {
+    useAnimationFrame,
     useAppDispatch,
     useAppSelector,
     useCallback,
@@ -8,16 +9,11 @@ import {
     useRef as useReference,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
-import { MILLISECONDS_PER_REFRESH } from '~/bundles/studio/constants/constants.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
-type Properties = {
-    interval?: number;
-};
-
-const TimeCursor: React.FC<Properties> = ({ interval }) => {
+const TimeCursor: React.FC = () => {
     const dispatch = useAppDispatch();
     const { isPlaying, elapsedTime, duration } = useAppSelector(
         ({ studio }) => ({
@@ -29,7 +25,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
 
     const timeCursorReference = useReference<HTMLDivElement>(null);
     const renderTimeReference = useReference(0);
-    const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
+    const { direction, sidebarWidth, valueToPixels, pixelsToValue } =
         useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
@@ -43,55 +39,30 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
         }
     }, [dispatch, elapsedTime, duration]);
 
-    useLayoutEffect(() => {
-        const offsetCursor = (): void => {
-            if (!timeCursorReference.current || cursorPosition !== null) {
-                return;
-            }
-
-            const currentTime = Date.now();
-            const timeDelta =
-                currentTime - renderTimeReference.current + elapsedTime;
-            const timeDeltaInPixels = valueToPixels(timeDelta);
-
-            const sideDelta = sidebarWidth + timeDeltaInPixels;
-            timeCursorReference.current.style[side] = `${sideDelta}px`;
-
-            dispatch(studioActions.setElapsedTime(timeDelta));
-            renderTimeReference.current = currentTime;
-        };
-
-        let cursorUpdateInterval: NodeJS.Timeout | null = null;
-
-        if (isPlaying) {
-            renderTimeReference.current = Date.now();
-
-            offsetCursor();
-
-            cursorUpdateInterval = setInterval(
-                offsetCursor,
-                interval ?? MILLISECONDS_PER_REFRESH,
-            );
+    const offsetCursor = (): void => {
+        if (!timeCursorReference.current || cursorPosition !== null) {
+            return;
         }
 
-        return () => {
-            if (cursorUpdateInterval) {
-                clearInterval(cursorUpdateInterval);
-            }
-        };
-    }, [
-        side,
-        sidebarWidth,
-        interval,
-        range.start,
-        valueToPixels,
-        cursorPosition,
-        renderTimeReference,
-        timeCursorReference,
-        isPlaying,
-        elapsedTime,
-        dispatch,
-    ]);
+        const currentTime = Date.now();
+        const timeDelta =
+            currentTime - renderTimeReference.current + elapsedTime;
+        const timeDeltaInPixels = valueToPixels(timeDelta);
+
+        const sideDelta = sidebarWidth + timeDeltaInPixels;
+        timeCursorReference.current.style[side] = `${sideDelta}px`;
+
+        dispatch(studioActions.setElapsedTime(timeDelta));
+        renderTimeReference.current = currentTime;
+    };
+
+    useAnimationFrame(offsetCursor, isPlaying);
+
+    useEffect(() => {
+        if (isPlaying) {
+            renderTimeReference.current = Date.now();
+        }
+    }, [cursorPosition, renderTimeReference, isPlaying]);
 
     useLayoutEffect(() => {
         const handleMouseMove = (event: MouseEvent): void => {
