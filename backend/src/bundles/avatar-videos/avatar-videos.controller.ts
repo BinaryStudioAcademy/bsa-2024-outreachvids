@@ -50,6 +50,24 @@ class AvatarVideoController extends BaseController {
         });
     }
 
+    /**
+     * @swagger
+     * /avatar-video/:id:
+     *    get:
+     *      description: Get video url
+     *      security:
+     *       - bearerAuth: []
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  url:
+     *                    type: string
+     */
     private async getAvatarVideo(
         options: ApiHandlerOptions<{
             params: GetAvatarVideoRequestDto;
@@ -63,6 +81,41 @@ class AvatarVideoController extends BaseController {
         };
     }
 
+    /**
+     * @swagger
+     * /avatar-video:
+     *    post:
+     *      description: Generate video from text
+     *      security:
+     *       - bearerAuth: []
+     *      requestBody:
+     *        description: Data for video generation
+     *        required: true
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              required: [text, voice, avatarName, avatarStyle]
+     *              properties:
+     *                text:
+     *                  type: string
+     *                voice:
+     *                  type: string
+     *                avatarName:
+     *                  type: string
+     *                avatarStyle:
+     *                  type: string
+     *      responses:
+     *        201:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  id:
+     *                    type: string
+     */
     private async renderAvatarVideo(
         options: ApiHandlerOptions<{
             body: RenderAvatarVideoRequestDto;
