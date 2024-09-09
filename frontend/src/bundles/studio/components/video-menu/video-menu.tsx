@@ -1,3 +1,4 @@
+import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
 import {
     FontAwesomeIcon,
     Icon,
@@ -24,6 +25,7 @@ const VideoMenu: React.FC = () => {
         content: null,
     });
     const [isOpen, setIsOpen] = useState(false);
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const handleMenuClick = useCallback(
         (header: string, content: React.ReactNode): void => {
@@ -36,6 +38,14 @@ const VideoMenu: React.FC = () => {
     const handleActiveItemReset = useCallback((): void => {
         setIsOpen(false);
         setActiveIndex(null);
+    }, []);
+
+    const handleChatOpen = useCallback(() => {
+        setIsChatOpen(true);
+    }, []);
+
+    const handleChatClose = useCallback(() => {
+        setIsChatOpen(false);
     }, []);
 
     const menuItems: MenuItem[] = [
@@ -77,9 +87,14 @@ const VideoMenu: React.FC = () => {
                 title={activeItem.title}
                 isOpen={isOpen}
                 onClose={handleActiveItemReset}
+                onChatOpen={handleChatOpen}
             >
                 {activeItem.content}
             </MenuBody>
+            <ChatModal
+                isChatOpen={isChatOpen}
+                onModalChatClose={handleChatClose}
+            />
         </>
     );
 };

@@ -6,7 +6,6 @@ import {
     Icon,
     IconButton,
 } from '~/bundles/common/components/components.js';
-import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import styles from './styles.module.css';
 
@@ -15,6 +14,7 @@ type Properties = {
     children: React.ReactNode;
     isOpen: boolean;
     onClose: () => void;
+    onChatOpen?: () => void;
 };
 
 const MenuBody: React.FC<Properties> = ({
@@ -22,9 +22,8 @@ const MenuBody: React.FC<Properties> = ({
     children,
     isOpen,
     onClose,
+    onChatOpen,
 }) => {
-    const handleChat = useCallback(() => {}, []);
-
     return (
         <>
             {isOpen && (
@@ -42,7 +41,7 @@ const MenuBody: React.FC<Properties> = ({
                                     icon={<Icon />}
                                     variant="icon"
                                     boxSize={5}
-                                    onClick={handleChat}
+                                    onClick={onChatOpen}
                                 />
                             ) : null}
 
