@@ -49,6 +49,13 @@ const Script: React.FC<Properties> = ({ id, text, url }) => {
         [dispatch, id, text],
     );
 
+    const handleSetScriptDuration = useCallback(
+        (duration: number): void => {
+            void dispatch(studioActions.editScript({ id, duration }));
+        },
+        [dispatch, id],
+    );
+
     const toggleIsPlaying = useCallback((): void => {
         if (url) {
             setIsPlaying((previous) => !previous);
@@ -142,6 +149,7 @@ const Script: React.FC<Properties> = ({ id, text, url }) => {
                     isPlaying={isPlaying}
                     audioUrl={url}
                     handleAudioEnd={handleAudioEnd}
+                    handleSetDuration={handleSetScriptDuration}
                 />
             )}
         </VStack>

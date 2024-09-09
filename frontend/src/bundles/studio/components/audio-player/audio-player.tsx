@@ -14,12 +14,14 @@ type Properties = {
     isPlaying: boolean;
     audioUrl: string;
     handleAudioEnd: () => void;
+    handleSetDuration: (duration: number) => void;
 };
 
 const AudioPlayer: React.FC<Properties> = ({
     isPlaying,
     audioUrl,
     handleAudioEnd,
+    handleSetDuration,
 }) => {
     const playerReference = useRef<PlayerRef>(null);
 
@@ -37,11 +39,12 @@ const AudioPlayer: React.FC<Properties> = ({
         getAudioData(audioUrl)
             .then(({ durationInSeconds }) => {
                 setDurationInFrames(Math.round(durationInSeconds * FPS));
+                handleSetDuration(durationInSeconds);
             })
             .catch(() => {
                 setDurationInFrames(1);
             });
-    }, [audioUrl]);
+    }, [audioUrl, handleSetDuration]);
 
     useEffect(() => {
         const player = playerReference.current;

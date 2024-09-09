@@ -29,7 +29,7 @@ import styles from './styles.module.css';
 
 const initialRange: Range = {
     start: minutesToMilliseconds(0),
-    end: minutesToMilliseconds(2),
+    end: minutesToMilliseconds(1),
 };
 
 const Studio: React.FC = () => {
