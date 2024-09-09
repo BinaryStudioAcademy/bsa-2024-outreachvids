@@ -12,12 +12,14 @@ export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';
 export { Sidebar } from './sidebar/sidebar.js';
 export { Textarea } from './textarea/textarea.js';
+export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
     Badge,
     Modal as BaseModal,
     Box,
     Center,
+    Checkbox,
     Circle,
     CloseButton,
     Collapse,
@@ -28,6 +30,7 @@ export {
     FormControl,
     FormErrorMessage,
     Heading,
+    HStack,
     Icon,
     IconButton,
     Image,
@@ -38,7 +41,12 @@ export {
     ModalContent,
     ModalOverlay,
     SimpleGrid,
+    Slider,
+    SliderFilledTrack,
+    SliderThumb,
+    SliderTrack,
     Spacer,
+    Stack,
     Tab,
     Text,
     Tooltip,
