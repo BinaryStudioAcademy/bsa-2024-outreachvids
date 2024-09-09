@@ -1,7 +1,7 @@
 import { config } from '~/common/config/config.js';
 
-import { textToSpeechApi } from './azure-ai/apis/apis.js';
 import { AzureAIService } from './azure-ai/azure-ai.service.js';
+import { textToSpeechApi } from './azure-ai/text-to-speech/text-to-speech.js';
 import { CryptService } from './crypt/crypt.service.js';
 import { FileService } from './file/file.service.js';
 import { OpenAIService } from './open-ai/open-ai.service.js';
