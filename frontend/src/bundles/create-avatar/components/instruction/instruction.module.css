@@ -33,14 +33,6 @@
     color: var(--chakra-colors-brand-secondary-900);
 }
 
-.textSecondary50 {
-    color: var(--chakra-colors-brand-secondary-50);
-}
-
-.textSecondary900 {
-    color: var(--chakra-colors-brand-secondary-900);
-}
-
 .unorderedList {
     max-width: 300px;
 }
