@@ -58,7 +58,7 @@ class BaseHttpApi implements HttpApi {
             headers,
             payload,
             credentials,
-            keepAlive
+            keepAlive,
         });
 
         return this.checkResponse(response) as HttpApiResponse;
