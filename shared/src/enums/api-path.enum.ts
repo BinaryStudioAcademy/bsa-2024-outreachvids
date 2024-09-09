@@ -4,6 +4,7 @@ const ApiPath = {
     AUTH: '/auth',
     VIDEOS: '/videos',
     CHAT: '/chat',
+    SPEECH: '/speech',
 } as const;
 
 export { ApiPath };
