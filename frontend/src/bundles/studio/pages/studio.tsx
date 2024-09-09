@@ -1,22 +1,21 @@
 import { type PlayerRef } from '@remotion/player';
 import { minutesToMilliseconds } from 'date-fns';
 import { type Range } from 'dnd-timeline';
+import { useNavigate } from 'react-router-dom';
 
 import {
     Box,
     Button,
     Header,
-    Icon,
-    IconButton,
     Player,
     VStack,
 } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useCallback,
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
-import { IconName } from '~/bundles/common/icons/icons.js';
 
 import {
     PlayerControls,
@@ -35,10 +34,15 @@ const initialRange: Range = {
 const Studio: React.FC = () => {
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const handleResize = useCallback(() => {
         dispatch(studioActionCreator.changeVideoSize());
     }, [dispatch]);
+
+    const handleSubmit = useCallback(() => {
+        navigate(AppRoute.ROOT);
+    }, [navigate]);
 
     return (
         <Box minHeight="100vh" height="100%" position="relative">
@@ -52,10 +56,11 @@ const Studio: React.FC = () => {
                     />
                 }
                 right={
-                    <IconButton
+                    <Button
                         variant="primaryOutlined"
-                        aria-label="Download"
-                        icon={<Icon as={IconName.DOWNLOAD} />}
+                        label="Submit"
+                        sx={{ width: '100px' }}
+                        onClick={handleSubmit}
                     />
                 }
             />
