@@ -27,6 +27,7 @@ import {
     type Scene,
     type SceneAvatar,
     type Script,
+    type TimelineItemWithSpan,
 } from '../types/types.js';
 import { loadAvatars } from './actions.js';
 
@@ -99,6 +100,24 @@ const { reducer, actions, name } = createSlice({
                 (script) => script.id !== action.payload,
             );
         },
+        reorderScripts(state, action: PayloadAction<ItemActionPayload>) {
+            const { id, span } = action.payload;
+
+            const previousActiveItemIndex = state.scripts.findIndex(
+                (script) => script.id === id,
+            );
+
+            const newActiveItemIndex = getNewItemIndexBySpan(
+                span,
+                setItemsSpan(state.scripts),
+            );
+
+            state.scripts = reorderItemsByIndexes({
+                oldIndex: previousActiveItemIndex,
+                newIndex: newActiveItemIndex,
+                items: state.scripts,
+            });
+        },
         addScene(state) {
             const scene = {
                 id: uuidv4(),
@@ -147,19 +166,13 @@ const { reducer, actions, name } = createSlice({
                     ? VideoPreview.PORTRAIT
                     : VideoPreview.LANDSCAPE;
         },
-        updateDestinationPointer(
-            state,
-            action: PayloadAction<DestinationPointer>,
-        ) {
-            state.ui.destinationPointer = action.payload;
-        },
         setDestinationPointer(
             state,
             action: PayloadAction<DestinationPointerActionPayload>,
         ) {
             const { id, span, type } = action.payload;
 
-            const itemsWithSpan =
+            const itemsWithSpan: Array<TimelineItemWithSpan> =
                 type === RowNames.SCENE
                     ? setItemsSpan(state.scenes)
                     : setItemsSpan(state.scripts);
