@@ -15,13 +15,13 @@ import { type BaseConfig } from '~/common/config/base-config.package.js';
 import { type FileService } from '../file/file.service.js';
 import {
     type AvatarVideoApi,
+    type GetAvatarVideoResponseApiDto,
     type RenderAvatarVideoApiResponseDto,
     type RenderAvatarVideoArgument,
-} from './apis/avatar-video/avatar-video.js';
-import { type GetAvatarVideoResponseApiDto } from './apis/avatar-video/libs/types/types.js';
-import { type TextToSpeechApi } from './apis/text-to-speech/text-to-speech-api.js';
+} from './avatar-video/avatar-video.js';
 import { DEFAULT_LANGUAGE } from './constants/constants.js';
 import { getAvatarConfig } from './helpers/helpers.js';
+import { type TextToSpeechApi } from './text-to-speech/text-to-speech-base.js';
 import { type AzureGetVoicesResponseDto } from './types/types.js';
 
 type Constructor = {

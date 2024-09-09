@@ -1,7 +1,7 @@
 import { config } from '~/common/config/config.js';
 import { baseHttp } from '~/common/http/http.js';
 
-import { AvatarVideoApi } from './avatar-video-api.js';
+import { AvatarVideoApi } from './avatar-video-base.js';
 
 const avatarVideoApi = new AvatarVideoApi({
     http: baseHttp,
@@ -9,7 +9,7 @@ const avatarVideoApi = new AvatarVideoApi({
 });
 
 export { avatarVideoApi };
-export { AvatarVideoApi } from './avatar-video-api.js';
+export { AvatarVideoApi } from './avatar-video-base.js';
 export { AvatarApiPath } from './libs/enums/enums.js';
 export {
     type GetAvatarVideoResponseApiDto,

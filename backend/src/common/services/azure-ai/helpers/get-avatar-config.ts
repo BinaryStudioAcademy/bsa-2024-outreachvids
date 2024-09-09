@@ -1,7 +1,7 @@
 import {
     type RenderAvatarVideoApiRequestDto,
     type RenderAvatarVideoRequestDto,
-} from '../apis/avatar-video/libs/types/types.js';
+} from '../avatar-video/libs/types/types.js';
 import {
     AVATAR_BACKGROUND_COLOR,
     AVATAR_INPUT_KIND,
