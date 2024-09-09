@@ -1,6 +1,12 @@
+import { HttpCode, HttpError } from 'shared';
+
 import { type AzureAIService } from '~/common/services/azure-ai/azure-ai.service.js';
 import { type FileService } from '~/common/services/file/file.service.js';
 
+import {
+    GenerateAvatarResponseStatus,
+    RenderVideoErrorMessage,
+} from './enums/enums.js';
 import { getFileName } from './helpers/helpers.js';
 import {
     type GetAvatarVideoRequestDto,
@@ -34,10 +40,18 @@ class AvatarVideoService {
         return response;
     }
 
-    public getAvatarVideo(
+    public async getAvatarVideo(
         payload: GetAvatarVideoRequestDto,
     ): Promise<GetAvatarVideoResponseDto> {
-        return this.azureAIService.getAvatarVideo(payload.id);
+        const response = await this.azureAIService.getAvatarVideo(payload.id);
+
+        if (!response?.outputs?.result) {
+            throw new HttpError({
+                message: RenderVideoErrorMessage.NOT_FOUND,
+                status: HttpCode.NOT_FOUND,
+            });
+        }
+        return { url: response?.outputs?.result };
     }
 
     public async saveAvatarVideo(url: string, id: string): Promise<string> {
@@ -58,7 +72,10 @@ class AvatarVideoService {
             this.azureAIService
                 .getAvatarVideo(id)
                 .then((response) => {
-                    if (response.status === 'Succeeded') {
+                    if (
+                        response.status ===
+                        GenerateAvatarResponseStatus.SUCCEEDED
+                    ) {
                         this.saveAvatarVideo(response.outputs.result, id)
                             .then(() => {
                                 // TODO: NOTIFY USER
@@ -67,7 +84,9 @@ class AvatarVideoService {
                             .finally(() => {
                                 clearInterval(interval);
                             });
-                    } else if (response.status === 'Failed') {
+                    } else if (
+                        response.status === GenerateAvatarResponseStatus.FAILED
+                    ) {
                         // TODO: NOTIFY USER
                         clearInterval(interval);
                     }
