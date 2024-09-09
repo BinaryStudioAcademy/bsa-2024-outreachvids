@@ -5,11 +5,14 @@ import {
     HStack,
     Icon,
     IconButton,
+    Spinner,
     VStack,
 } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
     useCallback,
+    useEffect,
+    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -22,10 +25,11 @@ const audioUrl = 'https://d2tm5q3cg1nlwf.cloudfront.net/tts_1725818217391.wav';
 
 type Properties = ScriptT;
 
-const Script: React.FC<Properties> = ({ id, text }) => {
+const Script: React.FC<Properties> = ({ id, text, url }) => {
     const dispatch = useAppDispatch();
 
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isAudioLoading, setIsAudioLoading] = useState(false);
 
     const handleDeleteScript = useCallback((): void => {
         void dispatch(studioActions.deleteScript(id));
@@ -37,31 +41,57 @@ const Script: React.FC<Properties> = ({ id, text }) => {
                 return;
             }
 
-            void dispatch(studioActions.editScript({ id, text: newText }));
+            void dispatch(
+                studioActions.editScript({ id, text: newText, url: '' }),
+            );
         },
         [dispatch, id, text],
     );
 
     const toggleIsPlaying = useCallback((): void => {
-        setIsPlaying((previous) => !previous);
-    }, []);
+        if (url) {
+            setIsPlaying((previous) => !previous);
+            return;
+        }
 
-    const handleAudioEnd = useCallback(() => {
+        setIsAudioLoading(true);
+
+        //TODO: replace with fetching real script audioUrl
+        setTimeout(() => {
+            void dispatch(studioActions.editScript({ id, url: audioUrl }));
+        }, 1000);
+    }, [dispatch, id, url]);
+
+    const handleAudioEnd = useCallback((): void => {
         setIsPlaying(false);
     }, []);
+
+    useEffect(() => {
+        if (url) {
+            setIsAudioLoading(false);
+            setIsPlaying(true);
+        }
+    }, [url]);
+
+    const iconComponent = useMemo(() => {
+        if (isAudioLoading) {
+            return Spinner;
+        }
+
+        return isPlaying ? IconName.STOP : IconName.PLAY;
+    }, [isAudioLoading, isPlaying]);
 
     return (
         <VStack w="full">
             <HStack justify="end" w="full" gap={0}>
                 <IconButton
-                    icon={
-                        <Icon as={isPlaying ? IconName.STOP : IconName.PLAY} />
-                    }
+                    icon={<Icon as={iconComponent} />}
                     size="sm"
                     variant="ghostIconDark"
                     aria-label="Play script"
                     onClick={toggleIsPlaying}
                     borderRadius="100%"
+                    border={url ? '' : '1px dotted'}
                 />
                 <IconButton
                     icon={<Icon as={IconName.CLOSE} />}
@@ -99,10 +129,10 @@ const Script: React.FC<Properties> = ({ id, text }) => {
                     }}
                 />
             </Editable>
-            {audioUrl && (
+            {url && (
                 <AudioPlayer
                     isPlaying={isPlaying}
-                    audioUrl={audioUrl}
+                    audioUrl={url}
                     handleAudioEnd={handleAudioEnd}
                 />
             )}
