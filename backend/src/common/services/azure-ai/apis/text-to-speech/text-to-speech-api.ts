@@ -1,9 +1,14 @@
 import { config } from '~/common/config/config.js';
 import { BaseHttpApi } from '~/common/http/base-http-api.js';
-import { type Http, ContentType, HTTPMethod } from '~/common/http/http.js';
+import {
+    type Http,
+    ContentType,
+    HttpHeader,
+    HTTPMethod,
+} from '~/common/http/http.js';
 
-import { TextToSpeechApiPath } from '../enums/enums.js';
-import { type AzureGetVoicesResponseDto } from '../types/types.js';
+import { TextToSpeechApiPath } from '../../enums/enums.js';
+import { type AzureGetVoicesResponseDto } from '../../types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -23,7 +28,7 @@ class TextToSpeechApi extends BaseHttpApi {
                 contentType: ContentType.JSON,
                 headers: [
                     {
-                        key: 'Ocp-Apim-Subscription-Key',
+                        key: HttpHeader.AZURE_KEY,
                         value: config.ENV.AZURE.SUBSCRIPTION_KEY,
                     },
                 ],

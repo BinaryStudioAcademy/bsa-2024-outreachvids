@@ -23,6 +23,8 @@ import { generateSpeechValidationSchema } from './validation-schemas/validation-
  *            type: string
  *          shortName:
  *            type: string
+ *          gender:
+ *            type: string
  *          locale:
  *            type: string
  *          localeName:
@@ -92,6 +94,8 @@ class SpeechController extends BaseController {
      * /speech/generate:
      *    post:
      *      description: Generate speech from text
+     *      security:
+     *       - bearerAuth: []
      *      requestBody:
      *        description: Data for text to speech generation
      *        required: true

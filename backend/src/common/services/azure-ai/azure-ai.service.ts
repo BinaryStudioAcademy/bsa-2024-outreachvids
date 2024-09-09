@@ -1,6 +1,9 @@
-import fs from 'node:fs/promises';
+import { Buffer } from 'node:buffer';
 
-import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
+import {
+    SpeechConfig,
+    SpeechSynthesizer,
+} from 'microsoft-cognitiveservices-speech-sdk';
 
 import {
     type GenerateSpeechRequestDto,
@@ -10,7 +13,8 @@ import {
 import { type BaseConfig } from '~/common/config/base-config.package.js';
 
 import { type FileService } from '../file/file.service.js';
-import { type TextToSpeechApi } from './apis/text-to-speech-api.js';
+import { type TextToSpeechApi } from './apis/text-to-speech/text-to-speech-api.js';
+import { DEFAULT_LANGUAGE } from './constants/constants.js';
 import { type AzureGetVoicesResponseDto } from './types/types.js';
 
 class AzureAIService {
@@ -36,12 +40,13 @@ class AzureAIService {
         const response = await this.textToSpeechApi.getVoices();
 
         const data = response
-            .filter(
-                (data: AzureGetVoicesResponseDto) => data.Locale === 'en-US',
+            .filter((data: AzureGetVoicesResponseDto) =>
+                data.Locale.startsWith(DEFAULT_LANGUAGE),
             )
             .map((data: AzureGetVoicesResponseDto) => ({
                 name: data.DisplayName,
                 shortName: data.ShortName,
+                gender: data.Gender,
                 locale: data.Locale,
                 localeName: data.LocaleName,
                 voiceType: data.VoiceType,
@@ -51,23 +56,18 @@ class AzureAIService {
     }
 
     private synthesizeSpeech(
-        speechSynthesizer: SpeechSDK.SpeechSynthesizer,
+        speechSynthesizer: SpeechSynthesizer,
         text: string,
-    ): Promise<SpeechSDK.SpeechSynthesizer> {
+    ): Promise<Buffer> {
         return new Promise((resolve, reject) => {
             speechSynthesizer.speakTextAsync(
                 text,
                 (result) => {
+                    const { audioData } = result;
+
                     speechSynthesizer.close();
 
-                    if (
-                        result.reason ===
-                        SpeechSDK.ResultReason.SynthesizingAudioCompleted
-                    ) {
-                        resolve(speechSynthesizer);
-                    }
-
-                    reject(result.errorDetails);
+                    resolve(Buffer.from(audioData));
                 },
                 (error) => {
                     speechSynthesizer.close();
@@ -77,8 +77,8 @@ class AzureAIService {
         });
     }
 
-    private getSpeechConfig(voiceName: string): SpeechSDK.SpeechConfig {
-        const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
+    private getSpeechConfig(voiceName: string): SpeechConfig {
+        const speechConfig = SpeechConfig.fromSubscription(
             this.subscriptionKey,
             this.serviceRegion,
         );
@@ -88,42 +88,25 @@ class AzureAIService {
         return speechConfig;
     }
 
-    private getSpeechSynthesizer(
-        audioFileName: string,
-        voiceName: string,
-    ): SpeechSDK.SpeechSynthesizer {
-        const speechConfig = this.getSpeechConfig(voiceName);
-
-        const audioConfig =
-            SpeechSDK.AudioConfig.fromAudioFileOutput(audioFileName);
-
-        return new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
-    }
-
     public async textToSpeech({
         text,
         voiceName,
     }: GenerateSpeechRequestDto): Promise<GenerateSpeechResponseDto> {
         const audioFileName = `tts_${Date.now()}.wav`;
 
-        try {
-            const speechSynthesizer = this.getSpeechSynthesizer(
-                audioFileName,
-                voiceName,
-            );
+        const speechConfig = this.getSpeechConfig(voiceName);
 
-            await this.synthesizeSpeech(speechSynthesizer, text);
+        const speechSynthesizer = new SpeechSynthesizer(speechConfig);
 
-            const fileBuffer = await fs.readFile(audioFileName);
+        const audioBuffer = await this.synthesizeSpeech(
+            speechSynthesizer,
+            text,
+        );
 
-            await this.fileService.uploadFile(fileBuffer, audioFileName);
-            const audioUrl =
-                this.fileService.getCloudFrontFileUrl(audioFileName);
+        await this.fileService.uploadFile(audioBuffer, audioFileName);
+        const audioUrl = this.fileService.getCloudFrontFileUrl(audioFileName);
 
-            return { audioUrl };
-        } finally {
-            await fs.unlink(audioFileName);
-        }
+        return { audioUrl };
     }
 }
 
