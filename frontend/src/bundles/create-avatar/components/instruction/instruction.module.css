@@ -1,0 +1,50 @@
+.flexContainer {
+    flex-direction: column;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    align-items: center;
+    gap: 50px;
+    padding-bottom: 80px;
+}
+
+.innerFlex {
+    color: var(--chakra-colors-typography-600);
+    font-size: 14px;
+    justify-content: center;
+    gap: 40px;
+}
+
+.iconContainer {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 30px;
+}
+
+#iconScreenshots {
+    border-radius: 50%;
+    background-color: white;
+    color: var(--chakra-colors-brand-secondary-50);
+}
+
+#iconAvoid {
+    border-radius: 50%;
+    background-color: white;
+    color: var(--chakra-colors-brand-secondary-900);
+}
+
+.textSecondary50 {
+    color: var(--chakra-colors-brand-secondary-50);
+}
+
+.textSecondary900 {
+    color: var(--chakra-colors-brand-secondary-900);
+}
+
+.unorderedList {
+    max-width: 300px;
+}
+
+.button {
+    max-width: 220px;
+}

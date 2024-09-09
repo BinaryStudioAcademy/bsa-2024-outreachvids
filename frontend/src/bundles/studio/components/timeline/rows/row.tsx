@@ -4,7 +4,8 @@ import {
     useTimelineRow,
 } from '~/bundles/common/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
-import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
+
+import styles from '../timeline.module.css';
 
 type Properties = {
     id: string;

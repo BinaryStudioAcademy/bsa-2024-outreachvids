@@ -2,6 +2,7 @@ import {
     AddIcon,
     ArrowLeftIcon,
     ArrowRightIcon,
+    CheckCircleIcon,
     CloseIcon,
     DownloadIcon,
     ViewIcon,
@@ -51,6 +52,7 @@ const IconName = {
     TEXT: faT,
     ADD: AddIcon,
     CLOSE: CloseIcon,
+    CHECK_CIRCLE: CheckCircleIcon,
 } as const;
 
 export { IconName };
