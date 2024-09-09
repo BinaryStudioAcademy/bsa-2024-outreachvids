@@ -49,7 +49,6 @@ type State = {
     player: {
         isPlaying: boolean;
         elapsedTime: number; // ms
-        duration: number;
     };
     avatars: {
         dataStatus: ValueOf<typeof DataStatus>;
@@ -68,7 +67,6 @@ const initialState: State = {
     player: {
         isPlaying: false,
         elapsedTime: 0,
-        duration: 80 * 1000, // Mocked data. Use the end of last scene later.
     },
     avatars: {
         dataStatus: DataStatus.IDLE,

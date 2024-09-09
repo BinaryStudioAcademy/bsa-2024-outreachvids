@@ -2,12 +2,13 @@ import { format } from 'date-fns';
 
 import { Flex, Text } from '~/bundles/common/components/components.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 
 const TimeDisplay: React.FC = () => {
-    const { elapsedTime, duration } = useAppSelector(({ studio }) => ({
+    const { elapsedTime } = useAppSelector(({ studio }) => ({
         elapsedTime: studio.player.elapsedTime,
-        duration: studio.player.duration,
     }));
+    const totalDuration = useAppSelector(selectTotalDuration);
 
     return (
         <Flex gap="2px" position="absolute" left="100%" marginLeft="15px">
@@ -18,7 +19,7 @@ const TimeDisplay: React.FC = () => {
                 /
             </Text>
             <Text color="background.50" variant="caption">
-                {format(new Date(duration), 'mm:ss')}
+                {format(new Date(totalDuration), 'mm:ss')}
             </Text>
         </Flex>
     );

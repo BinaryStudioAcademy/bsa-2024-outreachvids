@@ -10,18 +10,17 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
+import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 const TimeCursor: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { isPlaying, elapsedTime, duration } = useAppSelector(
-        ({ studio }) => ({
-            isPlaying: studio.player.isPlaying,
-            elapsedTime: studio.player.elapsedTime,
-            duration: studio.player.duration,
-        }),
-    );
+    const { isPlaying, elapsedTime } = useAppSelector(({ studio }) => ({
+        isPlaying: studio.player.isPlaying,
+        elapsedTime: studio.player.elapsedTime,
+    }));
+    const totalDuration = useAppSelector(selectTotalDuration);
 
     const timeCursorReference = useReference<HTMLDivElement>(null);
     const renderTimeReference = useReference(0);
@@ -34,10 +33,10 @@ const TimeCursor: React.FC = () => {
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
     useEffect(() => {
-        if (elapsedTime >= duration) {
+        if (elapsedTime >= totalDuration) {
             void dispatch(studioActions.setPlaying(false));
         }
-    }, [dispatch, elapsedTime, duration]);
+    }, [dispatch, elapsedTime, totalDuration]);
 
     const offsetCursor = (): void => {
         if (!timeCursorReference.current || cursorPosition !== null) {

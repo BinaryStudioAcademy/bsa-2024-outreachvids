@@ -5,27 +5,26 @@ import {
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Control, TimeDisplay } from './components/components.js';
 
 const PlayerControls: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { isPlaying, elapsedTime, duration } = useAppSelector(
-        ({ studio }) => ({
-            isPlaying: studio.player.isPlaying,
-            elapsedTime: studio.player.elapsedTime,
-            duration: studio.player.duration,
-        }),
-    );
+    const { isPlaying, elapsedTime } = useAppSelector(({ studio }) => ({
+        isPlaying: studio.player.isPlaying,
+        elapsedTime: studio.player.elapsedTime,
+    }));
+    const totalDuration = useAppSelector(selectTotalDuration);
 
     const handleTogglePlaying = useCallback((): void => {
-        if (elapsedTime >= duration) {
+        if (elapsedTime >= totalDuration) {
             void dispatch(studioActions.setElapsedTime(0));
         }
 
         void dispatch(studioActions.setPlaying(!isPlaying));
-    }, [elapsedTime, duration, dispatch, isPlaying]);
+    }, [elapsedTime, totalDuration, dispatch, isPlaying]);
 
     return (
         <Flex
