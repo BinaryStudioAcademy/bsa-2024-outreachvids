@@ -3,7 +3,10 @@ import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { Control } from '~/bundles/studio/components/components.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
-import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
+import {
+    getElementEnd,
+    setItemsSpan,
+} from '~/bundles/studio/helpers/helpers.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 
 import { Item, Row } from '../components.js';
@@ -15,9 +18,12 @@ const ScriptsRow: React.FC = () => {
 
     const scriptsEnd = scriptsWithSpan.at(-1)?.span.end ?? 0;
     const buttonWidthInPixels = 100;
-    const buttonWidth = pixelsToValue(buttonWidthInPixels);
-    const buttonEnd =
-        scriptsEnd + (Number.isFinite(buttonWidth) ? buttonWidth : 0);
+
+    const buttonEnd = getElementEnd(
+        scriptsEnd,
+        buttonWidthInPixels,
+        pixelsToValue,
+    );
 
     return (
         <Row
@@ -42,7 +48,7 @@ const ScriptsRow: React.FC = () => {
 
             <Item
                 type={RowNames.SCENE}
-                id="Add scene button"
+                id="Add script button"
                 span={{ start: scriptsEnd, end: buttonEnd }}
             >
                 <Control

@@ -3,7 +3,10 @@ import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { Control } from '~/bundles/studio/components/components.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
-import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
+import {
+    getElementEnd,
+    setItemsSpan,
+} from '~/bundles/studio/helpers/helpers.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
@@ -16,9 +19,12 @@ const ScenesRow: React.FC = () => {
 
     const scenesEnd = scenesWithSpan.at(-1)?.span.end ?? 0;
     const buttonWidthInPixels = 60;
-    const buttonWidth = pixelsToValue(buttonWidthInPixels);
-    const buttonEnd =
-        scenesEnd + (Number.isFinite(buttonWidth) ? buttonWidth : 0);
+
+    const buttonEnd = getElementEnd(
+        scenesEnd,
+        buttonWidthInPixels,
+        pixelsToValue,
+    );
 
     return (
         <Row
