@@ -45,6 +45,9 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
+// TODO: remove when we will have voices in store
+const defaultVoiceName = 'en-US-BrianMultilingualNeural';
+
 type State = {
     avatars: {
         dataStatus: ValueOf<typeof DataStatus>;
@@ -82,6 +85,7 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
+                voiceName: defaultVoiceName,
             };
 
             state.scripts.push(script);
