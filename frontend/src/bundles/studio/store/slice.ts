@@ -49,10 +49,8 @@ type DestinationPointerActionPayload = ItemActionPayload & {
 const defaultVoiceName = 'en-US-BrianMultilingualNeural';
 
 type State = {
-    avatars: {
-        dataStatus: ValueOf<typeof DataStatus>;
-        items: Array<AvatarGetResponseDto> | [];
-    };
+    dataStatus: ValueOf<typeof DataStatus>;
+    avatars: Array<AvatarGetResponseDto> | [];
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
@@ -63,10 +61,8 @@ type State = {
 };
 
 const initialState: State = {
-    avatars: {
-        dataStatus: DataStatus.IDLE,
-        items: [],
-    },
+    dataStatus: DataStatus.IDLE,
+    avatars: [],
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
@@ -232,15 +228,15 @@ const { reducer, actions, name } = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(loadAvatars.pending, (state) => {
-            state.avatars.dataStatus = DataStatus.PENDING;
+            state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(loadAvatars.fulfilled, (state, action) => {
-            state.avatars.items = action.payload.items;
-            state.avatars.dataStatus = DataStatus.FULFILLED;
+            state.avatars = action.payload.items;
+            state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(loadAvatars.rejected, (state) => {
-            state.avatars.items = [];
-            state.avatars.dataStatus = DataStatus.REJECTED;
+            state.avatars = [];
+            state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(generateScriptSpeech.pending, (state, action) => {
             const { scriptId } = action.meta.arg;
