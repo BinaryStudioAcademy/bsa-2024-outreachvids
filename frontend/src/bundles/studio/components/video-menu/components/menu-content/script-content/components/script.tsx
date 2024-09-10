@@ -9,7 +9,6 @@ import {
     Tooltip,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useCallback,
@@ -18,12 +17,19 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { AudioPlayer } from '~/bundles/studio/components/audio-player/audio-player.js';
+import { PlayIconNames } from '~/bundles/studio/enums/play-icon-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
 
 type Properties = ScriptT;
 
-const Script: React.FC<Properties> = ({ id, status, text, voiceName, url }) => {
+const Script: React.FC<Properties> = ({
+    id,
+    text,
+    voiceName,
+    url,
+    iconName,
+}) => {
     const dispatch = useAppDispatch();
 
     const [isPlaying, setIsPlaying] = useState(false);
@@ -72,12 +78,12 @@ const Script: React.FC<Properties> = ({ id, status, text, voiceName, url }) => {
     }, []);
 
     const iconComponent = useMemo(() => {
-        if (status === DataStatus.PENDING) {
+        if (iconName === PlayIconNames.LOADING) {
             return Spinner;
         }
 
         return isPlaying ? IconName.STOP : IconName.PLAY;
-    }, [isPlaying, status]);
+    }, [iconName, isPlaying]);
 
     return (
         <VStack w="full">

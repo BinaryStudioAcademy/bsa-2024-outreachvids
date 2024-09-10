@@ -1,12 +1,13 @@
-import { type DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
+
+import { type PlayIconNames } from '../enums/play-icon-names.enum.js';
 
 type Script = {
     id: string;
     duration: number;
     text: string;
     voiceName: string;
-    status: ValueOf<typeof DataStatus>;
+    iconName: ValueOf<typeof PlayIconNames>;
     url?: string;
 };
 

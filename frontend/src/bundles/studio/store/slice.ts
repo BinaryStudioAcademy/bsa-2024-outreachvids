@@ -13,7 +13,7 @@ import {
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { RowNames } from '../enums/enums.js';
+import { PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     getDestinationPointerValue,
     getNewItemIndexBySpan,
@@ -82,7 +82,7 @@ const { reducer, actions, name } = createSlice({
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
                 voiceName: defaultVoiceName,
-                status: DataStatus.IDLE,
+                iconName: PlayIconNames.READY,
             };
 
             state.scripts.push(script);
@@ -243,27 +243,34 @@ const { reducer, actions, name } = createSlice({
 
             state.scripts = state.scripts.map((script) =>
                 script.id === scriptId
-                    ? { ...script, status: DataStatus.PENDING }
+                    ? { ...script, iconName: PlayIconNames.LOADING }
                     : script,
             );
+            state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(generateScriptSpeech.fulfilled, (state, action) => {
             const { scriptId, audioUrl } = action.payload;
 
             state.scripts = state.scripts.map((script) =>
                 script.id === scriptId
-                    ? { ...script, url: audioUrl, status: DataStatus.FULFILLED }
+                    ? {
+                          ...script,
+                          url: audioUrl,
+                          iconName: PlayIconNames.READY,
+                      }
                     : script,
             );
+            state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(generateScriptSpeech.rejected, (state, action) => {
             const { scriptId } = action.meta.arg;
 
             state.scripts = state.scripts.map((script) =>
                 script.id === scriptId
-                    ? { ...script, status: DataStatus.REJECTED }
+                    ? { ...script, iconName: PlayIconNames.READY }
                     : script,
             );
+            state.dataStatus = DataStatus.REJECTED;
         });
     },
 });
