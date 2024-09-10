@@ -7,12 +7,13 @@ import {
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { Control } from '~/bundles/studio/components/player-controls/components/control/control.js';
+import { type Voice } from '~/bundles/studio/types/types.js';
 
 type Properties = {
-    voiceName: string;
+    voice: Voice;
 };
 
-const VoiceCard: React.FC<Properties> = ({ voiceName }) => {
+const VoiceCard: React.FC<Properties> = ({ voice }) => {
     const [isPlaying, setIsPlaying] = useState(false);
 
     const handleClick = useCallback((): void => {
@@ -29,7 +30,7 @@ const VoiceCard: React.FC<Properties> = ({ voiceName }) => {
                         onClick={handleClick}
                     />
                     <Text variant="body1" color={'text.default'}>
-                        {voiceName}
+                        {voice.name}
                     </Text>
                 </HStack>
             </CardBody>

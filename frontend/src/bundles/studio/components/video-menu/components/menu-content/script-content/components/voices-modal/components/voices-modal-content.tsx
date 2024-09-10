@@ -1,21 +1,14 @@
 import { Heading, SimpleGrid, VStack } from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './styles.module.css';
 import { VoiceCard } from './voice-card.js';
 
 const VoicesModalContent: React.FC = () => {
-    const mockCards = [
-        'test1',
-        'test2',
-        'test3',
-        'test4',
-        'test5',
-        'test6',
-        'test7',
-        'test8',
-        'test9',
-        'test10',
-    ];
+    const mockCards = Array.from({ length: 10 }, (_, index) => ({
+        id: uuidv4(),
+        name: `Voice ${index + 1}`,
+    }));
     return (
         <VStack>
             <Heading
@@ -31,7 +24,7 @@ const VoicesModalContent: React.FC = () => {
                 columns={[2, null, 3]}
             >
                 {mockCards.map((card) => (
-                    <VoiceCard voiceName={card} key={card} />
+                    <VoiceCard voice={card} key={card.id} />
                 ))}
             </SimpleGrid>
         </VStack>

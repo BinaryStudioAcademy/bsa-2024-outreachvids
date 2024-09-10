@@ -3,6 +3,7 @@ type Script = {
     duration: number;
     text: string;
     url?: string;
+    voiceId?: string;
 };
 
 export { type Script };

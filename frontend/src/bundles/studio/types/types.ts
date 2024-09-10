@@ -10,3 +10,4 @@ export {
     type TimelineItem,
     type TimelineItemWithSpan,
 } from './timeline-item.type.js';
+export { type Voice } from './voice.type.js';
