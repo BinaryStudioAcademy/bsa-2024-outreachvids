@@ -1,4 +1,4 @@
-import { ApiPath } from 'shared';
+import { type UserGetCurrentResponseDto, ApiPath } from 'shared';
 
 import {
     type ApiHandlerOptions,
@@ -122,9 +122,10 @@ class AvatarVideoController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            payload: await this.avatarVideoService.renderAvatarVideo(
-                options.body,
-            ),
+            payload: await this.avatarVideoService.renderAvatarVideo({
+                ...options.body,
+                userId: (options.user as UserGetCurrentResponseDto).id,
+            }),
             status: HttpCode.CREATED,
         };
     }
