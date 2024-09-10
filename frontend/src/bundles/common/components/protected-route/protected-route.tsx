@@ -15,7 +15,7 @@ const ProtectedRoute: React.FC<Properties> = ({ children }) => {
 
     if (dataStatus === DataStatus.PENDING) {
         return (
-            <Overlay isOpen={true}>
+            <Overlay isOpen>
                 <Loader />
             </Overlay>
         );
