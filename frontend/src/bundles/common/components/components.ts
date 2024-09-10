@@ -5,6 +5,7 @@ export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { type Properties as ModalProperties, Modal } from './modal/modal.js';
+export { NotFoundAnimation } from './not-found-animation/not-found-animation.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';
@@ -48,6 +49,7 @@ export {
     SliderThumb,
     SliderTrack,
     Spacer,
+    Spinner,
     Stack,
     Tab,
     Text,
@@ -55,7 +57,9 @@ export {
     VStack,
 } from '@chakra-ui/react';
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+export { Player as LibraryPlayer } from '@remotion/player';
 export { FormikProvider as FormProvider } from 'formik';
 export { Fragment } from 'react';
 export { Provider as StoreProvider } from 'react-redux';
 export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';
+export { Audio } from 'remotion';
