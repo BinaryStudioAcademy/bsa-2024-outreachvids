@@ -129,8 +129,7 @@ const Timeline: React.FC = () => {
 
     const onRangeChanged = useCallback(
         (updateFunction: (previous: Range) => Range) => {
-            const currentRange: Range = range;
-            const newRange = updateFunction(currentRange);
+            const newRange = updateFunction(range);
             dispatch(studioActions.setRange(newRange));
         },
         [dispatch, range],
