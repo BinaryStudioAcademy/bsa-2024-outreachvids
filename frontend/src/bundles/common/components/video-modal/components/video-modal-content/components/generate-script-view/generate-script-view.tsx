@@ -8,10 +8,10 @@ import {
     Tabs,
 } from '@chakra-ui/react';
 
+import styles from '~/bundles/common/components/video-modal/styles.module.css';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/video-scripts.js';
 
-import styles from '../../../../video-modal.module.css';
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
 

@@ -3,7 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 import { Link } from '../link/link.js';
-import styles from './header.module.css';
+import styles from './styles.module.css';
 
 type Properties = {
     left?: React.ReactNode;

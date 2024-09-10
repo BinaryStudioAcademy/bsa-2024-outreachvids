@@ -4,7 +4,7 @@ import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 
 import { Item, Row } from '../components.js';
-import styles from '../timeline.module.css';
+import styles from '../styles.module.css';
 
 const ScenesRow: React.FC = () => {
     const scenes = useAppSelector(({ studio }) => studio.scenes);
