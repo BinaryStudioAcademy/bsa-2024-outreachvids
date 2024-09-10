@@ -82,10 +82,10 @@ const VideoPreview: React.FC = () => {
                     <Button
                         backgroundColor="brand.secondary.300"
                         color="white"
-                            onClick={handleClick}
+                        onClick={handleClick}
                         _hover={{ bg: 'brand.secondary.600' }}
                         onMouseEnter={handleSetPortraitView}
-                >
+                    >
                         Use portrait
                     </Button>
                 </Link>
