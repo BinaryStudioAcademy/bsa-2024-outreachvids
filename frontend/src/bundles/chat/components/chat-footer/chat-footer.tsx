@@ -10,6 +10,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
+import styles from './chat-footer.module.css';
 import { DEFAULT_CHAT_FORM_PAYLOAD } from './constants/constants.js';
 
 type Properties = {
@@ -38,14 +39,14 @@ const ChatFooter: React.FC<Properties> = ({ onSendMessage }) => {
                         placeholder="Send a message"
                         name="message"
                         value={values.message}
-                        sx={{ w: '100%' }}
+                        className={styles['chat-footer__input']}
                     />
                     <Button
                         type="submit"
                         label="Send"
                         size="md"
                         isDisabled={values.message.trim().length === 0}
-                        sx={{ w: '100px' }}
+                        className={styles['chat-footer__button']}
                     />
                 </Flex>
             </form>

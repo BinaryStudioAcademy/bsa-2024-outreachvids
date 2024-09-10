@@ -8,13 +8,11 @@ type Properties = {
 const ChatHeader: React.FC<Properties> = ({ title, comment }) => {
     return (
         <Box
-            sx={{
-                bg: 'background.600',
-                p: '20px',
-                color: 'white',
-                borderTopLeftRadius: 'xl',
-                borderTopRightRadius: 'xl',
-            }}
+            bg={'background.600'}
+            p={'20px'}
+            color={'white'}
+            borderTopLeftRadius={'xl'}
+            borderTopRightRadius={'xl'}
         >
             <Heading variant="H2" mb={2}>
                 {title}
