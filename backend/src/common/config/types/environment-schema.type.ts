@@ -30,6 +30,10 @@ type EnvironmentSchema = {
             DOMAIN_ID: string;
         };
     };
+    AZURE: {
+        SUBSCRIPTION_KEY: string;
+        SERVICE_REGION: string;
+    };
 };
 
 export { type EnvironmentSchema };

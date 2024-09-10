@@ -1,9 +1,23 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type AvatarGetAllResponseDto,
+    type AvatarGetOneRequestDto,
+    type AvatarGetResponseDto,
+    AvatarsApiPath,
+    AvatarValidationMessage,
+} from './bundles/avatars/avatars.js';
+export {
     type GenerateTextRequestDto,
     ChatPath,
     textGenerationValidationSchema,
 } from './bundles/chat/chat.js';
+export {
+    type GenerateSpeechRequestDto,
+    type GenerateSpeechResponseDto,
+    type GetVoicesResponseDto,
+    generateSpeechValidationSchema,
+    SpeechApiPath,
+} from './bundles/speech/speech.js';
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,

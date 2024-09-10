@@ -42,7 +42,7 @@ class UserController extends BaseController {
 
         this.addRoute({
             path: UsersApiPath.CURRENT,
-            method: 'GET',
+            method: HTTPMethod.GET,
             handler: (handlerOptions: ApiHandlerOptions) =>
                 this.getCurrent(handlerOptions),
         });
@@ -50,9 +50,11 @@ class UserController extends BaseController {
 
     /**
      * @swagger
-     * /users:
+     * /users/:
      *    get:
      *      description: Returns an array of users
+     *      security:
+     *       - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation
@@ -77,6 +79,8 @@ class UserController extends BaseController {
      * /users/current:
      *    get:
      *      description: Returns current authorized user
+     *      security:
+     *       - bearerAuth: []
      *      responses:
      *        200:
      *          description: Successful operation

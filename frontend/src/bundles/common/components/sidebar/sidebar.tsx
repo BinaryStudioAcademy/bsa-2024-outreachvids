@@ -1,3 +1,4 @@
+import { actions as authActions } from '~/bundles/auth/store/auth.js';
 import {
     Box,
     Flex,
@@ -8,6 +9,8 @@ import {
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
+    useAppDispatch,
+    useAppSelector,
     useCallback,
     useLocation,
     useNavigate,
@@ -27,6 +30,8 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const user = useAppSelector(({ auth }) => auth.user);
+    const dispatch = useAppDispatch();
 
     const handleToggle = useCallback(
         (): void => setIsCollapsed(!isCollapsed),
@@ -42,9 +47,9 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     };
 
     const handleLogOut = useCallback(() => {
-        //ToDo: log out user with token
+        void dispatch(authActions.logout());
         navigate(AppRoute.SIGN_IN);
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     return (
         <Flex w="100%">
@@ -74,8 +79,11 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                     variant="icon"
                 />
                 <Box mb="30px">
-                    {/* ToDo: Add this username value dynamically */}
-                    {isCollapsed ? <UserAvatar username="FN" /> : <UserCard />}
+                    {isCollapsed ? (
+                        <UserAvatar username={user?.fullName} />
+                    ) : (
+                        <UserCard />
+                    )}
                 </Box>
                 <Box>
                     <Link to={AppRoute.ROOT}>
