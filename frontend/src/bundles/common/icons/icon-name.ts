@@ -12,7 +12,6 @@ import {
     faEllipsisVertical,
     faFont,
     faPen,
-    faScroll,
     faT,
     faTableColumns,
 } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +26,7 @@ import {
     pauseIcon,
     playIcon,
     RightFromBracketIcon,
+    scrollIcon,
     VolumeHighIcon,
     VolumeOffIcon,
 } from './helper/icon-conversion.helper.js';
@@ -42,7 +42,7 @@ const IconName = {
     PLAY_STEP_BACK: backwardStepIcon,
     PLAY_STEP_NEXT: forwardStepIcon,
     PAUSE: pauseIcon,
-    SCROLL: faScroll,
+    SCROLL: scrollIcon,
     VOLUME: VolumeHighIcon,
     VOLUME_OFF: VolumeOffIcon,
     CLOUD_ARROW_DOWN: CloudArrowDownIcon,

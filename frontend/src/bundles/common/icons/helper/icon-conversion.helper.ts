@@ -8,6 +8,7 @@ import {
     faPause,
     faPlay,
     faRightFromBracket,
+    faScroll,
     faVolumeHigh,
     faVolumeOff,
 } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +23,7 @@ const forwardStepIcon = iconConverter(faForwardStep);
 const pauseIcon = iconConverter(faPause);
 const playIcon = iconConverter(faPlay);
 const fileLinesIcon = iconConverter(faFileLines);
+const scrollIcon = iconConverter(faScroll);
 
 const CloudArrowDownIcon = iconConverter(faCloudArrowDown);
 const VolumeHighIcon = iconConverter(faVolumeHigh);
@@ -39,6 +41,7 @@ export {
     pauseIcon,
     playIcon,
     RightFromBracketIcon,
+    scrollIcon,
     VolumeHighIcon,
     VolumeOffIcon,
 };

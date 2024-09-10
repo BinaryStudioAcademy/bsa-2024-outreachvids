@@ -1,7 +1,6 @@
 import { type GenerateTextRequestDto } from '~/bundles/chat/chat.js';
 import { MessageSender } from '~/bundles/chat/enums/message-sender.js';
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
-import { type Message } from '~/bundles/chat/types/types.js';
 import {
     Heading,
     HStack,
@@ -20,34 +19,12 @@ import {
 import { type VideoScript } from '~/bundles/common/types/video-script.type.js';
 import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/video-scripts.js';
 
+import {
+    getVideoScriptMessageFromPayload,
+    sanitizeJsonString,
+} from '../../helpers/helpers.js';
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
-
-const generateMessageTemplate = (
-    payload: GenerateVideoScriptRequestDto,
-): string => {
-    const { language, topic, tone, additionalInfo } = payload;
-    const additionalInfoMessage =
-        additionalInfo.length > 0
-            ? `, to make a better script use this additional information: '${additionalInfo}'`
-            : '';
-
-    return `Create the script narration for a video,
-        divided in scene, generate script on topic '${topic}'
-        in '${language}' using a '${tone}' tone ${additionalInfoMessage}
-    `;
-    // The response must be valid a JSON that has an array of objects with title for the corresponding scene and
-    // the description, dont return any other text, just the JSON.
-};
-
-const getVideoScriptMessageFromPayload = (
-    payload: GenerateVideoScriptRequestDto,
-    messages: Message[],
-): string => {
-    return messages.length === 0
-        ? generateMessageTemplate(payload)
-        : 'Please, generate another script from the info provided before';
-};
 
 const GenerateScriptView: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -78,7 +55,8 @@ const GenerateScriptView: React.FC = () => {
         }
 
         try {
-            const videoScripts: VideoScript[] = JSON.parse(lastMessage.text);
+            const sanitizedJson = sanitizeJsonString(lastMessage.text);
+            const videoScripts: VideoScript[] = JSON.parse(sanitizedJson);
             return videoScripts;
         } catch {
             return [
@@ -123,7 +101,10 @@ const GenerateScriptView: React.FC = () => {
                 </TabList>
                 <TabPanels>
                     <TabPanel p={0}>
-                        <HStack justify="space-between">
+                        <HStack
+                            justify="space-between"
+                            alignItems={'flex-start'}
+                        >
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />

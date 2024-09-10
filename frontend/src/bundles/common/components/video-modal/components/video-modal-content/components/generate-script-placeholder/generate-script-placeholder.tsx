@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { Icon, Text, VStack } from '~/bundles/common/components/components.js';
-import { useMemo } from '~/bundles/common/hooks/hooks.js';
+import { VStack } from '~/bundles/common/components/components.js';
+import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
+import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type VideoScript } from '~/bundles/common/types/types.js';
 
+import { GenerateScriptPlaceholderContent } from '../generate-script-placeholder-content/generate-script-placeholder-content.js';
 import { GenerateScriptScene } from '../generate-script-scene/generate-script-scene.js';
 
 type Properties = {
@@ -12,33 +12,30 @@ type Properties = {
 };
 
 const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
-    const isGenearatedTextEmpty = useMemo(
+    const { dataStatus } = useAppSelector(({ chat }) => ({
+        dataStatus: chat.dataStatus,
+    }));
+    const isGeneratedTextEmpty = useMemo(
         () => videoScripts.length === 0,
         [videoScripts],
     );
 
     return (
-        <VStack w="full" p="40px" gap="10px">
-            {isGenearatedTextEmpty ? (
-                <>
-                    <Icon
-                        as={FontAwesomeIcon}
-                        icon={IconName.SCROLL}
-                        color="brand.secondary.300"
-                        opacity="0.5"
-                        size="2x"
-                    />
-                    <Text
-                        color="gray.400"
-                        variant="H3"
-                        w="40%"
-                        minWidth="175px"
-                        textAlign="center"
-                        fontStyle="italic"
-                    >
-                        Here you will see your generated script
-                    </Text>
-                </>
+        <VStack
+            w="full"
+            paddingX="40px"
+            gap="10px"
+            height={'100vh'}
+            maxH={'550px'}
+            overflowY={'auto'}
+        >
+            {dataStatus === DataStatus.PENDING ? (
+                <GenerateScriptPlaceholderContent message="Loading..." />
+            ) : (isGeneratedTextEmpty ? (
+                <GenerateScriptPlaceholderContent
+                    message="Here you will see your generated script"
+                    icon={IconName.SCROLL}
+                />
             ) : (
                 <>
                     {videoScripts.map((videoScript, index) => (
@@ -48,7 +45,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
                         />
                     ))}
                 </>
-            )}
+            ))}
         </VStack>
     );
 };
