@@ -1,8 +1,20 @@
-import { Button, Flex, Icon, Text } from '@chakra-ui/react';
-import { useCallback, useState } from 'react';
+import { Button } from '@chakra-ui/react';
 
+import {
+    Flex,
+    Icon,
+    Link,
+    Text,
+} from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type VideoPreview as VideoPreviewT } from '~/bundles/common/types/types.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import {
     VideoPreview as VideoPreviewValues,
@@ -10,6 +22,7 @@ import {
 } from './libs/enums/enums.js';
 
 const VideoPreview: React.FC = () => {
+    const dispatch = useAppDispatch();
     const [view, setView] = useState<VideoPreviewT>(
         VideoPreviewValues.PORTRAIT,
     );
@@ -21,6 +34,10 @@ const VideoPreview: React.FC = () => {
     const handleSetLandscapeView = useCallback((): void => {
         setView(VideoPreviewValues.LANDSCAPE);
     }, []);
+
+    const handleClick = useCallback((): void => {
+        dispatch(studioActions.setVideoSize(view));
+    }, [dispatch, view]);
 
     return (
         <Flex flexDirection="column" alignItems="center">
@@ -49,22 +66,28 @@ const VideoPreview: React.FC = () => {
             </Flex>
 
             <Flex justifyContent="center" gap={4}>
-                <Button
-                    backgroundColor="brand.secondary.300"
-                    color="white"
-                    onMouseEnter={handleSetLandscapeView}
-                    _hover={{ bg: 'brand.secondary.600' }}
-                >
-                    Use landscape
-                </Button>
-                <Button
-                    backgroundColor="brand.secondary.300"
-                    color="white"
-                    onMouseEnter={handleSetPortraitView}
-                    _hover={{ bg: 'brand.secondary.600' }}
-                >
-                    Use portrait
-                </Button>
+                <Link to={AppRoute.STUDIO}>
+                    <Button
+                        backgroundColor="brand.secondary.300"
+                        color="white"
+                        onMouseEnter={handleSetLandscapeView}
+                        onClick={handleClick}
+                        _hover={{ bg: 'brand.secondary.600' }}
+                    >
+                        Use landscape
+                    </Button>
+                </Link>
+                <Link to={AppRoute.STUDIO}>
+                    <Button
+                        backgroundColor="brand.secondary.300"
+                        color="white"
+                        onMouseEnter={handleSetPortraitView}
+                        onClick={handleClick}
+                        _hover={{ bg: 'brand.secondary.600' }}
+                    >
+                        Use portrait
+                    </Button>
+                </Link>
             </Flex>
         </Flex>
     );
