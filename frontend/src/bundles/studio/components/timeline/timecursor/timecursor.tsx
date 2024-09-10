@@ -39,7 +39,7 @@ const TimeCursor: React.FC = () => {
     }, [dispatch, elapsedTime, totalDuration]);
 
     const offsetCursor = (): void => {
-        if (!timeCursorReference.current || cursorPosition !== null) {
+        if (!timeCursorReference.current || cursorPosition) {
             return;
         }
 
@@ -110,7 +110,7 @@ const TimeCursor: React.FC = () => {
     ]);
 
     useLayoutEffect(() => {
-        if (cursorPosition !== null && timeCursorReference.current) {
+        if (cursorPosition && timeCursorReference.current) {
             timeCursorReference.current.style[side] =
                 `${cursorPosition + sidebarWidth}px`;
         }
