@@ -59,6 +59,11 @@ const components = {
                 lineHeight: '27px',
                 marginBottom: '5px',
             },
+            link: {
+                _hover: {
+                    color: colors.brand.secondary[300],
+                },
+            },
         },
     },
     Button: {

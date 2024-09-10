@@ -4,7 +4,7 @@ export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
-export { type Properties as ModalProperties,Modal } from './modal/modal.js';
+export { type Properties as ModalProperties, Modal } from './modal/modal.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
 export { ProtectedRoute } from './protected-route/protected-route.js';
@@ -18,6 +18,8 @@ export {
     Badge,
     Modal as BaseModal,
     Box,
+    Card,
+    CardBody,
     Center,
     Checkbox,
     Circle,

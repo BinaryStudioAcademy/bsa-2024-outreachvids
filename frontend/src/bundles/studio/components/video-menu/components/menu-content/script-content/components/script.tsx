@@ -2,8 +2,10 @@ import {
     Editable,
     EditablePreview,
     EditableTextarea,
+    HStack,
     Icon,
     IconButton,
+    Text,
     VStack,
 } from '~/bundles/common/components/components.js';
 import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
@@ -11,9 +13,9 @@ import { IconName } from '~/bundles/common/icons/icons.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
 
-type Properties = ScriptT;
+type Properties = ScriptT & { handleChangeVoice: (scriptId: string) => void };
 
-const Script: React.FC<Properties> = ({ id, text }) => {
+const Script: React.FC<Properties> = ({ id, text, handleChangeVoice }) => {
     const dispatch = useAppDispatch();
 
     const handleDeleteScript = useCallback((): void => {
@@ -27,16 +29,28 @@ const Script: React.FC<Properties> = ({ id, text }) => {
         [dispatch, id],
     );
 
+    const handleChangeVoiceId = useCallback((): void => {
+        handleChangeVoice(id);
+    }, [handleChangeVoice, id]);
+
     return (
         <VStack w="full">
-            <IconButton
-                icon={<Icon as={IconName.CLOSE} />}
-                size="sm"
-                variant="ghostIconDark"
-                aria-label="Delete script"
-                alignSelf="end"
-                onClick={handleDeleteScript}
-            />
+            <HStack justifyContent="space-between" w="full">
+                <Text
+                    onClick={handleChangeVoiceId}
+                    cursor={'pointer'}
+                    variant="link"
+                >
+                    Test text
+                </Text>
+                <IconButton
+                    icon={<Icon as={IconName.CLOSE} />}
+                    size="sm"
+                    variant="ghostIconDark"
+                    aria-label="Delete script"
+                    onClick={handleDeleteScript}
+                />
+            </HStack>
             <Editable
                 defaultValue={text}
                 isPreviewFocusable={true}
