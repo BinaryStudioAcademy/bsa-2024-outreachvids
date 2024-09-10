@@ -134,9 +134,9 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.map((script) =>
                 script.id === scriptId
                     ? {
-                          ...script,
-                          voice,
-                      }
+                        ...script,
+                        voice,
+                    }
                     : script,
             );
         },
