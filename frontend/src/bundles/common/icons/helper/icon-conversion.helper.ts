@@ -13,6 +13,7 @@ import {
     faPlay,
     faRightFromBracket,
     faScroll,
+    faStop,
     faT,
     faTableColumns,
     faVolumeHigh,
@@ -39,6 +40,7 @@ const Pause = iconConverter(faPause);
 const CloudArrowDown = iconConverter(faCloudArrowDown);
 const VolumeHigh = iconConverter(faVolumeHigh);
 const VolumeOff = iconConverter(faVolumeOff);
+const Stop = iconConverter(faStop);
 
 export {
     BackwardStep,
@@ -55,6 +57,7 @@ export {
     Play,
     RightFromBracket,
     Scroll,
+    Stop,
     T,
     TableColumns,
     VolumeHigh,
