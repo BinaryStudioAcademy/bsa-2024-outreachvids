@@ -9,10 +9,10 @@ import {
     Tooltip,
     VStack,
 } from '~/bundles/common/components/components.js';
+import { DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useCallback,
-    useEffect,
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
@@ -23,11 +23,10 @@ import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
 
 type Properties = ScriptT;
 
-const Script: React.FC<Properties> = ({ id, text, voiceName, url }) => {
+const Script: React.FC<Properties> = ({ id, status, text, voiceName, url }) => {
     const dispatch = useAppDispatch();
 
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isAudioLoading, setIsAudioLoading] = useState(false);
 
     const handleDeleteScript = useCallback((): void => {
         void dispatch(studioActions.deleteScript(id));
@@ -59,8 +58,6 @@ const Script: React.FC<Properties> = ({ id, text, voiceName, url }) => {
             return;
         }
 
-        setIsAudioLoading(true);
-
         void dispatch(
             studioActions.generateScriptSpeech({
                 scriptId: id,
@@ -74,19 +71,13 @@ const Script: React.FC<Properties> = ({ id, text, voiceName, url }) => {
         setIsPlaying(false);
     }, []);
 
-    useEffect(() => {
-        if (url) {
-            setIsAudioLoading(false);
-        }
-    }, [url]);
-
     const iconComponent = useMemo(() => {
-        if (isAudioLoading) {
+        if (status === DataStatus.PENDING) {
             return Spinner;
         }
 
         return isPlaying ? IconName.STOP : IconName.PLAY;
-    }, [isAudioLoading, isPlaying]);
+    }, [isPlaying, status]);
 
     return (
         <VStack w="full">

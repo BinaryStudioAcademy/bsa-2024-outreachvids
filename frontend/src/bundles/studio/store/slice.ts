@@ -86,6 +86,7 @@ const { reducer, actions, name } = createSlice({
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
                 voiceName: defaultVoiceName,
+                status: DataStatus.IDLE,
             };
 
             state.scripts.push(script);
@@ -241,11 +242,31 @@ const { reducer, actions, name } = createSlice({
             state.avatars.items = [];
             state.avatars.dataStatus = DataStatus.REJECTED;
         });
+        builder.addCase(generateScriptSpeech.pending, (state, action) => {
+            const { scriptId } = action.meta.arg;
+
+            state.scripts = state.scripts.map((script) =>
+                script.id === scriptId
+                    ? { ...script, status: DataStatus.PENDING }
+                    : script,
+            );
+        });
         builder.addCase(generateScriptSpeech.fulfilled, (state, action) => {
             const { scriptId, audioUrl } = action.payload;
 
             state.scripts = state.scripts.map((script) =>
-                script.id === scriptId ? { ...script, url: audioUrl } : script,
+                script.id === scriptId
+                    ? { ...script, url: audioUrl, status: DataStatus.FULFILLED }
+                    : script,
+            );
+        });
+        builder.addCase(generateScriptSpeech.rejected, (state, action) => {
+            const { scriptId } = action.meta.arg;
+
+            state.scripts = state.scripts.map((script) =>
+                script.id === scriptId
+                    ? { ...script, status: DataStatus.REJECTED }
+                    : script,
             );
         });
     },
