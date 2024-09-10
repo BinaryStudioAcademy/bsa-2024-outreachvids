@@ -29,4 +29,4 @@ const Modal: React.FC<React.PropsWithChildren<Properties>> = ({
     );
 };
 
-export { type Properties,Modal };
+export { type Properties, Modal };

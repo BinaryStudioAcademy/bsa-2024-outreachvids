@@ -132,12 +132,7 @@ const { reducer, actions, name } = createSlice({
         changeScriptVoice(state, action: PayloadAction<ScriptVoicePayload>) {
             const { scriptId, voice } = action.payload;
             state.scripts = state.scripts.map((script) =>
-                script.id === scriptId
-                    ? {
-                        ...script,
-                        voice,
-                    }
-                    : script,
+                script.id === scriptId ? { ...script, voice } : script,
             );
         },
         addScene(state) {
