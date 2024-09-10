@@ -1,13 +1,27 @@
-import { Text } from '~/bundles/common/components/components.js';
+import {
+    Icon,
+    IconButton,
+    Text,
+    Tooltip,
+} from '~/bundles/common/components/components.js';
 import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
+import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
+import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 
 import { Item, Row } from '../components.js';
 
 const ScriptsRow: React.FC = () => {
     const scripts = useAppSelector(({ studio }) => studio.scripts);
     const scriptsWithSpan = useMemo(() => setItemsSpan(scripts), [scripts]);
+    const { pixelsToValue } = useTimelineContext();
+
+    const scriptsEnd = scriptsWithSpan.at(-1)?.span.end ?? 0;
+    const buttonWidthInPixels = 100;
+    const buttonWidth = pixelsToValue(buttonWidthInPixels);
+    const buttonEnd =
+        scriptsEnd + (Number.isFinite(buttonWidth) ? buttonWidth : 0);
 
     return (
         <Row
@@ -29,6 +43,22 @@ const ScriptsRow: React.FC = () => {
                     </Text>
                 </Item>
             ))}
+
+            <Item
+                type={RowNames.SCENE}
+                id="Add scene button"
+                span={{ start: scriptsEnd, end: buttonEnd }}
+            >
+                <Tooltip hasArrow label={'Add script'} placement="top">
+                    <IconButton
+                        height="100%"
+                        width="100%"
+                        size={IconSize.MEDIUM}
+                        aria-label={'Add a scene'}
+                        icon={<Icon as={IconName.ADD} />}
+                    />
+                </Tooltip>
+            </Item>
         </Row>
     );
 };
