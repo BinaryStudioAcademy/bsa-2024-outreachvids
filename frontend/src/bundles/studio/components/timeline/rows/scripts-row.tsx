@@ -1,11 +1,11 @@
 import { Text } from '~/bundles/common/components/components.js';
 import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { Control } from '~/bundles/studio/components/components.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 
-import { Control } from '../../player-controls/components/components.js';
 import { Item, Row } from '../components.js';
 
 const ScriptsRow: React.FC = () => {

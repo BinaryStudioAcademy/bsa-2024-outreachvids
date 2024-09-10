@@ -2,7 +2,8 @@ import { Flex } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 
-import { Control, TimeDisplay } from './components/components.js';
+import { Control } from '../components.js';
+import { TimeDisplay } from './components/components.js';
 
 const PlayerControls: React.FC = () => {
     // Mocked data. Update later
