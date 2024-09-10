@@ -8,8 +8,8 @@ import {
 
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
@@ -17,14 +17,10 @@ import { type RowType } from '~/bundles/studio/types/types.js';
 
 import { TimelineView } from './components.js';
 
-type Properties = {
-    initialRange: Range;
-};
-
-const Timeline: React.FC<Properties> = ({ initialRange }) => {
+const Timeline: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const [range, setRange] = useState(initialRange);
+    const range  = useAppSelector(({ studio }) => studio.range);
 
     const onResizeEnd = useCallback(
         (event: ResizeEndEvent) => {
@@ -131,12 +127,21 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
         [dispatch],
     );
 
+    const onRangeChanged = useCallback(
+        (updateFunction: (previous: Range) => Range) => {
+            const currentRange: Range = range;
+            const newRange = updateFunction(currentRange);
+            dispatch(studioActions.setRange(newRange));
+        },
+        [dispatch, range],
+    );
+
     return (
         <TimelineContext
             range={range}
             onDragEnd={onDragEnd}
             onResizeEnd={onResizeEnd}
-            onRangeChanged={setRange}
+            onRangeChanged={onRangeChanged}
             onDragMove={onDragMove}
         >
             <TimelineView />
