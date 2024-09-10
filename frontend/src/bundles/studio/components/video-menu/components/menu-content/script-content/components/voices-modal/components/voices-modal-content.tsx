@@ -1,5 +1,6 @@
 import { Heading, SimpleGrid, VStack } from '@chakra-ui/react';
 
+import styles from './styles.module.css';
 import { VoiceCard } from './voice-card.js';
 
 const VoicesModalContent: React.FC = () => {
@@ -18,21 +19,16 @@ const VoicesModalContent: React.FC = () => {
     return (
         <VStack>
             <Heading
-                width="290px"
-                padding="33px 44px 0px"
+                className={styles['modal-header']}
                 variant="H3"
                 color="typography.900"
-                alignSelf="start"
             >
                 AI Voice
             </Heading>
             <SimpleGrid
-                columns={[2, null, 3]}
-                spacing="20px"
-                overflowY="auto"
-                padding="20px"
-                alignContent="space-between"
+                className={styles['modal-content']}
                 w="full"
+                columns={[2, null, 3]}
             >
                 {mockCards.map((card) => (
                     <VoiceCard voiceName={card} key={card} />
