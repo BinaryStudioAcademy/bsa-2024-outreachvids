@@ -32,11 +32,3 @@
     background-color: white;
     color: var(--chakra-colors-brand-secondary-900);
 }
-
-.unorderedList {
-    max-width: 300px;
-}
-
-.button {
-    max-width: 220px;
-}

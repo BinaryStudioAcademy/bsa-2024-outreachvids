@@ -30,7 +30,7 @@ const Instruction: React.FC = () => {
                             Screenshots
                         </Text>
                     </Flex>
-                    <UnorderedList className={styles['unorderedList']}>
+                    <UnorderedList max-width= "300px">
                         <ListItem>At least 5 minutes of footage</ListItem>
                         <ListItem>High resolution camera</ListItem>
                         <ListItem>Well-lit quiet environment</ListItem>
@@ -61,7 +61,7 @@ const Instruction: React.FC = () => {
                             Things to avoid
                         </Text>
                     </Flex>
-                    <UnorderedList className={styles['unorderedList']}>
+                    <UnorderedList max-width= "300px">
                         <ListItem>Stitches or cuts of your footage</ListItem>
                         <ListItem>Talking without pauses</ListItem>
                         <ListItem>Fast head movements</ListItem>
@@ -78,7 +78,7 @@ const Instruction: React.FC = () => {
                     </UnorderedList>
                 </Box>
             </Flex>
-            <Button label="Next step" className={styles['button']} />
+            <Button label="Next step" max-width= "220px"/>
         </Flex>
     );
 };
