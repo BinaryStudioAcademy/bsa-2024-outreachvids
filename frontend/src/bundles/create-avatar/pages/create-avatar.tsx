@@ -1,7 +1,7 @@
 import { Box } from '~/bundles/common/components/components.js';
 
 import { Instruction } from '../components/components.js';
-import styles from './create-avatar.module.css';
+import styles from './styles.module.css';
 
 const CreateAvatar: React.FC = () => {
     return (
