@@ -6,7 +6,7 @@ import {
 } from '~/bundles/studio/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
-import styles from '../styles.module.css';
+import styles from './styles.module.css';
 
 type Properties = {
     id: string;

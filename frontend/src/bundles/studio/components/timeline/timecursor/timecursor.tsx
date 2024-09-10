@@ -7,7 +7,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 
-import styles from '../styles.module.css';
+import styles from './styles.module.css';
 
 type Properties = {
     interval?: number;

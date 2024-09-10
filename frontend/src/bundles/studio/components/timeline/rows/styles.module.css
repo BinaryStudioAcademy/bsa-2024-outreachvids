@@ -1,0 +1,10 @@
+.row {
+    height: 100%;
+    min-height: 30px;
+}
+
+.scene-badge {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+}
