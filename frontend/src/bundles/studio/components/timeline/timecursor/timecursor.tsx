@@ -19,7 +19,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
         useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
-    const millisecondPerRefresh = 1000;
+    const millisecondPerRefresh = 15;
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
@@ -109,9 +109,11 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
             className={styles['timeCursor']}
             role="button"
             tabIndex={0}
+            backgroundColor = "brand.secondary.300"
             onMouseDown={handleMouseDown}
         >
-            <Box className={styles['timeCursorArrow']} />
+            <Box className={styles['timeCursorSquare']} backgroundColor='brand.secondary.300'/>
+            <Box className={styles['timeCursorTriangle']} color='brand.secondary.300'/>
         </Box>
     );
 };
