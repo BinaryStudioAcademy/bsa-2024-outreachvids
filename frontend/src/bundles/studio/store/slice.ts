@@ -1,5 +1,9 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { millisecondsToSeconds, minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
+import {
+    millisecondsToSeconds,
+    minutesToMilliseconds,
+    secondsToMilliseconds,
+} from 'date-fns';
 import { type Range, type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,11 +18,13 @@ import {
 } from '~/bundles/studio/constants/constants.js';
 
 import { RowNames } from '../enums/enums.js';
-import { calculateTotalMilliseconds,
+import {
+    calculateTotalMilliseconds,
     getDestinationPointerValue,
     getNewItemIndexBySpan,
     reorderItemsByIndexes,
-    setItemsSpan } from '../helpers/helpers.js';
+    setItemsSpan,
+} from '../helpers/helpers.js';
 import {
     type AvatarGetResponseDto,
     type DestinationPointer,
@@ -85,7 +91,10 @@ const { reducer, actions, name } = createSlice({
                 text: action.payload,
             };
             state.scripts.push(script);
-            const totalMilliseconds = calculateTotalMilliseconds(state.scripts, state.range.end);
+            const totalMilliseconds = calculateTotalMilliseconds(
+                state.scripts,
+                state.range.end,
+            );
             state.range.end = totalMilliseconds;
         },
         editScript(
