@@ -55,6 +55,7 @@ const ScenesRow: React.FC = () => {
                     label="Add a scene"
                     size={IconSize.LARGE}
                     icon={IconName.ADD}
+                    variant="light"
                     height="100%"
                     width="100%"
                     isRound={false}

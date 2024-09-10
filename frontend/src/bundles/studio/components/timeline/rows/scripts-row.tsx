@@ -49,6 +49,7 @@ const ScriptsRow: React.FC = () => {
                     label="Add script"
                     size={IconSize.MEDIUM}
                     icon={IconName.ADD}
+                    variant="light"
                     height="100%"
                     width="100%"
                     isRound={false}
