@@ -21,12 +21,9 @@ import { AudioPlayer } from '~/bundles/studio/components/audio-player/audio-play
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
 
-// TODO: remove mocked url when script audioUrl will be taken from text-to-speech
-const audioUrl = 'https://d2tm5q3cg1nlwf.cloudfront.net/tts_1725818217391.wav';
-
 type Properties = ScriptT;
 
-const Script: React.FC<Properties> = ({ id, text, url }) => {
+const Script: React.FC<Properties> = ({ id, text, voiceName, url }) => {
     const dispatch = useAppDispatch();
 
     const [isPlaying, setIsPlaying] = useState(false);
@@ -64,11 +61,14 @@ const Script: React.FC<Properties> = ({ id, text, url }) => {
 
         setIsAudioLoading(true);
 
-        //TODO: replace with fetching real script audioUrl
-        setTimeout(() => {
-            void dispatch(studioActions.editScript({ id, url: audioUrl }));
-        }, 1000);
-    }, [dispatch, id, url]);
+        void dispatch(
+            studioActions.generateScriptSpeech({
+                scriptId: id,
+                text,
+                voiceName,
+            }),
+        );
+    }, [dispatch, id, text, url, voiceName]);
 
     const handleAudioEnd = useCallback((): void => {
         setIsPlaying(false);
