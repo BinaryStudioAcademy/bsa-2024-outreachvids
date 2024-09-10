@@ -21,8 +21,8 @@ type Properties = {
 };
 
 const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
-    const activeStep = steps.indexOf(currentStep);
-    const progressPercent = (activeStep / (steps.length - 1)) * 100;
+    const activeStepIndex = steps.indexOf(currentStep);
+    const progressPercent = (activeStepIndex / (steps.length - 1)) * 100;
 
     const backButton = (
         <IconButton
@@ -34,22 +34,13 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
 
     const stepProgressBar = (
         <Box
-            sx={{
-                position: 'relative',
-                maxWidth: '340px',
-                minWidth: '300px',
-                height: '100%',
-            }}
+            position="relative"
+            maxWidth="340px"
+            minWidth="300px"
+            height="100%"
         >
-            <Box
-                sx={{
-                    position: 'absolute',
-                    bottom: '20px',
-                    width: '100%',
-                    height: '100%',
-                }}
-            >
-                <LibraryStepper size="sm" index={activeStep} gap="0">
+            <Box position="absolute" bottom="20px" width="100%" height="100%">
+                <LibraryStepper size="sm" index={activeStepIndex} gap="0">
                     {steps.map((step, index) => (
                         <Step key={index}>
                             <StepIndicator
@@ -75,14 +66,12 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
                                 <Text
                                     as="p"
                                     color={
-                                        index <= activeStep
+                                        index <= activeStepIndex
                                             ? 'white'
                                             : 'background.600'
                                     }
-                                    sx={{
-                                        position: 'absolute',
-                                        top: '20px',
-                                    }}
+                                    position="absolute"
+                                    top="20px"
                                 >
                                     {step}
                                 </Text>

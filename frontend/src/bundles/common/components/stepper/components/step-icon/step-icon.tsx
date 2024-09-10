@@ -10,38 +10,41 @@ type Properties = {
 };
 
 const StepIcon: React.FC<Properties> = ({ step }) => {
-    if (step === StepIconEnum.COMPLETE) {
-        return (
-            <Box backgroundColor="background.900" display="inline-flex">
-                <Icon as={IconName.CHECK_CIRCLE} boxSize={3} />
-            </Box>
-        );
-    }
+    switch (step) {
+        case StepIconEnum.COMPLETE: {
+            return (
+                <Box backgroundColor="background.900" display="inline-flex">
+                    <Icon as={IconName.CHECK_CIRCLE} boxSize={3} />
+                </Box>
+            );
+        }
 
-    if (step === StepIconEnum.ACTIVE) {
-        return (
-            <Box
-                sx={{
-                    display: 'inline-flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '4px',
-                    color: 'white',
-                    border: '2px solid',
-                    borderColor: 'background.600',
-                    borderRadius: '50%',
-                    backgroundColor: 'background.900',
-                }}
-            >
-                <Icon as={IconName.CIRCLE} boxSize={3} />
-            </Box>
-        );
+        case StepIconEnum.ACTIVE: {
+            return (
+                <Box
+                    display="inline-flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    padding="4px"
+                    color="white"
+                    border="2px solid"
+                    borderColor="background.600"
+                    borderRadius="50%"
+                    backgroundColor="background.900"
+                >
+                    <Icon as={IconName.CIRCLE} boxSize={3} />
+                </Box>
+            );
+        }
+
+        case StepIconEnum.INCOMPLETE: {
+            return (
+                <Box color="background.600" display="inline-flex">
+                    <Icon as={IconName.CIRCLE} boxSize={3} />
+                </Box>
+            );
+        }
     }
-    return (
-        <Box color="background.600" display="inline-flex">
-            <Icon as={IconName.CIRCLE} boxSize={3} />
-        </Box>
-    );
 };
 
 export { StepIcon };
