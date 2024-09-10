@@ -15,7 +15,12 @@ import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
 
 type Properties = ScriptT & { handleChangeVoice: (scriptId: string) => void };
 
-const Script: React.FC<Properties> = ({ id, text, handleChangeVoice }) => {
+const Script: React.FC<Properties> = ({
+    id,
+    text,
+    voice,
+    handleChangeVoice,
+}) => {
     const dispatch = useAppDispatch();
 
     const handleDeleteScript = useCallback((): void => {
@@ -41,7 +46,7 @@ const Script: React.FC<Properties> = ({ id, text, handleChangeVoice }) => {
                     cursor={'pointer'}
                     variant="link"
                 >
-                    Test text
+                    {voice?.name || 'No voice'}
                 </Text>
                 <IconButton
                     icon={<Icon as={IconName.CLOSE} />}

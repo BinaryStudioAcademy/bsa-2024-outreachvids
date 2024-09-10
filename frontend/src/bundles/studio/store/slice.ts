@@ -13,6 +13,7 @@ import {
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
+import { mockVoices } from '../components/video-menu/components/mock/voices-mock.js';
 import { RowNames } from '../enums/enums.js';
 import {
     getDestinationPointerValue,
@@ -28,6 +29,7 @@ import {
     type SceneAvatar,
     type Script,
     type TimelineItemWithSpan,
+    type Voice,
 } from '../types/types.js';
 import { loadAvatars } from './actions.js';
 
@@ -39,6 +41,11 @@ type SelectedItem = {
 type ItemActionPayload = {
     id: string;
     span: Span;
+};
+
+type ScriptVoicePayload = {
+    scriptId: string;
+    voice: Voice;
 };
 
 type DestinationPointerActionPayload = ItemActionPayload & {
@@ -82,6 +89,7 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
+                voice: mockVoices.at(0),
             };
 
             state.scripts.push(script);
@@ -117,6 +125,17 @@ const { reducer, actions, name } = createSlice({
                 newIndex: newActiveItemIndex,
                 items: state.scripts,
             });
+        },
+        changeScriptVoice(state, action: PayloadAction<ScriptVoicePayload>) {
+            const { scriptId, voice } = action.payload;
+            state.scripts = state.scripts.map((script) =>
+                script.id === scriptId
+                    ? {
+                          ...script,
+                          voice,
+                      }
+                    : script,
+            );
         },
         addScene(state) {
             const scene = {

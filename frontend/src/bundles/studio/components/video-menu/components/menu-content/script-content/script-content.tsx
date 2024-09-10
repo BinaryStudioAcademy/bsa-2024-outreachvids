@@ -19,18 +19,20 @@ import { NEW_SCRIPT_TEXT } from './constants/constants.js';
 const ScriptContent: React.FC = () => {
     const dispatch = useAppDispatch();
     const scripts = useAppSelector(({ studio }) => studio.scripts);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [changeVoiceScriptId, setChangeVoiceScriptId] = useState<
+        string | null
+    >(null);
 
     const handleAddScript = useCallback((): void => {
         void dispatch(studioActions.addScript(NEW_SCRIPT_TEXT));
     }, [dispatch]);
 
-    const handleChangeVoiceClick = useCallback((): void => {
-        setIsModalOpen(true);
+    const handleChangeVoiceClick = useCallback((scriptId: string): void => {
+        setChangeVoiceScriptId(scriptId);
     }, []);
 
     const handleCloseVoicesModal = useCallback((): void => {
-        setIsModalOpen(false);
+        setChangeVoiceScriptId(null);
     }, []);
 
     return (
@@ -58,8 +60,9 @@ const ScriptContent: React.FC = () => {
                 />
             </VStack>
             <VoicesModal
-                isOpen={isModalOpen}
+                isOpen={changeVoiceScriptId !== null}
                 onModalClose={handleCloseVoicesModal}
+                scriptId={changeVoiceScriptId}
             />
         </>
     );

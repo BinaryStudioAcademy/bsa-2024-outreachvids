@@ -240,6 +240,15 @@ const components = {
             },
         },
     },
+    Card: {
+        variants: {
+            outline: {
+                container: {
+                    borderColor: colors.brand.secondary[300],
+                },
+            },
+        },
+    },
 };
 
 export { components };

@@ -11,23 +11,32 @@ import { type Voice } from '~/bundles/studio/types/types.js';
 
 type Properties = {
     voice: Voice;
+    isChecked: boolean;
+    onClick: (voice: Voice) => void;
 };
 
-const VoiceCard: React.FC<Properties> = ({ voice }) => {
+const VoiceCard: React.FC<Properties> = ({ voice, isChecked, onClick }) => {
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const handleClick = useCallback((): void => {
+    const handlePlayClick = useCallback((): void => {
         setIsPlaying((previous) => !previous);
     }, []);
+    const handleCardClick = useCallback((): void => {
+        onClick(voice);
+    }, [onClick, voice]);
     return (
-        <Card>
+        <Card
+            variant={isChecked ? 'outline' : 'elevated'}
+            cursor={'pointer'}
+            onClick={handleCardClick}
+        >
             <CardBody>
                 <HStack>
                     <Control
                         label={isPlaying ? 'Pause' : 'Play voice'}
                         size={IconSize.SMALL}
                         icon={isPlaying ? IconName.PAUSE : IconName.PLAY}
-                        onClick={handleClick}
+                        onClick={handlePlayClick}
                     />
                     <Text variant="body1" color={'text.default'}>
                         {voice.name}
