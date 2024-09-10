@@ -14,8 +14,8 @@ import {
 } from '~/bundles/studio/constants/constants.js';
 
 import { RowNames } from '../enums/enums.js';
-import {
- calculateTotalMilliseconds,    getDestinationPointerValue,
+import { calculateTotalMilliseconds,
+    getDestinationPointerValue,
     getNewItemIndexBySpan,
     reorderItemsByIndexes,
     setItemsSpan } from '../helpers/helpers.js';
