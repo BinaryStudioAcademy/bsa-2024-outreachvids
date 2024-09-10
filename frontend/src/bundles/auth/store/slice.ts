@@ -26,7 +26,7 @@ const { reducer, actions, name } = createSlice({
         toggleSidebar: (state, action: { payload: boolean }) => {
             state.isSidebarCollapsed = action.payload;
             void storage.set(
-                StorageKey.IS_COLLAPSED,
+                StorageKey.IS_SIDEBAR_COLLAPSED,
                 JSON.stringify(action.payload),
             );
         },

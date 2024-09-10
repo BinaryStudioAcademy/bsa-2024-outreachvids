@@ -1,6 +1,6 @@
 const StorageKey = {
     TOKEN: 'token',
-    IS_COLLAPSED: 'isCollapsed',
+    IS_SIDEBAR_COLLAPSED: 'isSidebarCollapsed',
 } as const;
 
 export { StorageKey };
