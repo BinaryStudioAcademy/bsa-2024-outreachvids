@@ -31,7 +31,9 @@ const routes = [
             {
                 path: AppRoute.STUDIO,
                 element: (
+                    <ProtectedRoute>
                         <Studio />
+                    </ProtectedRoute>
                 ),
             },
             {
