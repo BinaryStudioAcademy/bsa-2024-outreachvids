@@ -88,13 +88,11 @@ const { reducer, actions, name } = createSlice({
                 duration: MIN_SCRIPT_DURATION, // You could pass duration if needed
                 text: action.payload,
             };
-        
             state.scripts.push(script);
-        
             const totalSeconds = state.scripts.reduce((sum, script) => sum + script.duration, 0);
             const totalMilliseconds = totalSeconds * 1000;
             if (totalMilliseconds > state.range.end) {
-                state.range.end = totalMilliseconds; 
+                state.range.end = totalMilliseconds;
             }
         },
         editScript(
@@ -146,7 +144,7 @@ const { reducer, actions, name } = createSlice({
             const totalSeconds = state.scenes.reduce((sum, scene) => sum + scene.duration, 0);
             const totalMilliseconds = totalSeconds * 1000;
             if (totalMilliseconds > state.range.end) {
-                state.range.end = totalMilliseconds; 
+                state.range.end = totalMilliseconds;
             }
         },
         resizeScene(state, action: PayloadAction<ItemActionPayload>) {
