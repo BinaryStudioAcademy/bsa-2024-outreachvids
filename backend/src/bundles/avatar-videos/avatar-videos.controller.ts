@@ -10,10 +10,7 @@ import { type Logger } from '~/common/logger/logger.js';
 
 import { type AvatarVideoService } from './avatar-videos.service.js';
 import { AvatarVideosApiPath } from './enums/enums.js';
-import {
-    type GetAvatarVideoRequestDto,
-    type RenderAvatarVideoRequestDto,
-} from './types/types.js';
+import { type RenderAvatarVideoRequestDto } from './types/types.js';
 import { renderAvatarVideoValidationSchema } from './validation-schemas/validation-schemas.js';
 
 class AvatarVideoController extends BaseController {
@@ -23,17 +20,6 @@ class AvatarVideoController extends BaseController {
         super(logger, ApiPath.AVATAR_VIDEO);
 
         this.avatarVideoService = avatarVideoService;
-
-        this.addRoute({
-            path: AvatarVideosApiPath.ID,
-            method: HTTPMethod.GET,
-            handler: (options) =>
-                this.getAvatarVideo(
-                    options as ApiHandlerOptions<{
-                        params: GetAvatarVideoRequestDto;
-                    }>,
-                ),
-        });
 
         this.addRoute({
             path: AvatarVideosApiPath.ROOT,
@@ -48,37 +34,6 @@ class AvatarVideoController extends BaseController {
                     }>,
                 ),
         });
-    }
-
-    /**
-     * @swagger
-     * /avatar-video/:id:
-     *    get:
-     *      description: Get video url
-     *      security:
-     *       - bearerAuth: []
-     *      responses:
-     *        200:
-     *          description: Successful operation
-     *          content:
-     *            application/json:
-     *              schema:
-     *                type: object
-     *                properties:
-     *                  url:
-     *                    type: string
-     */
-    private async getAvatarVideo(
-        options: ApiHandlerOptions<{
-            params: GetAvatarVideoRequestDto;
-        }>,
-    ): Promise<ApiHandlerResponse> {
-        return {
-            payload: await this.avatarVideoService.getAvatarVideo({
-                id: options.params.id,
-            }),
-            status: HttpCode.OK,
-        };
     }
 
     /**

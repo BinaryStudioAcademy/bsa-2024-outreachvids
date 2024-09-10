@@ -1,8 +1,6 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
     type AvatarConfig,
-    type GetAvatarVideoRequestDto,
-    type GetAvatarVideoResponseDto,
     type InputKind,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,

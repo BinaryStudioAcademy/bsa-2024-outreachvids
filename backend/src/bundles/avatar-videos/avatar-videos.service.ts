@@ -1,4 +1,5 @@
 import { HttpCode, HttpError } from 'shared';
+import { v4 as uuidv4 } from 'uuid';
 
 import { type AzureAIService } from '~/common/services/azure-ai/azure-ai.service.js';
 import { type FileService } from '~/common/services/file/file.service.js';
@@ -10,8 +11,6 @@ import {
 } from './enums/enums.js';
 import { getFileName } from './helpers/helpers.js';
 import {
-    type GetAvatarVideoRequestDto,
-    type GetAvatarVideoResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
 } from './types/types.js';
@@ -37,21 +36,7 @@ class AvatarVideoService {
         this.videoService = videoService;
     }
 
-    public async getAvatarVideo(
-        payload: GetAvatarVideoRequestDto,
-    ): Promise<GetAvatarVideoResponseDto> {
-        const response = await this.azureAIService.getAvatarVideo(payload.id);
-
-        if (!response?.outputs?.result) {
-            throw new HttpError({
-                message: RenderVideoErrorMessage.NOT_FOUND,
-                status: HttpCode.NOT_FOUND,
-            });
-        }
-        return { url: response?.outputs?.result };
-    }
-
-    public async saveAvatarVideo(url: string, id: string): Promise<string> {
+    private async saveAvatarVideo(url: string, id: string): Promise<string> {
         const buffer = await this.azureAIService.getAvatarVideoBuffer(url);
 
         const fileName = getFileName(id);
@@ -69,7 +54,7 @@ class AvatarVideoService {
     ): Promise<RenderAvatarResponseDto> {
         const { userId, ...avatarConfig } = payload;
         const response = await this.azureAIService.renderAvatarVideo({
-            id: Date.now().toString(),
+            id: uuidv4(),
             payload: avatarConfig,
         });
 
@@ -78,7 +63,7 @@ class AvatarVideoService {
         return response;
     }
 
-    public checkAvatarProcessing(id: string, userId: string): void {
+    private checkAvatarProcessing(id: string, userId: string): void {
         const interval = setInterval((): void => {
             this.azureAIService
                 .getAvatarVideo(id)

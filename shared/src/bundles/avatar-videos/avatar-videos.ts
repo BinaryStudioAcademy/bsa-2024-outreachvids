@@ -1,8 +1,6 @@
 export { AvatarVideosApiPath } from './enum/enums.js';
 export {
     type AvatarConfig,
-    type GetAvatarVideoRequestDto,
-    type GetAvatarVideoResponseDto,
     type InputKind,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
