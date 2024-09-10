@@ -251,15 +251,17 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(generateScriptSpeech.fulfilled, (state, action) => {
             const { scriptId, audioUrl } = action.payload;
 
-            state.scripts = state.scripts.map((script) =>
-                script.id === scriptId
-                    ? {
-                          ...script,
-                          url: audioUrl,
-                          iconName: PlayIconNames.READY,
-                      }
-                    : script,
-            );
+            state.scripts = state.scripts.map((script) => {
+                if (script.id !== scriptId) {
+                    return script;
+                }
+
+                return {
+                    ...script,
+                    url: audioUrl,
+                    iconName: PlayIconNames.READY,
+                };
+            });
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(generateScriptSpeech.rejected, (state, action) => {
