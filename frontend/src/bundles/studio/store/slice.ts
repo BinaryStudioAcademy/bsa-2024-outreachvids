@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { millisecondsToSeconds } from 'date-fns';
-import { type Span } from 'dnd-timeline';
+import { type Range,type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
 
 import { DataStatus, VideoPreview } from '~/bundles/common/enums/enums.js';
@@ -50,6 +50,7 @@ type State = {
         dataStatus: ValueOf<typeof DataStatus>;
         items: Array<AvatarGetResponseDto> | [];
     };
+    range: Range;
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
@@ -58,12 +59,16 @@ type State = {
         selectedItem: SelectedItem | null;
     };
 };
+const SECONDS_IN_A_MINUTE = 60;
+const MILLISECONDS_IN_A_SECOND = 1000;
+const MILLISECONDS_IN_A_MINUTE = SECONDS_IN_A_MINUTE * MILLISECONDS_IN_A_SECOND;
 
 const initialState: State = {
     avatars: {
         dataStatus: DataStatus.IDLE,
         items: [],
     },
+    range: { start: 0, end: MILLISECONDS_IN_A_MINUTE },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
@@ -80,11 +85,17 @@ const { reducer, actions, name } = createSlice({
         addScript(state, action: PayloadAction<string>) {
             const script = {
                 id: uuidv4(),
-                duration: MIN_SCRIPT_DURATION,
+                duration: MIN_SCRIPT_DURATION, // You could pass duration if needed
                 text: action.payload,
             };
-
+        
             state.scripts.push(script);
+        
+            const totalSeconds = state.scripts.reduce((sum, script) => sum + script.duration, 0);
+            const totalMilliseconds = totalSeconds * 1000;
+            if (totalMilliseconds > state.range.end) {
+                state.range.end = totalMilliseconds; 
+            }
         },
         editScript(
             state,
@@ -97,6 +108,7 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.map((script) =>
                 script.id === id ? { ...script, ...updatedScriptData } : script,
             );
+
         },
         deleteScript(state, action: PayloadAction<string>) {
             state.scripts = state.scripts.filter(
@@ -121,6 +133,9 @@ const { reducer, actions, name } = createSlice({
                 items: state.scripts,
             });
         },
+        setRange(state, action: PayloadAction<Range>) {
+            state.range = action.payload;
+        },
         addScene(state) {
             const scene = {
                 id: uuidv4(),
@@ -128,6 +143,11 @@ const { reducer, actions, name } = createSlice({
             };
 
             state.scenes.push(scene);
+            const totalSeconds = state.scenes.reduce((sum, scene) => sum + scene.duration, 0);
+            const totalMilliseconds = totalSeconds * 1000;
+            if (totalMilliseconds > state.range.end) {
+                state.range.end = totalMilliseconds; 
+            }
         },
         resizeScene(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
