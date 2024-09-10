@@ -138,8 +138,8 @@ const Script: React.FC<Properties> = ({ id, status, text, voiceName, url }) => {
                 <AudioPlayer
                     isPlaying={isPlaying}
                     audioUrl={url}
-                    handleAudioEnd={handleAudioEnd}
-                    handleSetDuration={handleSetScriptDuration}
+                    onAudioEnd={handleAudioEnd}
+                    onSetDuration={handleSetScriptDuration}
                 />
             )}
         </VStack>
