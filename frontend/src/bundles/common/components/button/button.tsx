@@ -1,4 +1,7 @@
-import { type ChakraProps as ChakraProperties,Button as LibraryButton } from '@chakra-ui/react';
+import {
+    type ChakraProps as ChakraProperties,
+    Button as LibraryButton,
+} from '@chakra-ui/react';
 
 type Properties = {
     label: string;

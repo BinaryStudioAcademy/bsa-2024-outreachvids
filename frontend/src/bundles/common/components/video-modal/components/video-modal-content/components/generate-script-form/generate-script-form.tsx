@@ -62,7 +62,7 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
                     <Button
                         type="submit"
                         label="Generate script"
-                        margin-top= "50px"
+                        margin-top="50px"
                         isDisabled={values.topic.trim().length === 0}
                     />
                 </VStack>
