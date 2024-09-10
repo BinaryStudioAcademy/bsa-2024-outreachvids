@@ -20,12 +20,16 @@ import {
 import {
     backwardStepIcon,
     CircleUserIcon,
+    CloudArrowDownIcon,
     fileLinesIcon,
     forwardStepIcon,
     HouseIcon,
     pauseIcon,
     playIcon,
     RightFromBracketIcon,
+    Stop,
+    VolumeHighIcon,
+    VolumeOffIcon,
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
@@ -39,7 +43,11 @@ const IconName = {
     PLAY_STEP_BACK: backwardStepIcon,
     PLAY_STEP_NEXT: forwardStepIcon,
     PAUSE: pauseIcon,
+    STOP: Stop,
     SCROLL: faScroll,
+    VOLUME: VolumeHighIcon,
+    VOLUME_OFF: VolumeOffIcon,
+    CLOUD_ARROW_DOWN: CloudArrowDownIcon,
     OPTIONS_VERTICAL: faEllipsisVertical,
     DOWNLOAD: DownloadIcon,
     VIEW: ViewIcon,

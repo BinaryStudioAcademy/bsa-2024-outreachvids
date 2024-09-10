@@ -1,12 +1,16 @@
 import {
     faBackwardStep,
     faCircleUser,
+    faCloudArrowDown,
     faFileLines,
     faForwardStep,
     faHouse,
     faPause,
     faPlay,
     faRightFromBracket,
+    faStop,
+    faVolumeHigh,
+    faVolumeOff,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { iconConverter } from './icon-converter.helper.js';
@@ -19,14 +23,25 @@ const forwardStepIcon = iconConverter(faForwardStep);
 const pauseIcon = iconConverter(faPause);
 const playIcon = iconConverter(faPlay);
 const fileLinesIcon = iconConverter(faFileLines);
+const Stop = iconConverter(faStop);
+
+const CloudArrowDownIcon = iconConverter(faCloudArrowDown);
+const VolumeHighIcon = iconConverter(faVolumeHigh);
+const VolumeOffIcon = iconConverter(faVolumeOff);
+const FileLinesIcon = iconConverter(faFileLines);
 
 export {
     backwardStepIcon,
     CircleUserIcon,
+    CloudArrowDownIcon,
+    FileLinesIcon,
     fileLinesIcon,
     forwardStepIcon,
     HouseIcon,
     pauseIcon,
     playIcon,
     RightFromBracketIcon,
+    Stop,
+    VolumeHighIcon,
+    VolumeOffIcon,
 };

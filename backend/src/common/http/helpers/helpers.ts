@@ -1,0 +1,1 @@
+export { configureString } from 'shared';

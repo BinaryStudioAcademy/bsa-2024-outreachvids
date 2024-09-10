@@ -24,13 +24,11 @@ import {
     VideoComponent,
     VideoMenu,
 } from '../components/components.js';
-import { mockItems } from '../mocks/mock.helper.js';
 import { actions as studioActionCreator } from '../store/studio.js';
-import styles from './styles.module.css';
 
 const initialRange: Range = {
     start: minutesToMilliseconds(0),
-    end: minutesToMilliseconds(2),
+    end: minutesToMilliseconds(1),
 };
 
 const Studio: React.FC = () => {
@@ -42,7 +40,13 @@ const Studio: React.FC = () => {
     }, [dispatch]);
 
     return (
-        <Box minHeight="100vh" height="100%" position="relative">
+        <Box
+            minHeight="100vh"
+            height="100%"
+            position="relative"
+            display="flex"
+            flexDirection="column"
+        >
             <Header
                 center={
                     <Button
@@ -62,21 +66,20 @@ const Studio: React.FC = () => {
             />
 
             <VideoMenu />
-            <VStack className={styles['timeline']} alignItems={'stretch'}>
+            <Box flex="1 1 auto">
+                <Player
+                    VideoComponent={VideoComponent}
+                    playerRef={playerReference}
+                    durationInFrames={300}
+                />
+            </Box>
+
+            <VStack alignItems={'stretch'}>
                 <PlayerControls />
                 <Box>
-                    <Timeline
-                        initialRange={initialRange}
-                        initialItems={mockItems}
-                    />
+                    <Timeline initialRange={initialRange} />
                 </Box>
             </VStack>
-
-            <Player
-                VideoComponent={VideoComponent}
-                playerRef={playerReference}
-                durationInFrames={300}
-            />
         </Box>
     );
 };
