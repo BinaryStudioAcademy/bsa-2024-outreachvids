@@ -101,10 +101,7 @@ const GenerateScriptView: React.FC = () => {
                 </TabList>
                 <TabPanels>
                     <TabPanel p={0}>
-                        <HStack
-                            justify="space-between"
-                            alignItems={'flex-start'}
-                        >
+                        <HStack justify="space-between" alignItems="flex-start">
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />

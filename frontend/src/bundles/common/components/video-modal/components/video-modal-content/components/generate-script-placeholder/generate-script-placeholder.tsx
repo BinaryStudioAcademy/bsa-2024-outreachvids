@@ -1,4 +1,8 @@
-import { VStack } from '~/bundles/common/components/components.js';
+import {
+    Loader,
+    Overlay,
+    VStack,
+} from '~/bundles/common/components/components.js';
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -25,13 +29,14 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
             w="full"
             paddingX="40px"
             gap="10px"
-            height={'100vh'}
-            maxH={'550px'}
-            overflowY={'auto'}
+            height="100vh"
+            maxH="550px"
+            overflowY="auto"
         >
-            {dataStatus === DataStatus.PENDING ? (
-                <GenerateScriptPlaceholderContent message="Loading..." />
-            ) : (isGeneratedTextEmpty ? (
+            <Overlay isOpen={dataStatus === DataStatus.PENDING}>
+                <Loader />
+            </Overlay>
+            {isGeneratedTextEmpty ? (
                 <GenerateScriptPlaceholderContent
                     message="Here you will see your generated script"
                     icon={IconName.SCROLL}
@@ -45,7 +50,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
                         />
                     ))}
                 </>
-            ))}
+            )}
         </VStack>
     );
 };

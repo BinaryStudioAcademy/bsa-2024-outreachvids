@@ -1,3 +1,17 @@
+.typing-effect {
+    overflow: hidden;
+    border-right: 2px solid black;
+    width: 0;
+    animation:
+        typing 3s steps(30, end) forwards,
+        blink-caret 0.75s step-end infinite;
+}
+.typing-effect--done {
+    white-space: normal;
+    overflow: visible;
+    border-right: none;
+}
+
 @keyframes typing {
     from {
         width: 0;
@@ -8,22 +22,11 @@
 }
 
 @keyframes blink-caret {
-    from, to {
+    from,
+    to {
         border-color: transparent;
     }
     50% {
         border-color: black;
     }
-}
-
-.typing-effect {
-    overflow: hidden;
-    border-right: 2px solid black;
-    width: 0;
-    animation: typing 3s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
-}
-.typing-effect--done {
-    white-space: normal;
-    overflow: visible;
-    border-right: none;
 }

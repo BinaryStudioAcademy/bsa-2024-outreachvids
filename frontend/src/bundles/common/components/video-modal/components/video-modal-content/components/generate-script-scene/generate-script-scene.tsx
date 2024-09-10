@@ -17,11 +17,21 @@ const GenerateScriptScene: React.FC<Properties> = ({ videoScript }) => {
     }, [setAnimationDone]);
 
     return (
-        <Box mb={'10'}>
-            <Heading as="h4" variant={'H4'} color={'typography.600'}>
+        <Box mb="10">
+            <Heading as="h4" variant="H4" color="typography.600">
                 {title}
             </Heading>
-            <Box as="p" className={animationDone ? styles['typing-effect--done'] : styles['typing-effect']} onAnimationEnd={handleAnimationEnd}>{description}</Box>
+            <Box
+                as="p"
+                className={
+                    animationDone
+                        ? styles['typing-effect--done']
+                        : styles['typing-effect']
+                }
+                onAnimationEnd={handleAnimationEnd}
+            >
+                {description}
+            </Box>
         </Box>
     );
 };

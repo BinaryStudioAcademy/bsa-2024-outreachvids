@@ -46,7 +46,7 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const getButtonLabel = useCallback(() => {
         if (dataStatus === DataStatus.PENDING) {
-            return 'stop';
+            return 'Stop';
         }
 
         return isTextGenerated ? 'Re-Generate' : 'Generate script';
