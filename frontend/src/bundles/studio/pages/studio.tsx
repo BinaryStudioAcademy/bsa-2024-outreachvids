@@ -1,6 +1,4 @@
 import { type PlayerRef } from '@remotion/player';
-import { minutesToMilliseconds } from 'date-fns';
-import { type Range } from 'dnd-timeline';
 
 import {
     Box,
@@ -25,11 +23,6 @@ import {
     VideoMenu,
 } from '../components/components.js';
 import { actions as studioActionCreator } from '../store/studio.js';
-
-const initialRange: Range = {
-    start: minutesToMilliseconds(0),
-    end: minutesToMilliseconds(1),
-};
 
 const Studio: React.FC = () => {
     const playerReference = useRef<PlayerRef>(null);
@@ -76,8 +69,8 @@ const Studio: React.FC = () => {
 
             <VStack alignItems={'stretch'}>
                 <PlayerControls />
-                <Box>
-                    <Timeline initialRange={initialRange} />
+                <Box overflowY="auto">
+                    <Timeline/>
                 </Box>
             </VStack>
         </Box>
