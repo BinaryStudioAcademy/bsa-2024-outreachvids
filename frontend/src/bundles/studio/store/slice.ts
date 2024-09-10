@@ -1,5 +1,5 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { millisecondsToSeconds } from 'date-fns';
+import { millisecondsToSeconds, minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
 import { type Range, type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,11 +15,10 @@ import {
 
 import { RowNames } from '../enums/enums.js';
 import {
-    getDestinationPointerValue,
+ calculateTotalMilliseconds,    getDestinationPointerValue,
     getNewItemIndexBySpan,
     reorderItemsByIndexes,
-    setItemsSpan,
-} from '../helpers/helpers.js';
+    setItemsSpan } from '../helpers/helpers.js';
 import {
     type AvatarGetResponseDto,
     type DestinationPointer,
@@ -59,16 +58,13 @@ type State = {
         selectedItem: SelectedItem | null;
     };
 };
-const SECONDS_IN_A_MINUTE = 60;
-const MILLISECONDS_IN_A_SECOND = 1000;
-const MILLISECONDS_IN_A_MINUTE = SECONDS_IN_A_MINUTE * MILLISECONDS_IN_A_SECOND;
 
 const initialState: State = {
     avatars: {
         dataStatus: DataStatus.IDLE,
         items: [],
     },
-    range: { start: 0, end: MILLISECONDS_IN_A_MINUTE },
+    range: { start: 0, end: minutesToMilliseconds(1) },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
@@ -85,18 +81,12 @@ const { reducer, actions, name } = createSlice({
         addScript(state, action: PayloadAction<string>) {
             const script = {
                 id: uuidv4(),
-                duration: MIN_SCRIPT_DURATION, // You could pass duration if needed
+                duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
             };
             state.scripts.push(script);
-            const totalSeconds = state.scripts.reduce(
-                (sum, script) => sum + script.duration,
-                0,
-            );
-            const totalMilliseconds = totalSeconds * 1000;
-            if (totalMilliseconds > state.range.end) {
-                state.range.end = totalMilliseconds;
-            }
+            const totalMilliseconds = calculateTotalMilliseconds(state.scripts, state.range.end);
+            state.range.end = totalMilliseconds;
         },
         editScript(
             state,
@@ -147,7 +137,7 @@ const { reducer, actions, name } = createSlice({
                 (sum, scene) => sum + scene.duration,
                 0,
             );
-            const totalMilliseconds = totalSeconds * 1000;
+            const totalMilliseconds = secondsToMilliseconds(totalSeconds);
             if (totalMilliseconds > state.range.end) {
                 state.range.end = totalMilliseconds;
             }
