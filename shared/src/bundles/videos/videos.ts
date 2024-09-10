@@ -4,6 +4,7 @@ export {
     type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
+    type VideoGetByUserIdRequestDto,
     type VideoGetOneRequestDto,
 } from './types/types.js';
 export {

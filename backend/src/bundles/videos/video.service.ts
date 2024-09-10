@@ -31,6 +31,14 @@ class VideoService implements Service {
         return video.toObject();
     }
 
+    public async findByUserId(userId: string): Promise<VideoGetAllResponseDto> {
+        const items = await this.videoRepository.findByUserId(userId);
+
+        return {
+            items: items.map((it) => it.toObject()),
+        };
+    }
+
     public async findAll(): Promise<VideoGetAllResponseDto> {
         const items = await this.videoRepository.findAll();
 
