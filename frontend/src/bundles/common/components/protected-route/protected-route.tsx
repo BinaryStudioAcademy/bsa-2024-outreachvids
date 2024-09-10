@@ -21,7 +21,7 @@ const ProtectedRoute: React.FC<Properties> = ({ children }) => {
         );
     }
 
-    if (!user) {
+    if (dataStatus === DataStatus.REJECTED) {
         return <Navigate to={AppRoute.SIGN_IN} replace />;
     }
 

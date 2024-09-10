@@ -47,8 +47,12 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     };
 
     const handleLogOut = useCallback(() => {
-        void dispatch(authActions.logout());
-        navigate(AppRoute.SIGN_IN);
+        const logout = async (): Promise<void> => {
+            await dispatch(authActions.logout());
+            navigate(AppRoute.SIGN_IN);
+        };
+
+        void logout();
     }, [navigate, dispatch]);
 
     return (
@@ -101,6 +105,20 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                         />
                     </Link>
                     <Link to={AppRoute.MY_AVATAR}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.MY_AVATAR)}
+                            icon={
+                                <Icon
+                                    as={IconName.AVATAR}
+                                    boxSize={5}
+                                    color={activeIconPage(AppRoute.MY_AVATAR)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="My Avatar"
+                        />
+                    </Link>
+                    <Link to={AppRoute.STUDIO}>
                         <SidebarItem
                             bg={activeButtonPage(AppRoute.MY_AVATAR)}
                             icon={
