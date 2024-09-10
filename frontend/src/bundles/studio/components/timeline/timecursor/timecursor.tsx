@@ -19,7 +19,7 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
         useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
-    const millisecondPerRefresh = 50;
+    const millisecondPerRefresh = 30;
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
