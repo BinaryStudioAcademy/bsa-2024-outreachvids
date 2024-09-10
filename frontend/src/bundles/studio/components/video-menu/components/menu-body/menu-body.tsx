@@ -6,7 +6,7 @@ import {
     Icon,
     IconButton,
 } from '~/bundles/common/components/components.js';
-import { IconName } from '~/bundles/common/icons/icon-name.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 
 import styles from './styles.module.css';
 
@@ -36,7 +36,7 @@ const MenuBody: React.FC<Properties> = ({
                     >
                         <Heading variant="H3">{title}</Heading>
                         <Flex align="center">
-                            {title === 'Script' ? (
+                            {title === 'Script' && (
                                 <IconButton
                                     aria-label="OpenAI icon button"
                                     icon={
@@ -48,7 +48,7 @@ const MenuBody: React.FC<Properties> = ({
                                     variant="icon"
                                     onClick={onChatOpen}
                                 />
-                            ) : null}
+                            )}
 
                             <CloseButton
                                 onClick={onClose}
