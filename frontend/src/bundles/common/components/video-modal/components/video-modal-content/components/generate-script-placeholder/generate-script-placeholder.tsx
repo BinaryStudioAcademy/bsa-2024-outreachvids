@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import styles from '.styles.module.css';
+import styles from './styles.module.css';
 
 const GenerateScriptPlaceholder: React.FC = () => {
     return (
