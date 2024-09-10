@@ -5,6 +5,8 @@ import { Flex, VStack } from '~/bundles/common/components/components.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
 import { UserAvatar } from '~/bundles/users/components/components.js';
 
+import styles from './styles.module.css';
+
 type Properties = {
     messages: Message[];
 };
@@ -34,12 +36,7 @@ const MessageList: React.FC<Properties> = ({ messages }) => {
                     return (
                         <Flex
                             key={groupIndex}
-                            direction={
-                                sender === MessageSender.USER
-                                    ? 'row-reverse'
-                                    : 'row'
-                            }
-                            alignItems="flex-start"
+                            className={`${styles['message-list']} ${styles[sender === MessageSender.USER ? 'message-list--user' : 'message-list--ai']}`}
                         >
                             <UserAvatar
                                 username={
@@ -48,12 +45,7 @@ const MessageList: React.FC<Properties> = ({ messages }) => {
                             />
                             <VStack
                                 spacing={2}
-                                align={
-                                    sender === MessageSender.USER
-                                        ? 'flex-end'
-                                        : 'flex-start'
-                                }
-                                width={'max'}
+                                className={`${styles['message-group-list']} ${styles[sender === MessageSender.USER ? 'message-group-list--user' : 'message-group-list--ai']}`}
                             >
                                 {messages.map(
                                     (message: Message, index: number) => (

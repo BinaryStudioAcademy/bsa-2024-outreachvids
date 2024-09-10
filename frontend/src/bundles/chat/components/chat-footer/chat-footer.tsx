@@ -10,8 +10,8 @@ import {
 } from '~/bundles/common/components/components.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
-import styles from './chat-footer.module.css';
 import { DEFAULT_CHAT_FORM_PAYLOAD } from './constants/constants.js';
+import styles from './styles.module.css';
 
 type Properties = {
     onSendMessage: (payload: GenerateTextRequestDto) => void;
