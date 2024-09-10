@@ -1,10 +1,14 @@
+import { secondsToMilliseconds } from 'date-fns';
+
 import { Flex } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
@@ -12,11 +16,13 @@ import { Control, TimeDisplay } from './components/components.js';
 
 const PlayerControls: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { isPlaying, elapsedTime } = useAppSelector(({ studio }) => ({
+    const { isPlaying, elapsedTime, scenes } = useAppSelector(({ studio }) => ({
         isPlaying: studio.player.isPlaying,
         elapsedTime: studio.player.elapsedTime,
+        scenes: studio.scenes,
     }));
     const totalDuration = useAppSelector(selectTotalDuration);
+    const scenesWithSpan = useMemo(() => setItemsSpan(scenes), [scenes]);
 
     const handleTogglePlaying = useCallback((): void => {
         if (elapsedTime >= totalDuration) {
@@ -25,6 +31,41 @@ const PlayerControls: React.FC = () => {
 
         void dispatch(studioActions.setPlaying(!isPlaying));
     }, [elapsedTime, totalDuration, dispatch, isPlaying]);
+
+    const handleSkipToNextScene = useCallback((): void => {
+        const currentScene = scenesWithSpan.find(
+            (scene) =>
+                elapsedTime >= scene.span.start && elapsedTime < scene.span.end,
+        );
+
+        if (!currentScene) {
+            return;
+        }
+
+        void dispatch(studioActions.setElapsedTime(currentScene.span.end));
+    }, [dispatch, elapsedTime, scenesWithSpan]);
+
+    const handleSkipToPreviousScene = useCallback((): void => {
+        const currentSceneIndex = scenesWithSpan.findIndex(
+            (scene) =>
+                elapsedTime > scene.span.start && elapsedTime <= scene.span.end,
+        );
+
+        const currentScene = scenesWithSpan[currentSceneIndex];
+
+        if (!currentScene) {
+            return;
+        }
+
+        const isCloseToStart =
+            elapsedTime - currentScene.span.start < secondsToMilliseconds(2);
+
+        const previousScene = isCloseToStart
+            ? (scenesWithSpan[currentSceneIndex - 1] ?? currentScene)
+            : currentScene;
+
+        void dispatch(studioActions.setElapsedTime(previousScene.span.start));
+    }, [dispatch, elapsedTime, scenesWithSpan]);
 
     return (
         <Flex
@@ -39,6 +80,7 @@ const PlayerControls: React.FC = () => {
                     label="Skip to the previous scene"
                     size={IconSize.EXTRA_SMALL}
                     icon={IconName.PLAY_STEP_BACK}
+                    onClick={handleSkipToPreviousScene}
                 />
 
                 <Control
@@ -52,6 +94,7 @@ const PlayerControls: React.FC = () => {
                     label="Skip to the next scene"
                     size={IconSize.EXTRA_SMALL}
                     icon={IconName.PLAY_STEP_NEXT}
+                    onClick={handleSkipToNextScene}
                 />
 
                 <TimeDisplay />
