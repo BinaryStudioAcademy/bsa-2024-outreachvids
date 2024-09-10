@@ -20,7 +20,7 @@ import { TimelineView } from './components.js';
 const Timeline: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const range  = useAppSelector(({ studio }) => studio.range);
+    const range = useAppSelector(({ studio }) => studio.range);
 
     const onResizeEnd = useCallback(
         (event: ResizeEndEvent) => {

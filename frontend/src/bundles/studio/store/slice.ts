@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { millisecondsToSeconds } from 'date-fns';
-import { type Range,type Span } from 'dnd-timeline';
+import { type Range, type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
 
 import { DataStatus, VideoPreview } from '~/bundles/common/enums/enums.js';
@@ -89,7 +89,10 @@ const { reducer, actions, name } = createSlice({
                 text: action.payload,
             };
             state.scripts.push(script);
-            const totalSeconds = state.scripts.reduce((sum, script) => sum + script.duration, 0);
+            const totalSeconds = state.scripts.reduce(
+                (sum, script) => sum + script.duration,
+                0,
+            );
             const totalMilliseconds = totalSeconds * 1000;
             if (totalMilliseconds > state.range.end) {
                 state.range.end = totalMilliseconds;
@@ -106,7 +109,6 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.map((script) =>
                 script.id === id ? { ...script, ...updatedScriptData } : script,
             );
-
         },
         deleteScript(state, action: PayloadAction<string>) {
             state.scripts = state.scripts.filter(
@@ -141,7 +143,10 @@ const { reducer, actions, name } = createSlice({
             };
 
             state.scenes.push(scene);
-            const totalSeconds = state.scenes.reduce((sum, scene) => sum + scene.duration, 0);
+            const totalSeconds = state.scenes.reduce(
+                (sum, scene) => sum + scene.duration,
+                0,
+            );
             const totalMilliseconds = totalSeconds * 1000;
             if (totalMilliseconds > state.range.end) {
                 state.range.end = totalMilliseconds;
