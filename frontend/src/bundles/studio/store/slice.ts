@@ -169,6 +169,9 @@ const { reducer, actions, name } = createSlice({
                     ? VideoPreview.PORTRAIT
                     : VideoPreview.LANDSCAPE;
         },
+        setVideoSize(state, action: PayloadAction<VideoPreviewT>) {
+            state.videoSize = action.payload;
+        },
         setDestinationPointer(
             state,
             action: PayloadAction<DestinationPointerActionPayload>,
