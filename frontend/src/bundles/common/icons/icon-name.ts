@@ -27,6 +27,7 @@ import {
     pauseIcon,
     playIcon,
     RightFromBracketIcon,
+    Stop,
     VolumeHighIcon,
     VolumeOffIcon,
 } from './helper/icon-conversion.helper.js';
@@ -42,6 +43,7 @@ const IconName = {
     PLAY_STEP_BACK: backwardStepIcon,
     PLAY_STEP_NEXT: forwardStepIcon,
     PAUSE: pauseIcon,
+    STOP: Stop,
     SCROLL: faScroll,
     VOLUME: VolumeHighIcon,
     VOLUME_OFF: VolumeOffIcon,
