@@ -3,6 +3,7 @@ import { HttpCode, HttpError } from 'shared';
 import { type AzureAIService } from '~/common/services/azure-ai/azure-ai.service.js';
 import { type FileService } from '~/common/services/file/file.service.js';
 
+import { type VideoService } from '../videos/video.service.js';
 import {
     GenerateAvatarResponseStatus,
     RenderVideoErrorMessage,
@@ -15,29 +16,25 @@ import {
     type RenderAvatarVideoRequestDto,
 } from './types/types.js';
 
+type HandleRenderVideoArguments = {
+    id: string;
+    userId: string;
+    url: string;
+};
+
 class AvatarVideoService {
     private azureAIService: AzureAIService;
     private fileService: FileService;
+    private videoService: VideoService;
 
     public constructor(
         azureAIService: AzureAIService,
         fileService: FileService,
+        videoService: VideoService,
     ) {
         this.azureAIService = azureAIService;
         this.fileService = fileService;
-    }
-
-    public async renderAvatarVideo(
-        payload: RenderAvatarVideoRequestDto,
-    ): Promise<RenderAvatarResponseDto> {
-        const response = await this.azureAIService.renderAvatarVideo({
-            id: Date.now().toString(),
-            payload,
-        });
-
-        this.checkAvatarProcessing(response.id);
-
-        return response;
+        this.videoService = videoService;
     }
 
     public async getAvatarVideo(
@@ -67,7 +64,21 @@ class AvatarVideoService {
         return this.azureAIService.removeAvatarVideo(id);
     }
 
-    public checkAvatarProcessing(id: string): void {
+    public async renderAvatarVideo(
+        payload: RenderAvatarVideoRequestDto & { userId: string },
+    ): Promise<RenderAvatarResponseDto> {
+        const { userId, ...avatarConfig } = payload;
+        const response = await this.azureAIService.renderAvatarVideo({
+            id: Date.now().toString(),
+            payload: avatarConfig,
+        });
+
+        this.checkAvatarProcessing(response.id, userId);
+
+        return response;
+    }
+
+    public checkAvatarProcessing(id: string, userId: string): void {
         const interval = setInterval((): void => {
             this.azureAIService
                 .getAvatarVideo(id)
@@ -76,11 +87,20 @@ class AvatarVideoService {
                         response.status ===
                         GenerateAvatarResponseStatus.SUCCEEDED
                     ) {
-                        this.saveAvatarVideo(response.outputs.result, id)
+                        this.handleSuccessfulAvatarGeneration({
+                            id,
+                            userId,
+                            url: response.outputs.result,
+                        })
                             .then(() => {
                                 // TODO: NOTIFY USER
                             })
-                            .catch(() => {})
+                            .catch((error) => {
+                                throw new HttpError({
+                                    message: error.message,
+                                    status: error.status,
+                                });
+                            })
                             .finally(() => {
                                 clearInterval(interval);
                             });
@@ -91,10 +111,37 @@ class AvatarVideoService {
                         clearInterval(interval);
                     }
                 })
-                .catch(() => {
+                .catch((error) => {
                     clearInterval(interval);
+                    throw new HttpError({
+                        message: error.message,
+                        status: error.status,
+                    });
                 });
         }, 4000);
+    }
+
+    private async handleSuccessfulAvatarGeneration({
+        id,
+        url,
+        userId,
+    }: HandleRenderVideoArguments): Promise<void> {
+        const savedUrl = await this.saveAvatarVideo(url, id);
+
+        const videoData = await this.videoService.create({
+            name: getFileName(id),
+            url: savedUrl,
+            userId,
+        });
+
+        if (!videoData) {
+            throw new HttpError({
+                message: RenderVideoErrorMessage.NOT_SAVED,
+                status: HttpCode.BAD_REQUEST,
+            });
+        }
+
+        await this.azureAIService.removeAvatarVideo(id);
     }
 }
 
