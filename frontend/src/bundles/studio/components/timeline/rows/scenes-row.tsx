@@ -1,10 +1,4 @@
-import {
-    Badge,
-    Icon,
-    IconButton,
-    Image,
-    Tooltip,
-} from '~/bundles/common/components/components.js';
+import { Badge, Image } from '~/bundles/common/components/components.js';
 import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
@@ -12,6 +6,7 @@ import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
+import { Control } from '../../player-controls/components/components.js';
 import { Item, Row } from '../components.js';
 
 const ScenesRow: React.FC = () => {
@@ -56,15 +51,14 @@ const ScenesRow: React.FC = () => {
                 id="Add scene button"
                 span={{ start: scenesEnd, end: buttonEnd }}
             >
-                <Tooltip hasArrow label={'Add a scene'} placement="top">
-                    <IconButton
-                        height="100%"
-                        width="100%"
-                        size={IconSize.LARGE}
-                        aria-label={'Add a scene'}
-                        icon={<Icon as={IconName.ADD} />}
-                    />
-                </Tooltip>
+                <Control
+                    label="Add a scene"
+                    size={IconSize.LARGE}
+                    icon={IconName.ADD}
+                    height="100%"
+                    width="100%"
+                    isRound={false}
+                />
             </Item>
         </Row>
     );

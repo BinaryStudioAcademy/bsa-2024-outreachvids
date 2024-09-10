@@ -1,15 +1,11 @@
-import {
-    Icon,
-    IconButton,
-    Text,
-    Tooltip,
-} from '~/bundles/common/components/components.js';
+import { Text } from '~/bundles/common/components/components.js';
 import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 
+import { Control } from '../../player-controls/components/components.js';
 import { Item, Row } from '../components.js';
 
 const ScriptsRow: React.FC = () => {
@@ -49,15 +45,14 @@ const ScriptsRow: React.FC = () => {
                 id="Add scene button"
                 span={{ start: scriptsEnd, end: buttonEnd }}
             >
-                <Tooltip hasArrow label={'Add script'} placement="top">
-                    <IconButton
-                        height="100%"
-                        width="100%"
-                        size={IconSize.MEDIUM}
-                        aria-label={'Add a scene'}
-                        icon={<Icon as={IconName.ADD} />}
-                    />
-                </Tooltip>
+                <Control
+                    label="Add script"
+                    size={IconSize.MEDIUM}
+                    icon={IconName.ADD}
+                    height="100%"
+                    width="100%"
+                    isRound={false}
+                />
             </Item>
         </Row>
     );
