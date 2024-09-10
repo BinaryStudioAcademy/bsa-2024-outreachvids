@@ -21,7 +21,6 @@ import {
 
 import { FormError, FormHeader, PasswordInput } from '../common/components.js';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
-import styles from './sign-up-form.module.css';
 
 type Properties = {
     onSubmit: (payload: UserSignUpRequestDto) => void;
@@ -46,7 +45,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <FormProvider value={form}>
-            <Box className={styles['container']}>
+            <Box width="55%" color="white">
                 <FormHeader
                     headerText="Create an account"
                     subheader={
@@ -96,7 +95,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             type="submit"
                             label="Sign up"
                             size="lg"
-                            className={styles['submitButton']}
+                            margin-top="16px"
                             isDisabled={isEmpty}
                         />
                     </VStack>

@@ -9,14 +9,6 @@
     padding-bottom: 20px;
 }
 
-.iconButton {
-    justify-content: flex-end;
-}
-
-.iconButtonCollapsed {
-    justify-content: center;
-}
-
 .userBox {
     margin-bottom: 30px;
 }

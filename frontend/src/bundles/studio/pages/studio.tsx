@@ -25,7 +25,6 @@ import {
     VideoMenu,
 } from '../components/components.js';
 import { actions as studioActionCreator } from '../store/studio.js';
-import styles from './studio.module.css';
 
 const initialRange: Range = {
     start: minutesToMilliseconds(0),
@@ -53,7 +52,7 @@ const Studio: React.FC = () => {
                     <Button
                         variant="primaryOutlined"
                         label="Resize"
-                        className={styles['resizeButton']}
+                        width="135px"
                         onClick={handleResize}
                     />
                 }

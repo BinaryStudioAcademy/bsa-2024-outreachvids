@@ -1,4 +1,7 @@
-import { Button as LibraryButton } from '@chakra-ui/react';
+import {
+    type ChakraProps as ChakraProperties,
+    Button as LibraryButton,
+} from '@chakra-ui/react';
 
 type Properties = {
     label: string;
@@ -8,7 +11,7 @@ type Properties = {
     isDisabled?: boolean;
     className?: string | undefined;
     onClick?: () => void;
-};
+} & ChakraProperties;
 
 const Button: React.FC<Properties> = ({
     label,
@@ -18,6 +21,7 @@ const Button: React.FC<Properties> = ({
     isDisabled = false,
     className,
     onClick,
+    ...ChakraProperties
 }) => (
     <LibraryButton
         type={type}
@@ -27,6 +31,7 @@ const Button: React.FC<Properties> = ({
         isDisabled={isDisabled}
         className={className}
         onClick={onClick}
+        {...ChakraProperties}
     >
         {label}
     </LibraryButton>

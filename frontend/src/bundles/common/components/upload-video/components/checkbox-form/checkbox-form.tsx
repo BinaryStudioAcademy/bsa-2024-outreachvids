@@ -9,8 +9,6 @@ import {
 } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
-import styles from '../../upload-video.module.css';
-
 type Properties = {
     onVideoRemove: () => void;
 };
@@ -92,12 +90,12 @@ const CheckboxForm: React.FC<Properties> = ({ onVideoRemove }) => {
                     label="Upload again"
                     variant="outlined"
                     onClick={onVideoRemove}
-                    className={styles['Button']}
+                    width={'222px'}
                 />
                 <Button
                     label="My footage look good"
                     isDisabled={!allChecked}
-                    className={styles['Button']}
+                    width={'222px'}
                 />
             </Flex>
         </>
