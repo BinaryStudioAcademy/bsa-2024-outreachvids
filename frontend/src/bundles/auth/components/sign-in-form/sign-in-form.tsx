@@ -27,7 +27,6 @@ import {
 } from '~/bundles/users/users.js';
 
 import { DEFAULT_SIGN_IN_PAYLOAD } from './constants/constants.js';
-import styles from './sign-in-form.module.css';
 
 type Properties = {
     onSubmit: (payload: UserSignInRequestDto) => void;
@@ -52,7 +51,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <FormProvider value={form}>
-            <Box className={styles['container']}>
+            <Box width= "55%" color= "white">
                 <FormHeader
                     headerText="Sign In"
                     subheader={
@@ -87,7 +86,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                             type="submit"
                             label="Sign in"
                             size="lg"
-                            className={styles['submitButton']}
+                            margin-top="16px"
                             isDisabled={isEmpty}
                         />
                     </VStack>

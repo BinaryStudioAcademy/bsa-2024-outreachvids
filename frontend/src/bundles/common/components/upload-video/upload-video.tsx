@@ -6,7 +6,6 @@ import {
     VideoDropzone,
     VideoPlayer,
 } from './components/components.js';
-import styles from './upload-video.module.css';
 
 const UploadVideo: React.FC = () => {
     const [videoSource, setVideoSource] = useState<string | null>(null);
@@ -46,7 +45,7 @@ const UploadVideo: React.FC = () => {
                         onRemoveVideo={handleRemoveVideo}
                         onSetVideo={handleSetVideo}
                     />
-                    <Button className={styles['Button']} label={'Next step'} />
+                    <Button width={'222px'} label={'Next step'} />
                 </>
             )}
         </Flex>

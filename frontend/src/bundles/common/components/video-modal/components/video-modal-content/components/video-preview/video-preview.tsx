@@ -51,13 +51,17 @@ const VideoPreview: React.FC = () => {
 
             <Flex className={styles['previewButtonContainer']}>
                 <Button
-                    className={styles['previewButton']}
+                    backgroundColor="brand.secondary.300"
+                    color="white"
                     onMouseEnter={handleSetLandscapeView}
+                    _hover={{ bg: 'brand.secondary.600' }}
                 >
                     Use landscape
                 </Button>
                 <Button
-                    className={styles['button']}
+                    backgroundColor="brand.secondary.300"
+                    color="white"
+                    _hover={{ bg: 'brand.secondary.600' }}
                     onMouseEnter={handleSetPortraitView}
                 >
                     Use portrait
