@@ -1,0 +1,30 @@
+
+.scriptViewHeading {
+    color: var(--chakra-colors-typography-900);
+    padding: 33px 0px 20px;
+}
+
+.scriptViewTabList {
+    width: max-content;
+    background-color: var(--chakra-colors-gray-100);
+    border-width: 1px;
+    border-radius: var(--chakra-radii-md);
+    padding: var(--chakra-space-1);
+    gap: 10px;
+}
+
+.scriptViewTab {
+    border-radius: var(--chakra-radii-md);
+    padding-left: var(--chakra-space-4);
+    padding-right: var(--chakra-space-4);
+    padding-top: var(--chakra-space-1);
+    padding-bottom: var(--chakra-space-1);
+}
+
+.scriptViewTabPanel {
+    padding: 0;
+}
+
+.scriptViewHStack {
+    justify-content: space-between;
+}

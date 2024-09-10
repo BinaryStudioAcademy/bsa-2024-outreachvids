@@ -3,13 +3,13 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
 
-import styles from '~/bundles/common/components/video-modal/styles.module.css';
 import { type VideoPreview as VideoPreviewT } from '~/bundles/common/types/types.js';
 
 import {
     VideoPreview as VideoPreviewValues,
     VideoSizeLabel,
 } from './libs/enums/enums.js';
+import styles from './styles.module.css';
 
 const VideoPreview: React.FC = () => {
     const [view, setView] = useState<VideoPreviewT>(

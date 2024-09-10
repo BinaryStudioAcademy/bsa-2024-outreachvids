@@ -6,7 +6,6 @@ import {
     Textarea,
     VStack,
 } from '~/bundles/common/components/components.js';
-import styles from '~/bundles/common/components/video-modal/styles.module.css';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 import {
     type GenerateVideoScriptRequestDto,
@@ -14,6 +13,7 @@ import {
 } from '~/bundles/video-scripts/video-scripts.js';
 
 import { DEFAULT_GENERATE_SCRIPT_PAYLOAD } from './constants/constants.js';
+import styles from './styles.module.css';
 
 type Properties = {
     onSubmit: (payload: GenerateVideoScriptRequestDto) => void;
