@@ -1,4 +1,8 @@
-import { Loader, Navigate } from '~/bundles/common/components/components.js';
+import {
+    Loader,
+    Navigate,
+    Overlay,
+} from '~/bundles/common/components/components.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 
@@ -10,10 +14,14 @@ const ProtectedRoute: React.FC<Properties> = ({ children }) => {
     const { user, dataStatus } = useAppSelector((state) => state.auth);
 
     if (dataStatus === DataStatus.PENDING) {
-        return <Loader />;
+        return (
+            <Overlay isOpen>
+                <Loader />
+            </Overlay>
+        );
     }
 
-    if (dataStatus === DataStatus.REJECTED) {
+    if (!user) {
         return <Navigate to={AppRoute.SIGN_IN} replace />;
     }
 
