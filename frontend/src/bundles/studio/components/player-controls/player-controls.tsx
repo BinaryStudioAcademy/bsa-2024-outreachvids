@@ -1,3 +1,6 @@
+import { type PlayerRef } from '@remotion/player';
+import { type RefObject } from 'react';
+
 import { Flex } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
@@ -10,7 +13,11 @@ import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Control, TimeDisplay } from './components/components.js';
 
-const PlayerControls: React.FC = () => {
+type Properties = {
+    playerRef: RefObject<PlayerRef>;
+};
+
+const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
     const dispatch = useAppDispatch();
     const { isPlaying, elapsedTime } = useAppSelector(({ studio }) => ({
         isPlaying: studio.player.isPlaying,
@@ -22,9 +29,10 @@ const PlayerControls: React.FC = () => {
         if (elapsedTime >= totalDuration) {
             void dispatch(studioActions.setElapsedTime(0));
         }
+        playerRef.current?.toggle();
 
         void dispatch(studioActions.setPlaying(!isPlaying));
-    }, [elapsedTime, totalDuration, dispatch, isPlaying]);
+    }, [elapsedTime, totalDuration, dispatch, isPlaying, playerRef]);
 
     return (
         <Flex

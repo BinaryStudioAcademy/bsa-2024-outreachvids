@@ -21,7 +21,6 @@ import { IconName } from '~/bundles/common/icons/icons.js';
 import {
     PlayerControls,
     Timeline,
-    VideoComponent,
     VideoMenu,
 } from '../components/components.js';
 import { actions as studioActionCreator } from '../store/studio.js';
@@ -67,17 +66,16 @@ const Studio: React.FC = () => {
 
             <VideoMenu />
             <Box flex="1 1 auto">
-                <Player
-                    VideoComponent={VideoComponent}
-                    playerRef={playerReference}
-                    durationInFrames={300}
-                />
+                <Player playerRef={playerReference} />
             </Box>
 
             <VStack alignItems={'stretch'}>
-                <PlayerControls />
+                <PlayerControls playerRef={playerReference} />
                 <Box>
-                    <Timeline initialRange={initialRange} />
+                    <Timeline
+                        initialRange={initialRange}
+                        playerRef={playerReference}
+                    />
                 </Box>
             </VStack>
         </Box>
