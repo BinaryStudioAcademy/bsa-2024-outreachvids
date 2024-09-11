@@ -25,6 +25,7 @@ import {
     VideoMenu,
 } from '../components/components.js';
 import {
+    SCRIPT_AND_AVATAR_ARE_REQUIRED,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
@@ -52,35 +53,38 @@ const Studio: React.FC = () => {
         const scene = scenes[0];
         const script = scripts[0];
 
-        if (!scene?.avatar && !script) {
+        if (!scene?.avatar || !script) {
+            notificationService.info({
+                id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
+                message: NotificationMessage.SCRIPT_AND_AVATAR_ARE_REQUIRED,
+                title: NotificationTitle.SCRIPT_AND_AVATAR_ARE_REQUIRED,
+            });
             return;
         }
 
-        if (scene?.avatar && script) {
-            dispatch(
-                studioActionCreator.renderAvatar({
-                    avatarName: scene.avatar.name,
-                    avatarStyle: scene.avatar.style,
-                    text: script?.text,
-                    voice: script.voiceName,
-                }),
-            )
-                .then(() => {
-                    notificationService.success({
-                        id: VIDEO_SUBMIT_NOTIFICATION_ID,
-                        message: NotificationMessage.VIDEO_SUBMITTED,
-                        title: NotificationTitle.VIDEO_SUBMITTED,
-                    });
-                    navigate(AppRoute.ROOT);
-                })
-                .catch(() => {
-                    notificationService.success({
-                        id: VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
-                        message: NotificationMessage.VIDEO_SUBMIT_FAILED,
-                        title: NotificationTitle.VIDEO_SUBMIT_FAILED,
-                    });
+        dispatch(
+            studioActionCreator.renderAvatar({
+                avatarName: scene.avatar.name,
+                avatarStyle: scene.avatar.style,
+                text: script?.text,
+                voice: script.voiceName,
+            }),
+        )
+            .then(() => {
+                notificationService.success({
+                    id: VIDEO_SUBMIT_NOTIFICATION_ID,
+                    message: NotificationMessage.VIDEO_SUBMITTED,
+                    title: NotificationTitle.VIDEO_SUBMITTED,
                 });
-        }
+                navigate(AppRoute.ROOT);
+            })
+            .catch(() => {
+                notificationService.error({
+                    id: VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
+                    message: NotificationMessage.VIDEO_SUBMIT_FAILED,
+                    title: NotificationTitle.VIDEO_SUBMIT_FAILED,
+                });
+            });
     }, [dispatch, navigate, scenes, scripts]);
 
     return (
