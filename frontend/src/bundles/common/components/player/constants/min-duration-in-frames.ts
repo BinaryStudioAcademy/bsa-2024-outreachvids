@@ -1,0 +1,3 @@
+const MIN_DURATION_IN_FRAMES = 15 * 30;
+
+export { MIN_DURATION_IN_FRAMES };
