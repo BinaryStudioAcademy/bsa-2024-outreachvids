@@ -28,9 +28,8 @@ const Script: React.FC<Properties> = ({
     id,
     text,
     voice,
-    voiceName,
     url,
-    iconName,    
+    iconName,
     handleChangeVoice,
 }) => {
     const dispatch = useAppDispatch();
@@ -67,14 +66,16 @@ const Script: React.FC<Properties> = ({
             return;
         }
 
+        if (!voice) {return;}
+
         void dispatch(
             studioActions.generateScriptSpeech({
                 scriptId: id,
                 text,
-                voiceName,
+                voiceName: voice.code,
             }),
         );
-    }, [dispatch, id, text, url, voiceName]);
+    }, [dispatch, id, text, url, voice]);
 
     const handleAudioEnd = useCallback((): void => {
         setIsPlaying(false);

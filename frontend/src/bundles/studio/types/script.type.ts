@@ -7,7 +7,6 @@ type Script = {
     id: string;
     duration: number;
     text: string;
-    voiceName: string;
     iconName: ValueOf<typeof PlayIconNames>;
     url?: string;
     voice?: Voice | undefined;
