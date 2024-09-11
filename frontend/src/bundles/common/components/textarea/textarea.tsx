@@ -1,5 +1,4 @@
 import {
-    type SystemStyleObject,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -18,7 +17,7 @@ type Properties<T extends FormValues> = {
     name: FieldInputProps<T>['name'];
     required?: boolean;
     placeholder?: string;
-    sx?: SystemStyleObject;
+    className?: string | undefined;
 };
 
 const Textarea = <T extends FormValues>({
@@ -26,7 +25,7 @@ const Textarea = <T extends FormValues>({
     name,
     required = false,
     placeholder = '',
-    sx,
+    className,
 }: Properties<T>): JSX.Element => {
     const { field, error, isValid } = useFormField({ name });
 
@@ -39,7 +38,7 @@ const Textarea = <T extends FormValues>({
                 placeholder={placeholder}
                 error={error}
                 resize="none"
-                sx={sx}
+                className={className}
                 as={LibraryTextarea}
             />
             <FormErrorMessage>{error}</FormErrorMessage>

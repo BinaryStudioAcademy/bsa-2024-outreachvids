@@ -12,7 +12,7 @@ import { VideosApiPath } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
     type UpdateVideoRequestDto,
-    type VideoGetByUserIdRequestDto,
+    type UserGetCurrentResponseDto,
     type VideoGetOneRequestDto,
 } from './types/types.js';
 import {
@@ -50,16 +50,10 @@ class VideoController extends BaseController {
         this.addRoute({
             path: VideosApiPath.ROOT,
             method: HTTPMethod.GET,
-            handler: () => this.findAll(),
-        });
-
-        this.addRoute({
-            path: VideosApiPath.USER_ID,
-            method: HTTPMethod.GET,
             handler: (options) =>
-                this.findByUserId(
+                this.findAllByUser(
                     options as ApiHandlerOptions<{
-                        params: VideoGetByUserIdRequestDto;
+                        user: UserGetCurrentResponseDto;
                     }>,
                 ),
         });
@@ -138,53 +132,14 @@ class VideoController extends BaseController {
      *                      $ref: '#/components/schemas/Video'
      */
 
-    private async findAll(): Promise<ApiHandlerResponse> {
-        return {
-            status: HttpCode.OK,
-            payload: await this.videoService.findAll(),
-        };
-    }
-
-    /**
-     * @swagger
-     * /videos/user/{userId}:
-     *    get:
-     *      parameters:
-     *        - in: path
-     *          name: userId
-     *          required: true
-     *          schema:
-     *            type: string
-     *            format: uuid
-     *          description: The user id
-     *      description: Get videos by userId
-     *      security:
-     *       - bearerAuth: []
-     *      responses:
-     *        200:
-     *          description: Successful operation
-     *          content:
-     *            application/json:
-     *              schema:
-     *                type: object
-     *                properties:
-     *                  items:
-     *                    type: array
-     *                    description: A list of video objects
-     *                    items:
-     *                      $ref: '#/components/schemas/Video'
-     */
-
-    private async findByUserId(
+    private async findAllByUser(
         options: ApiHandlerOptions<{
-            params: VideoGetByUserIdRequestDto;
+            user: UserGetCurrentResponseDto;
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.videoService.findByUserId(
-                options.params.userId,
-            ),
+            payload: await this.videoService.findByUserId(options.user.id),
         };
     }
 

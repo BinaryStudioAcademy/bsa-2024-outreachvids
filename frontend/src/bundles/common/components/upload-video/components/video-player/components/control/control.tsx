@@ -17,6 +17,7 @@ import {
     type VideoDuration,
 } from '~/bundles/common/components/upload-video/components/video-player/libs/types/types.js';
 import {
+    useAnimationFrame,
     useCallback,
     useEffect,
     useState,
@@ -30,7 +31,6 @@ import {
 } from './libs/constants/constants.js';
 import { VideoEvent } from './libs/enums/enums.js';
 import { getTime } from './libs/helpers/helpers.js';
-import { useAnimationFrame } from './libs/hooks/hooks.js';
 
 type Properties = {
     videoPlayerReference: React.RefObject<PlayerRef>;

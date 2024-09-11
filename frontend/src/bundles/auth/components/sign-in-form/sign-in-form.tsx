@@ -51,7 +51,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <FormProvider value={form}>
-            <Box w="55%" color="white">
+            <Box width="55%" color="white">
                 <FormHeader
                     headerText="Sign In"
                     subheader={
@@ -86,7 +86,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                             type="submit"
                             label="Sign in"
                             size="lg"
-                            sx={{ mt: '16px' }}
+                            margin-top="16px"
                             isDisabled={isEmpty}
                         />
                     </VStack>

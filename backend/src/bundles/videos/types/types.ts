@@ -1,8 +1,8 @@
 export {
     type CreateVideoRequestDto,
     type UpdateVideoRequestDto,
+    type UserGetCurrentResponseDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
-    type VideoGetByUserIdRequestDto,
     type VideoGetOneRequestDto,
 } from 'shared';
