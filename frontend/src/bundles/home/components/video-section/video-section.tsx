@@ -35,7 +35,7 @@ const VideoSection: React.FC<Properties> = ({ videos, title }) => {
             </Flex>
 
             {hasVideos ? (
-                <SimpleGrid minChildWidth="253px" spacing="20px">
+                <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
                     {videos.map((video) => (
                         <VideoCard
                             key={video.id}
@@ -54,20 +54,3 @@ const VideoSection: React.FC<Properties> = ({ videos, title }) => {
 };
 
 export { VideoSection };
-
-{
-    /* TODO: Update this mocked data */
-}
-{
-    /* <VideoCard />
-                <VideoCard /> */
-}
-{
-    /* <VideoCard /> */
-}
-{
-    /* <VideoCard /> */
-}
-{
-    /* <VideoCard /> */
-}
