@@ -22,6 +22,18 @@ export {
     textGenerationValidationSchema,
 } from './bundles/chat/chat.js';
 export {
+    type CreateNotificationRequestDto,
+    type NotificationGetAllItemResponseDto,
+    type NotificationGetAllResponseDto,
+    type NotificationGetOneRequestDto,
+    type NotificationType,
+    type UpdateNotificationRequestDto,
+    createNotificationValidationSchema,
+    NotificationsApiPath,
+    NotificationValidationMessage,
+    updateNotificationValidationSchema,
+} from './bundles/notifications/notifications.js';
+export {
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
     type GetVoicesResponseDto,

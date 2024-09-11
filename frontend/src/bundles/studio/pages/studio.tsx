@@ -22,7 +22,6 @@ import { notificationService } from '~/bundles/common/services/services.js';
 import {
     PlayerControls,
     Timeline,
-    VideoComponent,
     VideoMenu,
 } from '../components/components.js';
 import {
@@ -97,7 +96,7 @@ const Studio: React.FC = () => {
                     <Button
                         variant="primaryOutlined"
                         label="Resize"
-                        sx={{ width: '135px' }}
+                        width="135px"
                         onClick={handleResize}
                     />
                 }
@@ -113,17 +112,16 @@ const Studio: React.FC = () => {
 
             <VideoMenu />
             <Box flex="1 1 auto">
-                <Player
-                    VideoComponent={VideoComponent}
-                    playerRef={playerReference}
-                    durationInFrames={300}
-                />
+                <Player playerRef={playerReference} />
             </Box>
 
             <VStack alignItems={'stretch'}>
-                <PlayerControls />
+                <PlayerControls playerRef={playerReference} />
                 <Box>
-                    <Timeline initialRange={initialRange} />
+                    <Timeline
+                        initialRange={initialRange}
+                        playerRef={playerReference}
+                    />
                 </Box>
             </VStack>
         </Box>
