@@ -4,6 +4,7 @@ const ApiPath = {
     AVATAR: '/avatar',
     AUTH: '/auth',
     VIDEOS: '/videos',
+    NOTIFICATIONS: '/notifications',
     CHAT: '/chat',
     SPEECH: '/speech',
     AVATAR_VIDEO: '/avatar-video',
