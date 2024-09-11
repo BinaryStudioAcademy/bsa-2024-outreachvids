@@ -1,4 +1,5 @@
 import {
+    type ChakraProps as ChakraProperties,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -20,8 +21,7 @@ type Properties<T extends FormValues> = {
     placeholder?: string;
     icon?: 'right' | 'none';
     value?: string | number | undefined;
-    className?: string | undefined;
-};
+} & ChakraProperties;
 
 const Input = <T extends FormValues>({
     label,
@@ -31,7 +31,7 @@ const Input = <T extends FormValues>({
     placeholder = '',
     icon = 'none',
     value = undefined,
-    className = undefined,
+    ...ChakraProperties
 }: Properties<T>): JSX.Element => {
     const { field, error, isValid } = useFormField({ name });
 
@@ -47,7 +47,7 @@ const Input = <T extends FormValues>({
                 value={value}
                 style={{ paddingRight: icon === 'right' ? '40px' : 0 }}
                 as={LibraryInput}
-                className={className}
+                {...ChakraProperties}
             />
             <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
