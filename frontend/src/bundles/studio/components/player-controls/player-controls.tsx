@@ -8,6 +8,7 @@ import {
     useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { SKIP_TO_PREV_SCENE_THRESHOLD } from '~/bundles/studio/constants/constants.js';
 import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
@@ -58,7 +59,8 @@ const PlayerControls: React.FC = () => {
         }
 
         const isCloseToStart =
-            elapsedTime - currentScene.span.start < secondsToMilliseconds(2);
+            elapsedTime - currentScene.span.start <
+            secondsToMilliseconds(SKIP_TO_PREV_SCENE_THRESHOLD);
 
         const previousScene = isCloseToStart
             ? (scenesWithSpan[currentSceneIndex - 1] ?? currentScene)

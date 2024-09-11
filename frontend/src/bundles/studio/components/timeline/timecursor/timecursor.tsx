@@ -140,6 +140,7 @@ const TimeCursor: React.FC = () => {
         timeCursorReference,
         dispatch,
         totalDuration,
+        valueToPixels,
     ]);
 
     useLayoutEffect(() => {
