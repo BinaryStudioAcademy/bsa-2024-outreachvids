@@ -10,3 +10,7 @@ export {
     type TimelineItem,
     type TimelineItemWithSpan,
 } from './timeline-item.type.js';
+export {
+    type RenderAvatarResponseDto,
+    type RenderAvatarVideoRequestDto,
+} from 'shared';
