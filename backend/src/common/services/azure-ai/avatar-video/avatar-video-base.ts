@@ -8,6 +8,7 @@ import {
     type RenderAvatarVideoResponseDto,
 } from '~/common/services/azure-ai/types/types.js';
 
+import { API_VERSION } from './constants/constants.js';
 import { AvatarApiPath } from './enums/enums.js';
 import { type RenderAvatarVideoArgument } from './types/types.js';
 
@@ -26,7 +27,7 @@ class AvatarVideoApi extends BaseHttpApi {
     ): Promise<GetAvatarVideoResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(
-                `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=2024-08-01`,
+                `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=${API_VERSION}`,
                 {},
             ),
             {
@@ -47,7 +48,7 @@ class AvatarVideoApi extends BaseHttpApi {
     public async deleteAvatarVideo(id: string): Promise<unknown> {
         return await this.load(
             this.getFullEndpoint(
-                `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=2024-08-01`,
+                `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=${API_VERSION}`,
                 {},
             ),
             {
@@ -69,7 +70,7 @@ class AvatarVideoApi extends BaseHttpApi {
     }: RenderAvatarVideoArgument): Promise<RenderAvatarVideoResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(
-                `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=2024-08-01`,
+                `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=${API_VERSION}`,
                 {},
             ),
             {
