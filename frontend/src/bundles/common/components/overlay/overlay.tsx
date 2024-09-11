@@ -11,7 +11,7 @@ const Overlay = ({ isOpen, children }: Properties): JSX.Element => {
     return (
         <Fade in={isOpen} hidden={!isOpen} className={styles['overlay']}>
             <Flex
-                background="shadow.700"
+                background="background.600"
                 color="white"
                 justifyContent="center"
                 alignItems="center"
