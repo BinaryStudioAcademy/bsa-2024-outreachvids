@@ -41,7 +41,6 @@ export {
     type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
-    type VideoGetByUserIdRequestDto,
     type VideoGetOneRequestDto,
     createVideoValidationSchema,
     updateVideoValidationSchema,
