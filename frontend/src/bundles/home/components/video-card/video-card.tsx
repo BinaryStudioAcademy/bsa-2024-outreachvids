@@ -54,16 +54,16 @@ const VideoCard: React.FC = () => {
                         className={styles['menu-button']}
                     />
                     <MenuList>
-                        <LibraryLink download href={videoUrl}>
-                            <MenuItem icon={<Icon as={IconName.DOWNLOAD} />}>
-                                <Text
-                                    color="typography.900"
-                                    variant="bodySmall"
-                                >
-                                    Download
-                                </Text>
-                            </MenuItem>
-                        </LibraryLink>
+                        <MenuItem
+                            as={LibraryLink}
+                            icon={<Icon as={IconName.DOWNLOAD} />}
+                            href={videoUrl}
+                            download
+                        >
+                            <Text color="typography.900" variant="bodySmall">
+                                Download
+                            </Text>
+                        </MenuItem>
                     </MenuList>
                 </Menu>
 
