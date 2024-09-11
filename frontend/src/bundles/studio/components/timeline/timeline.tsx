@@ -1,3 +1,4 @@
+import { type PlayerRef } from '@remotion/player';
 import {
     type DragEndEvent,
     type DragMoveEvent,
@@ -5,6 +6,7 @@ import {
     type ResizeEndEvent,
     TimelineContext,
 } from 'dnd-timeline';
+import { type RefObject } from 'react';
 
 import {
     useAppDispatch,
@@ -17,7 +19,11 @@ import { type RowType } from '~/bundles/studio/types/types.js';
 
 import { TimelineView } from './components.js';
 
-const Timeline: React.FC = () => {
+type Properties = {
+    playerRef: RefObject<PlayerRef>;
+};
+
+const Timeline: React.FC<Properties> = ({ playerRef }) => {
     const dispatch = useAppDispatch();
 
     const range = useAppSelector(({ studio }) => studio.range);
@@ -143,7 +149,7 @@ const Timeline: React.FC = () => {
             onRangeChanged={onRangeChanged}
             onDragMove={onDragMove}
         >
-            <TimelineView />
+            <TimelineView playerRef={playerRef} />
         </TimelineContext>
     );
 };

@@ -1,7 +1,9 @@
 const DatabaseTableName = {
     MIGRATIONS: 'migrations',
+    NOTIFICATIONS: 'notifications',
     USERS: 'users',
     VIDEOS: 'videos',
+    FILES: 'files',
     AVATARS: 'avatars',
     STYLES: 'styles',
     GESTURES: 'gestures',

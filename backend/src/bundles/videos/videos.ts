@@ -9,4 +9,4 @@ const videoRepository = new VideoRepository(VideoModel);
 const videoService = new VideoService(videoRepository);
 const videoController = new VideoController(logger, videoService);
 
-export { videoController };
+export { videoController, videoService };
