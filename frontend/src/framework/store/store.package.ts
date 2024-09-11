@@ -9,6 +9,7 @@ import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { videosApi } from '~/bundles/home/home.js';
+import { reducer as homeReducer } from '~/bundles/home/store/home.js';
 import { reducer as studioReducer } from '~/bundles/studio/store/studio.js';
 import { avatarsApi } from '~/bundles/studio/studio.js';
 import { userApi } from '~/bundles/users/users.js';
@@ -20,6 +21,7 @@ import { errorMiddleware } from '../../bundles/common/middlewares/error-handling
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     studio: ReturnType<typeof studioReducer>;
+    home: ReturnType<typeof homeReducer>;
 };
 
 type ExtraArguments = {
@@ -45,6 +47,7 @@ class Store {
             reducer: {
                 auth: authReducer,
                 studio: studioReducer,
+                home: homeReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 const middlewares = getDefaultMiddleware({
