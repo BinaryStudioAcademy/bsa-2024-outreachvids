@@ -5,6 +5,7 @@ import { type AzureAIService } from '~/common/services/azure-ai/azure-ai.service
 import { type FileService } from '~/common/services/file/file.service.js';
 
 import { type VideoService } from '../videos/video.service.js';
+import { REQUEST_DELAY } from './constants/constnats.js';
 import {
     GenerateAvatarResponseStatus,
     RenderVideoErrorMessage,
@@ -43,10 +44,6 @@ class AvatarVideoService {
 
         await this.fileService.uploadFile(buffer, fileName);
         return this.fileService.getCloudFrontFileUrl(fileName);
-    }
-
-    public removeAvatarVideo(id: string): Promise<unknown> {
-        return this.azureAIService.removeAvatarVideo(id);
     }
 
     public async renderAvatarVideo(
@@ -103,7 +100,7 @@ class AvatarVideoService {
                         status: error.status,
                     });
                 });
-        }, 4000);
+        }, REQUEST_DELAY);
     }
 
     private async handleSuccessfulAvatarGeneration({
