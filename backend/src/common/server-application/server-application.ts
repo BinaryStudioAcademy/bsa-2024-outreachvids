@@ -2,6 +2,7 @@ import { authController } from '~/bundles/auth/auth.js';
 import { avatarVideoController } from '~/bundles/avatar-videos/avatar-videos.js';
 import { avatarController } from '~/bundles/avatars/avatars.js';
 import { chatController } from '~/bundles/chat/chat.js';
+import { notificationController } from '~/bundles/notifications/notifications.js';
 import { speechController } from '~/bundles/speech/speech.js';
 import { userController } from '~/bundles/users/users.js';
 import { videoController } from '~/bundles/videos/videos.js';
@@ -19,6 +20,7 @@ const apiV1 = new BaseServerAppApi(
     ...authController.routes,
     ...userController.routes,
     ...videoController.routes,
+    ...notificationController.routes,
     ...chatController.routes,
     ...speechController.routes,
     ...avatarVideoController.routes,

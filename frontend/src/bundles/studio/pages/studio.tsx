@@ -55,7 +55,7 @@ const Studio: React.FC = () => {
                     <Button
                         variant="primaryOutlined"
                         label="Resize"
-                        sx={{ width: '135px' }}
+                        width="135px"
                         onClick={handleResize}
                     />
                 }

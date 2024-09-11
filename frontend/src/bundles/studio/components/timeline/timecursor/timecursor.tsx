@@ -16,7 +16,8 @@ import {
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
-import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
+
+import styles from './styles.module.css';
 
 type Properties = {
     playerRef: RefObject<PlayerRef>;
