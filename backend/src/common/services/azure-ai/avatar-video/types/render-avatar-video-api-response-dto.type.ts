@@ -1,6 +1,6 @@
 import { type InputKind, type VideoCodec, type VideoFormat } from './types.js';
 
-type RenderAvatarVideoResponseDto = {
+type RenderAvatarVideoApiResponseDto = {
     id: string;
     internalId: string;
     status: string;
@@ -21,4 +21,4 @@ type RenderAvatarVideoResponseDto = {
     };
 };
 
-export { type RenderAvatarVideoResponseDto };
+export { type RenderAvatarVideoApiResponseDto };

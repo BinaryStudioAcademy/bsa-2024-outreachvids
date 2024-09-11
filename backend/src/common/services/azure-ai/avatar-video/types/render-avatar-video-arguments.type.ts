@@ -1,4 +1,4 @@
-import { type RenderAvatarVideoRequestDto } from '~/common/services/azure-ai/types/types.js';
+import { type RenderAvatarVideoRequestDto } from './types.js';
 
 type RenderAvatarVideoArgument = {
     id: string;

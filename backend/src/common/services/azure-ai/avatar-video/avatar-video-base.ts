@@ -3,14 +3,14 @@ import { ApiPath, ContentType, HttpHeader, HTTPMethod } from 'shared';
 
 import { config } from '~/common/config/config.js';
 import { BaseHttpApi } from '~/common/http/http.js';
-import {
-    type GetAvatarVideoResponseDto,
-    type RenderAvatarVideoResponseDto,
-} from '~/common/services/azure-ai/types/types.js';
 
 import { API_VERSION } from './constants/constants.js';
 import { AvatarApiPath } from './enums/enums.js';
-import { type RenderAvatarVideoArgument } from './types/types.js';
+import {
+    type GetAvatarVideoResponseApiDto,
+    type RenderAvatarVideoApiArgument,
+    type RenderAvatarVideoApiResponseDto,
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -24,7 +24,7 @@ class AvatarVideoApi extends BaseHttpApi {
 
     public async getAvatarVideo(
         id: string,
-    ): Promise<GetAvatarVideoResponseDto> {
+    ): Promise<GetAvatarVideoResponseApiDto> {
         const response = await this.load(
             this.getFullEndpoint(
                 `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=${API_VERSION}`,
@@ -42,7 +42,7 @@ class AvatarVideoApi extends BaseHttpApi {
             },
         );
 
-        return await response.json<GetAvatarVideoResponseDto>();
+        return await response.json<GetAvatarVideoResponseApiDto>();
     }
 
     public async deleteAvatarVideo(id: string): Promise<unknown> {
@@ -67,7 +67,7 @@ class AvatarVideoApi extends BaseHttpApi {
     public async renderAvatarVideo({
         id,
         payload,
-    }: RenderAvatarVideoArgument): Promise<RenderAvatarVideoResponseDto> {
+    }: RenderAvatarVideoApiArgument): Promise<RenderAvatarVideoApiResponseDto> {
         const response = await this.load(
             this.getFullEndpoint(
                 `${AvatarApiPath.BATCHSYNTHESES}/${id}?api-version=${API_VERSION}`,
@@ -86,7 +86,17 @@ class AvatarVideoApi extends BaseHttpApi {
             },
         );
 
-        return await response.json<RenderAvatarVideoResponseDto>();
+        return await response.json<RenderAvatarVideoApiResponseDto>();
+    }
+
+    public async getAvatarVideoBuffer(url: string): Promise<Buffer> {
+        const response = await this.load(url, {
+            method: HTTPMethod.GET,
+            contentType: ContentType.JSON,
+        });
+
+        const arrayBuffer = await response.arrayBuffer();
+        return Buffer.from(arrayBuffer);
     }
 }
 

@@ -1,7 +1,6 @@
-import { type InputKind } from './input-kind.type.js';
-import { type VideoCodec, type VideoFormat } from './types.js';
+import { type InputKind, type VideoCodec, type VideoFormat } from './types.js';
 
-type GetAvatarVideoResponseDto = {
+type GetAvatarVideoResponseApiDto = {
     id: string;
     internalId: string;
     status: string;
@@ -34,4 +33,4 @@ type GetAvatarVideoResponseDto = {
     };
 };
 
-export { type GetAvatarVideoResponseDto };
+export { type GetAvatarVideoResponseApiDto };

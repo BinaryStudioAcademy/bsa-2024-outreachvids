@@ -6,6 +6,7 @@ const ApiPath = {
     VIDEOS: '/videos',
     CHAT: '/chat',
     SPEECH: '/speech',
+    AVATAR_VIDEO: '/avatar-video',
 } as const;
 
 export { ApiPath };

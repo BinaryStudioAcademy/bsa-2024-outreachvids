@@ -9,3 +9,11 @@ const avatarVideoApi = new AvatarVideoApi({
 });
 
 export { avatarVideoApi };
+export { AvatarVideoApi } from './avatar-video-base.js';
+export { AvatarApiPath } from './enums/enums.js';
+export {
+    type GetAvatarVideoResponseApiDto,
+    type RenderAvatarVideoApiRequestDto,
+    type RenderAvatarVideoApiResponseDto,
+    type RenderAvatarVideoArgument,
+} from './types/types.js';

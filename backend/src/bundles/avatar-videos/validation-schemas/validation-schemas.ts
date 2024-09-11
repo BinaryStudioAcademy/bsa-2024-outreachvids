@@ -1,0 +1,1 @@
+export { renderAvatarVideoValidationSchema } from 'shared';
