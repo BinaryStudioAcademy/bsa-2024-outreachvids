@@ -31,7 +31,7 @@ const MainContent: React.FC = () => {
             </Overlay>
 
             <VideoSection videos={videos} title="Recent videos" />
-            <VideoSection videos={[]} title="Videos" />
+            <VideoSection videos={videos} title="Videos" />
         </Box>
     );
 };
