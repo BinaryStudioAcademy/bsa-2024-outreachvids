@@ -23,8 +23,10 @@ const ScriptContent: React.FC = () => {
     const { scripts, voices } = useAppSelector(({ studio }) => studio);
 
     useEffect(() => {
-        void dispatch(studioActions.loadVoices());
-    }, [dispatch]);
+        if (voices.items.length === 0) {
+            void dispatch(studioActions.loadVoices());
+        }
+    }, [dispatch, voices.items.length]);
 
     const handleAddScript = useCallback((): void => {
         void dispatch(studioActions.addScript(NEW_SCRIPT_TEXT));
