@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
     type AvatarGetAllResponseDto,
+    type GenerateSpeechRequestDto,
+    type GenerateSpeechResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
 } from '~/bundles/studio/types/types.js';
@@ -19,6 +21,16 @@ const loadAvatars = createAsyncThunk<
     return avatarsApi.loadAvatars();
 });
 
+const generateScriptSpeech = createAsyncThunk<
+    GenerateSpeechResponseDto,
+    GenerateSpeechRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/generate-script-speech`, (payload, { extra }) => {
+    const { speechApi } = extra;
+
+    return speechApi.generateScriptSpeech(payload);
+});
+
 const renderAvatar = createAsyncThunk<
     RenderAvatarResponseDto,
     RenderAvatarVideoRequestDto,
@@ -29,4 +41,4 @@ const renderAvatar = createAsyncThunk<
     return avatarVideosApi.renderVideo(payload);
 });
 
-export { loadAvatars, renderAvatar };
+export { generateScriptSpeech, loadAvatars, renderAvatar };

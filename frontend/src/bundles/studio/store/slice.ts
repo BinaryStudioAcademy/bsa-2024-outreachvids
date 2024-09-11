@@ -13,7 +13,7 @@ import {
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { RowNames } from '../enums/enums.js';
+import { PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     getDestinationPointerValue,
     getNewItemIndexBySpan,
@@ -29,7 +29,7 @@ import {
     type Script,
     type TimelineItemWithSpan,
 } from '../types/types.js';
-import { loadAvatars } from './actions.js';
+import { generateScriptSpeech, loadAvatars } from './actions.js';
 
 type SelectedItem = {
     id: string;
@@ -45,11 +45,17 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
+// TODO: remove when we will have voices in store
+const defaultVoiceName = 'en-US-BrianMultilingualNeural';
+
 type State = {
-    avatars: {
-        dataStatus: ValueOf<typeof DataStatus>;
-        items: Array<AvatarGetResponseDto> | [];
+    dataStatus: ValueOf<typeof DataStatus>;
+    avatars: Array<AvatarGetResponseDto> | [];
+    player: {
+        isPlaying: boolean;
+        elapsedTime: number; // ms
     };
+
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
@@ -60,9 +66,11 @@ type State = {
 };
 
 const initialState: State = {
-    avatars: {
-        dataStatus: DataStatus.IDLE,
-        items: [],
+    dataStatus: DataStatus.IDLE,
+    avatars: [],
+    player: {
+        isPlaying: false,
+        elapsedTime: 0,
     },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
@@ -82,6 +90,8 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
+                voiceName: defaultVoiceName,
+                iconName: PlayIconNames.READY,
             };
 
             state.scripts.push(script);
@@ -102,6 +112,13 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.filter(
                 (script) => script.id !== action.payload,
             );
+        },
+
+        setPlaying(state, action: PayloadAction<boolean>) {
+            state.player.isPlaying = action.payload;
+        },
+        setElapsedTime(state, action: PayloadAction<number>) {
+            state.player.elapsedTime = action.payload;
         },
         reorderScripts(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
@@ -230,15 +247,51 @@ const { reducer, actions, name } = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(loadAvatars.pending, (state) => {
-            state.avatars.dataStatus = DataStatus.PENDING;
+            state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(loadAvatars.fulfilled, (state, action) => {
-            state.avatars.items = action.payload.items;
-            state.avatars.dataStatus = DataStatus.FULFILLED;
+            state.avatars = action.payload.items;
+            state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(loadAvatars.rejected, (state) => {
-            state.avatars.items = [];
-            state.avatars.dataStatus = DataStatus.REJECTED;
+            state.avatars = [];
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(generateScriptSpeech.pending, (state, action) => {
+            const { scriptId } = action.meta.arg;
+
+            state.scripts = state.scripts.map((script) =>
+                script.id === scriptId
+                    ? { ...script, iconName: PlayIconNames.LOADING }
+                    : script,
+            );
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(generateScriptSpeech.fulfilled, (state, action) => {
+            const { scriptId, audioUrl } = action.payload;
+
+            state.scripts = state.scripts.map((script) => {
+                if (script.id !== scriptId) {
+                    return script;
+                }
+
+                return {
+                    ...script,
+                    url: audioUrl,
+                    iconName: PlayIconNames.READY,
+                };
+            });
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(generateScriptSpeech.rejected, (state, action) => {
+            const { scriptId } = action.meta.arg;
+
+            state.scripts = state.scripts.map((script) =>
+                script.id === scriptId
+                    ? { ...script, iconName: PlayIconNames.READY }
+                    : script,
+            );
+            state.dataStatus = DataStatus.REJECTED;
         });
     },
 });
