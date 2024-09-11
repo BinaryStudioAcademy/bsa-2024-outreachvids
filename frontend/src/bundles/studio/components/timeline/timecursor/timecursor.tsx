@@ -92,6 +92,12 @@ const TimeCursor: React.FC = () => {
             const newCursorPosition = event.clientX - sidebarWidth;
 
             const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+
+            if (newCursorPositionInTime > totalDuration) {
+                setCursorPosition(valueToPixels(totalDuration));
+                return;
+            }
+
             dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
 
             setCursorPosition(newCursorPosition);
@@ -101,6 +107,12 @@ const TimeCursor: React.FC = () => {
             setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
             const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+
+            if (newCursorPositionInTime > totalDuration) {
+                setCursorPosition(null);
+                return;
+            }
+
             renderTimeReference.current = Date.now() - newCursorPositionInTime;
 
             dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
