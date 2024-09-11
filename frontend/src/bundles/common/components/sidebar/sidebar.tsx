@@ -12,8 +12,6 @@ import {
     useAppDispatch,
     useAppSelector,
     useCallback,
-    useEffect,
-    useLayoutEffect,
     useLocation,
     useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
@@ -22,45 +20,18 @@ import { type ValueOf } from '~/bundles/common/types/types.js';
 import { UserAvatar, UserCard } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
-import { MD } from './constants/constants.js';
-import { getFlag } from './helpers/helpers.js';
+import { useCollapse } from './hooks/use-collapse.hook.js';
 
 type Properties = {
     children: React.ReactNode;
 };
 
 const Sidebar = ({ children }: Properties): JSX.Element => {
-    const navigate = useNavigate();
     const user = useAppSelector(({ auth }) => auth.user);
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
-    const isCollapsed = useAppSelector(({ auth }) => auth.isSidebarCollapsed);
-
-    const handleResize = useCallback((): void => {
-        const isMobile = window.innerWidth < MD;
-        dispatch(authActions.toggleSidebar(isMobile));
-    }, [dispatch]);
-
-    useLayoutEffect(() => {
-        const setFlag = async (): Promise<void> => {
-            const flag = await getFlag();
-            dispatch(authActions.toggleSidebar(flag));
-        };
-
-        void setFlag();
-    }, [dispatch]);
-
-    useEffect(() => {
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [handleResize]);
-
-    const handleToggle = useCallback((): void => {
-        dispatch(authActions.toggleSidebar(!isCollapsed));
-    }, [dispatch, isCollapsed]);
+    const { isCollapsed, setToggle } = useCollapse();
 
     const activeButtonPage = (page: ValueOf<typeof AppRoute>): string => {
         return pathname === page ? 'background.600' : '';
@@ -69,6 +40,10 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     const activeIconPage = (page: ValueOf<typeof AppRoute>): string => {
         return pathname === page ? 'white' : 'background.600';
     };
+
+    const handleToggle = useCallback((): void => {
+        setToggle();
+    }, [setToggle]);
 
     const handleLogOut = useCallback(() => {
         void dispatch(authActions.logout());

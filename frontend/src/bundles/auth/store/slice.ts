@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type UserGetCurrentResponseDto } from '~/bundles/users/users.js';
-import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import { loadCurrentUser, logout, signIn, signUp } from './actions.js';
 
@@ -25,10 +24,6 @@ const { reducer, actions, name } = createSlice({
     reducers: {
         toggleSidebar: (state, action: { payload: boolean }) => {
             state.isSidebarCollapsed = action.payload;
-            void storage.set(
-                StorageKey.IS_SIDEBAR_COLLAPSED,
-                JSON.stringify(action.payload),
-            );
         },
     },
     extraReducers(builder) {

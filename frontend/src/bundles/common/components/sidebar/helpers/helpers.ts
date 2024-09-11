@@ -10,6 +10,7 @@ const getFlag = async (): Promise<boolean> => {
 
     const isMobile = window.innerWidth < MD;
     void storage.set(StorageKey.IS_SIDEBAR_COLLAPSED, JSON.stringify(isMobile));
+
     return isMobile;
 };
 
