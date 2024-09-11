@@ -66,7 +66,9 @@ const Script: React.FC<Properties> = ({
             return;
         }
 
-        if (!voice) {return;}
+        if (!voice) {
+            return;
+        }
 
         void dispatch(
             studioActions.generateScriptSpeech({
