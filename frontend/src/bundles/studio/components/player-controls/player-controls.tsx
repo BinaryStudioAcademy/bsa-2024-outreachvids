@@ -1,19 +1,72 @@
+import { type PlayerRef } from '@remotion/player';
+import { secondsToMilliseconds } from 'date-fns';
+import { type RefObject } from 'react';
+
 import { Flex } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 
-import { Control, TimeDisplay } from './components/components.js';
+import { FPS } from '../audio-player/constants/constants.js';
+import { Control } from '../components.js';
+import { TimeDisplay } from './components/components.js';
 
-const PlayerControls: React.FC = () => {
-    // Mocked data. Update later
-    const currentTime = 5;
-    const duration = 10;
+type Properties = {
+    playerRef: RefObject<PlayerRef>;
+};
+
+const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
+    const dispatch = useAppDispatch();
+    const { isPlaying, elapsedTime, scenes } = useAppSelector(({ studio }) => ({
+        isPlaying: studio.player.isPlaying,
+        elapsedTime: studio.player.elapsedTime,
+        scenes: studio.scenes,
+    }));
+    const totalDuration = useAppSelector(selectTotalDuration);
+    const scenesWithSpan = useMemo(() => setItemsSpan(scenes), [scenes]);
+
+    const handleTogglePlaying = useCallback((): void => {
+        if (elapsedTime >= totalDuration) {
+            void dispatch(studioActions.setElapsedTime(0));
+        }
+        playerRef.current?.toggle();
+
+        void dispatch(studioActions.setPlaying(!isPlaying));
+    }, [elapsedTime, totalDuration, dispatch, isPlaying, playerRef]);
+
+    const handleSkipToNextScene = useCallback((): void => {
+        const currentScene = scenesWithSpan.find(
+            (scene) =>
+                elapsedTime >= scene.span.start && elapsedTime < scene.span.end,
+        );
+
+        if (!currentScene) {
+            return;
+        }
+        playerRef.current?.seekTo((currentScene.span.end / 1000) * FPS);
+        void dispatch(studioActions.setElapsedTime(currentScene.span.end));
+    }, [dispatch, elapsedTime, scenesWithSpan, playerRef]);
+
+    const handleSkipToPreviousScene = useCallback((): void => {
+        const currentSceneIndex = scenesWithSpan.findIndex(
+            (scene) =>
+                elapsedTime > scene.span.start && elapsedTime <= scene.span.end,
+        );
+
+        const currentScene = scenesWithSpan[currentSceneIndex];
+
+        if (!currentScene) {
+            return;
+        }
+
+        const isCloseToStart =
+            elapsedTime - currentScene.span.start <
+            secondsToMilliseconds(SKIP_TO_PREV_SCENE_THRESHOLD);
 
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-    const handleClick = useCallback((): void => {
-        setIsPlaying((previous) => !previous);
-    }, []);
+        playerRef.current?.seekTo((previousScene.span.start / 1000) * FPS);
+        void dispatch(studioActions.setElapsedTime(previousScene.span.start));
+    }, [dispatch, elapsedTime, scenesWithSpan, playerRef]);
 
     return (
         <Flex

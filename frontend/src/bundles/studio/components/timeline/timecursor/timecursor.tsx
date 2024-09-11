@@ -1,4 +1,8 @@
+import { type PlayerRef } from '@remotion/player';
+import { type RefObject } from 'react';
+
 import { Box } from '~/bundles/common/components/components.js';
+import { FPS } from '~/bundles/common/components/upload-video/components/video-player/libs/constants/fps.constant.js';
 import {
     useCallback,
     useLayoutEffect,
@@ -6,8 +10,22 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
+import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
-import styles from '../timeline.module.css';
+import styles from './styles.module.css';
+
+type Properties = {
+    playerRef: RefObject<PlayerRef>;
+};
+
+const TimeCursor: React.FC<Properties> = ({ playerRef }) => {
+    const dispatch = useAppDispatch();
+    const { isPlaying, elapsedTime } = useAppSelector(({ studio }) => ({
+        isPlaying: studio.player.isPlaying,
+        elapsedTime: studio.player.elapsedTime,
+    }));
+    const totalDuration = useAppSelector(selectTotalDuration);
 
 type Properties = {
     interval?: number;
@@ -61,14 +79,39 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
             }
 
             const newCursorPosition = event.clientX - sidebarWidth;
+
+            const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+
+            if (newCursorPositionInTime > totalDuration) {
+                setCursorPosition(valueToPixels(totalDuration));
+                return;
+            }
+
+            playerRef.current?.seekTo((newCursorPositionInTime / 1000) * FPS);
+            if (isPlaying) {
+                playerRef.current?.pause();
+            }
+            dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
+
             setCursorPosition(newCursorPosition);
         };
 
         const handleMouseUp = (event: MouseEvent): void => {
             setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
-            renderTimeReference.current =
-                Date.now() - pixelsToValue(newCursorPosition);
+            const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+
+            if (newCursorPositionInTime > totalDuration) {
+                setCursorPosition(null);
+                return;
+            }
+
+            renderTimeReference.current = Date.now() - newCursorPositionInTime;
+
+            playerRef.current?.seekTo((newCursorPositionInTime / 1000) * 30);
+            isPlaying ? playerRef.current?.play() : playerRef.current?.pause();
+
+            dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
             setCursorPosition(null);
         };
 
@@ -85,6 +128,8 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
             document.removeEventListener('mouseup', handleMouseUp);
         };
     }, [
+        isPlaying,
+        playerRef,
         isDragging,
         sidebarWidth,
         side,

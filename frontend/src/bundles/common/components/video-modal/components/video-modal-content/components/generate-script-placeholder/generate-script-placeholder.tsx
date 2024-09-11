@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import styles from '../../../../video-modal.module.css';
+import styles from './styles.module.css';
 
 const GenerateScriptPlaceholder: React.FC = () => {
     return (
         <VStack className={styles['scriptPlaceholderContainer']}>
             <Icon
-                as={FontAwesomeIcon}
-                icon={IconName.SCROLL}
+                as={IconName.SCROLL}
                 className={styles['scriptPlaceholderIcon']}
+                boxSize={10}
             />
             <Text className={styles['scriptPlaceholderText']} variant="H3">
                 Here you will see your generated script

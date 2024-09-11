@@ -10,6 +10,7 @@ import {
     VideoPreview as VideoPreviewValues,
     VideoSizeLabel,
 } from './libs/enums/enums.js';
+import styles from './styles.module.css';
 
 const VideoPreview: React.FC = () => {
     const [view, setView] = useState<VideoPreviewT>(
@@ -50,22 +51,28 @@ const VideoPreview: React.FC = () => {
             </Flex>
 
             <Flex className={styles['previewButtonContainer']}>
-                <Button
-                    backgroundColor="brand.secondary.300"
-                    color="white"
-                    onMouseEnter={handleSetLandscapeView}
-                    _hover={{ bg: 'brand.secondary.600' }}
-                >
-                    Use landscape
-                </Button>
-                <Button
-                    backgroundColor="brand.secondary.300"
-                    color="white"
-                    _hover={{ bg: 'brand.secondary.600' }}
-                    onMouseEnter={handleSetPortraitView}
-                >
-                    Use portrait
-                </Button>
+                <Link to={AppRoute.STUDIO}>
+                    <Button
+                        backgroundColor="brand.secondary.300"
+                        color="white"
+                        onMouseEnter={handleSetLandscapeView}
+                        onClick={handleClick}
+                        _hover={{ bg: 'brand.secondary.600' }}
+                    >
+                        Use landscape
+                    </Button>
+                </Link>
+                <Link to={AppRoute.STUDIO}>
+                    <Button
+                        backgroundColor="brand.secondary.300"
+                        color="white"
+                        onClick={handleClick}
+                        _hover={{ bg: 'brand.secondary.600' }}
+                        onMouseEnter={handleSetPortraitView}
+                    >
+                        Use portrait
+                    </Button>
+                </Link>
             </Flex>
         </Flex>
     );

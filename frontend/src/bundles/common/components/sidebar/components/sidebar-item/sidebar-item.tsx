@@ -2,7 +2,7 @@ import { type ReactElement } from 'react';
 
 import { Box } from '~/bundles/common/components/components.js';
 
-import styles from '../../sidebar.module.css';
+import styles from '../../styles.module.css';
 
 type Properties = {
     icon: ReactElement;

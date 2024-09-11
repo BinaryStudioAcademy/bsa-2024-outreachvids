@@ -14,6 +14,7 @@ import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/vide
 import styles from '../../../../video-modal.module.css';
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
+import styles from './styles.module.css';
 
 const GenerateScriptView: React.FC = () => {
     const handleGenerateVideoScriptSubmit = useCallback(

@@ -53,3 +53,5 @@ export { FormikProvider as FormProvider } from 'formik';
 export { Fragment } from 'react';
 export { Provider as StoreProvider } from 'react-redux';
 export { Navigate, Outlet as RouterOutlet } from 'react-router-dom';
+export { AbsoluteFill, Audio, Img as RemotionImg, Series } from 'remotion';
+

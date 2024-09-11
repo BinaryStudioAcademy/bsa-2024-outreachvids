@@ -5,7 +5,7 @@ import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { useTimelineItem } from '~/bundles/studio/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
-import styles from '../timeline.module.css';
+import styles from './styles.module.css';
 
 type Properties = {
     id: string;
