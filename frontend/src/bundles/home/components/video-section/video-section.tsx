@@ -4,16 +4,25 @@ import {
     Flex,
     Heading,
     SimpleGrid,
+    Text,
 } from '~/bundles/common/components/components.js';
+import { type VideoGetAllItemResponseDto } from '~/bundles/home/types/types.js';
 
 import { VideoCard } from '../components.js';
 
-const VideoSection: React.FC = () => {
+type Properties = {
+    videos: Array<VideoGetAllItemResponseDto> | [];
+    title: string;
+};
+
+const VideoSection: React.FC<Properties> = ({ videos, title }) => {
+    const hasVideos = videos.length > 0;
+
     return (
         <Box padding="17px 28px">
             <Flex alignItems="center" marginBottom="9px">
                 <Heading color="typography.900" variant="H3" marginRight="11px">
-                    Videos
+                    {title}
                 </Heading>
                 <Badge
                     color="background.600"
@@ -21,19 +30,44 @@ const VideoSection: React.FC = () => {
                     fontWeight="400"
                     padding="2px 10px"
                 >
-                    23
+                    {videos.length}
                 </Badge>
             </Flex>
-            <SimpleGrid minChildWidth="253px" spacing="20px">
-                {/* TODO: Update this mocked data */}
-                <VideoCard />
-                <VideoCard />
-                <VideoCard />
-                <VideoCard />
-                <VideoCard />
-            </SimpleGrid>
+
+            {hasVideos ? (
+                <SimpleGrid minChildWidth="253px" spacing="20px">
+                    {videos.map((video) => (
+                        <VideoCard
+                            key={video.id}
+                            name={video.name}
+                            url={video.url}
+                        />
+                    ))}
+                </SimpleGrid>
+            ) : (
+                <Text color="typography.600">
+                    You have no videos right now.
+                </Text>
+            )}
         </Box>
     );
 };
 
 export { VideoSection };
+
+{
+    /* TODO: Update this mocked data */
+}
+{
+    /* <VideoCard />
+                <VideoCard /> */
+}
+{
+    /* <VideoCard /> */
+}
+{
+    /* <VideoCard /> */
+}
+{
+    /* <VideoCard /> */
+}

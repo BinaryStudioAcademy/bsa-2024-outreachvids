@@ -18,7 +18,7 @@ class VideosApi extends BaseHttpApi {
 
     public async loadUserVideos(): Promise<VideoGetAllResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(VideosApiPath.USER_ID, {}),
+            this.getFullEndpoint(VideosApiPath.ROOT, {}),
             {
                 method: HTTPMethod.GET,
                 contentType: ContentType.JSON,
