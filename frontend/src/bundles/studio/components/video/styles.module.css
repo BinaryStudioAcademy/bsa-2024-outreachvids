@@ -1,5 +1,11 @@
-.video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.sequence {
+    background-color: rgb(220, 220, 220);
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    position: absolute;
+    object-fit: contain;
+    bottom: 0;
 }

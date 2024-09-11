@@ -45,12 +45,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
 
     return (
         <FormProvider value={form}>
-            <Box w="55%" color="white">
+            <Box width="55%" color="white">
                 <FormHeader
                     headerText="Create an account"
                     subheader={
                         <>
-                            Already registerd?{' '}
+                            Already registered?{' '}
                             <Link to={AppRoute.SIGN_IN} variant="secondary">
                                 Log In
                             </Link>
@@ -95,7 +95,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             type="submit"
                             label="Sign up"
                             size="lg"
-                            sx={{ mt: '16px' }}
+                            margin-top="16px"
                             isDisabled={isEmpty}
                         />
                     </VStack>

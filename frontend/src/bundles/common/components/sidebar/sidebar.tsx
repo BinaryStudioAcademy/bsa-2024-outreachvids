@@ -21,6 +21,7 @@ import { UserAvatar, UserCard } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
 import { useCollapse } from './hooks/use-collapse.hook.js';
+import styles from './styles.module.css';
 
 type Properties = {
     children: React.ReactNode;
@@ -54,13 +55,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
         <Flex w="100%">
             <Flex
                 w={isCollapsed ? '60px' : '270px'}
-                bg="background.900"
-                height="calc(100vh - 75px)"
-                position="fixed"
-                flexDirection="column"
-                justifyContent="space-between"
-                p="10px"
-                pb="20px"
+                className={styles['sidebarContainer']}
             >
                 <IconButton
                     aria-label={isCollapsed ? 'expand' : 'collapse'}
