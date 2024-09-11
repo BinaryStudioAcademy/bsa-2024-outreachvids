@@ -104,13 +104,16 @@ const { reducer, actions, name } = createSlice({
 
             state.scripts.push(script);
         },
-        editScript(state, action: PayloadAction<Omit<Script, 'duration'>>) {
-            const { id, text } = action.payload;
+        editScript(
+            state,
+            action: PayloadAction<
+                Required<Pick<Script, 'id'>> & Partial<Script>
+            >,
+        ) {
+            const { id, ...updatedScriptData } = action.payload;
 
             state.scripts = state.scripts.map((script) =>
-                script.id === id
-                    ? { ...script, text, duration: MIN_SCRIPT_DURATION }
-                    : script,
+                script.id === id ? { ...script, ...updatedScriptData } : script,
             );
         },
         deleteScript(state, action: PayloadAction<string>) {
@@ -190,6 +193,9 @@ const { reducer, actions, name } = createSlice({
                 state.videoSize === VideoPreview.LANDSCAPE
                     ? VideoPreview.PORTRAIT
                     : VideoPreview.LANDSCAPE;
+        },
+        setVideoSize(state, action: PayloadAction<VideoPreviewT>) {
+            state.videoSize = action.payload;
         },
         setDestinationPointer(
             state,

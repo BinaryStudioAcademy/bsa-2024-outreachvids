@@ -1,6 +1,6 @@
 import {
     AbsoluteFill,
-    RemotionAudio,
+    Audio,
     RemotionImg,
     Series,
 } from '~/bundles/common/components/components.js';
@@ -25,7 +25,7 @@ const VideoComponent: React.FC<Properties> = ({ scenes, scripts }) => {
                             durationInFrames={script?.duration * FPS || 0}
                         >
                             {'url' in script ? (
-                                <RemotionAudio src={script.url} />
+                                <Audio src={script.url} />
                             ) : (
                                 <></>
                             )}
