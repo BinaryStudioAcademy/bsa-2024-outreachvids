@@ -13,7 +13,8 @@ import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
-import { Control, TimeDisplay } from './components/components.js';
+import { Control } from '../components.js';
+import { TimeDisplay } from './components/components.js';
 
 const PlayerControls: React.FC = () => {
     const dispatch = useAppDispatch();
