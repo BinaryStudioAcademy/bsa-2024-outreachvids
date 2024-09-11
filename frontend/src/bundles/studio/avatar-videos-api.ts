@@ -17,14 +17,14 @@ type Constructor = {
 
 class AvatarVideosApi extends BaseHttpApi {
     public constructor({ baseUrl, http, storage }: Constructor) {
-        super({ path: ApiPath.AVATARS, baseUrl, http, storage });
+        super({ path: ApiPath.AVATAR_VIDEO, baseUrl, http, storage });
     }
 
     public async renderVideo(
         payload: RenderAvatarVideoRequestDto,
     ): Promise<RenderAvatarResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(AvatarsApiPath.AVATAR_VIDEO, {}),
+            this.getFullEndpoint(AvatarsApiPath.ROOT, {}),
             {
                 method: HTTPMethod.POST,
                 contentType: ContentType.JSON,
