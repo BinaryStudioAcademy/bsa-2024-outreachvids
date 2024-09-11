@@ -72,7 +72,17 @@ const initialState: State = {
         dataStatus: DataStatus.IDLE,
         items: [],
     },
-    scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
+    scenes: [
+        {
+            id: uuidv4(),
+            duration: MIN_SCENE_DURATION,
+            avatar: {
+                id: 'b58f9707-e4a4-49fc-8270-5984e70deb70',
+                style: 'casual',
+                url: 'https://speech.microsoft.com/assets/avatar/harry/harry-casual-thumbnail.png',
+            },
+        },
+    ],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
     ui: {
