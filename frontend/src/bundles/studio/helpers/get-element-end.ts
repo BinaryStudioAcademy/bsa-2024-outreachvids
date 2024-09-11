@@ -1,11 +1,4 @@
-import { type PixelsToValue } from 'dnd-timeline';
-
-const getElementEnd = (
-    itemsEnd: number,
-    widthInPixels: number,
-    pixelsToValue: PixelsToValue,
-): number => {
-    const elementWidth = pixelsToValue(widthInPixels);
+const getElementEnd = (itemsEnd: number, elementWidth: number): number => {
     return itemsEnd + (Number.isFinite(elementWidth) ? elementWidth : 0);
 };
 

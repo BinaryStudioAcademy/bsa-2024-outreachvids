@@ -22,8 +22,7 @@ const ScenesRow: React.FC = () => {
 
     const buttonEnd = getElementEnd(
         scenesEnd,
-        buttonWidthInPixels,
-        pixelsToValue,
+        pixelsToValue(buttonWidthInPixels),
     );
 
     return (
