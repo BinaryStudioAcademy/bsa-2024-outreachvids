@@ -1,6 +1,4 @@
 import { Button } from '@chakra-ui/react';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
     Flex,
@@ -14,6 +12,7 @@ import {
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 import { type VideoPreview as VideoPreviewT } from '~/bundles/common/types/types.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
@@ -21,6 +20,7 @@ import {
     VideoPreview as VideoPreviewValues,
     VideoSizeLabel,
 } from './libs/enums/enums.js';
+import styles from './styles.module.css';
 
 const VideoPreview: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -41,7 +41,7 @@ const VideoPreview: React.FC = () => {
     }, [dispatch, view]);
 
     return (
-        <Flex flexDirection="column" alignItems="center">
+        <Flex className={styles['previewContainer']}>
             <Flex
                 width={view === VideoPreviewValues.PORTRAIT ? '250px' : '720px'}
                 height="444px"
@@ -57,12 +57,7 @@ const VideoPreview: React.FC = () => {
                     alignItems="center"
                     color="gray.400"
                 >
-                    <Icon
-                        as={FontAwesomeIcon}
-                        icon={faPlay}
-                        padding="5px"
-                        height="16px"
-                    />
+                    <Icon as={IconName.PLAY} padding="5px" height="16px" />
                     <Text color="gray.400">
                         {view === VideoPreviewValues.PORTRAIT
                             ? VideoSizeLabel.PORTRAIT
@@ -71,7 +66,7 @@ const VideoPreview: React.FC = () => {
                 </Flex>
             </Flex>
 
-            <Flex justifyContent="center" gap={4}>
+            <Flex className={styles['previewButtonContainer']}>
                 <Link to={AppRoute.STUDIO}>
                     <Button
                         backgroundColor="brand.secondary.300"
@@ -87,9 +82,9 @@ const VideoPreview: React.FC = () => {
                     <Button
                         backgroundColor="brand.secondary.300"
                         color="white"
-                        onMouseEnter={handleSetPortraitView}
                         onClick={handleClick}
                         _hover={{ bg: 'brand.secondary.600' }}
+                        onMouseEnter={handleSetPortraitView}
                     >
                         Use portrait
                     </Button>

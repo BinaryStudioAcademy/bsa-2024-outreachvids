@@ -51,7 +51,16 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
+    notifications {
+        uuid id PK
+        uuid user_id FK
+        boolean is_read
+        enum type "Values: 'render'"
+        datetime created_at
+        datetime updated_at
+    }
     users ||--o{ videos : have
+    users ||--o{ notifications : have
 ```
 
 ## 🏃‍♂️ Simple Start
