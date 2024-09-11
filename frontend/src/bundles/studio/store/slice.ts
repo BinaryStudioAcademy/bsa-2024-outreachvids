@@ -2,7 +2,6 @@ import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
     millisecondsToSeconds,
     minutesToMilliseconds,
-    secondsToMilliseconds,
 } from 'date-fns';
 import { type Range, type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
@@ -142,14 +141,8 @@ const { reducer, actions, name } = createSlice({
             };
 
             state.scenes.push(scene);
-            const totalSeconds = state.scenes.reduce(
-                (sum, scene) => sum + scene.duration,
-                0,
-            );
-            const totalMilliseconds = secondsToMilliseconds(totalSeconds);
-            if (totalMilliseconds > state.range.end) {
-                state.range.end = totalMilliseconds;
-            }
+            const totalMilliseconds = calculateTotalMilliseconds(state.scenes, state.range.end);
+            state.range.end = totalMilliseconds;
         },
         resizeScene(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
