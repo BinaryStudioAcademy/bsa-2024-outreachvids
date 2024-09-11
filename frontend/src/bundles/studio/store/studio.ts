@@ -1,9 +1,10 @@
-import { loadAvatars } from './actions.js';
+import { loadAvatars, renderAvatar } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
     loadAvatars,
+    renderAvatar,
 };
 
 export { allActions as actions };
