@@ -24,7 +24,7 @@ class AvatarVideosApi extends BaseHttpApi {
         payload: RenderAvatarVideoRequestDto,
     ): Promise<RenderAvatarResponseDto> {
         const response = await this.load(
-            this.getFullEndpoint(AvatarsApiPath.ROOT, {}),
+            this.getFullEndpoint(AvatarsApiPath.AVATAR_VIDEO, {}),
             {
                 method: HTTPMethod.POST,
                 contentType: ContentType.JSON,
