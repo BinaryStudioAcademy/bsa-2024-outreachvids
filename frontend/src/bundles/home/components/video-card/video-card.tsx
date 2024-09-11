@@ -5,9 +5,19 @@ import {
     Icon,
     IconButton,
     Image,
+    LibraryLink,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
     Text,
 } from '~/bundles/common/components/components.js';
-import { IconName } from '~/bundles/common/icons/icons.js';
+import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+
+import styles from './styles.module.css';
+
+// TODO: remove mocked video url when fetching user videos
+const videoUrl = 'https://d2tm5q3cg1nlwf.cloudfront.net/1725950803697.webm';
 
 const VideoCard: React.FC = () => {
     return (
@@ -29,23 +39,33 @@ const VideoCard: React.FC = () => {
                     borderRadius="5px"
                 />
 
-                <IconButton
-                    aria-label="Video options"
-                    position="absolute"
-                    bg="white"
-                    top="5px"
-                    right="5px"
-                    size="xs"
-                    opacity="0"
-                    transition="opacity 0.3s ease"
-                    _groupHover={{ opacity: 1 }}
-                    icon={
-                        <Icon
-                            as={IconName.OPTIONS_VERTICAL}
-                            color="background.600"
-                        />
-                    }
-                />
+                <Menu>
+                    <MenuButton
+                        as={IconButton}
+                        size={IconSize.EXTRA_SMALL}
+                        variant="outline"
+                        aria-label="Video options"
+                        icon={
+                            <Icon
+                                as={IconName.OPTIONS_VERTICAL}
+                                color="background.600"
+                            />
+                        }
+                        className={styles['menu-button']}
+                    />
+                    <MenuList>
+                        <MenuItem
+                            as={LibraryLink}
+                            icon={<Icon as={IconName.DOWNLOAD} />}
+                            href={videoUrl}
+                            download
+                        >
+                            <Text color="typography.900" variant="bodySmall">
+                                Download
+                            </Text>
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
 
                 <IconButton
                     aria-label="Edit video"

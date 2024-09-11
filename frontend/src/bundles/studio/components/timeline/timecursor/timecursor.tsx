@@ -41,6 +41,26 @@ const TimeCursor: React.FC<Properties> = ({ playerRef }) => {
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
     useEffect(() => {
+        if (!timeCursorReference.current || isPlaying) {
+            return;
+        }
+
+        // Move time cursor when elapsed time is changed and video is not playing
+
+        const timeElapsedInPixels = valueToPixels(elapsedTime);
+        const sideDelta = sidebarWidth + timeElapsedInPixels;
+
+        timeCursorReference.current.style[side] = `${sideDelta}px`;
+    }, [
+        elapsedTime,
+        isPlaying,
+        side,
+        sidebarWidth,
+        timeCursorReference,
+        valueToPixels,
+    ]);
+
+    useEffect(() => {
         if (elapsedTime >= totalDuration) {
             void dispatch(studioActions.setPlaying(false));
         }
@@ -80,12 +100,17 @@ const TimeCursor: React.FC<Properties> = ({ playerRef }) => {
             const newCursorPosition = event.clientX - sidebarWidth;
 
             const newCursorPositionInTime = pixelsToValue(newCursorPosition);
-            dispatch(studioActions.setElapsedTime(newCursorPositionInTime)); //ms
+
+            if (newCursorPositionInTime > totalDuration) {
+                setCursorPosition(valueToPixels(totalDuration));
+                return;
+            }
 
             playerRef.current?.seekTo((newCursorPositionInTime / 1000) * FPS);
             if (isPlaying) {
                 playerRef.current?.pause();
             }
+            dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
 
             setCursorPosition(newCursorPosition);
         };
@@ -94,6 +119,12 @@ const TimeCursor: React.FC<Properties> = ({ playerRef }) => {
             setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
             const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+
+            if (newCursorPositionInTime > totalDuration) {
+                setCursorPosition(null);
+                return;
+            }
+
             renderTimeReference.current = Date.now() - newCursorPositionInTime;
 
             playerRef.current?.seekTo((newCursorPositionInTime / 1000) * 30);
@@ -125,6 +156,8 @@ const TimeCursor: React.FC<Properties> = ({ playerRef }) => {
         renderTimeReference,
         timeCursorReference,
         dispatch,
+        totalDuration,
+        valueToPixels,
     ]);
 
     useLayoutEffect(() => {
