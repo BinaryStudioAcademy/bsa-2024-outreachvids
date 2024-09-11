@@ -3,7 +3,7 @@ import { BaseHttp } from './base-http.js';
 const baseHttp = new BaseHttp();
 
 export { baseHttp };
-export { type BaseHttpApi } from './base-http-api.js';
+export { BaseHttpApi } from './base-http-api.js';
 export {
     ContentType,
     HttpCode,

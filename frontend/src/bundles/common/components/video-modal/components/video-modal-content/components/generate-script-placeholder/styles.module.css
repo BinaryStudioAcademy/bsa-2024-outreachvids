@@ -1,0 +1,19 @@
+.scriptPlaceholderContainer {
+    width: 100%;
+    padding: 40px;
+    gap: 10px;
+}
+
+.scriptPlaceholderIcon {
+    color: var(--chakra-colors-brand-secondary-300);
+    opacity: 0.5;
+    font-size: 2rem;
+}
+
+.scriptPlaceholderText {
+    color: var(--chakra-colors-gray-400);
+    width: 40%;
+    min-width: 175px;
+    text-align: center;
+    font-style: italic;
+}

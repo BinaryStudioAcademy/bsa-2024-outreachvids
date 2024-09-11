@@ -20,6 +20,7 @@ import {
     VideoPreview as VideoPreviewValues,
     VideoSizeLabel,
 } from './libs/enums/enums.js';
+import styles from './styles.module.css';
 
 const VideoPreview: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -40,7 +41,7 @@ const VideoPreview: React.FC = () => {
     }, [dispatch, view]);
 
     return (
-        <Flex flexDirection="column" alignItems="center">
+        <Flex className={styles['previewContainer']}>
             <Flex
                 width={view === VideoPreviewValues.PORTRAIT ? '250px' : '720px'}
                 height="444px"
@@ -65,7 +66,7 @@ const VideoPreview: React.FC = () => {
                 </Flex>
             </Flex>
 
-            <Flex justifyContent="center" gap={4}>
+            <Flex className={styles['previewButtonContainer']}>
                 <Link to={AppRoute.STUDIO}>
                     <Button
                         backgroundColor="brand.secondary.300"
@@ -81,9 +82,9 @@ const VideoPreview: React.FC = () => {
                     <Button
                         backgroundColor="brand.secondary.300"
                         color="white"
-                        onMouseEnter={handleSetPortraitView}
                         onClick={handleClick}
                         _hover={{ bg: 'brand.secondary.600' }}
+                        onMouseEnter={handleSetPortraitView}
                     >
                         Use portrait
                     </Button>

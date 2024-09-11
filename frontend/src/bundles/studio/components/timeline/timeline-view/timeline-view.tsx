@@ -1,3 +1,6 @@
+import { type PlayerRef } from '@remotion/player';
+import { type RefObject } from 'react';
+
 import { Box } from '~/bundles/common/components/components.js';
 import { timeAxisMarkers } from '~/bundles/studio/helpers/time-axis-markers.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
@@ -10,13 +13,17 @@ import {
     TimeCursor,
 } from '../components.js';
 
-const TimelineView: React.FC = () => {
+type Properties = {
+    playerRef: RefObject<PlayerRef>;
+};
+
+const TimelineView: React.FC<Properties> = ({ playerRef }) => {
     const { setTimelineRef, style } = useTimelineContext();
 
     return (
         <Box ref={setTimelineRef} style={style}>
             <TimeAxis markers={timeAxisMarkers} />
-            <TimeCursor />
+            <TimeCursor playerRef={playerRef} />
             <Row id="emptyTop" />
             <ScenesRow />
             <ScriptsRow />
