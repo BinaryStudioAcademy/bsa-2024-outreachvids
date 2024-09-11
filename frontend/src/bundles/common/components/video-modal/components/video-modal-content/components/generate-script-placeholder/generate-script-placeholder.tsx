@@ -1,5 +1,4 @@
 import { Icon, Text, VStack } from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IconName } from '~/bundles/common/icons/icons.js';
 
@@ -7,11 +6,10 @@ const GenerateScriptPlaceholder: React.FC = () => {
     return (
         <VStack w="full" p="40px" gap="10px">
             <Icon
-                as={FontAwesomeIcon}
-                icon={IconName.SCROLL}
+                as={IconName.SCROLL}
                 color="brand.secondary.300"
                 opacity="0.5"
-                size="2x"
+                boxSize={10}
             />
             <Text
                 color="gray.400"
