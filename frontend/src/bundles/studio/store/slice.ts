@@ -56,6 +56,7 @@ type State = {
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
+        menuActiveIndex: number | null;
     };
 };
 
@@ -70,6 +71,7 @@ const initialState: State = {
     ui: {
         destinationPointer: null,
         selectedItem: null,
+        menuActiveIndex: null,
     },
 };
 
@@ -83,7 +85,7 @@ const { reducer, actions, name } = createSlice({
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
             };
-
+            state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
             state.scripts.push(script);
         },
         editScript(state, action: PayloadAction<Omit<Script, 'duration'>>) {
@@ -123,7 +125,7 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCENE_DURATION,
             };
-
+            state.ui.selectedItem = { id: scene.id, type: RowNames.SCENE };
             state.scenes.push(scene);
         },
         resizeScene(state, action: PayloadAction<ItemActionPayload>) {
@@ -220,6 +222,9 @@ const { reducer, actions, name } = createSlice({
                     },
                 };
             });
+        },
+        setMenuActiveIndex(state, action: PayloadAction<number | null>) {
+            state.ui.menuActiveIndex = action.payload;
         },
     },
     extraReducers(builder) {

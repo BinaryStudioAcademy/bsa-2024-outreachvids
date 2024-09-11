@@ -2,8 +2,13 @@ import {
     FontAwesomeIcon,
     Icon,
 } from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Menu, MenuBody } from './components/components.js';
 import {
@@ -15,56 +20,54 @@ import {
     TemplatesContent,
     TextContent,
 } from './components/mock/menu-mock.js';
-import { type ActiveItem, type MenuItem } from './types/types.js';
+import { type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [activeItem, setActiveItem] = useState<ActiveItem>({
-        title: '',
-        content: null,
-    });
-    const [isOpen, setIsOpen] = useState(false);
+    const activeIndex = useAppSelector(
+        ({ studio }) => studio.ui.menuActiveIndex,
+    );
+    const dispatch = useAppDispatch();
 
-    const handleMenuClick = useCallback(
-        (header: string, content: React.ReactNode): void => {
-            setActiveItem({ title: header, content });
-            setIsOpen(true);
+    const setActiveIndex = useCallback(
+        (index: number | null): void => {
+            dispatch(studioActions.setMenuActiveIndex(index));
         },
-        [],
+        [dispatch],
     );
 
-    const handleActiveItemReset = useCallback((): void => {
-        setIsOpen(false);
+    const handleMenuClose = useCallback((): void => {
         setActiveIndex(null);
-    }, []);
+    }, [setActiveIndex]);
 
     const menuItems: MenuItem[] = [
         {
             label: 'Templates',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.TEMPLATE} />,
-            onClick: () => handleMenuClick('Templates', <TemplatesContent />),
+            getContent: () => <TemplatesContent />,
         },
         {
             label: 'Avatars',
             icon: <Icon as={IconName.AVATAR} />,
-            onClick: () => handleMenuClick('Avatars', <AvatarsContent />),
+            getContent: () => <AvatarsContent />,
         },
         {
             label: 'Script',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.SCRIPT} />,
-            onClick: () => handleMenuClick('Script', <ScriptContent />),
+            getContent: () => <ScriptContent />,
         },
         {
             label: 'Text',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.TEXT} />,
-            onClick: () => handleMenuClick('Text', <TextContent />),
+            getContent: () => <TextContent />,
         },
         {
             label: 'Assets',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.UPLOAD} />,
-            onClick: () => handleMenuClick('Assets', <AssetsContent />),
+            getContent: () => <AssetsContent />,
         },
     ];
+
+    const activeItem = activeIndex ? menuItems[activeIndex] : null;
 
     return (
         <>
@@ -73,13 +76,11 @@ const VideoMenu: React.FC = () => {
                 activeIndex={activeIndex}
                 onActiveIndexSet={setActiveIndex}
             />
-            <MenuBody
-                title={activeItem.title}
-                isOpen={isOpen}
-                onClose={handleActiveItemReset}
-            >
-                {activeItem.content}
-            </MenuBody>
+            {activeItem && (
+                <MenuBody title={activeItem.label} onClose={handleMenuClose}>
+                    {activeItem.getContent()}
+                </MenuBody>
+            )}
         </>
     );
 };

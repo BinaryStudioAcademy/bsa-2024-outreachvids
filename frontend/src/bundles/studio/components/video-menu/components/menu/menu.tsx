@@ -27,7 +27,6 @@ const Menu: React.FC<Properties> = ({
                 }
 
                 onActiveIndexSet(index);
-                item.onClick();
             };
         },
         [onActiveIndexSet, items],
