@@ -70,9 +70,7 @@ const Studio: React.FC = () => {
             <VStack alignItems={'stretch'}>
                 <PlayerControls playerRef={playerReference} />
                 <Box overflowY="auto">
-                    <Timeline
-                        playerRef={playerReference}
-                    />
+                    <Timeline playerRef={playerReference} />
                 </Box>
             </VStack>
         </Box>
