@@ -101,38 +101,39 @@ const Script: React.FC<Properties> = ({
 
     return (
         <VStack w="full">
-            <HStack justify="end" w="full" gap={0}>
+            <HStack justify="space-between" w="full">
                 <Text
                     onClick={handleChangeVoiceId}
                     cursor={'pointer'}
                     variant="link"
-                    alignSelf={'start'}
                 >
                     {voice?.name || 'No voice'}
                 </Text>
-                <Tooltip
-                    isDisabled={Boolean(url)}
-                    label="Click to update audio"
-                    placement="top"
-                    hasArrow
-                >
+                <HStack gap={0}>
+                    <Tooltip
+                        isDisabled={Boolean(url)}
+                        label="Click to update audio"
+                        placement="top"
+                        hasArrow
+                    >
+                        <IconButton
+                            icon={<Icon as={iconComponent} />}
+                            size="sm"
+                            variant="ghostIconDark"
+                            aria-label="Play script"
+                            onClick={toggleIsPlaying}
+                            borderRadius="100%"
+                            border={url ? '' : '1px dotted'}
+                        />
+                    </Tooltip>
                     <IconButton
-                        icon={<Icon as={iconComponent} />}
+                        icon={<Icon as={IconName.CLOSE} />}
                         size="sm"
                         variant="ghostIconDark"
-                        aria-label="Play script"
-                        onClick={toggleIsPlaying}
-                        borderRadius="100%"
-                        border={url ? '' : '1px dotted'}
+                        aria-label="Delete script"
+                        onClick={handleDeleteScript}
                     />
-                </Tooltip>
-                <IconButton
-                    icon={<Icon as={IconName.CLOSE} />}
-                    size="sm"
-                    variant="ghostIconDark"
-                    aria-label="Delete script"
-                    onClick={handleDeleteScript}
-                />
+                </HStack>
             </HStack>
             <Editable
                 defaultValue={text}
