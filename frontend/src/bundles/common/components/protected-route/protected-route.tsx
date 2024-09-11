@@ -12,8 +12,10 @@ type Properties = {
 
 const ProtectedRoute: React.FC<Properties> = ({ children }) => {
     const { user, dataStatus } = useAppSelector((state) => state.auth);
+    const isLoading =
+        dataStatus === DataStatus.PENDING || dataStatus === DataStatus.IDLE;
 
-    if (dataStatus === DataStatus.PENDING) {
+    if (isLoading) {
         return (
             <Overlay isOpen>
                 <Loader />
@@ -21,13 +23,11 @@ const ProtectedRoute: React.FC<Properties> = ({ children }) => {
         );
     }
 
-    if (dataStatus === DataStatus.REJECTED) {
+    if (!user) {
         return <Navigate to={AppRoute.SIGN_IN} replace />;
     }
 
-    if (user) {
-        return <>{children}</>;
-    }
+    return <>{children}</>;
 };
 
 export { ProtectedRoute };
