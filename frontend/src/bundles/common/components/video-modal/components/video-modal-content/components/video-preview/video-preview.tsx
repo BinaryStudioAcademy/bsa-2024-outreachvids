@@ -1,6 +1,4 @@
 import { Button } from '@chakra-ui/react';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
     Flex,
@@ -14,6 +12,7 @@ import {
     useCallback,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 import { type VideoPreview as VideoPreviewT } from '~/bundles/common/types/types.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
@@ -44,21 +43,22 @@ const VideoPreview: React.FC = () => {
     return (
         <Flex className={styles['previewContainer']}>
             <Flex
-                className={styles['previewBox']}
-                style={{
-                    width:
-                        view === VideoPreviewValues.PORTRAIT
-                            ? '250px'
-                            : '720px',
-                }}
+                width={view === VideoPreviewValues.PORTRAIT ? '250px' : '720px'}
+                height="444px"
+                borderWidth="1px"
+                borderColor="gray.300"
+                borderRadius="md"
+                justifyContent="center"
+                alignItems="center"
+                mb={4}
             >
-                <Flex className={styles['previewInnerBox']}>
-                    <Icon
-                        as={FontAwesomeIcon}
-                        icon={faPlay}
-                        className={styles['previewIcon']}
-                    />
-                    <Text className={styles['previewText']}>
+                <Flex
+                    flexDirection="column"
+                    alignItems="center"
+                    color="gray.400"
+                >
+                    <Icon as={IconName.PLAY} padding="5px" height="16px" />
+                    <Text color="gray.400">
                         {view === VideoPreviewValues.PORTRAIT
                             ? VideoSizeLabel.PORTRAIT
                             : VideoSizeLabel.LANDSCAPE}
