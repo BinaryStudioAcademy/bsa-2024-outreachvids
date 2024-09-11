@@ -10,6 +10,7 @@ import { type VideoScript } from '~/bundles/common/types/types.js';
 
 import { GenerateScriptPlaceholderContent } from '../generate-script-placeholder-content/generate-script-placeholder-content.js';
 import { GenerateScriptScene } from '../generate-script-scene/generate-script-scene.js';
+import styles from './styles.module.css';
 
 type Properties = {
     videoScripts: VideoScript[];
@@ -21,14 +22,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
     }));
 
     return (
-        <VStack
-            w="full"
-            paddingX="40px"
-            gap="10px"
-            height="100vh"
-            maxH="550px"
-            overflowY="auto"
-        >
+        <VStack className={styles['scriptPlaceholderContainer']}>
             <Overlay isOpen={dataStatus === DataStatus.PENDING}>
                 <Loader />
             </Overlay>

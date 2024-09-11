@@ -1,0 +1,24 @@
+.timeAxis {
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.markerContainer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.markerLine {
+    width: 1px;
+}
+
+.markerLabel {
+    padding-left: 3px;
+    align-self: flex-start;
+}

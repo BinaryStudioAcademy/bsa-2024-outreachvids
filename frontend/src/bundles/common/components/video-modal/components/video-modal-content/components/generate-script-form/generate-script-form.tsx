@@ -19,6 +19,7 @@ import {
 } from '~/bundles/video-scripts/video-scripts.js';
 
 import { DEFAULT_GENERATE_SCRIPT_PAYLOAD } from './constants/constants.js';
+import styles from './styles.module.css';
 
 type Properties = {
     onSubmit: (payload: GenerateVideoScriptRequestDto) => void;
@@ -50,12 +51,15 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
     return (
         <FormProvider value={form}>
             <form onSubmit={handleSubmit}>
-                <VStack width="256px" spacing="20px" mt="20px">
+                <VStack
+                    className={styles['scriptFormContainer']}
+                    spacing="20px"
+                >
                     <Textarea
                         label="Topic"
                         name="topic"
                         placeholder="Introduce your platform"
-                        sx={{ height: '84px' }}
+                        className={styles['scriptFormTextareaTopic']}
                         required
                     />
                     <Select label="Target language" name="language" required>
@@ -73,12 +77,12 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
                         label="Additional info"
                         name="additionalInfo"
                         placeholder="An online video tool with built-in talking AI-avatars"
-                        sx={{ height: '64px' }}
+                        className={styles['scriptFormTextareaAdditionalInfo']}
                     />
                     <Button
                         type="submit"
                         label={getButtonLabel()}
-                        sx={{ mt: '50px' }}
+                        margin-top="50px"
                         isDisabled={values.topic.trim().length === 0}
                     />
                 </VStack>

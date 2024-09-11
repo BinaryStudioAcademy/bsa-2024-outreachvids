@@ -1,0 +1,45 @@
+.menuContainer {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: auto;
+    width: 84px;
+    background-color: var(--chakra-colors-background-900);
+    color: white;
+    border-top-right-radius: var(--chakra-radii-xl);
+    border-bottom-right-radius: var(--chakra-radii-xl);
+}
+
+.vStack {
+    width: 100%;
+    padding: 8px;
+}
+
+.menuItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    width: 66px;
+    gap: 4px;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+.menuItemActive {
+    background-color: var(--chakra-colors-background-600);
+}
+
+.menuItem:hover {
+    background-color: var(--chakra-colors-background-600);
+}
+
+.icon {
+    font-size: var(--chakra-fontSizes-xl);
+}
+
+.label {
+    font-size: 12px;
+}
