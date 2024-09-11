@@ -2,7 +2,7 @@ import { Box, Flex, VStack } from '~/bundles/common/components/components.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import { type MenuItem } from '../../types/types.js';
-import styles from './Menu.module.css';
+import styles from './styles.module.css';
 
 type Properties = {
     items: MenuItem[];
