@@ -105,6 +105,8 @@ class SpeechController extends BaseController {
      *              type: object
      *              required: [text, voiceName]
      *              properties:
+     *                scriptId:
+     *                  type: string
      *                text:
      *                  type: string
      *                voiceName:
@@ -117,6 +119,8 @@ class SpeechController extends BaseController {
      *              schema:
      *                type: object
      *                properties:
+     *                  scriptId:
+     *                    type: string
      *                  audioUrl:
      *                    type: string
      */
