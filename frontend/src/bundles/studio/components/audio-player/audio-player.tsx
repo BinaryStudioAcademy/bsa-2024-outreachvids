@@ -13,15 +13,15 @@ import { AudioEvent } from './enums/enums.js';
 type Properties = {
     isPlaying: boolean;
     audioUrl: string;
-    handleAudioEnd: () => void;
-    handleSetDuration: (duration: number) => void;
+    onAudioEnd: () => void;
+    onSetDuration: (duration: number) => void;
 };
 
 const AudioPlayer: React.FC<Properties> = ({
     isPlaying,
     audioUrl,
-    handleAudioEnd,
-    handleSetDuration,
+    onAudioEnd,
+    onSetDuration,
 }) => {
     const playerReference = useRef<PlayerRef>(null);
 
@@ -39,22 +39,22 @@ const AudioPlayer: React.FC<Properties> = ({
         getAudioData(audioUrl)
             .then(({ durationInSeconds }) => {
                 setDurationInFrames(Math.round(durationInSeconds * FPS));
-                handleSetDuration(durationInSeconds);
+                onSetDuration(durationInSeconds);
             })
             .catch(() => {
                 setDurationInFrames(1);
             });
-    }, [audioUrl, handleSetDuration]);
+    }, [audioUrl, onSetDuration]);
 
     useEffect(() => {
         const player = playerReference.current;
 
-        player?.addEventListener(AudioEvent.ENDED, handleAudioEnd);
+        player?.addEventListener(AudioEvent.ENDED, onAudioEnd);
 
         return () => {
-            player?.removeEventListener(AudioEvent.ENDED, handleAudioEnd);
+            player?.removeEventListener(AudioEvent.ENDED, onAudioEnd);
         };
-    }, [handleAudioEnd, playerReference]);
+    }, [onAudioEnd, playerReference]);
 
     return (
         <LibraryPlayer

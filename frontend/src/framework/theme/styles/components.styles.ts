@@ -80,6 +80,10 @@ const components = {
                 color: colors.typography[600],
                 bgColor: colors.background[50],
             },
+            light: {
+                color: colors.background[50],
+                bgColor: colors.white,
+            },
             primaryOutlined: {
                 color: colors.background[300],
                 border: '1px solid',
