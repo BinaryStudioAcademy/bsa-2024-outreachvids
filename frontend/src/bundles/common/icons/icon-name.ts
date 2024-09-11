@@ -17,6 +17,7 @@ import {
     faTableColumns,
 } from '@fortawesome/free-solid-svg-icons';
 
+import { OpenAi } from './custom-icons/custom-icons.js';
 import {
     backwardStepIcon,
     CircleUserIcon,
@@ -59,6 +60,7 @@ const IconName = {
     TEXT: faT,
     ADD: AddIcon,
     CLOSE: CloseIcon,
+    OPEN_AI: OpenAi,
 } as const;
 
 export { IconName };
