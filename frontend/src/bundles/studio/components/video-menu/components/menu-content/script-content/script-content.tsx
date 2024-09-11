@@ -30,8 +30,8 @@ const ScriptContent: React.FC = () => {
                     To add a script press a button below.
                 </Text>
             ) : (
-                scripts.map(({ text, id }) => (
-                    <Script key={id} id={id} text={text} />
+                scripts.map(({ id, ...script }) => (
+                    <Script key={id} id={id} {...script} />
                 ))
             )}
             <IconButton

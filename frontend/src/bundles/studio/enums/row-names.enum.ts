@@ -1,5 +1,5 @@
 const RowNames = {
-    AVATAR: 'avatar',
+    SCENE: 'scene',
     SCRIPT: 'script',
 } as const;
 
