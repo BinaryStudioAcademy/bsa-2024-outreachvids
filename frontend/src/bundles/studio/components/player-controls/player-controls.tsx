@@ -15,6 +15,7 @@ import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
+import { FPS } from '../audio-player/constants/constants.js';
 import { Control } from '../components.js';
 import { TimeDisplay } from './components/components.js';
 
@@ -50,9 +51,9 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
         if (!currentScene) {
             return;
         }
-
+        playerRef.current?.seekTo((currentScene.span.end / 1000) * FPS);
         void dispatch(studioActions.setElapsedTime(currentScene.span.end));
-    }, [dispatch, elapsedTime, scenesWithSpan]);
+    }, [dispatch, elapsedTime, scenesWithSpan, playerRef]);
 
     const handleSkipToPreviousScene = useCallback((): void => {
         const currentSceneIndex = scenesWithSpan.findIndex(
@@ -74,8 +75,9 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
             ? (scenesWithSpan[currentSceneIndex - 1] ?? currentScene)
             : currentScene;
 
+        playerRef.current?.seekTo((previousScene.span.start / 1000) * FPS);
         void dispatch(studioActions.setElapsedTime(previousScene.span.start));
-    }, [dispatch, elapsedTime, scenesWithSpan]);
+    }, [dispatch, elapsedTime, scenesWithSpan, playerRef]);
 
     return (
         <Flex
