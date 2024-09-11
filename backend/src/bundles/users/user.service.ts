@@ -21,7 +21,8 @@ class UserService implements Service {
     }
 
     public async findByEmail(email: string): Promise<UserEntity | null> {
-        return await this.userRepository.findByEmail(email);
+        const normalizedEmail = email.toLowerCase();
+        return await this.userRepository.findByEmail(normalizedEmail);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
@@ -35,11 +36,13 @@ class UserService implements Service {
     public async create(
         payload: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
-        const { hash, salt } = cryptService.encryptSync(payload.password);
+        const { fullName, email, password } = payload;
+        const { hash, salt } = cryptService.encryptSync(password);
+
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
-                email: payload.email,
-                fullName: payload.fullName,
+                email: email.toLowerCase(),
+                fullName: fullName,
                 passwordSalt: salt,
                 passwordHash: hash,
             }),
