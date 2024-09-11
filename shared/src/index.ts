@@ -1,5 +1,15 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type AvatarConfig,
+    type InputKind,
+    type RenderAvatarResponseDto,
+    type RenderAvatarVideoRequestDto,
+    type VideoCodec,
+    type VideoFormat,
+    AvatarVideosApiPath,
+    renderAvatarVideoValidationSchema,
+} from './bundles/avatar-videos/avatar-videos.js';
+export {
     type AvatarGetAllResponseDto,
     type AvatarGetOneRequestDto,
     type AvatarGetResponseDto,
@@ -11,6 +21,18 @@ export {
     ChatPath,
     textGenerationValidationSchema,
 } from './bundles/chat/chat.js';
+export {
+    type CreateNotificationRequestDto,
+    type NotificationGetAllItemResponseDto,
+    type NotificationGetAllResponseDto,
+    type NotificationGetOneRequestDto,
+    type NotificationType,
+    type UpdateNotificationRequestDto,
+    createNotificationValidationSchema,
+    NotificationsApiPath,
+    NotificationValidationMessage,
+    updateNotificationValidationSchema,
+} from './bundles/notifications/notifications.js';
 export {
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,

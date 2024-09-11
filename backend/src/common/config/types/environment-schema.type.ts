@@ -33,6 +33,7 @@ type EnvironmentSchema = {
     AZURE: {
         SUBSCRIPTION_KEY: string;
         SERVICE_REGION: string;
+        SERVICE_ENDPOINT: string;
     };
 };
 

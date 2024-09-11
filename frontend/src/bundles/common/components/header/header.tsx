@@ -3,6 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 import { Link } from '../link/link.js';
+import styles from './styles.module.css';
 
 type Properties = {
     left?: React.ReactNode;
@@ -12,25 +13,11 @@ type Properties = {
 
 const Header: React.FC<Properties> = ({ left, center, right }) => {
     return (
-        <Flex
-            as="header"
-            height="75px"
-            position="sticky"
-            top="0"
-            left="0"
-            width="full"
-            backgroundColor="background.900"
-            zIndex="100"
-            padding="4"
-            alignItems="center"
-            justifyContent="space-between"
-        >
+        <Flex as="header" className={styles['header']}>
             {left ?? (
                 // {/* TODO: Add logo */}
                 <Link to={AppRoute.ROOT}>
-                    <Text fontSize="xl" fontWeight="lighter" color="white">
-                        Logo
-                    </Text>
+                    <Text className={styles['logoText']}>Logo</Text>
                 </Link>
             )}
             <Box>{center}</Box>
