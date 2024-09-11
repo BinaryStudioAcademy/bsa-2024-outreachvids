@@ -51,6 +51,11 @@ const defaultVoiceName = 'en-US-BrianMultilingualNeural';
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     avatars: Array<AvatarGetResponseDto> | [];
+    player: {
+        isPlaying: boolean;
+        elapsedTime: number; // ms
+    };
+
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
@@ -63,6 +68,10 @@ type State = {
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     avatars: [],
+    player: {
+        isPlaying: false,
+        elapsedTime: 0,
+    },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
@@ -103,6 +112,13 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.filter(
                 (script) => script.id !== action.payload,
             );
+        },
+
+        setPlaying(state, action: PayloadAction<boolean>) {
+            state.player.isPlaying = action.payload;
+        },
+        setElapsedTime(state, action: PayloadAction<number>) {
+            state.player.elapsedTime = action.payload;
         },
         reorderScripts(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
@@ -169,6 +185,9 @@ const { reducer, actions, name } = createSlice({
                 state.videoSize === VideoPreview.LANDSCAPE
                     ? VideoPreview.PORTRAIT
                     : VideoPreview.LANDSCAPE;
+        },
+        setVideoSize(state, action: PayloadAction<VideoPreviewT>) {
+            state.videoSize = action.payload;
         },
         setDestinationPointer(
             state,

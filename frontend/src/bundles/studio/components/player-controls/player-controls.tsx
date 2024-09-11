@@ -1,19 +1,30 @@
 import { Flex } from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Control, TimeDisplay } from './components/components.js';
 
 const PlayerControls: React.FC = () => {
-    // Mocked data. Update later
-    const currentTime = 5;
-    const duration = 10;
+    const dispatch = useAppDispatch();
+    const { isPlaying, elapsedTime } = useAppSelector(({ studio }) => ({
+        isPlaying: studio.player.isPlaying,
+        elapsedTime: studio.player.elapsedTime,
+    }));
+    const totalDuration = useAppSelector(selectTotalDuration);
 
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const handleTogglePlaying = useCallback((): void => {
+        if (elapsedTime >= totalDuration) {
+            void dispatch(studioActions.setElapsedTime(0));
+        }
 
-    const handleClick = useCallback((): void => {
-        setIsPlaying((previous) => !previous);
-    }, []);
+        void dispatch(studioActions.setPlaying(!isPlaying));
+    }, [elapsedTime, totalDuration, dispatch, isPlaying]);
 
     return (
         <Flex
@@ -34,7 +45,7 @@ const PlayerControls: React.FC = () => {
                     label={isPlaying ? 'Pause' : 'Play video'}
                     size={IconSize.SMALL}
                     icon={isPlaying ? IconName.PAUSE : IconName.PLAY}
-                    onClick={handleClick}
+                    onClick={handleTogglePlaying}
                 />
 
                 <Control
@@ -43,7 +54,7 @@ const PlayerControls: React.FC = () => {
                     icon={IconName.PLAY_STEP_NEXT}
                 />
 
-                <TimeDisplay currentTime={currentTime} duration={duration} />
+                <TimeDisplay />
             </Flex>
         </Flex>
     );

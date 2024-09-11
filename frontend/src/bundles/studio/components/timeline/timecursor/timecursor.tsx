@@ -1,57 +1,67 @@
 import { Box } from '~/bundles/common/components/components.js';
 import {
+    useAnimationFrame,
+    useAppDispatch,
+    useAppSelector,
     useCallback,
+    useEffect,
     useLayoutEffect,
     useRef as useReference,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
+import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
-type Properties = {
-    interval?: number;
-};
+const TimeCursor: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { isPlaying, elapsedTime } = useAppSelector(({ studio }) => ({
+        isPlaying: studio.player.isPlaying,
+        elapsedTime: studio.player.elapsedTime,
+    }));
+    const totalDuration = useAppSelector(selectTotalDuration);
 
-const TimeCursor: React.FC<Properties> = ({ interval }) => {
     const timeCursorReference = useReference<HTMLDivElement>(null);
-    const renderTimeReference = useReference(Date.now());
-    const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
+    const renderTimeReference = useReference(0);
+    const { direction, sidebarWidth, valueToPixels, pixelsToValue } =
         useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
-    const millisecondPerRefresh = 1000;
+
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
-    useLayoutEffect(() => {
-        const offsetCursor = (): void => {
-            if (!timeCursorReference.current || cursorPosition !== null) {
-                return;
-            }
-            const timeDelta = Date.now() - renderTimeReference.current;
-            const timeDeltaInPixels = valueToPixels(timeDelta);
+    useEffect(() => {
+        if (elapsedTime >= totalDuration) {
+            void dispatch(studioActions.setPlaying(false));
+        }
+    }, [dispatch, elapsedTime, totalDuration]);
 
-            const sideDelta = sidebarWidth + timeDeltaInPixels;
-            timeCursorReference.current.style[side] = `${sideDelta}px`;
-        };
-        offsetCursor();
-        const cursorUpdateInterval = setInterval(
-            offsetCursor,
-            interval ?? millisecondPerRefresh,
-        );
-        return () => {
-            clearInterval(cursorUpdateInterval);
-        };
-    }, [
-        side,
-        sidebarWidth,
-        interval,
-        range.start,
-        valueToPixels,
-        cursorPosition,
-        renderTimeReference,
-        timeCursorReference,
-    ]);
+    const offsetCursor = (): void => {
+        if (!timeCursorReference.current || cursorPosition) {
+            return;
+        }
+
+        const currentTime = Date.now();
+        const timeDelta =
+            currentTime - renderTimeReference.current + elapsedTime;
+        const timeDeltaInPixels = valueToPixels(timeDelta);
+
+        const sideDelta = sidebarWidth + timeDeltaInPixels;
+        timeCursorReference.current.style[side] = `${sideDelta}px`;
+
+        dispatch(studioActions.setElapsedTime(timeDelta));
+        renderTimeReference.current = currentTime;
+    };
+
+    useAnimationFrame(offsetCursor, isPlaying);
+
+    useEffect(() => {
+        if (isPlaying) {
+            renderTimeReference.current = Date.now();
+        }
+    }, [cursorPosition, renderTimeReference, isPlaying]);
 
     useLayoutEffect(() => {
         const handleMouseMove = (event: MouseEvent): void => {
@@ -60,14 +70,20 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
             }
 
             const newCursorPosition = event.clientX - sidebarWidth;
+
+            const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+            dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
+
             setCursorPosition(newCursorPosition);
         };
 
         const handleMouseUp = (event: MouseEvent): void => {
             setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
-            renderTimeReference.current =
-                Date.now() - pixelsToValue(newCursorPosition);
+            const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+            renderTimeReference.current = Date.now() - newCursorPositionInTime;
+
+            dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
             setCursorPosition(null);
         };
 
@@ -90,10 +106,11 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
         pixelsToValue,
         renderTimeReference,
         timeCursorReference,
+        dispatch,
     ]);
 
     useLayoutEffect(() => {
-        if (cursorPosition !== null && timeCursorReference.current) {
+        if (cursorPosition && timeCursorReference.current) {
             timeCursorReference.current.style[side] =
                 `${cursorPosition + sidebarWidth}px`;
         }
