@@ -12,8 +12,8 @@ import {
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
+import { NEW_SCRIPT_TEXT } from '../../../../constants/constants.js';
 import { Script } from './components/script.js';
-import { NEW_SCRIPT_TEXT } from './constants/constants.js';
 
 const ScriptContent: React.FC = () => {
     const dispatch = useAppDispatch();

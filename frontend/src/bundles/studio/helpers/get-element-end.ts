@@ -5,7 +5,7 @@ const getElementEnd = (
     widthInPixels: number,
     pixelsToValue: PixelsToValue,
 ): number => {
-    const elementWidth = pixelsToValue(widthInPixels);
+    const elementWidth = Math.round(pixelsToValue(widthInPixels));
     return itemsEnd + (Number.isFinite(elementWidth) ? elementWidth : 0);
 };
 

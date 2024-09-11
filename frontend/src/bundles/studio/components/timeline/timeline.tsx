@@ -15,6 +15,7 @@ import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
+import { NEW_SCRIPT_TEXT } from '../constants/constants.js';
 import { TimelineView } from './components.js';
 
 type Properties = {
@@ -25,6 +26,22 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
     const dispatch = useAppDispatch();
 
     const [range, setRange] = useState(initialRange);
+
+    const onButtonClick = useCallback(
+        (type: RowType) => {
+            switch (type) {
+                case RowNames.SCENE: {
+                    dispatch(studioActions.addScene());
+                    break;
+                }
+                case RowNames.SCRIPT: {
+                    dispatch(studioActions.addScript(NEW_SCRIPT_TEXT));
+                    break;
+                }
+            }
+        },
+        [dispatch],
+    );
 
     const onResizeEnd = useCallback(
         (event: ResizeEndEvent) => {
@@ -89,10 +106,6 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
             const activeItemId = event.active.id as string;
             const activeItemType = activeItem['type'] as RowType;
 
-            if (activeItemType === RowNames.BUTTON) {
-                return;
-            }
-
             const activeRowId = event.over?.id as string;
 
             const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
@@ -109,12 +122,21 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
                 Math.round(updatedSpan.start) === start &&
                 Math.round(updatedSpan.end) == end
             ) {
-                dispatch(
-                    studioActions.selectItem({
-                        id: activeItemId,
-                        type: activeItemType,
-                    }),
-                );
+                switch (activeItemType) {
+                    case RowNames.SCENE: {
+                        dispatch(
+                            studioActions.selectItem({
+                                id: activeItemId,
+                                type: activeItemType,
+                            }),
+                        );
+                        break;
+                    }
+                    case RowNames.BUTTON: {
+                        onButtonClick(activeRowId as RowType);
+                        break;
+                    }
+                }
                 return;
             }
 
@@ -139,7 +161,7 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
                 }
             }
         },
-        [dispatch],
+        [dispatch, onButtonClick],
     );
 
     return (
