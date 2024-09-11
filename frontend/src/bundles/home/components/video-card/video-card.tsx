@@ -12,7 +12,7 @@ import {
     MenuList,
     Text,
 } from '~/bundles/common/components/components.js';
-import { IconName } from '~/bundles/common/icons/icons.js';
+import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 
 import styles from './styles.module.css';
 
@@ -42,7 +42,7 @@ const VideoCard: React.FC = () => {
                 <Menu>
                     <MenuButton
                         as={IconButton}
-                        size="xs"
+                        size={IconSize.EXTRA_SMALL}
                         variant="outline"
                         aria-label="Video options"
                         icon={
