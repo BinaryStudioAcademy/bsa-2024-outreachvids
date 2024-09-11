@@ -38,9 +38,10 @@ class UserService implements Service {
     ): Promise<UserSignUpResponseDto> {
         const { fullName, email, password } = payload;
         const { hash, salt } = cryptService.encryptSync(password);
+
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
-                email: email,
+                email: email.toLowerCase(),
                 fullName: fullName,
                 passwordSalt: salt,
                 passwordHash: hash,

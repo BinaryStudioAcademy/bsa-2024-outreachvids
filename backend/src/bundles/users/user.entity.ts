@@ -25,7 +25,7 @@ class UserEntity implements Entity {
         passwordSalt: string;
     }) {
         this.id = id;
-        this.email = email.toLocaleLowerCase();
+        this.email = email;
         this.fullName = fullName;
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
@@ -46,7 +46,7 @@ class UserEntity implements Entity {
     }): UserEntity {
         return new UserEntity({
             id,
-            email: email.toLocaleLowerCase(),
+            email,
             fullName,
             passwordHash,
             passwordSalt,
@@ -66,7 +66,7 @@ class UserEntity implements Entity {
     }): UserEntity {
         return new UserEntity({
             id: null,
-            email: email.toLocaleLowerCase(),
+            email,
             fullName,
             passwordHash,
             passwordSalt,
@@ -80,7 +80,7 @@ class UserEntity implements Entity {
     } {
         return {
             id: this.id as string,
-            email: this.email.toLocaleLowerCase(),
+            email: this.email,
             fullName: this.fullName,
         };
     }
@@ -92,7 +92,7 @@ class UserEntity implements Entity {
         passwordSalt: string;
     } {
         return {
-            email: this.email.toLocaleLowerCase(),
+            email: this.email,
             fullName: this.fullName,
             passwordHash: this.passwordHash,
             passwordSalt: this.passwordSalt,
