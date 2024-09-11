@@ -14,6 +14,7 @@ import { IconName } from '~/bundles/common/icons/icons.js';
 
 import { StepIcon } from './components/components.js';
 import { StepIcon as StepIconEnum } from './enums/enums.js';
+import styles from './styles.module.css';
 
 type Properties = {
     steps: string[];
@@ -33,13 +34,8 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
     );
 
     const stepProgressBar = (
-        <Box
-            position="relative"
-            maxWidth="340px"
-            minWidth="300px"
-            height="100%"
-        >
-            <Box position="absolute" bottom="20px" width="100%" height="100%">
+        <Box className={styles['stepperWrapper']}>
+            <Box className={styles['innerStepper']}>
                 <LibraryStepper size="sm" index={activeStepIndex} gap="0">
                     {steps.map((step, index) => (
                         <Step key={index}>
@@ -64,7 +60,7 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
                                     }
                                 />
                                 <Text
-                                    as="p"
+                                    variant="body1"
                                     color={
                                         index <= activeStepIndex
                                             ? 'white'
@@ -82,11 +78,7 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
                 <Progress
                     variant="stepper"
                     value={progressPercent}
-                    position="absolute"
-                    height="3px"
-                    width="full"
-                    top="5px"
-                    zIndex={-1}
+                    className={styles['progressBar']}
                 />
             </Box>
         </Box>
