@@ -1,7 +1,7 @@
-import { type VideoGetAllResponseDto } from 'shared';
 import { VideosApiPath } from 'shared';
 
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
+import { type VideoGetAllResponseDto } from '~/bundles/home/types/types.js';
 import { type Http, HTTPMethod } from '~/framework/http/http.js';
 import { BaseHttpApi } from '~/framework/http-api/http-api.js';
 import { type Storage } from '~/framework/storage/storage.js';
