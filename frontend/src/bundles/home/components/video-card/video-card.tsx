@@ -45,7 +45,6 @@ const VideoCard: React.FC = () => {
                         size="xs"
                         variant="outline"
                         aria-label="Video options"
-                        _groupHover={{ opacity: 1 }}
                         icon={
                             <Icon
                                 as={IconName.OPTIONS_VERTICAL}
@@ -57,7 +56,12 @@ const VideoCard: React.FC = () => {
                     <MenuList>
                         <LibraryLink download href={videoUrl}>
                             <MenuItem icon={<Icon as={IconName.DOWNLOAD} />}>
-                                Download
+                                <Text
+                                    color="typography.900"
+                                    variant="bodySmall"
+                                >
+                                    Download
+                                </Text>
                             </MenuItem>
                         </LibraryLink>
                     </MenuList>
