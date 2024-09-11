@@ -19,7 +19,7 @@ const Tab: React.FC<Properties> = ({ label, icon }) => {
             textAlign="left"
             _selected={{ backgroundColor: 'gray.300' }}
         >
-            <Icon as={icon} padding="5px" boxSize={6} />
+            <Icon as={icon} padding="5px" height="16px" />
             <Text variant="bodySmall" color="typography.900">
                 {label}
             </Text>

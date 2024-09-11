@@ -2,37 +2,19 @@ import {
     Editable,
     EditablePreview,
     EditableTextarea,
-    HStack,
     Icon,
     IconButton,
-    Spinner,
-    Tooltip,
     VStack,
 } from '~/bundles/common/components/components.js';
-import {
-    useAppDispatch,
-    useCallback,
-    useMemo,
-    useState,
-} from '~/bundles/common/hooks/hooks.js';
+import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
-import { AudioPlayer } from '~/bundles/studio/components/audio-player/audio-player.js';
-import { PlayIconNames } from '~/bundles/studio/enums/play-icon-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
 
 type Properties = ScriptT;
 
-const Script: React.FC<Properties> = ({
-    id,
-    text,
-    voiceName,
-    url,
-    iconName,
-}) => {
+const Script: React.FC<Properties> = ({ id, text }) => {
     const dispatch = useAppDispatch();
-
-    const [isPlaying, setIsPlaying] = useState(false);
 
     const handleDeleteScript = useCallback((): void => {
         void dispatch(studioActions.deleteScript(id));
@@ -40,78 +22,21 @@ const Script: React.FC<Properties> = ({
 
     const handleEditScript = useCallback(
         (newText: string): void => {
-            if (text === newText) {
-                return;
-            }
-
-            void dispatch(
-                studioActions.editScript({ id, text: newText, url: '' }),
-            );
-        },
-        [dispatch, id, text],
-    );
-
-    const handleSetScriptDuration = useCallback(
-        (duration: number): void => {
-            void dispatch(studioActions.editScript({ id, duration }));
+            void dispatch(studioActions.editScript({ id, text: newText }));
         },
         [dispatch, id],
     );
 
-    const toggleIsPlaying = useCallback((): void => {
-        if (url) {
-            setIsPlaying((previous) => !previous);
-            return;
-        }
-
-        void dispatch(
-            studioActions.generateScriptSpeech({
-                scriptId: id,
-                text,
-                voiceName,
-            }),
-        );
-    }, [dispatch, id, text, url, voiceName]);
-
-    const handleAudioEnd = useCallback((): void => {
-        setIsPlaying(false);
-    }, []);
-
-    const iconComponent = useMemo(() => {
-        if (iconName === PlayIconNames.LOADING) {
-            return Spinner;
-        }
-
-        return isPlaying ? IconName.STOP : IconName.PLAY;
-    }, [iconName, isPlaying]);
-
     return (
         <VStack w="full">
-            <HStack justify="end" w="full" gap={0}>
-                <Tooltip
-                    isDisabled={Boolean(url)}
-                    label="Click to update audio"
-                    placement="top"
-                    hasArrow
-                >
-                    <IconButton
-                        icon={<Icon as={iconComponent} />}
-                        size="sm"
-                        variant="ghostIconDark"
-                        aria-label="Play script"
-                        onClick={toggleIsPlaying}
-                        borderRadius="100%"
-                        border={url ? '' : '1px dotted'}
-                    />
-                </Tooltip>
-                <IconButton
-                    icon={<Icon as={IconName.CLOSE} />}
-                    size="sm"
-                    variant="ghostIconDark"
-                    aria-label="Delete script"
-                    onClick={handleDeleteScript}
-                />
-            </HStack>
+            <IconButton
+                icon={<Icon as={IconName.CLOSE} />}
+                size="sm"
+                variant="ghostIconDark"
+                aria-label="Delete script"
+                alignSelf="end"
+                onClick={handleDeleteScript}
+            />
             <Editable
                 defaultValue={text}
                 isPreviewFocusable={true}
@@ -140,14 +65,6 @@ const Script: React.FC<Properties> = ({
                     }}
                 />
             </Editable>
-            {url && (
-                <AudioPlayer
-                    isPlaying={isPlaying}
-                    audioUrl={url}
-                    onAudioEnd={handleAudioEnd}
-                    onSetDuration={handleSetScriptDuration}
-                />
-            )}
         </VStack>
     );
 };

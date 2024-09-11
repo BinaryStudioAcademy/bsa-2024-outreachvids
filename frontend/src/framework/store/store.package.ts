@@ -9,7 +9,7 @@ import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as studioReducer } from '~/bundles/studio/store/studio.js';
-import { avatarsApi, speechApi } from '~/bundles/studio/studio.js';
+import { avatarsApi } from '~/bundles/studio/studio.js';
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { storage } from '~/framework/storage/storage.js';
@@ -25,7 +25,6 @@ type ExtraArguments = {
     authApi: typeof authApi;
     userApi: typeof userApi;
     avatarsApi: typeof avatarsApi;
-    speechApi: typeof speechApi;
     storage: typeof storage;
 };
 
@@ -61,7 +60,6 @@ class Store {
             authApi,
             userApi,
             avatarsApi,
-            speechApi,
             storage,
         };
     }

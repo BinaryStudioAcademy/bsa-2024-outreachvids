@@ -1,5 +1,4 @@
 type GenerateSpeechResponseDto = {
-    scriptId: string;
     audioUrl: string;
 };
 

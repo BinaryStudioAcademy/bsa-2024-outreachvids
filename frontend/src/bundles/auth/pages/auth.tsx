@@ -23,7 +23,9 @@ import { actions as authActions } from '../store/auth.js';
 
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { dataStatus, user } = useAppSelector(({ auth }) => auth);
+    const { dataStatus } = useAppSelector(({ auth }) => ({
+        dataStatus: auth.dataStatus,
+    }));
     const { pathname } = useLocation();
 
     const handleSignInSubmit = useCallback(
@@ -40,7 +42,7 @@ const Auth: React.FC = () => {
         [dispatch],
     );
 
-    if (user) {
+    if (dataStatus === DataStatus.FULFILLED) {
         return <Navigate to={AppRoute.ROOT} replace />;
     }
 

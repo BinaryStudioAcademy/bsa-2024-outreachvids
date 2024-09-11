@@ -12,10 +12,6 @@ type Properties = {
     size: IconSizeT;
     icon: ElementType;
     onClick?: () => void;
-    width?: string;
-    height?: string;
-    isRound?: boolean;
-    variant?: string;
 };
 
 const Control: React.FC<Properties> = ({
@@ -23,20 +19,14 @@ const Control: React.FC<Properties> = ({
     size,
     icon,
     onClick = (): void => {},
-    width,
-    height,
-    isRound = true,
-    variant = 'gray',
 }) => {
     return (
         <Tooltip hasArrow label={label} placement="top">
             <IconButton
                 aria-label={label}
-                isRound={isRound}
-                {...(width && { width })}
-                {...(height && { height })}
+                isRound={true}
                 size={size}
-                variant={variant}
+                variant="gray"
                 icon={<Icon as={icon} />}
                 onClick={onClick}
             />

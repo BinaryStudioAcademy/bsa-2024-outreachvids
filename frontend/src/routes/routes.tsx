@@ -2,7 +2,6 @@ import { App } from '~/app/app.js';
 import { Auth } from '~/bundles/auth/pages/auth.js';
 import { ProtectedRoute } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
-import { NotFound } from '~/bundles/common/pages/not-found/not-found.js';
 import { CreateAvatar } from '~/bundles/create-avatar/pages/create-avatar.js';
 import { Home } from '~/bundles/home/pages/home.js';
 import { MyAvatar } from '~/bundles/my-avatar/pages/my-avatar.js';
@@ -52,10 +51,6 @@ const routes = [
                         <CreateAvatar/>
                     </ProtectedRoute>
                 ),
-            },
-            {
-                path: AppRoute.ANY,
-                element: <NotFound />,
             },
         ],
     },

@@ -3,20 +3,12 @@ import { z } from 'zod';
 import { SpeechValidationMessage } from '../enums/enums.js';
 
 type GenerateSpeechRequestValidationDto = {
-    scriptId: z.ZodString;
     text: z.ZodString;
     voiceName: z.ZodString;
 };
 
 const generateSpeech = z
     .object<GenerateSpeechRequestValidationDto>({
-        scriptId: z
-            .string()
-            .trim()
-            .min(1, {
-                message: SpeechValidationMessage.SCRIPT_ID_REQUIRED,
-            })
-            .uuid({ message: SpeechValidationMessage.SCRIPT_ID_INVALID }),
         text: z.string().trim().min(1, {
             message: SpeechValidationMessage.TEXT_REQUIRED,
         }),

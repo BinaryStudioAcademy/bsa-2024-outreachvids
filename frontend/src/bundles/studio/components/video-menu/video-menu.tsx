@@ -1,4 +1,7 @@
-import { Icon } from '~/bundles/common/components/components.js';
+import {
+    FontAwesomeIcon,
+    Icon,
+} from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
@@ -38,7 +41,7 @@ const VideoMenu: React.FC = () => {
     const menuItems: MenuItem[] = [
         {
             label: 'Templates',
-            icon: <Icon as={IconName.TEMPLATE} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconName.TEMPLATE} />,
             onClick: () => handleMenuClick('Templates', <TemplatesContent />),
         },
         {
@@ -48,17 +51,17 @@ const VideoMenu: React.FC = () => {
         },
         {
             label: 'Script',
-            icon: <Icon as={IconName.SCRIPT} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconName.SCRIPT} />,
             onClick: () => handleMenuClick('Script', <ScriptContent />),
         },
         {
             label: 'Text',
-            icon: <Icon as={IconName.TEXT} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconName.TEXT} />,
             onClick: () => handleMenuClick('Text', <TextContent />),
         },
         {
             label: 'Assets',
-            icon: <Icon as={IconName.UPLOAD} />,
+            icon: <Icon as={FontAwesomeIcon} icon={IconName.UPLOAD} />,
             onClick: () => handleMenuClick('Assets', <AssetsContent />),
         },
     ];
