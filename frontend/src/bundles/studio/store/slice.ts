@@ -29,7 +29,7 @@ import {
     type Script,
     type TimelineItemWithSpan,
 } from '../types/types.js';
-import { generateScriptSpeech, loadAvatars } from './actions.js';
+import { generateScriptSpeech, loadAvatars, renderAvatar } from './actions.js';
 
 type SelectedItem = {
     id: string;
@@ -291,6 +291,15 @@ const { reducer, actions, name } = createSlice({
                     ? { ...script, iconName: PlayIconNames.READY }
                     : script,
             );
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(renderAvatar.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(renderAvatar.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(renderAvatar.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
     },
