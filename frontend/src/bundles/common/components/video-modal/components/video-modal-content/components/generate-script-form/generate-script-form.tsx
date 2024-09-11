@@ -12,7 +12,6 @@ import {
     useAppForm,
     useAppSelector,
     useCallback,
-    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import {
     type GenerateVideoScriptRequestDto,
@@ -40,17 +39,13 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
 
     const { handleSubmit, values } = form;
 
-    const isTextGenerated: boolean = useMemo(() => {
-        return messages && messages.length > 0;
-    }, [messages]);
-
     const getButtonLabel = useCallback(() => {
         if (dataStatus === DataStatus.PENDING) {
             return 'Stop';
         }
 
-        return isTextGenerated ? 'Re-Generate' : 'Generate script';
-    }, [dataStatus, isTextGenerated]);
+        return messages?.length > 0 ? 'Re-Generate' : 'Generate script';
+    }, [dataStatus, messages]);
 
     return (
         <FormProvider value={form}>
