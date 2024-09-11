@@ -1,8 +1,4 @@
-import {
-    Loader,
-    Overlay,
-    VStack,
-} from '~/bundles/common/components/components.js';
+import { Box, Loader, VStack } from '~/bundles/common/components/components.js';
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -23,10 +19,11 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
 
     return (
         <VStack className={styles['scriptPlaceholderContainer']}>
-            <Overlay isOpen={dataStatus === DataStatus.PENDING}>
-                <Loader />
-            </Overlay>
-            {videoScripts.length === 0 ? (
+            {dataStatus === DataStatus.PENDING ? (
+                <Box mt="100px">
+                    <Loader />
+                </Box>
+            ) : (videoScripts.length === 0 ? (
                 <GenerateScriptPlaceholderContent
                     message="Here you will see your generated script"
                     icon={IconName.SCROLL}
@@ -40,7 +37,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
                         />
                     ))}
                 </>
-            )}
+            ))}
         </VStack>
     );
 };

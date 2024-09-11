@@ -1,5 +1,9 @@
 .scriptPlaceholderContainer {
     width: 100%;
+    height: 100vh;
+    min-height: 480px;
+    max-height: 480px;
+    overflow-y: auto;
     padding: 40px;
     gap: 10px;
 }

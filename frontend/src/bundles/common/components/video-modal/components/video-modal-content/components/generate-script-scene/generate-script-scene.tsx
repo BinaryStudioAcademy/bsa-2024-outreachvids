@@ -17,7 +17,7 @@ const GenerateScriptScene: React.FC<Properties> = ({ videoScript }) => {
     }, [setAnimationDone]);
 
     return (
-        <Box mb="10">
+        <Box mb="10" width="100%">
             <Heading as="h4" variant="H4" color="typography.600">
                 {title}
             </Heading>

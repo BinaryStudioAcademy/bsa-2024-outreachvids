@@ -48,6 +48,13 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
         return messages?.length > 0 ? 'Re-Generate' : 'Generate script';
     }, [dataStatus, messages]);
 
+    const isSubmitButtonDisabled = useCallback(() => {
+        return (
+            dataStatus === DataStatus.PENDING ||
+            values.topic.trim().length === 0
+        );
+    }, [dataStatus, values]);
+
     return (
         <FormProvider value={form}>
             <form onSubmit={handleSubmit}>
@@ -83,7 +90,7 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
                         type="submit"
                         label={getButtonLabel()}
                         margin-top="50px"
-                        isDisabled={values.topic.trim().length === 0}
+                        isDisabled={isSubmitButtonDisabled()}
                     />
                 </VStack>
             </form>
