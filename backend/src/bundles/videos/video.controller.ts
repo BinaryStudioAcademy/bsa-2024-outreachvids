@@ -114,7 +114,7 @@ class VideoController extends BaseController {
      * @swagger
      * /videos/:
      *    get:
-     *      description: Get all videos
+     *      description: Get all videos by user
      *      security:
      *       - bearerAuth: []
      *      responses:
