@@ -46,6 +46,10 @@ type DestinationPointerActionPayload = ItemActionPayload & {
 };
 
 type State = {
+    player: {
+        isPlaying: boolean;
+        elapsedTime: number; // ms
+    };
     avatars: {
         dataStatus: ValueOf<typeof DataStatus>;
         items: Array<AvatarGetResponseDto> | [];
@@ -60,6 +64,10 @@ type State = {
 };
 
 const initialState: State = {
+    player: {
+        isPlaying: false,
+        elapsedTime: 0,
+    },
     avatars: {
         dataStatus: DataStatus.IDLE,
         items: [],
@@ -102,6 +110,13 @@ const { reducer, actions, name } = createSlice({
             state.scripts = state.scripts.filter(
                 (script) => script.id !== action.payload,
             );
+        },
+
+        setPlaying(state, action: PayloadAction<boolean>) {
+            state.player.isPlaying = action.payload;
+        },
+        setElapsedTime(state, action: PayloadAction<number>) {
+            state.player.elapsedTime = action.payload;
         },
         reorderScripts(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
