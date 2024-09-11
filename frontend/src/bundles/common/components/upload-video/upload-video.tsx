@@ -45,7 +45,7 @@ const UploadVideo: React.FC = () => {
                         onRemoveVideo={handleRemoveVideo}
                         onSetVideo={handleSetVideo}
                     />
-                    <Button sx={{ width: '222px' }} label={'Next step'} />
+                    <Button width={'222px'} label={'Next step'} />
                 </>
             )}
         </Flex>
