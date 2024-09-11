@@ -2,7 +2,7 @@ import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import { MD } from '../constants/constants.js';
 
-const getFlag = async (): Promise<boolean> => {
+const getSidebarState = async (): Promise<boolean> => {
     const value = await storage.get(StorageKey.IS_SIDEBAR_COLLAPSED);
     if (value) {
         return JSON.parse(value);
@@ -14,4 +14,4 @@ const getFlag = async (): Promise<boolean> => {
     return isMobile;
 };
 
-export { getFlag };
+export { getSidebarState };

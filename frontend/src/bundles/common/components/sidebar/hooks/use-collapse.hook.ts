@@ -9,7 +9,7 @@ import {
 import { storage, StorageKey } from '~/framework/storage/storage.js';
 
 import { MD } from '../constants/constants.js';
-import { getFlag } from '../helpers/helpers.js';
+import { getSidebarState } from '../helpers/helpers.js';
 
 const useCollapse = (): {
     isCollapsed: boolean;
@@ -36,12 +36,12 @@ const useCollapse = (): {
     }, [dispatch]);
 
     useLayoutEffect(() => {
-        const setFlag = async (): Promise<void> => {
-            const flag = await getFlag();
+        const dispatchSidebarState = async (): Promise<void> => {
+            const flag = await getSidebarState();
             dispatch(authActions.toggleSidebar(flag));
         };
 
-        void setFlag();
+        void dispatchSidebarState();
     }, [dispatch]);
 
     useEffect(() => {
