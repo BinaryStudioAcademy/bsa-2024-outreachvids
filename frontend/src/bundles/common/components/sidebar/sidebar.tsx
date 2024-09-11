@@ -13,7 +13,6 @@ import {
     useAppSelector,
     useCallback,
     useLocation,
-    useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -29,7 +28,6 @@ type Properties = {
 const Sidebar = ({ children }: Properties): JSX.Element => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { pathname } = useLocation();
-    const navigate = useNavigate();
     const user = useAppSelector(({ auth }) => auth.user);
     const dispatch = useAppDispatch();
 
@@ -47,13 +45,8 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
     };
 
     const handleLogOut = useCallback(() => {
-        const logout = async (): Promise<void> => {
-            await dispatch(authActions.logout());
-            navigate(AppRoute.SIGN_IN);
-        };
-
-        void logout();
-    }, [navigate, dispatch]);
+        void dispatch(authActions.logout());
+    }, [dispatch]);
 
     return (
         <Flex w="100%">
