@@ -6,7 +6,7 @@ import {
 } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
-import { Control } from '~/bundles/studio/components/player-controls/components/control/control.js';
+import { Control } from '~/bundles/studio/components/control/control.js';
 import { type Voice } from '~/bundles/studio/types/types.js';
 
 type Properties = {

@@ -1,5 +1,15 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
+    type AvatarConfig,
+    type InputKind,
+    type RenderAvatarResponseDto,
+    type RenderAvatarVideoRequestDto,
+    type VideoCodec,
+    type VideoFormat,
+    AvatarVideosApiPath,
+    renderAvatarVideoValidationSchema,
+} from './bundles/avatar-videos/avatar-videos.js';
+export {
     type AvatarGetAllResponseDto,
     type AvatarGetOneRequestDto,
     type AvatarGetResponseDto,

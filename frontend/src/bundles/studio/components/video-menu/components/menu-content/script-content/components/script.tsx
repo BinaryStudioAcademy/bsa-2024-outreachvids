@@ -13,31 +13,29 @@ import {
 import {
     useAppDispatch,
     useCallback,
-    useEffect,
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { AudioPlayer } from '~/bundles/studio/components/audio-player/audio-player.js';
+import { PlayIconNames } from '~/bundles/studio/enums/play-icon-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
-
-// TODO: remove mocked url when script audioUrl will be taken from text-to-speech
-const audioUrl = 'https://d2tm5q3cg1nlwf.cloudfront.net/tts_1725818217391.wav';
 
 type Properties = ScriptT & { handleChangeVoice: (scriptId: string) => void };
 
 const Script: React.FC<Properties> = ({
     id,
     text,
-    url,
     voice,
+    voiceName,
+    url,
+    iconName,    
     handleChangeVoice,
 }) => {
     const dispatch = useAppDispatch();
 
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isAudioLoading, setIsAudioLoading] = useState(false);
 
     const handleDeleteScript = useCallback((): void => {
         void dispatch(studioActions.deleteScript(id));
@@ -69,31 +67,26 @@ const Script: React.FC<Properties> = ({
             return;
         }
 
-        setIsAudioLoading(true);
-
-        //TODO: replace with fetching real script audioUrl
-        setTimeout(() => {
-            void dispatch(studioActions.editScript({ id, url: audioUrl }));
-        }, 1000);
-    }, [dispatch, id, url]);
+        void dispatch(
+            studioActions.generateScriptSpeech({
+                scriptId: id,
+                text,
+                voiceName,
+            }),
+        );
+    }, [dispatch, id, text, url, voiceName]);
 
     const handleAudioEnd = useCallback((): void => {
         setIsPlaying(false);
     }, []);
 
-    useEffect(() => {
-        if (url) {
-            setIsAudioLoading(false);
-        }
-    }, [url]);
-
     const iconComponent = useMemo(() => {
-        if (isAudioLoading) {
+        if (iconName === PlayIconNames.LOADING) {
             return Spinner;
         }
 
         return isPlaying ? IconName.STOP : IconName.PLAY;
-    }, [isAudioLoading, isPlaying]);
+    }, [iconName, isPlaying]);
 
     const handleChangeVoiceId = useCallback((): void => {
         handleChangeVoice(id);
@@ -167,8 +160,8 @@ const Script: React.FC<Properties> = ({
                 <AudioPlayer
                     isPlaying={isPlaying}
                     audioUrl={url}
-                    handleAudioEnd={handleAudioEnd}
-                    handleSetDuration={handleSetScriptDuration}
+                    onAudioEnd={handleAudioEnd}
+                    onSetDuration={handleSetScriptDuration}
                 />
             )}
         </VStack>
