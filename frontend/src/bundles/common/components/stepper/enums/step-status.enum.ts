@@ -1,7 +1,7 @@
-const StepIcon = {
+const StepStatus = {
     COMPLETE: 'complete',
     ACTIVE: 'active',
     INCOMPLETE: 'incomplete',
 } as const;
 
-export { StepIcon };
+export { StepStatus };

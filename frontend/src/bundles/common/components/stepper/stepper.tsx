@@ -12,8 +12,8 @@ import {
 } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
-import { StepIcon } from './components/components.js';
-import { StepIcon as StepIconEnum } from './enums/enums.js';
+import { StepStatus as StepIcon } from './components/components.js';
+import { StepStatus as StepStatusEnum } from './enums/enums.js';
 import styles from './styles.module.css';
 
 type Properties = {
@@ -47,15 +47,17 @@ const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
                                 <StepStatus
                                     complete={
                                         <StepIcon
-                                            step={StepIconEnum.COMPLETE}
+                                            step={StepStatusEnum.COMPLETE}
                                         />
                                     }
                                     active={
-                                        <StepIcon step={StepIconEnum.ACTIVE} />
+                                        <StepIcon
+                                            step={StepStatusEnum.ACTIVE}
+                                        />
                                     }
                                     incomplete={
                                         <StepIcon
-                                            step={StepIconEnum.INCOMPLETE}
+                                            step={StepStatusEnum.INCOMPLETE}
                                         />
                                     }
                                 />

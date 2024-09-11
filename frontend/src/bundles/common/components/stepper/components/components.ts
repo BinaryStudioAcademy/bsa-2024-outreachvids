@@ -1,1 +1,1 @@
-export { StepIcon } from './step-icon/step-icon.js';
+export { StepStatus } from './step-status/step-status.js';

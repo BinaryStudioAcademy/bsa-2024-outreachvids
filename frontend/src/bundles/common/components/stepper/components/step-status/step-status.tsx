@@ -1,18 +1,18 @@
 import { type ValueOf } from 'shared';
 
 import { Box, Icon } from '~/bundles/common/components/components.js';
-import { StepIcon as StepIconEnum } from '~/bundles/common/components/stepper/enums/enums.js';
+import { StepStatus as StepStatusEnum } from '~/bundles/common/components/stepper/enums/enums.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import styles from './styles.module.css';
 
 type Properties = {
-    step: ValueOf<typeof StepIconEnum>;
+    step: ValueOf<typeof StepStatusEnum>;
 };
 
-const StepIcon: React.FC<Properties> = ({ step }) => {
+const StepStatus: React.FC<Properties> = ({ step }) => {
     switch (step) {
-        case StepIconEnum.COMPLETE: {
+        case StepStatusEnum.COMPLETE: {
             return (
                 <Box className={styles['complete']}>
                     <Icon as={IconName.CHECK_CIRCLE} boxSize={3} />
@@ -20,7 +20,7 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
             );
         }
 
-        case StepIconEnum.ACTIVE: {
+        case StepStatusEnum.ACTIVE: {
             return (
                 <Box className={styles['active']}>
                     <Icon as={IconName.CIRCLE} boxSize={3} />
@@ -28,7 +28,7 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
             );
         }
 
-        case StepIconEnum.INCOMPLETE: {
+        case StepStatusEnum.INCOMPLETE: {
             return (
                 <Box className={styles['incomplete']}>
                     <Icon as={IconName.CIRCLE} boxSize={3} />
@@ -38,4 +38,4 @@ const StepIcon: React.FC<Properties> = ({ step }) => {
     }
 };
 
-export { StepIcon };
+export { StepStatus };
