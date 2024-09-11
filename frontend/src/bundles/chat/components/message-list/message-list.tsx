@@ -2,7 +2,7 @@ import { MessageBox } from '~/bundles/chat/components/message-box/message-box.js
 import { MessageSender } from '~/bundles/chat/enums/enums.js';
 import { type Message, type MessageGroup } from '~/bundles/chat/types/types.js';
 import { Flex, VStack } from '~/bundles/common/components/components.js';
-import { useMemo } from '~/bundles/common/hooks/hooks.js';
+import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
 import { UserAvatar } from '~/bundles/users/components/components.js';
 
 import styles from './styles.module.css';
@@ -12,6 +12,7 @@ type Properties = {
 };
 
 const MessageList: React.FC<Properties> = ({ messages }) => {
+    const user = useAppSelector(({ auth }) => auth.user);
     const groupedMessages = useMemo(() => {
         const groupedMessages: MessageGroup[] = [];
         let currentGroup: MessageGroup | null = null;
@@ -40,7 +41,9 @@ const MessageList: React.FC<Properties> = ({ messages }) => {
                         >
                             <UserAvatar
                                 username={
-                                    sender === MessageSender.USER ? 'FL' : 'AI'
+                                    sender === MessageSender.USER
+                                        ? user?.fullName
+                                        : 'Artificial Intelligence'
                                 }
                             />
                             <VStack
