@@ -18,13 +18,13 @@ const useCollapse = (): {
     const dispatch = useAppDispatch();
     const isCollapsed = useAppSelector(({ auth }) => auth.isSidebarCollapsed);
 
-    const setToggle = (): void => {
+    const setToggle = useCallback((): void => {
         dispatch(authActions.toggleSidebar(!isCollapsed));
         void storage.set(
             StorageKey.IS_SIDEBAR_COLLAPSED,
             JSON.stringify(!isCollapsed),
         );
-    };
+    }, [dispatch, isCollapsed]);
 
     const handleResize = useCallback((): void => {
         const isMobile = window.innerWidth < MD;
