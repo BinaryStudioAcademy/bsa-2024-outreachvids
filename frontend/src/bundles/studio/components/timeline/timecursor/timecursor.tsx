@@ -33,6 +33,26 @@ const TimeCursor: React.FC = () => {
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
     useEffect(() => {
+        if (!timeCursorReference.current || isPlaying) {
+            return;
+        }
+
+        // Move time cursor when elapsed time is changed and video is not playing
+
+        const timeElapsedInPixels = valueToPixels(elapsedTime);
+        const sideDelta = sidebarWidth + timeElapsedInPixels;
+
+        timeCursorReference.current.style[side] = `${sideDelta}px`;
+    }, [
+        elapsedTime,
+        isPlaying,
+        side,
+        sidebarWidth,
+        timeCursorReference,
+        valueToPixels,
+    ]);
+
+    useEffect(() => {
         if (elapsedTime >= totalDuration) {
             void dispatch(studioActions.setPlaying(false));
         }
@@ -72,6 +92,12 @@ const TimeCursor: React.FC = () => {
             const newCursorPosition = event.clientX - sidebarWidth;
 
             const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+
+            if (newCursorPositionInTime > totalDuration) {
+                setCursorPosition(valueToPixels(totalDuration));
+                return;
+            }
+
             dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
 
             setCursorPosition(newCursorPosition);
@@ -81,6 +107,12 @@ const TimeCursor: React.FC = () => {
             setIsDragging(false);
             const newCursorPosition = event.clientX - sidebarWidth;
             const newCursorPositionInTime = pixelsToValue(newCursorPosition);
+
+            if (newCursorPositionInTime > totalDuration) {
+                setCursorPosition(null);
+                return;
+            }
+
             renderTimeReference.current = Date.now() - newCursorPositionInTime;
 
             dispatch(studioActions.setElapsedTime(newCursorPositionInTime));
@@ -107,6 +139,8 @@ const TimeCursor: React.FC = () => {
         renderTimeReference,
         timeCursorReference,
         dispatch,
+        totalDuration,
+        valueToPixels,
     ]);
 
     useLayoutEffect(() => {
