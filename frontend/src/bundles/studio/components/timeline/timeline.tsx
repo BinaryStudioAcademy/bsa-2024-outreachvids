@@ -31,6 +31,10 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
             const activeItem = event.active.data.current;
             const activeItemType = activeItem['type'] as RowType;
 
+            if (activeItemType === RowNames.BUTTON) {
+                return;
+            }
+
             const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
 
             if (!updatedSpan || activeItemType === RowNames.SCRIPT) {
@@ -52,6 +56,12 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
     const onDragMove = useCallback(
         (event: DragMoveEvent) => {
             const activeItem = event.active.data.current;
+            const activeItemId = event.active.id as string;
+            const activeItemType = activeItem['type'] as RowType;
+
+            if (activeItemType === RowNames.BUTTON) {
+                return;
+            }
 
             const activeRowId = event.over?.id as string;
             const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
@@ -59,9 +69,6 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
             if (!updatedSpan || !activeRowId) {
                 return;
             }
-
-            const activeItemId = event.active.id as string;
-            const activeItemType = activeItem['type'] as RowType;
 
             dispatch(
                 studioActions.setDestinationPointer({
@@ -80,8 +87,12 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
 
             const activeItem = event.active.data.current;
             const activeItemId = event.active.id as string;
-
             const activeItemType = activeItem['type'] as RowType;
+
+            if (activeItemType === RowNames.BUTTON) {
+                return;
+            }
+
             const activeRowId = event.over?.id as string;
 
             const updatedSpan = activeItem.getSpanFromDragEvent?.(event);

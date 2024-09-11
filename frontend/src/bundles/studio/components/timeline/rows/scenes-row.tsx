@@ -53,7 +53,7 @@ const ScenesRow: React.FC = () => {
             ))}
 
             <Item
-                type={RowNames.SCENE}
+                type={RowNames.BUTTON}
                 id="Add scene button"
                 span={{ start: scenesEnd, end: buttonEnd }}
             >
