@@ -104,7 +104,7 @@ const Script: React.FC<Properties> = ({
             <HStack justify="space-between" w="full">
                 <Text
                     onClick={handleChangeVoiceId}
-                    cursor={'pointer'}
+                    cursor="pointer"
                     variant="link"
                 >
                     {voice?.name || 'No voice'}

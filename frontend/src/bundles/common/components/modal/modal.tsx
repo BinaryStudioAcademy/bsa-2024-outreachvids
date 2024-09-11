@@ -6,7 +6,7 @@ import {
     ModalOverlay,
 } from '~/bundles/common/components/components.js';
 
-import styles from './modal.module.css';
+import styles from './styles.module.css';
 
 type Properties = {
     isOpen: boolean;

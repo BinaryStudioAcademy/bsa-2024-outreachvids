@@ -26,7 +26,7 @@ const VoicesModalContent: React.FC<Properties> = ({
     );
     const handleCardClick = useCallback(
         (voice: Voice): void => {
-            dispatch(studioActions.changeScriptVoice({ scriptId, voice }));
+            dispatch(studioActions.editScript({ id: scriptId, voice }));
             onModalClose();
         },
         [dispatch, scriptId, onModalClose],

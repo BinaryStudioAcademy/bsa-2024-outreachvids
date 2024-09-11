@@ -18,8 +18,9 @@ type Properties = {
 const VoiceCard: React.FC<Properties> = ({ voice, isChecked, onClick }) => {
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const handlePlayClick = useCallback((): void => {
+    const handlePlayClick = useCallback((event: React.MouseEvent): void => {
         setIsPlaying((previous) => !previous);
+        event.stopPropagation();
     }, []);
     const handleCardClick = useCallback((): void => {
         onClick(voice);
@@ -27,7 +28,7 @@ const VoiceCard: React.FC<Properties> = ({ voice, isChecked, onClick }) => {
     return (
         <Card
             variant={isChecked ? 'outline' : 'elevated'}
-            cursor={'pointer'}
+            cursor="pointer"
             onClick={handleCardClick}
         >
             <CardBody>
