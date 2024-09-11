@@ -1,6 +1,11 @@
 import { Navigate } from 'react-router-dom';
 
-import { Center, SimpleGrid } from '~/bundles/common/components/components.js';
+import {
+    Center,
+    Loader,
+    Overlay,
+    SimpleGrid,
+} from '~/bundles/common/components/components.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -18,9 +23,7 @@ import { actions as authActions } from '../store/auth.js';
 
 const Auth: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
+    const { dataStatus, user } = useAppSelector(({ auth }) => auth);
     const { pathname } = useLocation();
 
     const handleSignInSubmit = useCallback(
@@ -37,7 +40,7 @@ const Auth: React.FC = () => {
         [dispatch],
     );
 
-    if (dataStatus === DataStatus.FULFILLED) {
+    if (user) {
         return <Navigate to={AppRoute.ROOT} replace />;
     }
 
@@ -56,12 +59,10 @@ const Auth: React.FC = () => {
 
     return (
         <SimpleGrid columns={{ base: 1, sm: 2 }} height="100vh">
-            {/* TODO: Replace with valid loader */}
-            {dataStatus === DataStatus.PENDING && (
-                <p style={{ position: 'absolute', top: 0, color: 'white' }}>
-                    Loading...
-                </p>
-            )}
+            <Overlay isOpen={dataStatus === DataStatus.PENDING}>
+                <Loader />
+            </Overlay>
+
             <Center bgColor="background.600">{getScreen(pathname)}</Center>
             {/* TODO: Add logo */}
             <Center

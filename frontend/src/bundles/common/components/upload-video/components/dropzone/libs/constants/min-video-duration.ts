@@ -1,0 +1,3 @@
+const MIN_VIDEO_DURATION = 120;
+
+export { MIN_VIDEO_DURATION };

@@ -4,8 +4,8 @@ import {
     useLayoutEffect,
     useRef as useReference,
     useState,
-    useTimelineContext,
 } from '~/bundles/common/hooks/hooks.js';
+import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 type Properties = {
