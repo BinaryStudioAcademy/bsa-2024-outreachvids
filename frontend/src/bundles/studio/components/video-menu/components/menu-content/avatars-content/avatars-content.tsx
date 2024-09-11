@@ -18,9 +18,10 @@ import { AvatarCard } from './components/components.js';
 const AvatarsContent: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const { items: avatars, dataStatus } = useAppSelector(
-        ({ studio }) => studio.avatars,
-    );
+    const { avatars, dataStatus } = useAppSelector(({ studio }) => ({
+        avatars: studio.avatars,
+        dataStatus: studio.dataStatus,
+    }));
 
     useEffect(() => {
         void dispatch(studioActions.loadAvatars());

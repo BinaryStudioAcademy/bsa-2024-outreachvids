@@ -89,6 +89,7 @@ class AzureAIService {
     }
 
     public async textToSpeech({
+        scriptId,
         text,
         voiceName,
     }: GenerateSpeechRequestDto): Promise<GenerateSpeechResponseDto> {
@@ -106,7 +107,7 @@ class AzureAIService {
         await this.fileService.uploadFile(audioBuffer, audioFileName);
         const audioUrl = this.fileService.getCloudFrontFileUrl(audioFileName);
 
-        return { audioUrl };
+        return { scriptId, audioUrl };
     }
 }
 
