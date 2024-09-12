@@ -10,10 +10,9 @@ const Loader = (): JSX.Element => {
             <Box position="relative" width="100px" height="100px">
                 <Circle
                     size="full"
-                    backgroundColor="white"
                     color="text.default"
                 >
-                    <img src={logo} alt="Logo" />
+                    <img src={logo} alt="Logo" style={{ width: '80%', height: '80%' }}/>
                 </Circle>
                 <Circle
                     position="absolute"
