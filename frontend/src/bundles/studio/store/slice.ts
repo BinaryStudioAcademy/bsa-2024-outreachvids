@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { millisecondsToSeconds } from 'date-fns';
-import { type Span } from 'dnd-timeline';
+import { millisecondsToSeconds, minutesToMilliseconds } from 'date-fns';
+import { type Range, type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
 
 import { DataStatus, VideoPreview } from '~/bundles/common/enums/enums.js';
@@ -15,6 +15,7 @@ import {
 
 import { PlayIconNames, RowNames } from '../enums/enums.js';
 import {
+    calculateTotalMilliseconds,
     getDestinationPointerValue,
     getNewItemIndexBySpan,
     reorderItemsByIndexes,
@@ -29,7 +30,7 @@ import {
     type Script,
     type TimelineItemWithSpan,
 } from '../types/types.js';
-import { generateScriptSpeech, loadAvatars } from './actions.js';
+import { generateScriptSpeech, loadAvatars, renderAvatar } from './actions.js';
 
 type SelectedItem = {
     id: string;
@@ -55,6 +56,7 @@ type State = {
         isPlaying: boolean;
         elapsedTime: number; // ms
     };
+    range: Range;
 
     scenes: Array<Scene>;
     scripts: Array<Script>;
@@ -72,6 +74,7 @@ const initialState: State = {
         isPlaying: false,
         elapsedTime: 0,
     },
+    range: { start: 0, end: minutesToMilliseconds(1) },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
@@ -93,8 +96,12 @@ const { reducer, actions, name } = createSlice({
                 voiceName: defaultVoiceName,
                 iconName: PlayIconNames.READY,
             };
-
             state.scripts.push(script);
+            const totalMilliseconds = calculateTotalMilliseconds(
+                state.scripts,
+                state.range.end,
+            );
+            state.range.end = totalMilliseconds;
         },
         editScript(
             state,
@@ -138,6 +145,9 @@ const { reducer, actions, name } = createSlice({
                 items: state.scripts,
             });
         },
+        setRange(state, action: PayloadAction<Range>) {
+            state.range = action.payload;
+        },
         addScene(state) {
             const scene = {
                 id: uuidv4(),
@@ -145,6 +155,11 @@ const { reducer, actions, name } = createSlice({
             };
 
             state.scenes.push(scene);
+            const totalMilliseconds = calculateTotalMilliseconds(
+                state.scenes,
+                state.range.end,
+            );
+            state.range.end = totalMilliseconds;
         },
         resizeScene(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
@@ -291,6 +306,15 @@ const { reducer, actions, name } = createSlice({
                     ? { ...script, iconName: PlayIconNames.READY }
                     : script,
             );
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(renderAvatar.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(renderAvatar.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(renderAvatar.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
     },

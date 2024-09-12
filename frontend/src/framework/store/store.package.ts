@@ -11,7 +11,11 @@ import { chatApi } from '~/bundles/chat/chat.js';
 import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as studioReducer } from '~/bundles/studio/store/studio.js';
-import { avatarsApi, speechApi } from '~/bundles/studio/studio.js';
+import {
+    avatarsApi,
+    avatarVideosApi,
+    speechApi,
+} from '~/bundles/studio/studio.js';
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { storage } from '~/framework/storage/storage.js';
@@ -29,6 +33,7 @@ type ExtraArguments = {
     userApi: typeof userApi;
     avatarsApi: typeof avatarsApi;
     speechApi: typeof speechApi;
+    avatarVideosApi: typeof avatarVideosApi;
     chatApi: typeof chatApi;
     storage: typeof storage;
 };
@@ -67,6 +72,7 @@ class Store {
             userApi,
             avatarsApi,
             speechApi,
+            avatarVideosApi,
             chatApi,
             storage,
         };
