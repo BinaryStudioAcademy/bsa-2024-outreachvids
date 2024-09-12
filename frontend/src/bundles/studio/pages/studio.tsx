@@ -1,6 +1,4 @@
 import { type PlayerRef } from '@remotion/player';
-import { minutesToMilliseconds } from 'date-fns';
-import { type Range } from 'dnd-timeline';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -13,23 +11,28 @@ import {
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
+import { notificationService } from '~/bundles/common/services/services.js';
 
 import {
     PlayerControls,
     Timeline,
     VideoMenu,
 } from '../components/components.js';
+import {
+    SCRIPT_AND_AVATAR_ARE_REQUIRED,
+    VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
+    VIDEO_SUBMIT_NOTIFICATION_ID,
+} from '../constants/constants.js';
+import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
 import { actions as studioActionCreator } from '../store/studio.js';
 
-const initialRange: Range = {
-    start: minutesToMilliseconds(0),
-    end: minutesToMilliseconds(1),
-};
-
 const Studio: React.FC = () => {
+    const scenes = useAppSelector(({ studio }) => studio.scenes);
+    const scripts = useAppSelector(({ studio }) => studio.scripts);
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -39,8 +42,43 @@ const Studio: React.FC = () => {
     }, [dispatch]);
 
     const handleSubmit = useCallback(() => {
-        navigate(AppRoute.ROOT);
-    }, [navigate]);
+        // TODO: REPLACE LOGIC WITH MULTIPLE SCENES
+        const scene = scenes[0];
+        const script = scripts[0];
+
+        if (!scene?.avatar || !script) {
+            notificationService.info({
+                id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
+                message: NotificationMessage.SCRIPT_AND_AVATAR_ARE_REQUIRED,
+                title: NotificationTitle.SCRIPT_AND_AVATAR_ARE_REQUIRED,
+            });
+            return;
+        }
+
+        dispatch(
+            studioActionCreator.renderAvatar({
+                avatarName: scene.avatar.name,
+                avatarStyle: scene.avatar.style,
+                text: script?.text,
+                voice: script.voiceName,
+            }),
+        )
+            .then(() => {
+                notificationService.success({
+                    id: VIDEO_SUBMIT_NOTIFICATION_ID,
+                    message: NotificationMessage.VIDEO_SUBMITTED,
+                    title: NotificationTitle.VIDEO_SUBMITTED,
+                });
+                navigate(AppRoute.ROOT);
+            })
+            .catch(() => {
+                notificationService.error({
+                    id: VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
+                    message: NotificationMessage.VIDEO_SUBMIT_FAILED,
+                    title: NotificationTitle.VIDEO_SUBMIT_FAILED,
+                });
+            });
+    }, [dispatch, navigate, scenes, scripts]);
 
     return (
         <Box
@@ -76,11 +114,8 @@ const Studio: React.FC = () => {
 
             <VStack alignItems={'stretch'}>
                 <PlayerControls playerRef={playerReference} />
-                <Box>
-                    <Timeline
-                        initialRange={initialRange}
-                        playerRef={playerReference}
-                    />
+                <Box overflowY="auto">
+                    <Timeline playerRef={playerReference} />
                 </Box>
             </VStack>
         </Box>

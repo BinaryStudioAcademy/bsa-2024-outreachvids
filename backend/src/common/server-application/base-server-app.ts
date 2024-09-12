@@ -16,7 +16,7 @@ import { type Config } from '~/common/config/config.js';
 import { type Database } from '~/common/database/database.js';
 import { ServerErrorType } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
-import { type HttpMethod, HttpCode, HttpError } from '~/common/http/http.js';
+import { HttpCode, HttpError } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { session } from '~/common/plugins/session/session.plugin.js';
 import {
@@ -26,8 +26,6 @@ import {
 } from '~/common/types/types.js';
 
 import { WHITE_ROUTES } from '../constants/constants.js';
-import { ErrorMessage } from '../plugins/auth/enums/enums.js';
-import { type Route } from '../plugins/auth/types/types.js';
 import { authenticateJWT } from '../plugins/plugins.js';
 import {
     type ServerApp,
@@ -52,8 +50,6 @@ class BaseServerApp implements ServerApp {
     private apis: ServerAppApi[];
 
     private app: ReturnType<typeof Fastify>;
-
-    private cachedRoutes: Route[] | null = null;
 
     public constructor({ config, logger, database, apis }: Constructor) {
         this.config = config;
@@ -93,14 +89,7 @@ class BaseServerApp implements ServerApp {
 
         this.app.setNotFoundHandler(
             async (_request: FastifyRequest, response: FastifyReply) => {
-                const errorMessage: string = ErrorMessage.URL_NOT_FOUND;
-                const responseError: ServerCommonErrorResponse = {
-                    errorType: ServerErrorType.COMMON,
-                    message: errorMessage,
-                };
-
-                this.logger.error(errorMessage);
-                await response.status(HttpCode.NOT_FOUND).send(responseError);
+                await response.sendFile('index.html', staticPath);
             },
         );
     }
@@ -115,32 +104,6 @@ class BaseServerApp implements ServerApp {
         const routers = this.apis.flatMap((it) => it.routes);
 
         this.addRoutes(routers);
-    }
-
-    private listAllRoutes(): Route[] {
-        if (this.cachedRoutes) {
-            return this.cachedRoutes;
-        }
-
-        const routes: Route[] = [];
-        const routesString = this.app.printRoutes();
-        const routesArray = routesString.split('\n');
-
-        for (const route of routesArray) {
-            const routeParts = route.split(' ');
-            if (routeParts.length >= 2) {
-                const method = routeParts[0]?.toUpperCase() as HttpMethod;
-                const path = routeParts[1];
-                if (!method || !path) {
-                    continue;
-                }
-                routes.push({ method, path });
-            }
-        }
-
-        this.cachedRoutes = routes;
-
-        return routes;
     }
 
     public async initMiddlewares(): Promise<void> {
@@ -174,7 +137,6 @@ class BaseServerApp implements ServerApp {
 
         this.app.register(authenticateJWT, {
             routesWhiteList: WHITE_ROUTES,
-            availableRoutes: this.listAllRoutes(),
         });
 
         this.app.register(session, {

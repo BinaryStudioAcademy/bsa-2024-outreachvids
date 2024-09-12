@@ -11,7 +11,11 @@ import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { videosApi } from '~/bundles/home/home.js';
 import { reducer as homeReducer } from '~/bundles/home/store/home.js';
 import { reducer as studioReducer } from '~/bundles/studio/store/studio.js';
-import { avatarsApi, speechApi } from '~/bundles/studio/studio.js';
+import {
+    avatarsApi,
+    avatarVideosApi,
+    speechApi,
+} from '~/bundles/studio/studio.js';
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { storage } from '~/framework/storage/storage.js';
@@ -30,6 +34,7 @@ type ExtraArguments = {
     avatarsApi: typeof avatarsApi;
     videosApi: typeof videosApi;
     speechApi: typeof speechApi;
+    avatarVideosApi: typeof avatarVideosApi;
     storage: typeof storage;
 };
 
@@ -68,6 +73,7 @@ class Store {
             avatarsApi,
             videosApi,
             speechApi,
+            avatarVideosApi,
             storage,
         };
     }

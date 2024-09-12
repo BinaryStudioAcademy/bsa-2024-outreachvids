@@ -10,8 +10,8 @@ import { type RefObject } from 'react';
 
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
@@ -20,14 +20,13 @@ import { type RowType } from '~/bundles/studio/types/types.js';
 import { TimelineView } from './components.js';
 
 type Properties = {
-    initialRange: Range;
     playerRef: RefObject<PlayerRef>;
 };
 
-const Timeline: React.FC<Properties> = ({ initialRange, playerRef }) => {
+const Timeline: React.FC<Properties> = ({ playerRef }) => {
     const dispatch = useAppDispatch();
 
-    const [range, setRange] = useState(initialRange);
+    const range = useAppSelector(({ studio }) => studio.range);
 
     const onResizeEnd = useCallback(
         (event: ResizeEndEvent) => {
@@ -134,12 +133,20 @@ const Timeline: React.FC<Properties> = ({ initialRange, playerRef }) => {
         [dispatch],
     );
 
+    const onRangeChanged = useCallback(
+        (updateFunction: (previous: Range) => Range) => {
+            const newRange = updateFunction(range);
+            dispatch(studioActions.setRange(newRange));
+        },
+        [dispatch, range],
+    );
+
     return (
         <TimelineContext
             range={range}
             onDragEnd={onDragEnd}
             onResizeEnd={onResizeEnd}
-            onRangeChanged={setRange}
+            onRangeChanged={onRangeChanged}
             onDragMove={onDragMove}
         >
             <TimelineView playerRef={playerRef} />
