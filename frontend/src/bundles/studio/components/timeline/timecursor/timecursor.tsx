@@ -4,7 +4,11 @@ import { type RefObject } from 'react';
 import { Box } from '~/bundles/common/components/components.js';
 import { FPS } from '~/bundles/common/components/upload-video/components/video-player/libs/constants/fps.constant.js';
 import {
+    useAnimationFrame,
+    useAppDispatch,
+    useAppSelector,
     useCallback,
+    useEffect,
     useLayoutEffect,
     useRef as useReference,
     useState,
@@ -27,50 +31,66 @@ const TimeCursor: React.FC<Properties> = ({ playerRef }) => {
     }));
     const totalDuration = useAppSelector(selectTotalDuration);
 
-type Properties = {
-    interval?: number;
-};
-
-const TimeCursor: React.FC<Properties> = ({ interval }) => {
     const timeCursorReference = useReference<HTMLDivElement>(null);
-    const renderTimeReference = useReference(Date.now());
-    const { range, direction, sidebarWidth, valueToPixels, pixelsToValue } =
+    const renderTimeReference = useReference(0);
+    const { direction, sidebarWidth, valueToPixels, pixelsToValue } =
         useTimelineContext();
 
     const side = direction === 'rtl' ? 'right' : 'left';
-    const millisecondPerRefresh = 1000;
+
     const [isDragging, setIsDragging] = useState(false);
     const [cursorPosition, setCursorPosition] = useState<number | null>(null);
 
-    useLayoutEffect(() => {
-        const offsetCursor = (): void => {
-            if (!timeCursorReference.current || cursorPosition !== null) {
-                return;
-            }
-            const timeDelta = Date.now() - renderTimeReference.current;
-            const timeDeltaInPixels = valueToPixels(timeDelta);
+    useEffect(() => {
+        if (!timeCursorReference.current || isPlaying) {
+            return;
+        }
 
-            const sideDelta = sidebarWidth + timeDeltaInPixels;
-            timeCursorReference.current.style[side] = `${sideDelta}px`;
-        };
-        offsetCursor();
-        const cursorUpdateInterval = setInterval(
-            offsetCursor,
-            interval ?? millisecondPerRefresh,
-        );
-        return () => {
-            clearInterval(cursorUpdateInterval);
-        };
+        // Move time cursor when elapsed time is changed and video is not playing
+
+        const timeElapsedInPixels = valueToPixels(elapsedTime);
+        const sideDelta = sidebarWidth + timeElapsedInPixels;
+
+        timeCursorReference.current.style[side] = `${sideDelta}px`;
     }, [
+        elapsedTime,
+        isPlaying,
         side,
         sidebarWidth,
-        interval,
-        range.start,
-        valueToPixels,
-        cursorPosition,
-        renderTimeReference,
         timeCursorReference,
+        valueToPixels,
     ]);
+
+    useEffect(() => {
+        if (elapsedTime >= totalDuration) {
+            void dispatch(studioActions.setPlaying(false));
+        }
+    }, [dispatch, elapsedTime, totalDuration]);
+
+    const offsetCursor = (): void => {
+        if (!timeCursorReference.current || cursorPosition) {
+            return;
+        }
+
+        const currentTime = Date.now();
+        const timeDelta =
+            currentTime - renderTimeReference.current + elapsedTime;
+        const timeDeltaInPixels = valueToPixels(timeDelta);
+
+        const sideDelta = sidebarWidth + timeDeltaInPixels;
+        timeCursorReference.current.style[side] = `${sideDelta}px`;
+
+        dispatch(studioActions.setElapsedTime(timeDelta));
+        renderTimeReference.current = currentTime;
+    };
+
+    useAnimationFrame(offsetCursor, isPlaying);
+
+    useEffect(() => {
+        if (isPlaying) {
+            renderTimeReference.current = Date.now();
+        }
+    }, [cursorPosition, renderTimeReference, isPlaying]);
 
     useLayoutEffect(() => {
         const handleMouseMove = (event: MouseEvent): void => {
@@ -136,10 +156,13 @@ const TimeCursor: React.FC<Properties> = ({ interval }) => {
         pixelsToValue,
         renderTimeReference,
         timeCursorReference,
+        dispatch,
+        totalDuration,
+        valueToPixels,
     ]);
 
     useLayoutEffect(() => {
-        if (cursorPosition !== null && timeCursorReference.current) {
+        if (cursorPosition && timeCursorReference.current) {
             timeCursorReference.current.style[side] =
                 `${cursorPosition + sidebarWidth}px`;
         }

@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, ListItem,Text, UnorderedList } from '~/bundles/common/components/components.js';
+import { Box, Flex, Icon, ListItem, Text, UnorderedList } from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import styles from './styles.module.css';

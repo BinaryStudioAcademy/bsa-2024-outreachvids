@@ -3,8 +3,17 @@ import { secondsToMilliseconds } from 'date-fns';
 import { type RefObject } from 'react';
 
 import { Flex } from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { SKIP_TO_PREV_SCENE_THRESHOLD } from '~/bundles/studio/constants/constants.js';
+import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
+import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { FPS } from '../audio-player/constants/constants.js';
 import { Control } from '../components.js';
@@ -62,7 +71,9 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
             elapsedTime - currentScene.span.start <
             secondsToMilliseconds(SKIP_TO_PREV_SCENE_THRESHOLD);
 
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+        const previousScene = isCloseToStart
+            ? (scenesWithSpan[currentSceneIndex - 1] ?? currentScene)
+            : currentScene;
 
         playerRef.current?.seekTo((previousScene.span.start / 1000) * FPS);
         void dispatch(studioActions.setElapsedTime(previousScene.span.start));
@@ -81,22 +92,24 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
                     label="Skip to the previous scene"
                     size={IconSize.EXTRA_SMALL}
                     icon={IconName.PLAY_STEP_BACK}
+                    onClick={handleSkipToPreviousScene}
                 />
 
                 <Control
                     label={isPlaying ? 'Pause' : 'Play video'}
                     size={IconSize.SMALL}
                     icon={isPlaying ? IconName.PAUSE : IconName.PLAY}
-                    onClick={handleClick}
+                    onClick={handleTogglePlaying}
                 />
 
                 <Control
                     label="Skip to the next scene"
                     size={IconSize.EXTRA_SMALL}
                     icon={IconName.PLAY_STEP_NEXT}
+                    onClick={handleSkipToNextScene}
                 />
 
-                <TimeDisplay currentTime={currentTime} duration={duration} />
+                <TimeDisplay />
             </Flex>
         </Flex>
     );

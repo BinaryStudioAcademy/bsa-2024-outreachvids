@@ -21,7 +21,6 @@ import { type ValueOf } from '~/bundles/common/types/types.js';
 import { UserAvatar, UserCard } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
-
 import styles from './styles.module.css';
 
 type Properties = {

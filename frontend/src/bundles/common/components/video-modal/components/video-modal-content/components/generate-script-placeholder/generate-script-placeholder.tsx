@@ -1,5 +1,4 @@
 import { Icon, Text, VStack } from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IconName } from '~/bundles/common/icons/icons.js';
 

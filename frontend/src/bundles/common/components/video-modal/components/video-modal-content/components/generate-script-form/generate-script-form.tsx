@@ -12,7 +12,6 @@ import {
     generateVideoScriptValidationSchema,
 } from '~/bundles/video-scripts/video-scripts.js';
 
-import styles from '../../../../video-modal.module.css';
 import { DEFAULT_GENERATE_SCRIPT_PAYLOAD } from './constants/constants.js';
 import styles from './styles.module.css';
 
