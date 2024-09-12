@@ -1,10 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
-import Logo from '~/assets/img/logo.svg';
 import {
     Center,
-    Image,
     Loader,
+    Logo,
     Overlay,
     SimpleGrid,
 } from '~/bundles/common/components/components.js';
@@ -70,7 +69,7 @@ const Auth: React.FC = () => {
                 bgColor="background.900"
                 display={{ base: 'none', sm: 'flex' }}
             >
-                {<Image src={Logo} alt="Logo" />}
+                <Logo />
             </Center>
         </SimpleGrid>
     );
