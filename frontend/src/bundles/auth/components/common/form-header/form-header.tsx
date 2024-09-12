@@ -14,7 +14,7 @@ type Properties = {
 const FormHeader: React.FC<Properties> = ({ headerText, subheader }) => {
     return (
         <>
-                 <Logo textSize='200px' logoSize='60px' />
+                <Logo textSize='200px' logoSize='60px' />
 
             <Heading as="h1" className={styles['heading']}>
                 {headerText}
