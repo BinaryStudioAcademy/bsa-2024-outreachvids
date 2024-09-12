@@ -40,6 +40,8 @@ class BaseHttpApi implements HttpApi {
             contentType,
             payload = null,
             headers: customHeaders,
+            credentials = 'same-origin',
+            keepAlive = false,
         } = options;
 
         const baseHeaders = [
@@ -55,6 +57,8 @@ class BaseHttpApi implements HttpApi {
             method,
             headers,
             payload,
+            credentials,
+            keepAlive,
         });
 
         return this.checkResponse(response) as HttpApiResponse;

@@ -1,8 +1,10 @@
+import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
 import { Icon } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
@@ -25,6 +27,7 @@ const VideoMenu: React.FC = () => {
     const activeItem = useAppSelector(({ studio }) => studio.ui.menuActiveItem);
 
     const dispatch = useAppDispatch();
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const setActiveItem = useCallback(
         (item: ValueOf<typeof MenuItems> | null): void => {
@@ -36,6 +39,14 @@ const VideoMenu: React.FC = () => {
     const handleMenuClose = useCallback((): void => {
         setActiveItem(null);
     }, [setActiveItem]);
+
+    const handleChatOpen = useCallback(() => {
+        setIsChatOpen(true);
+    }, []);
+
+    const handleChatClose = useCallback(() => {
+        setIsChatOpen(false);
+    }, []);
 
     // TODO: Uncomment menu items after demo
 
@@ -80,10 +91,15 @@ const VideoMenu: React.FC = () => {
                 <MenuBody
                     title={activeMenuItem.label}
                     onClose={handleMenuClose}
+                    onChatOpen={handleChatOpen}
                 >
                     {activeMenuItem.getContent()}
                 </MenuBody>
             )}
+            <ChatModal
+                isChatOpen={isChatOpen}
+                onModalChatClose={handleChatClose}
+            />
         </>
     );
 };

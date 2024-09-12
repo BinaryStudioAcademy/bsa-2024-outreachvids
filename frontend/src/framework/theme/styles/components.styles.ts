@@ -23,6 +23,11 @@ const components = {
                 fontWeight: '700',
                 lineHeight: '27px',
             },
+            H4: {
+                fontSize: '16px',
+                fontWeight: '700',
+                lineHeight: '24px',
+            },
         },
     },
     Text: {

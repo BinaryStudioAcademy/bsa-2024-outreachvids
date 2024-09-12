@@ -16,10 +16,12 @@ import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 
 import styles from './styles.module.css';
 
-// TODO: remove mocked video url when fetching user videos
-const videoUrl = 'https://d2tm5q3cg1nlwf.cloudfront.net/1725950803697.webm';
+type Properties = {
+    name: string;
+    url: string;
+};
 
-const VideoCard: React.FC = () => {
+const VideoCard: React.FC<Properties> = ({ name, url }) => {
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box position="relative" role="group">
@@ -57,7 +59,7 @@ const VideoCard: React.FC = () => {
                         <MenuItem
                             as={LibraryLink}
                             icon={<Icon as={IconName.DOWNLOAD} />}
-                            href={videoUrl}
+                            href={url}
                             download
                         >
                             <Text color="typography.900" variant="bodySmall">
@@ -85,7 +87,7 @@ const VideoCard: React.FC = () => {
 
             <Box padding="7px 10px 5px 5px">
                 <Text variant="button" color="typography.900">
-                    Video Name
+                    {name}
                 </Text>
                 <Flex justify="space-between">
                     <Text variant="caption" color="typography.300">

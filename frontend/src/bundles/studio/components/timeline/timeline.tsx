@@ -13,11 +13,11 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
+import { MenuItems } from '~/bundles/studio/enums/enums.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
-import { MenuItems } from '../../enums/enums.js';
 import { NEW_SCRIPT_TEXT } from '../constants/constants.js';
 import { TimelineView } from './components.js';
 
@@ -30,7 +30,7 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
 
     const range = useAppSelector(({ studio }) => studio.range);
 
-    const onButtonClick = useCallback(
+    const handleButtonClick = useCallback(
         (type: RowType) => {
             switch (type) {
                 case RowNames.SCENE: {
@@ -50,18 +50,18 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
         [dispatch],
     );
 
-    const onResizeEnd = useCallback(
+    const handleResizeEnd = useCallback(
         (event: ResizeEndEvent) => {
             const activeItem = event.active.data.current;
             const activeItemType = activeItem['type'] as RowType;
 
-            if (activeItemType === RowNames.BUTTON) {
-                return;
-            }
-
             const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
 
-            if (!updatedSpan || activeItemType === RowNames.SCRIPT) {
+            if (
+                !updatedSpan ||
+                activeItemType === RowNames.SCRIPT ||
+                activeItemType === RowNames.BUTTON
+            ) {
                 return;
             }
 
@@ -77,7 +77,7 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
         [dispatch],
     );
 
-    const onDragMove = useCallback(
+    const handleDragMove = useCallback(
         (event: DragMoveEvent) => {
             const activeItem = event.active.data.current;
             const activeItemId = event.active.id as string;
@@ -105,7 +105,7 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
         [dispatch],
     );
 
-    const onDragEnd = useCallback(
+    const handleDragEnd = useCallback(
         (event: DragEndEvent) => {
             dispatch(studioActions.removeDestinationPointer());
 
@@ -130,7 +130,7 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
                 Math.round(updatedSpan.end) == end
             ) {
                 if (activeItemType === RowNames.BUTTON) {
-                    onButtonClick(activeRowId as RowType);
+                    handleButtonClick(activeRowId as RowType);
                 } else {
                     dispatch(
                         studioActions.selectItem({
@@ -164,10 +164,10 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
                 }
             }
         },
-        [dispatch, onButtonClick],
+        [dispatch, handleButtonClick],
     );
 
-    const onRangeChanged = useCallback(
+    const handleRangeChanged = useCallback(
         (updateFunction: (previous: Range) => Range) => {
             const newRange = updateFunction(range);
             dispatch(studioActions.setRange(newRange));
@@ -178,10 +178,10 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
     return (
         <TimelineContext
             range={range}
-            onDragEnd={onDragEnd}
-            onResizeEnd={onResizeEnd}
-            onRangeChanged={onRangeChanged}
-            onDragMove={onDragMove}
+            onDragEnd={handleDragEnd}
+            onResizeEnd={handleResizeEnd}
+            onRangeChanged={handleRangeChanged}
+            onDragMove={handleDragMove}
         >
             <TimelineView playerRef={playerRef} />
         </TimelineContext>
