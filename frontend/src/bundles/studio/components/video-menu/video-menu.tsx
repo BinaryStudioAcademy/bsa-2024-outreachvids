@@ -1,3 +1,4 @@
+import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
 import { Icon } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -21,6 +22,7 @@ const VideoMenu: React.FC = () => {
         content: null,
     });
     const [isOpen, setIsOpen] = useState(false);
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const handleMenuClick = useCallback(
         (header: string, content: React.ReactNode): void => {
@@ -33,6 +35,14 @@ const VideoMenu: React.FC = () => {
     const handleActiveItemReset = useCallback((): void => {
         setIsOpen(false);
         setActiveIndex(null);
+    }, []);
+
+    const handleChatOpen = useCallback(() => {
+        setIsChatOpen(true);
+    }, []);
+
+    const handleChatClose = useCallback(() => {
+        setIsChatOpen(false);
     }, []);
 
     const menuItems: MenuItem[] = [
@@ -74,9 +84,14 @@ const VideoMenu: React.FC = () => {
                 title={activeItem.title}
                 isOpen={isOpen}
                 onClose={handleActiveItemReset}
+                onChatOpen={handleChatOpen}
             >
                 {activeItem.content}
             </MenuBody>
+            <ChatModal
+                isChatOpen={isChatOpen}
+                onModalChatClose={handleChatClose}
+            />
         </>
     );
 };

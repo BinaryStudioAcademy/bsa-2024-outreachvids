@@ -7,6 +7,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
+import { chatApi } from '~/bundles/chat/chat.js';
+import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import { reducer as studioReducer } from '~/bundles/studio/store/studio.js';
 import {
@@ -23,6 +25,7 @@ import { errorMiddleware } from '../../bundles/common/middlewares/error-handling
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
     studio: ReturnType<typeof studioReducer>;
+    chat: ReturnType<typeof chatReducer>;
 };
 
 type ExtraArguments = {
@@ -31,6 +34,7 @@ type ExtraArguments = {
     avatarsApi: typeof avatarsApi;
     speechApi: typeof speechApi;
     avatarVideosApi: typeof avatarVideosApi;
+    chatApi: typeof chatApi;
     storage: typeof storage;
 };
 
@@ -49,6 +53,7 @@ class Store {
             reducer: {
                 auth: authReducer,
                 studio: studioReducer,
+                chat: chatReducer,
             },
             middleware: (getDefaultMiddleware) => {
                 const middlewares = getDefaultMiddleware({
@@ -68,6 +73,7 @@ class Store {
             avatarsApi,
             speechApi,
             avatarVideosApi,
+            chatApi,
             storage,
         };
     }
