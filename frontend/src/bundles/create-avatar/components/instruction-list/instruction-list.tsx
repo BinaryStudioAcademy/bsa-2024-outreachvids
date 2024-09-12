@@ -1,4 +1,11 @@
-import { Box, Flex, Icon, ListItem, Text, UnorderedList } from '~/bundles/common/components/components.js';
+import {
+    Box,
+    Flex,
+    Icon,
+    ListItem,
+    Text,
+    UnorderedList,
+} from '~/bundles/common/components/components.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import styles from './styles.module.css';
@@ -7,10 +14,13 @@ interface InstructionListProperties {
     color: string;
     listItems: string[];
     title: string;
-
 }
 
-const InstructionList: React.FC<InstructionListProperties> = ({ color, listItems, title }) => (
+const InstructionList: React.FC<InstructionListProperties> = ({
+    color,
+    listItems,
+    title,
+}) => (
     <Box>
         <Flex gap="5px" marginBottom="30px">
             <Icon
@@ -19,11 +29,7 @@ const InstructionList: React.FC<InstructionListProperties> = ({ color, listItems
                 as={IconName.CHECK_CIRCLE}
                 color={color}
             />
-            <Text
-                as="span"
-                color={color}
-                variant="bodySmall"
-            >
+            <Text as="span" color={color} variant="bodySmall">
                 {title}
             </Text>
         </Flex>
