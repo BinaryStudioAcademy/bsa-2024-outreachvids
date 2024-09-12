@@ -10,56 +10,48 @@ import { isRouteInWhiteList } from './utils/utils.js';
 
 type Options = {
     routesWhiteList: Route[];
-    availableRoutes: Route[];
 };
 
-const authenticateJWT = fp<Options>(
-    (fastify, { routesWhiteList, availableRoutes }, done) => {
-        fastify.decorateRequest('user', null);
+const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
+    fastify.decorateRequest('user', null);
 
-        fastify.addHook(Hook.PRE_HANDLER, async (request) => {
-            if (
-                isRouteInWhiteList(routesWhiteList, request) ||
-                !isRouteInWhiteList(availableRoutes, request)
-            ) {
-                return;
-            }
+    fastify.addHook(Hook.PRE_HANDLER, async (request) => {
+        if (isRouteInWhiteList(routesWhiteList, request)) {
+            return;
+        }
 
-            const authHeader = request.headers[HttpHeader.AUTHORIZATION];
+        const authHeader = request.headers[HttpHeader.AUTHORIZATION];
 
-            if (!authHeader) {
-                throw new HttpError({
-                    message: ErrorMessage.MISSING_TOKEN,
-                    status: HttpCode.UNAUTHORIZED,
-                });
-            }
+        if (!authHeader) {
+            throw new HttpError({
+                message: ErrorMessage.MISSING_TOKEN,
+                status: HttpCode.UNAUTHORIZED,
+            });
+        }
 
-            const [, token] = authHeader.split(' ');
+        const [, token] = authHeader.split(' ');
 
-            const userId = await tokenService.getUserIdFromToken(
-                token as string,
-            );
+        const userId = await tokenService.getUserIdFromToken(token as string);
 
-            if (!userId) {
-                throw new HttpError({
-                    message: ErrorMessage.INVALID_TOKEN,
-                    status: HttpCode.UNAUTHORIZED,
-                });
-            }
+        if (!userId) {
+            throw new HttpError({
+                message: ErrorMessage.INVALID_TOKEN,
+                status: HttpCode.UNAUTHORIZED,
+            });
+        }
 
-            const user = await userService.findById(userId);
+        const user = await userService.findById(userId);
 
-            if (!user) {
-                throw new HttpError({
-                    message: ErrorMessage.MISSING_USER,
-                    status: HttpCode.BAD_REQUEST,
-                });
-            }
-            request.user = user.toObject();
-        });
+        if (!user) {
+            throw new HttpError({
+                message: ErrorMessage.MISSING_USER,
+                status: HttpCode.BAD_REQUEST,
+            });
+        }
+        request.user = user.toObject();
+    });
 
-        done();
-    },
-);
+    done();
+});
 
 export { authenticateJWT };
