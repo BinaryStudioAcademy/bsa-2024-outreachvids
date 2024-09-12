@@ -1,20 +1,24 @@
-
 .timeCursor {
     height: 100%;
-    width: 5px;
+    width: 2px;
     z-index: 3;
-    background-color: red;
     position: absolute;
     cursor: pointer;
 }
 
-.timeCursorArrow {
-    width: 0;
-    height: 0;
+.timeCursorTriangle {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-bottom: 5px solid red;
+    border-top: 10px solid;
+}
+.timeCursorSquare {
     position: absolute;
-    top: -5px;
-    left: -2.5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
 }
