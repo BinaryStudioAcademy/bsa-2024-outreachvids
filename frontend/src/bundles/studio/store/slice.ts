@@ -13,7 +13,7 @@ import {
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { PlayIconNames, RowNames } from '../enums/enums.js';
+import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     calculateTotalMilliseconds,
     getDestinationPointerValue,
@@ -64,6 +64,7 @@ type State = {
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
+        menuActiveItem: ValueOf<typeof MenuItems> | null;
     };
 };
 
@@ -81,6 +82,7 @@ const initialState: State = {
     ui: {
         destinationPointer: null,
         selectedItem: null,
+        menuActiveItem: null,
     },
 };
 
@@ -96,6 +98,7 @@ const { reducer, actions, name } = createSlice({
                 voiceName: defaultVoiceName,
                 iconName: PlayIconNames.READY,
             };
+            state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
             state.scripts.push(script);
             const totalMilliseconds = calculateTotalMilliseconds(
                 state.scripts,
@@ -153,7 +156,7 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCENE_DURATION,
             };
-
+            state.ui.selectedItem = { id: scene.id, type: RowNames.SCENE };
             state.scenes.push(scene);
             const totalMilliseconds = calculateTotalMilliseconds(
                 state.scenes,
@@ -258,6 +261,12 @@ const { reducer, actions, name } = createSlice({
                     },
                 };
             });
+        },
+        setMenuActiveItem(
+            state,
+            action: PayloadAction<ValueOf<typeof MenuItems> | null>,
+        ) {
+            state.ui.menuActiveItem = action.payload;
         },
     },
     extraReducers(builder) {
