@@ -21,8 +21,7 @@ const ScriptsRow: React.FC = () => {
 
     const buttonEnd = getElementEnd(
         scriptsEnd,
-        buttonWidthInPixels,
-        pixelsToValue,
+        pixelsToValue(buttonWidthInPixels),
     );
 
     return (

@@ -8,9 +8,9 @@ import {
     setItemsSpan,
 } from '~/bundles/studio/helpers/helpers.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
-import styles from '~/framework/theme/styles/css-modules/timeline.module.css';
 
 import { Item, Row } from '../components.js';
+import styles from './styles.module.css';
 
 const ScenesRow: React.FC = () => {
     const scenes = useAppSelector(({ studio }) => studio.scenes);
@@ -22,8 +22,7 @@ const ScenesRow: React.FC = () => {
 
     const buttonEnd = getElementEnd(
         scenesEnd,
-        buttonWidthInPixels,
-        pixelsToValue,
+        pixelsToValue(buttonWidthInPixels),
     );
 
     return (

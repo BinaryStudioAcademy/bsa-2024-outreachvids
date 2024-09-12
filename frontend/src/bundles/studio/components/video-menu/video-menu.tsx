@@ -1,7 +1,4 @@
-import {
-    FontAwesomeIcon,
-    Icon,
-} from '~/bundles/common/components/components.js';
+import { Icon } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -45,7 +42,7 @@ const VideoMenu: React.FC = () => {
     const menuItems: Record<ValueOf<typeof MenuItems>, MenuItem> = {
         // templates: {
         //     label: 'Templates',
-        //     icon: <Icon as={FontAwesomeIcon} icon={IconName.TEMPLATE} />,
+        //     icon: <Icon as={IconName.TEMPLATE} />,
         //     getContent: () => <TemplatesContent />,
         // },
         avatars: {
@@ -55,17 +52,17 @@ const VideoMenu: React.FC = () => {
         },
         script: {
             label: 'Script',
-            icon: <Icon as={FontAwesomeIcon} icon={IconName.SCRIPT} />,
+            icon: <Icon as={IconName.SCRIPT} />,
             getContent: () => <ScriptContent />,
         },
         // text: {
         //     label: 'Text',
-        //     icon: <Icon as={FontAwesomeIcon} icon={IconName.TEXT} />,
+        //     icon: <Icon as={IconName.TEXT} />,
         //     getContent: () => <TextContent />,
         // },
         // assets: {
         //     label: 'Assets',
-        //     icon: <Icon as={FontAwesomeIcon} icon={IconName.UPLOAD} />,
+        //     icon: <Icon as={IconName.UPLOAD} />,
         //     getContent: () => <AssetsContent />,
         // },
     };

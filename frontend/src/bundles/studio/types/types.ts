@@ -10,3 +10,7 @@ export {
     type TimelineItem,
     type TimelineItemWithSpan,
 } from './timeline-item.type.js';
+export {
+    type GenerateSpeechRequestDto,
+    type GenerateSpeechResponseDto,
+} from 'shared';
