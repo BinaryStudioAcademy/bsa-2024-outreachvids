@@ -1,8 +1,4 @@
-import {
-    Heading,
-    Logo,
-    Text,
-} from '~/bundles/common/components/components.js';
+import { Heading, Logo, Text } from '~/bundles/common/components/components.js';
 
 import styles from './styles.module.css';
 
@@ -14,7 +10,7 @@ type Properties = {
 const FormHeader: React.FC<Properties> = ({ headerText, subheader }) => {
     return (
         <>
-                <Logo textSize='200px' logoSize='60px' />
+            <Logo textSize="200px" logoSize="60px" />
 
             <Heading as="h1" className={styles['heading']}>
                 {headerText}

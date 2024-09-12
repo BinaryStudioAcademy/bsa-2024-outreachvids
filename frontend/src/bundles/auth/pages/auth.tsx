@@ -69,7 +69,7 @@ const Auth: React.FC = () => {
                 bgColor="background.900"
                 display={{ base: 'none', sm: 'flex' }}
             >
-                <Logo logoSize='200px'/>
+                <Logo logoSize="200px" />
             </Center>
         </SimpleGrid>
     );

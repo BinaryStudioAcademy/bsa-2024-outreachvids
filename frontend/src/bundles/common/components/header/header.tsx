@@ -17,7 +17,7 @@ const Header: React.FC<Properties> = ({ left, center, right }) => {
         <Flex as="header" className={styles['header']}>
             {left ?? (
                 <Link to={AppRoute.ROOT}>
-                        <Logo textSize='150px' logoSize='40px' />
+                    <Logo textSize="150px" logoSize="40px" />
                 </Link>
             )}
             <Box>{center}</Box>

@@ -13,7 +13,7 @@ const Loader = (): JSX.Element => {
         <Flex flexDirection="column" alignItems="center">
             <Box position="relative" width="100px" height="100px">
                 <Circle size="full" color="text.default">
-                    <Logo logoSize='70px'/>
+                    <Logo logoSize="70px" />
                 </Circle>
                 <Circle
                     position="absolute"
