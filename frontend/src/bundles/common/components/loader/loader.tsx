@@ -8,11 +8,12 @@ const Loader = (): JSX.Element => {
     return (
         <Flex flexDirection="column" alignItems="center">
             <Box position="relative" width="100px" height="100px">
-                <Circle
-                    size="full"
-                    color="text.default"
-                >
-                    <img src={logo} alt="Logo" style={{ width: '80%', height: '80%' }}/>
+                <Circle size="full" color="text.default">
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        style={{ width: '80%', height: '80%' }}
+                    />
                 </Circle>
                 <Circle
                     position="absolute"
