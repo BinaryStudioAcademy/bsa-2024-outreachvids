@@ -122,21 +122,17 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
                 Math.round(updatedSpan.start) === start &&
                 Math.round(updatedSpan.end) == end
             ) {
-                switch (activeItemType) {
-                    case RowNames.SCENE: {
-                        dispatch(
-                            studioActions.selectItem({
-                                id: activeItemId,
-                                type: activeItemType,
-                            }),
-                        );
-                        break;
-                    }
-                    case RowNames.BUTTON: {
-                        onButtonClick(activeRowId as RowType);
-                        break;
-                    }
+                if (activeItemType === RowNames.BUTTON) {
+                    onButtonClick(activeRowId as RowType);
+                } else {
+                    dispatch(
+                        studioActions.selectItem({
+                            id: activeItemId,
+                            type: activeItemType,
+                        }),
+                    );
                 }
+
                 return;
             }
 

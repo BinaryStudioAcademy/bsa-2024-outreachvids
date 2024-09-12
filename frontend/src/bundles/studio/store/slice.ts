@@ -13,7 +13,7 @@ import {
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { RowNames } from '../enums/enums.js';
+import { type MenuItems, RowNames } from '../enums/enums.js';
 import {
     getDestinationPointerValue,
     getNewItemIndexBySpan,
@@ -56,7 +56,7 @@ type State = {
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
-        menuActiveIndex: number | null;
+        menuActiveItem: keyof typeof MenuItems | null;
     };
 };
 
@@ -71,7 +71,7 @@ const initialState: State = {
     ui: {
         destinationPointer: null,
         selectedItem: null,
-        menuActiveIndex: null,
+        menuActiveItem: null,
     },
 };
 
@@ -223,8 +223,11 @@ const { reducer, actions, name } = createSlice({
                 };
             });
         },
-        setMenuActiveIndex(state, action: PayloadAction<number | null>) {
-            state.ui.menuActiveIndex = action.payload;
+        setMenuActiveItem(
+            state,
+            action: PayloadAction<keyof typeof MenuItems | null>,
+        ) {
+            state.ui.menuActiveItem = action.payload;
         },
     },
     extraReducers(builder) {

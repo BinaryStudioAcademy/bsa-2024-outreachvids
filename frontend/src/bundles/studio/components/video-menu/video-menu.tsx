@@ -8,6 +8,7 @@ import {
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
+import { type MenuItems } from '~/bundles/studio/enums/enums.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Menu, MenuBody } from './components/components.js';
@@ -23,62 +24,64 @@ import {
 import { type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
-    const activeIndex = useAppSelector(
-        ({ studio }) => studio.ui.menuActiveIndex,
-    );
+    const activeItem = useAppSelector(({ studio }) => studio.ui.menuActiveItem);
+
     const dispatch = useAppDispatch();
 
-    const setActiveIndex = useCallback(
-        (index: number | null): void => {
-            dispatch(studioActions.setMenuActiveIndex(index));
+    const setActiveItem = useCallback(
+        (item: keyof typeof MenuItems | null): void => {
+            dispatch(studioActions.setMenuActiveItem(item));
         },
         [dispatch],
     );
 
     const handleMenuClose = useCallback((): void => {
-        setActiveIndex(null);
-    }, [setActiveIndex]);
+        setActiveItem(null);
+    }, [setActiveItem]);
 
-    const menuItems: MenuItem[] = [
-        {
+    const menuItems: Record<keyof typeof MenuItems, MenuItem> = {
+        TEMPLATES: {
             label: 'Templates',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.TEMPLATE} />,
             getContent: () => <TemplatesContent />,
         },
-        {
+        AVATARS: {
             label: 'Avatars',
             icon: <Icon as={IconName.AVATAR} />,
             getContent: () => <AvatarsContent />,
         },
-        {
+        SCRIPT: {
             label: 'Script',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.SCRIPT} />,
             getContent: () => <ScriptContent />,
         },
-        {
+        TEXT: {
             label: 'Text',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.TEXT} />,
             getContent: () => <TextContent />,
         },
-        {
+        ASSETS: {
             label: 'Assets',
             icon: <Icon as={FontAwesomeIcon} icon={IconName.UPLOAD} />,
             getContent: () => <AssetsContent />,
         },
-    ];
+    };
 
-    const activeItem = activeIndex ? menuItems[activeIndex] : null;
+    const activeMenuItem = activeItem && menuItems[activeItem];
 
     return (
         <>
             <Menu
                 items={menuItems}
-                activeIndex={activeIndex}
-                onActiveIndexSet={setActiveIndex}
+                activeItem={activeItem}
+                onActiveItemSet={setActiveItem}
             />
-            {activeItem && (
-                <MenuBody title={activeItem.label} onClose={handleMenuClose}>
-                    {activeItem.getContent()}
+            {activeMenuItem && (
+                <MenuBody
+                    title={activeMenuItem.label}
+                    onClose={handleMenuClose}
+                >
+                    {activeMenuItem.getContent()}
                 </MenuBody>
             )}
         </>

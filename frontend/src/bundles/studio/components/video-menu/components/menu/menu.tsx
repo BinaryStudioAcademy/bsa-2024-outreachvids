@@ -1,35 +1,25 @@
 import { Box, Flex, VStack } from '~/bundles/common/components/components.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { type MenuItems } from '~/bundles/studio/enums/enums.js';
 
 import { type MenuItem } from '../../types/types.js';
 
 type Properties = {
-    items: MenuItem[];
-    activeIndex: number | null;
-    onActiveIndexSet: (index: number) => void;
+    items: Record<keyof typeof MenuItems, MenuItem>;
+    activeItem: keyof typeof MenuItems | null;
+    onActiveItemSet: (item: keyof typeof MenuItems) => void;
 };
 
-const Menu: React.FC<Properties> = ({
-    items,
-    activeIndex,
-    onActiveIndexSet,
-}) => {
+const Menu: React.FC<Properties> = ({ items, activeItem, onActiveItemSet }) => {
     const handleClick = useCallback(
-        (index: number) => {
-            return () => {
-                if (!items || items.length === 0 || index >= items.length) {
-                    return;
-                }
-
-                const item = items[index];
-                if (!item) {
-                    return;
-                }
-
-                onActiveIndexSet(index);
-            };
+        (event: React.MouseEvent<HTMLDivElement>) => {
+            onActiveItemSet(
+                event.currentTarget.dataset[
+                    'menuItem'
+                ] as keyof typeof MenuItems,
+            );
         },
-        [onActiveIndexSet, items],
+        [onActiveItemSet],
     );
     return (
         <Box
@@ -48,10 +38,11 @@ const Menu: React.FC<Properties> = ({
             }}
         >
             <VStack spacing={1} align="stretch" p={2} w="100%">
-                {items.map((item, index) => (
+                {Object.entries(items).map(([key, item]) => (
                     <Flex
-                        key={index}
-                        onClick={handleClick(index)}
+                        key={key}
+                        data-menu-item={key}
+                        onClick={handleClick}
                         sx={{
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -61,7 +52,7 @@ const Menu: React.FC<Properties> = ({
                             cursor: 'pointer',
                             borderRadius: '8px',
                             bg:
-                                activeIndex === index
+                                activeItem === key
                                     ? 'background.600'
                                     : 'transparent',
                             _hover: {
