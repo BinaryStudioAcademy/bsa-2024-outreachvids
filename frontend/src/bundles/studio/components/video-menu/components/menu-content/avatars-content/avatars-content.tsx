@@ -24,8 +24,10 @@ const AvatarsContent: React.FC = () => {
     }));
 
     useEffect(() => {
-        void dispatch(studioActions.loadAvatars());
-    }, [dispatch]);
+        if (avatars.length === 0) {
+            void dispatch(studioActions.loadAvatars());
+        }
+    }, [dispatch, avatars]);
 
     return (
         <>
@@ -38,12 +40,13 @@ const AvatarsContent: React.FC = () => {
                 </Box>
             ) : (
                 <SimpleGrid columns={3} spacingX="13px" spacingY="10px">
-                    {avatars.map(({ id, styles }) => (
+                    {avatars.map(({ id, name, styles }) => (
                         <Fragment key={id}>
                             {styles.map(({ style, imgUrl }) => (
                                 <AvatarCard
                                     key={`${id}-${style}`}
                                     id={id}
+                                    name={name}
                                     style={style}
                                     preview={imgUrl}
                                 />

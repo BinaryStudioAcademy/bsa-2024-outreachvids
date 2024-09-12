@@ -14,4 +14,6 @@ export {
 export {
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
+    type RenderAvatarResponseDto,
+    type RenderAvatarVideoRequestDto,
 } from 'shared';

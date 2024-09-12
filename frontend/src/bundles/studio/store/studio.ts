@@ -1,4 +1,9 @@
-import { generateScriptSpeech, loadAvatars, loadVoices } from './actions.js';
+import {
+    generateScriptSpeech,
+    loadAvatars,
+    loadVoices,
+    renderAvatar,
+} from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
@@ -6,6 +11,7 @@ const allActions = {
     loadAvatars,
     loadVoices,
     generateScriptSpeech,
+    renderAvatar,
 };
 
 export { allActions as actions };

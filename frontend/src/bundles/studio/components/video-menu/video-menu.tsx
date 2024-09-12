@@ -1,82 +1,105 @@
+import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
 import { Icon } from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
+import { type MenuItems } from '~/bundles/studio/enums/enums.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Menu, MenuBody } from './components/components.js';
 import {
     AvatarsContent,
     ScriptContent,
 } from './components/menu-content/content.js';
-import {
-    AssetsContent,
-    TemplatesContent,
-    TextContent,
-} from './components/mock/menu-mock.js';
-import { type ActiveItem, type MenuItem } from './types/types.js';
+// import {
+//     AssetsContent,
+//     TemplatesContent,
+//     TextContent,
+// } from './components/mock/menu-mock.js';
+import { type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [activeItem, setActiveItem] = useState<ActiveItem>({
-        title: '',
-        content: null,
-    });
-    const [isOpen, setIsOpen] = useState(false);
+    const activeItem = useAppSelector(({ studio }) => studio.ui.menuActiveItem);
 
-    const handleMenuClick = useCallback(
-        (header: string, content: React.ReactNode): void => {
-            setActiveItem({ title: header, content });
-            setIsOpen(true);
+    const dispatch = useAppDispatch();
+    const [isChatOpen, setIsChatOpen] = useState(false);
+
+    const setActiveItem = useCallback(
+        (item: ValueOf<typeof MenuItems> | null): void => {
+            dispatch(studioActions.setMenuActiveItem(item));
         },
-        [],
+        [dispatch],
     );
 
-    const handleActiveItemReset = useCallback((): void => {
-        setIsOpen(false);
-        setActiveIndex(null);
+    const handleMenuClose = useCallback((): void => {
+        setActiveItem(null);
+    }, [setActiveItem]);
+
+    const handleChatOpen = useCallback(() => {
+        setIsChatOpen(true);
     }, []);
 
-    const menuItems: MenuItem[] = [
-        {
-            label: 'Templates',
-            icon: <Icon as={IconName.TEMPLATE} />,
-            onClick: () => handleMenuClick('Templates', <TemplatesContent />),
-        },
-        {
+    const handleChatClose = useCallback(() => {
+        setIsChatOpen(false);
+    }, []);
+
+    // TODO: Uncomment menu items after demo
+
+    const menuItems: Record<ValueOf<typeof MenuItems>, MenuItem> = {
+        // templates: {
+        //     label: 'Templates',
+        //     icon: <Icon as={IconName.TEMPLATE} />,
+        //     getContent: () => <TemplatesContent />,
+        // },
+        avatars: {
             label: 'Avatars',
             icon: <Icon as={IconName.AVATAR} />,
-            onClick: () => handleMenuClick('Avatars', <AvatarsContent />),
+            getContent: () => <AvatarsContent />,
         },
-        {
+        script: {
             label: 'Script',
             icon: <Icon as={IconName.SCRIPT} />,
-            onClick: () => handleMenuClick('Script', <ScriptContent />),
+            getContent: () => <ScriptContent />,
         },
-        {
-            label: 'Text',
-            icon: <Icon as={IconName.TEXT} />,
-            onClick: () => handleMenuClick('Text', <TextContent />),
-        },
-        {
-            label: 'Assets',
-            icon: <Icon as={IconName.UPLOAD} />,
-            onClick: () => handleMenuClick('Assets', <AssetsContent />),
-        },
-    ];
+        // text: {
+        //     label: 'Text',
+        //     icon: <Icon as={IconName.TEXT} />,
+        //     getContent: () => <TextContent />,
+        // },
+        // assets: {
+        //     label: 'Assets',
+        //     icon: <Icon as={IconName.UPLOAD} />,
+        //     getContent: () => <AssetsContent />,
+        // },
+    };
+
+    const activeMenuItem = activeItem && menuItems[activeItem];
 
     return (
         <>
             <Menu
                 items={menuItems}
-                activeIndex={activeIndex}
-                onActiveIndexSet={setActiveIndex}
+                activeItem={activeItem}
+                onActiveItemSet={setActiveItem}
             />
-            <MenuBody
-                title={activeItem.title}
-                isOpen={isOpen}
-                onClose={handleActiveItemReset}
-            >
-                {activeItem.content}
-            </MenuBody>
+            {activeMenuItem && (
+                <MenuBody
+                    title={activeMenuItem.label}
+                    onClose={handleMenuClose}
+                    onChatOpen={handleChatOpen}
+                >
+                    {activeMenuItem.getContent()}
+                </MenuBody>
+            )}
+            <ChatModal
+                isChatOpen={isChatOpen}
+                onModalChatClose={handleChatClose}
+            />
         </>
     );
 };

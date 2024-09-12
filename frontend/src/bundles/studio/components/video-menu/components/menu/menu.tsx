@@ -1,50 +1,39 @@
 import { Box, Flex, VStack } from '~/bundles/common/components/components.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
+import { type MenuItems } from '~/bundles/studio/enums/enums.js';
 
 import { type MenuItem } from '../../types/types.js';
 import styles from './styles.module.css';
 
 type Properties = {
-    items: MenuItem[];
-    activeIndex: number | null;
-    onActiveIndexSet: (index: number) => void;
+    items: Record<ValueOf<typeof MenuItems>, MenuItem>;
+    activeItem: ValueOf<typeof MenuItems> | null;
+    onActiveItemSet: (item: ValueOf<typeof MenuItems>) => void;
 };
 
-const Menu: React.FC<Properties> = ({
-    items,
-    activeIndex,
-    onActiveIndexSet,
-}) => {
+const Menu: React.FC<Properties> = ({ items, activeItem, onActiveItemSet }) => {
     const handleClick = useCallback(
-        (index: number) => {
-            return () => {
-                if (!items || items.length === 0 || index >= items.length) {
-                    return;
-                }
-
-                const item = items[index];
-                if (!item) {
-                    return;
-                }
-
-                onActiveIndexSet(index);
-                item.onClick();
-            };
+        (event: React.MouseEvent<HTMLDivElement>) => {
+            onActiveItemSet(
+                event.currentTarget.dataset['menuItem'] as ValueOf<
+                    typeof MenuItems
+                >,
+            );
         },
-        [onActiveIndexSet, items],
+        [onActiveItemSet],
     );
 
     return (
         <Box className={styles['menuContainer']}>
             <VStack spacing={1} align="stretch" className={styles['vStack']}>
-                {items.map((item, index) => (
+                {Object.entries(items).map(([key, item]) => (
                     <Flex
-                        key={index}
-                        onClick={handleClick(index)}
+                        key={key}
+                        data-menu-item={key}
+                        onClick={handleClick}
                         className={`${styles['menuItem']} ${
-                            activeIndex === index
-                                ? styles['menuItemActive']
-                                : ''
+                            activeItem === key ? styles['menuItemActive'] : ''
                         }`}
                     >
                         <Box className={styles['icon']}>{item.icon}</Box>

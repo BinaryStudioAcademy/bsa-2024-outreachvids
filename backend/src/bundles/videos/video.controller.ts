@@ -12,6 +12,7 @@ import { VideosApiPath } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
     type UpdateVideoRequestDto,
+    type UserGetCurrentResponseDto,
     type VideoGetOneRequestDto,
 } from './types/types.js';
 import {
@@ -49,7 +50,12 @@ class VideoController extends BaseController {
         this.addRoute({
             path: VideosApiPath.ROOT,
             method: HTTPMethod.GET,
-            handler: () => this.findAll(),
+            handler: (options) =>
+                this.findAllByUser(
+                    options as ApiHandlerOptions<{
+                        user: UserGetCurrentResponseDto;
+                    }>,
+                ),
         });
 
         this.addRoute({
@@ -108,7 +114,7 @@ class VideoController extends BaseController {
      * @swagger
      * /videos/:
      *    get:
-     *      description: Get all videos
+     *      description: Get all videos by user
      *      security:
      *       - bearerAuth: []
      *      responses:
@@ -126,10 +132,14 @@ class VideoController extends BaseController {
      *                      $ref: '#/components/schemas/Video'
      */
 
-    private async findAll(): Promise<ApiHandlerResponse> {
+    private async findAllByUser(
+        options: ApiHandlerOptions<{
+            user: UserGetCurrentResponseDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.OK,
-            payload: await this.videoService.findAll(),
+            payload: await this.videoService.findByUserId(options.user.id),
         };
     }
 
