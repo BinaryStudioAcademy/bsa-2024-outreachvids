@@ -1,6 +1,4 @@
 import { type PlayerRef } from '@remotion/player';
-import { minutesToMilliseconds } from 'date-fns';
-import { type Range } from 'dnd-timeline';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -31,11 +29,6 @@ import {
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
 import { actions as studioActionCreator } from '../store/studio.js';
-
-const initialRange: Range = {
-    start: minutesToMilliseconds(0),
-    end: minutesToMilliseconds(1),
-};
 
 const Studio: React.FC = () => {
     const scenes = useAppSelector(({ studio }) => studio.scenes);
@@ -121,11 +114,8 @@ const Studio: React.FC = () => {
 
             <VStack alignItems={'stretch'}>
                 <PlayerControls playerRef={playerReference} />
-                <Box>
-                    <Timeline
-                        initialRange={initialRange}
-                        playerRef={playerReference}
-                    />
+                <Box overflowY="auto">
+                    <Timeline playerRef={playerReference} />
                 </Box>
             </VStack>
         </Box>
