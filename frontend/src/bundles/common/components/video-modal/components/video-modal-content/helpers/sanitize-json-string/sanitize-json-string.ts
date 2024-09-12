@@ -1,6 +1,5 @@
 const sanitizeJsonString = (input: string): string => {
-    let sanitized = input.replaceAll('`', '');
-    sanitized = sanitized.replaceAll('json', '');
+    const sanitized = input.replaceAll('`', '').replaceAll('json', '');
     return sanitized.trim();
 };
 

@@ -17,27 +17,40 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
         dataStatus: chat.dataStatus,
     }));
 
+    const renderLoadingState = (): React.ReactNode => (
+        <Box mt="100px">
+            <Loader />
+        </Box>
+    );
+
+    const renderEmptyState = (): React.ReactNode => (
+        <GenerateScriptPlaceholderContent
+            message="Here you will see your generated script"
+            icon={IconName.SCROLL}
+        />
+    );
+
+    const renderScripts = (): React.ReactNode => (
+        <>
+            {videoScripts.map((videoScript, index) => (
+                <GenerateScriptScene key={index} videoScript={videoScript} />
+            ))}
+        </>
+    );
+
+    const getContent = (): React.ReactNode => {
+        if (dataStatus === DataStatus.PENDING) {
+            return renderLoadingState();
+        }
+        if (videoScripts.length === 0) {
+            return renderEmptyState();
+        }
+        return renderScripts();
+    };
+
     return (
         <VStack className={styles['scriptPlaceholderContainer']}>
-            {dataStatus === DataStatus.PENDING ? (
-                <Box mt="100px">
-                    <Loader />
-                </Box>
-            ) : (videoScripts.length === 0 ? (
-                <GenerateScriptPlaceholderContent
-                    message="Here you will see your generated script"
-                    icon={IconName.SCROLL}
-                />
-            ) : (
-                <>
-                    {videoScripts.map((videoScript, index) => (
-                        <GenerateScriptScene
-                            key={index}
-                            videoScript={videoScript}
-                        />
-                    ))}
-                </>
-            ))}
+            {getContent()}
         </VStack>
     );
 };

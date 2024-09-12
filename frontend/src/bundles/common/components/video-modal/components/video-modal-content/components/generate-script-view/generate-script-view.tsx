@@ -11,6 +11,10 @@ import {
     Tabs,
 } from '~/bundles/common/components/components.js';
 import {
+    getVideoScriptMessageFromPayload,
+    sanitizeJsonString,
+} from '~/bundles/common/components/video-modal/components/video-modal-content/helpers/helpers.js';
+import {
     useAppDispatch,
     useAppSelector,
     useCallback,
@@ -19,10 +23,6 @@ import {
 import { type VideoScript } from '~/bundles/common/types/video-script.type.js';
 import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/video-scripts.js';
 
-import {
-    getVideoScriptMessageFromPayload,
-    sanitizeJsonString,
-} from '../../helpers/helpers.js';
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
 import styles from './styles.module.css';
