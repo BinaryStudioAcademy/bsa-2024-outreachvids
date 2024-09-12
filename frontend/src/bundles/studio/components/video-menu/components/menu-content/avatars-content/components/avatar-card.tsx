@@ -4,22 +4,24 @@ import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 type Properties = {
     id: string;
+    name: string;
     style: string;
     preview: string;
 };
 
-const AvatarCard: React.FC<Properties> = ({ id, style, preview }) => {
+const AvatarCard: React.FC<Properties> = ({ id, name, style, preview }) => {
     const dispatch = useAppDispatch();
 
     const handleAvatarClick = useCallback(() => {
         dispatch(
             studioActions.addAvatarToScene({
                 id,
+                name,
                 style,
                 url: preview,
             }),
         );
-    }, [dispatch, id, preview, style]);
+    }, [dispatch, id, name, preview, style]);
 
     return (
         <Flex
