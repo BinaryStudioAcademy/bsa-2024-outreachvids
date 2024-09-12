@@ -12,7 +12,6 @@ type Properties = {
 const FormHeader: React.FC<Properties> = ({ headerText, subheader }) => {
     return (
         <>
-            
             <h2 className={styles['logo']}>
                 <img src={logo} alt="Logo" />
                 <img src={logoTxt} alt="Logo text" />
