@@ -24,8 +24,10 @@ const AvatarsContent: React.FC = () => {
     }));
 
     useEffect(() => {
-        void dispatch(studioActions.loadAvatars());
-    }, [dispatch]);
+        if (avatars.length === 0) {
+            void dispatch(studioActions.loadAvatars());
+        }
+    }, [dispatch, avatars]);
 
     return (
         <>
