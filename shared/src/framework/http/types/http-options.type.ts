@@ -4,6 +4,8 @@ type HttpOptions = {
     method: HttpMethod;
     payload: BodyInit | null;
     headers: Headers;
+    credentials: RequestCredentials;
+    keepAlive: boolean;
 };
 
 export { type HttpOptions };
