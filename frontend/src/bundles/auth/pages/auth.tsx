@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
+import Logo from '~/assets/img/logo.svg';
 import {
     Center,
     Loader,
@@ -64,12 +65,11 @@ const Auth: React.FC = () => {
             </Overlay>
 
             <Center bgColor="background.600">{getScreen(pathname)}</Center>
-            {/* TODO: Add logo */}
             <Center
                 bgColor="background.900"
                 display={{ base: 'none', sm: 'flex' }}
             >
-                LOGO
+                {<img src={Logo} alt="Logo" />}
             </Center>
         </SimpleGrid>
     );

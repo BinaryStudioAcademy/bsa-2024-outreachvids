@@ -1,3 +1,5 @@
+import logo from '~/assets/img/logo-sm.svg';
+import logoTxt from '~/assets/img/logo-text.svg';
 import { Heading, Text } from '~/bundles/common/components/components.js';
 
 import styles from './styles.module.css';
@@ -10,8 +12,11 @@ type Properties = {
 const FormHeader: React.FC<Properties> = ({ headerText, subheader }) => {
     return (
         <>
-            {/* TODO: Add logo */}
-            <h2 className={styles['logo']}>LOGO</h2>
+            
+            <h2 className={styles['logo']}>
+                <img src={logo} alt="Logo" />
+                <img src={logoTxt} alt="Logo text" />
+            </h2>
             <Heading as="h1" className={styles['heading']}>
                 {headerText}
             </Heading>

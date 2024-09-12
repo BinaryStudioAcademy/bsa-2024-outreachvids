@@ -1,5 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
+import logo from '~/assets/img/logo.svg';
+import logoTxt from '~/assets/img/logo-text.svg';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 
 import { Link } from '../link/link.js';
@@ -15,9 +17,11 @@ const Header: React.FC<Properties> = ({ left, center, right }) => {
     return (
         <Flex as="header" className={styles['header']}>
             {left ?? (
-                // {/* TODO: Add logo */}
                 <Link to={AppRoute.ROOT}>
-                    <Text className={styles['logoText']}>Logo</Text>
+                    <Box  className={styles['logo-container']}>
+                    <img src={logo} alt="Logo" className={styles['logo']} />
+                    <img src={logoTxt} alt="Logo text" />
+                    </Box>
                 </Link>
             )}
             <Box>{center}</Box>

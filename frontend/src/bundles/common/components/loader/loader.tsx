@@ -1,5 +1,7 @@
 import { Box, Circle, Flex, Text } from '@chakra-ui/react';
 
+import logo from '~/assets/img/logo.svg';
+
 import { SPIN_ANIMATION } from './libs/constants/constants.js';
 
 const Loader = (): JSX.Element => {
@@ -11,7 +13,7 @@ const Loader = (): JSX.Element => {
                     backgroundColor="white"
                     color="text.default"
                 >
-                    LOGO
+                    <img src={logo} alt="Logo" />
                 </Circle>
                 <Circle
                     position="absolute"
