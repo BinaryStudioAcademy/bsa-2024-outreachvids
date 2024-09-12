@@ -24,11 +24,7 @@ const VideoComponent: React.FC<Properties> = ({ scenes, scripts }) => {
                             key={script.id}
                             durationInFrames={script?.duration * FPS || 0}
                         >
-                            {'url' in script ? (
-                                <Audio src={script.url} />
-                            ) : (
-                                <></>
-                            )}
+                            {script.url ? <Audio src={script.url} /> : <></>}
                         </Series.Sequence>
                     );
                 })}
