@@ -56,7 +56,7 @@ type State = {
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
-        menuActiveItem: keyof typeof MenuItems | null;
+        menuActiveItem: ValueOf<typeof MenuItems> | null;
     };
 };
 
@@ -225,7 +225,7 @@ const { reducer, actions, name } = createSlice({
         },
         setMenuActiveItem(
             state,
-            action: PayloadAction<keyof typeof MenuItems | null>,
+            action: PayloadAction<ValueOf<typeof MenuItems> | null>,
         ) {
             state.ui.menuActiveItem = action.payload;
         },

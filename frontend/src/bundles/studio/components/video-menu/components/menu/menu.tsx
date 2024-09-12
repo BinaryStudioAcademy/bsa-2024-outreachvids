@@ -1,22 +1,23 @@
 import { Box, Flex, VStack } from '~/bundles/common/components/components.js';
 import { useCallback } from '~/bundles/common/hooks/hooks.js';
+import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type MenuItems } from '~/bundles/studio/enums/enums.js';
 
 import { type MenuItem } from '../../types/types.js';
 
 type Properties = {
-    items: Record<keyof typeof MenuItems, MenuItem>;
-    activeItem: keyof typeof MenuItems | null;
-    onActiveItemSet: (item: keyof typeof MenuItems) => void;
+    items: Record<ValueOf<typeof MenuItems>, MenuItem>;
+    activeItem: ValueOf<typeof MenuItems> | null;
+    onActiveItemSet: (item: ValueOf<typeof MenuItems>) => void;
 };
 
 const Menu: React.FC<Properties> = ({ items, activeItem, onActiveItemSet }) => {
     const handleClick = useCallback(
         (event: React.MouseEvent<HTMLDivElement>) => {
             onActiveItemSet(
-                event.currentTarget.dataset[
-                    'menuItem'
-                ] as keyof typeof MenuItems,
+                event.currentTarget.dataset['menuItem'] as ValueOf<
+                    typeof MenuItems
+                >,
             );
         },
         [onActiveItemSet],

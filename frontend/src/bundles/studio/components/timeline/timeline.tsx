@@ -15,6 +15,7 @@ import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
+import { MenuItems } from '../../enums/enums.js';
 import { NEW_SCRIPT_TEXT } from '../constants/constants.js';
 import { TimelineView } from './components.js';
 
@@ -32,10 +33,14 @@ const Timeline: React.FC<Properties> = ({ initialRange }) => {
             switch (type) {
                 case RowNames.SCENE: {
                     dispatch(studioActions.addScene());
+                    dispatch(
+                        studioActions.setMenuActiveItem(MenuItems.AVATARS),
+                    );
                     break;
                 }
                 case RowNames.SCRIPT: {
                     dispatch(studioActions.addScript(NEW_SCRIPT_TEXT));
+                    dispatch(studioActions.setMenuActiveItem(MenuItems.SCRIPT));
                     break;
                 }
             }
