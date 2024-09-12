@@ -16,7 +16,8 @@ import { VideoSection } from '../components.js';
 const MainContent: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const { videos, dataStatus } = useAppSelector(({ home }) => home);
+    const dataStatus = useAppSelector(({ home }) => home.dataStatus);
+    const videos = useAppSelector(({ home }) => home.videos);
 
     // TODO: filter videos to get recent videos
 
