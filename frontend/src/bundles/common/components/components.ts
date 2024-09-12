@@ -4,6 +4,7 @@ export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
+export { Logo } from './logo/logo.js';
 export { NotFoundAnimation } from './not-found-animation/not-found-animation.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
