@@ -1,5 +1,6 @@
 type SceneAvatar = {
     id: string;
+    name: string;
     style: string;
     url: string;
 };

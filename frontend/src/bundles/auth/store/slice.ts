@@ -57,6 +57,7 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(loadCurrentUser.rejected, (state) => {
+            state.user = null;
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(logout.pending, (state) => {

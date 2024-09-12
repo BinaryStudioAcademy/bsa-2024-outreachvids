@@ -13,7 +13,6 @@ import {
     useAppSelector,
     useCallback,
     useLocation,
-    useNavigate,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
@@ -29,7 +28,6 @@ type Properties = {
 
 const Sidebar = ({ children }: Properties): JSX.Element => {
     const user = useAppSelector(({ auth }) => auth.user);
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
     const { isCollapsed, setToggle } = useCollapse();
@@ -48,8 +46,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
 
     const handleLogOut = useCallback(() => {
         void dispatch(authActions.logout());
-        navigate(AppRoute.SIGN_IN);
-    }, [navigate, dispatch]);
+    }, [dispatch]);
 
     return (
         <Flex w="100%">
