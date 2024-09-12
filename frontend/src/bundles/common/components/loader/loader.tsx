@@ -1,4 +1,4 @@
-import { Box, Circle, Flex, Text } from '@chakra-ui/react';
+import { Box, Circle, Flex, Image,Text } from '@chakra-ui/react';
 
 import logo from '~/assets/img/logo.svg';
 
@@ -9,7 +9,7 @@ const Loader = (): JSX.Element => {
         <Flex flexDirection="column" alignItems="center">
             <Box position="relative" width="100px" height="100px">
                 <Circle size="full" color="text.default">
-                    <img
+                    <Image
                         src={logo}
                         alt="Logo"
                         style={{ width: '80%', height: '80%' }}
