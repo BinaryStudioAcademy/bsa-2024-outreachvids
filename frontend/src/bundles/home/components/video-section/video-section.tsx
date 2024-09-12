@@ -16,8 +16,6 @@ type Properties = {
 };
 
 const VideoSection: React.FC<Properties> = ({ videos, title }) => {
-    const hasVideos = videos.length > 0;
-
     return (
         <Box padding="17px 28px">
             <Flex alignItems="center" marginBottom="9px">
@@ -34,18 +32,14 @@ const VideoSection: React.FC<Properties> = ({ videos, title }) => {
                 </Badge>
             </Flex>
 
-            {hasVideos ? (
+            {videos.length > 0 ? (
                 <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
-                    {videos.map((video) => (
-                        <VideoCard
-                            key={video.id}
-                            name={video.name}
-                            url={video.url}
-                        />
+                    {videos.map(({ id, name, url }) => (
+                        <VideoCard key={id} name={name} url={url} />
                     ))}
                 </SimpleGrid>
             ) : (
-                <Text color="typography.600">
+                <Text color="typography.600" variant="body1">
                     You have no videos right now.
                 </Text>
             )}
