@@ -1,0 +1,3 @@
+const VIDEO_SUBMIT_NOTIFICATION_ID = 'video-submit';
+
+export { VIDEO_SUBMIT_NOTIFICATION_ID };
