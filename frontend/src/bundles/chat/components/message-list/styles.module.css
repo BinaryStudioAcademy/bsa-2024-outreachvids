@@ -1,0 +1,18 @@
+.message-list {
+    align-items: flex-start;
+}
+.message-list--user {
+    flex-direction: row-reverse;
+}
+.message-list--ai {
+    flex-direction: row;
+}
+.message-group-list {
+    width: max-content;
+}
+.message-group-list--user {
+    align-items: flex-end;
+}
+.message-group-list--ai {
+    align-items: flex-start;
+}

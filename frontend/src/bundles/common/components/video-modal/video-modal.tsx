@@ -6,6 +6,8 @@ import {
     ModalOverlay,
 } from '@chakra-ui/react';
 
+import { useChatCleanup } from '~/bundles/chat/hooks/hooks.js';
+
 import { VideoModalContent } from './components/components.js';
 
 type Properties = {
@@ -14,8 +16,12 @@ type Properties = {
 };
 
 const VideoModal: React.FC<Properties> = ({ isOpen, onModalClose }) => {
+    const { handleCloseChat } = useChatCleanup({
+        onModalChatClose: onModalClose,
+    });
+
     return (
-        <Modal isOpen={isOpen} onClose={onModalClose} isCentered>
+        <Modal isOpen={isOpen} onClose={handleCloseChat} isCentered>
             <ModalOverlay />
             <ModalContent
                 borderRadius="17px"

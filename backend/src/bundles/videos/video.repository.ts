@@ -16,6 +16,15 @@ class VideoRepository implements Repository {
         return video ? VideoEntity.initialize(video) : null;
     }
 
+    public async findByUserId(userId: string): Promise<VideoEntity[]> {
+        const videos = await this.videoModel
+            .query()
+            .where('userId', userId)
+            .execute();
+
+        return videos.map((it) => VideoEntity.initialize(it));
+    }
+
     public async findAll(): Promise<VideoEntity[]> {
         const videos = await this.videoModel.query().execute();
 

@@ -39,11 +39,17 @@ const signUp = createAsyncThunk<
 });
 
 const loadCurrentUser = createAsyncThunk<
-    UserGetCurrentResponseDto,
+    UserGetCurrentResponseDto | null,
     undefined,
     AsyncThunkConfig
->(`${sliceName}/load-current-user`, (_, { extra }) => {
-    const { userApi } = extra;
+>(`${sliceName}/load-current-user`, async (_, { extra }) => {
+    const { userApi, storage } = extra;
+
+    const hasToken = await storage.has(StorageKey.TOKEN);
+
+    if (!hasToken) {
+        return null;
+    }
 
     return userApi.getCurrent();
 });
