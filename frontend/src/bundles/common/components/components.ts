@@ -39,6 +39,7 @@ export {
     Link as LibraryLink,
     Menu,
     MenuButton,
+    MenuDivider,
     MenuItem,
     MenuList,
     Modal,

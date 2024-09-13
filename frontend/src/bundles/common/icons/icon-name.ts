@@ -3,6 +3,7 @@ import {
     ArrowLeftIcon,
     ArrowRightIcon,
     CloseIcon,
+    DeleteIcon,
     DownloadIcon,
     ViewIcon,
     ViewOffIcon,
@@ -59,6 +60,7 @@ const IconName = {
     ADD: AddIcon,
     CLOSE: CloseIcon,
     OPEN_AI: OpenAi,
+    DELETE: DeleteIcon,
 } as const;
 
 export { IconName };

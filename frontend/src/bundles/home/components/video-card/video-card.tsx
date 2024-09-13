@@ -8,20 +8,30 @@ import {
     LibraryLink,
     Menu,
     MenuButton,
+    MenuDivider,
     MenuItem,
     MenuList,
     Text,
 } from '~/bundles/common/components/components.js';
+import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { actions as homeActions } from '~/bundles/home/store/home.js';
 
 import styles from './styles.module.css';
 
 type Properties = {
+    id: string;
     name: string;
     url: string;
 };
 
-const VideoCard: React.FC<Properties> = ({ name, url }) => {
+const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
+    const dispatch = useAppDispatch();
+
+    const handleDeleteVideo = useCallback(() => {
+        void dispatch(homeActions.deleteVideo(id));
+    }, [dispatch, id]);
+
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box position="relative" role="group">
@@ -64,6 +74,15 @@ const VideoCard: React.FC<Properties> = ({ name, url }) => {
                         >
                             <Text color="typography.900" variant="bodySmall">
                                 Download
+                            </Text>
+                        </MenuItem>
+                        <MenuDivider />
+                        <MenuItem
+                            icon={<Icon as={IconName.DELETE} />}
+                            onClick={handleDeleteVideo}
+                        >
+                            <Text color="typography.900" variant="bodySmall">
+                                Delete
                             </Text>
                         </MenuItem>
                     </MenuList>
