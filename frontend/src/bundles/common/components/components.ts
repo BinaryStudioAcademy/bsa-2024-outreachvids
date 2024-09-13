@@ -17,7 +17,6 @@ export { Textarea } from './textarea/textarea.js';
 export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
-    type ModalProps,
     Badge,
     Modal as BaseModal,
     Box,

@@ -1,5 +1,3 @@
-import { type ModalProps } from '@chakra-ui/react';
-
 import {
     BaseModal,
     ModalBody,
@@ -7,6 +5,7 @@ import {
     ModalContent,
     ModalOverlay,
 } from '~/bundles/common/components/components.js';
+import { type ModalProps } from '~/bundles/common/types/types.js';
 
 import styles from './styles.module.css';
 

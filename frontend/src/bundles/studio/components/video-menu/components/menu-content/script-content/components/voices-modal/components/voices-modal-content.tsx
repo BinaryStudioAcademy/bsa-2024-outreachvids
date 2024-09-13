@@ -1,5 +1,8 @@
-import { Heading, SimpleGrid, VStack } from '@chakra-ui/react';
-
+import {
+    Heading,
+    SimpleGrid,
+    VStack,
+} from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
     useAppSelector,
