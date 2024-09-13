@@ -14,4 +14,6 @@ export { type Voice } from './voice.type.js';
 export {
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
+    type RenderAvatarResponseDto,
+    type RenderAvatarVideoRequestDto,
 } from 'shared';

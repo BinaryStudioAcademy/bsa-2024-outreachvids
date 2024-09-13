@@ -4,7 +4,8 @@ export { Header } from './header/header.js';
 export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
-export { type Properties as ModalProperties, Modal } from './modal/modal.js';
+export { Logo } from './logo/logo.js';
+export { Modal } from './modal/modal.js';
 export { NotFoundAnimation } from './not-found-animation/not-found-animation.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
@@ -16,6 +17,7 @@ export { Textarea } from './textarea/textarea.js';
 export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export {
+    type ModalProps,
     Badge,
     Modal as BaseModal,
     Box,
@@ -57,6 +59,10 @@ export {
     Spinner,
     Stack,
     Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
     Text,
     Tooltip,
     VStack,

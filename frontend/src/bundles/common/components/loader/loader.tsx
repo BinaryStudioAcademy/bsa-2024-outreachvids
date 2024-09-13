@@ -1,4 +1,10 @@
-import { Box, Circle, Flex, Text } from '@chakra-ui/react';
+import {
+    Box,
+    Circle,
+    Flex,
+    Logo,
+    Text,
+} from '~/bundles/common/components/components.js';
 
 import { SPIN_ANIMATION } from './libs/constants/constants.js';
 
@@ -6,12 +12,8 @@ const Loader = (): JSX.Element => {
     return (
         <Flex flexDirection="column" alignItems="center">
             <Box position="relative" width="100px" height="100px">
-                <Circle
-                    size="full"
-                    backgroundColor="white"
-                    color="text.default"
-                >
-                    LOGO
+                <Circle size="full" color="text.default">
+                    <Logo logoSize="70px" />
                 </Circle>
                 <Circle
                     position="absolute"

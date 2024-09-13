@@ -1,22 +1,19 @@
-import { type ModalProperties } from '~/bundles/common/components/components.js';
 import { Modal } from '~/bundles/common/components/components.js';
 
 import { VoicesModalContent } from './components/voices-modal-content.js';
 
-type Properties = ModalProperties & {
+type Properties = {
+    isOpen: boolean;
+    onClose: () => void;
     scriptId: string | null;
 };
-const VoicesModal: React.FC<Properties> = ({
-    isOpen,
-    onModalClose,
-    scriptId,
-}) => {
+const VoicesModal: React.FC<Properties> = ({ isOpen, onClose, scriptId }) => {
     return (
-        <Modal isOpen={isOpen} onModalClose={onModalClose}>
+        <Modal isOpen={isOpen} onClose={onClose}>
             {scriptId && (
                 <VoicesModalContent
                     scriptId={scriptId}
-                    onModalClose={onModalClose}
+                    onModalClose={onClose}
                 />
             )}
         </Modal>

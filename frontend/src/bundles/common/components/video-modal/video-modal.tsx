@@ -1,11 +1,20 @@
-import { type ModalProperties } from '~/bundles/common/components/components.js';
+import { useChatCleanup } from '~/bundles/chat/hooks/hooks.js';
 import { Modal } from '~/bundles/common/components/components.js';
 
 import { VideoModalContent } from './components/components.js';
 
-const VideoModal: React.FC<ModalProperties> = ({ isOpen, onModalClose }) => {
+type Properties = {
+    isOpen: boolean;
+    onClose: () => void;
+};
+
+const VideoModal: React.FC<Properties> = ({ isOpen, onClose }) => {
+    const { handleCloseChat } = useChatCleanup({
+        onModalChatClose: onClose,
+    });
+
     return (
-        <Modal isOpen={isOpen} onModalClose={onModalClose}>
+        <Modal isOpen={isOpen} onClose={handleCloseChat}>
             <VideoModalContent />
         </Modal>
     );

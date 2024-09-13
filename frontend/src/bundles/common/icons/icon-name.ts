@@ -8,6 +8,7 @@ import {
     ViewOffIcon,
 } from '@chakra-ui/icons';
 
+import { OpenAi } from './custom-icons/custom-icons.js';
 import {
     BackwardStep,
     CircleUser,
@@ -57,6 +58,7 @@ const IconName = {
     TEXT: T,
     ADD: AddIcon,
     CLOSE: CloseIcon,
+    OPEN_AI: OpenAi,
 } as const;
 
 export { IconName };

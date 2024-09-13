@@ -1,3 +1,5 @@
+import { type ModalProps } from '@chakra-ui/react';
+
 import {
     BaseModal,
     ModalBody,
@@ -8,25 +10,16 @@ import {
 
 import styles from './styles.module.css';
 
-type Properties = {
-    isOpen: boolean;
-    onModalClose: () => void;
-};
-
-const Modal: React.FC<React.PropsWithChildren<Properties>> = ({
-    isOpen,
-    onModalClose,
-    children,
-}) => {
+const Modal: React.FC<ModalProps> = (properties) => {
     return (
-        <BaseModal isOpen={isOpen} onClose={onModalClose} isCentered>
+        <BaseModal {...properties} isCentered>
             <ModalOverlay />
             <ModalContent className={styles['modal-content']}>
                 <ModalCloseButton margin="20px" zIndex={10} />
-                <ModalBody padding={0}>{children}</ModalBody>
+                <ModalBody padding={0}>{properties.children}</ModalBody>
             </ModalContent>
         </BaseModal>
     );
 };
 
-export { type Properties, Modal };
+export { Modal };

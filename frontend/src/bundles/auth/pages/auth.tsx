@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import {
     Center,
     Loader,
+    Logo,
     Overlay,
     SimpleGrid,
 } from '~/bundles/common/components/components.js';
@@ -64,12 +65,11 @@ const Auth: React.FC = () => {
             </Overlay>
 
             <Center bgColor="background.600">{getScreen(pathname)}</Center>
-            {/* TODO: Add logo */}
             <Center
                 bgColor="background.900"
                 display={{ base: 'none', sm: 'flex' }}
             >
-                LOGO
+                <Logo logoSize="200px" />
             </Center>
         </SimpleGrid>
     );

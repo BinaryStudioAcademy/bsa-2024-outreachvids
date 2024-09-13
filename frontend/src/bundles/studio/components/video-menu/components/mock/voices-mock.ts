@@ -11,4 +11,4 @@ const mockVoices: Voice[] = Array.from({ length: 10 }, (_, index) => ({
     code: defaultVoiceName,
 }));
 
-export { mockVoices };
+export { defaultVoiceName, mockVoices };
