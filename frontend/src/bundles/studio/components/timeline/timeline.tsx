@@ -13,12 +13,12 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
+import { NEW_SCRIPT_TEXT } from '~/bundles/studio/constants/constants.js';
 import { MenuItems } from '~/bundles/studio/enums/enums.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
-import { NEW_SCRIPT_TEXT } from '../constants/constants.js';
 import { TimelineView } from './components.js';
 
 type Properties = {
