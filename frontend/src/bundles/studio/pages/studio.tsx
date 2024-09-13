@@ -61,7 +61,7 @@ const Studio: React.FC = () => {
                 avatarName: scene.avatar.name,
                 avatarStyle: scene.avatar.style,
                 text: script?.text,
-                voice: script?.voice?.code ?? defaultVoiceName,
+                voice: script?.voice?.shortName ?? defaultVoiceName,
             }),
         )
             .then(() => {

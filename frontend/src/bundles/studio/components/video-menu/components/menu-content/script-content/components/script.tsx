@@ -74,7 +74,7 @@ const Script: React.FC<Properties> = ({
             studioActions.generateScriptSpeech({
                 scriptId: id,
                 text,
-                voiceName: voice.code,
+                voiceName: voice.shortName,
             }),
         );
     }, [dispatch, id, text, url, voice]);

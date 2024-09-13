@@ -48,9 +48,8 @@ const VoicesModalContent: React.FC<Properties> = ({
                 {mockVoices.map((card) => (
                     <VoiceCard
                         voice={card}
-                        key={card.id}
-                        isChecked={script?.voice?.id === card.id}
-                        data-voice-id={card.id}
+                        key={card.shortName}
+                        isChecked={script?.voice?.shortName === card.shortName}
                         onClick={handleCardClick}
                     />
                 ))}
