@@ -1,3 +1,0 @@
-const AUDIO_LOADING_DELAY = 500;
-
-export { AUDIO_LOADING_DELAY };

@@ -11,10 +11,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
-import {
-    AUDIO_LOADING_DELAY,
-    SKIP_TO_PREV_SCENE_THRESHOLD,
-} from '~/bundles/studio/constants/constants.js';
+import { SKIP_TO_PREV_SCENE_THRESHOLD } from '~/bundles/studio/constants/constants.js';
 import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
@@ -57,10 +54,8 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
         setIsLoading(true);
 
         void dispatch(studioActions.generateAllScriptsSpeech()).then(() => {
-            setTimeout(() => {
-                setIsLoading(false);
-                togglePlaying();
-            }, AUDIO_LOADING_DELAY);
+            setIsLoading(false);
+            togglePlaying();
         });
     }, [dispatch, isPlaying, togglePlaying]);
 
