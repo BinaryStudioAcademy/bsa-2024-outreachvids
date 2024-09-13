@@ -5,6 +5,8 @@ import {
     type AvatarGetAllResponseDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
+    type RenderAvatarResponseDto,
+    type RenderAvatarVideoRequestDto,
 } from '~/bundles/studio/types/types.js';
 
 import { name as sliceName } from './slice.js';
@@ -29,4 +31,14 @@ const generateScriptSpeech = createAsyncThunk<
     return speechApi.generateScriptSpeech(payload);
 });
 
-export { generateScriptSpeech, loadAvatars };
+const renderAvatar = createAsyncThunk<
+    RenderAvatarResponseDto,
+    RenderAvatarVideoRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/render-avatar`, (payload, { extra }) => {
+    const { avatarVideosApi } = extra;
+
+    return avatarVideosApi.renderVideo(payload);
+});
+
+export { generateScriptSpeech, loadAvatars, renderAvatar };
