@@ -13,6 +13,7 @@ import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
 import { notificationService } from '~/bundles/common/services/services.js';
@@ -28,7 +29,7 @@ import {
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
-import { actions as studioActionCreator } from '../store/studio.js';
+import { actions as studioActions } from '../store/studio.js';
 
 const Studio: React.FC = () => {
     const scenes = useAppSelector(({ studio }) => studio.scenes);
@@ -38,7 +39,7 @@ const Studio: React.FC = () => {
     const navigate = useNavigate();
 
     const handleResize = useCallback(() => {
-        dispatch(studioActionCreator.changeVideoSize());
+        dispatch(studioActions.changeVideoSize());
     }, [dispatch]);
 
     const handleSubmit = useCallback(() => {
@@ -56,7 +57,7 @@ const Studio: React.FC = () => {
         }
 
         dispatch(
-            studioActionCreator.renderAvatar({
+            studioActions.renderAvatar({
                 avatarName: scene.avatar.name,
                 avatarStyle: scene.avatar.style,
                 text: script?.text,
@@ -80,6 +81,10 @@ const Studio: React.FC = () => {
             });
     }, [dispatch, navigate, scenes, scripts]);
 
+    useEffect(() => {
+        return () => void dispatch(studioActions.resetStudio());
+    }, [dispatch]);
+
     return (
         <Box
             minHeight="100vh"
@@ -101,7 +106,7 @@ const Studio: React.FC = () => {
                     <Button
                         variant="primaryOutlined"
                         label="Submit"
-                        sx={{ width: '100px' }}
+                        width="100px"
                         onClick={handleSubmit}
                     />
                 }
@@ -112,7 +117,7 @@ const Studio: React.FC = () => {
                 <Player playerRef={playerReference} />
             </Box>
 
-            <VStack alignItems={'stretch'}>
+            <VStack alignItems="stretch">
                 <PlayerControls playerRef={playerReference} />
                 <Box overflowY="auto">
                     <Timeline playerRef={playerReference} />

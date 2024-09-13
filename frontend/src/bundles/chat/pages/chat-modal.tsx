@@ -48,7 +48,7 @@ const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
                     <Chat
                         messages={messages}
                         onSendMessage={handleSendMessage}
-                        headerTitle="GPT4 Script Writer"
+                        headerTitle="AI Script Writer"
                         headerComment="Your secret to crafting compelling scripts effortlessly!"
                     />
                 </ModalContent>

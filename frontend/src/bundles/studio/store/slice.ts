@@ -57,7 +57,6 @@ type State = {
         elapsedTime: number; // ms
     };
     range: Range;
-
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
@@ -267,6 +266,13 @@ const { reducer, actions, name } = createSlice({
             action: PayloadAction<ValueOf<typeof MenuItems> | null>,
         ) {
             state.ui.menuActiveItem = action.payload;
+        },
+        resetStudio(state) {
+            // TODO: do not overwrite voices on reset
+            return {
+                ...initialState,
+                avatars: state.avatars,
+            };
         },
     },
     extraReducers(builder) {
