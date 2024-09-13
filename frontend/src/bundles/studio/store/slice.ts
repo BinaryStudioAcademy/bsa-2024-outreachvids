@@ -69,7 +69,7 @@ type State = {
     videoSize: VideoPreviewT;
     voices: {
         dataStatus: ValueOf<typeof DataStatus>;
-        items: Voice[] | [];
+        items: Voice[];
     };
     ui: {
         destinationPointer: DestinationPointer | null;
