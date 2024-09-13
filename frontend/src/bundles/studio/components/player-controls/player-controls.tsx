@@ -54,8 +54,10 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
         setIsLoading(true);
 
         void dispatch(studioActions.generateAllScriptsSpeech()).then(() => {
-            setIsLoading(false);
-            togglePlaying();
+            setTimeout(() => {
+                setIsLoading(false);
+                togglePlaying();
+            }, 500);
         });
     }, [dispatch, isPlaying, togglePlaying]);
 
