@@ -114,6 +114,9 @@ class AvatarVideoService {
             name: getFileName(id),
             url: savedUrl,
             userId,
+            composition: JSON.stringify({}),
+            previewUrl:
+                'https://speech.microsoft.com/assets/avatar/harry/harry-business-thumbnail.png',
         });
 
         if (!videoData) {

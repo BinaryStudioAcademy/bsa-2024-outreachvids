@@ -32,12 +32,15 @@ class VideoRepository implements Repository {
     }
 
     public async create(entity: VideoEntity): Promise<VideoEntity> {
-        const { userId, name, url } = entity.toNewObject();
+        const { userId, name, url, composition, previewUrl } =
+            entity.toNewObject();
         const item = await this.videoModel
             .query()
             .insert({
                 userId,
                 name,
+                composition,
+                previewUrl,
                 url,
             })
             .returning('*')
