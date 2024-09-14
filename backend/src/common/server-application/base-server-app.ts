@@ -11,6 +11,7 @@ import Fastify, {
     type FastifyReply,
     type FastifyRequest,
 } from 'fastify';
+import { type Socket, Server } from 'socket.io';
 
 import { type Config } from '~/common/config/config.js';
 import { type Database } from '~/common/database/database.js';
@@ -27,6 +28,7 @@ import {
 
 import { WHITE_ROUTES } from '../constants/constants.js';
 import { authenticateJWT } from '../plugins/plugins.js';
+import { initSocketConnection } from './socket-application.js';
 import {
     type ServerApp,
     type ServerAppApi,
@@ -51,6 +53,8 @@ class BaseServerApp implements ServerApp {
 
     private app: ReturnType<typeof Fastify>;
 
+    private io: Server;
+
     public constructor({ config, logger, database, apis }: Constructor) {
         this.config = config;
         this.logger = logger;
@@ -58,6 +62,12 @@ class BaseServerApp implements ServerApp {
         this.apis = apis;
 
         this.app = Fastify();
+        this.io = new Server(this.app.server, {
+            cors: {
+                origin: '*',
+                methods: ['GET', 'POST'],
+            },
+        });
     }
 
     public addRoute(parameters: ServerAppRouteParameters): void {
@@ -240,6 +250,10 @@ class BaseServerApp implements ServerApp {
         this.initRoutes();
 
         this.database.connect();
+
+        this.io.on('connection', (socket: Socket) =>
+            initSocketConnection(this.io, socket),
+        );
 
         await this.app
             .listen({

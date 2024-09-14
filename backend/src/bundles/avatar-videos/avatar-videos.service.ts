@@ -1,8 +1,10 @@
 import { HttpCode, HttpError } from 'shared';
 import { v4 as uuidv4 } from 'uuid';
 
+import { AvatarVideoEvent } from '~/common/enums/enums.js';
 import { type AzureAIService } from '~/common/services/azure-ai/azure-ai.service.js';
 import { type FileService } from '~/common/services/file/file.service.js';
+import { socketEvent } from '~/common/socket/socket.js';
 
 import { type VideoService } from '../videos/video.service.js';
 import { REQUEST_DELAY } from './constants/constnats.js';
@@ -76,6 +78,7 @@ class AvatarVideoService {
                         })
                             .then(() => {
                                 // TODO: NOTIFY USER
+                                this.notifyAll();
                             })
                             .catch((error) => {
                                 throw new HttpError({
@@ -124,6 +127,13 @@ class AvatarVideoService {
         }
 
         await this.azureAIService.removeAvatarVideo(id);
+    }
+
+    private notifyAll(): void {
+        const socket = socketEvent.getSocket();
+        if (socket) {
+            socket.emit(AvatarVideoEvent.RENDER_SUCCESS);
+        }
     }
 }
 
