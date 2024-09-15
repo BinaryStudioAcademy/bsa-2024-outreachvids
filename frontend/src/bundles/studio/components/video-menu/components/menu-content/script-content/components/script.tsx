@@ -19,7 +19,7 @@ import { IconName } from '~/bundles/common/icons/icons.js';
 import { AudioPlayer } from '~/bundles/studio/components/audio-player/audio-player.js';
 import { PlayIconNames } from '~/bundles/studio/enums/play-icon-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
-import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
+import { type ScriptWithIcon as ScriptT } from '~/bundles/studio/types/types.js';
 
 type Properties = ScriptT;
 

@@ -27,7 +27,7 @@ import {
     type RowType,
     type Scene,
     type SceneAvatar,
-    type Script,
+    type ScriptWithIcon,
     type TimelineItemWithSpan,
 } from '../types/types.js';
 import { generateScriptSpeech, loadAvatars, renderAvatar } from './actions.js';
@@ -59,7 +59,7 @@ type State = {
     range: Range;
 
     scenes: Array<Scene>;
-    scripts: Array<Script>;
+    scripts: Array<ScriptWithIcon>;
     videoSize: VideoPreviewT;
     ui: {
         destinationPointer: DestinationPointer | null;
@@ -109,7 +109,7 @@ const { reducer, actions, name } = createSlice({
         editScript(
             state,
             action: PayloadAction<
-                Required<Pick<Script, 'id'>> & Partial<Script>
+                Required<Pick<ScriptWithIcon, 'id'>> & Partial<ScriptWithIcon>
             >,
         ) {
             const { id, ...updatedScriptData } = action.payload;
