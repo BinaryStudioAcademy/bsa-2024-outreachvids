@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import {
     Box,
     Button,
+    Flex,
     Header,
+    LibraryInput,
     Player,
     VStack,
 } from '~/bundles/common/components/components.js';
@@ -98,12 +100,19 @@ const Studio: React.FC = () => {
                     />
                 }
                 right={
-                    <Button
-                        variant="primaryOutlined"
-                        label="Submit"
-                        sx={{ width: '100px' }}
-                        onClick={handleSubmit}
-                    />
+                    <Flex gap="10px">
+                        <LibraryInput
+                            variant="unstyled"
+                            placeholder="Untitled video"
+                            color="white"
+                        />
+                        <Button
+                            variant="primaryOutlined"
+                            label="Submit"
+                            sx={{ width: '100px' }}
+                            onClick={handleSubmit}
+                        />
+                    </Flex>
                 }
             />
 
