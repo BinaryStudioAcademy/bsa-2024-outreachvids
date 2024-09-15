@@ -1,13 +1,23 @@
-import { Badge, Image } from '~/bundles/common/components/components.js';
-import { useAppSelector, useMemo } from '~/bundles/common/hooks/hooks.js';
+import {
+    Badge,
+    CloseButton,
+    Image,
+} from '~/bundles/common/components/components.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useCallback,
+    useMemo,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { Control } from '~/bundles/studio/components/components.js';
-import { RowNames } from '~/bundles/studio/enums/enums.js';
+import { MenuItems, RowNames } from '~/bundles/studio/enums/enums.js';
 import {
     getElementEnd,
     setItemsSpan,
 } from '~/bundles/studio/helpers/helpers.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Item, Row } from '../components.js';
 import styles from './styles.module.css';
@@ -25,6 +35,39 @@ const ScenesRow: React.FC = () => {
         pixelsToValue(buttonWidthInPixels),
     );
 
+    const dispatch = useAppDispatch();
+
+    const handleAddClick = useCallback(() => {
+        dispatch(studioActions.addScene());
+        dispatch(studioActions.setMenuActiveItem(MenuItems.AVATARS));
+    }, [dispatch]);
+
+    const handleDeleteClick = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.stopPropagation();
+            const id = event.currentTarget.dataset['id'];
+            if (id) {
+                dispatch(studioActions.deleteScene(id));
+            }
+        },
+        [dispatch],
+    );
+
+    const handleItemClick = useCallback(
+        (event: React.MouseEvent<HTMLElement>) => {
+            const id = event.currentTarget.dataset['id'];
+            if (id) {
+                dispatch(
+                    studioActions.selectItem({
+                        id: id,
+                        type: RowNames.SCENE,
+                    }),
+                );
+            }
+        },
+        [dispatch],
+    );
+
     return (
         <Row
             id={RowNames.SCENE}
@@ -32,7 +75,12 @@ const ScenesRow: React.FC = () => {
             style={{ height: '60px' }}
         >
             {scenesWithSpan.map((item, index) => (
-                <Item key={item.id} type={RowNames.SCENE} {...item}>
+                <Item
+                    key={item.id}
+                    type={RowNames.SCENE}
+                    {...item}
+                    onClick={handleItemClick}
+                >
                     <Badge
                         className={styles['scene-badge']}
                         variant="solid"
@@ -48,6 +96,13 @@ const ScenesRow: React.FC = () => {
                             height="100%"
                         />
                     )}
+                    <CloseButton
+                        onClick={handleDeleteClick}
+                        color="gray.300"
+                        data-id={item.id}
+                        variant={'simple'}
+                        className={styles['scene-delete']}
+                    />
                 </Item>
             ))}
 
@@ -64,6 +119,7 @@ const ScenesRow: React.FC = () => {
                     height="100%"
                     width="100%"
                     isRound={false}
+                    onClick={handleAddClick}
                 />
             </Item>
         </Row>

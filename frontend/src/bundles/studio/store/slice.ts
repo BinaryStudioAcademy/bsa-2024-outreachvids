@@ -198,6 +198,11 @@ const { reducer, actions, name } = createSlice({
                 items: state.scenes,
             });
         },
+        deleteScene(state, action: PayloadAction<string>) {
+            state.scenes = state.scenes.filter(
+                (scenes) => scenes.id !== action.payload,
+            );
+        },
         changeVideoSize(state) {
             state.videoSize =
                 state.videoSize === VideoPreview.LANDSCAPE

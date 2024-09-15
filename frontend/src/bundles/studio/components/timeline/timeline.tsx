@@ -1,3 +1,4 @@
+import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { type PlayerRef } from '@remotion/player';
 import {
     type DragEndEvent,
@@ -13,12 +14,10 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
-import { MenuItems } from '~/bundles/studio/enums/enums.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
-import { NEW_SCRIPT_TEXT } from '../constants/constants.js';
 import { TimelineView } from './components.js';
 
 type Properties = {
@@ -29,26 +28,6 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
     const dispatch = useAppDispatch();
 
     const range = useAppSelector(({ studio }) => studio.range);
-
-    const handleButtonClick = useCallback(
-        (type: RowType) => {
-            switch (type) {
-                case RowNames.SCENE: {
-                    dispatch(studioActions.addScene());
-                    dispatch(
-                        studioActions.setMenuActiveItem(MenuItems.AVATARS),
-                    );
-                    break;
-                }
-                case RowNames.SCRIPT: {
-                    dispatch(studioActions.addScript(NEW_SCRIPT_TEXT));
-                    dispatch(studioActions.setMenuActiveItem(MenuItems.SCRIPT));
-                    break;
-                }
-            }
-        },
-        [dispatch],
-    );
 
     const handleResizeEnd = useCallback(
         (event: ResizeEndEvent) => {
@@ -117,29 +96,11 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
 
             const updatedSpan = activeItem.getSpanFromDragEvent?.(event);
 
-            if (!updatedSpan || !activeRowId) {
-                return;
-            }
-
-            const {
-                span: { start, end },
-            } = activeItem;
-
             if (
-                Math.round(updatedSpan.start) === start &&
-                Math.round(updatedSpan.end) == end
+                !updatedSpan ||
+                !activeRowId ||
+                activeItemType === RowNames.BUTTON
             ) {
-                if (activeItemType === RowNames.BUTTON) {
-                    handleButtonClick(activeRowId as RowType);
-                } else {
-                    dispatch(
-                        studioActions.selectItem({
-                            id: activeItemId,
-                            type: activeItemType,
-                        }),
-                    );
-                }
-
                 return;
             }
 
@@ -164,7 +125,7 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
                 }
             }
         },
-        [dispatch, handleButtonClick],
+        [dispatch],
     );
 
     const handleRangeChanged = useCallback(
@@ -175,6 +136,14 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
         [dispatch, range],
     );
 
+    const pointerSensor = useSensor(PointerSensor, {
+        activationConstraint: {
+            distance: 5,
+        },
+    });
+
+    const sensors = useSensors(pointerSensor);
+
     return (
         <TimelineContext
             range={range}
@@ -182,6 +151,7 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
             onResizeEnd={handleResizeEnd}
             onRangeChanged={handleRangeChanged}
             onDragMove={handleDragMove}
+            sensors={sensors}
         >
             <TimelineView playerRef={playerRef} />
         </TimelineContext>
