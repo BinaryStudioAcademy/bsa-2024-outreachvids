@@ -31,6 +31,7 @@ import {
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
 import { actions as studioActionCreator } from '../store/studio.js';
+import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
     const scenes = useAppSelector(({ studio }) => studio.scenes);
@@ -102,6 +103,7 @@ const Studio: React.FC = () => {
                 right={
                     <Flex gap="10px">
                         <LibraryInput
+                            className={styles['videoName']}
                             variant="unstyled"
                             placeholder="Untitled video"
                             color="white"
