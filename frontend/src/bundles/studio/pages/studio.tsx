@@ -34,7 +34,9 @@ import { actions as studioActionCreator } from '../store/studio.js';
 import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const { scenes, scripts } = useAppSelector(({ studio }) => studio);
+    const { scenes, scripts, videoName } = useAppSelector(
+        ({ studio }) => studio,
+    );
 
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
@@ -110,6 +112,7 @@ const Studio: React.FC = () => {
                 right={
                     <Flex gap="10px">
                         <LibraryInput
+                            defaultValue={videoName}
                             className={styles['videoName']}
                             variant="unstyled"
                             placeholder="Untitled video"
@@ -120,6 +123,7 @@ const Studio: React.FC = () => {
                             label="Submit"
                             sx={{ width: '100px' }}
                             onClick={handleSubmit}
+                            flexShrink={0}
                         />
                     </Flex>
                 }
