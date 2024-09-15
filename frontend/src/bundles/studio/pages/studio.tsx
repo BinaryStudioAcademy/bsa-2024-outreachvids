@@ -113,7 +113,6 @@ const Studio: React.FC = () => {
                             className={styles['videoName']}
                             variant="unstyled"
                             placeholder="Untitled video"
-                            color="white"
                             onBlur={handleEditVideoName}
                         />
                         <Button

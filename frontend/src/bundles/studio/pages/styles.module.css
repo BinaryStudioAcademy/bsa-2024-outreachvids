@@ -1,8 +1,15 @@
 .videoName {
     border-bottom: 1px dashed transparent;
     transition: border-bottom 0.3s ease;
+    color: var(--chakra-colors-white);
+    text-overflow: ellipsis;
+    border-radius: 0;
 }
 
 .videoName:hover {
     border-bottom: 1px dashed var(--chakra-colors-brand-secondary-300);
+}
+
+.videoName:focus {
+    border-bottom: 1px solid var(--chakra-colors-brand-secondary-300);
 }
