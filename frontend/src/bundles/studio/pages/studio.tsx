@@ -34,8 +34,8 @@ import { actions as studioActionCreator } from '../store/studio.js';
 import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const scenes = useAppSelector(({ studio }) => studio.scenes);
-    const scripts = useAppSelector(({ studio }) => studio.scripts);
+    const { scenes, scripts } = useAppSelector(({ studio }) => studio);
+
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -83,6 +83,13 @@ const Studio: React.FC = () => {
             });
     }, [dispatch, navigate, scenes, scripts]);
 
+    const handleEditVideoName = useCallback(
+        (event: React.FocusEvent<HTMLInputElement>): void => {
+            void dispatch(studioActionCreator.setVideoName(event.target.value));
+        },
+        [dispatch],
+    );
+
     return (
         <Box
             minHeight="100vh"
@@ -107,6 +114,7 @@ const Studio: React.FC = () => {
                             variant="unstyled"
                             placeholder="Untitled video"
                             color="white"
+                            onBlur={handleEditVideoName}
                         />
                         <Button
                             variant="primaryOutlined"
