@@ -42,9 +42,13 @@ const generateAllScriptsSpeech = createAsyncThunk<
 
         const scripts = state.studio.scripts
             .filter((script) => !script.url)
-            .map(({ id, text, voiceName }) =>
+            .map(({ id, text, voice }) =>
                 dispatch(
-                    generateScriptSpeech({ scriptId: id, text, voiceName }),
+                    generateScriptSpeech({
+                        scriptId: id,
+                        text,
+                        voiceName: voice?.shortName as string,
+                    }),
                 ),
             );
 
