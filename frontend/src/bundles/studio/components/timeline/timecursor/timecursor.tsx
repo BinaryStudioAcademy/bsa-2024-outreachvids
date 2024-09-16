@@ -2,7 +2,7 @@ import { type PlayerRef } from '@remotion/player';
 import { type RefObject } from 'react';
 
 import { Box } from '~/bundles/common/components/components.js';
-import { FPS } from '~/bundles/common/components/upload-video/components/video-player/libs/constants/fps.constant.js';
+import { FPS } from '~/bundles/common/constants/constants.js';
 import {
     useAnimationFrame,
     useAppDispatch,
