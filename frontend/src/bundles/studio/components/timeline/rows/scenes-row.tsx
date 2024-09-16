@@ -35,6 +35,8 @@ const ScenesRow: React.FC = () => {
         pixelsToValue(buttonWidthInPixels),
     );
 
+    const isDeleteAvailable = useMemo(() => scenes.length > 1, [scenes]);
+
     const dispatch = useAppDispatch();
 
     const handleAddClick = useCallback(() => {
@@ -96,13 +98,15 @@ const ScenesRow: React.FC = () => {
                             height="100%"
                         />
                     )}
-                    <CloseButton
-                        onClick={handleDeleteClick}
-                        color="gray.300"
-                        data-id={item.id}
-                        variant={'simple'}
-                        className={styles['scene-delete']}
-                    />
+                    {isDeleteAvailable && (
+                        <CloseButton
+                            onClick={handleDeleteClick}
+                            color="gray.300"
+                            data-id={item.id}
+                            variant="simple"
+                            className={styles['scene-delete']}
+                        />
+                    )}
                 </Item>
             ))}
 

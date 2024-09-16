@@ -82,9 +82,9 @@ const ScriptsRow: React.FC = () => {
                     onClick={handleItemClick}
                 >
                     <Flex
-                        width={'100%'}
-                        justifyContent={'space-between'}
-                        alignItems={'center'}
+                        width="100%"
+                        justifyContent="space-between"
+                        alignItems="center"
                     >
                         <Text
                             variant="bodySmall"
@@ -100,7 +100,7 @@ const ScriptsRow: React.FC = () => {
                             onClick={handleDeleteClick}
                             color="gray.300"
                             data-id={item.id}
-                            variant={'simple'}
+                            variant="simple"
                         />
                     </Flex>
                 </Item>
