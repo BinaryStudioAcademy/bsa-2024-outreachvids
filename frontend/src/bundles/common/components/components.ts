@@ -38,6 +38,7 @@ export {
     Image,
     InputGroup,
     InputRightElement,
+    Input as LibraryInput,
     Link as LibraryLink,
     Modal as LibraryModal,
     Menu,

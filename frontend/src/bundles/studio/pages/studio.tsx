@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import {
     Box,
     Button,
+    Flex,
     Header,
+    LibraryInput,
     Player,
     VStack,
 } from '~/bundles/common/components/components.js';
@@ -29,10 +31,13 @@ import {
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
 import { actions as studioActionCreator } from '../store/studio.js';
+import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const scenes = useAppSelector(({ studio }) => studio.scenes);
-    const scripts = useAppSelector(({ studio }) => studio.scripts);
+    const { scenes, scripts, videoName } = useAppSelector(
+        ({ studio }) => studio,
+    );
+
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -80,6 +85,13 @@ const Studio: React.FC = () => {
             });
     }, [dispatch, navigate, scenes, scripts]);
 
+    const handleEditVideoName = useCallback(
+        (event: React.FocusEvent<HTMLInputElement>): void => {
+            void dispatch(studioActionCreator.setVideoName(event.target.value));
+        },
+        [dispatch],
+    );
+
     return (
         <Box
             minHeight="100vh"
@@ -98,12 +110,22 @@ const Studio: React.FC = () => {
                     />
                 }
                 right={
-                    <Button
-                        variant="primaryOutlined"
-                        label="Submit"
-                        sx={{ width: '100px' }}
-                        onClick={handleSubmit}
-                    />
+                    <Flex gap="10px">
+                        <LibraryInput
+                            defaultValue={videoName}
+                            className={styles['videoName']}
+                            variant="unstyled"
+                            placeholder="Untitled video"
+                            onBlur={handleEditVideoName}
+                        />
+                        <Button
+                            variant="primaryOutlined"
+                            label="Submit"
+                            width="100px"
+                            onClick={handleSubmit}
+                            flexShrink={0}
+                        />
+                    </Flex>
                 }
             />
 
