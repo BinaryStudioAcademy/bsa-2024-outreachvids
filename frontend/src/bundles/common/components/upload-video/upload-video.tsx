@@ -1,11 +1,8 @@
 import { Button, Flex, Text } from '~/bundles/common/components/components.js';
 import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 
-import {
-    CheckboxForm,
-    VideoDropzone,
-    VideoPlayer,
-} from './components/components.js';
+import { VideoPlayer } from '../video-player/video-player.js';
+import { CheckboxForm, VideoDropzone } from './components/components.js';
 
 const UploadVideo: React.FC = () => {
     const [videoSource, setVideoSource] = useState<string | null>(null);
@@ -45,7 +42,7 @@ const UploadVideo: React.FC = () => {
                         onRemoveVideo={handleRemoveVideo}
                         onSetVideo={handleSetVideo}
                     />
-                    <Button width={'222px'} label={'Next step'} />
+                    <Button width="222px" label="Next step" />
                 </>
             )}
         </Flex>

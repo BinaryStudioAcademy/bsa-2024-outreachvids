@@ -2,11 +2,11 @@ import { getVideoMetadata } from '@remotion/media-utils';
 import { type PlayerRef, Player } from '@remotion/player';
 
 import { Box } from '~/bundles/common/components/components.js';
+import { FPS } from '~/bundles/common/constants/constants.js';
 import { useEffect, useRef, useState } from '~/bundles/common/hooks/hooks.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
 import { Control, UserVideo } from './components/components.js';
-import { FPS } from './libs/constants/constants.js';
 import { ErrorId, ErrorMessage, ErrorTitle } from './libs/enums/enums.js';
 import { type VideoDuration } from './libs/types/types.js';
 
