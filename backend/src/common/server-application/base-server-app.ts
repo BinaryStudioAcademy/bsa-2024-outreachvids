@@ -15,9 +15,9 @@ import { type Socket, Server } from 'socket.io';
 
 import { type Config } from '~/common/config/config.js';
 import { type Database } from '~/common/database/database.js';
-import { ServerErrorType } from '~/common/enums/enums.js';
+import { ServerErrorType, SocketEvent } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HttpCode, HttpError, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { session } from '~/common/plugins/session/session.plugin.js';
 import {
@@ -64,8 +64,8 @@ class BaseServerApp implements ServerApp {
         this.app = Fastify();
         this.io = new Server(this.app.server, {
             cors: {
-                origin: '*',
-                methods: ['GET', 'POST'],
+                origin: this.config.ENV.APP.ORIGIN,
+                methods: [HTTPMethod.GET, HTTPMethod.POST],
             },
         });
     }
@@ -251,7 +251,7 @@ class BaseServerApp implements ServerApp {
 
         this.database.connect();
 
-        this.io.on('connection', (socket: Socket) =>
+        this.io.on(SocketEvent.CONNECTION, (socket: Socket) =>
             initSocketConnection(this.io, socket),
         );
 

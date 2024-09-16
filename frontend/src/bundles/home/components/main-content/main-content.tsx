@@ -11,8 +11,14 @@ import {
     useContext,
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
+import { notificationService } from '~/bundles/common/services/services.js';
 import { actions as homeActions } from '~/bundles/home/store/home.js';
 
+import {
+    VIDEO_RENDER_FAILED_NOTIFICATION_ID,
+    VIDEO_RENDER_SUCCESS_NOTIFICATION_ID,
+} from '../../constants/constants.js';
+import { NotificationMessage, NotificationTitle } from '../../enums/enums.js';
 import { VideoSection } from '../components.js';
 
 const MainContent: React.FC = () => {
@@ -22,22 +28,39 @@ const MainContent: React.FC = () => {
     const { videos, dataStatus } = useAppSelector(({ home }) => home);
 
     // TODO: filter videos to get recent videos
-
     useEffect(() => {
-        void dispatch(homeActions.loadUserVideos());
-    }, [dispatch]);
-
-    useEffect(() => {
-        // socket.on('TEST', (a: boolean) => { console.log('c: ' + a)} );
-        // socket.emit(AvatarVideoEvent.RENDER_SUCCESS, true);
-        socket.on(AvatarVideoEvent.RENDER_SUCCESS, () => {
+        const loadUserVideos = (): void => {
             void dispatch(homeActions.loadUserVideos());
-        });
+        };
+
+        const renderedVideoSuccess = (): void => {
+            notificationService.success({
+                id: VIDEO_RENDER_SUCCESS_NOTIFICATION_ID,
+                title: NotificationTitle.VIDEO_RENDER_SUCCESS,
+                message: NotificationMessage.VIDEO_RENDER_SUCCESS,
+            });
+            loadUserVideos();
+        };
+
+        const renderedVideoFailed = (): void => {
+            socket.on(AvatarVideoEvent.RENDER_FAILED, () => {
+                notificationService.error({
+                    id: VIDEO_RENDER_FAILED_NOTIFICATION_ID,
+                    title: NotificationTitle.VIDEO_RENDER_FAILED,
+                    message: NotificationMessage.VIDEO_RENDER_FAILED,
+                });
+            });
+        };
+
+        loadUserVideos();
+        socket.on(AvatarVideoEvent.RENDER_SUCCESS, renderedVideoSuccess);
+        socket.on(AvatarVideoEvent.RENDER_FAILED, renderedVideoFailed);
 
         return () => {
-            // socket.removeAllListeners(AvatarVideoEvent.RENDER_SUCCESS).close();
+            socket.off(AvatarVideoEvent.RENDER_FAILED, renderedVideoSuccess);
+            socket.off(AvatarVideoEvent.RENDER_FAILED, renderedVideoFailed);
         };
-    }, [socket, dispatch]);
+    }, [dispatch, socket]);
 
     return (
         <Box bg="background.50" borderRadius="lg">
