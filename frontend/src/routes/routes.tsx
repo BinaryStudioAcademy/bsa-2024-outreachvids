@@ -30,7 +30,11 @@ const routes = [
             },
             {
                 path: AppRoute.STUDIO,
-                element: <Studio />,
+                element: (
+                    <ProtectedRoute>
+                        <Studio />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: AppRoute.MY_AVATAR,
