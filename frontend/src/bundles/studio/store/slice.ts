@@ -29,8 +29,14 @@ import {
     type SceneAvatar,
     type Script,
     type TimelineItemWithSpan,
+    type Voice,
 } from '../types/types.js';
-import { generateScriptSpeech, loadAvatars, renderAvatar } from './actions.js';
+import {
+    generateScriptSpeech,
+    loadAvatars,
+    loadVoices,
+    renderAvatar,
+} from './actions.js';
 
 type SelectedItem = {
     id: string;
@@ -61,6 +67,10 @@ type State = {
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
+    voices: {
+        dataStatus: ValueOf<typeof DataStatus>;
+        items: Voice[];
+    };
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -79,6 +89,10 @@ const initialState: State = {
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
+    voices: {
+        dataStatus: DataStatus.IDLE,
+        items: [],
+    },
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -316,6 +330,17 @@ const { reducer, actions, name } = createSlice({
                     : script,
             );
             state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(loadVoices.pending, (state) => {
+            state.voices.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(loadVoices.fulfilled, (state, action) => {
+            state.voices.items = action.payload.items;
+            state.voices.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(loadVoices.rejected, (state) => {
+            state.voices.items = [];
+            state.voices.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(renderAvatar.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
