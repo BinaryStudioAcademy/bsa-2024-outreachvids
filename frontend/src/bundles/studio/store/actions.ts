@@ -42,6 +42,31 @@ const generateScriptSpeech = createAsyncThunk<
     return speechApi.generateScriptSpeech(payload);
 });
 
+const generateAllScriptsSpeech = createAsyncThunk<
+    Promise<void>,
+    undefined,
+    AsyncThunkConfig
+>(
+    `${sliceName}/generate-all-scripts-speech`,
+    async (_, { getState, dispatch }) => {
+        const state = getState();
+
+        const scripts = state.studio.scripts
+            .filter((script) => !script.url)
+            .map(({ id, text, voice }) =>
+                dispatch(
+                    generateScriptSpeech({
+                        scriptId: id,
+                        text,
+                        voiceName: voice?.shortName as string,
+                    }),
+                ),
+            );
+
+        await Promise.all(scripts);
+    },
+);
+
 const renderAvatar = createAsyncThunk<
     RenderAvatarResponseDto,
     RenderAvatarVideoRequestDto,
@@ -52,4 +77,10 @@ const renderAvatar = createAsyncThunk<
     return avatarVideosApi.renderVideo(payload);
 });
 
-export { generateScriptSpeech, loadAvatars, loadVoices, renderAvatar };
+export {
+    generateAllScriptsSpeech,
+    generateScriptSpeech,
+    loadAvatars,
+    loadVoices,
+    renderAvatar,
+};

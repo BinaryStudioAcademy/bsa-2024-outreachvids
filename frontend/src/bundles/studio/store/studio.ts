@@ -1,4 +1,5 @@
 import {
+    generateAllScriptsSpeech,
     generateScriptSpeech,
     loadAvatars,
     loadVoices,
@@ -10,6 +11,7 @@ const allActions = {
     ...actions,
     loadAvatars,
     loadVoices,
+    generateAllScriptsSpeech,
     generateScriptSpeech,
     renderAvatar,
 };

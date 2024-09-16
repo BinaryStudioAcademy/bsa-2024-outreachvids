@@ -15,7 +15,7 @@ import {
 import {
     type PlayerOptions,
     type VideoDuration,
-} from '~/bundles/common/components/upload-video/components/video-player/libs/types/types.js';
+} from '~/bundles/common/components/video-player/libs/types/types.js';
 import {
     useAnimationFrame,
     useCallback,
