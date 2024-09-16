@@ -66,10 +66,7 @@ type State = {
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
     videoName: string;
-    voices: {
-        dataStatus: ValueOf<typeof DataStatus>;
-        items: Voice[];
-    };
+    voices: Voice[];
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -89,10 +86,7 @@ const initialState: State = {
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
-    voices: {
-        dataStatus: DataStatus.IDLE,
-        items: [],
-    },
+    voices: [],
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -351,15 +345,15 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(loadVoices.pending, (state) => {
-            state.voices.dataStatus = DataStatus.PENDING;
+            state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(loadVoices.fulfilled, (state, action) => {
-            state.voices.items = action.payload.items;
-            state.voices.dataStatus = DataStatus.FULFILLED;
+            state.voices = action.payload.items;
+            state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(loadVoices.rejected, (state) => {
-            state.voices.items = [];
-            state.voices.dataStatus = DataStatus.REJECTED;
+            state.voices = [];
+            state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(renderAvatar.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;

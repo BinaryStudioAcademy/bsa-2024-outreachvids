@@ -26,7 +26,7 @@ const VoicesModalContent: React.FC<Properties> = ({
     const script = useAppSelector(({ studio }) =>
         studio.scripts.find((s) => s.id === scriptId),
     );
-    const voices = useAppSelector(({ studio }) => studio.voices.items);
+    const voices = useAppSelector(({ studio }) => studio.voices);
     const handleCardClick = useCallback(
         (voice: Voice): void => {
             dispatch(studioActions.editScript({ id: scriptId, voice }));

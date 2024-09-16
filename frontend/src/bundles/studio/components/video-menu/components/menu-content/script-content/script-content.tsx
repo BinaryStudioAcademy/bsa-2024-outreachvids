@@ -21,13 +21,15 @@ import { Script, VoicesModal } from './components/components.js';
 
 const ScriptContent: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { scripts, voices } = useAppSelector(({ studio }) => studio);
+    const { scripts, voices, dataStatus } = useAppSelector(
+        ({ studio }) => studio,
+    );
 
     useEffect(() => {
-        if (voices.items.length === 0) {
+        if (voices.length === 0) {
             void dispatch(studioActions.loadVoices());
         }
-    }, [dispatch, voices.items.length]);
+    }, [dispatch, voices.length]);
     const [changeVoiceScriptId, setChangeVoiceScriptId] = useState<
         string | null
     >(null);
@@ -47,7 +49,7 @@ const ScriptContent: React.FC = () => {
     return (
         <>
             <VStack w="full" spacing="20px" p="20px 0">
-                {voices.dataStatus === DataStatus.PENDING ? (
+                {dataStatus === DataStatus.PENDING ? (
                     <Loader />
                 ) : (
                     <>
@@ -81,7 +83,7 @@ const ScriptContent: React.FC = () => {
             <VoicesModal
                 isOpen={
                     changeVoiceScriptId !== null &&
-                    voices.dataStatus === DataStatus.FULFILLED
+                    dataStatus === DataStatus.FULFILLED
                 }
                 onClose={handleCloseVoicesModal}
                 scriptId={changeVoiceScriptId}
