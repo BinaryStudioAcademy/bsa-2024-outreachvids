@@ -43,6 +43,7 @@ export {
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
     type GetVoicesResponseDto,
+    type Voice,
     generateSpeechValidationSchema,
     SpeechApiPath,
 } from './bundles/speech/speech.js';

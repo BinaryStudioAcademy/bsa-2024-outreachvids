@@ -1,4 +1,5 @@
 import {
+    DeleteObjectCommand,
     GetObjectCommand,
     PutObjectCommand,
     S3Client,
@@ -39,6 +40,15 @@ class FileService {
             Bucket: this.bucketName,
             Key: fileName,
             Body: buffer,
+        });
+
+        await this.client.send(command);
+    };
+
+    public deleteFile = async (fileName: string): Promise<void> => {
+        const command = new DeleteObjectCommand({
+            Bucket: this.bucketName,
+            Key: fileName,
         });
 
         await this.client.send(command);

@@ -25,7 +25,8 @@ const SidebarItem = ({
         <Box
             as="button"
             className={`${styles['sidebarItem']} ${isCollapsed ? styles['itemJustifyCenter'] : styles['itemJustifyStart']}`}
-            style={{ backgroundColor: bg, color }}
+            bg={bg}
+            color={color}
             onClick={onClick}
         >
             {icon}
