@@ -31,7 +31,12 @@ import {
     type Script,
     type TimelineItemWithSpan,
 } from '../types/types.js';
-import { generateScriptSpeech, loadAvatars, renderAvatar } from './actions.js';
+import {
+    generateAllScriptsSpeech,
+    generateScriptSpeech,
+    loadAvatars,
+    renderAvatar,
+} from './actions.js';
 
 type SelectedItem = {
     id: string;
@@ -55,7 +60,6 @@ type State = {
         elapsedTime: number; // ms
     };
     range: Range;
-
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
@@ -271,6 +275,13 @@ const { reducer, actions, name } = createSlice({
         ) {
             state.ui.menuActiveItem = action.payload;
         },
+        resetStudio(state) {
+            // TODO: do not overwrite voices on reset
+            return {
+                ...initialState,
+                avatars: state.avatars,
+            };
+        },
     },
     extraReducers(builder) {
         builder.addCase(loadAvatars.pending, (state) => {
@@ -318,6 +329,15 @@ const { reducer, actions, name } = createSlice({
                     ? { ...script, iconName: PlayIconNames.READY }
                     : script,
             );
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(generateAllScriptsSpeech.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(generateAllScriptsSpeech.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(generateAllScriptsSpeech.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(renderAvatar.pending, (state) => {

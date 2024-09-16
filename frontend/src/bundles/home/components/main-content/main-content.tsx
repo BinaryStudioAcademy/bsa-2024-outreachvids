@@ -12,6 +12,7 @@ import {
 import { actions as homeActions } from '~/bundles/home/store/home.js';
 
 import { VideoSection } from '../components.js';
+import styles from './styles.module.css';
 
 const MainContent: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -25,7 +26,7 @@ const MainContent: React.FC = () => {
     }, [dispatch]);
 
     return (
-        <Box bg="background.50" borderRadius="lg">
+        <Box className={styles['main-content']}>
             <Overlay isOpen={dataStatus === DataStatus.PENDING}>
                 <Loader />
             </Overlay>

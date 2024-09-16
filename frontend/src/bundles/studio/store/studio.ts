@@ -1,9 +1,15 @@
-import { generateScriptSpeech, loadAvatars, renderAvatar } from './actions.js';
+import {
+    generateAllScriptsSpeech,
+    generateScriptSpeech,
+    loadAvatars,
+    renderAvatar,
+} from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {
     ...actions,
     loadAvatars,
+    generateAllScriptsSpeech,
     generateScriptSpeech,
     renderAvatar,
 };
