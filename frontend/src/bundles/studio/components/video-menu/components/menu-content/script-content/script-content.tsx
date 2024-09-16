@@ -11,7 +11,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
-import { NEW_SCRIPT_TEXT } from '~/bundles/studio/components/constants/constants.js';
+import { NEW_SCRIPT_TEXT } from '~/bundles/studio/constants/constants.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Script, VoicesModal } from './components/components.js';
