@@ -1,0 +1,27 @@
+.container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 864px;
+    width: 100%;
+    min-height: 550px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px 20px 50px;
+}
+
+.video-player {
+    height: 278px;
+    width: 570px;
+    border: 2px solid transparent;
+    box-sizing: content-box;
+    position: relative;
+    border-radius: 12px;
+    background-color: var(--chakra-colors-gray-200);
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.video-player:hover {
+    border-color: var(--chakra-colors-background-900);
+}
