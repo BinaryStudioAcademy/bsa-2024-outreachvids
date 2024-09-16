@@ -13,6 +13,7 @@ import {
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
+import { mockVoices } from '../components/video-menu/components/mock/voices-mock.js';
 import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     calculateTotalMilliseconds,
@@ -46,9 +47,6 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
-// TODO: remove when we will have voices in store
-const defaultVoiceName = 'en-US-BrianMultilingualNeural';
-
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     avatars: Array<AvatarGetResponseDto> | [];
@@ -61,6 +59,7 @@ type State = {
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
+    videoName: string;
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -79,6 +78,7 @@ const initialState: State = {
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
+    videoName: 'Untitled Video',
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -95,7 +95,7 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
-                voiceName: defaultVoiceName,
+                voice: mockVoices.at(0),
                 iconName: PlayIconNames.READY,
             };
             state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
@@ -206,6 +206,9 @@ const { reducer, actions, name } = createSlice({
         },
         setVideoSize(state, action: PayloadAction<VideoPreviewT>) {
             state.videoSize = action.payload;
+        },
+        setVideoName(state, action: PayloadAction<string>) {
+            state.videoName = action.payload;
         },
         setDestinationPointer(
             state,
