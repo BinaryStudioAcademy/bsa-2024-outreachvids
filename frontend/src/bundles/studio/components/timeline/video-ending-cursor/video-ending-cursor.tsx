@@ -1,4 +1,4 @@
-import { Box } from '~/bundles/common/components/components.js';
+import { Box, Text } from '~/bundles/common/components/components.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { useTimelineContext } from '~/bundles/studio/hooks/hooks.js';
 import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
@@ -16,7 +16,17 @@ const VideoEndingCursor: React.FC = () => {
             className={styles['cursor']}
             backgroundColor="typography.300"
             style={{ left: `${position}px` }}
-        ></Box>
+        >
+            <Text
+                position="absolute"
+                transform="translateX(-50%)"
+                color="typography.300"
+                fontSize="sm"
+                backgroundColor='white'
+            >
+                End
+            </Text>
+        </Box>
     );
 };
 
