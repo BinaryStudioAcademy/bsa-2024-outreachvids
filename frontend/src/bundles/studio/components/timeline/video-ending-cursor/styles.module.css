@@ -4,3 +4,8 @@
     z-index: 3;
     position: absolute;
 }
+.text {
+    position: absolute;
+    background-color: white;
+    transform: translateX(-50%);
+}

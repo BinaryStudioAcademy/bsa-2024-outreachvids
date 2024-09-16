@@ -18,11 +18,9 @@ const VideoEndingCursor: React.FC = () => {
             style={{ left: `${position}px` }}
         >
             <Text
-                position="absolute"
-                transform="translateX(-50%)"
+                className={styles['text']}
                 color="typography.300"
                 fontSize="sm"
-                backgroundColor="white"
             >
                 End
             </Text>
