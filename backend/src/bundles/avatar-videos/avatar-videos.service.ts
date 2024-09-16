@@ -57,11 +57,9 @@ class AvatarVideoService {
     }: RenderAvatarVideoRequestDto & {
         userId: string;
     }): Promise<VideoGetAllItemResponseDto> {
-        const previewUrl = composition.scenes[0]?.avatar?.url as string;
         return await this.videoService.create({
-            composition: JSON.stringify(composition),
+            composition,
             name: name,
-            previewUrl,
             userId,
         });
     }
