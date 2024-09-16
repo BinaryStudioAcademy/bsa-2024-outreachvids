@@ -11,7 +11,7 @@ import {
     ScriptsRow,
     TimeAxis,
     TimeCursor,
-    VideoEndingCursor
+    VideoEndingCursor,
 } from '../components.js';
 
 type Properties = {
