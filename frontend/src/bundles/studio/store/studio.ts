@@ -1,4 +1,5 @@
 import {
+    generateAllScriptsSpeech,
     generateScriptSpeech,
     loadAvatars,
     loadVoices,
@@ -9,6 +10,7 @@ import { actions } from './slice.js';
 const allActions = {
     ...actions,
     loadAvatars,
+    generateAllScriptsSpeech,
     loadVoices,
     generateScriptSpeech,
     renderAvatar,

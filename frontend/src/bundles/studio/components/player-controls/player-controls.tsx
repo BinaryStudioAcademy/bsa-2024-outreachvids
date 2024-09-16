@@ -2,12 +2,13 @@ import { type PlayerRef } from '@remotion/player';
 import { secondsToMilliseconds } from 'date-fns';
 import { type RefObject } from 'react';
 
-import { Flex } from '~/bundles/common/components/components.js';
+import { Flex, Spinner } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
     useMemo,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { SKIP_TO_PREV_SCENE_THRESHOLD } from '~/bundles/studio/constants/constants.js';
@@ -33,14 +34,30 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
     const totalDuration = useAppSelector(selectTotalDuration);
     const scenesWithSpan = useMemo(() => setItemsSpan(scenes), [scenes]);
 
-    const handleTogglePlaying = useCallback((): void => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const togglePlaying = useCallback(() => {
         if (elapsedTime >= totalDuration) {
             void dispatch(studioActions.setElapsedTime(0));
         }
         playerRef.current?.toggle();
 
         void dispatch(studioActions.setPlaying(!isPlaying));
-    }, [elapsedTime, totalDuration, dispatch, isPlaying, playerRef]);
+    }, [dispatch, elapsedTime, isPlaying, playerRef, totalDuration]);
+
+    const handleTogglePlaying = useCallback(() => {
+        if (isPlaying) {
+            togglePlaying();
+            return;
+        }
+
+        setIsLoading(true);
+
+        void dispatch(studioActions.generateAllScriptsSpeech()).then(() => {
+            setIsLoading(false);
+            togglePlaying();
+        });
+    }, [dispatch, isPlaying, togglePlaying]);
 
     const handleSkipToNextScene = useCallback((): void => {
         const currentScene = scenesWithSpan.find(
@@ -79,6 +96,14 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
         void dispatch(studioActions.setElapsedTime(previousScene.span.start));
     }, [dispatch, elapsedTime, scenesWithSpan, playerRef]);
 
+    const icon = useMemo(() => {
+        if (isLoading) {
+            return Spinner;
+        }
+
+        return isPlaying ? IconName.PAUSE : IconName.PLAY;
+    }, [isLoading, isPlaying]);
+
     return (
         <Flex
             justifyContent="center"
@@ -98,7 +123,7 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
                 <Control
                     label={isPlaying ? 'Pause' : 'Play video'}
                     size={IconSize.SMALL}
-                    icon={isPlaying ? IconName.PAUSE : IconName.PLAY}
+                    icon={icon}
                     onClick={handleTogglePlaying}
                 />
 

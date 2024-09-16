@@ -1,5 +1,5 @@
 import {
-    BaseModal,
+    LibraryModal,
     ModalBody,
     ModalCloseButton,
     ModalContent,
@@ -9,15 +9,15 @@ import { type ModalProps } from '~/bundles/common/types/types.js';
 
 import styles from './styles.module.css';
 
-const Modal: React.FC<ModalProps> = (properties) => {
+const Modal: React.FC<ModalProps> = ({ children, ...properties }) => {
     return (
-        <BaseModal {...properties} isCentered>
+        <LibraryModal {...properties} isCentered>
             <ModalOverlay />
             <ModalContent className={styles['modal-content']}>
                 <ModalCloseButton margin="20px" zIndex={10} />
-                <ModalBody padding={0}>{properties.children}</ModalBody>
+                <ModalBody padding={0}>{children}</ModalBody>
             </ModalContent>
-        </BaseModal>
+        </LibraryModal>
     );
 };
 

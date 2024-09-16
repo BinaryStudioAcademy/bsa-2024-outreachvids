@@ -33,6 +33,7 @@ import {
     type Voice,
 } from '../types/types.js';
 import {
+    generateAllScriptsSpeech,
     generateScriptSpeech,
     loadAvatars,
     loadVoices,
@@ -61,10 +62,10 @@ type State = {
         elapsedTime: number; // ms
     };
     range: Range;
-
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
+    videoName: string;
     voices: {
         dataStatus: ValueOf<typeof DataStatus>;
         items: Voice[];
@@ -87,6 +88,7 @@ const initialState: State = {
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
+    videoName: 'Untitled Video',
     voices: {
         dataStatus: DataStatus.IDLE,
         items: [],
@@ -219,6 +221,9 @@ const { reducer, actions, name } = createSlice({
         setVideoSize(state, action: PayloadAction<VideoPreviewT>) {
             state.videoSize = action.payload;
         },
+        setVideoName(state, action: PayloadAction<string>) {
+            state.videoName = action.payload;
+        },
         setDestinationPointer(
             state,
             action: PayloadAction<DestinationPointerActionPayload>,
@@ -280,6 +285,13 @@ const { reducer, actions, name } = createSlice({
         ) {
             state.ui.menuActiveItem = action.payload;
         },
+        resetStudio(state) {
+            // TODO: do not overwrite voices on reset
+            return {
+                ...initialState,
+                avatars: state.avatars,
+            };
+        },
     },
     extraReducers(builder) {
         builder.addCase(loadAvatars.pending, (state) => {
@@ -327,6 +339,15 @@ const { reducer, actions, name } = createSlice({
                     ? { ...script, iconName: PlayIconNames.READY }
                     : script,
             );
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(generateAllScriptsSpeech.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(generateAllScriptsSpeech.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(generateAllScriptsSpeech.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(loadVoices.pending, (state) => {
