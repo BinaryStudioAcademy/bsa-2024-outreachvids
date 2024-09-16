@@ -9,7 +9,7 @@ type Script = {
     text: string;
     iconName: ValueOf<typeof PlayIconNames>;
     url?: string;
-    voice?: Voice | undefined;
+    voice: Voice;
 };
 
 export { type Script };

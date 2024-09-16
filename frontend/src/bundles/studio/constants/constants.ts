@@ -1,3 +1,4 @@
+export { DEFAULT_VOICE } from './default-voice-name.constant.js';
 export { MIN_SCENE_DURATION } from './min-scene-duration.constant.js';
 export { MIN_SCRIPT_DURATION } from './min-script-duration.constant.js';
 export { SCRIPT_AND_AVATAR_ARE_REQUIRED } from './script-and-avatar-are-required.constant.js';

@@ -22,7 +22,6 @@ import {
     Timeline,
     VideoMenu,
 } from '../components/components.js';
-import { defaultVoiceName } from '../components/video-menu/components/mock/voices-mock.js';
 import {
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
@@ -61,7 +60,7 @@ const Studio: React.FC = () => {
                 avatarName: scene.avatar.name,
                 avatarStyle: scene.avatar.style,
                 text: script?.text,
-                voice: script?.voice?.shortName ?? defaultVoiceName,
+                voice: script?.voice?.shortName,
             }),
         )
             .then(() => {

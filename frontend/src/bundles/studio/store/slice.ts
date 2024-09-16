@@ -9,11 +9,11 @@ import {
     type VideoPreview as VideoPreviewT,
 } from '~/bundles/common/types/types.js';
 import {
+    DEFAULT_VOICE,
     MIN_SCENE_DURATION,
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { mockVoices } from '../components/video-menu/components/mock/voices-mock.js';
 import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     calculateTotalMilliseconds,
@@ -107,7 +107,7 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
-                voice: mockVoices.at(0),
+                voice: DEFAULT_VOICE,
                 iconName: PlayIconNames.READY,
             };
             state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };

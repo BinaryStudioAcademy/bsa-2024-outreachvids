@@ -47,35 +47,42 @@ const ScriptContent: React.FC = () => {
     return (
         <>
             <VStack w="full" spacing="20px" p="20px 0">
-            {voices.dataStatus === DataStatus.PENDING ? (
-                <Loader />
-            ) : (
-                <>
-                {scripts.length === 0 ? (
-                    <Text variant="body1" width="60%" textAlign="center">
-                        To add a script press a button below.
-                    </Text>
+                {voices.dataStatus === DataStatus.PENDING ? (
+                    <Loader />
                 ) : (
-                    scripts.map(({ id, ...script }) => (
-                        <Script
-                            key={id}
-                            id={id}
-                            {...script}
-                            handleChangeVoice={handleChangeVoiceClick}
+                    <>
+                        {scripts.length === 0 ? (
+                            <Text
+                                variant="body1"
+                                width="60%"
+                                textAlign="center"
+                            >
+                                To add a script press a button below.
+                            </Text>
+                        ) : (
+                            scripts.map(({ id, ...script }) => (
+                                <Script
+                                    key={id}
+                                    id={id}
+                                    {...script}
+                                    handleChangeVoice={handleChangeVoiceClick}
+                                />
+                            ))
+                        )}
+                        <IconButton
+                            icon={<Icon as={IconName.ADD} />}
+                            aria-label="Add script"
+                            borderRadius="100%"
+                            onClick={handleAddScript}
                         />
-                    ))
+                    </>
                 )}
-                <IconButton
-                    icon={<Icon as={IconName.ADD} />}
-                    aria-label="Add script"
-                    borderRadius="100%"
-                    onClick={handleAddScript}
-                />
-                                </>
-            )}
             </VStack>
             <VoicesModal
-                isOpen={changeVoiceScriptId !== null}
+                isOpen={
+                    changeVoiceScriptId !== null &&
+                    voices.dataStatus === DataStatus.FULFILLED
+                }
                 onClose={handleCloseVoicesModal}
                 scriptId={changeVoiceScriptId}
             />
