@@ -12,7 +12,7 @@ type Properties = {
 const Logo: React.FC<Properties> = ({ logoSize, textSize, ...rest }) => {
     return (
         <Box display="flex" alignItems="center">
-            <Image src={logo} alt="Logo" {...rest} ml={2} boxSize={logoSize} />
+            <Image src={logo} alt="Logo" {...rest} boxSize={logoSize} />
             {textSize && (
                 <Image
                     src={logoTxt}
