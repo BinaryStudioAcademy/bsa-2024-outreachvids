@@ -12,9 +12,17 @@ import { type VideoDuration } from './libs/types/types.js';
 
 type Properties = {
     videoSource: string;
+    className: string;
+    playerWidth: string;
+    playerHeight: string;
 };
 
-const VideoPlayer: React.FC<Properties> = ({ videoSource }) => {
+const VideoPlayer: React.FC<Properties> = ({
+    videoSource,
+    className,
+    playerWidth,
+    playerHeight,
+}) => {
     const videoPlayerReference = useRef<PlayerRef>(null);
 
     const [duration, setDuration] = useState<VideoDuration>({
@@ -43,20 +51,7 @@ const VideoPlayer: React.FC<Properties> = ({ videoSource }) => {
     }, [videoSource]);
 
     return (
-        <Box
-            height="278px"
-            width="570px"
-            border="2px solid transparent"
-            boxSizing="content-box"
-            position="relative"
-            borderRadius="12px"
-            backgroundColor="gray.200"
-            overflow="hidden"
-            transition="0.3s"
-            _hover={{
-                borderColor: 'background.900',
-            }}
-        >
+        <Box className={className}>
             <Player
                 component={UserVideo}
                 inputProps={{ src: videoSource }}
@@ -66,8 +61,8 @@ const VideoPlayer: React.FC<Properties> = ({ videoSource }) => {
                 compositionHeight={1080}
                 fps={FPS}
                 style={{
-                    width: '570px',
-                    height: '278px',
+                    width: playerWidth,
+                    height: playerHeight,
                 }}
             />
 
