@@ -35,7 +35,7 @@ const VoicesModalContent: React.FC<Properties> = ({
         [dispatch, scriptId, onModalClose],
     );
     return (
-        <VStack>
+        <VStack h="full">
             <Heading
                 className={styles['modal-header']}
                 variant="H3"
