@@ -14,11 +14,16 @@ import Fastify, {
 import { type Socket, Server } from 'socket.io';
 
 import { type Config } from '~/common/config/config.js';
+import {
+    SOCKET_TRANSPORT_WEBSOCKETS,
+    WHITE_ROUTES,
+} from '~/common/constants/constants.js';
 import { type Database } from '~/common/database/database.js';
 import { ServerErrorType, SocketEvent } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
 import { HttpCode, HttpError, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
+import { authenticateJWT } from '~/common/plugins/plugins.js';
 import { session } from '~/common/plugins/session/session.plugin.js';
 import {
     type ServerCommonErrorResponse,
@@ -26,8 +31,6 @@ import {
     type ValidationSchema,
 } from '~/common/types/types.js';
 
-import { WHITE_ROUTES } from '../constants/constants.js';
-import { authenticateJWT } from '../plugins/plugins.js';
 import { initSocketConnection } from './socket-application.js';
 import {
     type ServerApp,
@@ -63,6 +66,8 @@ class BaseServerApp implements ServerApp {
 
         this.app = Fastify();
         this.io = new Server(this.app.server, {
+            // This is to ensure that it dosent fall back to long polling as it return a 404 if it does
+            transports: [SOCKET_TRANSPORT_WEBSOCKETS],
             cors: {
                 origin: this.config.ENV.APP.ORIGIN,
                 methods: [HTTPMethod.GET, HTTPMethod.POST],

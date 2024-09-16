@@ -18,6 +18,12 @@ class SocketEvent extends EventTarget {
     public getSocket(): Socket | null {
         return this.socket;
     }
+
+    public emitNotification(event: string): void {
+        if (this.socket) {
+            this.socket.emit(event);
+        }
+    }
 }
 
 const socketEvent = new SocketEvent();

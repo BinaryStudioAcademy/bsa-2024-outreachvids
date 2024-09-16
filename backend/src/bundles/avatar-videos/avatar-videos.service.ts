@@ -77,7 +77,7 @@ class AvatarVideoService {
                             url: response.outputs.result,
                         })
                             .then(() => {
-                                this.emitNotification(
+                                socketEvent.emitNotification(
                                     AvatarVideoEvent.RENDER_SUCCESS,
                                 );
                             })
@@ -93,7 +93,9 @@ class AvatarVideoService {
                     } else if (
                         response.status === GenerateAvatarResponseStatus.FAILED
                     ) {
-                        this.emitNotification(AvatarVideoEvent.RENDER_FAILED);
+                        socketEvent.emitNotification(
+                            AvatarVideoEvent.RENDER_FAILED,
+                        );
                         clearInterval(interval);
                     }
                 })
@@ -128,13 +130,6 @@ class AvatarVideoService {
         }
 
         await this.azureAIService.removeAvatarVideo(id);
-    }
-
-    private emitNotification(event: string): void {
-        const socket = socketEvent.getSocket();
-        if (socket) {
-            socket.emit(event);
-        }
     }
 }
 
