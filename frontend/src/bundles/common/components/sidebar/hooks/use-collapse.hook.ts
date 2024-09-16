@@ -8,7 +8,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { storage, StorageKey } from '~/framework/storage/storage.js';
 
-import { MD } from '../constants/constants.js';
+import { MID_SCREEN_SIZE } from '../constants/constants.js';
 import { getSidebarState } from '../helpers/helpers.js';
 
 const useCollapse = (): {
@@ -27,7 +27,7 @@ const useCollapse = (): {
     }, [dispatch, isCollapsed]);
 
     const handleResize = useCallback((): void => {
-        const isMobile = window.innerWidth < MD;
+        const isMobile = window.innerWidth < MID_SCREEN_SIZE;
         dispatch(authActions.toggleSidebar(isMobile));
         void storage.set(
             StorageKey.IS_SIDEBAR_COLLAPSED,

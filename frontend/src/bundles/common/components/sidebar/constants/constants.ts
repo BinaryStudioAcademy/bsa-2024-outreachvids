@@ -1,3 +1,3 @@
-const MD = 760;
+const MID_SCREEN_SIZE = 760;
 
-export { MD };
+export { MID_SCREEN_SIZE };
