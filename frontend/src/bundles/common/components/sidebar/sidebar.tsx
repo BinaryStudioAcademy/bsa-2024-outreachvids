@@ -118,7 +118,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
                         />
                     }
                     isCollapsed={isCollapsed}
-                    label={'log out'}
+                    label={'Log out'}
                     onClick={handleLogOut}
                 />
             </Flex>
