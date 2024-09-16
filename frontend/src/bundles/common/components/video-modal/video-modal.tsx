@@ -1,12 +1,5 @@
-import {
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalOverlay,
-} from '@chakra-ui/react';
-
 import { useChatCleanup } from '~/bundles/chat/hooks/hooks.js';
+import { Modal } from '~/bundles/common/components/components.js';
 
 import { VideoModalContent } from './components/components.js';
 
@@ -21,20 +14,8 @@ const VideoModal: React.FC<Properties> = ({ isOpen, onModalClose }) => {
     });
 
     return (
-        <Modal isOpen={isOpen} onClose={handleCloseChat} isCentered>
-            <ModalOverlay />
-            <ModalContent
-                borderRadius="17px"
-                maxWidth="90%"
-                maxHeight="90%"
-                height="full"
-                overflow="auto"
-            >
-                <ModalCloseButton margin="20px" zIndex={10} />
-                <ModalBody padding={0}>
-                    <VideoModalContent />
-                </ModalBody>
-            </ModalContent>
+        <Modal isOpen={isOpen} onClose={handleCloseChat}>
+            <VideoModalContent />
         </Modal>
     );
 };
