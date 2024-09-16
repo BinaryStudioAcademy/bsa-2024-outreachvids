@@ -3,7 +3,7 @@ import { useChatCleanup } from '~/bundles/chat/hooks/hooks.js';
 import { actions as chatActions } from '~/bundles/chat/store/chat.js';
 import { type GenerateTextRequestDto } from '~/bundles/chat/types/types.js';
 import {
-    Modal,
+    LibraryModal,
     ModalCloseButton,
     ModalContent,
     ModalOverlay,
@@ -35,25 +35,23 @@ const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
     const { handleCloseChat } = useChatCleanup({ onModalChatClose });
 
     return (
-        <>
-            <Modal
-                closeOnOverlayClick={false}
-                isOpen={isChatOpen}
-                onClose={handleCloseChat}
-                size={'5xl'}
-            >
-                <ModalOverlay />
-                <ModalContent borderRadius={'xl'}>
-                    <ModalCloseButton color="white" />
-                    <Chat
-                        messages={messages}
-                        onSendMessage={handleSendMessage}
-                        headerTitle="AI Script Writer"
-                        headerComment="Your secret to crafting compelling scripts effortlessly!"
-                    />
-                </ModalContent>
-            </Modal>
-        </>
+        <LibraryModal
+            closeOnOverlayClick={false}
+            isOpen={isChatOpen}
+            onClose={handleCloseChat}
+            size="5xl"
+        >
+            <ModalOverlay />
+            <ModalContent borderRadius="xl">
+                <ModalCloseButton color="white" />
+                <Chat
+                    messages={messages}
+                    onSendMessage={handleSendMessage}
+                    headerTitle="GPT4 Script Writer"
+                    headerComment="Your secret to crafting compelling scripts effortlessly!"
+                />
+            </ModalContent>
+        </LibraryModal>
     );
 };
 
