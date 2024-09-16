@@ -11,6 +11,7 @@ import {
     ScriptsRow,
     TimeAxis,
     TimeCursor,
+    VideoEndingCursor
 } from '../components.js';
 
 type Properties = {
@@ -28,6 +29,7 @@ const TimelineView: React.FC<Properties> = ({ playerRef }) => {
             <ScenesRow />
             <ScriptsRow />
             <Row id="emptyBottom" />
+            <VideoEndingCursor />
         </Box>
     );
 };

@@ -1,0 +1,6 @@
+.cursor {
+    height: 100%;
+    width: 2px;
+    z-index: 3;
+    position: absolute;
+}
