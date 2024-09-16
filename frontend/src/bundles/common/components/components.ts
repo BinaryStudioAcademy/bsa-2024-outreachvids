@@ -16,6 +16,7 @@ export { Sidebar } from './sidebar/sidebar.js';
 export { Textarea } from './textarea/textarea.js';
 export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
+export { VideoPlayer } from './video-player/video-player.js';
 export {
     Badge,
     Modal as BaseModal,
@@ -40,7 +41,9 @@ export {
     Image,
     InputGroup,
     InputRightElement,
+    Input as LibraryInput,
     Link as LibraryLink,
+    Modal as LibraryModal,
     Menu,
     MenuButton,
     MenuItem,

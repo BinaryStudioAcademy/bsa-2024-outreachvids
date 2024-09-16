@@ -59,6 +59,7 @@ type State = {
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
+    videoName: string;
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -77,6 +78,7 @@ const initialState: State = {
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
+    videoName: 'Untitled Video',
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -204,6 +206,9 @@ const { reducer, actions, name } = createSlice({
         },
         setVideoSize(state, action: PayloadAction<VideoPreviewT>) {
             state.videoSize = action.payload;
+        },
+        setVideoName(state, action: PayloadAction<string>) {
+            state.videoName = action.payload;
         },
         setDestinationPointer(
             state,

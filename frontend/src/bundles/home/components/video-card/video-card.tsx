@@ -12,8 +12,10 @@ import {
     MenuList,
     Text,
 } from '~/bundles/common/components/components.js';
+import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 
+import { PlayerModal } from '../player-modal/player-modal.js';
 import styles from './styles.module.css';
 
 type Properties = {
@@ -22,23 +24,26 @@ type Properties = {
 };
 
 const VideoCard: React.FC<Properties> = ({ name, url }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleIconClick = useCallback(() => {
+        if (url) {
+            setIsModalOpen(true);
+        }
+    }, [url]);
+
+    const handleModalClose = useCallback(() => {
+        setIsModalOpen(false);
+    }, []);
+
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box position="relative" role="group">
                 <Image src={photo} alt="Video preview" borderRadius="5px" />
 
-                {/* Overlay effect */}
                 <Box
-                    position="absolute"
-                    top="0"
-                    left="0"
-                    width="100%"
-                    height="100%"
-                    bg="rgba(53, 57, 154, 0.3)"
-                    opacity="0"
-                    transition="opacity 0.3s ease"
                     _groupHover={{ opacity: 1 }}
-                    borderRadius="5px"
+                    className={styles['overlay']}
                 />
 
                 <Menu>
@@ -70,18 +75,18 @@ const VideoCard: React.FC<Properties> = ({ name, url }) => {
                 </Menu>
 
                 <IconButton
-                    aria-label="Edit video"
-                    isRound={true}
+                    isRound
                     size="lg"
-                    position="absolute"
-                    bg="white"
-                    top="50%"
-                    left="calc(50% - 12.5px)"
-                    transform="translate(-50%, -50%)"
-                    opacity="0"
-                    transition="opacity 0.3s ease"
+                    aria-label={url ? 'Play video' : 'Edit video'}
                     _groupHover={{ opacity: 1 }}
-                    icon={<Icon as={IconName.PEN} color="background.600" />}
+                    onClick={handleIconClick}
+                    className={styles['action-button']}
+                    icon={
+                        <Icon
+                            as={url ? IconName.PLAY : IconName.PEN}
+                            color="background.600"
+                        />
+                    }
                 />
             </Box>
 
@@ -98,6 +103,12 @@ const VideoCard: React.FC<Properties> = ({ name, url }) => {
                     </Text>
                 </Flex>
             </Box>
+
+            <PlayerModal
+                videoUrl={url}
+                isOpen={isModalOpen}
+                onClose={handleModalClose}
+            />
         </Box>
     );
 };
