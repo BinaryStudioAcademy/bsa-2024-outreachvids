@@ -1,0 +1,11 @@
+.modal-header {
+    width: 290px;
+    padding: 33px 44px 0px;
+    align-self: start;
+}
+.modal-content {
+    gap: 20px;
+    overflow-y: auto;
+    padding: 20px;
+    align-content: space-between;
+}

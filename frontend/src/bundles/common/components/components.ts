@@ -19,7 +19,10 @@ export { VideoModal } from './video-modal/video-modal.js';
 export { VideoPlayer } from './video-player/video-player.js';
 export {
     Badge,
+    Modal as BaseModal,
     Box,
+    Card,
+    CardBody,
     Center,
     Checkbox,
     Circle,

@@ -15,4 +15,5 @@ export {
     type GenerateSpeechResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
+    type Voice,
 } from 'shared';

@@ -5,12 +5,12 @@ import { VideoModalContent } from './components/components.js';
 
 type Properties = {
     isOpen: boolean;
-    onModalClose: () => void;
+    onClose: () => void;
 };
 
-const VideoModal: React.FC<Properties> = ({ isOpen, onModalClose }) => {
+const VideoModal: React.FC<Properties> = ({ isOpen, onClose }) => {
     const { handleCloseChat } = useChatCleanup({
-        onModalChatClose: onModalClose,
+        onModalChatClose: onClose,
     });
 
     return (

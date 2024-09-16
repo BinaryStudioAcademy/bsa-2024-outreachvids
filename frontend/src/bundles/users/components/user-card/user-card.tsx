@@ -41,7 +41,7 @@ const UserCard: React.FC = () => {
                 <Text>{user?.fullName ?? 'FirstName LastName'}</Text>
             </Flex>
             <Button label="Create video" onClick={openModal} />
-            <VideoModal isOpen={isModalOpen} onModalClose={closeModal} />
+            <VideoModal isOpen={isModalOpen} onClose={closeModal} />
         </VStack>
     );
 };
