@@ -23,6 +23,7 @@ import {
     useCallback,
     useEffect,
     useRef,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
@@ -43,8 +44,11 @@ import { actions as studioActions } from '../store/studio.js';
 import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const { scenes, scripts, videoName } = useAppSelector(
+    const { scenes, scripts, videoName, isDraftSaved } = useAppSelector(
         ({ studio }) => studio,
+    );
+    const [inputValue, setInputValue] = useState(
+        isDraftSaved ? videoName : `${videoName}*`,
     );
 
     const playerReference = useRef<PlayerRef>(null);
@@ -110,6 +114,17 @@ const Studio: React.FC = () => {
         void dispatch(studioActions.setDraftSaved(true));
     }, [dispatch]);
 
+    const handleInputChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>): void => {
+            setInputValue(event.target.value);
+        },
+        [],
+    );
+
+    useEffect(() => {
+        setInputValue(isDraftSaved ? videoName : `${videoName}*`);
+    }, [isDraftSaved, videoName]);
+
     return (
         <Box
             minHeight="100vh"
@@ -130,10 +145,11 @@ const Studio: React.FC = () => {
                 right={
                     <Flex gap="10px">
                         <LibraryInput
-                            defaultValue={videoName}
+                            value={inputValue}
                             className={styles['videoName']}
                             variant="unstyled"
                             placeholder="Untitled video"
+                            onChange={handleInputChange}
                             onBlur={handleEditVideoName}
                         />
                         <Menu>

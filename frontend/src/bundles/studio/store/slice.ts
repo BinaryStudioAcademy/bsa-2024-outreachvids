@@ -64,7 +64,7 @@ type State = {
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
     videoName: string;
-    isDrafSaved: boolean;
+    isDraftSaved: boolean;
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -84,7 +84,7 @@ const initialState: State = {
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
-    isDrafSaved: false,
+    isDraftSaved: false,
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -217,7 +217,7 @@ const { reducer, actions, name } = createSlice({
             state.videoName = action.payload;
         },
         setDraftSaved(state, action: PayloadAction<boolean>) {
-            state.isDrafSaved = action.payload;
+            state.isDraftSaved = action.payload;
         },
         setDestinationPointer(
             state,
