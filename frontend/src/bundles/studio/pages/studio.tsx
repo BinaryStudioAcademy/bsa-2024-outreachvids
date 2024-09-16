@@ -131,6 +131,7 @@ const Studio: React.FC = () => {
                                 variant="primaryOutlined"
                                 as={LibraryButton}
                                 rightIcon={<Icon as={IconName.CHEVRON_DOWN} />}
+                                flexShrink={0}
                             >
                                 Submit
                             </MenuButton>
