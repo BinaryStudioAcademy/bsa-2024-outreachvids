@@ -57,10 +57,11 @@ const Studio: React.FC = () => {
 
         dispatch(
             studioActionCreator.renderAvatar({
-                avatarName: scene.avatar.name,
-                avatarStyle: scene.avatar.style,
-                text: script?.text,
-                voice: script.voiceName,
+                composition: {
+                    scenes,
+                    scripts,
+                },
+                name: 'Untitled',
             }),
         )
             .then(() => {
