@@ -1,7 +1,7 @@
 type MenuItem = {
     label: string;
     icon: React.ReactNode;
-    onClick: () => void;
+    getContent: () => React.ReactNode;
 };
 
 export { type MenuItem };

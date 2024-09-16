@@ -1,5 +1,10 @@
 .logo {
     margin-bottom: 50px;
+    display: flex;
+}
+
+.logo img {
+    margin-right: 10px;
 }
 
 .heading {

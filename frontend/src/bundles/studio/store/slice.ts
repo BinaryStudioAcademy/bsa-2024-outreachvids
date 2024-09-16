@@ -13,7 +13,8 @@ import {
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { PlayIconNames, RowNames } from '../enums/enums.js';
+import { mockVoices } from '../components/video-menu/components/mock/voices-mock.js';
+import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     calculateTotalMilliseconds,
     getDestinationPointerValue,
@@ -46,9 +47,6 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
-// TODO: remove when we will have voices in store
-const defaultVoiceName = 'en-US-BrianMultilingualNeural';
-
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     avatars: Array<AvatarGetResponseDto> | [];
@@ -61,9 +59,11 @@ type State = {
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
+    videoName: string;
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
+        menuActiveItem: ValueOf<typeof MenuItems> | null;
     };
 };
 
@@ -78,9 +78,11 @@ const initialState: State = {
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
+    videoName: 'Untitled Video',
     ui: {
         destinationPointer: null,
         selectedItem: null,
+        menuActiveItem: null,
     },
 };
 
@@ -93,9 +95,10 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
-                voiceName: defaultVoiceName,
+                voice: mockVoices.at(0),
                 iconName: PlayIconNames.READY,
             };
+            state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
             state.scripts.push(script);
             const totalMilliseconds = calculateTotalMilliseconds(
                 state.scripts,
@@ -153,7 +156,7 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCENE_DURATION,
             };
-
+            state.ui.selectedItem = { id: scene.id, type: RowNames.SCENE };
             state.scenes.push(scene);
             const totalMilliseconds = calculateTotalMilliseconds(
                 state.scenes,
@@ -203,6 +206,9 @@ const { reducer, actions, name } = createSlice({
         },
         setVideoSize(state, action: PayloadAction<VideoPreviewT>) {
             state.videoSize = action.payload;
+        },
+        setVideoName(state, action: PayloadAction<string>) {
+            state.videoName = action.payload;
         },
         setDestinationPointer(
             state,
@@ -258,6 +264,12 @@ const { reducer, actions, name } = createSlice({
                     },
                 };
             });
+        },
+        setMenuActiveItem(
+            state,
+            action: PayloadAction<ValueOf<typeof MenuItems> | null>,
+        ) {
+            state.ui.menuActiveItem = action.payload;
         },
     },
     extraReducers(builder) {

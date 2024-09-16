@@ -14,7 +14,7 @@
 
 .menu-body-content {
     overflow-y: auto;
-    max-height: calc(100% - 65px);
+    max-height: calc(100% - 70px);
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
