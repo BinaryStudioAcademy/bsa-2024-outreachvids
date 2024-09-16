@@ -22,7 +22,10 @@ import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { storage } from '~/framework/storage/storage.js';
 
-import { errorMiddleware } from '../../bundles/common/middlewares/error-handling.middleware.js';
+import {
+    draftMiddleware,
+    errorMiddleware,
+} from '../../bundles/common/middlewares/middlewares.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -66,7 +69,11 @@ class Store {
                         extraArgument: this.extraArguments,
                     },
                 });
-                return [...middlewares, errorMiddleware] as Tuple;
+                return [
+                    ...middlewares,
+                    errorMiddleware,
+                    draftMiddleware,
+                ] as Tuple;
             },
         });
     }
