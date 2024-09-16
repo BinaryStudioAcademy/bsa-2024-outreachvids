@@ -36,6 +36,7 @@ export {
     Image,
     InputGroup,
     InputRightElement,
+    Button as LibraryButton,
     Link as LibraryLink,
     Menu,
     MenuButton,

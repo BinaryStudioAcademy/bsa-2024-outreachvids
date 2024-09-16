@@ -5,6 +5,12 @@ import {
     Box,
     Button,
     Header,
+    Icon,
+    LibraryButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
     Player,
     VStack,
 } from '~/bundles/common/components/components.js';
@@ -15,6 +21,7 @@ import {
     useCallback,
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
 import {
@@ -98,12 +105,21 @@ const Studio: React.FC = () => {
                     />
                 }
                 right={
-                    <Button
-                        variant="primaryOutlined"
-                        label="Submit"
-                        sx={{ width: '100px' }}
-                        onClick={handleSubmit}
-                    />
+                    <Menu>
+                        <MenuButton
+                            variant="primaryOutlined"
+                            as={LibraryButton}
+                            rightIcon={<Icon as={IconName.CHEVRON_DOWN} />}
+                        >
+                            Submit
+                        </MenuButton>
+                        <MenuList>
+                            <MenuItem>Save draft</MenuItem>
+                            <MenuItem onClick={handleSubmit}>
+                                Submit to render
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
                 }
             />
 

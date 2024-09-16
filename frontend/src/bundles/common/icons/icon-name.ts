@@ -2,6 +2,7 @@ import {
     AddIcon,
     ArrowLeftIcon,
     ArrowRightIcon,
+    ChevronDownIcon,
     CloseIcon,
     DownloadIcon,
     ViewIcon,
@@ -32,6 +33,7 @@ import {
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
+    CHEVRON_DOWN: ChevronDownIcon,
     PEN: Pen,
     HOME: House,
     LOG_OUT: RightFromBracket,
