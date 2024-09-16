@@ -22,7 +22,7 @@ const VideoEndingCursor: React.FC = () => {
                 transform="translateX(-50%)"
                 color="typography.300"
                 fontSize="sm"
-                backgroundColor='white'
+                backgroundColor="white"
             >
                 End
             </Text>
