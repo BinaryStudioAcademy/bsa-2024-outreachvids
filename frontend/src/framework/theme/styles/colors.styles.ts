@@ -11,6 +11,7 @@ const colors = {
     brand: {
         secondary: {
             50: '#3BAF28',
+            100: '#ff6e1c20',
             300: '#ff6e1c',
             600: '#eb5500',
             900: '#e13b00',

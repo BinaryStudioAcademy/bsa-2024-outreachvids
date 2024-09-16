@@ -22,6 +22,7 @@ import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { actions as homeActions } from '~/bundles/home/store/home.js';
 
 import { PlayerModal } from '../player-modal/player-modal.js';
+import { DeleteWarning } from './components/delete-warning.js';
 import styles from './styles.module.css';
 
 type Properties = {
@@ -33,21 +34,31 @@ type Properties = {
 const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
     const dispatch = useAppDispatch();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+    const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
 
     const handleIconClick = useCallback(() => {
         if (url) {
-            setIsModalOpen(true);
+            setIsVideoModalOpen(true);
         }
     }, [url]);
 
-    const handleModalClose = useCallback(() => {
-        setIsModalOpen(false);
+    const handleVideoModalClose = useCallback(() => {
+        setIsVideoModalOpen(false);
     }, []);
 
-    const handleDeleteVideo = useCallback(() => {
+    const handleDeleteButtonClick = useCallback(() => {
+        setIsWarningModalOpen(true);
+    }, []);
+
+    const handleWarningModalClose = useCallback(() => {
+        setIsWarningModalOpen(false);
+    }, []);
+
+    const handleDelete = useCallback(() => {
         void dispatch(homeActions.deleteVideo(id));
-    }, [dispatch, id]);
+        handleWarningModalClose();
+    }, [dispatch, handleWarningModalClose, id]);
 
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
@@ -87,7 +98,7 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
                         <MenuDivider />
                         <MenuItem
                             icon={<Icon as={IconName.DELETE} />}
-                            onClick={handleDeleteVideo}
+                            onClick={handleDeleteButtonClick}
                         >
                             <Text color="typography.900" variant="bodySmall">
                                 Delete
@@ -126,10 +137,18 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
                 </Flex>
             </Box>
 
-            <PlayerModal
-                videoUrl={url}
-                isOpen={isModalOpen}
-                onClose={handleModalClose}
+            {url && (
+                <PlayerModal
+                    videoUrl={url}
+                    isOpen={isVideoModalOpen}
+                    onClose={handleVideoModalClose}
+                />
+            )}
+
+            <DeleteWarning
+                isOpen={isWarningModalOpen}
+                onClose={handleWarningModalClose}
+                onDelete={handleDelete}
             />
         </Box>
     );

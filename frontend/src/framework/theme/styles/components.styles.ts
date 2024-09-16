@@ -107,6 +107,18 @@ const components = {
                     },
                 },
             },
+            secondaryOutlined: {
+                color: colors.brand.secondary[300],
+                border: '1px solid',
+                borderColor: colors.brand.secondary[300],
+                _hover: {
+                    bg: colors.brand.secondary[100],
+                    _disabled: {
+                        color: colors.brand.secondary[600],
+                        bg: 'none',
+                    },
+                },
+            },
             outlined: {
                 color: colors.brand.secondary[300],
                 border: '1px solid',
