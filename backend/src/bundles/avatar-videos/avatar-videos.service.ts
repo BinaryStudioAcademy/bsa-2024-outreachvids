@@ -77,7 +77,9 @@ class AvatarVideoService {
                             url: response.outputs.result,
                         })
                             .then(() => {
-                                this.emitNotification(AvatarVideoEvent.RENDER_SUCCESS);
+                                this.emitNotification(
+                                    AvatarVideoEvent.RENDER_SUCCESS,
+                                );
                             })
                             .catch((error) => {
                                 throw new HttpError({
