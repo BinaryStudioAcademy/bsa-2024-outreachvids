@@ -105,6 +105,11 @@ const Studio: React.FC = () => {
         [dispatch],
     );
 
+    const handleSaveDraft = useCallback((): void => {
+        // TODO: Dispatch real save draft action
+        void dispatch(studioActions.setDraftSaved(true));
+    }, [dispatch]);
+
     return (
         <Box
             minHeight="100vh"
@@ -141,7 +146,9 @@ const Studio: React.FC = () => {
                                 Submit
                             </MenuButton>
                             <MenuList>
-                                <MenuItem>Save draft</MenuItem>
+                                <MenuItem onClick={handleSaveDraft}>
+                                    Save draft
+                                </MenuItem>
                                 <MenuItem onClick={handleSubmit}>
                                     Submit to render
                                 </MenuItem>
