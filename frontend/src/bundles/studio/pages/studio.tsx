@@ -121,7 +121,7 @@ const Studio: React.FC = () => {
                         <Button
                             variant="primaryOutlined"
                             label="Submit"
-                            sx={{ width: '100px' }}
+                            width="100px"
                             onClick={handleSubmit}
                             flexShrink={0}
                         />
