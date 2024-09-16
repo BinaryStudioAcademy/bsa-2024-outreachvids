@@ -108,12 +108,13 @@ const VideoCard: React.FC<Properties> = ({ name, url }) => {
                     </Text>
                 </Flex>
             </Box>
-
-            <PlayerModal
-                videoUrl={url}
-                isOpen={isModalOpen}
-                onClose={handleModalClose}
-            />
+            {url && (
+                <PlayerModal
+                    videoUrl={url}
+                    isOpen={isModalOpen}
+                    onClose={handleModalClose}
+                />
+            )}
         </Box>
     );
 };
