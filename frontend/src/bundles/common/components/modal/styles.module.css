@@ -1,0 +1,7 @@
+.modal-content {
+    border-radius: 17px;
+    max-width: 90%;
+    max-height: 90%;
+    height: full;
+    overflow: auto;
+}
