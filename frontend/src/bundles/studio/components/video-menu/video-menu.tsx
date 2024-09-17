@@ -49,7 +49,7 @@ const VideoMenu: React.FC = () => {
         setIsChatOpen(false);
     }, []);
 
-    const selectedItem = useAppSelector(({ studio }) => studio.ui.selectedItem);
+    const { selectedItem } = useAppSelector(({ studio }) => studio.ui);
 
     useEffect(() => {
         if (selectedItem?.type === 'script') {

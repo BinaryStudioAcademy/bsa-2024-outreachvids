@@ -38,9 +38,8 @@ const Script: React.FC<Properties> = ({
     const dispatch = useAppDispatch();
 
     const [isPlaying, setIsPlaying] = useState(false);
-    const selectedScriptId = useAppSelector(
-        ({ studio }) => studio.selectedScriptId,
-    );
+    const { selectedScriptId } = useAppSelector(({ studio }) => studio);
+
     const textareaReference = useRef<HTMLDivElement>(null);
 
     const handleDeleteScript = useCallback((): void => {
@@ -99,11 +98,12 @@ const Script: React.FC<Properties> = ({
     }, [iconName, isPlaying]);
 
     useEffect(() => {
-        if (selectedScriptId === id && textareaReference.current) {
-            textareaReference.current.style.borderWidth = '3px';
-        } else if (textareaReference.current) {
-            textareaReference.current.style.borderWidth = '1px';
+        if (!textareaReference.current) {
+            return;
         }
+
+        textareaReference.current.style.borderWidth =
+            selectedScriptId === id ? '3px' : '1px';
     }, [selectedScriptId, id]);
 
     const handleChangeVoiceId = useCallback((): void => {
