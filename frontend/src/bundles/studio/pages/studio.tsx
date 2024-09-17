@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import {
     Box,
     Button,
+    Flex,
     Header,
+    LibraryInput,
     Player,
     VStack,
 } from '~/bundles/common/components/components.js';
@@ -13,6 +15,7 @@ import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
 import { notificationService } from '~/bundles/common/services/services.js';
@@ -22,23 +25,27 @@ import {
     Timeline,
     VideoMenu,
 } from '../components/components.js';
+import { defaultVoiceName } from '../components/video-menu/components/mock/voices-mock.js';
 import {
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
-import { actions as studioActionCreator } from '../store/studio.js';
+import { actions as studioActions } from '../store/studio.js';
+import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const scenes = useAppSelector(({ studio }) => studio.scenes);
-    const scripts = useAppSelector(({ studio }) => studio.scripts);
+    const { scenes, scripts, videoName } = useAppSelector(
+        ({ studio }) => studio,
+    );
+
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const handleResize = useCallback(() => {
-        dispatch(studioActionCreator.changeVideoSize());
+        dispatch(studioActions.changeVideoSize());
     }, [dispatch]);
 
     const handleSubmit = useCallback(() => {
@@ -56,11 +63,11 @@ const Studio: React.FC = () => {
         }
 
         dispatch(
-            studioActionCreator.renderAvatar({
+            studioActions.renderAvatar({
                 avatarName: scene.avatar.name,
                 avatarStyle: scene.avatar.style,
                 text: script?.text,
-                voice: script.voiceName,
+                voice: script?.voice?.shortName ?? defaultVoiceName,
             }),
         )
             .then(() => {
@@ -80,6 +87,17 @@ const Studio: React.FC = () => {
             });
     }, [dispatch, navigate, scenes, scripts]);
 
+    useEffect(() => {
+        return () => void dispatch(studioActions.resetStudio());
+    }, [dispatch]);
+
+    const handleEditVideoName = useCallback(
+        (event: React.FocusEvent<HTMLInputElement>): void => {
+            void dispatch(studioActions.setVideoName(event.target.value));
+        },
+        [dispatch],
+    );
+
     return (
         <Box
             minHeight="100vh"
@@ -98,12 +116,22 @@ const Studio: React.FC = () => {
                     />
                 }
                 right={
-                    <Button
-                        variant="primaryOutlined"
-                        label="Submit"
-                        sx={{ width: '100px' }}
-                        onClick={handleSubmit}
-                    />
+                    <Flex gap="10px">
+                        <LibraryInput
+                            defaultValue={videoName}
+                            className={styles['videoName']}
+                            variant="unstyled"
+                            placeholder="Untitled video"
+                            onBlur={handleEditVideoName}
+                        />
+                        <Button
+                            variant="primaryOutlined"
+                            label="Submit"
+                            width="100px"
+                            onClick={handleSubmit}
+                            flexShrink={0}
+                        />
+                    </Flex>
                 }
             />
 
@@ -112,7 +140,7 @@ const Studio: React.FC = () => {
                 <Player playerRef={playerReference} />
             </Box>
 
-            <VStack alignItems={'stretch'}>
+            <VStack alignItems="stretch">
                 <PlayerControls playerRef={playerReference} />
                 <Box overflowY="auto">
                     <Timeline playerRef={playerReference} />

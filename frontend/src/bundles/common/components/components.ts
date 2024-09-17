@@ -5,6 +5,7 @@ export { Input } from './input/input.js';
 export { Link } from './link/link.js';
 export { Loader } from './loader/loader.js';
 export { Logo } from './logo/logo.js';
+export { Modal } from './modal/modal.js';
 export { NotFoundAnimation } from './not-found-animation/not-found-animation.js';
 export { Overlay } from './overlay/overlay.js';
 export { Player } from './player/player.js';
@@ -16,9 +17,13 @@ export { Stepper } from './stepper/stepper.js';
 export { Textarea } from './textarea/textarea.js';
 export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
+export { VideoPlayer } from './video-player/video-player.js';
 export {
     Badge,
+    Modal as BaseModal,
     Box,
+    Card,
+    CardBody,
     Center,
     Checkbox,
     Circle,
@@ -37,13 +42,15 @@ export {
     Image,
     InputGroup,
     InputRightElement,
+    Input as LibraryInput,
     Link as LibraryLink,
+    Modal as LibraryModal,
     Stepper as LibraryStepper,
     Menu,
     MenuButton,
     MenuItem,
     MenuList,
-    Modal,
+    ModalBody,
     ModalCloseButton,
     ModalContent,
     ModalOverlay,

@@ -3,13 +3,13 @@ import { secondsToMilliseconds } from 'date-fns';
 
 import { type RootState } from '~/bundles/common/types/types.js';
 
-import { type Scene } from '../types/types.js';
+import { type Script } from '../types/types.js';
 
-const selectScenes = (state: RootState): Scene[] => state.studio.scenes;
+const selectScrips = (state: RootState): Script[] => state.studio.scripts;
 
-const selectTotalDuration = createSelector([selectScenes], (scenes) => {
-    const totalDuration = scenes.reduce(
-        (total, scene) => total + scene.duration,
+const selectTotalDuration = createSelector([selectScrips], (scripts) => {
+    const totalDuration = scripts.reduce(
+        (total, script) => total + script.duration,
         0,
     );
 
