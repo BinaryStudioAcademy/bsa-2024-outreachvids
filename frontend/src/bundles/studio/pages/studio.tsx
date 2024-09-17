@@ -118,22 +118,12 @@ const Studio: React.FC = () => {
             });
         }
 
-        if (videoId) {
-            void dispatch(
-                studioActions.updateVideo({
-                    composition: {
-                        scenes,
-                        scripts: getVoicesConfigs(scripts),
-                    },
-                    name: videoName,
-                }),
-            );
-
-            return;
-        }
+        const action = videoId
+            ? studioActions.updateVideo
+            : studioActions.saveVideo;
 
         void dispatch(
-            studioActions.saveVideo({
+            action({
                 composition: {
                     scenes,
                     scripts: getVoicesConfigs(scripts),
