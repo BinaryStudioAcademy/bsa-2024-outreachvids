@@ -64,6 +64,17 @@ class AvatarVideoService {
         });
     }
 
+    public async updateVideo({
+        videoId,
+        composition,
+        name,
+    }: RenderAvatarVideoRequestDto): Promise<VideoGetAllItemResponseDto> {
+        return await this.videoService.update(videoId as string, {
+            composition,
+            name: name,
+        });
+    }
+
     public getAvatarsConfigs(composition: Composition): AvatarData[] {
         return distributeScriptsToScenes(composition);
     }

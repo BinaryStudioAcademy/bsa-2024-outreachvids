@@ -78,7 +78,8 @@ const Studio: React.FC = () => {
                     scenes,
                     scripts: getVoicesConfigs(scripts),
                 },
-                name: 'Untitled',
+                name: videoName,
+                ...(videoId && { videoId }),
             }),
         )
             .then(() => {
@@ -96,7 +97,7 @@ const Studio: React.FC = () => {
                     title: NotificationTitle.VIDEO_SUBMIT_FAILED,
                 });
             });
-    }, [dispatch, navigate, scenes, scripts]);
+    }, [dispatch, navigate, scenes, scripts, videoId, videoName]);
 
     useEffect(() => {
         return () => void dispatch(studioActions.resetStudio());

@@ -29,6 +29,7 @@ type Composition = {
 type GenerateAvatarVideoRequestValidationDto = {
     name: z.ZodString;
     composition: typeof compositionSchema;
+    videoId?: z.ZodOptional<z.ZodString>;
 };
 
 const avatarSchema = z.object<SceneAvatarValidation>({
@@ -105,6 +106,7 @@ const renderAvatarVideo = z.object<GenerateAvatarVideoRequestValidationDto>({
         message: AvatarVideoValidationMessage.VIDEO_NAME_REQUIRED,
     }),
     composition: compositionSchema,
+    videoId: z.string().uuid().optional(),
 });
 
 export { renderAvatarVideo };
