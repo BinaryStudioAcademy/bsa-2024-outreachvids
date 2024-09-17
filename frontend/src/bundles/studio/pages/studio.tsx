@@ -111,9 +111,17 @@ const Studio: React.FC = () => {
     );
 
     const handleSaveDraft = useCallback((): void => {
-        // TODO: Dispatch real save draft action
-        void dispatch(studioActions.setDraftSaved(true));
-    }, [dispatch]);
+        // TODO: Check if video was already created
+        void dispatch(
+            studioActions.saveVideo({
+                composition: {
+                    scenes,
+                    scripts: getVoicesConfigs(scripts),
+                },
+                name: videoName,
+            }),
+        );
+    }, [dispatch, scenes, scripts, videoName]);
 
     const handleInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {
