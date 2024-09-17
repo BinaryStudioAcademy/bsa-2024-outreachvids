@@ -110,6 +110,14 @@ const Studio: React.FC = () => {
     );
 
     const handleSaveDraft = useCallback((): void => {
+        if (!scenes[0]?.avatar || scripts.length === 0) {
+            return notificationService.warn({
+                id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
+                message: NotificationMessage.SCRIPT_AND_AVATAR_ARE_REQUIRED,
+                title: NotificationTitle.SCRIPT_AND_AVATAR_ARE_REQUIRED,
+            });
+        }
+
         if (videoId) {
             void dispatch(
                 studioActions.updateVideo({
