@@ -12,7 +12,7 @@ const CreateAvatar = (): JSX.Element => {
             align="center"
             overflow="hidden"
         >
-            <Box w="222px" position="relative">
+            <Box w={{ base: '122px', sm: '222px' }} position="relative">
                 <Circles />
                 <Dots />
                 <Button label="Create Avatar" />
