@@ -376,9 +376,11 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(updateVideo.fulfilled, (state) => {
             state.dataStatus = DataStatus.FULFILLED;
+            state.isDraftSaved = true;
         });
         builder.addCase(updateVideo.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
+            state.isDraftSaved = false;
         });
     },
 });
