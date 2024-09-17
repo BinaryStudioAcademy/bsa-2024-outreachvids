@@ -1,6 +1,7 @@
 import {
     generateAllScriptsSpeech,
     generateScriptSpeech,
+    generateScriptSpeechPreview,
     loadAvatars,
     loadVoices,
     renderAvatar,
@@ -13,6 +14,7 @@ const allActions = {
     generateAllScriptsSpeech,
     loadVoices,
     generateScriptSpeech,
+    generateScriptSpeechPreview,
     renderAvatar,
 };
 

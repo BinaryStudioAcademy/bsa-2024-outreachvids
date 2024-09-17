@@ -8,7 +8,7 @@ type Script = {
     duration: number;
     text: string;
     iconName: ValueOf<typeof PlayIconNames>;
-    url?: string;
+    url: string | null;
     voice: Voice;
 };
 

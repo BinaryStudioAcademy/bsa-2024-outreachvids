@@ -35,6 +35,7 @@ import {
 import {
     generateAllScriptsSpeech,
     generateScriptSpeech,
+    generateScriptSpeechPreview,
     loadAvatars,
     loadVoices,
     renderAvatar,
@@ -117,6 +118,7 @@ const { reducer, actions, name } = createSlice({
                 text: action.payload,
                 voice: DEFAULT_VOICE,
                 iconName: PlayIconNames.READY,
+                url: null,
             };
             state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
             state.scripts.push(script);
@@ -348,6 +350,15 @@ const { reducer, actions, name } = createSlice({
                     ? { ...script, iconName: PlayIconNames.READY }
                     : script,
             );
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(generateScriptSpeechPreview.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(generateScriptSpeechPreview.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(generateScriptSpeechPreview.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(generateAllScriptsSpeech.pending, (state) => {
