@@ -26,7 +26,7 @@ const ScriptContent: React.FC = () => {
     );
 
     useEffect(() => {
-        if (voices.length === 0) {
+        if (!voices.length) {
             void dispatch(studioActions.loadVoices());
         }
     }, [dispatch, voices.length]);
@@ -53,7 +53,7 @@ const ScriptContent: React.FC = () => {
                     <Loader />
                 ) : (
                     <>
-                        {scripts.length === 0 ? (
+                        {!scripts.length ? (
                             <Text
                                 variant="body1"
                                 width="60%"
