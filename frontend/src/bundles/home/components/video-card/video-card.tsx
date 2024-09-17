@@ -20,7 +20,7 @@ import styles from './styles.module.css';
 
 type Properties = {
     name: string;
-    url: string;
+    url: string | null;
 };
 
 const VideoCard: React.FC<Properties> = ({ name, url }) => {
@@ -61,16 +61,21 @@ const VideoCard: React.FC<Properties> = ({ name, url }) => {
                         className={styles['menu-button']}
                     />
                     <MenuList>
-                        <MenuItem
-                            as={LibraryLink}
-                            icon={<Icon as={IconName.DOWNLOAD} />}
-                            href={url}
-                            download
-                        >
-                            <Text color="typography.900" variant="bodySmall">
-                                Download
-                            </Text>
-                        </MenuItem>
+                        {url && (
+                            <MenuItem
+                                as={LibraryLink}
+                                icon={<Icon as={IconName.DOWNLOAD} />}
+                                href={url}
+                                download
+                            >
+                                <Text
+                                    color="typography.900"
+                                    variant="bodySmall"
+                                >
+                                    Download
+                                </Text>
+                            </MenuItem>
+                        )}
                     </MenuList>
                 </Menu>
 
@@ -103,12 +108,13 @@ const VideoCard: React.FC<Properties> = ({ name, url }) => {
                     </Text>
                 </Flex>
             </Box>
-
-            <PlayerModal
-                videoUrl={url}
-                isOpen={isModalOpen}
-                onClose={handleModalClose}
-            />
+            {url && (
+                <PlayerModal
+                    videoUrl={url}
+                    isOpen={isModalOpen}
+                    onClose={handleModalClose}
+                />
+            )}
         </Box>
     );
 };
