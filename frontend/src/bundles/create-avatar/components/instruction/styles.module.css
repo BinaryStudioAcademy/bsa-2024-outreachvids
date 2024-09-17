@@ -1,4 +1,4 @@
-.flexContainer {
+.flex-container {
     flex-direction: column;
     background-color: white;
     padding: 30px;
@@ -8,27 +8,9 @@
     padding-bottom: 80px;
 }
 
-.innerFlex {
+.inner-flex {
     color: var(--chakra-colors-typography-600);
     font-size: 14px;
     justify-content: center;
     gap: 40px;
-}
-
-.iconContainer {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 30px;
-}
-
-.iconScreenshots {
-    border-radius: 50%;
-    background-color: white;
-    color: var(--chakra-colors-brand-secondary-50);
-}
-
-.iconAvoid {
-    border-radius: 50%;
-    background-color: white;
-    color: var(--chakra-colors-brand-secondary-900);
 }

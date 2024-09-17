@@ -24,7 +24,7 @@ const InstructionList: React.FC<InstructionListProperties> = ({
     <Box>
         <Flex gap="5px" marginBottom="30px">
             <Icon
-                className={styles['iconAvoid']}
+                className={styles['icon']}
                 boxSize={5}
                 as={IconName.CHECK_CIRCLE}
                 color={color}

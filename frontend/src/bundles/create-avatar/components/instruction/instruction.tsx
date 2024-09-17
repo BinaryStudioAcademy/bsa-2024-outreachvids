@@ -24,8 +24,8 @@ const avoidListItems = [
 
 const Instruction: React.FC = () => {
     return (
-        <Flex className={styles['flexContainer']}>
-            <Flex className={styles['innerFlex']}>
+        <Flex className={styles['flex-container']}>
+            <Flex className={styles['inner-flex']}>
                 <InstructionList
                     color="brand.secondary.50"
                     listItems={screenshotListItems}

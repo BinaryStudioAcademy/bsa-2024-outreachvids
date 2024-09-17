@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 const CreateAvatar: React.FC = () => {
     return (
         <Box className={styles['container']}>
-            <Box className={styles['innerContainer']}>
+            <Box className={styles['inner-container']}>
                 <Instruction />
             </Box>
         </Box>
