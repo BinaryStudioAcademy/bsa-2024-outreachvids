@@ -4,6 +4,7 @@ import {
     ArrowRightIcon,
     CheckCircleIcon,
     CloseIcon,
+    DeleteIcon,
     DownloadIcon,
     ViewIcon,
     ViewOffIcon,
@@ -63,6 +64,7 @@ const IconName = {
     OPEN_AI: OpenAi,
     LOGO: Logo,
     LOGO_TEXT: LogoText,
+    DELETE: DeleteIcon,
 } as const;
 
 export { IconName };
