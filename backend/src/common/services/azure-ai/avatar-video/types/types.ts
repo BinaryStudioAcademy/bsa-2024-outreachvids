@@ -1,3 +1,4 @@
+export { type AvatarData } from './avatar-data.js';
 export { type GetAvatarVideoResponseApiDto } from './get-avatar-video-api-dto.type.js';
 export { type RenderAvatarVideoApiArgument } from './render-avatar-video-api-argument.type.js';
 export { type RenderAvatarVideoApiRequestDto } from './render-avatar-video-api-request-dto.type.js';

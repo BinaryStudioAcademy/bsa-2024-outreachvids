@@ -54,10 +54,15 @@ class VideoService implements Service {
     }
 
     public async create(
-        payload: CreateVideoRequestDto,
+        payload: CreateVideoRequestDto & { userId: string },
     ): Promise<VideoGetAllItemResponseDto> {
         const video = await this.videoRepository.create(
-            VideoEntity.initializeNew(payload),
+            VideoEntity.initializeNew({
+                name: payload.name,
+                composition: JSON.stringify(payload.composition),
+                previewUrl: payload.composition?.scenes[0]?.avatar?.url || '',
+                userId: payload.userId,
+            }),
         );
 
         return video.toObject();

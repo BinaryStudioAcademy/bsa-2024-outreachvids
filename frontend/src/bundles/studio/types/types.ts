@@ -4,8 +4,8 @@ export {
 } from './avatar.type.js';
 export { type DestinationPointer } from './destination-pointer.type.js';
 export { type RowType } from './row-type.type.js';
-export { type Scene, type SceneAvatar } from './scene.type.js';
 export { type Script } from './script.type.js';
+export { type ScriptWithIcon } from './script-with-icon.type.js';
 export {
     type TimelineItem,
     type TimelineItemWithSpan,
@@ -15,5 +15,7 @@ export {
     type GenerateSpeechResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
+    type Scene,
+    type SceneAvatar,
     type Voice,
 } from 'shared';

@@ -16,7 +16,7 @@ const ChatBody: React.FC<Properties> = ({ messages }) => {
     return (
         <Box minHeight="400px" maxHeight="400px" overflowY="auto" mb="2">
             {dataStatus === DataStatus.PENDING ? (
-                <Loader />
+                <Loader isDark />
             ) : (
                 <MessageList messages={messages} />
             )}

@@ -1,6 +1,6 @@
 import {
+    type AvatarData,
     type RenderAvatarVideoApiRequestDto,
-    type RenderAvatarVideoRequestDto,
 } from '../avatar-video/types/types.js';
 import {
     AVATAR_BACKGROUND_COLOR,
@@ -11,17 +11,17 @@ import {
 } from '../constants/constants.js';
 
 const getAvatarConfig = (
-    payload: RenderAvatarVideoRequestDto,
+    payload: AvatarData,
 ): RenderAvatarVideoApiRequestDto => {
-    const { avatarName, avatarStyle, text, voice } = payload;
+    const { name, style, text, voice } = payload;
     return {
         inputKind: AVATAR_INPUT_KIND,
         synthesisConfig: {
             voice,
         },
         avatarConfig: {
-            talkingAvatarCharacter: avatarName,
-            talkingAvatarStyle: avatarStyle,
+            talkingAvatarCharacter: name,
+            talkingAvatarStyle: style,
             backgroundColor: AVATAR_BACKGROUND_COLOR,
             subtitleType: AVATAR_SUBTITLE_TYPE,
             videoCodec: AVATAR_VIDEO_CODEC,

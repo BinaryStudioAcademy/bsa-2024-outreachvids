@@ -22,13 +22,13 @@ import {
     reorderItemsByIndexes,
     setItemsSpan,
 } from '../helpers/helpers.js';
+import { type Script } from '../types/script.type.js';
 import {
     type AvatarGetResponseDto,
     type DestinationPointer,
     type RowType,
     type Scene,
     type SceneAvatar,
-    type Script,
     type TimelineItemWithSpan,
 } from '../types/types.js';
 import {

@@ -28,7 +28,7 @@ import styles from './styles.module.css';
 type Properties = {
     id: string;
     name: string;
-    url: string;
+    url: string | null;
 };
 
 const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
@@ -84,27 +84,35 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
                         }
                         className={styles['menu-button']}
                     />
-                    <MenuList>
-                        <MenuItem
-                            as={LibraryLink}
-                            icon={<Icon as={IconName.DOWNLOAD} />}
-                            href={url}
-                            download
-                        >
-                            <Text color="typography.900" variant="bodySmall">
-                                Download
-                            </Text>
-                        </MenuItem>
-                        <MenuDivider />
-                        <MenuItem
-                            icon={<Icon as={IconName.DELETE} />}
-                            onClick={handleDeleteButtonClick}
-                        >
-                            <Text color="typography.900" variant="bodySmall">
-                                Delete
-                            </Text>
-                        </MenuItem>
-                    </MenuList>
+                    {url && (
+                        <MenuList>
+                            <MenuItem
+                                as={LibraryLink}
+                                icon={<Icon as={IconName.DOWNLOAD} />}
+                                href={url}
+                                download
+                            >
+                                <Text
+                                    color="typography.900"
+                                    variant="bodySmall"
+                                >
+                                    Download
+                                </Text>
+                            </MenuItem>
+                            <MenuDivider />
+                            <MenuItem
+                                icon={<Icon as={IconName.DELETE} />}
+                                onClick={handleDeleteButtonClick}
+                            >
+                                <Text
+                                    color="typography.900"
+                                    variant="bodySmall"
+                                >
+                                    Delete
+                                </Text>
+                            </MenuItem>
+                        </MenuList>
+                    )}
                 </Menu>
 
                 <IconButton
