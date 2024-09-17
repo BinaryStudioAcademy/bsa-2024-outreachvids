@@ -64,6 +64,11 @@ const components = {
                 lineHeight: '27px',
                 marginBottom: '5px',
             },
+            link: {
+                _hover: {
+                    color: colors.brand.secondary[300],
+                },
+            },
         },
     },
     Button: {
@@ -250,6 +255,15 @@ const components = {
         baseStyle: {
             text: {
                 color: colors.brand.secondary[900],
+            },
+        },
+    },
+    Card: {
+        variants: {
+            outline: {
+                container: {
+                    borderColor: colors.brand.secondary[300],
+                },
             },
         },
     },

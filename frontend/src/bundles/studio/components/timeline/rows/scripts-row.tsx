@@ -11,7 +11,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { Control } from '~/bundles/studio/components/components.js';
-import { NEW_SCRIPT_TEXT } from '~/bundles/studio/components/constants/constants.js';
+import { NEW_SCRIPT_TEXT } from '~/bundles/studio/constants/constants.js';
 import { MenuItems, RowNames } from '~/bundles/studio/enums/enums.js';
 import {
     getElementEnd,
