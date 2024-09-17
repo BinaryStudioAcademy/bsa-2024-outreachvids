@@ -21,15 +21,16 @@ import { Script, VoicesModal } from './components/components.js';
 
 const ScriptContent: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { scripts, voices, dataStatus } = useAppSelector(
+    const { dataStatus, scripts, voices } = useAppSelector(
         ({ studio }) => studio,
     );
 
     useEffect(() => {
-        if (!voices.length) {
+        if (voices.length === 0) {
             void dispatch(studioActions.loadVoices());
         }
     }, [dispatch, voices.length]);
+
     const [changeVoiceScriptId, setChangeVoiceScriptId] = useState<
         string | null
     >(null);
@@ -53,7 +54,7 @@ const ScriptContent: React.FC = () => {
                     <Loader />
                 ) : (
                     <>
-                        {!scripts.length ? (
+                        {scripts.length === 0 ? (
                             <Text
                                 variant="body1"
                                 width="60%"
