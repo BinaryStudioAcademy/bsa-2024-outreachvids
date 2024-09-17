@@ -1,7 +1,9 @@
+import { type Composition } from '../../avatar-videos/types/types.js';
+
 type CreateVideoRequestDto = {
-    userId: string;
     name: string;
-    url: string;
+    url?: string;
+    composition: Composition;
 };
 
 export { type CreateVideoRequestDto };

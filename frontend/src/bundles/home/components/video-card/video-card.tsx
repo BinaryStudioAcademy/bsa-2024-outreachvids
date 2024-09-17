@@ -8,33 +8,57 @@ import {
     LibraryLink,
     Menu,
     MenuButton,
+    MenuDivider,
     MenuItem,
     MenuList,
     Text,
 } from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import {
+    useAppDispatch,
+    useCallback,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { actions as homeActions } from '~/bundles/home/store/home.js';
 
 import { PlayerModal } from '../player-modal/player-modal.js';
+import { DeleteWarning } from './components/delete-warning.js';
 import styles from './styles.module.css';
 
 type Properties = {
+    id: string;
     name: string;
-    url: string;
+    url: string | null;
 };
 
-const VideoCard: React.FC<Properties> = ({ name, url }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
+    const dispatch = useAppDispatch();
+
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+    const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
 
     const handleIconClick = useCallback(() => {
         if (url) {
-            setIsModalOpen(true);
+            setIsVideoModalOpen(true);
         }
     }, [url]);
 
-    const handleModalClose = useCallback(() => {
-        setIsModalOpen(false);
+    const handleVideoModalClose = useCallback(() => {
+        setIsVideoModalOpen(false);
     }, []);
+
+    const handleDeleteButtonClick = useCallback(() => {
+        setIsWarningModalOpen(true);
+    }, []);
+
+    const handleWarningModalClose = useCallback(() => {
+        setIsWarningModalOpen(false);
+    }, []);
+
+    const handleDelete = useCallback(() => {
+        void dispatch(homeActions.deleteVideo(id));
+        handleWarningModalClose();
+    }, [dispatch, handleWarningModalClose, id]);
 
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
@@ -60,18 +84,35 @@ const VideoCard: React.FC<Properties> = ({ name, url }) => {
                         }
                         className={styles['menu-button']}
                     />
-                    <MenuList>
-                        <MenuItem
-                            as={LibraryLink}
-                            icon={<Icon as={IconName.DOWNLOAD} />}
-                            href={url}
-                            download
-                        >
-                            <Text color="typography.900" variant="bodySmall">
-                                Download
-                            </Text>
-                        </MenuItem>
-                    </MenuList>
+                    {url && (
+                        <MenuList>
+                            <MenuItem
+                                as={LibraryLink}
+                                icon={<Icon as={IconName.DOWNLOAD} />}
+                                href={url}
+                                download
+                            >
+                                <Text
+                                    color="typography.900"
+                                    variant="bodySmall"
+                                >
+                                    Download
+                                </Text>
+                            </MenuItem>
+                            <MenuDivider />
+                            <MenuItem
+                                icon={<Icon as={IconName.DELETE} />}
+                                onClick={handleDeleteButtonClick}
+                            >
+                                <Text
+                                    color="typography.900"
+                                    variant="bodySmall"
+                                >
+                                    Delete
+                                </Text>
+                            </MenuItem>
+                        </MenuList>
+                    )}
                 </Menu>
 
                 <IconButton
@@ -104,10 +145,18 @@ const VideoCard: React.FC<Properties> = ({ name, url }) => {
                 </Flex>
             </Box>
 
-            <PlayerModal
-                videoUrl={url}
-                isOpen={isModalOpen}
-                onClose={handleModalClose}
+            {url && (
+                <PlayerModal
+                    videoUrl={url}
+                    isOpen={isVideoModalOpen}
+                    onClose={handleVideoModalClose}
+                />
+            )}
+
+            <DeleteWarning
+                isOpen={isWarningModalOpen}
+                onClose={handleWarningModalClose}
+                onDelete={handleDelete}
             />
         </Box>
     );

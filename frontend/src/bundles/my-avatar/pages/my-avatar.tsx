@@ -9,7 +9,7 @@ import { CreateAvatar } from '../components/components.js';
 
 const MyAvatar = (): JSX.Element => {
     return (
-        <>
+        <Box overflow="hidden">
             <Header />
             <Sidebar>
                 <Box bg="background.900" pr="25px">
@@ -24,7 +24,7 @@ const MyAvatar = (): JSX.Element => {
                     </Box>
                 </Box>
             </Sidebar>
-        </>
+        </Box>
     );
 };
 

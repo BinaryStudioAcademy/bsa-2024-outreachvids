@@ -2,7 +2,9 @@ import {
     AddIcon,
     ArrowLeftIcon,
     ArrowRightIcon,
+    CheckCircleIcon,
     CloseIcon,
+    DeleteIcon,
     DownloadIcon,
     ViewIcon,
     ViewOffIcon,
@@ -58,9 +60,11 @@ const IconName = {
     TEXT: T,
     ADD: AddIcon,
     CLOSE: CloseIcon,
+    CHECK_CIRCLE: CheckCircleIcon,
     OPEN_AI: OpenAi,
     LOGO: Logo,
     LOGO_TEXT: LogoText,
+    DELETE: DeleteIcon,
 } as const;
 
 export { IconName };

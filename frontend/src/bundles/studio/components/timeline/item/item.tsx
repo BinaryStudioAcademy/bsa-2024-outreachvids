@@ -12,9 +12,10 @@ type Properties = {
     type: RowType;
     span: Span;
     children: React.ReactNode;
+    onClick?: React.MouseEventHandler<HTMLElement>;
 };
 
-const Item: React.FC<Properties> = ({ id, type, span, children }) => {
+const Item: React.FC<Properties> = ({ id, type, span, children, onClick }) => {
     const selectedItem = useAppSelector(({ studio }) => studio.ui.selectedItem);
 
     const {
@@ -37,6 +38,8 @@ const Item: React.FC<Properties> = ({ id, type, span, children }) => {
             {...attributes}
             style={itemStyle}
             zIndex={isDragging ? '100' : 'auto'}
+            onClick={onClick}
+            data-id={id}
         >
             <Box style={itemContentStyle}>
                 <Flex

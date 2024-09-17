@@ -4,7 +4,7 @@ import { DataStatus } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type VideoGetAllItemResponseDto } from '~/bundles/home/types/types.js';
 
-import { loadUserVideos } from './actions.js';
+import { deleteVideo, loadUserVideos } from './actions.js';
 
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
@@ -30,6 +30,18 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(loadUserVideos.rejected, (state) => {
             state.videos = [];
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(deleteVideo.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(deleteVideo.fulfilled, (state, action) => {
+            const id = action.meta.arg;
+
+            state.videos = state.videos.filter((video) => video.id !== id);
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(deleteVideo.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
     },
