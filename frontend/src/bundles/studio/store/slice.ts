@@ -54,6 +54,12 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
+type ScriptPlayer = {
+    isPlaying: boolean;
+    url: string | null;
+    duration: number | null;
+};
+
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     avatars: Array<AvatarGetResponseDto> | [];
@@ -72,6 +78,7 @@ type State = {
         selectedItem: SelectedItem | null;
         menuActiveItem: ValueOf<typeof MenuItems> | null;
     };
+    scriptPlayer: ScriptPlayer;
 };
 
 const initialState: State = {
@@ -91,6 +98,11 @@ const initialState: State = {
         destinationPointer: null,
         selectedItem: null,
         menuActiveItem: null,
+    },
+    scriptPlayer: {
+        isPlaying: false,
+        url: null,
+        duration: null,
     },
 };
 
@@ -278,6 +290,9 @@ const { reducer, actions, name } = createSlice({
             action: PayloadAction<ValueOf<typeof MenuItems> | null>,
         ) {
             state.ui.menuActiveItem = action.payload;
+        },
+        playScript(state, action: PayloadAction<Partial<ScriptPlayer>>) {
+            state.scriptPlayer = { ...state.scriptPlayer, ...action.payload };
         },
         resetStudio(state) {
             // TODO: do not overwrite voices on reset
