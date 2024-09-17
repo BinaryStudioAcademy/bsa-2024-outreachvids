@@ -195,9 +195,7 @@ class AvatarVideoService {
             });
         }
 
-        socketEvent.emitNotification(
-            AvatarVideoEvent.RENDER_SUCCESS,
-        );
+        socketEvent.emitNotification(AvatarVideoEvent.RENDER_SUCCESS);
 
         await Promise.all(
             avatars.map((avatar) => {
