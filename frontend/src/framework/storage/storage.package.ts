@@ -1,5 +1,4 @@
-import { type StorageKey } from './enums/enums.js';
-import { type Storage } from './types/types.js';
+import { type Storage, type StorageKey } from './types/types.js';
 
 class BaseStorage implements Storage {
     private store: globalThis.Storage;

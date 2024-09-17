@@ -1,0 +1,11 @@
+.sequence {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    position: absolute;
+    object-fit: contain;
+    bottom: 0;
+}

@@ -1,0 +1,13 @@
+.header {
+    height: 75px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--chakra-colors-background-900);
+    box-shadow: var(--chakra-shadows-md);
+    z-index: 100;
+    padding: var(--chakra-space-4);
+    align-items: center;
+    justify-content: space-between;
+}

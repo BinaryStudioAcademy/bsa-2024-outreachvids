@@ -9,6 +9,7 @@ type ControllerRouteParameters = {
     handler: ApiHandler;
     validation?: {
         body?: ValidationSchema;
+        params?: ValidationSchema;
     };
 };
 

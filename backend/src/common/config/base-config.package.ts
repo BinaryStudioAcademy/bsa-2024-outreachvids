@@ -41,6 +41,24 @@ class BaseConfig implements Config {
                     env: 'PORT',
                     default: null,
                 },
+                OPEN_AI_KEY: {
+                    doc: 'Key for Open Ai',
+                    format: String,
+                    env: 'OPEN_AI_KEY',
+                    default: null,
+                },
+                SESSION_KEY: {
+                    doc: 'Key for sessions',
+                    format: String,
+                    env: 'SESSION_KEY',
+                    default: null,
+                },
+                ORIGIN: {
+                    doc: 'Origin',
+                    format: String,
+                    env: 'ORIGIN',
+                    default: null,
+                },
             },
             DB: {
                 CONNECTION_STRING: {
@@ -65,6 +83,76 @@ class BaseConfig implements Config {
                     doc: 'Database pool max count',
                     format: Number,
                     env: 'DB_POOL_MAX',
+                    default: null,
+                },
+            },
+            TOKEN: {
+                SECRET_KEY: {
+                    doc: 'Secret key for token generation',
+                    format: String,
+                    env: 'SECRET_KEY',
+                    default: null,
+                },
+                EXPIRATION_TIME: {
+                    doc: 'Token expiration time',
+                    format: String,
+                    env: 'EXPIRATION_TIME',
+                    default: null,
+                },
+            },
+            AWS: {
+                ACCESS_KEY_ID: {
+                    doc: 'AWS access key id',
+                    format: String,
+                    env: 'AWS_ACCESS_KEY_ID',
+                    default: null,
+                },
+                SECRET_ACCESS_KEY: {
+                    doc: 'AWS secret access key',
+                    format: String,
+                    env: 'AWS_SECRET_ACCESS_KEY',
+                    default: null,
+                },
+                S3: {
+                    REGION: {
+                        doc: 'AWS S3 region',
+                        format: String,
+                        env: 'AWS_S3_REGION',
+                        default: null,
+                    },
+                    BUCKET_NAME: {
+                        doc: 'AWS S3 bucket name',
+                        format: String,
+                        env: 'AWS_S3_BUCKET_NAME',
+                        default: null,
+                    },
+                },
+                CLOUDFRONT: {
+                    DOMAIN_ID: {
+                        doc: 'AWS CloudFront domain id',
+                        format: String,
+                        env: 'AWS_CLOUDFRONT_DOMAIN_ID',
+                        default: null,
+                    },
+                },
+            },
+            AZURE: {
+                SUBSCRIPTION_KEY: {
+                    doc: 'Azure subscription key',
+                    format: String,
+                    env: 'AZURE_SUBSCRIPTION_KEY',
+                    default: null,
+                },
+                SERVICE_REGION: {
+                    doc: 'Azure service region',
+                    format: String,
+                    env: 'AZURE_SERVICE_REGION',
+                    default: null,
+                },
+                SERVICE_ENDPOINT: {
+                    doc: 'Azure service endpoint',
+                    format: String,
+                    env: 'AZURE_SERVICE_ENDPOINT',
                     default: null,
                 },
             },

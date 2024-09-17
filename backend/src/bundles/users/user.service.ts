@@ -1,8 +1,8 @@
-import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserRepository } from '~/bundles/users/user.repository.js';
 import { cryptService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
+import { UserEntity } from '../../bundles/users/user.entity.js';
 import {
     type UserGetAllResponseDto,
     type UserSignUpRequestDto,
@@ -16,8 +16,13 @@ class UserService implements Service {
         this.userRepository = userRepository;
     }
 
-    public find(): ReturnType<Service['find']> {
-        return Promise.resolve(null);
+    public async findById(id: string): Promise<UserEntity | null> {
+        return await this.userRepository.findById(id);
+    }
+
+    public async findByEmail(email: string): Promise<UserEntity | null> {
+        const normalizedEmail = email.toLowerCase();
+        return await this.userRepository.findByEmail(normalizedEmail);
     }
 
     public async findAll(): Promise<UserGetAllResponseDto> {
@@ -31,12 +36,15 @@ class UserService implements Service {
     public async create(
         payload: UserSignUpRequestDto,
     ): Promise<UserSignUpResponseDto> {
-        const { hash, salt } = cryptService.encryptSync(payload.password);
+        const { fullName, email, password } = payload;
+        const { hash, salt } = cryptService.encryptSync(password);
+
         const user = await this.userRepository.create(
             UserEntity.initializeNew({
-                email: payload.email,
-                passwordSalt: salt, // TODO
-                passwordHash: hash, // TODO
+                email: email.toLowerCase(),
+                fullName: fullName,
+                passwordSalt: salt,
+                passwordHash: hash,
             }),
         );
 

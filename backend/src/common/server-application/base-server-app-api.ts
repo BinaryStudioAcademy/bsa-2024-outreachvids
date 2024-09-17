@@ -38,11 +38,39 @@ class BaseServerAppApi implements ServerAppApi {
             definition: {
                 openapi: '3.0.0',
                 info: {
-                    title: 'Hello World',
+                    title: 'OutreachVids API documentation',
                     version: `${this.version}.0.0`,
                 },
+                components: {
+                    schemas: {
+                        Error: {
+                            type: 'object',
+                            properties: {
+                                errorType: {
+                                    type: 'string',
+                                    enum: ['COMMON', 'VALIDATION'],
+                                },
+                                message: {
+                                    type: 'string',
+                                },
+                            },
+                        },
+                    },
+                    securitySchemes: {
+                        bearerAuth: {
+                            bearerFormat: 'JWT',
+                            scheme: 'bearer',
+                            type: 'http',
+                        },
+                    },
+                },
+                servers: [
+                    {
+                        url: '/api/v1',
+                    },
+                ],
             },
-            apis: [`src/packages/**/*.controller.${controllerExtension}`],
+            apis: [`src/bundles/**/*.controller.${controllerExtension}`],
         });
     }
 }

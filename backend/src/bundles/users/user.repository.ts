@@ -1,6 +1,7 @@
-import { UserEntity } from '~/bundles/users/user.entity.js';
 import { type UserModel } from '~/bundles/users/user.model.js';
 import { type Repository } from '~/common/types/types.js';
+
+import { UserEntity } from '../../bundles/users/user.entity.js';
 
 class UserRepository implements Repository {
     private userModel: typeof UserModel;
@@ -9,8 +10,16 @@ class UserRepository implements Repository {
         this.userModel = userModel;
     }
 
-    public find(): ReturnType<Repository['find']> {
-        return Promise.resolve(null);
+    public async findById(id: string): Promise<UserEntity | null> {
+        const user = await this.userModel.query().findById(id).execute();
+
+        return user ? UserEntity.initialize(user) : null;
+    }
+
+    public async findByEmail(email: string): Promise<UserEntity | null> {
+        const user = await this.userModel.query().findOne({ email }).execute();
+
+        return user ? UserEntity.initialize(user) : null;
     }
 
     public async findAll(): Promise<UserEntity[]> {
@@ -20,12 +29,14 @@ class UserRepository implements Repository {
     }
 
     public async create(entity: UserEntity): Promise<UserEntity> {
-        const { email, passwordSalt, passwordHash } = entity.toNewObject();
+        const { email, fullName, passwordSalt, passwordHash } =
+            entity.toNewObject();
 
         const item = await this.userModel
             .query()
             .insert({
                 email,
+                fullName,
                 passwordSalt,
                 passwordHash,
             })

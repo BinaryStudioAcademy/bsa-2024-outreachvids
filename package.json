@@ -11,23 +11,30 @@
         "frontend"
     ],
     "scripts": {
-        "postinstall": "npm run build:shared",
         "build:shared": "npm run build -w shared",
         "build:frontend": "npm run build -w frontend",
         "build:backend": "npm run build -w backend",
+        "build": "npm run build:shared && npm run build:backend && npm run build:frontend && sh ./prepare-build.sh",
         "lint:editor": "editorconfig-checker",
         "lint:fs": "ls-lint",
         "lint:type": "npm run lint:type --workspaces --if-present",
         "lint:js": "npm run lint:js --workspaces --if-present -- --max-warnings=0",
+        "lint:js:fix": "eslint --fix \"**/*.{ts,tsx}\" --max-warnings=0",
         "lint:css": "npm run lint:css --workspaces --if-present",
+        "lint:css:fix": "stylelint --fix \"**/*.{scss,css}\"",
         "lint:format": "prettier --check \"**/*.{ts,tsx,json,md,scss,html,yml}\"",
         "lint": "npm run lint:editor && npm run lint:fs && npm run lint:format && npm run lint:type && npm run lint:js && npm run lint:css",
-        "format": "prettier --write \"**/*.{ts,tsx,json,md,css,html,yml}\""
+        "lint:fix": "npm run lint:fix -w frontend && npm run lint:fix -w backend",
+        "format": "prettier --write \"**/*.{ts,tsx,json,md,css,html,yml}\"",
+        "migrate": "npm run migrate:dev -w backend",
+        "prestart": "npm install --include=dev && npm run build && npm run migrate",
+        "start": "cd ./build/backend && npm run start"
     },
     "devDependencies": {
         "@commitlint/cli": "19.4.0",
         "@commitlint/config-conventional": "19.2.2",
         "@ls-lint/ls-lint": "2.2.3",
+        "@types/uuid": "10.0.0",
         "@typescript-eslint/eslint-plugin": "6.19.1",
         "danger": "12.3.3",
         "editorconfig-checker": "5.1.8",
@@ -48,5 +55,8 @@
     "simple-git-hooks": {
         "pre-commit": "npx lint-staged",
         "commit-msg": "npx commitlint --edit $1"
+    },
+    "dependencies": {
+        "uuid": "10.0.0"
     }
 }
