@@ -14,6 +14,7 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
+import { DND_ACTIVATION_DISTANCE_PIXELS } from '~/bundles/studio/constants/constants.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
@@ -138,7 +139,7 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
 
     const pointerSensor = useSensor(PointerSensor, {
         activationConstraint: {
-            distance: 5,
+            distance: DND_ACTIVATION_DISTANCE_PIXELS,
         },
     });
 
