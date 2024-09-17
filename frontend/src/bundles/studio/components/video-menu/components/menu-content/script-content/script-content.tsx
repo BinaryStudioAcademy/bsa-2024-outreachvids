@@ -82,7 +82,7 @@ const ScriptContent: React.FC = () => {
             </VStack>
             <VoicesModal
                 isOpen={
-                    changeVoiceScriptId !== null &&
+                    Boolean(changeVoiceScriptId) &&
                     dataStatus === DataStatus.FULFILLED
                 }
                 onClose={handleCloseVoicesModal}
