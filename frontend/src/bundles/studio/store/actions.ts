@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { type UpdateVideoRequestDto } from 'shared';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
@@ -78,10 +79,23 @@ const saveVideo = createAsyncThunk<
     return videosApi.saveVideo(payload);
 });
 
+const updateVideo = createAsyncThunk<
+    VideoGetAllItemResponseDto,
+    UpdateVideoRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/update-video`, (payload, { extra, getState }) => {
+    const { videosApi } = extra;
+    const state = getState();
+    const { videoId } = state.studio;
+
+    return videosApi.updateVideo(payload, videoId as string);
+});
+
 export {
     generateAllScriptsSpeech,
     generateScriptSpeech,
     loadAvatars,
     renderAvatar,
     saveVideo,
+    updateVideo,
 };

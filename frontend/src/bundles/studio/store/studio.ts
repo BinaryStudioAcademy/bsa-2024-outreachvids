@@ -4,6 +4,7 @@ import {
     loadAvatars,
     renderAvatar,
     saveVideo,
+    updateVideo,
 } from './actions.js';
 import { actions } from './slice.js';
 
@@ -14,6 +15,7 @@ const allActions = {
     generateScriptSpeech,
     renderAvatar,
     saveVideo,
+    updateVideo,
 };
 
 export { allActions as actions };

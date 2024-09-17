@@ -6,6 +6,7 @@ import { type Storage } from '~/framework/storage/storage.js';
 import { VideosApiPath } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
+    type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
 } from './types/types.js';
@@ -41,6 +42,23 @@ class VideosApi extends BaseHttpApi {
             this.getFullEndpoint(VideosApiPath.ROOT, {}),
             {
                 method: HTTPMethod.POST,
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return await response.json<VideoGetAllItemResponseDto>();
+    }
+
+    public async updateVideo(
+        payload: UpdateVideoRequestDto,
+        id: string,
+    ): Promise<VideoGetAllItemResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(VideosApiPath.ID, { id }),
+            {
+                method: HTTPMethod.PATCH,
                 contentType: ContentType.JSON,
                 payload: JSON.stringify(payload),
                 hasAuth: true,

@@ -44,9 +44,8 @@ import { actions as studioActions } from '../store/studio.js';
 import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const { scenes, scripts, videoName, isDraftSaved } = useAppSelector(
-        ({ studio }) => studio,
-    );
+    const { scenes, scripts, videoName, isDraftSaved, videoId } =
+        useAppSelector(({ studio }) => studio);
     const [inputValue, setInputValue] = useState(
         isDraftSaved ? videoName : `${videoName}*`,
     );
@@ -111,7 +110,20 @@ const Studio: React.FC = () => {
     );
 
     const handleSaveDraft = useCallback((): void => {
-        // TODO: Check if video was already created
+        if (videoId) {
+            void dispatch(
+                studioActions.updateVideo({
+                    composition: {
+                        scenes,
+                        scripts: getVoicesConfigs(scripts),
+                    },
+                    name: videoName,
+                }),
+            );
+
+            return;
+        }
+
         void dispatch(
             studioActions.saveVideo({
                 composition: {
@@ -121,7 +133,7 @@ const Studio: React.FC = () => {
                 name: videoName,
             }),
         );
-    }, [dispatch, scenes, scripts, videoName]);
+    }, [dispatch, scenes, scripts, videoId, videoName]);
 
     const handleInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {

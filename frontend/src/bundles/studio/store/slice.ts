@@ -37,6 +37,7 @@ import {
     loadAvatars,
     renderAvatar,
     saveVideo,
+    updateVideo,
 } from './actions.js';
 
 type SelectedItem = {
@@ -369,6 +370,15 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.REJECTED;
             state.videoId = null;
             state.isDraftSaved = false;
+        });
+        builder.addCase(updateVideo.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(updateVideo.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(updateVideo.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
         });
     },
 });
