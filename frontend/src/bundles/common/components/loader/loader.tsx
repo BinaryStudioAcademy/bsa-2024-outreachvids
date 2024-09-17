@@ -8,12 +8,16 @@ import {
 
 import { SPIN_ANIMATION } from './libs/constants/constants.js';
 
-const Loader = (): JSX.Element => {
+type Properties = {
+    isDark?: boolean;
+};
+
+const Loader: React.FC<Properties> = ({ isDark = false }) => {
     return (
         <Flex flexDirection="column" alignItems="center">
             <Box position="relative" width="100px" height="100px">
                 <Circle size="full" color="text.default">
-                    <Logo logoSize="70px" />
+                    <Logo logoSize="70px" isDark={isDark} />
                 </Circle>
                 <Circle
                     position="absolute"
@@ -24,7 +28,11 @@ const Loader = (): JSX.Element => {
                     animation={`${SPIN_ANIMATION} 1s linear infinite`}
                 />
             </Box>
-            <Text fontSize="lg" marginTop="10px">
+            <Text
+                fontSize="lg"
+                marginTop="10px"
+                color={isDark ? 'background.600' : 'inherit'}
+            >
                 Loading...
             </Text>
         </Flex>
