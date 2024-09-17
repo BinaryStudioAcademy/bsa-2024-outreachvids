@@ -242,13 +242,6 @@ const components = {
             fontSize: 'sm',
         },
     },
-    FormError: {
-        baseStyle: {
-            text: {
-                color: colors.brand.secondary[900],
-            },
-        },
-    },
     Card: {
         variants: {
             outline: {
