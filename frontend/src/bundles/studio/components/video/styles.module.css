@@ -1,5 +1,5 @@
 .sequence {
-    background-color: rgb(220, 220, 220);
+    background-color: 'white';
     display: flex;
     justify-content: center;
 }
