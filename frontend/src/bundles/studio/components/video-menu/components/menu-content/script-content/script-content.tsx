@@ -21,13 +21,15 @@ import { Script, VoicesModal } from './components/components.js';
 
 const ScriptContent: React.FC = () => {
     const dispatch = useAppDispatch();
-    const studio = useAppSelector(({ studio }) => studio);
+    const { dataStatus, scripts, voices } = useAppSelector(
+        ({ studio }) => studio,
+    );
 
     useEffect(() => {
-        if (studio.voices.length === 0) {
+        if (voices.length === 0) {
             void dispatch(studioActions.loadVoices());
         }
-    }, [dispatch, studio.voices.length]);
+    }, [dispatch, voices.length]);
 
     const [changeVoiceScriptId, setChangeVoiceScriptId] = useState<
         string | null
@@ -48,11 +50,11 @@ const ScriptContent: React.FC = () => {
     return (
         <>
             <VStack w="full" spacing="20px" p="20px 0">
-                {studio.dataStatus === DataStatus.PENDING ? (
+                {dataStatus === DataStatus.PENDING ? (
                     <Loader />
                 ) : (
                     <>
-                        {studio.scripts.length === 0 ? (
+                        {scripts.length === 0 ? (
                             <Text
                                 variant="body1"
                                 width="60%"
@@ -61,7 +63,7 @@ const ScriptContent: React.FC = () => {
                                 To add a script press a button below.
                             </Text>
                         ) : (
-                            studio.scripts.map(({ id, ...script }) => (
+                            scripts.map(({ id, ...script }) => (
                                 <Script
                                     key={id}
                                     id={id}
