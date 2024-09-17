@@ -11,7 +11,7 @@ type Properties = {
     label: string;
     size: IconSizeT;
     icon: ElementType;
-    onClick?: () => void;
+    onClick?: (event: React.MouseEvent) => void;
     width?: string;
     height?: string;
     isRound?: boolean;
