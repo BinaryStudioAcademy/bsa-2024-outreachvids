@@ -33,13 +33,13 @@ import {
     Timeline,
     VideoMenu,
 } from '../components/components.js';
-import { defaultVoiceName } from '../components/video-menu/components/mock/voices-mock.js';
 import {
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
+import { getVoicesConfigs } from '../helpers/helpers.js';
 import { actions as studioActions } from '../store/studio.js';
 import styles from './styles.module.css';
 
@@ -75,10 +75,11 @@ const Studio: React.FC = () => {
 
         dispatch(
             studioActions.renderAvatar({
-                avatarName: scene.avatar.name,
-                avatarStyle: scene.avatar.style,
-                text: script?.text,
-                voice: script?.voice?.shortName ?? defaultVoiceName,
+                composition: {
+                    scenes,
+                    scripts: getVoicesConfigs(scripts),
+                },
+                name: 'Untitled',
             }),
         )
             .then(() => {

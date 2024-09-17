@@ -225,7 +225,10 @@ class VideoController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         return {
             status: HttpCode.CREATED,
-            payload: await this.videoService.create(options.body),
+            payload: await this.videoService.create({
+                ...options.body,
+                userId: (options.user as UserGetCurrentResponseDto).id,
+            }),
         };
     }
 
