@@ -140,6 +140,15 @@ const components = {
             },
         },
     },
+    CloseButton: {
+        variants: {
+            simple: {
+                _hover: {
+                    bg: 'none',
+                },
+            },
+        },
+    },
     Link: {
         variants: {
             primary: {
