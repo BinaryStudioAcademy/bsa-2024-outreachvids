@@ -11,11 +11,13 @@ export {
     type TimelineItemWithSpan,
 } from './timeline-item.type.js';
 export {
+    type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
     type Scene,
     type SceneAvatar,
+    type VideoGetAllItemResponseDto,
     type Voice,
 } from 'shared';

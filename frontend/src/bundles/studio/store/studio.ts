@@ -3,6 +3,7 @@ import {
     generateScriptSpeech,
     loadAvatars,
     renderAvatar,
+    saveVideo,
 } from './actions.js';
 import { actions } from './slice.js';
 
@@ -12,6 +13,7 @@ const allActions = {
     generateAllScriptsSpeech,
     generateScriptSpeech,
     renderAvatar,
+    saveVideo,
 };
 
 export { allActions as actions };

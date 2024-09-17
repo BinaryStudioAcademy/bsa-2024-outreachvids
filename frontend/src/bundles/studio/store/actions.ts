@@ -3,10 +3,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
     type AvatarGetAllResponseDto,
+    type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
+    type VideoGetAllItemResponseDto,
 } from '~/bundles/studio/types/types.js';
 
 import { name as sliceName } from './slice.js';
@@ -66,9 +68,20 @@ const renderAvatar = createAsyncThunk<
     return avatarVideosApi.renderVideo(payload);
 });
 
+const saveVideo = createAsyncThunk<
+    VideoGetAllItemResponseDto,
+    CreateVideoRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/save-video`, (payload, { extra }) => {
+    const { videosApi } = extra;
+
+    return videosApi.saveVideo(payload);
+});
+
 export {
     generateAllScriptsSpeech,
     generateScriptSpeech,
     loadAvatars,
     renderAvatar,
+    saveVideo,
 };

@@ -36,6 +36,7 @@ import {
     generateScriptSpeech,
     loadAvatars,
     renderAvatar,
+    saveVideo,
 } from './actions.js';
 
 type SelectedItem = {
@@ -65,6 +66,7 @@ type State = {
     videoSize: VideoPreviewT;
     videoName: string;
     isDraftSaved: boolean;
+    videoId: string | null;
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -85,6 +87,7 @@ const initialState: State = {
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
     isDraftSaved: false,
+    videoId: null,
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -353,6 +356,19 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(renderAvatar.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(saveVideo.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(saveVideo.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.videoId = action.payload.id;
+            state.isDraftSaved = true;
+        });
+        builder.addCase(saveVideo.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.videoId = null;
+            state.isDraftSaved = false;
         });
     },
 });
