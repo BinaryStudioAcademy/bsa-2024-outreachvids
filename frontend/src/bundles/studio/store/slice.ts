@@ -60,6 +60,7 @@ type State = {
 
     scenes: Array<Scene>;
     scripts: Array<Script>;
+    selectedScriptId: string | null;
     videoSize: VideoPreviewT;
     ui: {
         destinationPointer: DestinationPointer | null;
@@ -78,6 +79,7 @@ const initialState: State = {
     range: { start: 0, end: minutesToMilliseconds(1) },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
+    selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
     ui: {
         destinationPointer: null,
@@ -147,6 +149,9 @@ const { reducer, actions, name } = createSlice({
                 newIndex: newActiveItemIndex,
                 items: state.scripts,
             });
+        },
+        selectScript(state, action) {
+            state.selectedScriptId = action.payload;
         },
         setRange(state, action: PayloadAction<Range>) {
             state.range = action.payload;

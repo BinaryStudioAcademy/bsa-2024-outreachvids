@@ -4,6 +4,7 @@ import {
     useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -47,6 +48,15 @@ const VideoMenu: React.FC = () => {
     const handleChatClose = useCallback(() => {
         setIsChatOpen(false);
     }, []);
+
+    const selectedItem = useAppSelector(({ studio }) => studio.ui.selectedItem);
+
+    useEffect(() => {
+        if (selectedItem?.type === 'script') {
+            setActiveItem('script');
+            dispatch(studioActions.selectScript(selectedItem.id));
+        }
+    }, [selectedItem, setActiveItem, dispatch]);
 
     // TODO: Uncomment menu items after demo
 
