@@ -42,6 +42,16 @@ const generateScriptSpeech = createAsyncThunk<
     return speechApi.generateScriptSpeech(payload);
 });
 
+const generateScriptSpeechPreview = createAsyncThunk<
+    GenerateSpeechResponseDto,
+    GenerateSpeechRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/generate-script-speech-preview`, (payload, { extra }) => {
+    const { speechApi } = extra;
+
+    return speechApi.generateScriptSpeech(payload);
+});
+
 const generateAllScriptsSpeech = createAsyncThunk<
     Promise<void>,
     undefined,
@@ -80,6 +90,7 @@ const renderAvatar = createAsyncThunk<
 export {
     generateAllScriptsSpeech,
     generateScriptSpeech,
+    generateScriptSpeechPreview,
     loadAvatars,
     loadVoices,
     renderAvatar,

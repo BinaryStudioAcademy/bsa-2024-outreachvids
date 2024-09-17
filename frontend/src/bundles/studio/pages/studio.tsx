@@ -20,6 +20,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
+import { AudioPlayer } from '../components/audio-player/audio-player.js';
 import {
     PlayerControls,
     Timeline,
@@ -35,7 +36,7 @@ import { actions as studioActions } from '../store/studio.js';
 import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const { scenes, scripts, videoName } = useAppSelector(
+    const { scenes, scripts, videoName, scriptPlayer } = useAppSelector(
         ({ studio }) => studio,
     );
 
@@ -97,6 +98,19 @@ const Studio: React.FC = () => {
         [dispatch],
     );
 
+    const handleAudioEnd = useCallback((): void => {
+        dispatch(studioActions.playScript({ isPlaying: false }));
+    }, [dispatch]);
+
+    const handleSetScriptDuration = useCallback(
+        (duration: number): void => {
+            dispatch(studioActions.playScript({ duration }));
+        },
+        [dispatch],
+    );
+
+    const { isPlaying, url } = scriptPlayer;
+
     return (
         <Box
             minHeight="100vh"
@@ -145,6 +159,14 @@ const Studio: React.FC = () => {
                     <Timeline playerRef={playerReference} />
                 </Box>
             </VStack>
+            {url && (
+                <AudioPlayer
+                    isPlaying={isPlaying}
+                    audioUrl={url}
+                    onAudioEnd={handleAudioEnd}
+                    onSetDuration={handleSetScriptDuration}
+                />
+            )}
         </Box>
     );
 };
