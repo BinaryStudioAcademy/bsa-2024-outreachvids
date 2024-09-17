@@ -53,9 +53,22 @@ class VideoRepository implements Repository {
         id: string,
         payload: UpdateVideoRequestDto,
     ): Promise<VideoEntity | null> {
+        const data: Partial<VideoModel> = {};
+
+        if (payload.composition) {
+            data.composition = JSON.stringify(payload.composition);
+        }
+
+        if (payload.name) {
+            data.name = payload.name;
+        }
+
+        if (payload.url) {
+            data.url = payload.url;
+        }
         const updatedItem = await this.videoModel
             .query()
-            .patchAndFetchById(id, payload)
+            .patchAndFetchById(id, data)
             .execute();
 
         return updatedItem ? VideoEntity.initialize(updatedItem) : null;
