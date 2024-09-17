@@ -8,7 +8,6 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
-import { mockVoices } from '~/bundles/studio/components/video-menu/components/mock/voices-mock.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type Voice } from '~/bundles/studio/types/types.js';
 
@@ -27,6 +26,7 @@ const VoicesModalContent: React.FC<Properties> = ({
     const script = useAppSelector(({ studio }) =>
         studio.scripts.find((s) => s.id === scriptId),
     );
+    const { voices } = useAppSelector(({ studio }) => studio);
     const handleCardClick = useCallback(
         (voice: Voice): void => {
             dispatch(studioActions.editScript({ id: scriptId, voice }));
@@ -35,7 +35,7 @@ const VoicesModalContent: React.FC<Properties> = ({
         [dispatch, scriptId, onModalClose],
     );
     return (
-        <VStack>
+        <VStack h="full">
             <Heading
                 className={styles['modal-header']}
                 variant="H3"
@@ -48,7 +48,7 @@ const VoicesModalContent: React.FC<Properties> = ({
                 w="full"
                 columns={[2, null, 3]}
             >
-                {mockVoices.map((card) => (
+                {voices.map((card) => (
                     <VoiceCard
                         voice={card}
                         key={card.shortName}

@@ -9,11 +9,11 @@ import {
     type VideoPreview as VideoPreviewT,
 } from '~/bundles/common/types/types.js';
 import {
+    DEFAULT_VOICE,
     MIN_SCENE_DURATION,
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { mockVoices } from '../components/video-menu/components/mock/voices-mock.js';
 import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     calculateTotalMilliseconds,
@@ -65,8 +65,8 @@ type State = {
     scenes: Array<Scene>;
     scripts: Array<Script>;
     videoSize: VideoPreviewT;
-    voices: Voice[];
     videoName: string;
+    voices: Voice[];
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -85,8 +85,8 @@ const initialState: State = {
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     videoSize: VideoPreview.LANDSCAPE,
-    voices: [],
     videoName: 'Untitled Video',
+    voices: [],
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -103,7 +103,7 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
-                voice: mockVoices.at(0),
+                voice: DEFAULT_VOICE,
                 iconName: PlayIconNames.READY,
             };
             state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
@@ -335,6 +335,15 @@ const { reducer, actions, name } = createSlice({
             );
             state.dataStatus = DataStatus.REJECTED;
         });
+        builder.addCase(generateAllScriptsSpeech.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(generateAllScriptsSpeech.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(generateAllScriptsSpeech.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+        });
         builder.addCase(loadVoices.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
@@ -344,15 +353,6 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(loadVoices.rejected, (state) => {
             state.voices = [];
-            state.dataStatus = DataStatus.REJECTED;
-        });
-        builder.addCase(generateAllScriptsSpeech.pending, (state) => {
-            state.dataStatus = DataStatus.PENDING;
-        });
-        builder.addCase(generateAllScriptsSpeech.fulfilled, (state) => {
-            state.dataStatus = DataStatus.FULFILLED;
-        });
-        builder.addCase(generateAllScriptsSpeech.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(renderAvatar.pending, (state) => {

@@ -10,8 +10,8 @@ import { actions } from './slice.js';
 const allActions = {
     ...actions,
     loadAvatars,
-    loadVoices,
     generateAllScriptsSpeech,
+    loadVoices,
     generateScriptSpeech,
     renderAvatar,
 };

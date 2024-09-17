@@ -58,7 +58,7 @@ const generateAllScriptsSpeech = createAsyncThunk<
                     generateScriptSpeech({
                         scriptId: id,
                         text,
-                        voiceName: voice?.shortName as string,
+                        voiceName: voice?.shortName,
                     }),
                 ),
             );
