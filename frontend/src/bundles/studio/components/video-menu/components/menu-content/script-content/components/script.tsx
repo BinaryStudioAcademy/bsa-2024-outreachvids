@@ -12,8 +12,11 @@ import {
 } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
+    useEffect,
     useMemo,
+    useRef,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -35,6 +38,9 @@ const Script: React.FC<Properties> = ({
     const dispatch = useAppDispatch();
 
     const [isPlaying, setIsPlaying] = useState(false);
+    const { selectedScriptId } = useAppSelector(({ studio }) => studio);
+
+    const textareaReference = useRef<HTMLDivElement>(null);
 
     const handleDeleteScript = useCallback((): void => {
         void dispatch(studioActions.deleteScript(id));
@@ -91,6 +97,15 @@ const Script: React.FC<Properties> = ({
         return isPlaying ? IconName.STOP : IconName.PLAY;
     }, [iconName, isPlaying]);
 
+    useEffect(() => {
+        if (!textareaReference.current) {
+            return;
+        }
+
+        textareaReference.current.style.borderWidth =
+            selectedScriptId === id ? '3px' : '1px';
+    }, [selectedScriptId, id]);
+
     const handleChangeVoiceId = useCallback((): void => {
         handleChangeVoice(id);
     }, [handleChangeVoice, id]);
@@ -141,6 +156,7 @@ const Script: React.FC<Properties> = ({
                 w="full"
             >
                 <EditablePreview
+                    ref={textareaReference}
                     h="full"
                     w="full"
                     p="8px 16px"
