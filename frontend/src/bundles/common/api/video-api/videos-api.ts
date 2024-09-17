@@ -1,13 +1,14 @@
 import { ApiPath, ContentType } from '~/bundles/common/enums/enums.js';
-import { VideosApiPath } from '~/bundles/home/enums/enums.js';
+import { type Http, HTTPMethod } from '~/framework/http/http.js';
+import { BaseHttpApi } from '~/framework/http-api/http-api.js';
+import { type Storage } from '~/framework/storage/storage.js';
+
+import { VideosApiPath } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
-} from '~/bundles/home/types/types.js';
-import { type Http, HTTPMethod } from '~/framework/http/http.js';
-import { BaseHttpApi } from '~/framework/http-api/http-api.js';
-import { type Storage } from '~/framework/storage/storage.js';
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
