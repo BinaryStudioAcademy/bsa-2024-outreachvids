@@ -2,13 +2,15 @@ import {
     AddIcon,
     ArrowLeftIcon,
     ArrowRightIcon,
+    CheckCircleIcon,
     CloseIcon,
+    DeleteIcon,
     DownloadIcon,
     ViewIcon,
     ViewOffIcon,
 } from '@chakra-ui/icons';
 
-import { OpenAi } from './custom-icons/custom-icons.js';
+import { Logo, LogoText, OpenAi } from './custom-icons/custom-icons.js';
 import {
     BackwardStep,
     CircleUser,
@@ -58,7 +60,11 @@ const IconName = {
     TEXT: T,
     ADD: AddIcon,
     CLOSE: CloseIcon,
+    CHECK_CIRCLE: CheckCircleIcon,
     OPEN_AI: OpenAi,
+    LOGO: Logo,
+    LOGO_TEXT: LogoText,
+    DELETE: DeleteIcon,
 } as const;
 
 export { IconName };

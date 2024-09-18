@@ -6,6 +6,8 @@ import {
     Icon,
     IconButton,
 } from '~/bundles/common/components/components.js';
+import { DOM_EVENT } from '~/bundles/common/enums/enums.js';
+import { useEffect, useRef } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import styles from './styles.module.css';
@@ -22,8 +24,34 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
     onClose,
     onChatOpen,
 }) => {
+    const menuReference = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent): void => {
+            if (
+                menuReference.current &&
+                !menuReference.current.contains(event.target as Node)
+            ) {
+                onClose();
+            }
+        };
+
+        document.addEventListener(DOM_EVENT.MOUSE_DOWN, handleClickOutside);
+
+        return () => {
+            document.removeEventListener(
+                DOM_EVENT.MOUSE_DOWN,
+                handleClickOutside,
+            );
+        };
+    }, [onClose]);
+
     return (
-        <Box bg="background.900" className={styles['menu-body']}>
+        <Box
+            ref={menuReference}
+            bg="background.900"
+            className={styles['menu-body']}
+        >
             <Flex
                 justifyContent="space-between"
                 alignItems="center"

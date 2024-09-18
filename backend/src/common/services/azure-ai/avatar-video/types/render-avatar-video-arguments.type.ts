@@ -1,8 +1,8 @@
-import { type RenderAvatarVideoRequestDto } from './types.js';
+import { type AvatarData } from './types.js';
 
 type RenderAvatarVideoArgument = {
     id: string;
-    payload: RenderAvatarVideoRequestDto;
+    payload: AvatarData;
 };
 
 export { type RenderAvatarVideoArgument };

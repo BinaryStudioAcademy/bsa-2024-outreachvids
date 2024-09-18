@@ -8,6 +8,7 @@ const DatabaseTableName = {
     GESTURES: 'gestures',
     AVATARS_STYLES: 'avatars_styles',
     AVATARS_STYLES_GESTURES: 'avatars_styles_gestures',
+    FILES: 'files',
 } as const;
 
 export { DatabaseTableName };

@@ -22,13 +22,13 @@ import {
     reorderItemsByIndexes,
     setItemsSpan,
 } from '../helpers/helpers.js';
+import { type Script } from '../types/script.type.js';
 import {
     type AvatarGetResponseDto,
     type DestinationPointer,
     type RowType,
     type Scene,
     type SceneAvatar,
-    type Script,
     type TimelineItemWithSpan,
     type Voice,
 } from '../types/types.js';
@@ -64,6 +64,7 @@ type State = {
     range: Range;
     scenes: Array<Scene>;
     scripts: Array<Script>;
+    selectedScriptId: string | null;
     videoSize: VideoPreviewT;
     voices: Voice[];
     videoName: string;
@@ -84,6 +85,7 @@ const initialState: State = {
     range: { start: 0, end: minutesToMilliseconds(1) },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
+    selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
     voices: [],
     videoName: 'Untitled Video',
@@ -156,6 +158,9 @@ const { reducer, actions, name } = createSlice({
                 items: state.scripts,
             });
         },
+        selectScript(state, action) {
+            state.selectedScriptId = action.payload;
+        },
         setRange(state, action: PayloadAction<Range>) {
             state.range = action.payload;
         },
@@ -205,6 +210,11 @@ const { reducer, actions, name } = createSlice({
                 newIndex: newActiveItemIndex,
                 items: state.scenes,
             });
+        },
+        deleteScene(state, action: PayloadAction<string>) {
+            state.scenes = state.scenes.filter(
+                (scenes) => scenes.id !== action.payload,
+            );
         },
         changeVideoSize(state) {
             state.videoSize =
