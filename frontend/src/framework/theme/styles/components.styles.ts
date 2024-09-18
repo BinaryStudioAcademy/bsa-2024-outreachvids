@@ -64,6 +64,11 @@ const components = {
                 lineHeight: '27px',
                 marginBottom: '5px',
             },
+            link: {
+                _hover: {
+                    color: colors.brand.secondary[300],
+                },
+            },
         },
     },
     Button: {
@@ -102,6 +107,18 @@ const components = {
                     },
                 },
             },
+            secondaryOutlined: {
+                color: colors.brand.secondary[300],
+                border: '1px solid',
+                borderColor: colors.brand.secondary[300],
+                _hover: {
+                    bg: colors.brand.secondary[100],
+                    _disabled: {
+                        color: colors.brand.secondary[600],
+                        bg: 'none',
+                    },
+                },
+            },
             outlined: {
                 color: colors.brand.secondary[300],
                 border: '1px solid',
@@ -132,6 +149,15 @@ const components = {
                 bg: 'none',
                 _active: { bg: 'none' },
                 _hover: { bg: 'none' },
+            },
+        },
+    },
+    CloseButton: {
+        variants: {
+            simple: {
+                _hover: {
+                    bg: 'none',
+                },
             },
         },
     },
@@ -241,6 +267,15 @@ const components = {
         baseStyle: {
             text: {
                 color: colors.brand.secondary[900],
+            },
+        },
+    },
+    Card: {
+        variants: {
+            outline: {
+                container: {
+                    borderColor: colors.brand.secondary[300],
+                },
             },
         },
     },

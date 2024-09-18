@@ -25,7 +25,7 @@ const TimeAxis: React.FC<Properties> = ({ markers }) => {
 
     return (
         <Box
-            className={styles['timeAxis']}
+            className={styles['time-axis']}
             style={{
                 [side === 'right' ? 'marginRight' : 'marginLeft']:
                     `${sidebarWidth}px`,
@@ -91,20 +91,20 @@ const MarkerBox: React.FC<{ marker: Marker; side: string }> = ({
     side,
 }) => (
     <Box
-        className={styles['markerContainer']}
+        className={styles['marker-container']}
         style={{
             [side]: `${marker.sideDelta}px`,
         }}
     >
         <Box
-            className={styles['markerLine']}
+            className={styles['marker-line']}
             style={{
                 height: `${100 * marker.heightMultiplier}%`,
             }}
         />
         {marker.label && (
             <Box
-                className={styles['markerLabel']}
+                className={styles['marker-label']}
                 style={{
                     fontWeight: marker.heightMultiplier * 1000,
                 }}

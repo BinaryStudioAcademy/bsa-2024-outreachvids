@@ -1,0 +1,6 @@
+.main-content {
+    background-color: var(--chakra-colors-background-50);
+    border-radius: var(--chakra-radii-lg);
+    height: calc(100vh - 75px);
+    overflow: auto;
+}

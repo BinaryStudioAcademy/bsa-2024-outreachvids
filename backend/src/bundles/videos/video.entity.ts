@@ -7,22 +7,32 @@ class VideoEntity implements Entity {
 
     private 'name': string;
 
-    private 'url': string;
+    private 'url': string | null;
+
+    public 'previewUrl': string;
+
+    public 'composition': string;
 
     private constructor({
         id,
         userId,
         name,
+        previewUrl,
+        composition,
         url,
     }: {
         id: string | null;
         userId: string;
         name: string;
-        url: string;
+        previewUrl: string;
+        composition: string;
+        url: string | null;
     }) {
         this.id = id;
         this.userId = userId;
         this.name = name;
+        this.previewUrl = previewUrl;
+        this.composition = composition;
         this.url = url;
     }
 
@@ -31,16 +41,22 @@ class VideoEntity implements Entity {
         userId,
         name,
         url,
+        composition,
+        previewUrl,
     }: {
         id: string;
         userId: string;
         name: string;
-        url: string;
+        previewUrl: string;
+        composition: string;
+        url: string | null;
     }): VideoEntity {
         return new VideoEntity({
             id,
             userId,
             name,
+            composition,
+            previewUrl,
             url,
         });
     }
@@ -48,17 +64,24 @@ class VideoEntity implements Entity {
     public static initializeNew({
         userId,
         name,
+        composition,
+        previewUrl,
         url,
     }: {
         userId: string;
         name: string;
-        url: string;
+        previewUrl: string;
+        composition: string;
+
+        url?: string;
     }): VideoEntity {
         return new VideoEntity({
             id: null,
             userId,
             name,
-            url,
+            composition,
+            previewUrl,
+            url: url ?? null,
         });
     }
 
@@ -66,25 +89,33 @@ class VideoEntity implements Entity {
         id: string;
         userId: string;
         name: string;
-        url: string;
+        url: string | null;
+        previewUrl: string;
+        composition: string;
     } {
         return {
             id: this.id as string,
             userId: this.userId,
             name: this.name,
             url: this.url,
+            composition: this.composition,
+            previewUrl: this.previewUrl,
         };
     }
 
     public toNewObject(): {
         userId: string;
         name: string;
-        url: string;
+        previewUrl: string;
+        composition: string;
+        url: string | null;
     } {
         return {
             userId: this.userId,
             name: this.name,
-            url: this.url,
+            composition: this.composition,
+            previewUrl: this.previewUrl,
+            url: this.url ?? null,
         };
     }
 }

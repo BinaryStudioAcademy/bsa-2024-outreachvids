@@ -1,4 +1,4 @@
-.timeCursor {
+.time-cursor {
     height: 100%;
     width: 2px;
     z-index: 3;
@@ -6,7 +6,7 @@
     cursor: pointer;
 }
 
-.timeCursorTriangle {
+.time-cursor-triangle {
     position: absolute;
     top: 10px;
     left: 50%;
@@ -15,7 +15,7 @@
     border-right: 5px solid transparent;
     border-top: 10px solid;
 }
-.timeCursorSquare {
+.time-cursor-square {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
