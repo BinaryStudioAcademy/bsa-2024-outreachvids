@@ -16,7 +16,10 @@ import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Script, VoicesModal } from './components/components.js';
 
-const ScriptContent: React.FC = () => {
+type Properties = {
+    modalReference: React.RefObject<HTMLDivElement>;
+};
+const ScriptContent: React.FC<Properties> = ({ modalReference }) => {
     const dispatch = useAppDispatch();
     const scripts = useAppSelector(({ studio }) => studio.scripts);
     const [changeVoiceScriptId, setChangeVoiceScriptId] = useState<
@@ -63,6 +66,7 @@ const ScriptContent: React.FC = () => {
                 isOpen={changeVoiceScriptId !== null}
                 onClose={handleCloseVoicesModal}
                 scriptId={changeVoiceScriptId}
+                modalReference={modalReference}
             />
         </>
     );

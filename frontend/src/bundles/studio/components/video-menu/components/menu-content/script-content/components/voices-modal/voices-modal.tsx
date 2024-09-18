@@ -6,10 +6,20 @@ type Properties = {
     isOpen: boolean;
     onClose: () => void;
     scriptId: string | null;
+    modalReference: React.RefObject<HTMLDivElement>;
 };
-const VoicesModal: React.FC<Properties> = ({ isOpen, onClose, scriptId }) => {
+const VoicesModal: React.FC<Properties> = ({
+    isOpen,
+    onClose,
+    scriptId,
+    modalReference,
+}) => {
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            modalReference={modalReference}
+        >
             {scriptId && (
                 <VoicesModalContent
                     scriptId={scriptId}

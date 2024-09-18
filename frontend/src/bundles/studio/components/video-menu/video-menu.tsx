@@ -5,6 +5,7 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useRef,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -29,6 +30,8 @@ const VideoMenu: React.FC = () => {
 
     const dispatch = useAppDispatch();
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const chatModalReference = useRef<HTMLDivElement | null>(null);
+    const scriptModalReference = useRef<HTMLDivElement | null>(null);
 
     const setActiveItem = useCallback(
         (item: ValueOf<typeof MenuItems> | null): void => {
@@ -74,7 +77,9 @@ const VideoMenu: React.FC = () => {
         script: {
             label: 'Script',
             icon: <Icon as={IconName.SCRIPT} />,
-            getContent: () => <ScriptContent />,
+            getContent: () => (
+                <ScriptContent modalReference={scriptModalReference} />
+            ),
         },
         // text: {
         //     label: 'Text',
@@ -102,6 +107,8 @@ const VideoMenu: React.FC = () => {
                     title={activeMenuItem.label}
                     onClose={handleMenuClose}
                     onChatOpen={handleChatOpen}
+                    chatModalReference={chatModalReference}
+                    scriptModalReference={scriptModalReference}
                 >
                     {activeMenuItem.getContent()}
                 </MenuBody>
@@ -109,6 +116,7 @@ const VideoMenu: React.FC = () => {
             <ChatModal
                 isChatOpen={isChatOpen}
                 onModalChatClose={handleChatClose}
+                modalReference={chatModalReference}
             />
         </>
     );

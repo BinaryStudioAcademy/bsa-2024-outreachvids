@@ -16,6 +16,8 @@ type Properties = {
     title: string | React.ReactNode;
     onClose: () => void;
     onChatOpen?: () => void;
+    chatModalReference: React.RefObject<HTMLDivElement>;
+    scriptModalReference: React.RefObject<HTMLDivElement>;
 };
 
 const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
@@ -23,14 +25,27 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
     children,
     onClose,
     onChatOpen,
+    chatModalReference,
+    scriptModalReference,
 }) => {
-    const menuReference = useRef<HTMLDivElement | null>(null);
+    const menuBodyReference = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent): void => {
+            const isInsideMenuBody = menuBodyReference.current?.contains(
+                event.target as Node,
+            );
+            const isInsideChatModal = chatModalReference.current?.contains(
+                event.target as Node,
+            );
+            const isInsideScriptModal = scriptModalReference.current?.contains(
+                event.target as Node,
+            );
+
             if (
-                menuReference.current &&
-                !menuReference.current.contains(event.target as Node)
+                !isInsideMenuBody &&
+                !isInsideChatModal &&
+                !isInsideScriptModal
             ) {
                 onClose();
             }
@@ -44,11 +59,11 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
                 handleClickOutside,
             );
         };
-    }, [onClose]);
+    }, [onClose, menuBodyReference, chatModalReference, scriptModalReference]);
 
     return (
         <Box
-            ref={menuReference}
+            ref={menuBodyReference}
             bg="background.900"
             className={styles['menu-body']}
         >
