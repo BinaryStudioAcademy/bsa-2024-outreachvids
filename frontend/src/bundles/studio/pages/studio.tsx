@@ -34,6 +34,7 @@ import {
     VideoMenu,
 } from '../components/components.js';
 import {
+    DEFAULT_VIDEO_NAME,
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
     VIDEO_SUBMIT_NOTIFICATION_ID,
@@ -105,9 +106,21 @@ const Studio: React.FC = () => {
 
     const handleEditVideoName = useCallback(
         (event: React.FocusEvent<HTMLInputElement>): void => {
-            void dispatch(studioActions.setVideoName(event.target.value));
+            const newVideoName = event.target.value;
+            if (!newVideoName) {
+                void dispatch(studioActions.setVideoName(DEFAULT_VIDEO_NAME));
+                return;
+            }
+
+            setInputValue(isDraftSaved ? newVideoName : `${newVideoName}*`);
+
+            if (newVideoName === videoName) {
+                return;
+            }
+
+            void dispatch(studioActions.setVideoName(newVideoName));
         },
-        [dispatch],
+        [dispatch, isDraftSaved, videoName],
     );
 
     const handleSaveDraft = useCallback((): void => {
@@ -145,6 +158,10 @@ const Studio: React.FC = () => {
         setInputValue(isDraftSaved ? videoName : `${videoName}*`);
     }, [isDraftSaved, videoName]);
 
+    const handleInputFocus = useCallback((): void => {
+        setInputValue(videoName);
+    }, [videoName]);
+
     return (
         <Box
             minHeight="100vh"
@@ -168,7 +185,8 @@ const Studio: React.FC = () => {
                             value={inputValue}
                             className={styles['videoName']}
                             variant="unstyled"
-                            placeholder="Untitled video"
+                            placeholder={DEFAULT_VIDEO_NAME}
+                            onFocus={handleInputFocus}
                             onChange={handleInputChange}
                             onBlur={handleEditVideoName}
                         />
