@@ -8,7 +8,11 @@ class VideoModel extends AbstractModel {
 
     public 'name': string;
 
-    public 'url': string;
+    public 'previewUrl': string;
+
+    public 'composition': string;
+
+    public 'url': string | null;
 
     public static override get tableName(): string {
         return DatabaseTableName.VIDEOS;

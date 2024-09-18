@@ -1,5 +1,5 @@
 const PortraitStyle = {
-    width: '10%',
+    width: '30%',
     minWidth: '200px',
     objectFit: 'contain',
     maxHeight: '100%',

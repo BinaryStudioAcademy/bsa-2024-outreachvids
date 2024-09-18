@@ -9,17 +9,23 @@ import { loadCurrentUser, logout, signIn, signUp } from './actions.js';
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     user: UserGetCurrentResponseDto | null;
+    isSidebarCollapsed: boolean;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     user: null,
+    isSidebarCollapsed: false,
 };
 
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'auth',
-    reducers: {},
+    reducers: {
+        toggleSidebar: (state, action: { payload: boolean }) => {
+            state.isSidebarCollapsed = action.payload;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(signIn.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;

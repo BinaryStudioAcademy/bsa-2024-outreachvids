@@ -46,6 +46,7 @@ const Player = ({ playerRef }: Properties): JSX.Element => {
             width="100%"
             maxHeight="60vh"
             height="full"
+            bg="background.50"
             aspectRatio={
                 orientation === VideoPreview.LANDSCAPE
                     ? ASPECT_RATIO_LANDSCAPE
