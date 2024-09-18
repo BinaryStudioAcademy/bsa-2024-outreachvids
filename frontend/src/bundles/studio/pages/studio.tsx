@@ -113,7 +113,6 @@ const Studio: React.FC = () => {
                         variant="primaryOutlined"
                         label="Resize"
                         width="135px"
-                        ml="7vh"
                         onClick={handleResize}
                     />
                 }

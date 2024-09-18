@@ -11,3 +11,21 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.left {
+    flex: 1;
+    display: flex;
+    justify-content: left;
+}
+
+.center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.right {
+    flex: 1;
+    display: flex;
+    justify-content: right;
+}
