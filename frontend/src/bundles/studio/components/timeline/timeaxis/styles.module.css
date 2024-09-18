@@ -1,10 +1,10 @@
-.timeAxis {
+.time-axis {
     height: 20px;
     position: relative;
     overflow: hidden;
 }
 
-.markerContainer {
+.marker-container {
     position: absolute;
     bottom: 0;
     display: flex;
@@ -14,11 +14,11 @@
     height: 100%;
 }
 
-.markerLine {
+.marker-line {
     width: 1px;
 }
 
-.markerLabel {
+.marker-label {
     padding-left: 3px;
     align-self: flex-start;
 }

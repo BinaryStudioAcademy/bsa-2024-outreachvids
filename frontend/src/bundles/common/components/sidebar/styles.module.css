@@ -1,4 +1,4 @@
-.sidebarContainer {
+.sidebar-container {
     background-color: var(--chakra-colors-background-900);
     height: calc(100vh - 75px);
     position: fixed;
@@ -9,15 +9,15 @@
     padding-bottom: 20px;
 }
 
-.userBox {
+.user-box {
     margin-bottom: 30px;
 }
 
-.contentBox {
+.content-box {
     flex: 1;
 }
 
-.sidebarItem {
+.sidebar-item {
     width: 100%;
     height: 50px;
     display: flex;
@@ -29,10 +29,10 @@
     padding: 10px;
 }
 
-.itemJustifyCenter {
+.item-justify-center {
     justify-content: center;
 }
 
-.itemJustifyStart {
+.item-justify-start {
     justify-content: flex-start;
 }

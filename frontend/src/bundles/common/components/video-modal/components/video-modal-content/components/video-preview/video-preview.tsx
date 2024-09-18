@@ -41,7 +41,7 @@ const VideoPreview: React.FC = () => {
     }, [dispatch, view]);
 
     return (
-        <Flex className={styles['previewContainer']}>
+        <Flex className={styles['preview-container']}>
             <Flex
                 width={view === VideoPreviewValues.PORTRAIT ? '250px' : '720px'}
                 height="444px"
@@ -66,7 +66,7 @@ const VideoPreview: React.FC = () => {
                 </Flex>
             </Flex>
 
-            <Flex className={styles['previewButtonContainer']}>
+            <Flex className={styles['preview-button-container']}>
                 <Link to={AppRoute.STUDIO}>
                     <Button
                         backgroundColor="brand.secondary.300"
