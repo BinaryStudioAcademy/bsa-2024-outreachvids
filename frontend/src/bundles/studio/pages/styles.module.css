@@ -1,4 +1,4 @@
-.videoName {
+.video-name {
     border-bottom: 1px dashed transparent;
     transition: border-bottom 0.3s ease;
     color: var(--chakra-colors-white);
@@ -6,10 +6,10 @@
     border-radius: 0;
 }
 
-.videoName:hover {
+.video-name:hover {
     border-bottom: 1px dashed var(--chakra-colors-background-300);
 }
 
-.videoName:focus {
+.video-name:focus {
     border-bottom: 1px solid var(--chakra-colors-background-300);
 }

@@ -1,12 +1,12 @@
-.scriptFormContainer {
+.script-form-container {
     width: 256px;
     margin-top: 20px;
 }
 
-.scriptFormTextareaTopic {
+.script-form-textarea-topic {
     height: 84px;
 }
 
-.scriptFormTextareaAdditionalInfo {
+.script-form-textarea-additional-info {
     height: 64px;
 }
