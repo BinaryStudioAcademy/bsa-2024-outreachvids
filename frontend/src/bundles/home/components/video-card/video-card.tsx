@@ -29,9 +29,10 @@ type Properties = {
     id: string;
     name: string;
     url: string | null;
+    previewUrl: string | null;
 };
 
-const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
+const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
     const dispatch = useAppDispatch();
 
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -63,7 +64,7 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box position="relative" role="group">
-                <Image src={photo} alt="Video preview" borderRadius="5px" />
+                <Image src={previewUrl || photo} alt="Video preview" borderRadius="5px" />
 
                 <Box
                     _groupHover={{ opacity: 1 }}
