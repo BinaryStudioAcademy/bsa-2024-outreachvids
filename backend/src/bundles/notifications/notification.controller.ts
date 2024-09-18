@@ -5,7 +5,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { idParametersValidationSchema } from '~/common/validation-schemas/validation-schemas.js';
 
@@ -112,7 +112,7 @@ class NotificationController extends BaseController {
      */
     private async findAllUnread(): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: await this.notificationService.findAllUnread(),
         };
     }
@@ -155,7 +155,7 @@ class NotificationController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.CREATED,
+            status: HTTPCode.CREATED,
             payload: await this.notificationService.create(options.body),
         };
     }
@@ -213,7 +213,7 @@ class NotificationController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: await this.notificationService.update(
                 options.params.id,
                 options.body,

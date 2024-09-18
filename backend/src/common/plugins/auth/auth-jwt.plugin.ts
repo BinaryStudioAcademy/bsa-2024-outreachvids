@@ -1,5 +1,5 @@
 import fp from 'fastify-plugin';
-import { HttpCode, HttpError, HttpHeader } from 'shared';
+import { HTTPCode, HttpError, HTTPHeader } from 'shared';
 
 import { userService } from '~/bundles/users/users.js';
 import { tokenService } from '~/common/services/services.js';
@@ -20,12 +20,12 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
             return;
         }
 
-        const authHeader = request.headers[HttpHeader.AUTHORIZATION];
+        const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
         if (!authHeader) {
             throw new HttpError({
                 message: ErrorMessage.MISSING_TOKEN,
-                status: HttpCode.UNAUTHORIZED,
+                status: HTTPCode.UNAUTHORIZED,
             });
         }
 
@@ -36,7 +36,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
         if (!userId) {
             throw new HttpError({
                 message: ErrorMessage.INVALID_TOKEN,
-                status: HttpCode.UNAUTHORIZED,
+                status: HTTPCode.UNAUTHORIZED,
             });
         }
 
@@ -45,7 +45,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
         if (!user) {
             throw new HttpError({
                 message: ErrorMessage.MISSING_USER,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
         request.user = user.toObject();

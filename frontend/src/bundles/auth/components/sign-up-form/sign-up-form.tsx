@@ -64,14 +64,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             label="Full Name"
                             placeholder="Name"
                             name="fullName"
-                            required
+                            isRequired
                         />
                         <Input
                             type="email"
                             label="Email"
                             placeholder="user@gmail.com"
                             name="email"
-                            required
+                            isRequired
                         />
                         <PasswordInput
                             label="Password"

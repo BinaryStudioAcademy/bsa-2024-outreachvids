@@ -70,7 +70,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                             label="Email"
                             placeholder="user@gmail.com"
                             name="email"
-                            required
+                            isRequired
                         />
                         <PasswordInput
                             label="Password"
