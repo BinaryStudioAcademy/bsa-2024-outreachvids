@@ -13,14 +13,14 @@ const GenerateScriptPlaceholderContent: React.FC<Properties> = ({
     message,
     icon,
 }) => (
-    <Flex className={styles['scriptPlaceholderContentContainer']}>
+    <Flex className={styles['script-placeholder-content-container']}>
         {icon && (
             <Icon
                 as={icon}
-                className={styles['scriptPlaceholderContentIcon']}
+                className={styles['script-placeholder-content-icon']}
             />
         )}
-        <Text className={styles['scriptPlaceholderContentText']} variant="H3">
+        <Text className={styles['script-placeholder-content-text']} variant="H3">
             {message}
         </Text>
     </Flex>
