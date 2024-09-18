@@ -1,4 +1,3 @@
-import photo from '~/assets/img/photo.png';
 import {
     Box,
     Flex,
@@ -29,7 +28,7 @@ type Properties = {
     id: string;
     name: string;
     url: string | null;
-    previewUrl: string | null;
+    previewUrl: string;
 };
 
 const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
@@ -63,11 +62,16 @@ const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
 
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
-            <Box position="relative" role="group">
+            <Box
+                position="relative"
+                role="group"
+                height="155px"
+                overflow="hidden"
+            >
                 <Image
-                    src={previewUrl || photo}
+                    src={previewUrl}
                     alt="Video preview"
-                    borderRadius="5px"
+                    className={styles['preview-image']}
                 />
 
                 <Box
