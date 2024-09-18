@@ -58,8 +58,14 @@ const MainContent: React.FC = () => {
         socket.on(AvatarVideoEvent.RENDER_FAILED, handleRenderedVideoFailed);
 
         return () => {
-            socket.off(AvatarVideoEvent.RENDER_SUCCESS, handleRenderedVideoSuccess);
-            socket.off(AvatarVideoEvent.RENDER_FAILED, handleRenderedVideoFailed);
+            socket.off(
+                AvatarVideoEvent.RENDER_SUCCESS,
+                handleRenderedVideoSuccess,
+            );
+            socket.off(
+                AvatarVideoEvent.RENDER_FAILED,
+                handleRenderedVideoFailed,
+            );
         };
     }, [dispatch, socket]);
 
