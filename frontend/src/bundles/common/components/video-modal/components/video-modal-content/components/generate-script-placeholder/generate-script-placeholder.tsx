@@ -49,7 +49,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
     };
 
     return (
-        <VStack className={styles['scriptPlaceholderContainer']}>
+        <VStack className={styles['script-placeholder-container']}>
             {getContent()}
         </VStack>
     );
