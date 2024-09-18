@@ -24,7 +24,7 @@
     padding: 0;
 }
 
-.script-view-hstack{
+.script-view-hstack {
     justify-content: space-between;
     align-items: flex-start;
 }

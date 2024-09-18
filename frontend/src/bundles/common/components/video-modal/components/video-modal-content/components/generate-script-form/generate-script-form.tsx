@@ -84,7 +84,9 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
                         label="Additional info"
                         name="additionalInfo"
                         placeholder="An online video tool with built-in talking AI-avatars"
-                        className={styles['script-form-textarea-additional-info']}
+                        className={
+                            styles['script-form-textarea-additional-info']
+                        }
                     />
                     <Button
                         type="submit"
