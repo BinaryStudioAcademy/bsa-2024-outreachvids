@@ -10,7 +10,7 @@ import { type ModalProps } from '~/bundles/common/types/types.js';
 import styles from './styles.module.css';
 
 type Properties = {
-    modalReference?: React.RefObject<HTMLElement> | undefined;
+    modalReference?: React.RefObject<HTMLElement>;
 } & ModalProps;
 const Modal: React.FC<Properties> = ({
     children,
