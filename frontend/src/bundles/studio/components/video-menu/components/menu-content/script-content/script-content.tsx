@@ -67,8 +67,8 @@ const ScriptContent: React.FC = () => {
                                 <Script
                                     key={id}
                                     id={id}
-                                    handleChangeVoice={handleChangeVoiceClick}
                                     {...script}
+                                    handleChangeVoice={handleChangeVoiceClick}
                                 />
                             ))
                         )}
@@ -82,7 +82,7 @@ const ScriptContent: React.FC = () => {
                 )}
             </VStack>
             <VoicesModal
-                isOpen={changeVoiceScriptId !== null}
+                isOpen={Boolean(changeVoiceScriptId)}
                 onClose={handleCloseVoicesModal}
                 scriptId={changeVoiceScriptId}
             />

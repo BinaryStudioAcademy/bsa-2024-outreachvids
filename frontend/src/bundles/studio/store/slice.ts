@@ -9,11 +9,11 @@ import {
     type VideoPreview as VideoPreviewT,
 } from '~/bundles/common/types/types.js';
 import {
+    DEFAULT_VOICE,
     MIN_SCENE_DURATION,
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { mockVoices } from '../components/video-menu/components/mock/voices-mock.js';
 import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     calculateTotalMilliseconds,
@@ -35,6 +35,7 @@ import {
 import {
     generateAllScriptsSpeech,
     generateScriptSpeech,
+    generateScriptSpeechPreview,
     loadAvatars,
     loadVoices,
     renderAvatar,
@@ -54,6 +55,12 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
+type ScriptPlayer = {
+    isPlaying: boolean;
+    url: string | null;
+    duration: number | null;
+};
+
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     avatars: Array<AvatarGetResponseDto> | [];
@@ -66,13 +73,14 @@ type State = {
     scripts: Array<Script>;
     selectedScriptId: string | null;
     videoSize: VideoPreviewT;
-    voices: Voice[];
     videoName: string;
+    voices: Voice[];
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
         menuActiveItem: ValueOf<typeof MenuItems> | null;
     };
+    scriptPlayer: ScriptPlayer;
 };
 
 const initialState: State = {
@@ -87,12 +95,17 @@ const initialState: State = {
     scripts: [],
     selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
-    voices: [],
     videoName: 'Untitled Video',
+    voices: [],
     ui: {
         destinationPointer: null,
         selectedItem: null,
         menuActiveItem: null,
+    },
+    scriptPlayer: {
+        isPlaying: false,
+        url: null,
+        duration: null,
     },
 };
 
@@ -105,8 +118,9 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
-                voice: mockVoices.at(0),
+                voice: DEFAULT_VOICE,
                 iconName: PlayIconNames.READY,
+                url: null,
             };
             state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
             state.scripts.push(script);
@@ -289,6 +303,9 @@ const { reducer, actions, name } = createSlice({
         ) {
             state.ui.menuActiveItem = action.payload;
         },
+        playScript(state, action: PayloadAction<Partial<ScriptPlayer>>) {
+            state.scriptPlayer = { ...state.scriptPlayer, ...action.payload };
+        },
         resetStudio(state) {
             // TODO: do not overwrite voices on reset
             return {
@@ -345,15 +362,13 @@ const { reducer, actions, name } = createSlice({
             );
             state.dataStatus = DataStatus.REJECTED;
         });
-        builder.addCase(loadVoices.pending, (state) => {
+        builder.addCase(generateScriptSpeechPreview.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
-        builder.addCase(loadVoices.fulfilled, (state, action) => {
-            state.voices = action.payload.items;
+        builder.addCase(generateScriptSpeechPreview.fulfilled, (state) => {
             state.dataStatus = DataStatus.FULFILLED;
         });
-        builder.addCase(loadVoices.rejected, (state) => {
-            state.voices = [];
+        builder.addCase(generateScriptSpeechPreview.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(generateAllScriptsSpeech.pending, (state) => {
@@ -363,6 +378,17 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(generateAllScriptsSpeech.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(loadVoices.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(loadVoices.fulfilled, (state, action) => {
+            state.voices = action.payload.items;
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(loadVoices.rejected, (state) => {
+            state.voices = [];
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(renderAvatar.pending, (state) => {
