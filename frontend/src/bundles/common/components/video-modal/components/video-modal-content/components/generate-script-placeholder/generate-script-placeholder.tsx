@@ -19,7 +19,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
 
     const renderLoadingState = (): React.ReactNode => (
         <Box mt="100px">
-            <Loader />
+            <Loader isDark />
         </Box>
     );
 
@@ -49,7 +49,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
     };
 
     return (
-        <VStack className={styles['scriptPlaceholderContainer']}>
+        <VStack className={styles['script-placeholder-container']}>
             {getContent()}
         </VStack>
     );

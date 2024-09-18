@@ -1,12 +1,3 @@
-.logo {
-    margin-bottom: 50px;
-    display: flex;
-}
-
-.logo img {
-    margin-right: 10px;
-}
-
 .heading {
     color: white;
     margin-bottom: 6px;
@@ -16,4 +7,8 @@
 .text {
     margin-bottom: 24px;
     font-size: 14px;
+}
+
+.logo {
+    margin-bottom: 50px;
 }

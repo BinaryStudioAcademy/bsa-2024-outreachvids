@@ -18,6 +18,12 @@ export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
 export { VideoPlayer } from './video-player/video-player.js';
 export {
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogOverlay,
     Badge,
     Modal as BaseModal,
     Box,
@@ -45,8 +51,10 @@ export {
     Input as LibraryInput,
     Link as LibraryLink,
     Modal as LibraryModal,
+    ListItem,
     Menu,
     MenuButton,
+    MenuDivider,
     MenuItem,
     MenuList,
     ModalBody,
@@ -68,6 +76,7 @@ export {
     Tabs,
     Text,
     Tooltip,
+    UnorderedList,
     VStack,
 } from '@chakra-ui/react';
 export { Player as LibraryPlayer } from '@remotion/player';

@@ -64,6 +64,7 @@ type State = {
     range: Range;
     scenes: Array<Scene>;
     scripts: Array<Script>;
+    selectedScriptId: string | null;
     videoSize: VideoPreviewT;
     videoName: string;
     isDraftSaved: boolean;
@@ -85,6 +86,7 @@ const initialState: State = {
     range: { start: 0, end: minutesToMilliseconds(1) },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
+    selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
     isDraftSaved: false,
@@ -158,6 +160,9 @@ const { reducer, actions, name } = createSlice({
                 items: state.scripts,
             });
         },
+        selectScript(state, action) {
+            state.selectedScriptId = action.payload;
+        },
         setRange(state, action: PayloadAction<Range>) {
             state.range = action.payload;
         },
@@ -207,6 +212,11 @@ const { reducer, actions, name } = createSlice({
                 newIndex: newActiveItemIndex,
                 items: state.scenes,
             });
+        },
+        deleteScene(state, action: PayloadAction<string>) {
+            state.scenes = state.scenes.filter(
+                (scenes) => scenes.id !== action.payload,
+            );
         },
         changeVideoSize(state) {
             state.videoSize =

@@ -7,6 +7,7 @@ const HttpCode = {
     INTERNAL_SERVER_ERROR: 500,
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
+    UNSUPPORTED_MEDIA_TYPE: 415,
 } as const;
 
 export { HttpCode };

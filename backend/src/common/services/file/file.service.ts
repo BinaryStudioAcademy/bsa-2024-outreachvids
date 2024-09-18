@@ -6,6 +6,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
+import { fileManagementService } from '~/bundles/files/files.js';
 import { type BaseConfig } from '~/common/config/base-config.package.js';
 
 class FileService {
@@ -43,6 +44,10 @@ class FileService {
         });
 
         await this.client.send(command);
+
+        const fileUrl = this.getCloudFrontFileUrl(fileName);
+
+        await fileManagementService.storeFileInfo(fileUrl, fileName);
     };
 
     public deleteFile = async (fileName: string): Promise<void> => {

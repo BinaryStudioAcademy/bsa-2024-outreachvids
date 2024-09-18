@@ -1,4 +1,5 @@
 export { DEFAULT_VIDEO_NAME } from './default-video-name.js';
+export { DND_ACTIVATION_DISTANCE_PIXELS } from './dnd-activation-distance-pixels.constant.js';
 export { MIN_SCENE_DURATION } from './min-scene-duration.constant.js';
 export { MIN_SCRIPT_DURATION } from './min-script-duration.constant.js';
 export { NEW_SCRIPT_TEXT } from './new-script-text.constant.js';

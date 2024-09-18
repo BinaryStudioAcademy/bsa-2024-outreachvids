@@ -71,13 +71,13 @@ const GenerateScriptView: React.FC = () => {
 
     return (
         <>
-            <Heading className={styles['scriptViewHeading']} variant="H3">
+            <Heading className={styles['script-view-heading']} variant="H3">
                 Use Open AI to draft your video script
             </Heading>
             <Tabs variant="unstyled" size="sm">
-                <TabList className={styles['scriptViewTabList']}>
+                <TabList className={styles['script-view-tab-list']}>
                     <Tab
-                        className={styles['scriptViewTab']}
+                        className={styles['script-view-tab']}
                         _selected={{
                             color: 'brand.secondary.600',
                             bg: 'white',
@@ -88,8 +88,8 @@ const GenerateScriptView: React.FC = () => {
                     </Tab>
                 </TabList>
                 <TabPanels>
-                    <TabPanel className={styles['scriptViewTabPanel']}>
-                        <HStack className={styles['scriptViewHStack']}>
+                    <TabPanel className={styles['script-view-tab-panel']}>
+                        <HStack className={styles['script-view-hstack']}>
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />

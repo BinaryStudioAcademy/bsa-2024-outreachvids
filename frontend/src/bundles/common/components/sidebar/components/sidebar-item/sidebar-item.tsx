@@ -24,7 +24,7 @@ const SidebarItem = ({
     return (
         <Box
             as="button"
-            className={`${styles['sidebarItem']} ${isCollapsed ? styles['itemJustifyCenter'] : styles['itemJustifyStart']}`}
+            className={`${styles['sidebar-item']} ${isCollapsed ? styles['item-justify-center'] : styles['item-justify-start']}`}
             bg={bg}
             color={color}
             onClick={onClick}

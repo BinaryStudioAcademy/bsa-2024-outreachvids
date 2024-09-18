@@ -199,7 +199,7 @@ const Studio: React.FC = () => {
                     <Flex gap="10px">
                         <LibraryInput
                             value={inputValue}
-                            className={styles['videoName']}
+                            className={styles['video-name']}
                             variant="unstyled"
                             placeholder={DEFAULT_VIDEO_NAME}
                             onFocus={handleInputFocus}
