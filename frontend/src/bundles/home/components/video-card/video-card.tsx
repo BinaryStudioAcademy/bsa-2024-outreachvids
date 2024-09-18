@@ -64,7 +64,11 @@ const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box position="relative" role="group">
-                <Image src={previewUrl || photo} alt="Video preview" borderRadius="5px" />
+                <Image
+                    src={previewUrl || photo}
+                    alt="Video preview"
+                    borderRadius="5px"
+                />
 
                 <Box
                     _groupHover={{ opacity: 1 }}
