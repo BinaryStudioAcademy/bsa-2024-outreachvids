@@ -79,17 +79,14 @@ class AvatarVideoController extends BaseController {
         const userId = (options.user as UserGetCurrentResponseDto).id;
         const { composition, name, videoId } = options.body;
 
+        const videoPayload = {
+            name,
+            composition,
+        };
+
         const videoRecord = await (videoId
-            ? this.avatarVideoService.updateVideo({
-                  videoId,
-                  composition,
-                  name,
-              })
-            : this.avatarVideoService.createVideo({
-                  composition,
-                  name,
-                  userId,
-              }));
+            ? this.avatarVideoService.updateVideo({ ...videoPayload, videoId })
+            : this.avatarVideoService.createVideo({ ...videoPayload, userId }));
 
         const avatarsConfigs =
             this.avatarVideoService.getAvatarsConfigs(composition);
