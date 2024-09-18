@@ -30,20 +30,20 @@ const MainContent: React.FC = () => {
 
     // TODO: filter videos to get recent videos
     useEffect(() => {
-        const loadUserVideos = (): void => {
+        const handleLoadUserVideos = (): void => {
             void dispatch(homeActions.loadUserVideos());
         };
 
-        const renderedVideoSuccess = (): void => {
+        const handleRenderedVideoSuccess = (): void => {
             notificationService.success({
                 id: VIDEO_RENDER_SUCCESS_NOTIFICATION_ID,
                 title: NotificationTitle.VIDEO_RENDER_SUCCESS,
                 message: NotificationMessage.VIDEO_RENDER_SUCCESS,
             });
-            loadUserVideos();
+            handleLoadUserVideos();
         };
 
-        const renderedVideoFailed = (): void => {
+        const handleRenderedVideoFailed = (): void => {
             socket.on(AvatarVideoEvent.RENDER_FAILED, () => {
                 notificationService.error({
                     id: VIDEO_RENDER_FAILED_NOTIFICATION_ID,
@@ -53,13 +53,13 @@ const MainContent: React.FC = () => {
             });
         };
 
-        loadUserVideos();
-        socket.on(AvatarVideoEvent.RENDER_SUCCESS, renderedVideoSuccess);
-        socket.on(AvatarVideoEvent.RENDER_FAILED, renderedVideoFailed);
+        handleLoadUserVideos();
+        socket.on(AvatarVideoEvent.RENDER_SUCCESS, handleRenderedVideoSuccess);
+        socket.on(AvatarVideoEvent.RENDER_FAILED, handleRenderedVideoFailed);
 
         return () => {
-            socket.off(AvatarVideoEvent.RENDER_SUCCESS, renderedVideoSuccess);
-            socket.off(AvatarVideoEvent.RENDER_FAILED, renderedVideoFailed);
+            socket.off(AvatarVideoEvent.RENDER_SUCCESS, handleRenderedVideoSuccess);
+            socket.off(AvatarVideoEvent.RENDER_FAILED, handleRenderedVideoFailed);
         };
     }, [dispatch, socket]);
 
