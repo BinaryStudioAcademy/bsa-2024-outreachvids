@@ -36,6 +36,8 @@ import {
 import {
     DEFAULT_VIDEO_NAME,
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
+    VIDEO_SAVE_FAILED_NOTIFICATION_ID,
+    VIDEO_SAVE_NOTIFICATION_ID,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
@@ -65,7 +67,7 @@ const Studio: React.FC = () => {
         const script = scripts[0];
 
         if (!scene?.avatar || !script) {
-            notificationService.info({
+            notificationService.warn({
                 id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
                 message: NotificationMessage.SCRIPT_AND_AVATAR_ARE_REQUIRED,
                 title: NotificationTitle.SCRIPT_AND_AVATAR_ARE_REQUIRED,
@@ -144,7 +146,21 @@ const Studio: React.FC = () => {
                 },
                 name: videoName,
             }),
-        );
+        )
+            .then(() => {
+                notificationService.success({
+                    id: VIDEO_SAVE_NOTIFICATION_ID,
+                    message: NotificationMessage.VIDEO_SAVE,
+                    title: NotificationTitle.VIDEO_SAVED,
+                });
+            })
+            .catch(() => {
+                notificationService.error({
+                    id: VIDEO_SAVE_FAILED_NOTIFICATION_ID,
+                    message: NotificationMessage.VIDEO_SAVE_FAILED,
+                    title: NotificationTitle.VIDEO_SAVE_FAILED,
+                });
+            });
     }, [dispatch, scenes, scripts, videoId, videoName]);
 
     const handleInputChange = useCallback(
