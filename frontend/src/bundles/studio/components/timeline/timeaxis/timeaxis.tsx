@@ -1,5 +1,6 @@
 import { Box } from '~/bundles/common/components/components.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
+import { GROW_COEFFICIENT } from '~/bundles/studio/constants/constants.js';
 import {
     type Marker,
     type MarkerDefinition,
@@ -17,7 +18,7 @@ const TimeAxis: React.FC<Properties> = ({ markers }) => {
         useTimelineContext();
     const side = direction === 'rtl' ? 'right' : 'left';
 
-    const timelineWidth = range.end * 0.011;
+    const timelineWidth = range.end * GROW_COEFFICIENT;
 
     const computeMarkers = useMemo(() => {
         return getComputedMarkers(markers, range, valueToPixels);
