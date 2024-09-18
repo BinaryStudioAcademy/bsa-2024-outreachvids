@@ -8,6 +8,7 @@ import {
 } from 'dnd-timeline';
 import { type RefObject } from 'react';
 
+import { Button } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -49,6 +50,11 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
         },
         [dispatch],
     );
+
+    // This is only for test
+    const handleAddSceneClick = useCallback(() => {
+        handleButtonClick(RowNames.SCENE);
+    }, [handleButtonClick]);
 
     const handleResizeEnd = useCallback(
         (event: ResizeEndEvent) => {
@@ -184,6 +190,8 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
             onDragMove={handleDragMove}
         >
             <TimelineView playerRef={playerRef} />
+            {/* this is only for test */}
+            <Button label="Add Scene" onClick={handleAddSceneClick} />
         </TimelineContext>
     );
 };

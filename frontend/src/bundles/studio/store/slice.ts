@@ -179,6 +179,11 @@ const { reducer, actions, name } = createSlice({
                     duration,
                 };
             });
+            const totalMilliseconds = calculateTotalMilliseconds(
+                state.scenes,
+                state.range.end,
+            );
+            state.range.end = totalMilliseconds;
         },
         reorderScenes(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;

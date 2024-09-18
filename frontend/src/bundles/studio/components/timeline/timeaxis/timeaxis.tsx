@@ -17,6 +17,8 @@ const TimeAxis: React.FC<Properties> = ({ markers }) => {
         useTimelineContext();
     const side = direction === 'rtl' ? 'right' : 'left';
 
+    const timelineWidth = range.end * 0.011;
+
     const computeMarkers = useMemo(() => {
         return getComputedMarkers(markers, range, valueToPixels);
     }, [range, valueToPixels, markers]);
@@ -27,6 +29,8 @@ const TimeAxis: React.FC<Properties> = ({ markers }) => {
             style={{
                 [side === 'right' ? 'marginRight' : 'marginLeft']:
                     `${sidebarWidth}px`,
+                width: timelineWidth,
+                minWidth: '100%',
             }}
         >
             {computeMarkers.map((marker, index) => (
