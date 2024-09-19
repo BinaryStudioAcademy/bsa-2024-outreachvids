@@ -52,6 +52,7 @@ class VideoRepository implements Repository {
         const data: Partial<VideoModel> = {};
         if (payload.composition) {
             data.composition = payload.composition;
+            data.previewUrl = payload.composition.scenes[0]?.avatar?.url ?? '';
         }
         if (payload.name) {
             data.name = payload.name;
