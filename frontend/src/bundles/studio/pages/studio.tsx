@@ -8,7 +8,6 @@ import {
     Header,
     Icon,
     LibraryButton,
-    LibraryInput,
     Menu,
     MenuButton,
     MenuItem,
@@ -23,7 +22,6 @@ import {
     useCallback,
     useEffect,
     useRef,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
@@ -32,9 +30,9 @@ import {
     PlayerControls,
     Timeline,
     VideoMenu,
+    VideoNameInput,
 } from '../components/components.js';
 import {
-    DEFAULT_VIDEO_NAME,
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
     VIDEO_SAVE_FAILED_NOTIFICATION_ID,
     VIDEO_SAVE_NOTIFICATION_ID,
@@ -44,13 +42,10 @@ import {
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
 import { getVoicesConfigs } from '../helpers/helpers.js';
 import { actions as studioActions } from '../store/studio.js';
-import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const { scenes, scripts, videoName, isDraftSaved, videoId } =
-        useAppSelector(({ studio }) => studio);
-    const [inputValue, setInputValue] = useState(
-        isDraftSaved ? videoName : `${videoName}*`,
+    const { scenes, scripts, videoName, videoId } = useAppSelector(
+        ({ studio }) => studio,
     );
 
     const playerReference = useRef<PlayerRef>(null);
@@ -106,25 +101,6 @@ const Studio: React.FC = () => {
         return () => void dispatch(studioActions.resetStudio());
     }, [dispatch]);
 
-    const handleEditVideoName = useCallback(
-        (event: React.FocusEvent<HTMLInputElement>): void => {
-            const newVideoName = event.target.value;
-            if (!newVideoName) {
-                void dispatch(studioActions.setVideoName(DEFAULT_VIDEO_NAME));
-                return;
-            }
-
-            setInputValue(isDraftSaved ? newVideoName : `${newVideoName}*`);
-
-            if (newVideoName === videoName) {
-                return;
-            }
-
-            void dispatch(studioActions.setVideoName(newVideoName));
-        },
-        [dispatch, isDraftSaved, videoName],
-    );
-
     const handleSaveDraft = useCallback((): void => {
         if (!scenes[0]?.avatar || scripts.length === 0) {
             return notificationService.warn({
@@ -163,21 +139,6 @@ const Studio: React.FC = () => {
             });
     }, [dispatch, scenes, scripts, videoId, videoName]);
 
-    const handleInputChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>): void => {
-            setInputValue(event.target.value);
-        },
-        [],
-    );
-
-    useEffect(() => {
-        setInputValue(isDraftSaved ? videoName : `${videoName}*`);
-    }, [isDraftSaved, videoName]);
-
-    const handleInputFocus = useCallback((): void => {
-        setInputValue(videoName);
-    }, [videoName]);
-
     return (
         <Box
             minHeight="100vh"
@@ -197,15 +158,7 @@ const Studio: React.FC = () => {
                 }
                 right={
                     <Flex gap="10px">
-                        <LibraryInput
-                            value={inputValue}
-                            className={styles['video-name']}
-                            variant="unstyled"
-                            placeholder={DEFAULT_VIDEO_NAME}
-                            onFocus={handleInputFocus}
-                            onChange={handleInputChange}
-                            onBlur={handleEditVideoName}
-                        />
+                        <VideoNameInput />
                         <Menu>
                             <MenuButton
                                 variant="primaryOutlined"
