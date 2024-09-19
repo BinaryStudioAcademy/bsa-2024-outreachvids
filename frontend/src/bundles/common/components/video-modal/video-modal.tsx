@@ -15,7 +15,7 @@ const VideoModal: React.FC<Properties> = ({ isOpen, onClose }) => {
 
     return (
         <Modal isOpen={isOpen} onClose={handleCloseChat}>
-            <VideoModalContent />
+            <VideoModalContent onClose={onClose} />
         </Modal>
     );
 };

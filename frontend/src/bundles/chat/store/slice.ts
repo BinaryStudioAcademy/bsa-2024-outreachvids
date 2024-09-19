@@ -1,29 +1,64 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { MessageSender } from '~/bundles/chat/enums/enums.js';
+import { sanitizeJsonString } from '~/bundles/chat/helpers/helpers.js';
 import {
     type GenerateTextRequestDto,
     type Message,
 } from '~/bundles/chat/types/types.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
-import { type ValueOf } from '~/bundles/common/types/types.js';
+import {
+    type ValueOf,
+    type VideoScript,
+} from '~/bundles/common/types/types.js';
 
 import { deleteChat, sendMessage } from './actions.js';
 
 type State = {
     messages: Message[];
+    videoScripts: VideoScript[];
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
     messages: [],
+    videoScripts: [],
     dataStatus: DataStatus.IDLE,
 };
 
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'chat',
-    reducers: {},
+    reducers: {
+        generateVideoScript(state) {
+            const messages = state.messages.filter(
+                (message) => message.sender === MessageSender.AI,
+            );
+
+            if (!messages || messages.length === 0) {
+                return;
+            }
+
+            const lastMessage = messages.at(-1);
+            if (!lastMessage) {
+                return;
+            }
+
+            try {
+                const sanitizedJson = sanitizeJsonString(lastMessage.text);
+                const videoScripts: VideoScript[] = JSON.parse(sanitizedJson);
+
+                state.videoScripts = videoScripts;
+            } catch {
+                state.videoScripts = [
+                    {
+                        title: 'Scene',
+                        description: lastMessage.text,
+                    },
+                ];
+            }
+        },
+    },
     extraReducers(builder) {
         builder.addCase(sendMessage.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
@@ -60,6 +95,7 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(deleteChat.fulfilled, (state) => {
             state.messages = [];
+            state.videoScripts = [];
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(deleteChat.rejected, (state) => {

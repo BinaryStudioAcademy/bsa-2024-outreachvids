@@ -9,7 +9,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
-import { type MenuItems } from '~/bundles/studio/enums/enums.js';
+import { type MenuItems, RowNames } from '~/bundles/studio/enums/enums.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Menu, MenuBody } from './components/components.js';
@@ -25,10 +25,19 @@ import {
 import { type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
-    const activeItem = useAppSelector(({ studio }) => studio.ui.menuActiveItem);
+    const { activeItem, videoScripts, avatars, scenes } = useAppSelector(
+        ({ studio, chat }) => ({
+            avatars: studio.avatars,
+            scenes: studio.scenes,
+            activeItem: studio.ui.menuActiveItem,
+            videoScripts: chat.videoScripts,
+        }),
+    );
 
     const dispatch = useAppDispatch();
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isScriptGenerated, setIsScriptGenerated] = useState(false);
+    const [isAvatarLoaded, setIsAvatarLoaded] = useState(false);
 
     const setActiveItem = useCallback(
         (item: ValueOf<typeof MenuItems> | null): void => {
@@ -58,8 +67,69 @@ const VideoMenu: React.FC = () => {
         }
     }, [selectedItem, setActiveItem, dispatch]);
 
-    // TODO: Uncomment menu items after demo
+    useEffect(() => {
+        if (videoScripts.length > 0) {
+            const addScriptPromises = videoScripts.map((videoScript) =>
+                dispatch(studioActions.addScript(videoScript.description)),
+            );
+            Promise.all(addScriptPromises)
+                .then(() => {
+                    return dispatch(studioActions.generateAllScriptsSpeech());
+                })
+                .then(() => {
+                    setIsScriptGenerated(true);
+                })
+                .catch(() => {});
+        }
+    }, [dispatch, setIsScriptGenerated, videoScripts]);
 
+    useEffect(() => {
+        const avatarsLength = avatars.length;
+        if (avatarsLength > 0) {
+            setIsAvatarLoaded(true);
+            return;
+        }
+
+        if (avatarsLength === 0) {
+            dispatch(studioActions.loadAvatars())
+                .then(() => {
+                    setIsAvatarLoaded(true);
+                })
+                .catch(() => {});
+        }
+    }, [dispatch, setIsAvatarLoaded, avatars]);
+
+    useEffect(() => {
+        if (isScriptGenerated && isAvatarLoaded) {
+            const avatar = avatars[0];
+            const avatarStyle = avatar?.styles[0];
+            const scene = scenes[0];
+
+            if (!avatar || !avatarStyle) {
+                return;
+            }
+
+            scene
+                ? dispatch(
+                      studioActions.selectItem({
+                          id: scene.id,
+                          type: RowNames.SCENE,
+                      }),
+                  )
+                : dispatch(studioActions.addScene());
+
+            dispatch(
+                studioActions.addAvatarToScene({
+                    id: avatar.id,
+                    name: avatar.name,
+                    style: avatarStyle.style,
+                    url: avatarStyle.imgUrl,
+                }),
+            );
+        }
+    }, [dispatch, scenes, avatars, isScriptGenerated, isAvatarLoaded]);
+
+    // TODO: Uncomment menu items after demo
     const menuItems: Record<ValueOf<typeof MenuItems>, MenuItem> = {
         // templates: {
         //     label: 'Templates',

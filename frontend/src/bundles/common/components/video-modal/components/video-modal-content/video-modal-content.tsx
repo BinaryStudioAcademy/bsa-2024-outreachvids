@@ -15,7 +15,10 @@ import {
     VideoPreview,
 } from './components/components.js';
 
-const VideoModalContent: React.FC = () => {
+type Properties = {
+    onClose: () => void;
+};
+const VideoModalContent: React.FC<Properties> = ({ onClose }) => {
     return (
         <Tabs orientation="vertical" variant="unstyled" height="full">
             <VStack gap={0}>
@@ -51,7 +54,7 @@ const VideoModalContent: React.FC = () => {
                     <VideoPreview />
                 </TabPanel>
                 <TabPanel p="0px 24px">
-                    <GenerateScriptView />
+                    <GenerateScriptView onClose={onClose} />
                 </TabPanel>
             </TabPanels>
         </Tabs>
