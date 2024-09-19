@@ -57,7 +57,7 @@ class VideoRepository implements Repository {
 
         if (payload.composition) {
             data.composition = JSON.stringify(payload.composition);
-            data.previewUrl = payload.composition.scenes[0]?.avatar?.url || '';
+            data.previewUrl = payload.composition.scenes[0]?.avatar?.url ?? '';
         }
 
         if (payload.name) {
