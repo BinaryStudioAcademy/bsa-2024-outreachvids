@@ -59,7 +59,7 @@ class VideoService implements Service {
         const video = await this.videoRepository.create(
             VideoEntity.initializeNew({
                 name: payload.name,
-                composition: JSON.stringify(payload.composition),
+                composition: payload.composition,
                 previewUrl: payload.composition?.scenes[0]?.avatar?.url || '',
                 userId: payload.userId,
             }),
