@@ -36,7 +36,7 @@ class VideoRepository implements Repository {
             .insert({
                 userId,
                 name,
-                composition: composition, // конвертуємо в рядок
+                composition: composition,
                 previewUrl,
                 url,
             })
