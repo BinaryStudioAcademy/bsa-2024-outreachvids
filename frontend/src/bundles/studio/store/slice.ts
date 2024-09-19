@@ -7,16 +7,15 @@ import { DataStatus, VideoPreview } from '~/bundles/common/enums/enums.js';
 import {
     type ValueOf,
     type VideoPreview as VideoPreviewT,
+    type VideoScript,
 } from '~/bundles/common/types/types.js';
-import {
-    MIN_SCENE_DURATION,
-    MIN_SCRIPT_DURATION,
-} from '~/bundles/studio/constants/constants.js';
+import { MIN_SCENE_DURATION } from '~/bundles/studio/constants/constants.js';
 
 import { mockVoices } from '../components/video-menu/components/mock/voices-mock.js';
 import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
 import {
-    calculateTotalMilliseconds,
+    addScene,
+    addScript,
     getDestinationPointerValue,
     getNewItemIndexBySpan,
     reorderItemsByIndexes,
@@ -29,6 +28,7 @@ import {
     type RowType,
     type Scene,
     type SceneAvatar,
+    type SelectedItem,
     type TimelineItemWithSpan,
 } from '../types/types.js';
 import {
@@ -37,11 +37,6 @@ import {
     loadAvatars,
     renderAvatar,
 } from './actions.js';
-
-type SelectedItem = {
-    id: string;
-    type: RowType;
-};
 
 type ItemActionPayload = {
     id: string;
@@ -61,6 +56,8 @@ type State = {
     };
     range: Range;
     scenes: Array<Scene>;
+    // videoScripts: Array<VideoScript>;
+    isVideoScriptsGenerationReady: boolean;
     scripts: Array<Script>;
     selectedScriptId: string | null;
     videoSize: VideoPreviewT;
@@ -82,6 +79,7 @@ const initialState: State = {
     range: { start: 0, end: minutesToMilliseconds(1) },
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
+    isVideoScriptsGenerationReady: false,
     selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
@@ -97,20 +95,18 @@ const { reducer, actions, name } = createSlice({
     name: 'studio',
     reducers: {
         addScript(state, action: PayloadAction<string>) {
-            const script = {
-                id: uuidv4(),
-                duration: MIN_SCRIPT_DURATION,
-                text: action.payload,
+            const { payload } = action;
+            const { scripts, range, ui } = state;
+            const { selectedItem, rangeEnd, script } = addScript({
+                text: payload,
+                scripts,
+                rangeEnd: range.end,
                 voice: mockVoices.at(0),
-                iconName: PlayIconNames.READY,
-            };
-            state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
-            state.scripts.push(script);
-            const totalMilliseconds = calculateTotalMilliseconds(
-                state.scripts,
-                state.range.end,
-            );
-            state.range.end = totalMilliseconds;
+            });
+
+            ui.selectedItem = selectedItem;
+            range.end = rangeEnd;
+            scripts.push(script);
         },
         editScript(
             state,
@@ -161,17 +157,15 @@ const { reducer, actions, name } = createSlice({
             state.range = action.payload;
         },
         addScene(state) {
-            const scene = {
-                id: uuidv4(),
-                duration: MIN_SCENE_DURATION,
-            };
-            state.ui.selectedItem = { id: scene.id, type: RowNames.SCENE };
-            state.scenes.push(scene);
-            const totalMilliseconds = calculateTotalMilliseconds(
-                state.scenes,
-                state.range.end,
-            );
-            state.range.end = totalMilliseconds;
+            const { scenes, range, ui } = state;
+            const { selectedItem, rangeEnd, scene } = addScene({
+                scenes,
+                rangeEnd: range.end,
+            });
+
+            ui.selectedItem = selectedItem;
+            range.end = rangeEnd;
+            scenes.push(scene);
         },
         resizeScene(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
@@ -287,10 +281,71 @@ const { reducer, actions, name } = createSlice({
         },
         resetStudio(state) {
             // TODO: do not overwrite voices on reset
-            return {
+            const baseState = {
                 ...initialState,
                 avatars: state.avatars,
             };
+
+            if (state.isVideoScriptsGenerationReady) {
+                return {
+                    ...baseState,
+                    scripts: state.scripts,
+                    scenes: state.scenes,
+                    range: state.range,
+                    ui: state.ui,
+                };
+            }
+
+            return baseState;
+        },
+        addGeneratedVideoScript(
+            state,
+            action: PayloadAction<Array<VideoScript>>,
+        ) {
+            const { payload } = action;
+            const { scripts, scenes, range, ui } = state;
+
+            state.dataStatus = DataStatus.PENDING;
+            for (const videoScript of payload) {
+                const { rangeEnd, script } = addScript({
+                    text: videoScript.description,
+                    scripts,
+                    rangeEnd: range.end,
+                    voice: mockVoices.at(0),
+                });
+
+                const { selectedItem, scene } = addScene({
+                    scenes,
+                    rangeEnd: rangeEnd,
+                });
+
+                scripts.push(script);
+                scenes.push(scene);
+                range.end = rangeEnd;
+                ui.selectedItem = selectedItem;
+            }
+
+            state.isVideoScriptsGenerationReady = true;
+            state.dataStatus = DataStatus.IDLE;
+        },
+        recalculateScenesDurationForScript(state) {
+            state.dataStatus = DataStatus.PENDING;
+
+            let index = 0;
+            const { scenes, scripts } = state;
+            for (const script of scripts) {
+                const scene = scenes[index];
+                if (!scene) {
+                    continue;
+                }
+
+                scene.duration = script.duration;
+                index++;
+            }
+            state.dataStatus = DataStatus.IDLE;
+        },
+        setStatusToPending(state) {
+            state.dataStatus = DataStatus.PENDING;
         },
     },
     extraReducers(builder) {

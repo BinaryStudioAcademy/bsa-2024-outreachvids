@@ -9,13 +9,16 @@ import {
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
+    useAppDispatch,
     useAppSelector,
     useCallback,
+    useEffect,
     useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type VideoScript } from '~/bundles/common/types/types.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { GenerateScriptPlaceholderContent } from '../generate-script-placeholder-content/generate-script-placeholder-content.js';
 import { GenerateScriptScene } from '../generate-script-scene/generate-script-scene.js';
@@ -30,7 +33,9 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({
     videoScripts,
     onClose,
 }) => {
+    const dispatch = useAppDispatch();
     const [shouldRedirect, setShouldRedirect] = useState(false);
+    const [isScriptAdded, setIsScriptAdded] = useState(false);
     const { dataStatus } = useAppSelector(({ chat }) => ({
         dataStatus: chat.dataStatus,
     }));
@@ -73,9 +78,16 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({
     }, [dataStatus, videoScripts]);
 
     const goToStudio = useCallback(() => {
-        onClose();
-        setShouldRedirect(true);
-    }, [onClose]);
+        dispatch(studioActions.addGeneratedVideoScript(videoScripts));
+        setIsScriptAdded(true);
+    }, [dispatch, videoScripts]);
+
+    useEffect(() => {
+        if (isScriptAdded) {
+            setShouldRedirect(true);
+            onClose();
+        }
+    }, [isScriptAdded, onClose]);
 
     if (shouldRedirect) {
         return <Navigate to={AppRoute.STUDIO} replace />;

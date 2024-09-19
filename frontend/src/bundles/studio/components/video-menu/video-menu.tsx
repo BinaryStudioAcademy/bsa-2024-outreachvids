@@ -1,5 +1,10 @@
 import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
-import { Icon } from '~/bundles/common/components/components.js';
+import {
+    Icon,
+    Loader,
+    Overlay,
+} from '~/bundles/common/components/components.js';
+import { DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -9,7 +14,7 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
-import { type MenuItems, RowNames } from '~/bundles/studio/enums/enums.js';
+import { type MenuItems } from '~/bundles/studio/enums/enums.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Menu, MenuBody } from './components/components.js';
@@ -25,19 +30,22 @@ import {
 import { type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
-    const { activeItem, videoScripts, avatars, scenes } = useAppSelector(
-        ({ studio, chat }) => ({
-            avatars: studio.avatars,
-            scenes: studio.scenes,
-            activeItem: studio.ui.menuActiveItem,
-            videoScripts: chat.videoScripts,
-        }),
-    );
+    const {
+        dataStatus,
+        selectedItem,
+        activeItem,
+        avatars,
+        isVideoScriptsGenerationReady,
+    } = useAppSelector(({ studio }) => ({
+        dataStatus: studio.dataStatus,
+        selectedItem: studio.ui.selectedItem,
+        activeItem: studio.ui.menuActiveItem,
+        avatars: studio.avatars,
+        isVideoScriptsGenerationReady: studio.isVideoScriptsGenerationReady,
+    }));
 
     const dispatch = useAppDispatch();
     const [isChatOpen, setIsChatOpen] = useState(false);
-    const [isScriptGenerated, setIsScriptGenerated] = useState(false);
-    const [isAvatarLoaded, setIsAvatarLoaded] = useState(false);
 
     const setActiveItem = useCallback(
         (item: ValueOf<typeof MenuItems> | null): void => {
@@ -58,8 +66,6 @@ const VideoMenu: React.FC = () => {
         setIsChatOpen(false);
     }, []);
 
-    const { selectedItem } = useAppSelector(({ studio }) => studio.ui);
-
     useEffect(() => {
         if (selectedItem?.type === 'script') {
             setActiveItem('script');
@@ -68,66 +74,23 @@ const VideoMenu: React.FC = () => {
     }, [selectedItem, setActiveItem, dispatch]);
 
     useEffect(() => {
-        if (videoScripts.length > 0) {
-            const addScriptPromises = videoScripts.map((videoScript) =>
-                dispatch(studioActions.addScript(videoScript.description)),
-            );
-            Promise.all(addScriptPromises)
+        if (isVideoScriptsGenerationReady) {
+            dispatch(studioActions.setStatusToPending());
+            dispatch(studioActions.generateAllScriptsSpeech())
                 .then(() => {
-                    return dispatch(studioActions.generateAllScriptsSpeech());
-                })
-                .then(() => {
-                    setIsScriptGenerated(true);
+                    dispatch(
+                        studioActions.recalculateScenesDurationForScript(),
+                    );
                 })
                 .catch(() => {});
         }
-    }, [dispatch, setIsScriptGenerated, videoScripts]);
+    }, [dispatch, isVideoScriptsGenerationReady]);
 
     useEffect(() => {
-        const avatarsLength = avatars.length;
-        if (avatarsLength > 0) {
-            setIsAvatarLoaded(true);
-            return;
+        if (avatars.length === 0) {
+            void dispatch(studioActions.loadAvatars());
         }
-
-        if (avatarsLength === 0) {
-            dispatch(studioActions.loadAvatars())
-                .then(() => {
-                    setIsAvatarLoaded(true);
-                })
-                .catch(() => {});
-        }
-    }, [dispatch, setIsAvatarLoaded, avatars]);
-
-    useEffect(() => {
-        if (isScriptGenerated && isAvatarLoaded) {
-            const avatar = avatars[0];
-            const avatarStyle = avatar?.styles[0];
-            const scene = scenes[0];
-
-            if (!avatar || !avatarStyle) {
-                return;
-            }
-
-            scene
-                ? dispatch(
-                      studioActions.selectItem({
-                          id: scene.id,
-                          type: RowNames.SCENE,
-                      }),
-                  )
-                : dispatch(studioActions.addScene());
-
-            dispatch(
-                studioActions.addAvatarToScene({
-                    id: avatar.id,
-                    name: avatar.name,
-                    style: avatarStyle.style,
-                    url: avatarStyle.imgUrl,
-                }),
-            );
-        }
-    }, [dispatch, scenes, avatars, isScriptGenerated, isAvatarLoaded]);
+    }, [dispatch, avatars.length]);
 
     // TODO: Uncomment menu items after demo
     const menuItems: Record<ValueOf<typeof MenuItems>, MenuItem> = {
@@ -162,6 +125,10 @@ const VideoMenu: React.FC = () => {
 
     return (
         <>
+            <Overlay isOpen={dataStatus === DataStatus.PENDING}>
+                <Loader />
+            </Overlay>
+
             <Menu
                 items={menuItems}
                 activeItem={activeItem}
