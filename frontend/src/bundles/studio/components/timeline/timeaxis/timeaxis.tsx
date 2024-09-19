@@ -1,4 +1,5 @@
 import { Box } from '~/bundles/common/components/components.js';
+import { EMPTY_LENGTH } from '~/bundles/common/constants/constants.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
 import {
     type Marker,
@@ -54,7 +55,7 @@ const getComputedMarkers = (
 
     for (let time = startTime; time <= endTime; time += delta) {
         const multiplierIndex = sortedMarkers.findIndex((marker) => {
-            const timeOffset = time % marker.value === 0;
+            const timeOffset = time % marker.value === EMPTY_LENGTH;
             const isWithinMaxRange =
                 !marker.maxRangeSize || rangeSize <= marker.maxRangeSize;
             const isWithinMinRange =

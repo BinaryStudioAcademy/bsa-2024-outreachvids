@@ -6,7 +6,7 @@ import { tokenService } from '~/common/services/services.js';
 
 import { ErrorMessage, Hook } from './enums/enums.js';
 import { type Route } from './types/types.js';
-import { isRouteInWhiteList } from './utils/utils.js';
+import { checkIfRouteInWhiteList } from './utils/utils.js';
 
 type Options = {
     routesWhiteList: Route[];
@@ -16,7 +16,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
     fastify.decorateRequest('user', null);
 
     fastify.addHook(Hook.PRE_HANDLER, async (request) => {
-        if (isRouteInWhiteList(routesWhiteList, request)) {
+        if (checkIfRouteInWhiteList(routesWhiteList, request)) {
             return;
         }
 

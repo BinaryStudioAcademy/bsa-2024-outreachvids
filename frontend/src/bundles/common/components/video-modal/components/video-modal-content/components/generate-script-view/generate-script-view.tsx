@@ -14,6 +14,7 @@ import {
     getVideoScriptMessageFromPayload,
     sanitizeJsonString,
 } from '~/bundles/common/components/video-modal/components/video-modal-content/helpers/helpers.js';
+import { EMPTY_LENGTH } from '~/bundles/common/constants/constants.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -46,7 +47,7 @@ const GenerateScriptView: React.FC = () => {
     );
 
     const lastGeneratedScript: VideoScript[] = useMemo(() => {
-        if (!messages || messages.length === 0) {
+        if (!messages || messages.length === EMPTY_LENGTH) {
             return [];
         }
 

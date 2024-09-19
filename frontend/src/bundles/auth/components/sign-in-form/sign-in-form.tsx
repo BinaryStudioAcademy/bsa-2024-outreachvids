@@ -11,6 +11,7 @@ import {
     Link,
     VStack,
 } from '~/bundles/common/components/components.js';
+import { EMPTY_LENGTH } from '~/bundles/common/constants/constants.js';
 import {
     AppRoute,
     DataStatus,
@@ -45,7 +46,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
     const { handleSubmit, errors, values } = form;
 
     const isEmpty = useMemo(
-        () => Object.values(values).some((value) => value.trim().length === 0),
+        () =>
+            Object.values(values).some(
+                (value) => value.trim().length === EMPTY_LENGTH,
+            ),
         [values],
     );
 
