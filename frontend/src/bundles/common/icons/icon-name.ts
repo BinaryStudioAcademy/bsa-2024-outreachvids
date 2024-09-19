@@ -21,6 +21,7 @@ import {
     Font,
     ForwardStep,
     House,
+    Image,
     Pause,
     Pen,
     Play,
@@ -65,6 +66,7 @@ const IconName = {
     LOGO: Logo,
     LOGO_TEXT: LogoText,
     DELETE: DeleteIcon,
+    IMAGE: Image,
 } as const;
 
 export { IconName };

@@ -8,6 +8,7 @@ import {
     faFont,
     faForwardStep,
     faHouse,
+    faImage,
     faPause,
     faPen,
     faPlay,
@@ -41,6 +42,7 @@ const CloudArrowDown = iconConverter(faCloudArrowDown);
 const VolumeHigh = iconConverter(faVolumeHigh);
 const VolumeOff = iconConverter(faVolumeOff);
 const Stop = iconConverter(faStop);
+const Image = iconConverter(faImage);
 
 export {
     BackwardStep,
@@ -52,6 +54,7 @@ export {
     Font,
     ForwardStep,
     House,
+    Image,
     Pause,
     Pen,
     Play,
