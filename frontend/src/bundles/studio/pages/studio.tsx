@@ -67,7 +67,6 @@ const Studio: React.FC = () => {
 
     useEffect((): void => {
         if (videoData) {
-            // console.log(videoData);
             void dispatch(studioActions.loadVideoData(videoData));
         }
     }, [dispatch, videoData]);
