@@ -1,5 +1,4 @@
 import { type PlayerRef } from '@remotion/player';
-import { useNavigate } from 'react-router-dom';
 
 import {
     Box,
@@ -22,6 +21,8 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useLocation,
+    useNavigate,
     useRef,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
@@ -43,10 +44,17 @@ import {
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
 import { getVoicesConfigs } from '../helpers/helpers.js';
+import { selectVideoDataById } from '../store/selectors.js';
 import { actions as studioActions } from '../store/studio.js';
 import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
+    const { state: locationState } = useLocation();
+
+    const videoData = useAppSelector((state) =>
+        selectVideoDataById(state, locationState?.id),
+    );
+
     const { scenes, scripts, videoName, isDraftSaved, videoId } =
         useAppSelector(({ studio }) => studio);
     const [inputValue, setInputValue] = useState(
@@ -56,6 +64,13 @@ const Studio: React.FC = () => {
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    useEffect((): void => {
+        if (videoData) {
+            // console.log(videoData);
+            void dispatch(studioActions.loadVideoData(videoData));
+        }
+    }, [dispatch, videoData]);
 
     const handleResize = useCallback(() => {
         dispatch(studioActions.changeVideoSize());
@@ -103,7 +118,9 @@ const Studio: React.FC = () => {
     }, [dispatch, navigate, scenes, scripts, videoId, videoName]);
 
     useEffect(() => {
-        return () => void dispatch(studioActions.resetStudio());
+        return () => {
+            dispatch(studioActions.resetStudio());
+        };
     }, [dispatch]);
 
     const handleEditVideoName = useCallback(

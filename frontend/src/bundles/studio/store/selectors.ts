@@ -3,9 +3,15 @@ import { secondsToMilliseconds } from 'date-fns';
 
 import { type RootState } from '~/bundles/common/types/types.js';
 
-import { type Script } from '../types/types.js';
+import {
+    type Script,
+    type VideoGetAllItemResponseDto,
+} from '../types/types.js';
 
 const selectScrips = (state: RootState): Script[] => state.studio.scripts;
+
+const selectVideos = (state: RootState): VideoGetAllItemResponseDto[] =>
+    state.home.videos;
 
 const selectTotalDuration = createSelector([selectScrips], (scripts) => {
     const totalDuration = scripts.reduce(
@@ -16,4 +22,11 @@ const selectTotalDuration = createSelector([selectScrips], (scripts) => {
     return secondsToMilliseconds(totalDuration);
 });
 
-export { selectTotalDuration };
+const selectVideoDataById = createSelector(
+    [selectVideos, (_, id: string): string => id],
+    (videos, id) => {
+        return videos.find((video) => video.id === id);
+    },
+);
+
+export { selectTotalDuration, selectVideoDataById };
