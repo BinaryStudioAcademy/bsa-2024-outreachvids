@@ -1,9 +1,9 @@
 .menu-body {
     position: fixed;
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
     left: 100px;
-    height: 72vh;
+    height: 55vh;
     width: 335px;
     padding: 12px 18px 0 18px;
     z-index: 1000;

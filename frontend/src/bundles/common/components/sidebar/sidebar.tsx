@@ -13,13 +13,13 @@ import {
     useAppSelector,
     useCallback,
     useLocation,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { UserAvatar, UserCard } from '~/bundles/users/components/components.js';
 
 import { SidebarItem } from './components/components.js';
+import { useCollapse } from './hooks/use-collapse.hook.js';
 import styles from './styles.module.css';
 
 type Properties = {
@@ -27,15 +27,10 @@ type Properties = {
 };
 
 const Sidebar = ({ children }: Properties): JSX.Element => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    const { pathname } = useLocation();
     const user = useAppSelector(({ auth }) => auth.user);
     const dispatch = useAppDispatch();
-
-    const handleToggle = useCallback(
-        (): void => setIsCollapsed(!isCollapsed),
-        [isCollapsed],
-    );
+    const { pathname } = useLocation();
+    const { isCollapsed, setToggle } = useCollapse();
 
     const activeButtonPage = (page: ValueOf<typeof AppRoute>): string => {
         return pathname === page ? 'background.600' : '';
@@ -45,6 +40,10 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
         return pathname === page ? 'white' : 'background.600';
     };
 
+    const handleToggle = useCallback((): void => {
+        setToggle();
+    }, [setToggle]);
+
     const handleLogOut = useCallback(() => {
         void dispatch(authActions.logout());
     }, [dispatch]);
@@ -53,7 +52,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
         <Flex w="100%">
             <Flex
                 w={isCollapsed ? '60px' : '270px'}
-                className={styles['sidebarContainer']}
+                className={styles['sidebar-container']}
             >
                 <IconButton
                     aria-label={isCollapsed ? 'expand' : 'collapse'}

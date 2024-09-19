@@ -1,0 +1,16 @@
+.flex-container {
+    flex-direction: column;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    align-items: center;
+    gap: 50px;
+    padding-bottom: 80px;
+}
+
+.inner-flex {
+    color: var(--chakra-colors-typography-600);
+    font-size: 14px;
+    justify-content: center;
+    gap: 40px;
+}

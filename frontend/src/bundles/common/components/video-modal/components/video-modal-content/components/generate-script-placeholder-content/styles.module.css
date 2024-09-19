@@ -1,4 +1,4 @@
-.scriptPlaceholderContentContainer {
+.script-placeholder-content-container {
     gap: 10px;
     flex-direction: column;
     justify-content: center;
@@ -6,12 +6,12 @@
     width: 100%;
     height: 100%;
 }
-.scriptPlaceholderContentIcon {
+.script-placeholder-content-icon {
     color: var(--chakra-colors-brand-secondary-300);
     opacity: 0.5;
     font-size: 2rem;
 }
-.scriptPlaceholderContentText {
+.script-placeholder-content-text {
     color: var(--chakra-colors-gray-400);
     width: 40%;
     min-width: 175px;

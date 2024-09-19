@@ -28,6 +28,20 @@ class VideosApi extends BaseHttpApi {
 
         return await response.json<VideoGetAllResponseDto>();
     }
+
+    public async deleteVideo(id: string): Promise<void> {
+        const response = await this.load(
+            this.getFullEndpoint(`${VideosApiPath.ROOT}${id}`, {}),
+            {
+                method: HTTPMethod.DELETE,
+                contentType: ContentType.JSON,
+                payload: JSON.stringify({}),
+                hasAuth: true,
+            },
+        );
+
+        await response.json<boolean>();
+    }
 }
 
 export { VideosApi };

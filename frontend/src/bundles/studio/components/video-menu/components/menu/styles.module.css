@@ -1,4 +1,4 @@
-.menuContainer {
+.menu-container {
     position: fixed;
     left: 0;
     top: 50%;
@@ -11,12 +11,12 @@
     border-bottom-right-radius: var(--chakra-radii-xl);
 }
 
-.vStack {
+.v-stack {
     width: 100%;
     padding: 8px;
 }
 
-.menuItem {
+.menu-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,11 +28,11 @@
     background-color: transparent;
 }
 
-.menuItemActive {
+.menu-item-active {
     background-color: var(--chakra-colors-background-600);
 }
 
-.menuItem:hover {
+.menu-item:hover {
     background-color: var(--chakra-colors-background-600);
 }
 
