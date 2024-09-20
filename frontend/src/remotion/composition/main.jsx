@@ -1,3 +1,4 @@
+// Using .js extension to avoid TypeScript issues with Remotion's rendering process.
 import { AbsoluteFill, Video, Series } from 'remotion';
 
 const Main = ({ scenes }) => {
