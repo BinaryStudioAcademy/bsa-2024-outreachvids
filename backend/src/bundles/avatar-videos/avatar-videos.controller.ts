@@ -5,7 +5,7 @@ import {
     type ApiHandlerResponse,
 } from '~/common/controller/controller.js';
 import { BaseController } from '~/common/controller/controller.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { type AvatarVideoService } from './avatar-videos.service.js';
@@ -77,24 +77,28 @@ class AvatarVideoController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         const userId = (options.user as UserGetCurrentResponseDto).id;
-        const videoRecord = await this.avatarVideoService.createVideo({
-            ...options.body,
-            userId,
-        });
+        const { composition, name, videoId } = options.body;
 
-        const avatarsConfigs = this.avatarVideoService.getAvatarsConfigs(
-            options.body.composition,
-        );
+        const videoPayload = {
+            name,
+            composition,
+        };
+
+        const videoRecord = await (videoId
+            ? this.avatarVideoService.updateVideo({ ...videoPayload, videoId })
+            : this.avatarVideoService.createVideo({ ...videoPayload, userId }));
+
+        const avatarsConfigs =
+            this.avatarVideoService.getAvatarsConfigs(composition);
 
         await this.avatarVideoService.submitAvatarsConfigs(
             avatarsConfigs,
-            userId,
             videoRecord.id,
         );
 
         return {
             payload: { status: ResponseStatus.SUBMITTED },
-            status: HttpCode.CREATED,
+            status: HTTPCode.CREATED,
         };
     }
 }

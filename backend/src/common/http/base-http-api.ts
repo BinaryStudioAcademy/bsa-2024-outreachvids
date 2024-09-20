@@ -1,13 +1,13 @@
 import { HttpError } from 'shared';
 
-import { type HttpCode } from './enums/enums.js';
-import { HttpHeader } from './enums/enums.js';
+import { type HTTPCode } from './enums/enums.js';
+import { HTTPHeader } from './enums/enums.js';
 import { configureString } from './helpers/helpers.js';
 import {
     type CustomHeader,
     type Http,
     type HttpApi,
-    type HttpApiOptions,
+    type HTTPApiOptions,
     type HttpApiResponse,
     type ValueOf,
 } from './types/types.js';
@@ -33,7 +33,7 @@ class BaseHttpApi implements HttpApi {
 
     public async load(
         path: string,
-        options: HttpApiOptions,
+        options: HTTPApiOptions,
     ): Promise<HttpApiResponse> {
         const {
             method,
@@ -45,7 +45,7 @@ class BaseHttpApi implements HttpApi {
         } = options;
 
         const baseHeaders = [
-            { key: HttpHeader.CONTENT_TYPE, value: contentType },
+            { key: HTTPHeader.CONTENT_TYPE, value: contentType },
         ];
 
         const headers = this.getHeaders([
@@ -99,7 +99,7 @@ class BaseHttpApi implements HttpApi {
 
     private handleError(response: Response): never {
         throw new HttpError({
-            status: response.status as ValueOf<typeof HttpCode>,
+            status: response.status as ValueOf<typeof HTTPCode>,
             message: response.statusText,
         });
     }

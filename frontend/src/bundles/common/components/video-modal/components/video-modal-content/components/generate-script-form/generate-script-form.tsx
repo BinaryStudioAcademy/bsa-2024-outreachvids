@@ -67,9 +67,9 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
                         name="topic"
                         placeholder="Introduce your platform"
                         className={styles['script-form-textarea-topic']}
-                        required
+                        isRequired
                     />
-                    <Select label="Target language" name="language" required>
+                    <Select label="Target language" name="language" isRequired>
                         <option value="english" defaultChecked>
                             English
                         </option>

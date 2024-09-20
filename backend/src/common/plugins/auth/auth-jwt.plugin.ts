@@ -1,12 +1,12 @@
 import fp from 'fastify-plugin';
-import { HttpCode, HttpError, HttpHeader } from 'shared';
+import { HTTPCode, HttpError, HTTPHeader } from 'shared';
 
 import { userService } from '~/bundles/users/users.js';
 import { tokenService } from '~/common/services/services.js';
 
 import { ErrorMessage, Hook } from './enums/enums.js';
 import { type Route } from './types/types.js';
-import { isRouteInWhiteList } from './utils/utils.js';
+import { checkIfRouteInWhiteList } from './utils/utils.js';
 
 type Options = {
     routesWhiteList: Route[];
@@ -16,16 +16,16 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
     fastify.decorateRequest('user', null);
 
     fastify.addHook(Hook.PRE_HANDLER, async (request) => {
-        if (isRouteInWhiteList(routesWhiteList, request)) {
+        if (checkIfRouteInWhiteList(routesWhiteList, request)) {
             return;
         }
 
-        const authHeader = request.headers[HttpHeader.AUTHORIZATION];
+        const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
         if (!authHeader) {
             throw new HttpError({
                 message: ErrorMessage.MISSING_TOKEN,
-                status: HttpCode.UNAUTHORIZED,
+                status: HTTPCode.UNAUTHORIZED,
             });
         }
 
@@ -36,7 +36,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
         if (!userId) {
             throw new HttpError({
                 message: ErrorMessage.INVALID_TOKEN,
-                status: HttpCode.UNAUTHORIZED,
+                status: HTTPCode.UNAUTHORIZED,
             });
         }
 
@@ -45,7 +45,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
         if (!user) {
             throw new HttpError({
                 message: ErrorMessage.MISSING_USER,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
         request.user = user.toObject();

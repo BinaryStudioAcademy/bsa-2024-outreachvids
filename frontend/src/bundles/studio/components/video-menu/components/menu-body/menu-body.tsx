@@ -6,7 +6,7 @@ import {
     Icon,
     IconButton,
 } from '~/bundles/common/components/components.js';
-import { DOM_EVENT } from '~/bundles/common/enums/enums.js';
+import { DOMEvent } from '~/bundles/common/enums/enums.js';
 import { useEffect, useRef } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
@@ -16,6 +16,7 @@ type Properties = {
     title: string | React.ReactNode;
     onClose: () => void;
     onChatOpen?: () => void;
+    menuBodyReference: React.RefObject<HTMLDivElement>;
 };
 
 const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
@@ -23,6 +24,7 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
     children,
     onClose,
     onChatOpen,
+    menuBodyReference,
 }) => {
     const menuReference = useRef<HTMLDivElement | null>(null);
 
@@ -36,11 +38,11 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
             }
         };
 
-        document.addEventListener(DOM_EVENT.MOUSE_DOWN, handleClickOutside);
+        document.addEventListener(DOMEvent.MOUSE_DOWN, handleClickOutside);
 
         return () => {
             document.removeEventListener(
-                DOM_EVENT.MOUSE_DOWN,
+                DOMEvent.MOUSE_DOWN,
                 handleClickOutside,
             );
         };
@@ -48,7 +50,7 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
 
     return (
         <Box
-            ref={menuReference}
+            ref={menuBodyReference}
             bg="background.900"
             className={styles['menu-body']}
         >

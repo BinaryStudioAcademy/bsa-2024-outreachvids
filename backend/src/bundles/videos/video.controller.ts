@@ -5,7 +5,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { VideosApiPath } from './enums/enums.js';
@@ -61,12 +61,13 @@ class VideoController extends BaseController {
         this.addRoute({
             path: VideosApiPath.ID,
             method: HTTPMethod.GET,
-            handler: (options) =>
-                this.find(
+            handler: (options) => {
+                return this.find(
                     options as ApiHandlerOptions<{
                         params: VideoGetOneRequestDto;
                     }>,
-                ),
+                );
+            },
         });
 
         this.addRoute({
@@ -138,7 +139,7 @@ class VideoController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: await this.videoService.findByUserId(options.user.id),
         };
     }
@@ -180,7 +181,7 @@ class VideoController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: await this.videoService.findById(options.params.id),
         };
     }
@@ -224,7 +225,7 @@ class VideoController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.CREATED,
+            status: HTTPCode.CREATED,
             payload: await this.videoService.create({
                 ...options.body,
                 userId: (options.user as UserGetCurrentResponseDto).id,
@@ -285,7 +286,7 @@ class VideoController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: await this.videoService.update(
                 options.params.id,
                 options.body,
@@ -330,7 +331,7 @@ class VideoController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: await this.videoService.delete(options.params.id),
         };
     }
