@@ -84,16 +84,11 @@ const Studio: React.FC = () => {
             return;
         }
 
-        dispatch(
-            studioActions.renderAvatar({
-                composition: {
-                    scenes,
-                    scripts: getVoicesConfigs(scripts),
-                },
-                name: videoName,
-                ...(videoId && { videoId }),
-            }),
-        )
+        void dispatch(studioActions.generateAllScriptsSpeech())
+            .unwrap()
+            .then(() => {
+                void dispatch(studioActions.renderAvatar());
+            })
             .then(() => {
                 notificationService.success({
                     id: VIDEO_SUBMIT_NOTIFICATION_ID,
@@ -109,7 +104,7 @@ const Studio: React.FC = () => {
                     title: NotificationTitle.VIDEO_SUBMIT_FAILED,
                 });
             });
-    }, [dispatch, navigate, scenes, scripts, videoId, videoName]);
+    }, [dispatch, navigate, scenes, scripts]);
 
     useEffect(() => {
         return () => {
