@@ -16,6 +16,7 @@ type Properties = {
     title: string | React.ReactNode;
     onClose: () => void;
     onChatOpen?: () => void;
+    menuBodyReference: React.RefObject<HTMLDivElement>;
 };
 
 const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
@@ -23,6 +24,7 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
     children,
     onClose,
     onChatOpen,
+    menuBodyReference,
 }) => {
     const menuReference = useRef<HTMLDivElement | null>(null);
 
@@ -48,7 +50,7 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
 
     return (
         <Box
-            ref={menuReference}
+            ref={menuBodyReference}
             bg="background.900"
             className={styles['menu-body']}
         >
