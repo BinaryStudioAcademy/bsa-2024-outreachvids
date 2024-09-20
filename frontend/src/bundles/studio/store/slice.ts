@@ -25,11 +25,13 @@ import {
 import { type Script } from '../types/script.type.js';
 import {
     type AvatarGetResponseDto,
+    type CompositionScript,
     type DestinationPointer,
     type RowType,
     type Scene,
     type SceneAvatar,
     type TimelineItemWithSpan,
+    type VideoGetAllItemResponseDto,
     type Voice,
 } from '../types/types.js';
 import {
@@ -100,7 +102,7 @@ const initialState: State = {
     selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
-    isDraftSaved: false,
+    isDraftSaved: true,
     videoId: null,
     voices: [],
     ui: {
@@ -331,6 +333,30 @@ const { reducer, actions, name } = createSlice({
                 ...initialState,
                 avatars: state.avatars,
             };
+        },
+        loadVideoData(
+            state,
+            action: PayloadAction<VideoGetAllItemResponseDto>,
+        ) {
+            const { id, name, composition } = action.payload;
+
+            state.videoName = name;
+            state.videoId = id;
+            state.scenes = composition.scenes;
+            state.scripts = composition.scripts.map(
+                (script: CompositionScript) => {
+                    const voice = state.voices.find(
+                        (voice) => voice.name === script.voiceName,
+                    );
+
+                    return {
+                        ...script,
+                        iconName: PlayIconNames.READY,
+                        voice: voice ?? DEFAULT_VOICE,
+                        url: null,
+                    };
+                },
+            );
         },
     },
     extraReducers(builder) {

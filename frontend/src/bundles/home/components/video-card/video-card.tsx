@@ -15,10 +15,12 @@ import {
     MenuList,
     Text,
 } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useCallback,
     useEffect,
+    useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
@@ -44,6 +46,7 @@ const VideoCard: React.FC<Properties> = ({
     previewUrl,
 }) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
     const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
@@ -61,9 +64,15 @@ const VideoCard: React.FC<Properties> = ({
 
     const handleIconClick = useCallback(() => {
         if (url) {
-            setIsVideoModalOpen(true);
+            return setIsVideoModalOpen(true);
         }
-    }, [url]);
+
+        navigate(AppRoute.STUDIO, {
+            state: {
+                id,
+            },
+        });
+    }, [url, navigate, id]);
 
     const date = new Date(createdAt);
     const formattedDate = format(date, 'MMM d, yyyy, h:mm a');
