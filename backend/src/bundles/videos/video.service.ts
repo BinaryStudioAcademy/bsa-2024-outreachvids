@@ -60,7 +60,7 @@ class VideoService implements Service {
             VideoEntity.initializeNew({
                 name: payload.name,
                 composition: payload.composition,
-                previewUrl: payload.composition?.scenes[0]?.avatar?.url || '',
+                previewUrl: payload.composition?.scenes[0]?.avatar?.url ?? '',
                 userId: payload.userId,
             }),
         );
