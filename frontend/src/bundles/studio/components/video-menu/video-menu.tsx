@@ -4,7 +4,8 @@ import {
     Loader,
     Overlay,
 } from '~/bundles/common/components/components.js';
-import { DataStatus, DOMEvent } from '~/bundles/common/enums/enums.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
+import { /*DataStatus,*/ DOMEvent } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -32,17 +33,19 @@ import { type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
     const {
-        dataStatus,
+        // dataStatus,
         selectedItem,
         activeItem,
         avatars,
         isVideoScriptsGenerationReady,
+        isVideoScriptsGenerationPending,
     } = useAppSelector(({ studio }) => ({
-        dataStatus: studio.dataStatus,
+        // dataStatus: studio.dataStatus,
         selectedItem: studio.ui.selectedItem,
         activeItem: studio.ui.menuActiveItem,
         avatars: studio.avatars,
         isVideoScriptsGenerationReady: studio.isVideoScriptsGenerationReady,
+        isVideoScriptsGenerationPending: studio.isVideoScriptsGenerationPending,
     }));
 
     const dispatch = useAppDispatch();
@@ -85,12 +88,15 @@ const VideoMenu: React.FC = () => {
                         studioActions.recalculateScenesDurationForScript(),
                     );
                 })
-                .catch(() => {});
+                .catch(() => {})
+                .finally(() => {
+                    dispatch(studioActions.setStatusToComplete());
+                });
         }
     }, [dispatch, isVideoScriptsGenerationReady]);
 
     useEffect(() => {
-        if (avatars.length === 0) {
+        if (avatars.length === EMPTY_VALUE) {
             void dispatch(studioActions.loadAvatars());
         }
     }, [dispatch, avatars.length]);
@@ -152,7 +158,8 @@ const VideoMenu: React.FC = () => {
 
     return (
         <>
-            <Overlay isOpen={dataStatus === DataStatus.PENDING}>
+            {/* TODO: NEED TO SHOW OVERLAY JUST WHEN IS GENERATING VIDEO FROM SCRIPT */}
+            <Overlay isOpen={isVideoScriptsGenerationPending}>
                 <Loader />
             </Overlay>
 

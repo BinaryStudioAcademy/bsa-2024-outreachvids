@@ -3,6 +3,7 @@ import { millisecondsToSeconds, minutesToMilliseconds } from 'date-fns';
 import { type Range, type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
 
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { DataStatus, VideoPreview } from '~/bundles/common/enums/enums.js';
 import {
     type ValueOf,
@@ -72,8 +73,8 @@ type State = {
     };
     range: Range;
     scenes: Array<Scene>;
-    // videoScripts: Array<VideoScript>;
     isVideoScriptsGenerationReady: boolean;
+    isVideoScriptsGenerationPending: boolean;
     scripts: Array<Script>;
     selectedScriptId: string | null;
     videoSize: VideoPreviewT;
@@ -100,6 +101,7 @@ const initialState: State = {
     scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
     scripts: [],
     isVideoScriptsGenerationReady: false,
+    isVideoScriptsGenerationPending: false,
     selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
@@ -325,18 +327,34 @@ const { reducer, actions, name } = createSlice({
         },
         resetStudio(state) {
             // TODO: do not overwrite voices on reset
+            const {
+                avatars,
+                scripts,
+                scenes,
+                range,
+                ui,
+                isVideoScriptsGenerationReady,
+                isVideoScriptsGenerationPending,
+            } = state;
             const baseState = {
                 ...initialState,
-                avatars: state.avatars,
+                avatars: avatars,
             };
 
-            if (state.isVideoScriptsGenerationReady) {
+            if (
+                isVideoScriptsGenerationPending ||
+                isVideoScriptsGenerationReady
+            ) {
                 return {
                     ...baseState,
-                    scripts: state.scripts,
-                    scenes: state.scenes,
-                    range: state.range,
-                    ui: state.ui,
+                    scripts: scripts,
+                    scenes: scenes,
+                    range: range,
+                    ui: ui,
+                    isVideoScriptsGenerationPending:
+                        isVideoScriptsGenerationPending,
+                    isVideoScriptsGenerationReady:
+                        isVideoScriptsGenerationReady,
                 };
             }
 
@@ -370,50 +388,66 @@ const { reducer, actions, name } = createSlice({
             state,
             action: PayloadAction<Array<VideoScript>>,
         ) {
+            // state.dataStatus = DataStatus.PENDING;
+            state.isVideoScriptsGenerationPending = true;
+
+            let index = EMPTY_VALUE;
             const { payload } = action;
             const { scripts, scenes, range, ui } = state;
+            const lastIndex = payload.length - 1;
 
-            state.dataStatus = DataStatus.PENDING;
-            for (const videoScript of payload) {
+            for (const { description } of payload) {
                 const { rangeEnd, script } = addScript({
-                    text: videoScript.description,
+                    text: description,
                     scripts,
                     rangeEnd: range.end,
                     voice: DEFAULT_VOICE,
                 });
-
-                const { selectedItem, scene } = addScene({
-                    scenes,
-                    rangeEnd: rangeEnd,
-                });
-
                 scripts.push(script);
-                scenes.push(scene);
                 range.end = rangeEnd;
-                ui.selectedItem = selectedItem;
+
+                //This if is cause we have already one scene at the begging
+                if (index < lastIndex) {
+                    const { selectedItem, scene } = addScene({
+                        scenes,
+                        rangeEnd: rangeEnd,
+                    });
+
+                    scenes.push(scene);
+                    ui.selectedItem = selectedItem;
+                }
+                index++;
             }
 
             state.isVideoScriptsGenerationReady = true;
-            state.dataStatus = DataStatus.IDLE;
+            state.isVideoScriptsGenerationPending = false;
+            // state.dataStatus = DataStatus.IDLE;
         },
         recalculateScenesDurationForScript(state) {
-            state.dataStatus = DataStatus.PENDING;
+            // state.dataStatus = DataStatus.PENDING;
 
             let index = 0;
             const { scenes, scripts } = state;
-            for (const script of scripts) {
+            for (const { duration } of scripts) {
                 const scene = scenes[index];
                 if (!scene) {
                     continue;
                 }
 
-                scene.duration = script.duration;
+                scene.duration = Math.round(duration);
                 index++;
             }
-            state.dataStatus = DataStatus.IDLE;
+            // state.dataStatus = DataStatus.IDLE;
+            state.isVideoScriptsGenerationPending = false;
         },
         setStatusToPending(state) {
-            state.dataStatus = DataStatus.PENDING;
+            // state.dataStatus = DataStatus.PENDING;
+            state.isVideoScriptsGenerationPending = true;
+        },
+        setStatusToComplete(state) {
+            // state.dataStatus = DataStatus.PENDING;
+            state.isVideoScriptsGenerationPending = false;
+            state.isVideoScriptsGenerationReady = false;
         },
     },
     extraReducers(builder) {
