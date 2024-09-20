@@ -6,10 +6,10 @@ import {
     type ValueOf,
 } from '~/bundles/common/types/types.js';
 
-import { type HttpCode } from '../enums/enums.js';
+import { type HTTPCode } from '../enums/enums.js';
 
 type Constructor = {
-    status: ValueOf<typeof HttpCode>;
+    status: ValueOf<typeof HTTPCode>;
     details: ServerErrorDetail[];
     message: string;
     errorType: ValueOf<typeof ServerErrorType>;

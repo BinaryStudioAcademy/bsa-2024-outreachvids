@@ -10,7 +10,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { type AuthService } from './auth.service.js';
@@ -95,7 +95,7 @@ class AuthController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         return {
             payload: await this.authService.signIn(options.body),
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
         };
     }
 
@@ -144,7 +144,7 @@ class AuthController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.CREATED,
+            status: HTTPCode.CREATED,
             payload: await this.authService.signUp(options.body),
         };
     }

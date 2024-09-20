@@ -134,7 +134,7 @@ const Studio: React.FC = () => {
                     <Flex gap="10px">
                         <LibraryInput
                             defaultValue={videoName}
-                            className={styles['videoName']}
+                            className={styles['video-name']}
                             variant="unstyled"
                             placeholder="Untitled video"
                             onBlur={handleEditVideoName}

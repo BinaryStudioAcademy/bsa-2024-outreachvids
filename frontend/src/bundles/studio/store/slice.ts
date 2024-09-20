@@ -206,6 +206,11 @@ const { reducer, actions, name } = createSlice({
                     duration,
                 };
             });
+            const totalMilliseconds = calculateTotalMilliseconds(
+                state.scenes,
+                state.range.end,
+            );
+            state.range.end = totalMilliseconds;
         },
         reorderScenes(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
@@ -229,6 +234,11 @@ const { reducer, actions, name } = createSlice({
             state.scenes = state.scenes.filter(
                 (scenes) => scenes.id !== action.payload,
             );
+            const totalMilliseconds = calculateTotalMilliseconds(
+                state.scenes,
+                state.range.end,
+            );
+            state.range.end = totalMilliseconds;
         },
         changeVideoSize(state) {
             state.videoSize =

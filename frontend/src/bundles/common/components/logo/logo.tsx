@@ -23,7 +23,12 @@ const Logo: React.FC<Properties> = ({
         >
             <Icon as={IconName.LOGO} boxSize={logoSize} {...rest} />
             {textSize && (
-                <Icon as={IconName.LOGO_TEXT} boxSize={textSize} ml={2} />
+                <Icon
+                    as={IconName.LOGO_TEXT}
+                    boxSize={textSize}
+                    ml={2}
+                    h="auto"
+                />
             )}
         </Box>
     );

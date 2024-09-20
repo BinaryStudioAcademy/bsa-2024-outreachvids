@@ -5,6 +5,7 @@ import {
     Text,
     VStack,
 } from '~/bundles/common/components/components.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import {
     useAppDispatch,
@@ -54,7 +55,7 @@ const ScriptContent: React.FC = () => {
                     <Loader />
                 ) : (
                     <>
-                        {scripts.length === 0 ? (
+                        {scripts.length === EMPTY_VALUE ? (
                             <Text
                                 variant="body1"
                                 width="60%"

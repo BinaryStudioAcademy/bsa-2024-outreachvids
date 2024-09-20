@@ -16,21 +16,21 @@ type Properties<T extends FormValues> = {
     label: string;
     name: FieldInputProps<T>['name'];
     children: React.ReactNode;
-    required?: boolean;
+    isRequired?: boolean;
     placeholder?: string;
 };
 
-const Select = <T extends FormValues>({
+const Select: React.FC<Properties<FormValues>> = ({
     label,
     name,
     children,
-    required = false,
+    isRequired = false,
     placeholder = '',
-}: Properties<T>): JSX.Element => {
+}) => {
     const { field, error, isValid } = useFormField({ name });
 
     return (
-        <FormControl isInvalid={!isValid} isRequired={required}>
+        <FormControl isInvalid={!isValid} isRequired={isRequired}>
             <FormLabel htmlFor={name}>{label}</FormLabel>
             <Field
                 {...field}

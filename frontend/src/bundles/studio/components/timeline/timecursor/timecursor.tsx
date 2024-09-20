@@ -175,18 +175,18 @@ const TimeCursor: React.FC<Properties> = ({ playerRef }) => {
     return (
         <Box
             ref={timeCursorReference}
-            className={styles['timeCursor']}
+            className={styles['time-cursor']}
             role="button"
             tabIndex={0}
             backgroundColor="brand.secondary.300"
             onMouseDown={handleMouseDown}
         >
             <Box
-                className={styles['timeCursorSquare']}
+                className={styles['time-cursor-square']}
                 backgroundColor="brand.secondary.300"
             />
             <Box
-                className={styles['timeCursorTriangle']}
+                className={styles['time-cursor-triangle']}
                 color="brand.secondary.300"
             />
         </Box>

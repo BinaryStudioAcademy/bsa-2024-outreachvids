@@ -5,7 +5,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { AvatarsApiPath } from './enums/enums.js';
@@ -87,7 +87,7 @@ class AvatarController extends BaseController {
      */
     private findAll(): ApiHandlerResponse {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: this.avatarService.findAll(),
         };
     }
@@ -128,7 +128,7 @@ class AvatarController extends BaseController {
         const avatar = this.avatarService.findById({ avatarId });
 
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: avatar,
         };
     }

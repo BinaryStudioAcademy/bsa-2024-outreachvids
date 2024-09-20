@@ -26,7 +26,7 @@ type Properties = {
     children: React.ReactNode;
 };
 
-const Sidebar = ({ children }: Properties): JSX.Element => {
+const Sidebar: React.FC<Properties> = ({ children }) => {
     const user = useAppSelector(({ auth }) => auth.user);
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
@@ -52,7 +52,7 @@ const Sidebar = ({ children }: Properties): JSX.Element => {
         <Flex w="100%">
             <Flex
                 w={isCollapsed ? '60px' : '270px'}
-                className={styles['sidebarContainer']}
+                className={styles['sidebar-container']}
             >
                 <IconButton
                     aria-label={isCollapsed ? 'expand' : 'collapse'}

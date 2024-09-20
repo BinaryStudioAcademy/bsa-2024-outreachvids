@@ -1,5 +1,7 @@
 import { Box } from '~/bundles/common/components/components.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { useMemo } from '~/bundles/common/hooks/hooks.js';
+import { GROW_COEFFICIENT } from '~/bundles/studio/constants/constants.js';
 import {
     type Marker,
     type MarkerDefinition,
@@ -17,16 +19,20 @@ const TimeAxis: React.FC<Properties> = ({ markers }) => {
         useTimelineContext();
     const side = direction === 'rtl' ? 'right' : 'left';
 
+    const timelineWidth = range.end * GROW_COEFFICIENT;
+
     const computeMarkers = useMemo(() => {
         return getComputedMarkers(markers, range, valueToPixels);
     }, [range, valueToPixels, markers]);
 
     return (
         <Box
-            className={styles['timeAxis']}
+            className={styles['time-axis']}
             style={{
                 [side === 'right' ? 'marginRight' : 'marginLeft']:
                     `${sidebarWidth}px`,
+                width: timelineWidth,
+                minWidth: '100%',
             }}
         >
             {computeMarkers.map((marker, index) => (
@@ -54,7 +60,7 @@ const getComputedMarkers = (
 
     for (let time = startTime; time <= endTime; time += delta) {
         const multiplierIndex = sortedMarkers.findIndex((marker) => {
-            const timeOffset = time % marker.value === 0;
+            const timeOffset = time % marker.value === EMPTY_VALUE;
             const isWithinMaxRange =
                 !marker.maxRangeSize || rangeSize <= marker.maxRangeSize;
             const isWithinMinRange =
@@ -87,20 +93,20 @@ const MarkerBox: React.FC<{ marker: Marker; side: string }> = ({
     side,
 }) => (
     <Box
-        className={styles['markerContainer']}
+        className={styles['marker-container']}
         style={{
             [side]: `${marker.sideDelta}px`,
         }}
     >
         <Box
-            className={styles['markerLine']}
+            className={styles['marker-line']}
             style={{
                 height: `${100 * marker.heightMultiplier}%`,
             }}
         />
         {marker.label && (
             <Box
-                className={styles['markerLabel']}
+                className={styles['marker-label']}
                 style={{
                     fontWeight: marker.heightMultiplier * 1000,
                 }}

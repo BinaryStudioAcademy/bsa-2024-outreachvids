@@ -59,17 +59,17 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
         <FormProvider value={form}>
             <form onSubmit={handleSubmit}>
                 <VStack
-                    className={styles['scriptFormContainer']}
+                    className={styles['script-form-container']}
                     spacing="20px"
                 >
                     <Textarea
                         label="Topic"
                         name="topic"
                         placeholder="Introduce your platform"
-                        className={styles['scriptFormTextareaTopic']}
-                        required
+                        className={styles['script-form-textarea-topic']}
+                        isRequired
                     />
-                    <Select label="Target language" name="language" required>
+                    <Select label="Target language" name="language" isRequired>
                         <option value="english" defaultChecked>
                             English
                         </option>
@@ -84,7 +84,9 @@ const GenerateScriptForm: React.FC<Properties> = ({ onSubmit }) => {
                         label="Additional info"
                         name="additionalInfo"
                         placeholder="An online video tool with built-in talking AI-avatars"
-                        className={styles['scriptFormTextareaAdditionalInfo']}
+                        className={
+                            styles['script-form-textarea-additional-info']
+                        }
                     />
                     <Button
                         type="submit"

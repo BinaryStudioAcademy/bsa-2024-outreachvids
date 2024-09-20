@@ -26,3 +26,11 @@
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
+.draft-box {
+    position: absolute;
+    bottom: 1vh;
+    left: 1vh;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
