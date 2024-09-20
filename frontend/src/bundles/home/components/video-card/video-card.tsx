@@ -64,7 +64,14 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box position="relative" role="group">
                 <Image src={photo} alt="Video preview" borderRadius="5px" />
-
+                {!url && (
+                    <Box
+                        className={styles['draft-box']}
+                        backgroundColor="background.300"
+                    >
+                        <Text variant="bodySmall">Draft</Text>
+                    </Box>
+                )}
                 <Box
                     _groupHover={{ opacity: 1 }}
                     className={styles['overlay']}
