@@ -208,14 +208,13 @@ class AvatarVideoService {
         const url =
             await this.remotionService.getRemotionRenderProgress(renderId);
 
+        if (url) {
+            // TODO: NOTIFY USER
+            await this.updateVideoRecord(videoRecordId, url);
+        }
+
         await this.removeGeneratedAvatars(generatedAvatars);
         await this.removeAvatarsFromBucket(generatedAvatars);
-
-        if (!url) {
-            return;
-        }
-        // TODO: NOTIFY USER
-        await this.updateVideoRecord(videoRecordId, url);
     }
 
     private async updateVideoRecord(
