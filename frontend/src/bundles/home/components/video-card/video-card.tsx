@@ -1,7 +1,6 @@
 import { getVideoMetadata } from '@remotion/media-utils';
 import { format } from 'date-fns';
 
-import photo from '~/assets/img/photo.png';
 import {
     Box,
     Flex,
@@ -34,9 +33,16 @@ type Properties = {
     name: string;
     url: string | null;
     createdAt: string;
+    previewUrl: string;
 };
 
-const VideoCard: React.FC<Properties> = ({ id, name, url, createdAt }) => {
+const VideoCard: React.FC<Properties> = ({
+    id,
+    name,
+    url,
+    createdAt,
+    previewUrl,
+}) => {
     const dispatch = useAppDispatch();
 
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -81,8 +87,17 @@ const VideoCard: React.FC<Properties> = ({ id, name, url, createdAt }) => {
 
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
-            <Box position="relative" role="group">
-                <Image src={photo} alt="Video preview" borderRadius="5px" />
+            <Box
+                position="relative"
+                role="group"
+                height="155px"
+                overflow="hidden"
+            >
+                <Image
+                    src={previewUrl}
+                    alt="Video preview"
+                    className={styles['preview-image']}
+                />
                 {!url && (
                     <Box
                         className={styles['draft-box']}
