@@ -1,4 +1,5 @@
 export { ADD_BUTTON_PADDING_MILLISECONDS } from './add-button-padding-milliseconds.js';
+export { DEFAULT_VOICE } from './default-voice-name.constant.js';
 export { DND_ACTIVATION_DISTANCE_PIXELS } from './dnd-activation-distance-pixels.constant.js';
 export { GROW_COEFFICIENT } from './grow-coefficient.js';
 export { MAX_SCENES_BEFORE_RESIZE } from './max-scenes-before-resize.js';

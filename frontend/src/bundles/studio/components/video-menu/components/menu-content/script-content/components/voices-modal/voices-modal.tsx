@@ -9,7 +9,7 @@ type Properties = {
 };
 const VoicesModal: React.FC<Properties> = ({ isOpen, onClose, scriptId }) => {
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
             {scriptId && (
                 <VoicesModalContent
                     scriptId={scriptId}
