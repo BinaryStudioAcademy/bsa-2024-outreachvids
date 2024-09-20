@@ -30,6 +30,7 @@ import {
     Stop,
     T,
     TableColumns,
+    VideoCamera,
     VolumeHigh,
     VolumeOff,
 } from './helper/icon-conversion.helper.js';
@@ -67,6 +68,7 @@ const IconName = {
     LOGO_TEXT: LogoText,
     DELETE: DeleteIcon,
     WARNING: WarningIcon,
+    VIDEO_CAMERA: VideoCamera,
 } as const;
 
 export { IconName };
