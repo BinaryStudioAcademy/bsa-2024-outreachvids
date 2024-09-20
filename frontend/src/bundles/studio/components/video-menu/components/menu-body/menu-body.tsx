@@ -26,7 +26,6 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
     onChatOpen,
     menuBodyReference,
 }) => {
-
     const menuReference = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {

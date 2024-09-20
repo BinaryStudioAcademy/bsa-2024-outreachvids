@@ -1,6 +1,6 @@
 import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
 import { Icon } from '~/bundles/common/components/components.js';
-import { DOM_EVENT } from '~/bundles/common/enums/enums.js';
+import { DOMEvent } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -108,11 +108,11 @@ const VideoMenu: React.FC = () => {
             }
         };
 
-        document.addEventListener(DOM_EVENT.MOUSE_DOWN, handleClickOutside);
+        document.addEventListener(DOMEvent.MOUSE_DOWN, handleClickOutside);
 
         return () => {
             document.removeEventListener(
-                DOM_EVENT.MOUSE_DOWN,
+                DOMEvent.MOUSE_DOWN,
                 handleClickOutside,
             );
         };
