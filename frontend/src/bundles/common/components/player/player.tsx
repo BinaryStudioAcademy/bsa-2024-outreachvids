@@ -17,7 +17,7 @@ type Properties = {
     playerRef: RefObject<PlayerRef>;
 };
 
-const Player = ({ playerRef }: Properties): JSX.Element => {
+const Player: React.FC<Properties> = ({ playerRef }) => {
     const scenes = useAppSelector(({ studio }) => studio.scenes);
     const scripts = useAppSelector(({ studio }) => studio.scripts);
     const orientation = useAppSelector(({ studio }) => studio.videoSize);

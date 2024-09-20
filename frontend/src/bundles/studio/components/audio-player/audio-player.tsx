@@ -28,12 +28,14 @@ const AudioPlayer: React.FC<Properties> = ({
     const [durationInFrames, setDurationInFrames] = useState(1);
 
     useEffect(() => {
-        if (isPlaying) {
-            playerReference.current?.play();
-        } else {
-            playerReference.current?.pauseAndReturnToPlayStart();
+        if (durationInFrames > 1) {
+            if (isPlaying) {
+                playerReference.current?.play();
+            } else {
+                playerReference.current?.pauseAndReturnToPlayStart();
+            }
         }
-    }, [isPlaying]);
+    }, [isPlaying, durationInFrames]);
 
     useEffect(() => {
         getAudioData(audioUrl)

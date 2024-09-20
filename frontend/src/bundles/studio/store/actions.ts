@@ -7,6 +7,7 @@ import {
     type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
+    type GetVoicesResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
     type VideoGetAllItemResponseDto,
@@ -24,11 +25,31 @@ const loadAvatars = createAsyncThunk<
     return avatarsApi.loadAvatars();
 });
 
+const loadVoices = createAsyncThunk<
+    GetVoicesResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/load-voices`, (_, { extra }) => {
+    const { speechApi } = extra;
+
+    return speechApi.loadVoices();
+});
+
 const generateScriptSpeech = createAsyncThunk<
     GenerateSpeechResponseDto,
     GenerateSpeechRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/generate-script-speech`, (payload, { extra }) => {
+    const { speechApi } = extra;
+
+    return speechApi.generateScriptSpeech(payload);
+});
+
+const generateScriptSpeechPreview = createAsyncThunk<
+    GenerateSpeechResponseDto,
+    GenerateSpeechRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/generate-script-speech-preview`, (payload, { extra }) => {
     const { speechApi } = extra;
 
     return speechApi.generateScriptSpeech(payload);
@@ -50,7 +71,7 @@ const generateAllScriptsSpeech = createAsyncThunk<
                     generateScriptSpeech({
                         scriptId: id,
                         text,
-                        voiceName: voice?.shortName as string,
+                        voiceName: voice?.shortName,
                     }),
                 ),
             );
@@ -94,7 +115,9 @@ const updateVideo = createAsyncThunk<
 export {
     generateAllScriptsSpeech,
     generateScriptSpeech,
+    generateScriptSpeechPreview,
     loadAvatars,
+    loadVoices,
     renderAvatar,
     saveVideo,
     updateVideo,

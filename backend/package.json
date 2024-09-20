@@ -38,6 +38,7 @@
         "@fastify/static": "7.0.4",
         "@fastify/swagger": "8.15.0",
         "@fastify/swagger-ui": "4.0.1",
+        "@remotion/lambda": "4.0.201",
         "bcrypt": "5.1.1",
         "convict": "6.2.4",
         "dotenv": "16.4.5",
