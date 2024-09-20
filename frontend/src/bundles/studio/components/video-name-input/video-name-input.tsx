@@ -4,6 +4,7 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useMemo,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { DEFAULT_VIDEO_NAME } from '~/bundles/studio/constants/constants.js';
@@ -13,9 +14,12 @@ import styles from './styles.module.css';
 
 const VideoNameInput: React.FC = () => {
     const { videoName, isDraftSaved } = useAppSelector(({ studio }) => studio);
-    const [inputValue, setInputValue] = useState(
-        isDraftSaved ? videoName : `${videoName}*`,
-    );
+
+    const videoNameWithStatus = useMemo((): string => {
+        return isDraftSaved ? videoName : `${videoName}*`;
+    }, [videoName, isDraftSaved]);
+
+    const [inputValue, setInputValue] = useState(videoNameWithStatus);
 
     const dispatch = useAppDispatch();
 
@@ -46,8 +50,8 @@ const VideoNameInput: React.FC = () => {
     );
 
     useEffect(() => {
-        setInputValue(isDraftSaved ? videoName : `${videoName}*`);
-    }, [isDraftSaved, videoName]);
+        setInputValue(videoNameWithStatus);
+    }, [videoNameWithStatus]);
 
     const handleInputFocus = useCallback((): void => {
         setInputValue(videoName);
