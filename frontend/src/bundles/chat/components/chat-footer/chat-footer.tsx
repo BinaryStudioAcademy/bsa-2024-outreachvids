@@ -8,7 +8,7 @@ import {
     FormProvider,
     Input,
 } from '~/bundles/common/components/components.js';
-import { EMPTY_LENGTH } from '~/bundles/common/constants/constants.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { useAppForm } from '~/bundles/common/hooks/hooks.js';
 
 import { DEFAULT_CHAT_FORM_PAYLOAD } from './constants/constants.js';
@@ -46,7 +46,7 @@ const ChatFooter: React.FC<Properties> = ({ onSendMessage }) => {
                         label="Send"
                         size="md"
                         isDisabled={
-                            values.message.trim().length === EMPTY_LENGTH
+                            values.message.trim().length === EMPTY_VALUE
                         }
                         width="100px"
                     />

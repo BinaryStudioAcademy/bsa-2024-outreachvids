@@ -8,7 +8,7 @@ import {
     Link,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { EMPTY_LENGTH } from '~/bundles/common/constants/constants.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     useAppForm,
@@ -42,7 +42,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
     const isEmpty = useMemo(
         () =>
             Object.values(values).some(
-                (value) => value.trim().length === EMPTY_LENGTH,
+                (value) => value.trim().length === EMPTY_VALUE,
             ),
         [values],
     );

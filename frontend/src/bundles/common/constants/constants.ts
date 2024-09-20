@@ -1,2 +1,2 @@
 export { FPS } from './fps.constant.js';
-export { EMPTY_LENGTH } from 'shared';
+export { EMPTY_VALUE } from 'shared';

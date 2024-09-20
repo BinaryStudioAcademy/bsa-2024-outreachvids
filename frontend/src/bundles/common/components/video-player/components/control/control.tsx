@@ -16,7 +16,7 @@ import {
     type PlayerOptions,
     type VideoDuration,
 } from '~/bundles/common/components/video-player/libs/types/types.js';
-import { EMPTY_LENGTH } from '~/bundles/common/constants/constants.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import {
     useAnimationFrame,
     useCallback,
@@ -137,7 +137,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
             : videoPlayerReference.current?.mute();
 
         const newVolume =
-            isCurrentlyMuted && videoState.volume === EMPTY_LENGTH
+            isCurrentlyMuted && videoState.volume === EMPTY_VALUE
                 ? MIN_VOLUME
                 : videoState.volume;
         const isMuted = !isCurrentlyMuted;
@@ -164,7 +164,7 @@ const Control: React.FC<Properties> = ({ videoPlayerReference, duration }) => {
             setVideoState({
                 ...videoState,
                 volume: newVolume,
-                isMuted: newVolume === EMPTY_LENGTH ? true : false,
+                isMuted: newVolume === EMPTY_VALUE ? true : false,
             });
             videoPlayerReference.current?.setVolume(newVolume);
         },

@@ -1,4 +1,4 @@
-import { EMPTY_LENGTH } from 'shared';
+import { EMPTY_VALUE } from 'shared';
 import { z } from 'zod';
 
 import { SpeechValidationMessage } from '../enums/enums.js';
@@ -34,7 +34,7 @@ const generateSpeech = z
                 return false;
             }
 
-            if (splittedVoiceName[2]?.length === EMPTY_LENGTH) {
+            if (splittedVoiceName[2]?.length === EMPTY_VALUE) {
                 return false;
             }
 

@@ -1,3 +1,3 @@
-const EMPTY_LENGTH = 0;
+const EMPTY_VALUE = 0;
 
-export { EMPTY_LENGTH };
+export { EMPTY_VALUE };

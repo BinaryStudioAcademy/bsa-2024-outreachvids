@@ -1,1 +1,1 @@
-export { EMPTY_LENGTH } from './empty-length.constant.js';
+export { EMPTY_VALUE } from './empty-length.constant.js';

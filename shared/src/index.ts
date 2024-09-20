@@ -76,7 +76,7 @@ export {
     VideosApiPath,
     VideoValidationMessage,
 } from './bundles/videos/videos.js';
-export { EMPTY_LENGTH } from './constants/constants.js';
+export { EMPTY_VALUE } from './constants/constants.js';
 export {
     ApiPath,
     AppEnvironment,

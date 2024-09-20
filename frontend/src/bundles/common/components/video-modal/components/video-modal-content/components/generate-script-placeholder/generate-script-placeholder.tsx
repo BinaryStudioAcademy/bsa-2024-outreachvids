@@ -1,5 +1,5 @@
 import { Box, Loader, VStack } from '~/bundles/common/components/components.js';
-import { EMPTY_LENGTH } from '~/bundles/common/constants/constants.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -43,7 +43,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
         if (dataStatus === DataStatus.PENDING) {
             return renderLoadingState();
         }
-        if (videoScripts.length === EMPTY_LENGTH) {
+        if (videoScripts.length === EMPTY_VALUE) {
             return renderEmptyState();
         }
         return renderScripts();
