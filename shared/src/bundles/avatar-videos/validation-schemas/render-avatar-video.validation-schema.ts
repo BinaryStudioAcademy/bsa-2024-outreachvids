@@ -1,39 +1,85 @@
+import { EMPTY_VALUE } from 'shared';
 import { z } from 'zod';
 
 import { AvatarVideoValidationMessage } from '../enum/enums.js';
 
-type GenerateAvatarVideoRequestValidationDto = {
-    avatarName: z.ZodString;
-    avatarStyle: z.ZodString;
-    text: z.ZodString;
-    voice: z.ZodString;
+type SceneAvatarValidation = {
+    id: z.ZodString;
+    name: z.ZodString;
+    style: z.ZodString;
+    url: z.ZodString;
 };
 
-const renderAvatarVideo = z
-    .object<GenerateAvatarVideoRequestValidationDto>({
+type SceneValidation = {
+    id: z.ZodString;
+    duration: z.ZodNumber;
+    avatar: typeof avatarSchema;
+};
+
+type ScriptValidation = {
+    duration: z.ZodNumber;
+    text: z.ZodString;
+    voiceName: z.ZodString;
+};
+
+type Composition = {
+    scenes: z.ZodArray<typeof sceneSchema>;
+    scripts: z.ZodArray<typeof scriptSchema>;
+};
+
+type GenerateAvatarVideoRequestValidationDto = {
+    name: z.ZodString;
+    composition: typeof compositionSchema;
+    videoId?: z.ZodOptional<z.ZodString>;
+};
+
+const avatarSchema = z.object<SceneAvatarValidation>({
+    id: z.string().uuid({
+        message: AvatarVideoValidationMessage.AVATAR_ID_REQUIRED,
+    }),
+    name: z.string().trim().min(1, {
+        message: AvatarVideoValidationMessage.AVATAR_NAME_REQUIRED,
+    }),
+    style: z.string().trim().min(1, {
+        message: AvatarVideoValidationMessage.AVATAR_STYLE_REQUIRED,
+    }),
+    url: z.string().url({
+        message: AvatarVideoValidationMessage.AVATAR_IMG_REQUIRED,
+    }),
+});
+
+const sceneSchema = z.object<SceneValidation>({
+    duration: z.number().min(1, {
+        message: AvatarVideoValidationMessage.DURATION_REQUIRED,
+    }),
+    id: z.string().uuid({
+        message: AvatarVideoValidationMessage.ID_REQUIRED,
+    }),
+    avatar: avatarSchema,
+});
+
+const scriptSchema = z
+    .object<ScriptValidation>({
+        duration: z.number().min(1, {
+            message: AvatarVideoValidationMessage.DURATION_REQUIRED,
+        }),
         text: z.string().trim().min(1, {
             message: AvatarVideoValidationMessage.TEXT_REQUIRED,
         }),
-        avatarName: z.string().trim().min(1, {
-            message: AvatarVideoValidationMessage.AVATAR_NAME_REQUIRED,
-        }),
-        avatarStyle: z.string().trim().min(1, {
-            message: AvatarVideoValidationMessage.AVATAR_STYLE_REQUIRED,
-        }),
-        voice: z.string().trim().min(1, {
+        voiceName: z.string().trim().min(1, {
             message: AvatarVideoValidationMessage.VOICE_NAME_REQUIRED,
         }),
     })
     .required()
     .refine(
-        ({ voice }) => {
-            const splittedVoiceName = voice.split('-');
+        ({ voiceName }) => {
+            const splittedVoiceName = voiceName.split('-');
 
             if (splittedVoiceName.length !== 3) {
                 return false;
             }
 
-            if (splittedVoiceName[2]?.length === 0) {
+            if (splittedVoiceName[2]?.length === EMPTY_VALUE) {
                 return false;
             }
 
@@ -43,8 +89,25 @@ const renderAvatarVideo = z
         },
         {
             message: AvatarVideoValidationMessage.VOICE_NAME_INVALID,
-            path: ['voice'],
+            path: ['voiceName'],
         },
     );
+
+const compositionSchema = z.object<Composition>({
+    scenes: z.array(sceneSchema).min(1, {
+        message: AvatarVideoValidationMessage.SCENES_REQUIRED,
+    }),
+    scripts: z.array(scriptSchema).min(1, {
+        message: AvatarVideoValidationMessage.SCRIPTS_REQUIRED,
+    }),
+});
+
+const renderAvatarVideo = z.object<GenerateAvatarVideoRequestValidationDto>({
+    name: z.string().trim().min(1, {
+        message: AvatarVideoValidationMessage.VIDEO_NAME_REQUIRED,
+    }),
+    composition: compositionSchema,
+    videoId: z.string().uuid().optional(),
+});
 
 export { renderAvatarVideo };

@@ -1,8 +1,9 @@
+import { type Composition } from './composition.type.js';
+
 type RenderAvatarVideoRequestDto = {
-    avatarName: string;
-    avatarStyle: string;
-    text: string;
-    voice: string;
+    composition: Composition;
+    name: string;
+    videoId?: string;
 };
 
 export { type RenderAvatarVideoRequestDto };

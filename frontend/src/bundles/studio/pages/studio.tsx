@@ -1,12 +1,16 @@
 import { type PlayerRef } from '@remotion/player';
-import { useNavigate } from 'react-router-dom';
 
 import {
     Box,
     Button,
     Flex,
     Header,
-    LibraryInput,
+    Icon,
+    LibraryButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
     Player,
     VStack,
 } from '~/bundles/common/components/components.js';
@@ -16,33 +20,51 @@ import {
     useAppSelector,
     useCallback,
     useEffect,
+    useLocation,
+    useNavigate,
     useRef,
 } from '~/bundles/common/hooks/hooks.js';
+import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
+import { AudioPlayer } from '../components/audio-player/audio-player.js';
 import {
     PlayerControls,
     Timeline,
     VideoMenu,
+    VideoNameInput,
 } from '../components/components.js';
-import { defaultVoiceName } from '../components/video-menu/components/mock/voices-mock.js';
 import {
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
+    VIDEO_SAVE_FAILED_NOTIFICATION_ID,
+    VIDEO_SAVE_NOTIFICATION_ID,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
+import { getVoicesConfigs } from '../helpers/helpers.js';
+import { selectVideoDataById } from '../store/selectors.js';
 import { actions as studioActions } from '../store/studio.js';
-import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
-    const { scenes, scripts, videoName } = useAppSelector(
-        ({ studio }) => studio,
+    const { state: locationState } = useLocation();
+
+    const videoData = useAppSelector((state) =>
+        selectVideoDataById(state, locationState?.id),
     );
+
+    const { scenes, scripts, videoName, videoId, scriptPlayer } =
+        useAppSelector(({ studio }) => studio);
 
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    useEffect((): void => {
+        if (videoData) {
+            void dispatch(studioActions.loadVideoData(videoData));
+        }
+    }, [dispatch, videoData]);
 
     const handleResize = useCallback(() => {
         dispatch(studioActions.changeVideoSize());
@@ -54,7 +76,7 @@ const Studio: React.FC = () => {
         const script = scripts[0];
 
         if (!scene?.avatar || !script) {
-            notificationService.info({
+            notificationService.warn({
                 id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
                 message: NotificationMessage.SCRIPT_AND_AVATAR_ARE_REQUIRED,
                 title: NotificationTitle.SCRIPT_AND_AVATAR_ARE_REQUIRED,
@@ -62,14 +84,11 @@ const Studio: React.FC = () => {
             return;
         }
 
-        dispatch(
-            studioActions.renderAvatar({
-                avatarName: scene.avatar.name,
-                avatarStyle: scene.avatar.style,
-                text: script?.text,
-                voice: script?.voice?.shortName ?? defaultVoiceName,
-            }),
-        )
+        void dispatch(studioActions.generateAllScriptsSpeech())
+            .unwrap()
+            .then(() => {
+                void dispatch(studioActions.renderAvatar());
+            })
             .then(() => {
                 notificationService.success({
                     id: VIDEO_SUBMIT_NOTIFICATION_ID,
@@ -88,15 +107,61 @@ const Studio: React.FC = () => {
     }, [dispatch, navigate, scenes, scripts]);
 
     useEffect(() => {
-        return () => void dispatch(studioActions.resetStudio());
+        return () => {
+            dispatch(studioActions.resetStudio());
+        };
     }, [dispatch]);
 
-    const handleEditVideoName = useCallback(
-        (event: React.FocusEvent<HTMLInputElement>): void => {
-            void dispatch(studioActions.setVideoName(event.target.value));
+    const handleSaveDraft = useCallback((): void => {
+        if (!scenes[0]?.avatar || scripts.length === 0) {
+            return notificationService.warn({
+                id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
+                message: NotificationMessage.SCRIPT_AND_AVATAR_ARE_REQUIRED,
+                title: NotificationTitle.SCRIPT_AND_AVATAR_ARE_REQUIRED,
+            });
+        }
+
+        const action = videoId
+            ? studioActions.updateVideo
+            : studioActions.saveVideo;
+
+        void dispatch(
+            action({
+                composition: {
+                    scenes,
+                    scripts: getVoicesConfigs(scripts),
+                },
+                name: videoName,
+            }),
+        )
+            .then(() => {
+                notificationService.success({
+                    id: VIDEO_SAVE_NOTIFICATION_ID,
+                    message: NotificationMessage.VIDEO_SAVE,
+                    title: NotificationTitle.VIDEO_SAVED,
+                });
+            })
+            .catch(() => {
+                notificationService.error({
+                    id: VIDEO_SAVE_FAILED_NOTIFICATION_ID,
+                    message: NotificationMessage.VIDEO_SAVE_FAILED,
+                    title: NotificationTitle.VIDEO_SAVE_FAILED,
+                });
+            });
+    }, [dispatch, scenes, scripts, videoId, videoName]);
+
+    const handleAudioEnd = useCallback((): void => {
+        dispatch(studioActions.playScript({ isPlaying: false }));
+    }, [dispatch]);
+
+    const handleSetScriptDuration = useCallback(
+        (duration: number): void => {
+            dispatch(studioActions.playScript({ duration }));
         },
         [dispatch],
     );
+
+    const { isPlaying, url } = scriptPlayer;
 
     return (
         <Box
@@ -117,20 +182,25 @@ const Studio: React.FC = () => {
                 }
                 right={
                     <Flex gap="10px">
-                        <LibraryInput
-                            defaultValue={videoName}
-                            className={styles['videoName']}
-                            variant="unstyled"
-                            placeholder="Untitled video"
-                            onBlur={handleEditVideoName}
-                        />
-                        <Button
-                            variant="primaryOutlined"
-                            label="Submit"
-                            width="100px"
-                            onClick={handleSubmit}
-                            flexShrink={0}
-                        />
+                        <VideoNameInput />
+                        <Menu>
+                            <MenuButton
+                                variant="primaryOutlined"
+                                as={LibraryButton}
+                                rightIcon={<Icon as={IconName.CHEVRON_DOWN} />}
+                                flexShrink={0}
+                            >
+                                Submit
+                            </MenuButton>
+                            <MenuList>
+                                <MenuItem onClick={handleSaveDraft}>
+                                    Save draft
+                                </MenuItem>
+                                <MenuItem onClick={handleSubmit}>
+                                    Submit to render
+                                </MenuItem>
+                            </MenuList>
+                        </Menu>
                     </Flex>
                 }
             />
@@ -146,6 +216,14 @@ const Studio: React.FC = () => {
                     <Timeline playerRef={playerReference} />
                 </Box>
             </VStack>
+            {url && (
+                <AudioPlayer
+                    isPlaying={isPlaying}
+                    audioUrl={url}
+                    onAudioEnd={handleAudioEnd}
+                    onSetDuration={handleSetScriptDuration}
+                />
+            )}
         </Box>
     );
 };

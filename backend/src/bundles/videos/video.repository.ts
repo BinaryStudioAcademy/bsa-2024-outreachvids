@@ -32,12 +32,16 @@ class VideoRepository implements Repository {
     }
 
     public async create(entity: VideoEntity): Promise<VideoEntity> {
-        const { userId, name, url } = entity.toNewObject();
+        const { userId, name, url, composition, previewUrl } =
+            entity.toNewObject();
+
         const item = await this.videoModel
             .query()
             .insert({
                 userId,
                 name,
+                composition,
+                previewUrl,
                 url,
             })
             .returning('*')
@@ -50,9 +54,24 @@ class VideoRepository implements Repository {
         id: string,
         payload: UpdateVideoRequestDto,
     ): Promise<VideoEntity | null> {
+        const data: Partial<VideoModel> = {};
+
+        if (payload.composition) {
+            data.composition = payload.composition;
+            data.previewUrl = payload.composition.scenes[0]?.avatar?.url ?? '';
+        }
+
+        if (payload.name) {
+            data.name = payload.name;
+        }
+
+        if (payload.url) {
+            data.url = payload.url;
+        }
+
         const updatedItem = await this.videoModel
             .query()
-            .patchAndFetchById(id, payload)
+            .patchAndFetchById(id, data)
             .execute();
 
         return updatedItem ? VideoEntity.initialize(updatedItem) : null;

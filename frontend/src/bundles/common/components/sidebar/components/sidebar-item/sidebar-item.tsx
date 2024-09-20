@@ -13,18 +13,18 @@ type Properties = {
     onClick?: () => void;
 };
 
-const SidebarItem = ({
+const SidebarItem: React.FC<Properties> = ({
     icon,
     isCollapsed,
     label,
     bg = 'none',
     color = 'white',
     onClick = (): void => {},
-}: Properties): JSX.Element => {
+}) => {
     return (
         <Box
             as="button"
-            className={`${styles['sidebarItem']} ${isCollapsed ? styles['itemJustifyCenter'] : styles['itemJustifyStart']}`}
+            className={`${styles['sidebar-item']} ${isCollapsed ? styles['item-justify-center'] : styles['item-justify-start']}`}
             bg={bg}
             color={color}
             onClick={onClick}

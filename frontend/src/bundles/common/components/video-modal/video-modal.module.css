@@ -1,0 +1,108 @@
+.previewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.previewBox {
+    height: 444px;
+    border-width: 1px;
+    border-color: var(--chakra-colors-gray-300);
+    border-radius: var(--chakra-radii-md);
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--chakra-space-4);
+}
+
+.previewInnerBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--chakra-colors-gray-400);
+}
+
+.previewIcon {
+    padding: 5px;
+    height: 16px;
+}
+
+.previewText {
+    color: var(--chakra-colors-gray-400);
+}
+
+.previewButtonContainer {
+    display: flex;
+    justify-content: center;
+    gap: var(--chakra-space-4);
+}
+
+.previewButton {
+    background-color: var(--chakra-colors-brand-secondary-300);
+    color: white;
+}
+
+.previewButton:hover {
+    background-color: var(--chakra-colors-brand-secondary-600);
+}
+
+.scriptFormContainer {
+    width: 256px;
+    margin-top: 20px;
+}
+
+.scriptFormTextareaTopic {
+    height: 84px;
+}
+
+.scriptFormTextareaAdditionalInfo {
+    height: 64px;
+}
+
+.scriptPlaceholderContainer {
+    width: 100%;
+    padding: 40px;
+    gap: 10px;
+}
+
+.scriptPlaceholderIcon {
+    color: var(--chakra-colors-brand-secondary-300);
+    opacity: 0.5;
+    font-size: 2rem;
+}
+
+.scriptPlaceholderText {
+    color: var(--chakra-colors-gray-400);
+    width: 40%;
+    min-width: 175px;
+    text-align: center;
+    font-style: italic;
+}
+.scriptViewHeading {
+    color: var(--chakra-colors-typography-900);
+    padding: 33px 0px 20px;
+}
+
+.scriptViewTabList {
+    width: max-content;
+    background-color: var(--chakra-colors-gray-100);
+    border-width: 1px;
+    border-radius: var(--chakra-radii-md);
+    padding: var(--chakra-space-1);
+    gap: 10px;
+}
+
+.scriptViewTab {
+    border-radius: var(--chakra-radii-md);
+    padding-left: var(--chakra-space-4);
+    padding-right: var(--chakra-space-4);
+    padding-top: var(--chakra-space-1);
+    padding-bottom: var(--chakra-space-1);
+}
+
+.scriptViewTabPanel {
+    padding: 0;
+}
+
+.scriptViewHStack {
+    justify-content: space-between;
+}

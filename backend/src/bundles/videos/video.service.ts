@@ -1,6 +1,7 @@
 import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoRepository } from '~/bundles/videos/video.repository.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HTTPCode, HttpError } from '~/common/http/http.js';
+import { type FileService } from '~/common/services/file/file.service.js';
 import { type Service } from '~/common/types/types.js';
 
 import { VideoValidationMessage } from './enums/enums.js';
@@ -13,9 +14,14 @@ import {
 
 class VideoService implements Service {
     private videoRepository: VideoRepository;
+    private fileService: FileService;
 
-    public constructor(videoRepository: VideoRepository) {
+    public constructor(
+        videoRepository: VideoRepository,
+        fileService: FileService,
+    ) {
         this.videoRepository = videoRepository;
+        this.fileService = fileService;
     }
 
     public async findById(id: string): Promise<VideoGetAllItemResponseDto> {
@@ -24,7 +30,7 @@ class VideoService implements Service {
         if (!video) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.NOT_FOUND,
+                status: HTTPCode.NOT_FOUND,
             });
         }
 
@@ -48,10 +54,15 @@ class VideoService implements Service {
     }
 
     public async create(
-        payload: CreateVideoRequestDto,
+        payload: CreateVideoRequestDto & { userId: string },
     ): Promise<VideoGetAllItemResponseDto> {
         const video = await this.videoRepository.create(
-            VideoEntity.initializeNew(payload),
+            VideoEntity.initializeNew({
+                name: payload.name,
+                composition: payload.composition,
+                previewUrl: payload.composition?.scenes[0]?.avatar?.url ?? '',
+                userId: payload.userId,
+            }),
         );
 
         return video.toObject();
@@ -66,7 +77,7 @@ class VideoService implements Service {
         if (!updatedVideo) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.NOT_FOUND,
+                status: HTTPCode.NOT_FOUND,
             });
         }
 
@@ -74,12 +85,16 @@ class VideoService implements Service {
     }
 
     public async delete(id: string): Promise<boolean> {
+        const { name } = await this.findById(id);
+
+        await this.fileService.deleteFile(name);
+
         const isVideoDeleted = await this.videoRepository.delete(id);
 
         if (!isVideoDeleted) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.NOT_FOUND,
+                status: HTTPCode.NOT_FOUND,
             });
         }
 

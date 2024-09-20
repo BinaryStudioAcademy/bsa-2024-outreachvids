@@ -134,6 +134,12 @@ class BaseConfig implements Config {
                         env: 'AWS_CLOUDFRONT_DOMAIN_ID',
                         default: null,
                     },
+                    DOMAIN_ID_FOR_RENDERED_VIDEO: {
+                        doc: 'AWS CloudFront domain id for rendered video',
+                        format: String,
+                        env: 'AWS_CLOUDFRONT_DOMAIN_ID_FOR_RENDERED_VIDEO',
+                        default: null,
+                    },
                 },
             },
             AZURE: {
@@ -153,6 +159,26 @@ class BaseConfig implements Config {
                     doc: 'Azure service endpoint',
                     format: String,
                     env: 'AZURE_SERVICE_ENDPOINT',
+                    default: null,
+                },
+            },
+            REMOTION: {
+                LAMBDA_FUNCTION_NAME: {
+                    doc: 'Remotion lambda function name',
+                    format: String,
+                    env: 'REMOTION_LAMBDA_FUNCTION_NAME',
+                    default: null,
+                },
+                SERVE_URL: {
+                    doc: 'URL under which a Remotion Bundle is hosted.',
+                    format: String,
+                    env: 'REMOTION_SERVE_URL',
+                    default: null,
+                },
+                BUCKET_NAME: {
+                    doc: 'Remotion bucket name',
+                    format: String,
+                    env: 'REMOTION_BUCKET_NAME',
                     default: null,
                 },
             },

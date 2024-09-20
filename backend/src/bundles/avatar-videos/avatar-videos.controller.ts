@@ -5,11 +5,11 @@ import {
     type ApiHandlerResponse,
 } from '~/common/controller/controller.js';
 import { BaseController } from '~/common/controller/controller.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { type AvatarVideoService } from './avatar-videos.service.js';
-import { AvatarVideosApiPath } from './enums/enums.js';
+import { AvatarVideosApiPath, ResponseStatus } from './enums/enums.js';
 import { type RenderAvatarVideoRequestDto } from './types/types.js';
 import { renderAvatarVideoValidationSchema } from './validation-schemas/validation-schemas.js';
 
@@ -68,7 +68,7 @@ class AvatarVideoController extends BaseController {
      *              schema:
      *                type: object
      *                properties:
-     *                  id:
+     *                  status:
      *                    type: string
      */
     private async renderAvatarVideo(
@@ -76,12 +76,29 @@ class AvatarVideoController extends BaseController {
             body: RenderAvatarVideoRequestDto;
         }>,
     ): Promise<ApiHandlerResponse> {
+        const userId = (options.user as UserGetCurrentResponseDto).id;
+        const { composition, name, videoId } = options.body;
+
+        const videoPayload = {
+            name,
+            composition,
+        };
+
+        const videoRecord = await (videoId
+            ? this.avatarVideoService.updateVideo({ ...videoPayload, videoId })
+            : this.avatarVideoService.createVideo({ ...videoPayload, userId }));
+
+        const avatarsConfigs =
+            this.avatarVideoService.getAvatarsConfigs(composition);
+
+        await this.avatarVideoService.submitAvatarsConfigs(
+            avatarsConfigs,
+            videoRecord.id,
+        );
+
         return {
-            payload: await this.avatarVideoService.renderAvatarVideo({
-                ...options.body,
-                userId: (options.user as UserGetCurrentResponseDto).id,
-            }),
-            status: HttpCode.CREATED,
+            payload: { status: ResponseStatus.SUBMITTED },
+            status: HTTPCode.CREATED,
         };
     }
 }

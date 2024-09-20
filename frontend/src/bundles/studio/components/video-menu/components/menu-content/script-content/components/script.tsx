@@ -12,15 +12,15 @@ import {
 } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
+    useAppSelector,
     useCallback,
+    useEffect,
     useMemo,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
-import { AudioPlayer } from '~/bundles/studio/components/audio-player/audio-player.js';
 import { PlayIconNames } from '~/bundles/studio/enums/play-icon-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
-import { type Script as ScriptT } from '~/bundles/studio/types/types.js';
+import { type ScriptWithIcon as ScriptT } from '~/bundles/studio/types/types.js';
 
 type Properties = ScriptT & { handleChangeVoice: (scriptId: string) => void };
 
@@ -34,7 +34,16 @@ const Script: React.FC<Properties> = ({
 }) => {
     const dispatch = useAppDispatch();
 
-    const [isPlaying, setIsPlaying] = useState(false);
+    const {
+        isPlaying: playerIsPlaying,
+        url: playerUrl,
+        duration,
+    } = useAppSelector(({ studio }) => studio.scriptPlayer);
+
+    const isPlaying = useMemo(
+        () => playerIsPlaying && playerUrl === url,
+        [playerIsPlaying, playerUrl, url],
+    );
 
     const handleDeleteScript = useCallback((): void => {
         void dispatch(studioActions.deleteScript(id));
@@ -53,20 +62,15 @@ const Script: React.FC<Properties> = ({
         [dispatch, id, text],
     );
 
-    const handleSetScriptDuration = useCallback(
-        (duration: number): void => {
-            void dispatch(studioActions.editScript({ id, duration }));
-        },
-        [dispatch, id],
-    );
+    useEffect(() => {
+        if (isPlaying && duration) {
+            dispatch(studioActions.editScript({ id, duration }));
+        }
+    }, [dispatch, id, isPlaying, duration]);
 
     const toggleIsPlaying = useCallback((): void => {
         if (url) {
-            setIsPlaying((previous) => !previous);
-            return;
-        }
-
-        if (!voice) {
+            dispatch(studioActions.playScript({ isPlaying: !isPlaying, url }));
             return;
         }
 
@@ -77,11 +81,7 @@ const Script: React.FC<Properties> = ({
                 voiceName: voice.shortName,
             }),
         );
-    }, [dispatch, id, text, url, voice]);
-
-    const handleAudioEnd = useCallback((): void => {
-        setIsPlaying(false);
-    }, []);
+    }, [dispatch, id, text, url, voice, isPlaying]);
 
     const iconComponent = useMemo(() => {
         if (iconName === PlayIconNames.LOADING) {
@@ -159,14 +159,6 @@ const Script: React.FC<Properties> = ({
                     }}
                 />
             </Editable>
-            {url && (
-                <AudioPlayer
-                    isPlaying={isPlaying}
-                    audioUrl={url}
-                    onAudioEnd={handleAudioEnd}
-                    onSetDuration={handleSetScriptDuration}
-                />
-            )}
         </VStack>
     );
 };

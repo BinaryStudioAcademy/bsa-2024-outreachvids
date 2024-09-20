@@ -1,9 +1,13 @@
 export { AuthApiPath } from './bundles/auth/auth.js';
 export {
     type AvatarConfig,
+    type Composition,
     type InputKind,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
+    type Scene,
+    type SceneAvatar,
+    type Script,
     type VideoCodec,
     type VideoFormat,
     AvatarVideosApiPath,
@@ -72,6 +76,7 @@ export {
     VideosApiPath,
     VideoValidationMessage,
 } from './bundles/videos/videos.js';
+export { EMPTY_VALUE } from './constants/constants.js';
 export {
     ApiPath,
     AppEnvironment,
@@ -88,8 +93,8 @@ export {
     type Http,
     type HttpMethod,
     type HttpOptions,
-    HttpCode,
-    HttpHeader,
+    HTTPCode,
+    HTTPHeader,
     HTTPMethod,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';

@@ -15,4 +15,13 @@ const loadUserVideos = createAsyncThunk<
     return videosApi.loadUserVideos();
 });
 
-export { loadUserVideos };
+const deleteVideo = createAsyncThunk<Promise<void>, string, AsyncThunkConfig>(
+    `${sliceName}/delete-video`,
+    (payload, { extra }) => {
+        const { videosApi } = extra;
+
+        return videosApi.deleteVideo(payload);
+    },
+);
+
+export { deleteVideo, loadUserVideos };

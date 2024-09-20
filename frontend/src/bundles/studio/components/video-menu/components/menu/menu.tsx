@@ -25,15 +25,15 @@ const Menu: React.FC<Properties> = ({ items, activeItem, onActiveItemSet }) => {
     );
 
     return (
-        <Box className={styles['menuContainer']}>
-            <VStack spacing={1} align="stretch" className={styles['vStack']}>
+        <Box className={styles['menu-container']}>
+            <VStack spacing={1} align="stretch" className={styles['v-stack']}>
                 {Object.entries(items).map(([key, item]) => (
                     <Flex
                         key={key}
                         data-menu-item={key}
                         onClick={handleClick}
-                        className={`${styles['menuItem']} ${
-                            activeItem === key ? styles['menuItemActive'] : ''
+                        className={`${styles['menu-item']} ${
+                            activeItem === key ? styles['menu-item-active'] : ''
                         }`}
                     >
                         <Box className={styles['icon']}>{item.icon}</Box>

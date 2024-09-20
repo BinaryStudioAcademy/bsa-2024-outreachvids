@@ -1,3 +1,5 @@
+import { type Composition } from 'shared';
+
 import {
     AbstractModel,
     DatabaseTableName,
@@ -8,7 +10,11 @@ class VideoModel extends AbstractModel {
 
     public 'name': string;
 
-    public 'url': string;
+    public 'previewUrl': string;
+
+    public 'composition': Composition;
+
+    public 'url': string | null;
 
     public static override get tableName(): string {
         return DatabaseTableName.VIDEOS;
