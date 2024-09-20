@@ -10,11 +10,11 @@ import {
     type GenerateSpeechResponseDto,
     type GetVoicesResponseDto,
     type RenderAvatarResponseDto,
-    type RenderAvatarVideoRequestDto,
     type Script,
     type VideoGetAllItemResponseDto,
 } from '~/bundles/studio/types/types.js';
 
+import { getVoicesConfigs } from '../helpers/helpers.js';
 import { name as sliceName } from './slice.js';
 
 const loadAvatars = createAsyncThunk<
@@ -92,12 +92,19 @@ const generateAllScriptsSpeech = createAsyncThunk<
 
 const renderAvatar = createAsyncThunk<
     RenderAvatarResponseDto,
-    RenderAvatarVideoRequestDto,
+    undefined,
     AsyncThunkConfig
->(`${sliceName}/render-avatar`, (payload, { extra }) => {
+>(`${sliceName}/render-avatar`, (_, { extra, getState }) => {
     const { avatarVideosApi } = extra;
-
-    return avatarVideosApi.renderVideo(payload);
+    const { scripts, scenes, videoName, videoId } = getState().studio;
+    return avatarVideosApi.renderVideo({
+        composition: {
+            scenes,
+            scripts: getVoicesConfigs(scripts),
+        },
+        name: videoName,
+        ...(videoId && { videoId }),
+    });
 });
 
 const saveVideo = createAsyncThunk<
