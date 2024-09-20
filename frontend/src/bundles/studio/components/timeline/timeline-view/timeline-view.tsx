@@ -22,7 +22,10 @@ const TimelineView: React.FC<Properties> = ({ playerRef }) => {
     const { setTimelineRef, style } = useTimelineContext();
 
     return (
-        <Box ref={setTimelineRef} style={style}>
+        <Box
+            ref={setTimelineRef}
+            style={{ ...style, overflowX: 'visible', minWidth: 'max-content' }}
+        >
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor playerRef={playerRef} />
             <Row id="emptyTop" />

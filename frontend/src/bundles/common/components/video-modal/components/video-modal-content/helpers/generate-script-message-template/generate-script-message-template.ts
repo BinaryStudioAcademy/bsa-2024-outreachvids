@@ -1,4 +1,5 @@
 import { type Message } from '~/bundles/chat/types/types.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/video-scripts.js';
 
 const generateMessageTemplate = (
@@ -24,7 +25,7 @@ const getVideoScriptMessageFromPayload = (
     payload: GenerateVideoScriptRequestDto,
     messages: Message[],
 ): string => {
-    return messages.length === 0
+    return messages.length === EMPTY_VALUE
         ? generateMessageTemplate(payload)
         : `Please, generate another script:
 

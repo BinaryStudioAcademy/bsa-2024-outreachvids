@@ -9,8 +9,12 @@ import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { chatApi } from '~/bundles/chat/chat.js';
 import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
+import { videosApi } from '~/bundles/common/api/api.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
-import { videosApi } from '~/bundles/home/home.js';
+import {
+    draftMiddleware,
+    errorMiddleware,
+} from '~/bundles/common/middlewares/middlewares.js';
 import { reducer as homeReducer } from '~/bundles/home/store/home.js';
 import { reducer as studioReducer } from '~/bundles/studio/store/studio.js';
 import {
@@ -21,8 +25,6 @@ import {
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
 import { storage } from '~/framework/storage/storage.js';
-
-import { errorMiddleware } from '../../bundles/common/middlewares/error-handling.middleware.js';
 
 type RootReducer = {
     auth: ReturnType<typeof authReducer>;
@@ -66,7 +68,11 @@ class Store {
                         extraArgument: this.extraArguments,
                     },
                 });
-                return [...middlewares, errorMiddleware] as Tuple;
+                return [
+                    ...middlewares,
+                    errorMiddleware,
+                    draftMiddleware,
+                ] as Tuple;
             },
         });
     }

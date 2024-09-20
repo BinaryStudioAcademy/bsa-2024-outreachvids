@@ -6,7 +6,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { MAX_TOKEN } from '~/common/services/open-ai/libs/constants/constants.js';
 import {
@@ -120,7 +120,7 @@ class ChatController extends BaseController {
 
         return {
             payload: { generatedText },
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
         };
     }
 
@@ -165,14 +165,14 @@ class ChatController extends BaseController {
             if (error) {
                 return {
                     payload: { isDeleted: false },
-                    status: HttpCode.INTERNAL_SERVER_ERROR,
+                    status: HTTPCode.INTERNAL_SERVER_ERROR,
                 };
             }
         });
 
         return {
             payload: { isDeleted: true },
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
         };
     }
 }

@@ -4,7 +4,7 @@ type addScriptRequest = {
     text: string;
     scripts: Array<Script>;
     rangeEnd: number;
-    voice: Voice | undefined;
+    voice: Voice;
 };
 
 export { type addScriptRequest };

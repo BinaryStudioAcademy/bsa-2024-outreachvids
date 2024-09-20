@@ -6,6 +6,7 @@ import {
     Navigate,
     VStack,
 } from '~/bundles/common/components/components.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
@@ -65,8 +66,7 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({
         if (dataStatus === DataStatus.PENDING) {
             return renderLoadingState();
         }
-
-        if (videoScripts.length === 0) {
+        if (videoScripts.length === EMPTY_VALUE) {
             return renderEmptyState();
         }
 

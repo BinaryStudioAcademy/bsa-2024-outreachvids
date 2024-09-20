@@ -3,11 +3,13 @@ import {
     ArrowLeftIcon,
     ArrowRightIcon,
     CheckCircleIcon,
+    ChevronDownIcon,
     CloseIcon,
     DeleteIcon,
     DownloadIcon,
     ViewIcon,
     ViewOffIcon,
+    WarningIcon,
 } from '@chakra-ui/icons';
 
 import { Logo, LogoText, OpenAi } from './custom-icons/custom-icons.js';
@@ -34,6 +36,7 @@ import {
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
+    CHEVRON_DOWN: ChevronDownIcon,
     PEN: Pen,
     HOME: House,
     LOG_OUT: RightFromBracket,
@@ -65,6 +68,7 @@ const IconName = {
     LOGO: Logo,
     LOGO_TEXT: LogoText,
     DELETE: DeleteIcon,
+    WARNING: WarningIcon,
 } as const;
 
 export { IconName };

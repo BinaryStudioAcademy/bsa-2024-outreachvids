@@ -8,4 +8,10 @@
     overflow-y: auto;
     padding: 20px;
     align-content: space-between;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.modal-content::-webkit-scrollbar {
+    display: none;
 }

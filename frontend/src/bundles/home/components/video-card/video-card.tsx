@@ -1,4 +1,6 @@
-import photo from '~/assets/img/photo.png';
+import { getVideoMetadata } from '@remotion/media-utils';
+import { format } from 'date-fns';
+
 import {
     Box,
     Flex,
@@ -13,9 +15,12 @@ import {
     MenuList,
     Text,
 } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useCallback,
+    useEffect,
+    useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
@@ -29,19 +34,48 @@ type Properties = {
     id: string;
     name: string;
     url: string | null;
+    createdAt: string;
+    previewUrl: string;
 };
 
-const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
+const VideoCard: React.FC<Properties> = ({
+    id,
+    name,
+    url,
+    createdAt,
+    previewUrl,
+}) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
     const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+    const [duration, setDuration] = useState<number | null>(null);
+
+    useEffect(() => {
+        const getDuration = async (): Promise<void> => {
+            if (url) {
+                const response = await getVideoMetadata(url);
+                setDuration(Math.round(response.durationInSeconds));
+            }
+        };
+        void getDuration();
+    });
 
     const handleIconClick = useCallback(() => {
         if (url) {
-            setIsVideoModalOpen(true);
+            return setIsVideoModalOpen(true);
         }
-    }, [url]);
+
+        navigate(AppRoute.STUDIO, {
+            state: {
+                id,
+            },
+        });
+    }, [url, navigate, id]);
+
+    const date = new Date(createdAt);
+    const formattedDate = format(date, 'MMM d, yyyy, h:mm a');
 
     const handleVideoModalClose = useCallback(() => {
         setIsVideoModalOpen(false);
@@ -62,8 +96,17 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
 
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
-            <Box position="relative" role="group">
-                <Image src={photo} alt="Video preview" borderRadius="5px" />
+            <Box
+                position="relative"
+                role="group"
+                height="155px"
+                overflow="hidden"
+            >
+                <Image
+                    src={previewUrl}
+                    alt="Video preview"
+                    className={styles['preview-image']}
+                />
                 {!url && (
                     <Box
                         className={styles['draft-box']}
@@ -91,35 +134,35 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
                         }
                         className={styles['menu-button']}
                     />
-                    {url && (
-                        <MenuList>
-                            <MenuItem
-                                as={LibraryLink}
-                                icon={<Icon as={IconName.DOWNLOAD} />}
-                                href={url}
-                                download
-                            >
-                                <Text
-                                    color="typography.900"
-                                    variant="bodySmall"
+
+                    <MenuList>
+                        {url && (
+                            <>
+                                <MenuItem
+                                    as={LibraryLink}
+                                    icon={<Icon as={IconName.DOWNLOAD} />}
+                                    href={url}
+                                    download
                                 >
-                                    Download
-                                </Text>
-                            </MenuItem>
-                            <MenuDivider />
-                            <MenuItem
-                                icon={<Icon as={IconName.DELETE} />}
-                                onClick={handleDeleteButtonClick}
-                            >
-                                <Text
-                                    color="typography.900"
-                                    variant="bodySmall"
-                                >
-                                    Delete
-                                </Text>
-                            </MenuItem>
-                        </MenuList>
-                    )}
+                                    <Text
+                                        color="typography.900"
+                                        variant="bodySmall"
+                                    >
+                                        Download
+                                    </Text>
+                                </MenuItem>
+                                <MenuDivider />
+                            </>
+                        )}
+                        <MenuItem
+                            icon={<Icon as={IconName.DELETE} />}
+                            onClick={handleDeleteButtonClick}
+                        >
+                            <Text color="typography.900" variant="bodySmall">
+                                Delete
+                            </Text>
+                        </MenuItem>
+                    </MenuList>
                 </Menu>
 
                 <IconButton
@@ -144,10 +187,10 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
                 </Text>
                 <Flex justify="space-between">
                     <Text variant="caption" color="typography.300">
-                        Aug 9, 2024, 1:24 PM
+                        {formattedDate}
                     </Text>
                     <Text variant="caption" color="typography.300">
-                        0,30 sec
+                        {duration && `${duration} sec`}
                     </Text>
                 </Flex>
             </Box>

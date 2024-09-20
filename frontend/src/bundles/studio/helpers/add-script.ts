@@ -22,6 +22,7 @@ const addScript = ({
         text: text,
         voice: voice,
         iconName: PlayIconNames.READY,
+        url: null,
     };
     const updatedScripts = [...scripts, script];
 

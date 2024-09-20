@@ -17,9 +17,14 @@ import {
 type Properties = {
     isChatOpen: boolean;
     onModalChatClose: () => void;
+    modalReference: React.RefObject<HTMLDivElement>;
 };
 
-const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
+const ChatModal: React.FC<Properties> = ({
+    isChatOpen,
+    onModalChatClose,
+    modalReference,
+}) => {
     const dispatch = useAppDispatch();
     const { messages } = useAppSelector(({ chat }) => ({
         messages: chat.messages,
@@ -42,7 +47,7 @@ const ChatModal: React.FC<Properties> = ({ isChatOpen, onModalChatClose }) => {
             size="5xl"
         >
             <ModalOverlay />
-            <ModalContent borderRadius="xl">
+            <ModalContent borderRadius="xl" ref={modalReference}>
                 <ModalCloseButton color="white" />
                 <Chat
                     messages={messages}

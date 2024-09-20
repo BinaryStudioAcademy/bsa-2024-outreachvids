@@ -28,12 +28,18 @@ type EnvironmentSchema = {
         };
         CLOUDFRONT: {
             DOMAIN_ID: string;
+            DOMAIN_ID_FOR_RENDERED_VIDEO: string;
         };
     };
     AZURE: {
         SUBSCRIPTION_KEY: string;
         SERVICE_REGION: string;
         SERVICE_ENDPOINT: string;
+    };
+    REMOTION: {
+        SERVE_URL: string;
+        LAMBDA_FUNCTION_NAME: string;
+        BUCKET_NAME: string;
     };
 };
 

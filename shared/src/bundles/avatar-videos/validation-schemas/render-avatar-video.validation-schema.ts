@@ -1,3 +1,4 @@
+import { EMPTY_VALUE } from 'shared';
 import { z } from 'zod';
 
 import { AvatarVideoValidationMessage } from '../enum/enums.js';
@@ -29,6 +30,7 @@ type Composition = {
 type GenerateAvatarVideoRequestValidationDto = {
     name: z.ZodString;
     composition: typeof compositionSchema;
+    videoId?: z.ZodOptional<z.ZodString>;
 };
 
 const avatarSchema = z.object<SceneAvatarValidation>({
@@ -77,7 +79,7 @@ const scriptSchema = z
                 return false;
             }
 
-            if (splittedVoiceName[2]?.length === 0) {
+            if (splittedVoiceName[2]?.length === EMPTY_VALUE) {
                 return false;
             }
 
@@ -105,6 +107,7 @@ const renderAvatarVideo = z.object<GenerateAvatarVideoRequestValidationDto>({
         message: AvatarVideoValidationMessage.VIDEO_NAME_REQUIRED,
     }),
     composition: compositionSchema,
+    videoId: z.string().uuid().optional(),
 });
 
 export { renderAvatarVideo };

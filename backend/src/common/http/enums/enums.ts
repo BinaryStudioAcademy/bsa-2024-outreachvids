@@ -1,1 +1,1 @@
-export { ContentType, HttpCode, HttpHeader, HTTPMethod } from 'shared';
+export { ContentType, HTTPCode, HTTPHeader, HTTPMethod } from 'shared';
