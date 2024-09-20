@@ -17,26 +17,26 @@ type Properties<T extends FormValues> = {
     label: string;
     name: FieldInputProps<T>['name'];
     type?: 'text' | 'email' | 'number' | 'password';
-    required?: boolean;
+    isRequired?: boolean;
     placeholder?: string;
     icon?: 'right' | 'none';
     value?: string | number | undefined;
 } & ChakraProperties;
 
-const Input = <T extends FormValues>({
+const Input: React.FC<Properties<FormValues>> = ({
     label,
     name,
     type = 'text',
-    required = false,
+    isRequired = false,
     placeholder = '',
     icon = 'none',
-    value = undefined,
+    value,
     ...ChakraProperties
-}: Properties<T>): JSX.Element => {
+}) => {
     const { field, error, isValid } = useFormField({ name });
 
     return (
-        <FormControl isInvalid={!isValid} isRequired={required}>
+        <FormControl isInvalid={!isValid} isRequired={isRequired}>
             {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
             <Field
                 {...field}

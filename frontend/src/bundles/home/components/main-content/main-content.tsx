@@ -12,13 +12,16 @@ import {
     useEffect,
 } from '~/bundles/common/hooks/hooks.js';
 import { notificationService } from '~/bundles/common/services/services.js';
-import { actions as homeActions } from '~/bundles/home/store/home.js';
-
 import {
     VIDEO_RENDER_FAILED_NOTIFICATION_ID,
     VIDEO_RENDER_SUCCESS_NOTIFICATION_ID,
-} from '../../constants/constants.js';
-import { NotificationMessage, NotificationTitle } from '../../enums/enums.js';
+} from '~/bundles/home/constants/constants.js';
+import {
+    NotificationMessage,
+    NotificationTitle,
+} from '~/bundles/home/enums/enums.js';
+import { actions as homeActions } from '~/bundles/home/store/home.js';
+
 import { VideoSection } from '../components.js';
 import styles from './styles.module.css';
 

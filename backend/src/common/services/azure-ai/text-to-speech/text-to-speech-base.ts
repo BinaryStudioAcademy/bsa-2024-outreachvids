@@ -3,7 +3,7 @@ import { BaseHttpApi } from '~/common/http/base-http-api.js';
 import {
     type Http,
     ContentType,
-    HttpHeader,
+    HTTPHeader,
     HTTPMethod,
 } from '~/common/http/http.js';
 
@@ -28,7 +28,7 @@ class TextToSpeechApi extends BaseHttpApi {
                 contentType: ContentType.JSON,
                 headers: [
                     {
-                        key: HttpHeader.AZURE_KEY,
+                        key: HTTPHeader.AZURE_KEY,
                         value: config.ENV.AZURE.SUBSCRIPTION_KEY,
                     },
                 ],

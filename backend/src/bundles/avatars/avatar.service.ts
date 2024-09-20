@@ -1,4 +1,4 @@
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HTTPCode, HttpError } from '~/common/http/http.js';
 
 import { AvatarValidationMessage } from './enums/enums.js';
 import {
@@ -19,7 +19,7 @@ class AvatarService {
         if (!avatar) {
             throw new HttpError({
                 message: AvatarValidationMessage.AVATAR_DOESNT_EXIST,
-                status: HttpCode.NOT_FOUND,
+                status: HTTPCode.NOT_FOUND,
             });
         }
 

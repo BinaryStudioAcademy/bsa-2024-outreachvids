@@ -1,6 +1,6 @@
 import { NotificationEntity } from '~/bundles/notifications/notification.entity.js';
 import { type NotificationRepository } from '~/bundles/notifications/notification.repository.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HTTPCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
 import { NotificationValidationMessage } from './enums/enums.js';
@@ -57,7 +57,7 @@ class NotificationService implements Service {
             throw new HttpError({
                 message:
                     NotificationValidationMessage.NOTIFICATION_DOES_NOT_EXIST,
-                status: HttpCode.NOT_FOUND,
+                status: HTTPCode.NOT_FOUND,
             });
         }
 

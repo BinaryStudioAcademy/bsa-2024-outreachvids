@@ -26,7 +26,7 @@ type Properties = {
     children: React.ReactNode;
 };
 
-const Sidebar = ({ children }: Properties): JSX.Element => {
+const Sidebar: React.FC<Properties> = ({ children }) => {
     const user = useAppSelector(({ auth }) => auth.user);
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();

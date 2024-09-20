@@ -5,6 +5,7 @@ import {
     SimpleGrid,
     Text,
 } from '~/bundles/common/components/components.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import {
     useAppDispatch,
@@ -24,7 +25,7 @@ const AvatarsContent: React.FC = () => {
     }));
 
     useEffect(() => {
-        if (avatars.length === 0) {
+        if (avatars.length === EMPTY_VALUE) {
             void dispatch(studioActions.loadAvatars());
         }
     }, [dispatch, avatars]);

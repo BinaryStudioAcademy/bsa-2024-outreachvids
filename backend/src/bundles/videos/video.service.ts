@@ -1,6 +1,6 @@
 import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoRepository } from '~/bundles/videos/video.repository.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HTTPCode, HttpError } from '~/common/http/http.js';
 import { type FileService } from '~/common/services/file/file.service.js';
 import { type Service } from '~/common/types/types.js';
 
@@ -30,7 +30,7 @@ class VideoService implements Service {
         if (!video) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.NOT_FOUND,
+                status: HTTPCode.NOT_FOUND,
             });
         }
 
@@ -59,8 +59,8 @@ class VideoService implements Service {
         const video = await this.videoRepository.create(
             VideoEntity.initializeNew({
                 name: payload.name,
-                composition: JSON.stringify(payload.composition),
-                previewUrl: payload.composition?.scenes[0]?.avatar?.url || '',
+                composition: payload.composition,
+                previewUrl: payload.composition?.scenes[0]?.avatar?.url ?? '',
                 userId: payload.userId,
             }),
         );
@@ -77,7 +77,7 @@ class VideoService implements Service {
         if (!updatedVideo) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.NOT_FOUND,
+                status: HTTPCode.NOT_FOUND,
             });
         }
 
@@ -94,7 +94,7 @@ class VideoService implements Service {
         if (!isVideoDeleted) {
             throw new HttpError({
                 message: VideoValidationMessage.VIDEO_DOESNT_EXIST,
-                status: HttpCode.NOT_FOUND,
+                status: HTTPCode.NOT_FOUND,
             });
         }
 

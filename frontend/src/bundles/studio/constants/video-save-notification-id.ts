@@ -1,0 +1,3 @@
+const VIDEO_SAVE_NOTIFICATION_ID = 'video-save';
+
+export { VIDEO_SAVE_NOTIFICATION_ID };

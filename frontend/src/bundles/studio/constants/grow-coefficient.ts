@@ -1,0 +1,3 @@
+const GROW_COEFFICIENT = 0.011;
+
+export { GROW_COEFFICIENT };

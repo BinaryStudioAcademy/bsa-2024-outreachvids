@@ -21,7 +21,7 @@ import {
 import { type Database } from '~/common/database/database.js';
 import { ServerErrorType, SocketEvent } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
-import { HttpCode, HttpError, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HttpError, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { authenticateJWT } from '~/common/plugins/plugins.js';
 import { session } from '~/common/plugins/session/session.plugin.js';
@@ -206,7 +206,7 @@ class BaseServerApp implements ServerApp {
                     };
 
                     return reply
-                        .status(HttpCode.UNPROCESSED_ENTITY)
+                        .status(HTTPCode.UNPROCESSED_ENTITY)
                         .send(response);
                 }
 
@@ -233,7 +233,7 @@ class BaseServerApp implements ServerApp {
                 };
 
                 return reply
-                    .status(HttpCode.INTERNAL_SERVER_ERROR)
+                    .status(HTTPCode.INTERNAL_SERVER_ERROR)
                     .send(response);
             },
         );
