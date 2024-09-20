@@ -39,6 +39,7 @@ const PlayerControls: React.FC<Properties> = ({ playerRef }) => {
     const togglePlaying = useCallback(() => {
         if (elapsedTime >= totalDuration) {
             void dispatch(studioActions.setElapsedTime(0));
+            playerRef.current?.pauseAndReturnToPlayStart();
         }
         playerRef.current?.toggle();
 
