@@ -1,3 +1,5 @@
+import { type Composition } from 'shared';
+
 import {
     AbstractModel,
     DatabaseTableName,
@@ -10,7 +12,7 @@ class VideoModel extends AbstractModel {
 
     public 'previewUrl': string;
 
-    public 'composition': string;
+    public 'composition': Composition;
 
     public 'url': string | null;
 

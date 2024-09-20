@@ -3,6 +3,7 @@ import {
     ArrowLeftIcon,
     ArrowRightIcon,
     CheckCircleIcon,
+    ChevronDownIcon,
     CloseIcon,
     DeleteIcon,
     DownloadIcon,
@@ -35,6 +36,7 @@ import {
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
+    CHEVRON_DOWN: ChevronDownIcon,
     PEN: Pen,
     HOME: House,
     LOG_OUT: RightFromBracket,
