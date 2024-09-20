@@ -16,12 +16,7 @@ type Properties = {
 const WarningContent: React.FC<Properties> = ({ onCancel, onSubmit }) => {
     return (
         <>
-            <Heading
-                variant="H3"
-                color="typography.900"
-                textAlign="left"
-                mb="20px"
-            >
+            <Heading variant="H3" color="typography.900" mb="20px">
                 Notice before you submit
             </Heading>
 
