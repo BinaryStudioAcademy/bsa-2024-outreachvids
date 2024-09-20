@@ -3,7 +3,7 @@ import {
     getRenderProgress,
     renderMediaOnLambda,
 } from '@remotion/lambda/client';
-import { HttpCode, HttpError } from 'shared';
+import { HTTPCode, HttpError } from 'shared';
 
 import { RenderVideoErrorMessage } from '~/bundles/avatar-videos/enums/enums.js';
 import { type BaseConfig } from '~/common/config/base-config.package.js';
@@ -57,7 +57,7 @@ class RemotionService {
                         reject(
                             new HttpError({
                                 message: RenderVideoErrorMessage.RENDER_ERROR,
-                                status: HttpCode.BAD_REQUEST,
+                                status: HTTPCode.BAD_REQUEST,
                             }),
                         );
                         clearInterval(interval);
