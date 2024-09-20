@@ -5,6 +5,8 @@ import {
     loadAvatars,
     loadVoices,
     renderAvatar,
+    saveVideo,
+    updateVideo,
 } from './actions.js';
 import { actions } from './slice.js';
 
@@ -16,6 +18,8 @@ const allActions = {
     generateScriptSpeech,
     generateScriptSpeechPreview,
     renderAvatar,
+    saveVideo,
+    updateVideo,
 };
 
 export { allActions as actions };

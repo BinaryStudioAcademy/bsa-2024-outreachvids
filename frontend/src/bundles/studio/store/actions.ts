@@ -1,15 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getAudioData } from '@remotion/media-utils';
+import { type UpdateVideoRequestDto } from 'shared';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
     type AvatarGetAllResponseDto,
+    type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
     type GetVoicesResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
     type Script,
+    type VideoGetAllItemResponseDto,
 } from '~/bundles/studio/types/types.js';
 
 import { name as sliceName } from './slice.js';
@@ -97,6 +100,28 @@ const renderAvatar = createAsyncThunk<
     return avatarVideosApi.renderVideo(payload);
 });
 
+const saveVideo = createAsyncThunk<
+    VideoGetAllItemResponseDto,
+    CreateVideoRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/save-video`, (payload, { extra }) => {
+    const { videosApi } = extra;
+
+    return videosApi.saveVideo(payload);
+});
+
+const updateVideo = createAsyncThunk<
+    VideoGetAllItemResponseDto,
+    UpdateVideoRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/update-video`, (payload, { extra, getState }) => {
+    const { videosApi } = extra;
+    const state = getState();
+    const { videoId } = state.studio;
+
+    return videosApi.updateVideo(payload, videoId as string);
+});
+
 export {
     generateAllScriptsSpeech,
     generateScriptSpeech,
@@ -104,4 +129,6 @@ export {
     loadAvatars,
     loadVoices,
     renderAvatar,
+    saveVideo,
+    updateVideo,
 };

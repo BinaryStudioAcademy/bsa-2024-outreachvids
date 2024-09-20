@@ -39,6 +39,8 @@ import {
     loadAvatars,
     loadVoices,
     renderAvatar,
+    saveVideo,
+    updateVideo,
 } from './actions.js';
 
 type SelectedItem = {
@@ -74,6 +76,8 @@ type State = {
     selectedScriptId: string | null;
     videoSize: VideoPreviewT;
     videoName: string;
+    isDraftSaved: boolean;
+    videoId: string | null;
     voices: Voice[];
     ui: {
         destinationPointer: DestinationPointer | null;
@@ -96,6 +100,8 @@ const initialState: State = {
     selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
+    isDraftSaved: false,
+    videoId: null,
     voices: [],
     ui: {
         destinationPointer: null,
@@ -251,6 +257,9 @@ const { reducer, actions, name } = createSlice({
         },
         setVideoName(state, action: PayloadAction<string>) {
             state.videoName = action.payload;
+        },
+        setDraftSaved(state, action: PayloadAction<boolean>) {
+            state.isDraftSaved = action.payload;
         },
         setDestinationPointer(
             state,
@@ -409,6 +418,30 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(renderAvatar.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(saveVideo.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(saveVideo.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.videoId = action.payload.id;
+            state.isDraftSaved = true;
+        });
+        builder.addCase(saveVideo.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.videoId = null;
+            state.isDraftSaved = false;
+        });
+        builder.addCase(updateVideo.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(updateVideo.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.isDraftSaved = true;
+        });
+        builder.addCase(updateVideo.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.isDraftSaved = false;
         });
     },
 });

@@ -77,15 +77,19 @@ class AvatarVideoController extends BaseController {
         }>,
     ): Promise<ApiHandlerResponse> {
         const userId = (options.user as UserGetCurrentResponseDto).id;
+        const { composition, name, videoId } = options.body;
 
-        const videoRecord = await this.avatarVideoService.createVideo({
-            ...options.body,
-            userId,
-        });
+        const videoPayload = {
+            name,
+            composition,
+        };
 
-        const avatarsConfigs = this.avatarVideoService.getAvatarsConfigs(
-            options.body.composition,
-        );
+        const videoRecord = await (videoId
+            ? this.avatarVideoService.updateVideo({ ...videoPayload, videoId })
+            : this.avatarVideoService.createVideo({ ...videoPayload, userId }));
+
+        const avatarsConfigs =
+            this.avatarVideoService.getAvatarsConfigs(composition);
 
         await this.avatarVideoService.submitAvatarsConfigs(
             avatarsConfigs,
