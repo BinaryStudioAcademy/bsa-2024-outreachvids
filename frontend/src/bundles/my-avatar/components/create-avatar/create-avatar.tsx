@@ -6,7 +6,7 @@ import { useCallback } from '~/bundles/common/hooks/hooks.js';
 
 import { Circles, Dots } from '../components.js';
 
-const CreateAvatar = (): JSX.Element => {
+const CreateAvatar: React.FC = () => {
     const navigate = useNavigate();
 
     const handleClick = useCallback(() => {

@@ -2,7 +2,7 @@ import { type ContentType, type ValueOf } from 'shared';
 
 import { type CustomHeader, type HttpOptions } from './types.js';
 
-type HttpApiOptions = Omit<
+type HTTPApiOptions = Omit<
     HttpOptions,
     'headers' | 'payload' | 'credentials' | 'keepAlive'
 > & {
@@ -13,4 +13,4 @@ type HttpApiOptions = Omit<
     keepAlive?: HttpOptions['keepAlive'];
 };
 
-export { type HttpApiOptions };
+export { type HTTPApiOptions };

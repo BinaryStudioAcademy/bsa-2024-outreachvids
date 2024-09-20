@@ -19,6 +19,7 @@ const VoicesModal: React.FC<Properties> = ({
             isOpen={isOpen}
             onClose={onClose}
             modalReference={modalReference}
+            scrollBehavior="inside"
         >
             {scriptId && (
                 <VoicesModalContent

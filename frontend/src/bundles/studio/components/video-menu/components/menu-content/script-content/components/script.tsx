@@ -16,11 +16,8 @@ import {
     useCallback,
     useEffect,
     useMemo,
-    useRef,
-    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
-import { AudioPlayer } from '~/bundles/studio/components/audio-player/audio-player.js';
 import { PlayIconNames } from '~/bundles/studio/enums/play-icon-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type ScriptWithIcon as ScriptT } from '~/bundles/studio/types/types.js';
@@ -37,10 +34,16 @@ const Script: React.FC<Properties> = ({
 }) => {
     const dispatch = useAppDispatch();
 
-    const [isPlaying, setIsPlaying] = useState(false);
-    const { selectedScriptId } = useAppSelector(({ studio }) => studio);
+    const {
+        isPlaying: playerIsPlaying,
+        url: playerUrl,
+        duration,
+    } = useAppSelector(({ studio }) => studio.scriptPlayer);
 
-    const textareaReference = useRef<HTMLDivElement>(null);
+    const isPlaying = useMemo(
+        () => playerIsPlaying && playerUrl === url,
+        [playerIsPlaying, playerUrl, url],
+    );
 
     const handleDeleteScript = useCallback((): void => {
         void dispatch(studioActions.deleteScript(id));
@@ -59,20 +62,15 @@ const Script: React.FC<Properties> = ({
         [dispatch, id, text],
     );
 
-    const handleSetScriptDuration = useCallback(
-        (duration: number): void => {
-            void dispatch(studioActions.editScript({ id, duration }));
-        },
-        [dispatch, id],
-    );
+    useEffect(() => {
+        if (isPlaying && duration) {
+            dispatch(studioActions.editScript({ id, duration }));
+        }
+    }, [dispatch, id, isPlaying, duration]);
 
     const toggleIsPlaying = useCallback((): void => {
         if (url) {
-            setIsPlaying((previous) => !previous);
-            return;
-        }
-
-        if (!voice) {
+            dispatch(studioActions.playScript({ isPlaying: !isPlaying, url }));
             return;
         }
 
@@ -83,11 +81,7 @@ const Script: React.FC<Properties> = ({
                 voiceName: voice.shortName,
             }),
         );
-    }, [dispatch, id, text, url, voice]);
-
-    const handleAudioEnd = useCallback((): void => {
-        setIsPlaying(false);
-    }, []);
+    }, [dispatch, id, text, url, voice, isPlaying]);
 
     const iconComponent = useMemo(() => {
         if (iconName === PlayIconNames.LOADING) {
@@ -96,15 +90,6 @@ const Script: React.FC<Properties> = ({
 
         return isPlaying ? IconName.STOP : IconName.PLAY;
     }, [iconName, isPlaying]);
-
-    useEffect(() => {
-        if (!textareaReference.current) {
-            return;
-        }
-
-        textareaReference.current.style.borderWidth =
-            selectedScriptId === id ? '3px' : '1px';
-    }, [selectedScriptId, id]);
 
     const handleChangeVoiceId = useCallback((): void => {
         handleChangeVoice(id);
@@ -156,7 +141,6 @@ const Script: React.FC<Properties> = ({
                 w="full"
             >
                 <EditablePreview
-                    ref={textareaReference}
                     h="full"
                     w="full"
                     p="8px 16px"
@@ -175,14 +159,6 @@ const Script: React.FC<Properties> = ({
                     }}
                 />
             </Editable>
-            {url && (
-                <AudioPlayer
-                    isPlaying={isPlaying}
-                    audioUrl={url}
-                    onAudioEnd={handleAudioEnd}
-                    onSetDuration={handleSetScriptDuration}
-                />
-            )}
         </VStack>
     );
 };

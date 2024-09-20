@@ -5,6 +5,7 @@ type VideoGetAllItemResponseDto = {
     url: string | null;
     previewUrl: string;
     composition: string;
+    createdAt: string;
 };
 
 export { type VideoGetAllItemResponseDto };

@@ -1,6 +1,6 @@
 import { Circle } from '~/bundles/common/components/components.js';
 
-const Circles = (): JSX.Element => {
+const Circles: React.FC = () => {
     return (
         <Circle
             size="271px"

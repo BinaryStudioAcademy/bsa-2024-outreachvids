@@ -7,7 +7,7 @@ import {
     type UserSignInRequestDto,
     type UserSignInResponseDto,
 } from '~/bundles/users/users.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HTTPCode, HttpError } from '~/common/http/http.js';
 import { cryptService, tokenService } from '~/common/services/services.js';
 
 import { UserValidationMessage } from './enums/enums.js';
@@ -28,21 +28,21 @@ class AuthService {
         if (!user) {
             throw new HttpError({
                 message: UserValidationMessage.WRONG_CREDENTIALS,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
 
         const { passwordHash } = user.toNewObject();
 
-        const isPwdCorrect = cryptService.compareSyncPassword(
+        const isPasswordCorrect = cryptService.compareSyncPassword(
             password,
             passwordHash,
         );
 
-        if (!isPwdCorrect) {
+        if (!isPasswordCorrect) {
             throw new HttpError({
                 message: UserValidationMessage.WRONG_CREDENTIALS,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
 
@@ -60,7 +60,7 @@ class AuthService {
         if (emailExists) {
             throw new HttpError({
                 message: UserValidationMessage.EMAIL_ALREADY_EXISTS,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
         const user = await this.userService.create(userRequestDto);

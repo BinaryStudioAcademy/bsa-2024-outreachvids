@@ -6,6 +6,8 @@ import {
     Icon,
     IconButton,
 } from '~/bundles/common/components/components.js';
+import { DOMEvent } from '~/bundles/common/enums/enums.js';
+import { useEffect, useRef } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 
 import styles from './styles.module.css';
@@ -24,6 +26,29 @@ const MenuBody: React.FC<React.PropsWithChildren<Properties>> = ({
     onChatOpen,
     menuBodyReference,
 }) => {
+
+    const menuReference = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent): void => {
+            if (
+                menuReference.current &&
+                !menuReference.current.contains(event.target as Node)
+            ) {
+                onClose();
+            }
+        };
+
+        document.addEventListener(DOMEvent.MOUSE_DOWN, handleClickOutside);
+
+        return () => {
+            document.removeEventListener(
+                DOMEvent.MOUSE_DOWN,
+                handleClickOutside,
+            );
+        };
+    }, [onClose]);
+
     return (
         <Box
             ref={menuBodyReference}
