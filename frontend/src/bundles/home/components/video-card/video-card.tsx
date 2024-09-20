@@ -1,3 +1,4 @@
+import photo from '~/assets/img/photo.png';
 import {
     Box,
     Flex,
@@ -28,10 +29,9 @@ type Properties = {
     id: string;
     name: string;
     url: string | null;
-    previewUrl: string;
 };
 
-const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
+const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
     const dispatch = useAppDispatch();
 
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -62,17 +62,8 @@ const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
 
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
-            <Box
-                position="relative"
-                role="group"
-                height="155px"
-                overflow="hidden"
-            >
-                <Image
-                    src={previewUrl}
-                    alt="Video preview"
-                    className={styles['preview-image']}
-                />
+            <Box position="relative" role="group">
+                <Image src={photo} alt="Video preview" borderRadius="5px" />
 
                 <Box
                     _groupHover={{ opacity: 1 }}
@@ -93,8 +84,10 @@ const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
                         }
                         className={styles['menu-button']}
                     />
-                    {url && (
+
                         <MenuList>
+                        {url && (
+                            <>
                             <MenuItem
                                 as={LibraryLink}
                                 icon={<Icon as={IconName.DOWNLOAD} />}
@@ -109,6 +102,8 @@ const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
                                 </Text>
                             </MenuItem>
                             <MenuDivider />
+                            </>
+                        )}
                             <MenuItem
                                 icon={<Icon as={IconName.DELETE} />}
                                 onClick={handleDeleteButtonClick}
@@ -121,7 +116,7 @@ const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
                                 </Text>
                             </MenuItem>
                         </MenuList>
-                    )}
+
                 </Menu>
 
                 <IconButton
@@ -172,3 +167,4 @@ const VideoCard: React.FC<Properties> = ({ id, name, url, previewUrl }) => {
 };
 
 export { VideoCard };
+
