@@ -74,7 +74,10 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({
     };
 
     const isScriptAvailable: boolean = useMemo(() => {
-        return dataStatus !== DataStatus.PENDING && videoScripts.length > 0;
+        return (
+            dataStatus !== DataStatus.PENDING &&
+            videoScripts.length > EMPTY_VALUE
+        );
     }, [dataStatus, videoScripts]);
 
     const goToStudio = useCallback(() => {
