@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getAudioData } from '@remotion/media-utils';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
     type AvatarGetAllResponseDto,
     type GenerateSpeechRequestDto,
-    type GenerateSpeechResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
+    type Script,
 } from '~/bundles/studio/types/types.js';
 
 import { name as sliceName } from './slice.js';
@@ -22,13 +23,21 @@ const loadAvatars = createAsyncThunk<
 });
 
 const generateScriptSpeech = createAsyncThunk<
-    GenerateSpeechResponseDto,
+    Required<Pick<Script, 'id'>> & Partial<Script>,
     GenerateSpeechRequestDto,
     AsyncThunkConfig
 >(`${sliceName}/generate-script-speech`, (payload, { extra }) => {
     const { speechApi } = extra;
 
-    return speechApi.generateScriptSpeech(payload);
+    return speechApi
+        .generateScriptSpeech(payload)
+        .then(({ scriptId, audioUrl }) => {
+            return getAudioData(audioUrl).then(({ durationInSeconds }) => ({
+                id: scriptId,
+                duration: durationInSeconds,
+                url: audioUrl,
+            }));
+        });
 });
 
 const generateAllScriptsSpeech = createAsyncThunk<
