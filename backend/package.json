@@ -55,8 +55,5 @@
         "shared": "*",
         "swagger-jsdoc": "6.2.8",
         "tiktoken": "1.0.16"
-    },
-    "optionalDependencies": {
-        "@rollup/rollup-linux-x64-gnu": "4.9.5"
     }
 }
