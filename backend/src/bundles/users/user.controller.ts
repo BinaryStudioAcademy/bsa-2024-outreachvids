@@ -5,7 +5,7 @@ import {
 } from '~/common/controller/controller.js';
 import { type ApiHandlerOptions } from '~/common/controller/types/types.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { UsersApiPath } from './enums/enums.js';
@@ -70,7 +70,7 @@ class UserController extends BaseController {
      */
     private async findAll(): Promise<ApiHandlerResponse> {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: await this.userService.findAll(),
         };
     }
@@ -93,7 +93,7 @@ class UserController extends BaseController {
      */
     private getCurrent({ user }: ApiHandlerOptions): ApiHandlerResponse {
         return {
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
             payload: user,
         };
     }

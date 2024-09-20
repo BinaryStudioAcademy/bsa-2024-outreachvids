@@ -7,13 +7,13 @@ import {
     type ServerErrorResponse,
     type ValueOf,
 } from '~/bundles/common/types/types.js';
-import { type Http, type HttpCode } from '~/framework/http/http.js';
-import { HttpError, HttpHeader } from '~/framework/http/http.js';
+import { type Http, type HTTPCode } from '~/framework/http/http.js';
+import { HttpError, HTTPHeader } from '~/framework/http/http.js';
 import { type Storage, StorageKey } from '~/framework/storage/storage.js';
 
 import {
     type HttpApi,
-    type HttpApiOptions,
+    type HTTPApiOptions,
     type HttpApiResponse,
 } from './types/types.js';
 
@@ -42,7 +42,7 @@ class BaseHttpApi implements HttpApi {
 
     public async load(
         path: string,
-        options: HttpApiOptions,
+        options: HTTPApiOptions,
     ): Promise<HttpApiResponse> {
         const {
             method,
@@ -87,11 +87,11 @@ class BaseHttpApi implements HttpApi {
     ): Promise<Headers> {
         const headers = new Headers();
 
-        headers.append(HttpHeader.CONTENT_TYPE, contentType);
+        headers.append(HTTPHeader.CONTENT_TYPE, contentType);
 
         if (hasAuth) {
             const token = await this.storage.get<string>(StorageKey.TOKEN);
-            headers.append(HttpHeader.AUTHORIZATION, `Bearer ${token ?? ''}`);
+            headers.append(HTTPHeader.AUTHORIZATION, `Bearer ${token ?? ''}`);
         }
 
         return headers;
@@ -116,7 +116,7 @@ class BaseHttpApi implements HttpApi {
         const isCustomException = Boolean(parsedException.errorType);
 
         throw new HttpError({
-            status: response.status as ValueOf<typeof HttpCode>,
+            status: response.status as ValueOf<typeof HTTPCode>,
             errorType: isCustomException
                 ? parsedException.errorType
                 : ServerErrorType.COMMON,

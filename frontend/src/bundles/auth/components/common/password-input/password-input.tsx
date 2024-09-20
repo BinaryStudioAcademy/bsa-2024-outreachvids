@@ -37,7 +37,7 @@ const PasswordInput: React.FC<Properties> = ({
                 placeholder="••••••••"
                 name={name}
                 icon="right"
-                required={required}
+                isRequired={required}
             />
             <InputRightElement top="unset" bottom={hasError ? '25px' : 0}>
                 <IconButton

@@ -13,11 +13,11 @@ import {
     MIN_VIDEO_DURATION,
 } from './libs/constants/constants.js';
 import {
-    DOM_EVENT,
-    ERROR_ID,
-    ERROR_MESSAGE,
-    ERROR_TITLE,
-    HTML_TAG,
+    DOMEvent,
+    ErrorId,
+    ErrorMessage,
+    ErrorTitle,
+    HTMLTag,
 } from './libs/enums/enums.js';
 import { isFileSizeValid, isVideoFile } from './libs/helpers/helpers.js';
 
@@ -48,34 +48,34 @@ const VideoDropzone: React.FC<Properties> = ({
 
                 if (!isFileSizeValid(file, MAX_FILE_SIZE)) {
                     notificationService.error({
-                        message: ERROR_MESSAGE.VIDEO_SIZE,
-                        id: ERROR_ID.VIDEO_SIZE,
-                        title: ERROR_TITLE.VIDEO_SIZE,
+                        message: ErrorMessage.VIDEO_SIZE,
+                        id: ErrorId.VIDEO_SIZE,
+                        title: ErrorTitle.VIDEO_SIZE,
                     });
                     return;
                 }
 
                 if (!isVideoFile(file)) {
                     notificationService.error({
-                        message: ERROR_MESSAGE.FILE_TYPE,
-                        id: ERROR_ID.FILE_TYPE,
-                        title: ERROR_TITLE.FILE_TYPE,
+                        message: ErrorMessage.FILE_TYPE,
+                        id: ErrorId.FILE_TYPE,
+                        title: ErrorTitle.FILE_TYPE,
                     });
                     return;
                 }
 
                 const videoURL = URL.createObjectURL(file);
 
-                const videoElement = document.createElement(HTML_TAG.VIDEO);
+                const videoElement = document.createElement(HTMLTag.VIDEO);
                 videoElement.src = videoURL;
-                videoElement.addEventListener(DOM_EVENT.LOADED_METADATA, () => {
+                videoElement.addEventListener(DOMEvent.LOADED_METADATA, () => {
                     if (videoElement.duration > MIN_VIDEO_DURATION) {
                         onSetVideo(videoURL);
                     } else {
                         notificationService.error({
-                            message: ERROR_MESSAGE.VIDEO_DURATION,
-                            id: ERROR_ID.VIDEO_DURATION,
-                            title: ERROR_TITLE.VIDEO_DURATION,
+                            message: ErrorMessage.VIDEO_DURATION,
+                            id: ErrorId.VIDEO_DURATION,
+                            title: ErrorTitle.VIDEO_DURATION,
                         });
                         onRemoveVideo();
                     }

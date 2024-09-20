@@ -4,7 +4,7 @@ import {
     BaseController,
 } from '~/common/controller/controller.js';
 import { ApiPath } from '~/common/enums/enums.js';
-import { HttpCode, HTTPMethod } from '~/common/http/http.js';
+import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
 import { SpeechApiPath } from './enums/enums.js';
@@ -85,7 +85,7 @@ class SpeechController extends BaseController {
     private async getVoices(): Promise<ApiHandlerResponse> {
         return {
             payload: await this.speechService.getVoices(),
-            status: HttpCode.OK,
+            status: HTTPCode.OK,
         };
     }
 
@@ -132,7 +132,7 @@ class SpeechController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         return {
             payload: await this.speechService.generateSpeech(options.body),
-            status: HttpCode.CREATED,
+            status: HTTPCode.CREATED,
         };
     }
 }
