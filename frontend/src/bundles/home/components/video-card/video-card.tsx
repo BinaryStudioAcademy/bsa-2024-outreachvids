@@ -1,3 +1,6 @@
+import { getVideoMetadata } from '@remotion/media-utils';
+import { format } from 'date-fns';
+
 import photo from '~/assets/img/photo.png';
 import {
     Box,
@@ -16,6 +19,7 @@ import {
 import {
     useAppDispatch,
     useCallback,
+    useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
@@ -29,19 +33,34 @@ type Properties = {
     id: string;
     name: string;
     url: string | null;
+    createdAt: string;
 };
 
-const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
+const VideoCard: React.FC<Properties> = ({ id, name, url, createdAt }) => {
     const dispatch = useAppDispatch();
 
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
     const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+    const [duration, setDuration] = useState<number | null>(null);
+
+    useEffect(() => {
+        const getDuration = async (): Promise<void> => {
+            if (url) {
+                const response = await getVideoMetadata(url);
+                setDuration(Math.round(response.durationInSeconds));
+            }
+        };
+        void getDuration();
+    });
 
     const handleIconClick = useCallback(() => {
         if (url) {
             setIsVideoModalOpen(true);
         }
     }, [url]);
+
+    const date = new Date(createdAt);
+    const formattedDate = format(date, 'MMM d, yyyy, h:mm a');
 
     const handleVideoModalClose = useCallback(() => {
         setIsVideoModalOpen(false);
@@ -137,10 +156,10 @@ const VideoCard: React.FC<Properties> = ({ id, name, url }) => {
                 </Text>
                 <Flex justify="space-between">
                     <Text variant="caption" color="typography.300">
-                        Aug 9, 2024, 1:24 PM
+                        {formattedDate}
                     </Text>
                     <Text variant="caption" color="typography.300">
-                        0,30 sec
+                        {duration && `${duration} sec`}
                     </Text>
                 </Flex>
             </Box>
