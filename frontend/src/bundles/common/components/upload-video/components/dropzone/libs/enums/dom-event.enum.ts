@@ -1,5 +1,5 @@
-const DOM_EVENT = {
+const DOMEvent = {
     LOADED_METADATA: 'loadedmetadata',
 } as const;
 
-export { DOM_EVENT };
+export { DOMEvent };

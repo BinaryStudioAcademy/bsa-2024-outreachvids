@@ -7,7 +7,7 @@ import {
 
 import { CreateAvatar } from '../components/components.js';
 
-const MyAvatar = (): JSX.Element => {
+const MyAvatar: React.FC = () => {
     return (
         <Box overflow="hidden">
             <Header />

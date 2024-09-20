@@ -16,7 +16,7 @@ import { type Config } from '~/common/config/config.js';
 import { type Database } from '~/common/database/database.js';
 import { ServerErrorType } from '~/common/enums/enums.js';
 import { type ValidationError } from '~/common/exceptions/exceptions.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HTTPCode, HttpError } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 import { session } from '~/common/plugins/session/session.plugin.js';
 import {
@@ -191,7 +191,7 @@ class BaseServerApp implements ServerApp {
                     };
 
                     return reply
-                        .status(HttpCode.UNPROCESSED_ENTITY)
+                        .status(HTTPCode.UNPROCESSED_ENTITY)
                         .send(response);
                 }
 
@@ -218,7 +218,7 @@ class BaseServerApp implements ServerApp {
                 };
 
                 return reply
-                    .status(HttpCode.INTERNAL_SERVER_ERROR)
+                    .status(HTTPCode.INTERNAL_SERVER_ERROR)
                     .send(response);
             },
         );

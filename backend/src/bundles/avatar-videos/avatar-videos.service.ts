@@ -1,5 +1,5 @@
 import { type VideoGetAllItemResponseDto } from 'shared';
-import { HttpCode, HttpError } from 'shared';
+import { HTTPCode, HttpError } from 'shared';
 import { v4 as uuidv4 } from 'uuid';
 
 import { type AvatarData } from '~/common/services/azure-ai/avatar-video/types/avatar-data.js';
@@ -99,7 +99,7 @@ class AvatarVideoService {
             this.checkAvatarsProcessing(ids, recordId).catch(() => {
                 throw new HttpError({
                     message: RenderVideoErrorMessage.RENDER_ERROR,
-                    status: HttpCode.BAD_REQUEST,
+                    status: HTTPCode.BAD_REQUEST,
                 });
             });
 
@@ -107,7 +107,7 @@ class AvatarVideoService {
         } catch {
             throw new HttpError({
                 message: RenderVideoErrorMessage.RENDER_ERROR,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
     }
@@ -130,7 +130,7 @@ class AvatarVideoService {
         } catch {
             throw new HttpError({
                 message: RenderVideoErrorMessage.RENDER_ERROR,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
     }
@@ -160,7 +160,7 @@ class AvatarVideoService {
                                 new HttpError({
                                     message:
                                         RenderVideoErrorMessage.RENDER_ERROR,
-                                    status: HttpCode.BAD_REQUEST,
+                                    status: HTTPCode.BAD_REQUEST,
                                 }),
                             );
                             clearInterval(interval);
@@ -170,7 +170,7 @@ class AvatarVideoService {
                         reject(
                             new HttpError({
                                 message: RenderVideoErrorMessage.RENDER_ERROR,
-                                status: HttpCode.BAD_REQUEST,
+                                status: HTTPCode.BAD_REQUEST,
                             }),
                         );
                         clearInterval(interval);
@@ -218,7 +218,7 @@ class AvatarVideoService {
         if (!videoData) {
             throw new HttpError({
                 message: RenderVideoErrorMessage.NOT_SAVED,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
     }

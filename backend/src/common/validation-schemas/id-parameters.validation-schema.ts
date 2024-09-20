@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { parametersValidationMessage } from '../enums/parameters-validation-message.enum.js';
+import { ParametersValidationMessage } from '../enums/parameters-validation-message.enum.js';
 
 type idParametersValidationSchema = {
     id: z.ZodString;
@@ -11,7 +11,7 @@ const idParameters = z
         id: z
             .string()
             .trim()
-            .uuid({ message: parametersValidationMessage.INVALID_ID }),
+            .uuid({ message: ParametersValidationMessage.INVALID_ID }),
     })
     .required();
 

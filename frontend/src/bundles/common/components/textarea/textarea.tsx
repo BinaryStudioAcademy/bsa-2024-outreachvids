@@ -15,22 +15,22 @@ import { useFormField } from '~/bundles/common/hooks/hooks.js';
 type Properties<T extends FormValues> = {
     label: string;
     name: FieldInputProps<T>['name'];
-    required?: boolean;
+    isRequired?: boolean;
     placeholder?: string;
     className?: string | undefined;
 };
 
-const Textarea = <T extends FormValues>({
+const Textarea: React.FC<Properties<FormValues>> = ({
     label,
     name,
-    required = false,
+    isRequired = false,
     placeholder = '',
     className,
-}: Properties<T>): JSX.Element => {
+}) => {
     const { field, error, isValid } = useFormField({ name });
 
     return (
-        <FormControl isInvalid={!isValid} isRequired={required}>
+        <FormControl isInvalid={!isValid} isRequired={isRequired}>
             <FormLabel htmlFor={name}>{label}</FormLabel>
             <Field
                 {...field}

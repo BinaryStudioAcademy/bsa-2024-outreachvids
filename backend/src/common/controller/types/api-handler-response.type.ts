@@ -1,8 +1,8 @@
-import { type HttpCode } from '~/common/http/http.js';
+import { type HTTPCode } from '~/common/http/http.js';
 import { type ValueOf } from '~/common/types/types.js';
 
 type ApiHandlerResponse = {
-    status: ValueOf<typeof HttpCode>;
+    status: ValueOf<typeof HTTPCode>;
     payload: unknown;
 };
 
