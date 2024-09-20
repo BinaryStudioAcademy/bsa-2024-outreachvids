@@ -6,8 +6,10 @@ import { textToSpeechApi } from './azure-ai/text-to-speech/text-to-speech.js';
 import { CryptService } from './crypt/crypt.service.js';
 import { FileService } from './file/file.service.js';
 import { OpenAIService } from './open-ai/open-ai.service.js';
+import { RemotionService } from './remotion/remotion.service.js';
 import { TokenService } from './token/token.services.js';
 
+const remotionService = new RemotionService(config);
 const openAIService = new OpenAIService(config);
 const cryptService = new CryptService();
 const fileService = new FileService(config);
@@ -27,5 +29,6 @@ export {
     cryptService,
     fileService,
     openAIService,
+    remotionService,
     tokenService,
 };

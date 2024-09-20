@@ -7,6 +7,7 @@ type VideoGetAllItemResponseDto = {
     url: string | null;
     previewUrl: string;
     composition: Composition;
+    createdAt: string;
 };
 
 export { type VideoGetAllItemResponseDto };

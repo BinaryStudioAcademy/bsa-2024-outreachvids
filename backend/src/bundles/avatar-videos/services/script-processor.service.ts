@@ -33,10 +33,30 @@ class ScriptProcessor {
         const textLengthForScene = Math.floor(
             (sceneDuration / totalScriptDuration) * scriptText.length,
         );
-        return {
-            text: scriptText.slice(0, Math.max(0, textLengthForScene)),
-            remainderText: scriptText.slice(Math.max(0, textLengthForScene)),
-        };
+
+        if (scriptText.length <= textLengthForScene) {
+            return {
+                text: scriptText,
+                remainderText: '',
+            };
+        }
+
+        let splitIndex = scriptText.lastIndexOf(' ', textLengthForScene);
+
+        if (splitIndex === -1) {
+            splitIndex = scriptText.indexOf(' ', textLengthForScene);
+            if (splitIndex === -1) {
+                return {
+                    text: scriptText,
+                    remainderText: '',
+                };
+            }
+        }
+
+        const text = scriptText.slice(0, splitIndex).trim();
+        const remainderText = scriptText.slice(splitIndex).trim();
+
+        return { text, remainderText };
     }
 
     private addSceneResult({
@@ -60,8 +80,8 @@ class ScriptProcessor {
         this.sceneIndex++;
         if (this.sceneIndex < this.scenes.length) {
             const currentScene = this.scenes[this.sceneIndex];
-            this.sceneRemainder = currentScene?.duration || 0;
-            this.currentAvatar = currentScene?.avatar || null;
+            this.sceneRemainder = currentScene?.duration ?? 0;
+            this.currentAvatar = currentScene?.avatar ?? null;
         }
     }
 
@@ -69,7 +89,7 @@ class ScriptProcessor {
         const lastResult = this.result.at(-1);
 
         if (lastResult && lastResult.voice === script.voiceName) {
-            lastResult.text += this.scriptTextRemainder;
+            lastResult.text += ' ' + this.scriptTextRemainder;
         } else {
             this.addSceneResult({
                 text: this.scriptTextRemainder,
@@ -104,7 +124,7 @@ class ScriptProcessor {
                 scriptDurationLeft <= this.sceneRemainder;
 
             if (isScriptShorterThanScene) {
-                this.accumulatedText += this.scriptTextRemainder;
+                this.accumulatedText += ' ' + this.scriptTextRemainder;
                 this.sceneRemainder -= scriptDurationLeft;
                 scriptDurationLeft = 0;
             } else {
@@ -114,12 +134,12 @@ class ScriptProcessor {
                     script.duration,
                 );
 
-                this.accumulatedText += text;
+                this.accumulatedText += ' ' + text.trim();
                 this.scriptTextRemainder = remainderText;
                 scriptDurationLeft -= this.sceneRemainder;
 
                 this.addSceneResult({
-                    text: this.accumulatedText,
+                    text: this.accumulatedText.trim(),
                     voice: this.currentVoiceName,
                 });
 
@@ -141,8 +161,8 @@ class ScriptProcessor {
 
         if (this.accumulatedText) {
             this.addSceneResult({
-                text: this.accumulatedText,
-                voice: this.currentVoiceName || '',
+                text: this.accumulatedText.trim(),
+                voice: this.currentVoiceName ?? '',
             });
         }
 

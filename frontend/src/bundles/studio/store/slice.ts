@@ -9,11 +9,11 @@ import {
     type VideoPreview as VideoPreviewT,
 } from '~/bundles/common/types/types.js';
 import {
+    DEFAULT_VOICE,
     MIN_SCENE_DURATION,
     MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
-import { mockVoices } from '../components/video-menu/components/mock/voices-mock.js';
 import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
 import {
     calculateTotalMilliseconds,
@@ -32,11 +32,14 @@ import {
     type SceneAvatar,
     type TimelineItemWithSpan,
     type VideoGetAllItemResponseDto,
+    type Voice,
 } from '../types/types.js';
 import {
     generateAllScriptsSpeech,
     generateScriptSpeech,
+    generateScriptSpeechPreview,
     loadAvatars,
+    loadVoices,
     renderAvatar,
     saveVideo,
     updateVideo,
@@ -56,6 +59,12 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
+type ScriptPlayer = {
+    isPlaying: boolean;
+    url: string | null;
+    duration: number | null;
+};
+
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     avatars: Array<AvatarGetResponseDto> | [];
@@ -71,11 +80,13 @@ type State = {
     videoName: string;
     isDraftSaved: boolean;
     videoId: string | null;
+    voices: Voice[];
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
         menuActiveItem: ValueOf<typeof MenuItems> | null;
     };
+    scriptPlayer: ScriptPlayer;
 };
 
 const initialState: State = {
@@ -93,10 +104,16 @@ const initialState: State = {
     videoName: 'Untitled Video',
     isDraftSaved: true,
     videoId: null,
+    voices: [],
     ui: {
         destinationPointer: null,
         selectedItem: null,
         menuActiveItem: null,
+    },
+    scriptPlayer: {
+        isPlaying: false,
+        url: null,
+        duration: null,
     },
 };
 
@@ -109,8 +126,9 @@ const { reducer, actions, name } = createSlice({
                 id: uuidv4(),
                 duration: MIN_SCRIPT_DURATION,
                 text: action.payload,
-                voice: mockVoices.at(0),
+                voice: DEFAULT_VOICE,
                 iconName: PlayIconNames.READY,
+                url: null,
             };
             state.ui.selectedItem = { id: script.id, type: RowNames.SCRIPT };
             state.scripts.push(script);
@@ -196,6 +214,11 @@ const { reducer, actions, name } = createSlice({
                     duration,
                 };
             });
+            const totalMilliseconds = calculateTotalMilliseconds(
+                state.scenes,
+                state.range.end,
+            );
+            state.range.end = totalMilliseconds;
         },
         reorderScenes(state, action: PayloadAction<ItemActionPayload>) {
             const { id, span } = action.payload;
@@ -219,6 +242,11 @@ const { reducer, actions, name } = createSlice({
             state.scenes = state.scenes.filter(
                 (scenes) => scenes.id !== action.payload,
             );
+            const totalMilliseconds = calculateTotalMilliseconds(
+                state.scenes,
+                state.range.end,
+            );
+            state.range.end = totalMilliseconds;
         },
         changeVideoSize(state) {
             state.videoSize =
@@ -296,6 +324,9 @@ const { reducer, actions, name } = createSlice({
         ) {
             state.ui.menuActiveItem = action.payload;
         },
+        playScript(state, action: PayloadAction<Partial<ScriptPlayer>>) {
+            state.scriptPlayer = { ...state.scriptPlayer, ...action.payload };
+        },
         resetStudio(state) {
             // TODO: do not overwrite voices on reset
             return {
@@ -313,10 +344,18 @@ const { reducer, actions, name } = createSlice({
             state.videoId = id;
             state.scenes = composition.scenes;
             state.scripts = composition.scripts.map(
-                (script: CompositionScript) => ({
-                    ...script,
-                    iconName: PlayIconNames.READY,
-                }),
+                (script: CompositionScript) => {
+                    const voice = state.voices.find(
+                        (voice) => voice.name === script.voiceName,
+                    );
+
+                    return {
+                        ...script,
+                        iconName: PlayIconNames.READY,
+                        voice: voice ?? DEFAULT_VOICE,
+                        url: null,
+                    };
+                },
             );
         },
     },
@@ -368,6 +407,15 @@ const { reducer, actions, name } = createSlice({
             );
             state.dataStatus = DataStatus.REJECTED;
         });
+        builder.addCase(generateScriptSpeechPreview.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(generateScriptSpeechPreview.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(generateScriptSpeechPreview.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+        });
         builder.addCase(generateAllScriptsSpeech.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
         });
@@ -375,6 +423,17 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(generateAllScriptsSpeech.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(loadVoices.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(loadVoices.fulfilled, (state, action) => {
+            state.voices = action.payload.items;
+            state.dataStatus = DataStatus.FULFILLED;
+        });
+        builder.addCase(loadVoices.rejected, (state) => {
+            state.voices = [];
             state.dataStatus = DataStatus.REJECTED;
         });
         builder.addCase(renderAvatar.pending, (state) => {

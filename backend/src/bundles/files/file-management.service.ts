@@ -1,6 +1,6 @@
 import { type FileEntity } from '~/bundles/files/file.entity.js';
 import { type FilesRepository } from '~/bundles/files/file.repository.js';
-import { HttpCode, HttpError } from '~/common/http/http.js';
+import { HTTPCode, HttpError } from '~/common/http/http.js';
 
 import { FILE_TYPE_MAP } from './constants/constants.js';
 import { FileErrorMessage } from './enums/enums.js';
@@ -18,7 +18,7 @@ class FileManagementService {
         if (!extension) {
             throw new HttpError({
                 message: FileErrorMessage.NO_EXTENSION,
-                status: HttpCode.INTERNAL_SERVER_ERROR,
+                status: HTTPCode.INTERNAL_SERVER_ERROR,
             });
         }
 
@@ -27,7 +27,7 @@ class FileManagementService {
         if (!fileType) {
             throw new HttpError({
                 message: FileErrorMessage.UNSUPPORTED_FILE,
-                status: HttpCode.UNSUPPORTED_MEDIA_TYPE,
+                status: HTTPCode.UNSUPPORTED_MEDIA_TYPE,
             });
         }
         return fileType;

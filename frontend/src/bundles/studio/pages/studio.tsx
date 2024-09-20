@@ -27,6 +27,7 @@ import {
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
+import { AudioPlayer } from '../components/audio-player/audio-player.js';
 import {
     PlayerControls,
     Timeline,
@@ -52,9 +53,8 @@ const Studio: React.FC = () => {
         selectVideoDataById(state, locationState?.id),
     );
 
-    const { scenes, scripts, videoName, videoId } = useAppSelector(
-        ({ studio }) => studio,
-    );
+    const { scenes, scripts, videoName, videoId, scriptPlayer } =
+        useAppSelector(({ studio }) => studio);
 
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
@@ -155,6 +155,19 @@ const Studio: React.FC = () => {
             });
     }, [dispatch, scenes, scripts, videoId, videoName]);
 
+    const handleAudioEnd = useCallback((): void => {
+        dispatch(studioActions.playScript({ isPlaying: false }));
+    }, [dispatch]);
+
+    const handleSetScriptDuration = useCallback(
+        (duration: number): void => {
+            dispatch(studioActions.playScript({ duration }));
+        },
+        [dispatch],
+    );
+
+    const { isPlaying, url } = scriptPlayer;
+
     return (
         <Box
             minHeight="100vh"
@@ -208,6 +221,14 @@ const Studio: React.FC = () => {
                     <Timeline playerRef={playerReference} />
                 </Box>
             </VStack>
+            {url && (
+                <AudioPlayer
+                    isPlaying={isPlaying}
+                    audioUrl={url}
+                    onAudioEnd={handleAudioEnd}
+                    onSetDuration={handleSetScriptDuration}
+                />
+            )}
         </Box>
     );
 };

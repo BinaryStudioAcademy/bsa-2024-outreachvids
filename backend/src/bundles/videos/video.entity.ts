@@ -10,6 +10,8 @@ class VideoEntity implements Entity {
     public 'previewUrl': string;
     public 'composition': Composition;
 
+    public 'createdAt': string;
+
     private constructor({
         id,
         userId,
@@ -17,6 +19,7 @@ class VideoEntity implements Entity {
         previewUrl,
         composition,
         url,
+        createdAt,
     }: {
         id: string | null;
         userId: string;
@@ -24,6 +27,7 @@ class VideoEntity implements Entity {
         previewUrl: string;
         composition: Composition;
         url: string | null;
+        createdAt: string;
     }) {
         this.id = id;
         this.userId = userId;
@@ -31,6 +35,7 @@ class VideoEntity implements Entity {
         this.previewUrl = previewUrl;
         this.composition = composition;
         this.url = url;
+        this.createdAt = createdAt;
     }
 
     public static initialize({
@@ -40,6 +45,7 @@ class VideoEntity implements Entity {
         previewUrl,
         composition,
         url,
+        createdAt,
     }: {
         id: string | null;
         userId: string;
@@ -47,6 +53,7 @@ class VideoEntity implements Entity {
         previewUrl: string;
         composition: Composition;
         url: string | null;
+        createdAt: string;
     }): VideoEntity {
         return new VideoEntity({
             id,
@@ -55,6 +62,7 @@ class VideoEntity implements Entity {
             composition: composition,
             previewUrl,
             url,
+            createdAt,
         });
     }
 
@@ -64,12 +72,14 @@ class VideoEntity implements Entity {
         previewUrl,
         composition,
         url,
+        createdAt = new Date().toISOString(),
     }: {
         userId: string;
         name: string;
         previewUrl: string;
         composition: Composition;
         url?: string;
+        createdAt?: string;
     }): VideoEntity {
         return new VideoEntity({
             id: null,
@@ -78,6 +88,7 @@ class VideoEntity implements Entity {
             composition,
             previewUrl,
             url: url ?? null,
+            createdAt,
         });
     }
 
@@ -88,6 +99,7 @@ class VideoEntity implements Entity {
         url: string | null;
         previewUrl: string;
         composition: Composition;
+        createdAt: string;
     } {
         return {
             id: this.id as string,
@@ -96,6 +108,7 @@ class VideoEntity implements Entity {
             url: this.url,
             composition: this.composition,
             previewUrl: this.previewUrl,
+            createdAt: this.createdAt,
         };
     }
 
@@ -105,6 +118,7 @@ class VideoEntity implements Entity {
         previewUrl: string;
         composition: Composition;
         url: string | null;
+        createdAt: string;
     } {
         return {
             userId: this.userId,
@@ -112,6 +126,7 @@ class VideoEntity implements Entity {
             composition: this.composition,
             previewUrl: this.previewUrl,
             url: this.url ?? null,
+            createdAt: this.createdAt,
         };
     }
 }

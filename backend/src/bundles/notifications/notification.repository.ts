@@ -25,7 +25,9 @@ class NotificationRepository implements Repository {
             .where('isRead', false)
             .execute();
 
-        return notifications.map((it) => NotificationEntity.initialize(it));
+        return notifications.map((notification) =>
+            NotificationEntity.initialize(notification),
+        );
     }
 
     public async create(
