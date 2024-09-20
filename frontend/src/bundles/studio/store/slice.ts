@@ -393,7 +393,10 @@ const { reducer, actions, name } = createSlice({
 
             let index = EMPTY_VALUE;
             const { payload } = action;
-            const { scripts, scenes, range, ui } = state;
+            const { avatars, scripts, scenes, range, ui } = state;
+            const scene = scenes[0];
+            const avatar = avatars[0];
+            const avatarStyle = avatar?.styles[0];
             const lastIndex = payload.length - 1;
 
             for (const { description } of payload) {
@@ -406,12 +409,29 @@ const { reducer, actions, name } = createSlice({
                 scripts.push(script);
                 range.end = rangeEnd;
 
+                if (scene && avatar && avatarStyle) {
+                    scene.avatar = {
+                        id: avatar.id,
+                        name: avatar.name,
+                        style: avatarStyle.style,
+                        url: avatarStyle.imgUrl,
+                    };
+                }
                 //This if is cause we have already one scene at the begging
                 if (index < lastIndex) {
                     const { selectedItem, scene } = addScene({
                         scenes,
                         rangeEnd: rangeEnd,
                     });
+
+                    if (avatar && avatarStyle) {
+                        scene.avatar = {
+                            id: avatar.id,
+                            name: avatar.name,
+                            style: avatarStyle.style,
+                            url: avatarStyle.imgUrl,
+                        };
+                    }
 
                     scenes.push(scene);
                     ui.selectedItem = selectedItem;
