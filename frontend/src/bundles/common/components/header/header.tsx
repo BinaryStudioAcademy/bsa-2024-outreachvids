@@ -16,12 +16,14 @@ const Header: React.FC<Properties> = ({ left, center, right }) => {
     return (
         <Flex as="header" className={styles['header']}>
             {left ?? (
-                <Link to={AppRoute.ROOT}>
-                    <Logo textSize="150px" logoSize="40px" />
-                </Link>
+                <Box className={styles['left']}>
+                    <Link to={AppRoute.ROOT}>
+                        <Logo textSize="150px" logoSize="40px" />
+                    </Link>
+                </Box>
             )}
-            <Box>{center}</Box>
-            <Box>{right}</Box>
+            <Box className={styles['center']}>{center}</Box>
+            {right ? <Box className={styles['right']}>{right}</Box> : null};
         </Flex>
     );
 };

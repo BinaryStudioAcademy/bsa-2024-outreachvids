@@ -9,6 +9,7 @@ import {
     DownloadIcon,
     ViewIcon,
     ViewOffIcon,
+    WarningIcon,
 } from '@chakra-ui/icons';
 
 import { Logo, LogoText, OpenAi } from './custom-icons/custom-icons.js';
@@ -67,6 +68,7 @@ const IconName = {
     LOGO: Logo,
     LOGO_TEXT: LogoText,
     DELETE: DeleteIcon,
+    WARNING: WarningIcon,
     CIRCLE: Circle,
     ARROW_BACK: ArrowBackIcon,
 } as const;

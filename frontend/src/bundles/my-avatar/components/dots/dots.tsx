@@ -2,7 +2,7 @@ import { Circle } from '~/bundles/common/components/components.js';
 
 import { COLOR, SIZE } from './constants/constants.js';
 
-const Dots = (): JSX.Element => {
+const Dots: React.FC = () => {
     return (
         <>
             <Circle
