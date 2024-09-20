@@ -4,6 +4,7 @@ import {
     Text,
     VStack,
 } from '~/bundles/common/components/components.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -38,7 +39,7 @@ const ScriptContent: React.FC = () => {
     return (
         <>
             <VStack w="full" spacing="20px" p="20px 0">
-                {scripts.length === 0 ? (
+                {scripts.length === EMPTY_VALUE ? (
                     <Text variant="body1" width="60%" textAlign="center">
                         To add a script press a button below.
                     </Text>

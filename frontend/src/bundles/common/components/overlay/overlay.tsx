@@ -7,7 +7,7 @@ type Properties = {
     children: React.ReactNode;
 };
 
-const Overlay = ({ isOpen, children }: Properties): JSX.Element => {
+const Overlay: React.FC<Properties> = ({ isOpen, children }) => {
     return (
         <Fade in={isOpen} hidden={!isOpen} className={styles['overlay']}>
             <Flex

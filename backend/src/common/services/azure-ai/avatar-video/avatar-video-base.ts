@@ -1,5 +1,5 @@
 import { type Http } from 'shared';
-import { ApiPath, ContentType, HttpHeader, HTTPMethod } from 'shared';
+import { ApiPath, ContentType, HTTPHeader, HTTPMethod } from 'shared';
 
 import { config } from '~/common/config/config.js';
 import { BaseHttpApi } from '~/common/http/http.js';
@@ -35,7 +35,7 @@ class AvatarVideoApi extends BaseHttpApi {
                 contentType: ContentType.JSON,
                 headers: [
                     {
-                        key: HttpHeader.AZURE_KEY,
+                        key: HTTPHeader.AZURE_KEY,
                         value: config.ENV.AZURE.SUBSCRIPTION_KEY,
                     },
                 ],
@@ -56,7 +56,7 @@ class AvatarVideoApi extends BaseHttpApi {
                 contentType: ContentType.JSON,
                 headers: [
                     {
-                        key: HttpHeader.AZURE_KEY,
+                        key: HTTPHeader.AZURE_KEY,
                         value: config.ENV.AZURE.SUBSCRIPTION_KEY,
                     },
                 ],
@@ -78,7 +78,7 @@ class AvatarVideoApi extends BaseHttpApi {
                 contentType: ContentType.JSON,
                 headers: [
                     {
-                        key: HttpHeader.AZURE_KEY,
+                        key: HTTPHeader.AZURE_KEY,
                         value: config.ENV.AZURE.SUBSCRIPTION_KEY,
                     },
                 ],
