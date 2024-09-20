@@ -20,6 +20,7 @@ import {
     addScene,
     addScript,
     calculateTotalMilliseconds,
+    createDefaultAvatarFromRequest,
     getDestinationPointerValue,
     getNewItemIndexBySpan,
     reorderItemsByIndexes,
@@ -388,64 +389,52 @@ const { reducer, actions, name } = createSlice({
             state,
             action: PayloadAction<Array<VideoScript>>,
         ) {
-            // state.dataStatus = DataStatus.PENDING;
-            state.isVideoScriptsGenerationPending = true;
+            try {
+                state.isVideoScriptsGenerationPending = true;
 
-            let index = EMPTY_VALUE;
-            const { payload } = action;
-            const { avatars, scripts, scenes, range, ui } = state;
-            const scene = scenes[0];
-            const avatar = avatars[0];
-            const avatarStyle = avatar?.styles[0];
-            const lastIndex = payload.length - 1;
+                let index = EMPTY_VALUE;
+                const { payload } = action;
+                const { avatars, scripts, scenes, range } = state;
+                const firstScene = scenes[0];
+                const firstAvatar = avatars[0];
+                const defaultAvatar =
+                    createDefaultAvatarFromRequest(firstAvatar);
+                const lastIndex = payload.length - 1;
 
-            for (const { description } of payload) {
-                const { rangeEnd, script } = addScript({
-                    text: description,
-                    scripts,
-                    rangeEnd: range.end,
-                    voice: DEFAULT_VOICE,
-                });
-                scripts.push(script);
-                range.end = rangeEnd;
-
-                if (scene && avatar && avatarStyle) {
-                    scene.avatar = {
-                        id: avatar.id,
-                        name: avatar.name,
-                        style: avatarStyle.style,
-                        url: avatarStyle.imgUrl,
-                    };
+                if (firstScene && defaultAvatar) {
+                    firstScene.avatar = defaultAvatar;
                 }
-                //This if is cause we have already one scene at the begging
-                if (index < lastIndex) {
-                    const { selectedItem, scene } = addScene({
-                        scenes,
-                        rangeEnd: rangeEnd,
+                for (const { description } of payload) {
+                    const { rangeEnd, script } = addScript({
+                        text: description,
+                        scripts,
+                        rangeEnd: range.end,
+                        voice: DEFAULT_VOICE,
                     });
+                    scripts.push(script);
+                    range.end = rangeEnd;
 
-                    if (avatar && avatarStyle) {
-                        scene.avatar = {
-                            id: avatar.id,
-                            name: avatar.name,
-                            style: avatarStyle.style,
-                            url: avatarStyle.imgUrl,
-                        };
+                    //This if is cause we have already one scene at the begging
+                    if (index < lastIndex) {
+                        const { scene } = addScene({
+                            scenes,
+                            rangeEnd: rangeEnd,
+                        });
+
+                        if (defaultAvatar) {
+                            scene.avatar = defaultAvatar;
+                        }
+
+                        scenes.push(scene);
                     }
-
-                    scenes.push(scene);
-                    ui.selectedItem = selectedItem;
+                    index++;
                 }
-                index++;
+            } finally {
+                state.isVideoScriptsGenerationReady = true;
+                state.isVideoScriptsGenerationPending = false;
             }
-
-            state.isVideoScriptsGenerationReady = true;
-            state.isVideoScriptsGenerationPending = false;
-            // state.dataStatus = DataStatus.IDLE;
         },
         recalculateScenesDurationForScript(state) {
-            // state.dataStatus = DataStatus.PENDING;
-
             let index = 0;
             const { scenes, scripts } = state;
             for (const { duration } of scripts) {
@@ -457,15 +446,11 @@ const { reducer, actions, name } = createSlice({
                 scene.duration = Math.round(duration);
                 index++;
             }
-            // state.dataStatus = DataStatus.IDLE;
-            state.isVideoScriptsGenerationPending = false;
         },
-        setStatusToPending(state) {
-            // state.dataStatus = DataStatus.PENDING;
+        setVideoScriptToPending(state) {
             state.isVideoScriptsGenerationPending = true;
         },
-        setStatusToComplete(state) {
-            // state.dataStatus = DataStatus.PENDING;
+        setVideoScriptToComplete(state) {
             state.isVideoScriptsGenerationPending = false;
             state.isVideoScriptsGenerationReady = false;
         },

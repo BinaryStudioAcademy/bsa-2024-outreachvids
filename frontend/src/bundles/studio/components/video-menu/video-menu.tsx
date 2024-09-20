@@ -80,8 +80,14 @@ const VideoMenu: React.FC = () => {
     }, [selectedItem, setActiveItem, dispatch]);
 
     useEffect(() => {
+        if (avatars.length === EMPTY_VALUE) {
+            void dispatch(studioActions.loadAvatars());
+        }
+    }, [dispatch, avatars.length]);
+
+    useEffect(() => {
         if (isVideoScriptsGenerationReady) {
-            dispatch(studioActions.setStatusToPending());
+            dispatch(studioActions.setVideoScriptToPending());
             dispatch(studioActions.generateAllScriptsSpeech())
                 .then(() => {
                     dispatch(
@@ -90,16 +96,10 @@ const VideoMenu: React.FC = () => {
                 })
                 .catch(() => {})
                 .finally(() => {
-                    dispatch(studioActions.setStatusToComplete());
+                    dispatch(studioActions.setVideoScriptToComplete());
                 });
         }
     }, [dispatch, isVideoScriptsGenerationReady]);
-
-    useEffect(() => {
-        if (avatars.length === EMPTY_VALUE) {
-            void dispatch(studioActions.loadAvatars());
-        }
-    }, [dispatch, avatars.length]);
 
     // TODO: Uncomment menu items after demo
     const menuItems: Record<ValueOf<typeof MenuItems>, MenuItem> = {
@@ -158,7 +158,6 @@ const VideoMenu: React.FC = () => {
 
     return (
         <>
-            {/* TODO: NEED TO SHOW OVERLAY JUST WHEN IS GENERATING VIDEO FROM SCRIPT */}
             <Overlay isOpen={isVideoScriptsGenerationPending}>
                 <Loader />
             </Overlay>
