@@ -356,16 +356,16 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(generateScriptSpeech.fulfilled, (state, action) => {
-            const { scriptId, audioUrl } = action.payload;
+            const { id } = action.payload;
 
             state.scripts = state.scripts.map((script) => {
-                if (script.id !== scriptId) {
+                if (script.id !== id) {
                     return script;
                 }
 
                 return {
                     ...script,
-                    url: audioUrl,
+                    ...action.payload,
                     iconName: PlayIconNames.READY,
                 };
             });
