@@ -1,6 +1,8 @@
 // Using .js extension to avoid TypeScript issues with Remotion's rendering process.
 import { AbsoluteFill, Video, Series } from 'remotion';
 
+import styles from './styles.module.css';
+
 const Main = ({ scenes }) => {
     return (
         <AbsoluteFill>
@@ -11,7 +13,24 @@ const Main = ({ scenes }) => {
                             key={scene.id}
                             durationInFrames={scene.durationInFrames}
                         >
-                            <Video src={scene.url} />
+                            <Video
+                                className={styles['avatar']}
+                                src={scene.url}
+                            />
+                            {scene?.background?.url && (
+                                <img
+                                    className={styles['image']}
+                                    src={scene?.background?.url}
+                                />
+                            )}
+                            {scene?.background?.color && (
+                                <div
+                                    style={{
+                                        backgroundColor: `${scene?.background?.color}`,
+                                    }}
+                                    className={styles['background']}
+                                ></div>
+                            )}
                         </Series.Sequence>
                     );
                 })}
