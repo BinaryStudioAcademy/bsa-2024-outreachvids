@@ -1,11 +1,6 @@
 import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
-import {
-    Icon,
-    Loader,
-    Overlay,
-} from '~/bundles/common/components/components.js';
-import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
-import { /*DataStatus,*/ DOMEvent } from '~/bundles/common/enums/enums.js';
+import { Icon } from '~/bundles/common/components/components.js';
+import { DOMEvent } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
@@ -32,20 +27,9 @@ import {
 import { type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
-    const {
-        // dataStatus,
-        selectedItem,
-        activeItem,
-        avatars,
-        isVideoScriptsGenerationReady,
-        isVideoScriptsGenerationPending,
-    } = useAppSelector(({ studio }) => ({
-        // dataStatus: studio.dataStatus,
+    const { selectedItem, activeItem } = useAppSelector(({ studio }) => ({
         selectedItem: studio.ui.selectedItem,
         activeItem: studio.ui.menuActiveItem,
-        avatars: studio.avatars,
-        isVideoScriptsGenerationReady: studio.isVideoScriptsGenerationReady,
-        isVideoScriptsGenerationPending: studio.isVideoScriptsGenerationPending,
     }));
 
     const dispatch = useAppDispatch();
@@ -78,28 +62,6 @@ const VideoMenu: React.FC = () => {
             dispatch(studioActions.selectScript(selectedItem.id));
         }
     }, [selectedItem, setActiveItem, dispatch]);
-
-    useEffect(() => {
-        if (avatars.length === EMPTY_VALUE) {
-            void dispatch(studioActions.loadAvatars());
-        }
-    }, [dispatch, avatars.length]);
-
-    useEffect(() => {
-        if (isVideoScriptsGenerationReady) {
-            dispatch(studioActions.setVideoScriptToPending());
-            dispatch(studioActions.generateAllScriptsSpeech())
-                .then(() => {
-                    dispatch(
-                        studioActions.recalculateScenesDurationForScript(),
-                    );
-                })
-                .catch(() => {})
-                .finally(() => {
-                    dispatch(studioActions.setVideoScriptToComplete());
-                });
-        }
-    }, [dispatch, isVideoScriptsGenerationReady]);
 
     // TODO: Uncomment menu items after demo
     const menuItems: Record<ValueOf<typeof MenuItems>, MenuItem> = {
@@ -158,10 +120,6 @@ const VideoMenu: React.FC = () => {
 
     return (
         <>
-            <Overlay isOpen={isVideoScriptsGenerationPending}>
-                <Loader />
-            </Overlay>
-
             <Menu
                 items={menuItems}
                 activeItem={activeItem}
