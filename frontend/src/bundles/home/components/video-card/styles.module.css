@@ -42,11 +42,3 @@
     border-radius: 4px;
     padding: 2px 8px;
 }
-
-.preview-image {
-    border-radius: 5px;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: top;
-}
