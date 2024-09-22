@@ -9,7 +9,7 @@ import {
     Tabs,
 } from '~/bundles/common/components/components.js';
 
-import { backgroundImages } from '../../mock/bg-images-mock.js';
+import { backgroundColors, backgroundImages } from '../../mock/bg-mock.js';
 import styles from './styles.module.css';
 
 const BackgroundsContent: React.FC = () => {
@@ -40,7 +40,15 @@ const BackgroundsContent: React.FC = () => {
                         </SimpleGrid>
                     </TabPanel>
                     <TabPanel>
-                        <p>two!</p>
+                        <SimpleGrid columns={3} spacingX="13px" spacingY="10px">
+                            {backgroundColors.map((color, index) => (
+                                <Box
+                                    key={index}
+                                    backgroundColor={color}
+                                    height="80px"
+                                ></Box>
+                            ))}
+                        </SimpleGrid>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
