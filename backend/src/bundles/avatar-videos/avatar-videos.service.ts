@@ -234,19 +234,18 @@ class AvatarVideoService {
     private async saveGeneratedAvatar(
         scenesWithGeneratedAvatars: SceneWithGeneratedAvatar[],
     ): Promise<SceneWithGeneratedAvatar[]> {
-        return Promise.all(
+        const urls = await Promise.all(
             scenesWithGeneratedAvatars.map(async (scene) => {
-                return {
-                    ...scene,
-                    avatar: {
-                        url: await this.saveAvatarVideo(
-                            scene.avatar.url,
-                            scene.id,
-                        ),
-                    },
-                };
+                return this.saveAvatarVideo(scene.avatar.url, scene.id);
             }),
         );
+
+        return scenesWithGeneratedAvatars.map((scene, index) => ({
+            ...scene,
+            avatar: {
+                url: urls[index] as string,
+            },
+        }));
     }
 
     private async removeAvatarsFromBucket(
