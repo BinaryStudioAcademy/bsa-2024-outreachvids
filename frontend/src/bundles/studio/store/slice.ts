@@ -59,6 +59,11 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
+type BackgroundPayload = {
+    value: string;
+    isValueImage: boolean;
+};
+
 type ScriptPlayer = {
     isPlaying: boolean;
     url: string | null;
@@ -315,6 +320,29 @@ const { reducer, actions, name } = createSlice({
                     avatar: {
                         ...action.payload,
                     },
+                };
+            });
+        },
+        addBackgroundToScene(state, action: PayloadAction<BackgroundPayload>) {
+            const selectedItem = state.ui.selectedItem;
+            if (!selectedItem || selectedItem.type !== RowNames.SCENE) {
+                return;
+            }
+
+            state.scenes = state.scenes.map((scene) => {
+                if (scene.id !== selectedItem.id) {
+                    return scene;
+                }
+
+                const { isValueImage, value } = action.payload;
+
+                const newBackground = isValueImage
+                    ? { url: value }
+                    : { color: value };
+
+                return {
+                    ...scene,
+                    background: newBackground,
                 };
             });
         },
