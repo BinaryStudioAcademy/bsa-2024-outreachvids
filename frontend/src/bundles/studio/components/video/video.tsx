@@ -40,7 +40,7 @@ const VideoComponent: React.FC<Properties> = ({ scenes, scripts }) => {
                         >
                             {scene?.avatar?.url || scene.background ? (
                                 <Flex
-                                    background={`${scene.background?.color ?? ''} url(${scene.background?.url}) no-repeat`}
+                                    background={`${scene.background?.color ?? ''} url(${scene.background?.url ?? ''}) no-repeat`}
                                     className={styles['background']}
                                 >
                                     <RemotionImg
