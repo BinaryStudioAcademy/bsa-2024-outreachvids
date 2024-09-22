@@ -26,3 +26,19 @@
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
+.preview-image {
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.draft-box {
+    position: absolute;
+    bottom: 1vh;
+    left: 1vh;
+    border-radius: 4px;
+    padding: 2px 8px;
+}

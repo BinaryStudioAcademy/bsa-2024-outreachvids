@@ -1,10 +1,9 @@
 import { type VideoGetAllItemResponseDto } from 'shared';
-import { HttpCode, HttpError } from 'shared';
-import { v4 as uuidv4 } from 'uuid';
+import { HTTPCode, HttpError } from 'shared';
 
-import { type AvatarData } from '~/common/services/azure-ai/avatar-video/types/avatar-data.js';
 import { type AzureAIService } from '~/common/services/azure-ai/azure-ai.service.js';
 import { type FileService } from '~/common/services/file/file.service.js';
+import { type RemotionService } from '~/common/services/remotion/remotion.service.js';
 
 import { type VideoService } from '../videos/video.service.js';
 import { REQUEST_DELAY } from './constants/constnats.js';
@@ -12,33 +11,42 @@ import {
     GenerateAvatarResponseStatus,
     RenderVideoErrorMessage,
 } from './enums/enums.js';
-import { distributeScriptsToScenes, getFileName } from './helpers/helpers.js';
+import { generatedAvatarToRemotionScene } from './helpers/generated-avatars-to-remotion-scenes.helper.js';
+import {
+    distributeScriptsToScenes,
+    getFileName,
+    getTotalDuration,
+} from './helpers/helpers.js';
 import {
     type Composition,
     type RenderAvatarVideoRequestDto,
+    type SceneForRenderAvatar,
+    type SceneWithGeneratedAvatar,
 } from './types/types.js';
 
-type HandleRenderVideoArguments = {
-    videoRecordId: string;
-    avatars: {
-        id: string;
-        url: string;
-    }[];
+type Constructor = {
+    azureAIService: AzureAIService;
+    fileService: FileService;
+    videoService: VideoService;
+    remotionService: RemotionService;
 };
 
 class AvatarVideoService {
     private azureAIService: AzureAIService;
     private fileService: FileService;
     private videoService: VideoService;
+    private remotionService: RemotionService;
 
-    public constructor(
-        azureAIService: AzureAIService,
-        fileService: FileService,
-        videoService: VideoService,
-    ) {
+    public constructor({
+        azureAIService,
+        fileService,
+        remotionService,
+        videoService,
+    }: Constructor) {
         this.azureAIService = azureAIService;
         this.fileService = fileService;
         this.videoService = videoService;
+        this.remotionService = remotionService;
     }
 
     private async saveAvatarVideo(url: string, id: string): Promise<string> {
@@ -64,83 +72,96 @@ class AvatarVideoService {
         });
     }
 
-    public getAvatarsConfigs(composition: Composition): AvatarData[] {
+    public async updateVideo({
+        videoId,
+        composition,
+        name,
+    }: RenderAvatarVideoRequestDto): Promise<VideoGetAllItemResponseDto> {
+        return await this.videoService.update(videoId as string, {
+            composition,
+            name: name,
+        });
+    }
+
+    public getScenesConfigs(composition: Composition): SceneForRenderAvatar[] {
         return distributeScriptsToScenes(composition);
     }
 
     public async submitAvatarsConfigs(
-        configs: AvatarData[],
-        userId: string,
+        scenesForRenderAvatar: SceneForRenderAvatar[],
         recordId: string,
-    ): Promise<string[]> {
+    ): Promise<void> {
         try {
-            const responses = await Promise.all(
-                configs.map((config) => {
+            await Promise.all(
+                scenesForRenderAvatar.map((scene) => {
                     return this.azureAIService.renderAvatarVideo({
-                        id: uuidv4(),
-                        payload: config,
+                        id: scene.id,
+                        payload: scene.avatar,
                     });
                 }),
             );
 
-            const ids = responses.map((response) => {
-                return response.id;
-            });
-
-            this.checkAvatarsProcessing(ids, userId, recordId).catch(() => {
-                throw new HttpError({
-                    message: RenderVideoErrorMessage.RENDER_ERROR,
-                    status: HttpCode.BAD_REQUEST,
-                });
-            });
-
-            return ids;
+            this.checkAvatarsProcessing(scenesForRenderAvatar, recordId).catch(
+                () => {
+                    throw new HttpError({
+                        message: RenderVideoErrorMessage.RENDER_ERROR,
+                        status: HTTPCode.BAD_REQUEST,
+                    });
+                },
+            );
         } catch {
             throw new HttpError({
                 message: RenderVideoErrorMessage.RENDER_ERROR,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
     }
 
     public async checkAvatarsProcessing(
-        ids: string[],
-        userId: string,
+        scenesForRenderAvatar: SceneForRenderAvatar[],
         videoRecordId: string,
     ): Promise<void> {
         try {
             const response = await Promise.all(
-                ids.map((id) => {
-                    return this.checkAvatarStatus(id);
+                scenesForRenderAvatar.map((scene) => {
+                    return this.checkAvatarStatus(scene);
                 }),
             );
 
             await this.handleSuccessfulAvatarsGeneration({
-                avatars: response,
+                scenesWithGeneratedAvatars: response,
                 videoRecordId,
             });
         } catch {
             throw new HttpError({
                 message: RenderVideoErrorMessage.RENDER_ERROR,
-                status: HttpCode.BAD_REQUEST,
+                status: HTTPCode.BAD_REQUEST,
             });
         }
     }
 
     private checkAvatarStatus(
-        id: string,
-    ): Promise<{ id: string; url: string }> {
+        scene: SceneForRenderAvatar,
+    ): Promise<SceneWithGeneratedAvatar> {
         return new Promise((resolve, reject) => {
             const interval = setInterval(() => {
                 this.azureAIService
-                    .getAvatarVideo(id)
+                    .getAvatarVideo(scene.id)
                     .then((response) => {
                         if (
                             response.status ===
                             GenerateAvatarResponseStatus.SUCCEEDED
                         ) {
                             clearInterval(interval);
-                            resolve({ id, url: response.outputs.result });
+
+                            resolve({
+                                ...scene,
+                                avatar: {
+                                    url: response.outputs.result,
+                                },
+                                durationInMilliseconds:
+                                    response.properties.durationInMilliseconds,
+                            });
                         } else if (
                             response.status ===
                             GenerateAvatarResponseStatus.FAILED
@@ -149,7 +170,7 @@ class AvatarVideoService {
                                 new HttpError({
                                     message:
                                         RenderVideoErrorMessage.RENDER_ERROR,
-                                    status: HttpCode.BAD_REQUEST,
+                                    status: HTTPCode.BAD_REQUEST,
                                 }),
                             );
                             clearInterval(interval);
@@ -159,7 +180,7 @@ class AvatarVideoService {
                         reject(
                             new HttpError({
                                 message: RenderVideoErrorMessage.RENDER_ERROR,
-                                status: HttpCode.BAD_REQUEST,
+                                status: HTTPCode.BAD_REQUEST,
                             }),
                         );
                         clearInterval(interval);
@@ -170,33 +191,69 @@ class AvatarVideoService {
 
     private async handleSuccessfulAvatarsGeneration({
         videoRecordId,
-        avatars,
-    }: HandleRenderVideoArguments): Promise<void> {
-        // TODO: REPLACE THIS LOGIC WITH RENDER VIDEO
-        // TODO: NOTIFY USER
-        const firstAvatarId = avatars[0]?.id;
-        const url = avatars[0]?.url;
+        scenesWithGeneratedAvatars,
+    }: {
+        videoRecordId: string;
+        scenesWithGeneratedAvatars: SceneWithGeneratedAvatar[];
+    }): Promise<void> {
+        const scenesWithSavedAvatars = await this.saveGeneratedAvatar(
+            scenesWithGeneratedAvatars,
+        );
+        const scenesForRendering = generatedAvatarToRemotionScene(
+            scenesWithSavedAvatars,
+        );
 
-        if (!firstAvatarId || !url) {
-            return;
-        }
-
-        const savedUrl = await this.saveAvatarVideo(url, firstAvatarId);
-
-        const videoData = await this.videoService.update(videoRecordId, {
-            url: savedUrl,
+        const renderId = await this.remotionService.renderVideo({
+            scenes: scenesForRendering,
+            totalDurationInFrames: getTotalDuration(scenesForRendering),
         });
 
-        if (!videoData) {
-            throw new HttpError({
-                message: RenderVideoErrorMessage.NOT_SAVED,
-                status: HttpCode.BAD_REQUEST,
-            });
-        }
+        const url =
+            await this.remotionService.getRemotionRenderProgress(renderId);
 
-        await Promise.all(
-            avatars.map((avatar) => {
-                return this.azureAIService.removeAvatarVideo(avatar.id);
+        await this.removeGeneratedAvatars(scenesWithSavedAvatars);
+        await this.removeAvatarsFromBucket(scenesWithSavedAvatars);
+
+        if (!url) {
+            return;
+        }
+        // TODO: NOTIFY USER
+        await this.videoService.update(videoRecordId, { url });
+    }
+
+    private async removeGeneratedAvatars(
+        scenesWithGeneratedAvatars: SceneWithGeneratedAvatar[],
+    ): Promise<unknown> {
+        return Promise.all(
+            scenesWithGeneratedAvatars.map((scene) => {
+                return this.azureAIService.removeAvatarVideo(scene.id);
+            }),
+        );
+    }
+
+    private async saveGeneratedAvatar(
+        scenesWithGeneratedAvatars: SceneWithGeneratedAvatar[],
+    ): Promise<SceneWithGeneratedAvatar[]> {
+        const urls = await Promise.all(
+            scenesWithGeneratedAvatars.map(async (scene) => {
+                return this.saveAvatarVideo(scene.avatar.url, scene.id);
+            }),
+        );
+
+        return scenesWithGeneratedAvatars.map((scene, index) => ({
+            ...scene,
+            avatar: {
+                url: urls[index] as string,
+            },
+        }));
+    }
+
+    private async removeAvatarsFromBucket(
+        scenesWithGeneratedAvatars: SceneWithGeneratedAvatar[],
+    ): Promise<unknown> {
+        return Promise.all(
+            scenesWithGeneratedAvatars.map((scene) => {
+                return this.fileService.deleteFile(getFileName(scene.id));
             }),
         );
     }

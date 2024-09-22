@@ -2,7 +2,7 @@ import { type FastifyRequest } from 'fastify';
 
 import { type Route } from '../types/types.js';
 
-const isRouteInWhiteList = (
+const checkIfRouteInWhiteList = (
     routesWhiteList: Route[],
     request: FastifyRequest,
 ): boolean => {
@@ -13,4 +13,4 @@ const isRouteInWhiteList = (
     });
 };
 
-export { isRouteInWhiteList };
+export { checkIfRouteInWhiteList };

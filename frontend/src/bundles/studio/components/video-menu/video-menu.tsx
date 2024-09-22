@@ -1,10 +1,12 @@
 import { ChatModal } from '~/bundles/chat/pages/chat-modal.js';
 import { Icon } from '~/bundles/common/components/components.js';
+import { DOMEvent } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
     useEffect,
+    useRef,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
@@ -30,6 +32,8 @@ const VideoMenu: React.FC = () => {
 
     const dispatch = useAppDispatch();
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const modalReference = useRef<HTMLDivElement | null>(null);
+    const menuBodyReference = useRef<HTMLDivElement | null>(null);
 
     const setActiveItem = useCallback(
         (item: ValueOf<typeof MenuItems> | null): void => {
@@ -75,7 +79,7 @@ const VideoMenu: React.FC = () => {
         script: {
             label: 'Script',
             icon: <Icon as={IconName.SCRIPT} />,
-            getContent: () => <ScriptContent />,
+            getContent: () => <ScriptContent modalReference={modalReference} />,
         },
         // text: {
         //     label: 'Text',
@@ -96,6 +100,30 @@ const VideoMenu: React.FC = () => {
 
     const activeMenuItem = activeItem && menuItems[activeItem];
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent): void => {
+            const isInsideMenuBody = menuBodyReference.current?.contains(
+                event.target as Node,
+            );
+            const isInsideModal = modalReference.current?.contains(
+                event.target as Node,
+            );
+
+            if (!isInsideMenuBody && !isInsideModal) {
+                handleMenuClose();
+            }
+        };
+
+        document.addEventListener(DOMEvent.MOUSE_DOWN, handleClickOutside);
+
+        return () => {
+            document.removeEventListener(
+                DOMEvent.MOUSE_DOWN,
+                handleClickOutside,
+            );
+        };
+    }, [handleMenuClose, menuBodyReference, modalReference]);
+
     return (
         <>
             <Menu
@@ -108,6 +136,7 @@ const VideoMenu: React.FC = () => {
                     title={activeMenuItem.label}
                     onClose={handleMenuClose}
                     onChatOpen={handleChatOpen}
+                    menuBodyReference={menuBodyReference}
                 >
                     {activeMenuItem.getContent()}
                 </MenuBody>
@@ -115,6 +144,7 @@ const VideoMenu: React.FC = () => {
             <ChatModal
                 isChatOpen={isChatOpen}
                 onModalChatClose={handleChatClose}
+                modalReference={modalReference}
             />
         </>
     );

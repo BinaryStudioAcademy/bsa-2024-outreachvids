@@ -1,5 +1,5 @@
-const DOM_EVENT = {
+const DOMEvent = {
     MOUSE_DOWN: 'mousedown',
 } as const;
 
-export { DOM_EVENT };
+export { DOMEvent };

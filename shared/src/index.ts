@@ -7,6 +7,7 @@ export {
     type RenderAvatarVideoRequestDto,
     type Scene,
     type SceneAvatar,
+    type SceneBackground,
     type Script,
     type VideoCodec,
     type VideoFormat,
@@ -76,6 +77,7 @@ export {
     VideosApiPath,
     VideoValidationMessage,
 } from './bundles/videos/videos.js';
+export { EMPTY_VALUE } from './constants/constants.js';
 export {
     ApiPath,
     AppEnvironment,
@@ -92,8 +94,8 @@ export {
     type Http,
     type HttpMethod,
     type HttpOptions,
-    HttpCode,
-    HttpHeader,
+    HTTPCode,
+    HTTPHeader,
     HTTPMethod,
 } from './framework/http/http.js';
 export { type Storage } from './framework/storage/storage.js';

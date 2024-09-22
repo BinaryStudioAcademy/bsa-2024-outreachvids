@@ -1,5 +1,5 @@
-export { DOM_EVENT } from './dom-event.js';
-export { ERROR_ID } from './error-id.js';
-export { ERROR_MESSAGE } from './error-message.js';
-export { ERROR_TITLE } from './error-title.js';
-export { HTML_TAG } from './html-tag.js';
+export { DOMEvent } from './dom-event.enum.js';
+export { ErrorId } from './error-id.enum.js';
+export { ErrorMessage } from './error-message.enum.js';
+export { ErrorTitle } from './error-title.enum.js';
+export { HTMLTag } from './html-tag.enum.js';

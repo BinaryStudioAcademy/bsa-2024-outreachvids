@@ -1,4 +1,4 @@
-const HttpCode = {
+const HTTPCode = {
     OK: 200,
     CREATED: 201,
     BAD_REQUEST: 400,
@@ -10,4 +10,4 @@ const HttpCode = {
     UNSUPPORTED_MEDIA_TYPE: 415,
 } as const;
 
-export { HttpCode };
+export { HTTPCode };

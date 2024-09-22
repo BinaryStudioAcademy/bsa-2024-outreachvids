@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/react';
 import { type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-const iconConverter = (
+const convertIcon = (
     faIcon: IconDefinition,
 ): ComponentWithAs<'svg', IconProps> => {
     const { icon, iconName } = faIcon;
@@ -17,4 +17,4 @@ const iconConverter = (
     });
 };
 
-export { iconConverter };
+export { convertIcon };

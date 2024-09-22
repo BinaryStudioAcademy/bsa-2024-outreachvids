@@ -2,7 +2,7 @@ import { type ContentType } from '~/bundles/common/enums/enums.js';
 import { type ValueOf } from '~/bundles/common/types/types.js';
 import { type HttpOptions } from '~/framework/http/http.js';
 
-type HttpApiOptions = Omit<
+type HTTPApiOptions = Omit<
     HttpOptions,
     'headers' | 'payload' | 'credentials' | 'keepAlive'
 > & {
@@ -13,4 +13,4 @@ type HttpApiOptions = Omit<
     keepAlive?: HttpOptions['keepAlive'];
 };
 
-export { type HttpApiOptions };
+export { type HTTPApiOptions };

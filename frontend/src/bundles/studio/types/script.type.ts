@@ -8,8 +8,8 @@ type Script = {
     duration: number;
     text: string;
     iconName: ValueOf<typeof PlayIconNames>;
-    url?: string;
-    voice?: Voice | undefined;
+    url: string | null;
+    voice: Voice;
 };
 
 export { type Script };

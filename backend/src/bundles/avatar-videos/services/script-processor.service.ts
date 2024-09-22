@@ -1,11 +1,16 @@
-import { type AvatarData } from '~/common/services/azure-ai/avatar-video/types/types.js';
+import { v4 as uuidv4 } from 'uuid';
 
-import { type Scene, type SceneAvatar, type Script } from '../types/types.js';
+import {
+    type Scene,
+    type SceneAvatar,
+    type SceneForRenderAvatar,
+    type Script,
+} from '../types/types.js';
 
 class ScriptProcessor {
     private scenes: Scene[];
     private scripts: Script[];
-    private result: AvatarData[] = [];
+    private result: SceneForRenderAvatar[] = [];
     private sceneIndex: number = 0;
     private sceneRemainder: number = 0;
     private accumulatedText: string = '';
@@ -33,25 +38,51 @@ class ScriptProcessor {
         const textLengthForScene = Math.floor(
             (sceneDuration / totalScriptDuration) * scriptText.length,
         );
-        return {
-            text: scriptText.slice(0, Math.max(0, textLengthForScene)),
-            remainderText: scriptText.slice(Math.max(0, textLengthForScene)),
-        };
+
+        if (scriptText.length <= textLengthForScene) {
+            return {
+                text: scriptText,
+                remainderText: '',
+            };
+        }
+
+        let splitIndex = scriptText.lastIndexOf(' ', textLengthForScene);
+
+        if (splitIndex === -1) {
+            splitIndex = scriptText.indexOf(' ', textLengthForScene);
+            if (splitIndex === -1) {
+                return {
+                    text: scriptText,
+                    remainderText: '',
+                };
+            }
+        }
+
+        const text = scriptText.slice(0, splitIndex).trim();
+        const remainderText = scriptText.slice(splitIndex).trim();
+
+        return { text, remainderText };
     }
 
     private addSceneResult({
         text,
         voice,
+        scene,
     }: {
         text: string;
         voice: string;
+        scene: Scene;
     }): void {
         if (text && this.currentAvatar) {
             this.result.push({
-                text,
-                voice,
-                name: this.currentAvatar.name,
-                style: this.currentAvatar.style,
+                ...scene,
+                id: uuidv4(),
+                avatar: {
+                    name: this.currentAvatar.name,
+                    style: this.currentAvatar.style,
+                    text,
+                    voice,
+                },
             });
         }
     }
@@ -60,20 +91,21 @@ class ScriptProcessor {
         this.sceneIndex++;
         if (this.sceneIndex < this.scenes.length) {
             const currentScene = this.scenes[this.sceneIndex];
-            this.sceneRemainder = currentScene?.duration || 0;
-            this.currentAvatar = currentScene?.avatar || null;
+            this.sceneRemainder = currentScene?.duration ?? 0;
+            this.currentAvatar = currentScene?.avatar ?? null;
         }
     }
 
     private processRemainingScript(script: Script): void {
         const lastResult = this.result.at(-1);
 
-        if (lastResult && lastResult.voice === script.voiceName) {
-            lastResult.text += this.scriptTextRemainder;
+        if (lastResult && lastResult.avatar.voice === script.voiceName) {
+            lastResult.avatar.text += ' ' + this.scriptTextRemainder;
         } else {
             this.addSceneResult({
                 text: this.scriptTextRemainder,
                 voice: script.voiceName,
+                scene: this.scenes[this.sceneIndex] as Scene,
             });
         }
     }
@@ -95,6 +127,7 @@ class ScriptProcessor {
                 this.addSceneResult({
                     text: this.accumulatedText,
                     voice: this.currentVoiceName,
+                    scene: this.scenes[this.sceneIndex] as Scene,
                 });
                 this.accumulatedText = '';
                 this.currentVoiceName = script.voiceName;
@@ -104,7 +137,7 @@ class ScriptProcessor {
                 scriptDurationLeft <= this.sceneRemainder;
 
             if (isScriptShorterThanScene) {
-                this.accumulatedText += this.scriptTextRemainder;
+                this.accumulatedText += ' ' + this.scriptTextRemainder;
                 this.sceneRemainder -= scriptDurationLeft;
                 scriptDurationLeft = 0;
             } else {
@@ -114,13 +147,14 @@ class ScriptProcessor {
                     script.duration,
                 );
 
-                this.accumulatedText += text;
+                this.accumulatedText += ' ' + text.trim();
                 this.scriptTextRemainder = remainderText;
                 scriptDurationLeft -= this.sceneRemainder;
 
                 this.addSceneResult({
-                    text: this.accumulatedText,
+                    text: this.accumulatedText.trim(),
                     voice: this.currentVoiceName,
+                    scene: this.scenes[this.sceneIndex] as Scene,
                 });
 
                 this.accumulatedText = '';
@@ -130,7 +164,7 @@ class ScriptProcessor {
         }
     }
 
-    public distributeScriptsToScenes(): AvatarData[] {
+    public distributeScriptsToScenes(): SceneForRenderAvatar[] {
         for (const script of this.scripts) {
             this.processScriptForScene(script);
 
@@ -141,8 +175,9 @@ class ScriptProcessor {
 
         if (this.accumulatedText) {
             this.addSceneResult({
-                text: this.accumulatedText,
-                voice: this.currentVoiceName || '',
+                text: this.accumulatedText.trim(),
+                voice: this.currentVoiceName ?? '',
+                scene: this.scenes[this.sceneIndex] as Scene,
             });
         }
 
