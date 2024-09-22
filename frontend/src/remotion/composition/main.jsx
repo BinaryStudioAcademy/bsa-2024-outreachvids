@@ -15,7 +15,7 @@ const Main = ({ scenes }) => {
                         >
                             <Video
                                 className={styles['avatar']}
-                                src={scene.url}
+                                src={scene.avatar.url}
                             />
                             {scene?.background?.url && (
                                 <img
