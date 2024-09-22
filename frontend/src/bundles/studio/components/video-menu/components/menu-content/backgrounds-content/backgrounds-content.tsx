@@ -1,6 +1,5 @@
 import {
     Box,
-    Image,
     SimpleGrid,
     Tab,
     TabList,
@@ -10,7 +9,7 @@ import {
 } from '~/bundles/common/components/components.js';
 
 import { backgroundColors, backgroundImages } from '../../mock/bg-mock.js';
-import styles from './styles.module.css';
+import { ImageCard } from './components/components.js';
 
 const BackgroundsContent: React.FC = () => {
     return (
@@ -25,17 +24,10 @@ const BackgroundsContent: React.FC = () => {
                     <TabPanel>
                         <SimpleGrid columns={2} spacingX="13px" spacingY="10px">
                             {backgroundImages.map((imageSource, index) => (
-                                <Box
+                                <ImageCard
                                     key={index}
-                                    className={styles['image-item']}
-                                >
-                                    <Image
-                                        src={imageSource}
-                                        objectFit="contain"
-                                        width="100%"
-                                        height="100%"
-                                    ></Image>
-                                </Box>
+                                    imageSource={imageSource}
+                                />
                             ))}
                         </SimpleGrid>
                     </TabPanel>
