@@ -6,8 +6,10 @@ import {
     TabPanels,
     Tabs,
 } from '~/bundles/common/components/components.js';
+// TODO: Make endpoint for this
+import backgroundColors from '~/bundles/studio/data/bg-colors.json';
+import backgroundImages from '~/bundles/studio/data/bg-images.json';
 
-import { backgroundColors, backgroundImages } from '../../mock/bg-mock.js';
 import { ColorCard, ImageCard } from './components/components.js';
 
 const BackgroundsContent: React.FC = () => {
