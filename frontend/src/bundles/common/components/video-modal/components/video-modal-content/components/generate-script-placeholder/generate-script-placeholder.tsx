@@ -37,8 +37,9 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({
     const dispatch = useAppDispatch();
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [isScriptAdded, setIsScriptAdded] = useState(false);
-    const { dataStatus } = useAppSelector(({ chat }) => ({
+    const { dataStatus, avatars } = useAppSelector(({ chat, studio }) => ({
         dataStatus: chat.dataStatus,
+        avatars: studio.avatars,
     }));
 
     const renderLoadingState = (): React.ReactNode => (
@@ -84,6 +85,12 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({
         dispatch(studioActions.addGeneratedVideoScript(videoScripts));
         setIsScriptAdded(true);
     }, [dispatch, videoScripts]);
+
+    useEffect(() => {
+        if (avatars.length === EMPTY_VALUE) {
+            void dispatch(studioActions.loadAvatars());
+        }
+    }, [dispatch, avatars.length]);
 
     useEffect(() => {
         if (isScriptAdded) {

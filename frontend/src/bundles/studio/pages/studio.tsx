@@ -16,7 +16,6 @@ import {
     Player,
     VStack,
 } from '~/bundles/common/components/components.js';
-import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useAppDispatch,
@@ -57,7 +56,6 @@ const Studio: React.FC = () => {
     );
 
     const {
-        avatars,
         scenes,
         scripts,
         videoName,
@@ -171,12 +169,6 @@ const Studio: React.FC = () => {
         },
         [dispatch],
     );
-
-    useEffect(() => {
-        if (avatars.length === EMPTY_VALUE) {
-            void dispatch(studioActions.loadAvatars());
-        }
-    }, [dispatch, avatars.length]);
 
     useEffect(() => {
         if (isVideoScriptsGenerationReady) {

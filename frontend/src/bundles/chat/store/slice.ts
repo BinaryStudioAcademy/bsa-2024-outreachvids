@@ -1,11 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { DEFAULT_SCENE_TITLE } from '~/bundles/chat/constants/constants.js';
 import { MessageSender } from '~/bundles/chat/enums/enums.js';
 import { sanitizeJsonString } from '~/bundles/chat/helpers/helpers.js';
 import {
     type GenerateTextRequestDto,
     type Message,
 } from '~/bundles/chat/types/types.js';
+import {
+    EMPTY_VALUE,
+    LAST_ELEMENT_INDEX,
+} from '~/bundles/common/constants/constants.js';
 import { DataStatus } from '~/bundles/common/enums/enums.js';
 import {
     type ValueOf,
@@ -35,11 +40,11 @@ const { reducer, actions, name } = createSlice({
                 (message) => message.sender === MessageSender.AI,
             );
 
-            if (!messages || messages.length === 0) {
+            if (!messages || messages.length === EMPTY_VALUE) {
                 return;
             }
 
-            const lastMessage = messages.at(-1);
+            const lastMessage = messages.at(LAST_ELEMENT_INDEX);
             if (!lastMessage) {
                 return;
             }
@@ -52,7 +57,7 @@ const { reducer, actions, name } = createSlice({
             } catch {
                 state.videoScripts = [
                     {
-                        title: 'Scene',
+                        title: DEFAULT_SCENE_TITLE,
                         description: lastMessage.text,
                     },
                 ];

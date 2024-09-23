@@ -1,13 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { MIN_SCRIPT_DURATION } from '../constants/constants.js';
-import { PlayIconNames, RowNames } from '../enums/enums.js';
+import { MIN_SCRIPT_DURATION } from '~/bundles/studio/constants/constants.js';
+import { PlayIconNames, RowNames } from '~/bundles/studio/enums/enums.js';
 import {
     type addScriptRequest,
     type addScriptResponse,
     type Script,
     type SelectedItem,
-} from '../types/types.js';
+} from '~/bundles/studio/types/types.js';
+
 import { calculateTotalMilliseconds } from './helpers.js';
 
 const addScript = ({

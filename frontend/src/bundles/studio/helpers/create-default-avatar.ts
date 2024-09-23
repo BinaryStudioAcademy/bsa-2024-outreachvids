@@ -1,4 +1,7 @@
-import { type AvatarGetResponseDto, type SceneAvatar } from '../types/types.js';
+import {
+    type AvatarGetResponseDto,
+    type SceneAvatar,
+} from '~/bundles/studio/types/types.js';
 
 const createDefaultAvatarFromRequest = (
     avatar: AvatarGetResponseDto | undefined,

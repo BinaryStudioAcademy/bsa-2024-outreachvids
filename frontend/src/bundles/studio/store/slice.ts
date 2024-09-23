@@ -3,7 +3,11 @@ import { millisecondsToSeconds, minutesToMilliseconds } from 'date-fns';
 import { type Range, type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
 
-import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
+import {
+    EMPTY_VALUE,
+    FIRST_INDEX,
+    LAST_INDEX_OFFSET,
+} from '~/bundles/common/constants/constants.js';
 import { DataStatus, VideoPreview } from '~/bundles/common/enums/enums.js';
 import {
     type ValueOf,
@@ -395,11 +399,11 @@ const { reducer, actions, name } = createSlice({
                 let index = EMPTY_VALUE;
                 const { payload } = action;
                 const { avatars, scripts, scenes, range } = state;
-                const firstScene = scenes[0];
-                const firstAvatar = avatars[0];
+                const firstScene = scenes[FIRST_INDEX];
+                const firstAvatar = avatars[FIRST_INDEX];
                 const defaultAvatar =
                     createDefaultAvatarFromRequest(firstAvatar);
-                const lastIndex = payload.length - 1;
+                const lastIndex = payload.length - LAST_INDEX_OFFSET;
 
                 if (firstScene && defaultAvatar) {
                     firstScene.avatar = defaultAvatar;
@@ -414,7 +418,6 @@ const { reducer, actions, name } = createSlice({
                     scripts.push(script);
                     range.end = rangeEnd;
 
-                    //This if is cause we have already one scene at the begging
                     if (index < lastIndex) {
                         const { scene } = addScene({
                             scenes,
@@ -435,7 +438,7 @@ const { reducer, actions, name } = createSlice({
             }
         },
         recalculateScenesDurationForScript(state) {
-            let index = 0;
+            let index = EMPTY_VALUE;
             const { scenes, scripts } = state;
             for (const { duration } of scripts) {
                 const scene = scenes[index];
