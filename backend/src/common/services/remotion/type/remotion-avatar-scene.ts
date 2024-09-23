@@ -1,6 +1,9 @@
-type RemotionAvatarScene = {
-    url: string;
-    id: string;
+import { type Scene } from 'shared';
+
+type RemotionAvatarScene = Omit<Scene, 'duration' | 'avatar'> & {
+    avatar: {
+        url: string;
+    };
     durationInFrames: number;
 };
 

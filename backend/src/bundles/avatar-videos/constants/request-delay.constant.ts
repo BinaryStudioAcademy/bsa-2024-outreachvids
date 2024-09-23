@@ -1,3 +1,3 @@
-const REQUEST_DELAY = 4000;
+const REQUEST_DELAY = 5000;
 
 export { REQUEST_DELAY };
