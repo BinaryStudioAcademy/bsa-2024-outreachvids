@@ -1,5 +1,6 @@
 import {
     type AwsRegion,
+    deleteRender,
     getRenderProgress,
     renderMediaOnLambda,
 } from '@remotion/lambda/client';
@@ -19,6 +20,14 @@ class RemotionService {
         this.config = config;
         this.cfDistributionId =
             this.config.ENV.AWS.CLOUDFRONT.DOMAIN_ID_FOR_RENDERED_VIDEO;
+    }
+
+    public async deleteRenderedVideo(renderId: string): Promise<void> {
+        await deleteRender({
+            bucketName: this.config.ENV.REMOTION.BUCKET_NAME,
+            region: this.config.ENV.AWS.S3.REGION as AwsRegion,
+            renderId,
+        });
     }
 
     public async renderVideo(
