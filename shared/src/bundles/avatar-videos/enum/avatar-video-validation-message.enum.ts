@@ -11,6 +11,7 @@ const AvatarVideoValidationMessage = {
     ID_REQUIRED: 'Id is required',
     AVATAR_ID_REQUIRED: 'Avatar id is required',
     AVATAR_IMG_REQUIRED: 'Avatar img is required',
+    BACKGROUND_IMAGE_SHOULD_BE_URL: 'Background image should be url',
 } as const;
 
 export { AvatarVideoValidationMessage };
