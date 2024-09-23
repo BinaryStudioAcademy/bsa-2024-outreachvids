@@ -1,0 +1,6 @@
+.video-player {
+    height: 1000px;
+    width: 1000px;
+    position: relative;
+    background-color: var(--chakra-colors-gray-200);
+}
