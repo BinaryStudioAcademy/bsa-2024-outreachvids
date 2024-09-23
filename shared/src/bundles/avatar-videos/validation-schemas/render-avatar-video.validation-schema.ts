@@ -19,7 +19,7 @@ type SceneValidation = {
     id: z.ZodString;
     duration: z.ZodNumber;
     avatar: typeof avatarSchema;
-    background: typeof backgroundSchema;
+    background: z.ZodOptional<typeof backgroundSchema>;
 };
 
 type ScriptValidation = {
@@ -73,7 +73,7 @@ const sceneSchema = z.object<SceneValidation>({
         message: AvatarVideoValidationMessage.ID_REQUIRED,
     }),
     avatar: avatarSchema,
-    background: backgroundSchema,
+    background: backgroundSchema.optional(),
 });
 
 const scriptSchema = z
