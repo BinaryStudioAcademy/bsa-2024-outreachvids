@@ -7,6 +7,7 @@ export {
     type RenderAvatarVideoRequestDto,
     type Scene,
     type SceneAvatar,
+    type SceneBackground,
     type Script,
     type VideoCodec,
     type VideoFormat,
