@@ -81,6 +81,20 @@ class VideosApi extends BaseHttpApi {
 
         await response.json<boolean>();
     }
+
+    public async createVideoUrl(id: string): Promise<void> {
+        const response = await this.load(
+            this.getFullEndpoint(`${VideosApiPath.ROOT}${id}`, {}),
+            {
+                method: HTTPMethod.GET,
+                contentType: ContentType.JSON,
+                payload: JSON.stringify({}),
+                hasAuth: true,
+            },
+        );
+        //TODO: Response type should be changed
+        await response.json<boolean>();
+    }
 }
 
 export { VideosApi };

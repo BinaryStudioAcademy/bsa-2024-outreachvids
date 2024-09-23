@@ -94,6 +94,9 @@ const VideoCard: React.FC<Properties> = ({
         handleWarningModalClose();
     }, [dispatch, handleWarningModalClose, id]);
 
+    const handleCopyButtonClick = useCallback(() => {
+        void dispatch(homeActions.createVideoUrl(id));
+    }, []);
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box
@@ -160,6 +163,14 @@ const VideoCard: React.FC<Properties> = ({
                         >
                             <Text color="typography.900" variant="bodySmall">
                                 Delete
+                            </Text>
+                        </MenuItem>
+                        <MenuItem
+                            icon={<Icon as={IconName.COPY} />}
+                            onClick={handleCopyButtonClick}
+                        >
+                            <Text color="typography.900" variant="bodySmall">
+                                Copy video URL
                             </Text>
                         </MenuItem>
                     </MenuList>

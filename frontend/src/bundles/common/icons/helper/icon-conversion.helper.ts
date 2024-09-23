@@ -3,6 +3,7 @@ import {
     faCircleUser,
     faCloudArrowDown,
     faCloudArrowUp,
+    faCopy,
     faEllipsisVertical,
     faFileLines,
     faFont,
@@ -41,12 +42,14 @@ const CloudArrowDown = convertIcon(faCloudArrowDown);
 const VolumeHigh = convertIcon(faVolumeHigh);
 const VolumeOff = convertIcon(faVolumeOff);
 const Stop = convertIcon(faStop);
+const Copy = convertIcon(faCopy);
 
 export {
     BackwardStep,
     CircleUser,
     CloudArrowDown,
     CloudArrowUp,
+    Copy,
     EllipsisVertical,
     FileLines,
     Font,

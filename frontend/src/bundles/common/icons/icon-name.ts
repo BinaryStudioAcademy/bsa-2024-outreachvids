@@ -18,6 +18,7 @@ import {
     CircleUser,
     CloudArrowDown,
     CloudArrowUp,
+    Copy,
     EllipsisVertical,
     FileLines,
     Font,
@@ -69,6 +70,7 @@ const IconName = {
     LOGO_TEXT: LogoText,
     DELETE: DeleteIcon,
     WARNING: WarningIcon,
+    COPY: Copy,
 } as const;
 
 export { IconName };
