@@ -1,17 +1,14 @@
+import { type Composition } from 'shared';
+
 import { type Entity } from '~/common/types/types.js';
 
 class VideoEntity implements Entity {
     private 'id': string | null;
-
     private 'userId': string;
-
     private 'name': string;
-
     private 'url': string | null;
-
     public 'previewUrl': string;
-
-    public 'composition': string;
+    public 'composition': Composition;
 
     public 'createdAt': string;
 
@@ -28,7 +25,7 @@ class VideoEntity implements Entity {
         userId: string;
         name: string;
         previewUrl: string;
-        composition: string;
+        composition: Composition;
         url: string | null;
         createdAt: string;
     }) {
@@ -45,16 +42,16 @@ class VideoEntity implements Entity {
         id,
         userId,
         name,
-        url,
-        composition,
         previewUrl,
+        composition,
+        url,
         createdAt,
     }: {
-        id: string;
+        id: string | null;
         userId: string;
         name: string;
         previewUrl: string;
-        composition: string;
+        composition: Composition;
         url: string | null;
         createdAt: string;
     }): VideoEntity {
@@ -62,7 +59,7 @@ class VideoEntity implements Entity {
             id,
             userId,
             name,
-            composition,
+            composition: composition,
             previewUrl,
             url,
             createdAt,
@@ -72,16 +69,15 @@ class VideoEntity implements Entity {
     public static initializeNew({
         userId,
         name,
-        composition,
         previewUrl,
+        composition,
         url,
         createdAt = new Date().toISOString(),
     }: {
         userId: string;
         name: string;
         previewUrl: string;
-        composition: string;
-
+        composition: Composition;
         url?: string;
         createdAt?: string;
     }): VideoEntity {
@@ -102,7 +98,7 @@ class VideoEntity implements Entity {
         name: string;
         url: string | null;
         previewUrl: string;
-        composition: string;
+        composition: Composition;
         createdAt: string;
     } {
         return {
@@ -120,7 +116,7 @@ class VideoEntity implements Entity {
         userId: string;
         name: string;
         previewUrl: string;
-        composition: string;
+        composition: Composition;
         url: string | null;
         createdAt: string;
     } {

@@ -10,10 +10,16 @@ type SceneAvatarValidation = {
     url: z.ZodString;
 };
 
+type SceneBackground = {
+    color: z.ZodOptional<z.ZodString>;
+    url: z.ZodOptional<z.ZodString>;
+};
+
 type SceneValidation = {
     id: z.ZodString;
     duration: z.ZodNumber;
     avatar: typeof avatarSchema;
+    background: z.ZodOptional<typeof backgroundSchema>;
 };
 
 type ScriptValidation = {
@@ -30,6 +36,7 @@ type Composition = {
 type GenerateAvatarVideoRequestValidationDto = {
     name: z.ZodString;
     composition: typeof compositionSchema;
+    videoId: z.ZodOptional<z.ZodString>;
 };
 
 const avatarSchema = z.object<SceneAvatarValidation>({
@@ -47,6 +54,17 @@ const avatarSchema = z.object<SceneAvatarValidation>({
     }),
 });
 
+const backgroundSchema = z.object<SceneBackground>({
+    color: z.string().min(1).optional(),
+    url: z
+        .string()
+        .url({
+            message:
+                AvatarVideoValidationMessage.BACKGROUND_IMAGE_SHOULD_BE_URL,
+        })
+        .optional(),
+});
+
 const sceneSchema = z.object<SceneValidation>({
     duration: z.number().min(1, {
         message: AvatarVideoValidationMessage.DURATION_REQUIRED,
@@ -55,6 +73,7 @@ const sceneSchema = z.object<SceneValidation>({
         message: AvatarVideoValidationMessage.ID_REQUIRED,
     }),
     avatar: avatarSchema,
+    background: backgroundSchema.optional(),
 });
 
 const scriptSchema = z
@@ -106,6 +125,7 @@ const renderAvatarVideo = z.object<GenerateAvatarVideoRequestValidationDto>({
         message: AvatarVideoValidationMessage.VIDEO_NAME_REQUIRED,
     }),
     composition: compositionSchema,
+    videoId: z.string().uuid().optional(),
 });
 
 export { renderAvatarVideo };

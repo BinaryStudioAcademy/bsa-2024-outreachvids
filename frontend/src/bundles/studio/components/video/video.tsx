@@ -1,6 +1,7 @@
 import {
     AbsoluteFill,
     Audio,
+    Flex,
     RemotionImg,
     Series,
 } from '~/bundles/common/components/components.js';
@@ -37,11 +38,16 @@ const VideoComponent: React.FC<Properties> = ({ scenes, scripts }) => {
                             durationInFrames={scene.duration * FPS}
                             className={styles['sequence'] as string}
                         >
-                            {scene?.avatar?.url ? (
-                                <RemotionImg
-                                    className={styles['image']}
-                                    src={scene?.avatar.url}
-                                />
+                            {scene?.avatar?.url || scene.background ? (
+                                <Flex
+                                    background={`${scene.background?.color ?? ''} url(${scene.background?.url ?? ''}) no-repeat`}
+                                    className={styles['background']}
+                                >
+                                    <RemotionImg
+                                        className={styles['image']}
+                                        src={scene?.avatar?.url ?? ''}
+                                    />
+                                </Flex>
                             ) : (
                                 <></>
                             )}

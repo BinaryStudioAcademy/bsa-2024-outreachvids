@@ -3,6 +3,7 @@ import {
     ArrowLeftIcon,
     ArrowRightIcon,
     CheckCircleIcon,
+    ChevronDownIcon,
     CloseIcon,
     DeleteIcon,
     DownloadIcon,
@@ -22,6 +23,7 @@ import {
     Font,
     ForwardStep,
     House,
+    Image,
     Pause,
     Pen,
     Play,
@@ -36,6 +38,7 @@ import {
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
+    CHEVRON_DOWN: ChevronDownIcon,
     PEN: Pen,
     HOME: House,
     LOG_OUT: RightFromBracket,
@@ -69,6 +72,7 @@ const IconName = {
     DELETE: DeleteIcon,
     WARNING: WarningIcon,
     VIDEO_CAMERA: VideoCamera,
+    IMAGE: Image,
 } as const;
 
 export { IconName };

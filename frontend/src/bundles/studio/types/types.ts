@@ -11,6 +11,9 @@ export {
     type TimelineItemWithSpan,
 } from './timeline-item.type.js';
 export {
+    type Composition,
+    type Script as CompositionScript,
+    type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
     type GetVoicesResponseDto,
@@ -18,5 +21,6 @@ export {
     type RenderAvatarVideoRequestDto,
     type Scene,
     type SceneAvatar,
+    type VideoGetAllItemResponseDto,
     type Voice,
 } from 'shared';

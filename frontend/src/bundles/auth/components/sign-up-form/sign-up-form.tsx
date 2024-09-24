@@ -1,5 +1,3 @@
-import { UserValidationMessage } from 'shared/src/bundles/users/users.js';
-
 import {
     Box,
     Button,
@@ -9,18 +7,14 @@ import {
     VStack,
 } from '~/bundles/common/components/components.js';
 import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
-import { AppRoute, DataStatus } from '~/bundles/common/enums/enums.js';
-import {
-    useAppForm,
-    useAppSelector,
-    useMemo,
-} from '~/bundles/common/hooks/hooks.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { useAppForm, useMemo } from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignUpRequestDto,
     userSignUpValidationSchema,
 } from '~/bundles/users/users.js';
 
-import { FormError, FormHeader, PasswordInput } from '../common/components.js';
+import { FormHeader, PasswordInput } from '../common/components.js';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './constants/constants.js';
 
 type Properties = {
@@ -28,9 +22,6 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
     const form = useAppForm<UserSignUpRequestDto>({
         initialValues: DEFAULT_SIGN_UP_PAYLOAD,
         validationSchema: userSignUpValidationSchema,
@@ -88,12 +79,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }) => {
                             name="confirmPassword"
                             hasError={Boolean(errors.confirmPassword)}
                             required
-                        />
-                        <FormError
-                            isVisible={dataStatus === DataStatus.REJECTED}
-                            message={
-                                UserValidationMessage.USER_IS_NOT_AVAILABLE
-                            }
                         />
                         <Button
                             type="submit"

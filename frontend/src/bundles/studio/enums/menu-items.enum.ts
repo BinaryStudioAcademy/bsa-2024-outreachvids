@@ -5,6 +5,7 @@ const MenuItems = {
     SCRIPT: 'script',
     // TEXT: 'text',
     // ASSETS: 'assets',
+    BACKGROUNDS: 'backgrounds',
 } as const;
 
 export { MenuItems };

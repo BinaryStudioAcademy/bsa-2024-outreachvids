@@ -25,11 +25,13 @@ import {
 import { type Script } from '../types/script.type.js';
 import {
     type AvatarGetResponseDto,
+    type CompositionScript,
     type DestinationPointer,
     type RowType,
     type Scene,
     type SceneAvatar,
     type TimelineItemWithSpan,
+    type VideoGetAllItemResponseDto,
     type Voice,
 } from '../types/types.js';
 import {
@@ -39,6 +41,8 @@ import {
     loadAvatars,
     loadVoices,
     renderAvatar,
+    saveVideo,
+    updateVideo,
 } from './actions.js';
 
 type SelectedItem = {
@@ -53,6 +57,11 @@ type ItemActionPayload = {
 
 type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
+};
+
+type BackgroundPayload = {
+    value: string;
+    isValueImage: boolean;
 };
 
 type ScriptPlayer = {
@@ -74,6 +83,8 @@ type State = {
     selectedScriptId: string | null;
     videoSize: VideoPreviewT;
     videoName: string;
+    isDraftSaved: boolean;
+    videoId: string | null;
     voices: Voice[];
     ui: {
         destinationPointer: DestinationPointer | null;
@@ -96,6 +107,8 @@ const initialState: State = {
     selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
+    isDraftSaved: true,
+    videoId: null,
     voices: [],
     ui: {
         destinationPointer: null,
@@ -252,6 +265,9 @@ const { reducer, actions, name } = createSlice({
         setVideoName(state, action: PayloadAction<string>) {
             state.videoName = action.payload;
         },
+        setDraftSaved(state, action: PayloadAction<boolean>) {
+            state.isDraftSaved = action.payload;
+        },
         setDestinationPointer(
             state,
             action: PayloadAction<DestinationPointerActionPayload>,
@@ -307,6 +323,29 @@ const { reducer, actions, name } = createSlice({
                 };
             });
         },
+        addBackgroundToScene(state, action: PayloadAction<BackgroundPayload>) {
+            const selectedItem = state.ui.selectedItem;
+            if (!selectedItem || selectedItem.type !== RowNames.SCENE) {
+                return;
+            }
+
+            state.scenes = state.scenes.map((scene) => {
+                if (scene.id !== selectedItem.id) {
+                    return scene;
+                }
+
+                const { isValueImage, value } = action.payload;
+
+                const newBackground = isValueImage
+                    ? { url: value }
+                    : { color: value };
+
+                return {
+                    ...scene,
+                    background: newBackground,
+                };
+            });
+        },
         setMenuActiveItem(
             state,
             action: PayloadAction<ValueOf<typeof MenuItems> | null>,
@@ -322,6 +361,30 @@ const { reducer, actions, name } = createSlice({
                 ...initialState,
                 avatars: state.avatars,
             };
+        },
+        loadVideoData(
+            state,
+            action: PayloadAction<VideoGetAllItemResponseDto>,
+        ) {
+            const { id, name, composition } = action.payload;
+
+            state.videoName = name;
+            state.videoId = id;
+            state.scenes = composition.scenes;
+            state.scripts = composition.scripts.map(
+                (script: CompositionScript) => {
+                    const voice = state.voices.find(
+                        (voice) => voice.name === script.voiceName,
+                    );
+
+                    return {
+                        ...script,
+                        iconName: PlayIconNames.READY,
+                        voice: voice ?? DEFAULT_VOICE,
+                        url: null,
+                    };
+                },
+            );
         },
     },
     extraReducers(builder) {
@@ -347,16 +410,16 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(generateScriptSpeech.fulfilled, (state, action) => {
-            const { scriptId, audioUrl } = action.payload;
+            const { id } = action.payload;
 
             state.scripts = state.scripts.map((script) => {
-                if (script.id !== scriptId) {
+                if (script.id !== id) {
                     return script;
                 }
 
                 return {
                     ...script,
-                    url: audioUrl,
+                    ...action.payload,
                     iconName: PlayIconNames.READY,
                 };
             });
@@ -409,6 +472,30 @@ const { reducer, actions, name } = createSlice({
         });
         builder.addCase(renderAvatar.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
+        });
+        builder.addCase(saveVideo.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(saveVideo.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.videoId = action.payload.id;
+            state.isDraftSaved = true;
+        });
+        builder.addCase(saveVideo.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.videoId = null;
+            state.isDraftSaved = false;
+        });
+        builder.addCase(updateVideo.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(updateVideo.fulfilled, (state) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.isDraftSaved = true;
+        });
+        builder.addCase(updateVideo.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.isDraftSaved = false;
         });
     },
 });

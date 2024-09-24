@@ -20,7 +20,10 @@ import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { Script, VoicesModal } from './components/components.js';
 
-const ScriptContent: React.FC = () => {
+type Properties = {
+    modalReference: React.RefObject<HTMLDivElement>;
+};
+const ScriptContent: React.FC<Properties> = ({ modalReference }) => {
     const dispatch = useAppDispatch();
     const { dataStatus, scripts, voices } = useAppSelector(
         ({ studio }) => studio,
@@ -86,6 +89,7 @@ const ScriptContent: React.FC = () => {
                 isOpen={Boolean(changeVoiceScriptId)}
                 onClose={handleCloseVoicesModal}
                 scriptId={changeVoiceScriptId}
+                modalReference={modalReference}
             />
         </>
     );
