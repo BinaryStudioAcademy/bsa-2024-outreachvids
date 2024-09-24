@@ -28,9 +28,10 @@ type ScriptValidation = {
     voiceName: z.ZodString;
 };
 
-type Composition = {
+type CompositionSchema = {
     scenes: z.ZodArray<typeof sceneSchema>;
     scripts: z.ZodArray<typeof scriptSchema>;
+    videoOrientation: z.ZodEnum<['landscape', 'portrait']>;
 };
 
 type GenerateAvatarVideoRequestValidationDto = {
@@ -111,13 +112,14 @@ const scriptSchema = z
         },
     );
 
-const compositionSchema = z.object<Composition>({
+const compositionSchema = z.object<CompositionSchema>({
     scenes: z.array(sceneSchema).min(1, {
         message: AvatarVideoValidationMessage.SCENES_REQUIRED,
     }),
     scripts: z.array(scriptSchema).min(1, {
         message: AvatarVideoValidationMessage.SCRIPTS_REQUIRED,
     }),
+    videoOrientation: z.enum(['landscape', 'portrait']),
 });
 
 const renderAvatarVideo = z.object<GenerateAvatarVideoRequestValidationDto>({
