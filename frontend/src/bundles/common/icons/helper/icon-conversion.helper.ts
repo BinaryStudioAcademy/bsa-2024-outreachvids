@@ -8,6 +8,7 @@ import {
     faFont,
     faForwardStep,
     faHouse,
+    faImage,
     faPause,
     faPen,
     faPlay,
@@ -16,6 +17,7 @@ import {
     faStop,
     faT,
     faTableColumns,
+    faVideoCamera,
     faVolumeHigh,
     faVolumeOff,
 } from '@fortawesome/free-solid-svg-icons';
@@ -41,6 +43,8 @@ const CloudArrowDown = convertIcon(faCloudArrowDown);
 const VolumeHigh = convertIcon(faVolumeHigh);
 const VolumeOff = convertIcon(faVolumeOff);
 const Stop = convertIcon(faStop);
+const VideoCamera = convertIcon(faVideoCamera);
+const Image = convertIcon(faImage);
 
 export {
     BackwardStep,
@@ -52,6 +56,7 @@ export {
     Font,
     ForwardStep,
     House,
+    Image,
     Pause,
     Pen,
     Play,
@@ -60,6 +65,7 @@ export {
     Stop,
     T,
     TableColumns,
+    VideoCamera,
     VolumeHigh,
     VolumeOff,
 };
