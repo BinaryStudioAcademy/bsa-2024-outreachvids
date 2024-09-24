@@ -1,3 +1,5 @@
+import { millisecondsToSeconds } from 'date-fns';
+
 import {
     AbsoluteFill,
     Audio,
@@ -22,7 +24,10 @@ const VideoComponent: React.FC<Properties> = ({ scenes, scripts }) => {
                     return (
                         <Series.Sequence
                             key={script.id}
-                            durationInFrames={script?.duration * FPS || 0}
+                            durationInFrames={
+                                millisecondsToSeconds(script?.duration) * FPS ||
+                                0
+                            }
                         >
                             {script.url ? <Audio src={script.url} /> : <></>}
                         </Series.Sequence>
@@ -34,7 +39,9 @@ const VideoComponent: React.FC<Properties> = ({ scenes, scripts }) => {
                     return (
                         <Series.Sequence
                             key={scene.id}
-                            durationInFrames={scene.duration * FPS}
+                            durationInFrames={
+                                millisecondsToSeconds(scene.duration) * FPS
+                            }
                             className={styles['sequence'] as string}
                         >
                             {scene?.avatar?.url ? (
