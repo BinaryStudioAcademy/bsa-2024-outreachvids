@@ -346,6 +346,23 @@ const { reducer, actions, name } = createSlice({
                 };
             });
         },
+        removeBackgroundFromScene(state) {
+            const selectedItem = state.ui.selectedItem;
+            if (!selectedItem || selectedItem.type !== RowNames.SCENE) {
+                return;
+            }
+
+            state.scenes = state.scenes.map((scene) => {
+                if (scene.id !== selectedItem.id) {
+                    return scene;
+                }
+
+                return {
+                    ...scene,
+                    background: {},
+                };
+            });
+        },
         setMenuActiveItem(
             state,
             action: PayloadAction<ValueOf<typeof MenuItems> | null>,
