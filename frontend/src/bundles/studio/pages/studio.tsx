@@ -1,4 +1,5 @@
 import { type PlayerRef } from '@remotion/player';
+import { secondsToMilliseconds } from 'date-fns';
 
 import {
     Box,
@@ -156,7 +157,11 @@ const Studio: React.FC = () => {
 
     const handleSetScriptDuration = useCallback(
         (duration: number): void => {
-            dispatch(studioActions.playScript({ duration }));
+            dispatch(
+                studioActions.playScript({
+                    duration: secondsToMilliseconds(duration),
+                }),
+            );
         },
         [dispatch],
     );

@@ -1,6 +1,5 @@
 import { getAudioData } from '@remotion/media-utils';
 import { type PlayerRef } from '@remotion/player';
-import { secondsToMilliseconds } from 'date-fns';
 
 import {
     Audio,
@@ -42,7 +41,7 @@ const AudioPlayer: React.FC<Properties> = ({
         getAudioData(audioUrl)
             .then(({ durationInSeconds }) => {
                 setDurationInFrames(Math.round(durationInSeconds * FPS));
-                onSetDuration(secondsToMilliseconds(durationInSeconds));
+                onSetDuration(durationInSeconds);
             })
             .catch(() => {
                 setDurationInFrames(1);
