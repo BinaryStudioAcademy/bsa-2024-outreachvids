@@ -211,14 +211,29 @@ class AvatarVideoService {
         const url =
             await this.remotionService.getRemotionRenderProgress(renderId);
 
+        if (url) {
+            // TODO: NOTIFY USER
+            await this.updateVideoRecord(videoRecordId, url);
+        }
+
         await this.removeGeneratedAvatars(scenesWithSavedAvatars);
         await this.removeAvatarsFromBucket(scenesWithSavedAvatars);
+    }
 
-        if (!url) {
-            return;
+    private async updateVideoRecord(
+        videoRecordId: string,
+        videoUrl: string,
+    ): Promise<void> {
+        const videoData = await this.videoService.update(videoRecordId, {
+            url: videoUrl,
+        });
+
+        if (!videoData) {
+            throw new HttpError({
+                message: RenderVideoErrorMessage.NOT_SAVED,
+                status: HTTPCode.BAD_REQUEST,
+            });
         }
-        // TODO: NOTIFY USER
-        await this.videoService.update(videoRecordId, { url });
     }
 
     private async removeGeneratedAvatars(

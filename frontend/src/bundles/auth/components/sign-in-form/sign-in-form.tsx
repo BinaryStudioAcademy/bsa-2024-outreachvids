@@ -1,5 +1,4 @@
 import {
-    FormError,
     FormHeader,
     PasswordInput,
 } from '~/bundles/auth/components/common/components.js';
@@ -12,16 +11,8 @@ import {
     VStack,
 } from '~/bundles/common/components/components.js';
 import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
-import {
-    AppRoute,
-    DataStatus,
-    UserValidationMessage,
-} from '~/bundles/common/enums/enums.js';
-import {
-    useAppForm,
-    useAppSelector,
-    useMemo,
-} from '~/bundles/common/hooks/hooks.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import { useAppForm, useMemo } from '~/bundles/common/hooks/hooks.js';
 import {
     type UserSignInRequestDto,
     userSignInValidationSchema,
@@ -34,9 +25,6 @@ type Properties = {
 };
 
 const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
-    const { dataStatus } = useAppSelector(({ auth }) => ({
-        dataStatus: auth.dataStatus,
-    }));
     const form = useAppForm<UserSignInRequestDto>({
         initialValues: DEFAULT_SIGN_IN_PAYLOAD,
         validationSchema: userSignInValidationSchema,
@@ -81,10 +69,6 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }) => {
                             name="password"
                             hasError={Boolean(errors.password)}
                             required
-                        />
-                        <FormError
-                            isVisible={dataStatus === DataStatus.REJECTED}
-                            message={UserValidationMessage.INVALID_DATA}
                         />
                         <Button
                             type="submit"

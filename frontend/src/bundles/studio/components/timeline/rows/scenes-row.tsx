@@ -1,7 +1,7 @@
 import {
     Badge,
+    Box,
     CloseButton,
-    Image,
 } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
@@ -91,12 +91,20 @@ const ScenesRow: React.FC = () => {
                     >
                         {index + 1}
                     </Badge>
-                    {item.avatar && (
-                        <Image
-                            src={item.avatar.url}
-                            alt="Video preview"
+                    {(item.background || item.avatar) && (
+                        <Box
+                            background={`${item.background?.color ?? ''} url(${item.background?.url})`}
+                            backgroundSize="contain"
                             height="100%"
-                        />
+                            width="100%"
+                        >
+                            <Box
+                                backgroundImage={item.avatar?.url ?? ''}
+                                backgroundSize="contain"
+                                height="100%"
+                                width="100%"
+                            ></Box>
+                        </Box>
                     )}
                     {isDeleteAvailable && (
                         <CloseButton

@@ -18,6 +18,7 @@ import {
 type Properties = {
     onClose: () => void;
 };
+
 const VideoModalContent: React.FC<Properties> = ({ onClose }) => {
     return (
         <Tabs orientation="vertical" variant="unstyled" height="full">
@@ -51,7 +52,7 @@ const VideoModalContent: React.FC<Properties> = ({ onClose }) => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    <VideoPreview />
+                    <VideoPreview onClose={onClose} />
                 </TabPanel>
                 <TabPanel p="0px 24px">
                     <GenerateScriptView onClose={onClose} />

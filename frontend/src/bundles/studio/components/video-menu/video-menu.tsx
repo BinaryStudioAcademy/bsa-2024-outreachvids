@@ -17,6 +17,7 @@ import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { Menu, MenuBody } from './components/components.js';
 import {
     AvatarsContent,
+    BackgroundsContent,
     ScriptContent,
 } from './components/menu-content/content.js';
 // import {
@@ -90,6 +91,11 @@ const VideoMenu: React.FC = () => {
         //     icon: <Icon as={IconName.UPLOAD} />,
         //     getContent: () => <AssetsContent />,
         // },
+        backgrounds: {
+            label: 'Backgrounds',
+            icon: <Icon as={IconName.IMAGE} />,
+            getContent: () => <BackgroundsContent />,
+        },
     };
 
     const activeMenuItem = activeItem && menuItems[activeItem];

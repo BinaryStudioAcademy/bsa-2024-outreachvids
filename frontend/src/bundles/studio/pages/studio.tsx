@@ -25,6 +25,7 @@ import {
     useLocation,
     useNavigate,
     useRef,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
@@ -35,6 +36,7 @@ import {
     Timeline,
     VideoMenu,
     VideoNameInput,
+    WarningModal,
 } from '../components/components.js';
 import {
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
@@ -44,12 +46,13 @@ import {
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
-import { getVoicesConfigs } from '../helpers/helpers.js';
+import { getVoicesConfigs, scenesExceedScripts } from '../helpers/helpers.js';
 import { selectVideoDataById } from '../store/selectors.js';
 import { actions as studioActions } from '../store/studio.js';
 
 const Studio: React.FC = () => {
     const { state: locationState } = useLocation();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const videoData = useAppSelector((state) =>
         selectVideoDataById(state, locationState?.id),
@@ -69,6 +72,14 @@ const Studio: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+    const handleOpenModal = useCallback(() => {
+        setIsModalOpen(true);
+    }, []);
+
+    const handleCloseModal = useCallback(() => {
+        setIsModalOpen(false);
+    }, []);
+
     useEffect((): void => {
         if (videoData) {
             void dispatch(studioActions.loadVideoData(videoData));
@@ -79,11 +90,10 @@ const Studio: React.FC = () => {
         dispatch(studioActions.changeVideoSize());
     }, [dispatch]);
 
-    const handleSubmit = useCallback(() => {
+    const handleConfirmSubmit = useCallback(() => {
         // TODO: REPLACE LOGIC WITH MULTIPLE SCENES
         const scene = scenes[0];
         const script = scripts[0];
-
         if (!scene?.avatar || !script) {
             notificationService.warn({
                 id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
@@ -114,6 +124,14 @@ const Studio: React.FC = () => {
                 });
             });
     }, [dispatch, navigate, scenes, scripts]);
+
+    const handleSubmit = useCallback(() => {
+        if (scenesExceedScripts(scenes, scripts)) {
+            handleOpenModal();
+        } else {
+            handleConfirmSubmit();
+        }
+    }, [handleConfirmSubmit, handleOpenModal, scenes, scripts]);
 
     useEffect(() => {
         return () => {
@@ -200,6 +218,11 @@ const Studio: React.FC = () => {
                 display="flex"
                 flexDirection="column"
             >
+                <WarningModal
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    onSubmit={handleConfirmSubmit}
+                />
                 <Header
                     center={
                         <Button
@@ -236,6 +259,17 @@ const Studio: React.FC = () => {
                     }
                 />
 
+                <VideoMenu />
+                <Box flex="1 1 auto">
+                    <Player playerRef={playerReference} />
+                </Box>
+
+                <VStack alignItems="stretch">
+                    <PlayerControls playerRef={playerReference} />
+                    <Box overflowY="auto">
+                        <Timeline playerRef={playerReference} />
+                    </Box>
+                </VStack>
                 <VideoMenu />
                 <Box flex="1 1 auto">
                     <Player playerRef={playerReference} />
