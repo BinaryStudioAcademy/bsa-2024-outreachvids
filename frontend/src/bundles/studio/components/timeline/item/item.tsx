@@ -13,9 +13,19 @@ type Properties = {
     span: Span;
     children: React.ReactNode;
     onClick?: React.MouseEventHandler<HTMLElement>;
+    onResizeStart?: () => void;
+    onResizeEnd?: () => void;
 };
 
-const Item: React.FC<Properties> = ({ id, type, span, children, onClick }) => {
+const Item: React.FC<Properties> = ({
+    id,
+    type,
+    span,
+    children,
+    onClick,
+    onResizeStart = (): void => {},
+    onResizeEnd = (): void => {},
+}) => {
     const selectedItem = useAppSelector(({ studio }) => studio.ui.selectedItem);
 
     const {
@@ -29,6 +39,8 @@ const Item: React.FC<Properties> = ({ id, type, span, children, onClick }) => {
         id,
         span,
         data: { type },
+        onResizeEnd,
+        onResizeStart,
     });
 
     return (
