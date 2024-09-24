@@ -24,6 +24,7 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { createVideoUrl } from '~/bundles/home/helpers/helpers.js';
 import { actions as homeActions } from '~/bundles/home/store/home.js';
 
 import { PlayerModal } from '../player-modal/player-modal.js';
@@ -95,8 +96,17 @@ const VideoCard: React.FC<Properties> = ({
     }, [dispatch, handleWarningModalClose, id]);
 
     const handleCopyButtonClick = useCallback(() => {
-        void dispatch(homeActions.createVideoUrl(id));
-    }, []);
+        dispatch(homeActions.createVideoUrl(id))
+            .unwrap()
+            .then(async (jwt) => {
+                const token = await jwt;
+                createVideoUrl(token);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    }, [dispatch, id]);
+    
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box

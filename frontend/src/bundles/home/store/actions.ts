@@ -24,12 +24,11 @@ const deleteVideo = createAsyncThunk<Promise<void>, string, AsyncThunkConfig>(
     },
 );
 
-const createVideoUrl = createAsyncThunk<Promise<void>, string, AsyncThunkConfig>(
+const createVideoUrl = createAsyncThunk<Promise<string>, string, AsyncThunkConfig>(
     `${sliceName}/create-video-url`,
     (payload, { extra }) => {
         const { videosApi } = extra;
-
-        return videosApi.deleteVideo(payload);
+        return videosApi.getVideoIdJWT(payload);
     },
 );
 

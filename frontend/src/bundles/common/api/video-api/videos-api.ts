@@ -82,18 +82,21 @@ class VideosApi extends BaseHttpApi {
         await response.json<boolean>();
     }
 
-    public async createVideoUrl(id: string): Promise<void> {
-        const response = await this.load(
-            this.getFullEndpoint(`${VideosApiPath.ROOT}${id}`, {}),
-            {
-                method: HTTPMethod.GET,
-                contentType: ContentType.JSON,
-                payload: JSON.stringify({}),
-                hasAuth: true,
-            },
-        );
-        //TODO: Response type should be changed
-        await response.json<boolean>();
+    public async getVideoIdJWT(id: string): Promise<string> {
+
+            const response = await this.load(
+                this.getFullEndpoint(`${VideosApiPath.ROOT}${id}/share`, {}),
+                {
+                    method: HTTPMethod.GET,
+                    contentType: ContentType.JSON,
+                    hasAuth: true,
+                },
+            );
+            
+            if (!response.ok) {
+                throw new Error(`Failed to get video ID JWT: ${response.statusText}`);
+            }        
+            return await response.text();
     }
 }
 

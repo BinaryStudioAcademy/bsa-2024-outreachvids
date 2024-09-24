@@ -17,6 +17,13 @@ class TokenService {
             .sign(this.secretKey);
     }
 
+    public async createVideoIdToken(videoId: string): Promise<string> {
+        const jwt =  await new SignJWT({ videoId })
+            .setProtectedHeader({ alg: 'HS256' })
+            .sign(this.secretKey);
+        return jwt.replaceAll('.', '-');
+    }
+
     public async verifyToken(token: string): Promise<TokenPayload | null> {
         try {
             const { payload } = await jwtVerify(token, this.secretKey);
@@ -29,6 +36,11 @@ class TokenService {
     public async getUserIdFromToken(token: string): Promise<string | null> {
         const payload = await this.verifyToken(token);
         return (payload?.['userId'] as string) || null;
+    }
+
+    public async getVideoIdFromToken(token: string): Promise<string | null> {
+        const payload = await this.verifyToken(token);
+        return (payload?.['videoId'] as string) || null;
     }
 }
 

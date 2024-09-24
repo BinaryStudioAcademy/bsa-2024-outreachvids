@@ -109,6 +109,17 @@ class VideoController extends BaseController {
                     }>,
                 ),
         });
+        this.addRoute({
+            path: `${VideosApiPath.ID}/share`,
+            method: HTTPMethod.GET,
+            handler: (options) => {
+                return this.createVideoIdJWT(
+                    options as ApiHandlerOptions<{
+                        params: VideoGetOneRequestDto;
+                    }>,
+                );
+            },
+        });
     }
 
     /**
@@ -183,6 +194,17 @@ class VideoController extends BaseController {
         return {
             status: HTTPCode.OK,
             payload: await this.videoService.findById(options.params.id),
+        };
+    }
+
+    private async createVideoIdJWT(
+        options: ApiHandlerOptions<{
+            params: VideoGetOneRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HTTPCode.OK,
+            payload: await this.videoService.getVideoIdToken(options.params.id),
         };
     }
 
