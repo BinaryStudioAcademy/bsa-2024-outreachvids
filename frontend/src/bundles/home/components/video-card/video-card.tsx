@@ -30,6 +30,7 @@ import { actions as homeActions } from '~/bundles/home/store/home.js';
 import { PlayerModal } from '../player-modal/player-modal.js';
 import { DeleteWarning } from './components/delete-warning.js';
 import styles from './styles.module.css';
+import { notificationService } from '~/bundles/common/services/services.js';
 
 type Properties = {
     id: string;
@@ -100,11 +101,14 @@ const VideoCard: React.FC<Properties> = ({
             .unwrap()
             .then(async (jwt) => {
                 const token = await jwt;
-                createVideoUrl(token);
+                const url = createVideoUrl(token);
+                await navigator.clipboard.writeText(createVideoUrl(url));
+                
             })
             .catch((error) => {
-                alert(error.message);
+                throw new Error(`Failed to get video ID JWT: ${error}`);
             });
+
     }, [dispatch, id]);
     
     return (
