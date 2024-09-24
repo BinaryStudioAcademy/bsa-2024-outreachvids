@@ -8,7 +8,13 @@ import { HTTPCode, HttpError } from 'shared';
 import { RenderVideoErrorMessage } from '~/bundles/avatar-videos/enums/enums.js';
 import { type BaseConfig } from '~/common/config/base-config.package.js';
 
-import { CODEC, COMPOSITION_ID, REQUEST_DELAY } from './constants/constants.js';
+import {
+    CODEC,
+    COMPOSITION_ID,
+    DOWNLOAD_BEHAVIOR,
+    DOWNLOADED_FILE_NAME,
+    REQUEST_DELAY,
+} from './constants/constants.js';
 import { type InputProps as InputProperties } from './type/types.js';
 
 class RemotionService {
@@ -25,6 +31,10 @@ class RemotionService {
         inputProperties: InputProperties,
     ): Promise<string> {
         const { renderId } = await renderMediaOnLambda({
+            downloadBehavior: {
+                type: DOWNLOAD_BEHAVIOR,
+                fileName: DOWNLOADED_FILE_NAME,
+            },
             region: this.config.ENV.AWS.S3.REGION as AwsRegion,
             functionName: this.config.ENV.REMOTION.LAMBDA_FUNCTION_NAME,
             composition: COMPOSITION_ID,

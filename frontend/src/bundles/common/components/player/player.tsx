@@ -34,8 +34,8 @@ const Player: React.FC<Properties> = ({ playerRef }) => {
         };
     }, [scenes, scripts]);
 
-    const durationInFrames = scenes.reduce(
-        (sum, scene) => sum + scene.duration,
+    const durationInFrames = scripts.reduce(
+        (sum, script) => sum + Math.round(script.duration),
         0,
     );
 

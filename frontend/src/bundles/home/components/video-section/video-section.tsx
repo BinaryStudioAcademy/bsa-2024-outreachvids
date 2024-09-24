@@ -8,7 +8,9 @@ import {
 } from '~/bundles/common/components/components.js';
 import { type VideoGetAllItemResponseDto } from '~/bundles/home/types/types.js';
 
+import { VideoGallery } from '../../enums/video-gallery.js';
 import { VideoCard } from '../components.js';
+import styles from './styles.module.css';
 
 type Properties = {
     videos: Array<VideoGetAllItemResponseDto> | [];
@@ -33,11 +35,29 @@ const VideoSection: React.FC<Properties> = ({ videos, title }) => {
             </Flex>
 
             {videos.length > 0 ? (
-                <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
-                    {videos.map(({ id, ...video }) => (
-                        <VideoCard key={id} id={id} {...video} />
-                    ))}
-                </SimpleGrid>
+                title === VideoGallery.RECENT_VIDEOS ? (
+                    <Box className={styles['horizontal']}>
+                        {videos.map(({ id, ...video }) => (
+                            <Box
+                                key={id}
+                                flex="0 0 auto"
+                                marginRight="20px"
+                                width="250px"
+                            >
+                                <VideoCard id={id} {...video} />
+                            </Box>
+                        ))}
+                    </Box>
+                ) : (
+                    <SimpleGrid
+                        columns={{ sm: 2, md: 3, lg: 4 }}
+                        spacing="20px"
+                    >
+                        {videos.map(({ id, ...video }) => (
+                            <VideoCard key={id} id={id} {...video} />
+                        ))}
+                    </SimpleGrid>
+                )
             ) : (
                 <Text color="typography.600" variant="body1">
                     You have no videos right now.
