@@ -8,14 +8,21 @@ import {
     Tabs,
     Text,
 } from '~/bundles/common/components/components.js';
+import { useAppDispatch, useCallback } from '~/bundles/common/hooks/hooks.js';
 // TODO: Make endpoint for this
 import backgroundColors from '~/bundles/studio/data/bg-colors.json';
 import backgroundImages from '~/bundles/studio/data/bg-images.json';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { ColorCard, ImageCard } from './components/components.js';
 import styles from './styles.module.css';
 
 const BackgroundsContent: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const handleRemoveBackground = useCallback((): void => {
+        dispatch(studioActions.removeBackgroundFromScene());
+    }, [dispatch]);
+
     return (
         <>
             <Tabs>
@@ -30,6 +37,7 @@ const BackgroundsContent: React.FC = () => {
                             <Flex
                                 className={styles['none-item']}
                                 height="100px"
+                                onClick={handleRemoveBackground}
                             >
                                 <Text variant="body1">None</Text>
                             </Flex>
@@ -44,7 +52,11 @@ const BackgroundsContent: React.FC = () => {
                     </TabPanel>
                     <TabPanel>
                         <SimpleGrid columns={3} spacingX="13px" spacingY="10px">
-                            <Flex className={styles['none-item']} height="80px">
+                            <Flex
+                                className={styles['none-item']}
+                                height="80px"
+                                onClick={handleRemoveBackground}
+                            >
                                 <Text variant="body1">None</Text>
                             </Flex>
 
