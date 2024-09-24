@@ -2,12 +2,17 @@ import { Box, Header , VideoPlayer } from '~/bundles/common/components/component
 
 import styles from './styles.module.css';
 
-const Preview: React.FC = () => {
+type Properties = {
+    id: string;
+};
+
+const Preview: React.FC<Properties> = ({ id }) => {
    
     return (
         <Box
         >
             <Header/>
+            {id}
             <VideoPlayer
                 videoSource={'https://d19jw8gcwb6nqj.cloudfront.net/renders/b5kc5agqwx/out.mp4'}
                 className={styles['video-player'] ?? ''}

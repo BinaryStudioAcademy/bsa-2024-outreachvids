@@ -24,7 +24,7 @@ const deleteVideo = createAsyncThunk<Promise<void>, string, AsyncThunkConfig>(
     },
 );
 
-const createVideoUrl = createAsyncThunk<Promise<string>, string, AsyncThunkConfig>(
+const getJwt = createAsyncThunk<Promise<string>, string, AsyncThunkConfig>(
     `${sliceName}/create-video-url`,
     (payload, { extra }) => {
         const { videosApi } = extra;
@@ -32,4 +32,4 @@ const createVideoUrl = createAsyncThunk<Promise<string>, string, AsyncThunkConfi
     },
 );
 
-export { createVideoUrl, deleteVideo, loadUserVideos };
+export { deleteVideo, getJwt, loadUserVideos };

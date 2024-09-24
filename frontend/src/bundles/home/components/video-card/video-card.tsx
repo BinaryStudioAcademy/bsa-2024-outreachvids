@@ -24,13 +24,13 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { notificationService } from '~/bundles/common/services/services.js';
 import { createVideoUrl } from '~/bundles/home/helpers/helpers.js';
 import { actions as homeActions } from '~/bundles/home/store/home.js';
 
 import { PlayerModal } from '../player-modal/player-modal.js';
 import { DeleteWarning } from './components/delete-warning.js';
 import styles from './styles.module.css';
-import { notificationService } from '~/bundles/common/services/services.js';
 
 type Properties = {
     id: string;
@@ -97,13 +97,13 @@ const VideoCard: React.FC<Properties> = ({
     }, [dispatch, handleWarningModalClose, id]);
 
     const handleCopyButtonClick = useCallback(() => {
-        dispatch(homeActions.createVideoUrl(id))
+        dispatch(homeActions.getJwt(id))
             .unwrap()
             .then(async (jwt) => {
                 const token = await jwt;
                 const url = createVideoUrl(token);
-                await navigator.clipboard.writeText(createVideoUrl(url));
-                
+                await navigator.clipboard.writeText(url);
+                notificationService.success({ message: 'Url copied to clipboard', id : 'url-copied', title : 'Success' });
             })
             .catch((error) => {
                 throw new Error(`Failed to get video ID JWT: ${error}`);

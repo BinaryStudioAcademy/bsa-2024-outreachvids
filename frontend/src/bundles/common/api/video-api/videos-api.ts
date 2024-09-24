@@ -68,6 +68,22 @@ class VideosApi extends BaseHttpApi {
         return await response.json<VideoGetAllItemResponseDto>();
     }
 
+    public async getVideo(
+        payload: UpdateVideoRequestDto,
+        id: string,
+    ): Promise<VideoGetAllItemResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(VideosApiPath.ID, { id }),
+            {
+                method: HTTPMethod.GET,
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+
+        return await response.json<VideoGetAllItemResponseDto>();
+    }
+
     public async deleteVideo(id: string): Promise<void> {
         const response = await this.load(
             this.getFullEndpoint(`${VideosApiPath.ROOT}${id}`, {}),

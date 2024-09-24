@@ -197,6 +197,32 @@ class VideoController extends BaseController {
         };
     }
 
+        /**
+     * @swagger
+     * /videos/{id}/share:
+     *    get:
+     *      parameters:
+     *        - in: path
+     *          name: id
+     *          required: true
+     *          schema:
+     *            type: string
+     *            format: uuid
+     *          description: The video id
+     *      description: Create a JWT for the video id
+     *      security:
+     *       - bearerAuth: []
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  token:
+     *                    type: string
+     */
     private async createVideoIdJWT(
         options: ApiHandlerOptions<{
             params: VideoGetOneRequestDto;

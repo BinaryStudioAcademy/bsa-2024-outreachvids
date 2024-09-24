@@ -6,7 +6,7 @@ import { NotFound } from '~/bundles/common/pages/not-found/not-found.js';
 import { CreateAvatar } from '~/bundles/create-avatar/pages/create-avatar.js';
 import { Home } from '~/bundles/home/pages/home.js';
 import { MyAvatar } from '~/bundles/my-avatar/pages/my-avatar.js';
-import { Preview } from '~/bundles/preview/pages/preview.js';
+import { PreviewWrapper } from '~/bundles/preview/components/preview-wrapper.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
 
 const routes = [
@@ -59,9 +59,9 @@ const routes = [
                 element: <NotFound />,
             },
             {
-                path: AppRoute.PREVIEW,
+                path: `${AppRoute.PREVIEW}/:id`,
                 element: (
-                        <Preview/>
+                    <PreviewWrapper />
                 ),
             }
         ],
