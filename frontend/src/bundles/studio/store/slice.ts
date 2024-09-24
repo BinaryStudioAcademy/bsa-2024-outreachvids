@@ -474,7 +474,7 @@ const { reducer, actions, name } = createSlice({
                     continue;
                 }
 
-                scene.duration = Math.round(duration);
+                scene.duration = Math.ceil(duration);
                 index++;
             }
         },

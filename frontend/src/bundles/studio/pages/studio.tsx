@@ -270,17 +270,6 @@ const Studio: React.FC = () => {
                         <Timeline playerRef={playerReference} />
                     </Box>
                 </VStack>
-                <VideoMenu />
-                <Box flex="1 1 auto">
-                    <Player playerRef={playerReference} />
-                </Box>
-
-                <VStack alignItems="stretch">
-                    <PlayerControls playerRef={playerReference} />
-                    <Box overflowY="auto">
-                        <Timeline playerRef={playerReference} />
-                    </Box>
-                </VStack>
                 {url && (
                     <AudioPlayer
                         isPlaying={isPlaying}
