@@ -1,6 +1,6 @@
-**Table of Contents![ref1]**
+**Table of Contents:**
 
-[**Sign in 2**]
+**Sign in**
 
 - [User Story]
 - [Test Cases Email field]
@@ -8,19 +8,20 @@
 - [Acceptance Criteria (FE)]
 - [Acceptance Criteria (BE)]
 
-[**Sign up 4**]
+**Sign up**
 
-- [User Story]
-- [Test Cases Full Name field]
-- [Test Cases Email field]
-- [Test Cases Password field]
-- [Test Cases Repeat Password field]
-- [Acceptance Criteria (FE)
-- [Acceptance Criteria (BE)]![](https://github.com/user-attachments/assets/caf2b0da-e960-417f-b51d-8faac520ce63)
+- User Story
+- Test Cases Full Name field
+- Test Cases Email field
+- Test Cases Password field
+- Test Cases Repeat Password field
+- Acceptance Criteria (FE)
+- Acceptance Criteria (BE)
+![](https://github.com/user-attachments/assets/caf2b0da-e960-417f-b51d-8faac520ce63)
 
 
-    <a name="_page1_x92.13_y70.87"></a>**Sign in![](https://github.com/user-attachments/assets/3966be1d-9d89-41c2-a3e5-5d24987e87ed)
-**
+    <a name="_page1_x92.13_y70.87"></a>**Sign in**![](https://github.com/user-attachments/assets/3966be1d-9d89-41c2-a3e5-5d24987e87ed)
+
 
     The "Sign In" page is designed to facilitate access for registered users to their existing accounts within the **OutreachVids** application. This page serves multiple purposes:
 
@@ -65,9 +66,9 @@ Test Cases in the next link [TestDoc_for_SignInFlow(Frontend)](https://docs.goog
 ![](https://github.com/user-attachments/assets/90baf3eb-6338-4038-a7a7-7148ae0eef6b)
 
 
+![](https://github.com/user-attachments/assets/caf2b0da-e960-417f-b51d-8faac520ce63)
+<a name="_page3_x92.15_y72.00"></a>**Sign up**![](https://github.com/user-attachments/assets/bc395f0d-ad50-48f1-99af-d96200652b23)
 
-<a name="_page3_x92.15_y72.00"></a>**Sign up![](https://github.com/user-attachments/assets/bc395f0d-ad50-48f1-99af-d96200652b23)
-**
 
 The "Sign Up" page in the **OutreachVids** application is designed to enable new users to create an account, granting them access to the platform's features. This page performs the following essential functions:
 
