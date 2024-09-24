@@ -1,24 +1,26 @@
 **Table of Contents![ref1]**
 
-[**Sign in 2**](#_page1_x92.13_y70.87)
+[**Sign in 2**]
 
-- [User Story](#_page1_x92.13_y477.58)
-- [Test Cases Email field](#_page1_x92.13_y532.10)
-- [Test Cases Password field](#_page1_x92.13_y595.63)
-- [Acceptance Criteria (FE)](#_page2_x92.13_y70.87)
-- [Acceptance Criteria (BE)](#_page2_x92.13_y420.83)
+- [User Story]
+- [Test Cases Email field]
+- [Test Cases Password field]
+- [Acceptance Criteria (FE)]
+- [Acceptance Criteria (BE)]
 
-[**Sign up 4**](#_page3_x92.15_y72.00)
+[**Sign up 4**]
 
-- [User Story](#_page3_x92.15_y477.34)
-- [Test Cases Full Name field](#_page3_x92.15_y518.86)
-- [Test Cases Email field](#_page3_x92.15_y574.38)
-- [Test Cases Password field](#_page3_x92.15_y629.91)
-- [Test Cases Repeat Password field](#_page4_x92.15_y72.00)
-- [Acceptance Criteria (FE)](#_page4_x92.15_y140.61)
-- [Acceptance Criteria (BE)](#_page5_x92.15_y72.00)![ref1]![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.002.png)
+- [User Story]
+- [Test Cases Full Name field]
+- [Test Cases Email field]
+- [Test Cases Password field]
+- [Test Cases Repeat Password field]
+- [Acceptance Criteria (FE)
+- [Acceptance Criteria (BE)]![](https://github.com/user-attachments/assets/caf2b0da-e960-417f-b51d-8faac520ce63)
 
-    <a name="_page1_x92.13_y70.87"></a>**Sign in![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.003.png)**
+
+    <a name="_page1_x92.13_y70.87"></a>**Sign in![](https://github.com/user-attachments/assets/3966be1d-9d89-41c2-a3e5-5d24987e87ed)
+**
 
     The "Sign In" page is designed to facilitate access for registered users to their existing accounts within the **OutreachVids** application. This page serves multiple purposes:
 
@@ -52,17 +54,20 @@ Test Cases in the next link [TestDoc_for_SignInFlow(Frontend)](https://docs.goog
 - Show error messages when any field contains incorrect data
 - Redirect the user to the Home screen after submission
 
-![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.004.jpeg)
+![](https://github.com/user-attachments/assets/85065069-ba77-45b4-a3a4-6b8ea7157242)
+
 
 - **Acceptance<a name="_page2_x92.13_y420.83"></a> Criteria (BE)**
 - Validate Email field input
 - Validate Password field input
 - Allow the user to continue as authenticated user after submission
 
-![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.005.jpeg)
+![](https://github.com/user-attachments/assets/90baf3eb-6338-4038-a7a7-7148ae0eef6b)
 
 
-<a name="_page3_x92.15_y72.00"></a>**Sign up![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.006.png)**
+
+<a name="_page3_x92.15_y72.00"></a>**Sign up![](https://github.com/user-attachments/assets/bc395f0d-ad50-48f1-99af-d96200652b23)
+**
 
 The "Sign Up" page in the **OutreachVids** application is designed to enable new users to create an account, granting them access to the platform's features. This page performs the following essential functions:
 
@@ -104,7 +109,8 @@ Test Cases in the next link [TestDoc_for_SignUpFlow](https://docs.google.com/spr
 - Implement client-side validation for the sign-up form fields to ensure that all required fields are correctly filled out and that the input data meets the validation criteria
 - Display appropriate error messages for invalid input or failed sign-up attempts.
 
-![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.007.jpeg)
+![](https://github.com/user-attachments/assets/7b91ddf8-b5c3-45b8-adb4-8b8ad6eebb2a)
+
 
 - The<a name="_page5_x92.15_y72.00"></a> migration runs successfully without errors in all environments.
 - Passwords are hashed using the encryption service before being stored in the database.
@@ -112,6 +118,7 @@ Test Cases in the next link [TestDoc_for_SignUpFlow](https://docs.google.com/spr
 - A new /auth/sign-up endpoint is added to the controller.
 - After successful sign-up, the endpoint returns a user object with id, email, fullName, and token, excluding password\_hash and password\_salt.
 
-![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.008.jpeg)
+![](https://github.com/user-attachments/assets/6c1ab2c4-eda2-40c1-9db0-b915c247e98c)
 
-[ref1]: aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.001.png
+![](https://github.com/user-attachments/assets/728e5c69-83b7-4883-9a41-d37d45075804)
+
