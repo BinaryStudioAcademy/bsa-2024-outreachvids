@@ -44,15 +44,8 @@
                 },
                 "url": {
                     "raw": "{{base_url}}/api/v1/auth/sign-up",
-                    "host": [
-                        "{{base_url}}"
-                    ],
-                    "path": [
-                        "api",
-                        "v1",
-                        "auth",
-                        "sign-up"
-                    ]
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "v1", "auth", "sign-up"]
                 }
             },
             "response": []
@@ -95,15 +88,8 @@
                 },
                 "url": {
                     "raw": "{{base_url}}/api/v1/auth/sign-up",
-                    "host": [
-                        "{{base_url}}"
-                    ],
-                    "path": [
-                        "api",
-                        "v1",
-                        "auth",
-                        "sign-up"
-                    ]
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "v1", "auth", "sign-up"]
                 }
             },
             "response": []
@@ -156,12 +142,8 @@
                 },
                 "url": {
                     "raw": "{{base_url}}/signup",
-                    "host": [
-                        "{{base_url}}"
-                    ],
-                    "path": [
-                        "signup"
-                    ]
+                    "host": ["{{base_url}}"],
+                    "path": ["signup"]
                 }
             },
             "response": []
@@ -205,16 +187,9 @@
                 "url": {
                     "raw": "http://localhost:3000/api/v1/auth/sign-up",
                     "protocol": "http",
-                    "host": [
-                        "localhost"
-                    ],
+                    "host": ["localhost"],
                     "port": "3000",
-                    "path": [
-                        "api",
-                        "v1",
-                        "auth",
-                        "sign-up"
-                    ]
+                    "path": ["api", "v1", "auth", "sign-up"]
                 }
             },
             "response": []
