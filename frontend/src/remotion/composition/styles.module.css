@@ -13,7 +13,16 @@
     position: absolute;
 }
 
-.avatar {
+.avatar-landscape {
     z-index: 3;
     position: absolute;
+}
+
+.avatar-portrait {
+    height: 1500px;
+    z-index: 3;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
 }
