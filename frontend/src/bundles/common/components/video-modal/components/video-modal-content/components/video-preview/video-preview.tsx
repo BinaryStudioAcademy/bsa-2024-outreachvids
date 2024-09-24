@@ -22,7 +22,11 @@ import {
 } from './libs/enums/enums.js';
 import styles from './styles.module.css';
 
-const VideoPreview: React.FC = () => {
+type Properties = {
+    onClose: () => void;
+};
+
+const VideoPreview: React.FC<Properties> = ({ onClose }) => {
     const dispatch = useAppDispatch();
     const [view, setView] = useState<VideoPreviewT>(
         VideoPreviewValues.PORTRAIT,
@@ -38,7 +42,8 @@ const VideoPreview: React.FC = () => {
 
     const handleClick = useCallback((): void => {
         dispatch(studioActions.setVideoSize(view));
-    }, [dispatch, view]);
+        onClose();
+    }, [dispatch, onClose, view]);
 
     return (
         <Flex className={styles['preview-container']}>
