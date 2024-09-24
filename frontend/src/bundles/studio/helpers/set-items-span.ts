@@ -1,5 +1,3 @@
-import { secondsToMilliseconds } from 'date-fns';
-
 import {
     type TimelineItem,
     type TimelineItemWithSpan,
@@ -11,7 +9,7 @@ const setItemsSpan = <T extends TimelineItem>(
     let start = 0;
 
     return items.map((item) => {
-        const duration = secondsToMilliseconds(item.duration);
+        const duration = item.duration;
 
         const updatedItem = {
             ...item,

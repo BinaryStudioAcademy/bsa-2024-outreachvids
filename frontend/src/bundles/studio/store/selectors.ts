@@ -1,5 +1,4 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { secondsToMilliseconds } from 'date-fns';
 
 import { type RootState } from '~/bundles/common/types/types.js';
 
@@ -14,12 +13,7 @@ const selectVideos = (state: RootState): VideoGetAllItemResponseDto[] =>
     state.home.videos;
 
 const selectTotalDuration = createSelector([selectScrips], (scripts) => {
-    const totalDuration = scripts.reduce(
-        (total, script) => total + script.duration,
-        0,
-    );
-
-    return secondsToMilliseconds(totalDuration);
+    return scripts.reduce((total, script) => total + script.duration, 0);
 });
 
 const selectVideoDataById = createSelector(

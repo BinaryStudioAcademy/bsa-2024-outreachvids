@@ -1,5 +1,5 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { millisecondsToSeconds, minutesToMilliseconds } from 'date-fns';
+import { minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
 import { type Range, type Span } from 'dnd-timeline';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -97,7 +97,9 @@ const initialState: State = {
         elapsedTime: 0,
     },
     range: { start: 0, end: minutesToMilliseconds(1) },
-    scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
+    scenes: [
+        { id: uuidv4(), duration: secondsToMilliseconds(MIN_SCENE_DURATION) },
+    ],
     scripts: [],
     selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
@@ -124,7 +126,7 @@ const { reducer, actions, name } = createSlice({
         addScript(state, action: PayloadAction<string>) {
             const script = {
                 id: uuidv4(),
-                duration: MIN_SCRIPT_DURATION,
+                duration: secondsToMilliseconds(MIN_SCRIPT_DURATION),
                 text: action.payload,
                 voice: DEFAULT_VOICE,
                 iconName: PlayIconNames.READY,
@@ -189,7 +191,7 @@ const { reducer, actions, name } = createSlice({
         addScene(state) {
             const scene = {
                 id: uuidv4(),
-                duration: MIN_SCENE_DURATION,
+                duration: secondsToMilliseconds(MIN_SCENE_DURATION),
             };
             state.ui.selectedItem = { id: scene.id, type: RowNames.SCENE };
             state.scenes.push(scene);
@@ -207,7 +209,7 @@ const { reducer, actions, name } = createSlice({
                     return item;
                 }
 
-                const duration = millisecondsToSeconds(span.end - span.start);
+                const duration = span.end - span.start;
 
                 return {
                     ...item,

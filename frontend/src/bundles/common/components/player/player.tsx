@@ -1,4 +1,5 @@
 import { type PlayerRef, Player as LibraryPlayer } from '@remotion/player';
+import { millisecondsToSeconds } from 'date-fns';
 import { type RefObject } from 'react';
 
 import { Flex } from '~/bundles/common/components/components.js';
@@ -35,7 +36,7 @@ const Player: React.FC<Properties> = ({ playerRef }) => {
     }, [scenes, scripts]);
 
     const durationInFrames = scenes.reduce(
-        (sum, scene) => sum + scene.duration,
+        (sum, scene) => sum + millisecondsToSeconds(scene.duration),
         0,
     );
 

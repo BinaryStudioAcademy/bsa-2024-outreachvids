@@ -1,5 +1,3 @@
-import { secondsToMilliseconds } from 'date-fns';
-
 import {
     ADD_BUTTON_PADDING_MILLISECONDS,
     MAX_SCENES_BEFORE_RESIZE,
@@ -9,8 +7,11 @@ const calculateTotalMilliseconds = <T extends { duration: number }>(
     items: T[],
     rangeEnd: number,
 ): number => {
-    const totalSeconds = items.reduce((sum, item) => sum + item.duration, 0);
-    const totalMilliseconds = secondsToMilliseconds(totalSeconds);
+    const totalMilliseconds = items.reduce(
+        (sum, item) => sum + item.duration,
+        0,
+    );
+
     if (items.length > MAX_SCENES_BEFORE_RESIZE) {
         return totalMilliseconds + ADD_BUTTON_PADDING_MILLISECONDS;
     }

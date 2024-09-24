@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getAudioData } from '@remotion/media-utils';
+import { secondsToMilliseconds } from 'date-fns';
 import { type UpdateVideoRequestDto } from 'shared';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
@@ -49,7 +50,7 @@ const generateScriptSpeech = createAsyncThunk<
         .then(({ scriptId, audioUrl }) => {
             return getAudioData(audioUrl).then(({ durationInSeconds }) => ({
                 id: scriptId,
-                duration: durationInSeconds,
+                duration: secondsToMilliseconds(durationInSeconds),
                 url: audioUrl,
             }));
         });
