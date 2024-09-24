@@ -16,9 +16,9 @@
 - [Test Cases Password field](#_page3_x92.15_y629.91)
 - [Test Cases Repeat Password field](#_page4_x92.15_y72.00)
 - [Acceptance Criteria (FE)](#_page4_x92.15_y140.61)
-- [Acceptance Criteria (BE)](#_page5_x92.15_y72.00)![ref1]![](Aspose.Words.4040baa6-0049-4bf4-b1ac-017680cadc96.002.png)
+- [Acceptance Criteria (BE)](#_page5_x92.15_y72.00)![ref1]![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.002.png)
 
-    <a name="_page1_x92.13_y70.87"></a>**Sign in![](Aspose.Words.4040baa6-0049-4bf4-b1ac-017680cadc96.003.png)**
+    <a name="_page1_x92.13_y70.87"></a>**Sign in![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.003.png)**
 
     The "Sign In" page is designed to facilitate access for registered users to their existing accounts within the **OutreachVids** application. This page serves multiple purposes:
 
@@ -52,17 +52,17 @@ Test Cases in the next link [TestDoc_for_SignInFlow(Frontend)](https://docs.goog
 - Show error messages when any field contains incorrect data
 - Redirect the user to the Home screen after submission
 
-![](Aspose.Words.4040baa6-0049-4bf4-b1ac-017680cadc96.004.jpeg)
+![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.004.jpeg)
 
 - **Acceptance<a name="_page2_x92.13_y420.83"></a> Criteria (BE)**
 - Validate Email field input
 - Validate Password field input
 - Allow the user to continue as authenticated user after submission
 
-![](Aspose.Words.4040baa6-0049-4bf4-b1ac-017680cadc96.005.jpeg)
+![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.005.jpeg)
 
 
-<a name="_page3_x92.15_y72.00"></a>**Sign up![](Aspose.Words.4040baa6-0049-4bf4-b1ac-017680cadc96.006.png)**
+<a name="_page3_x92.15_y72.00"></a>**Sign up![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.006.png)**
 
 The "Sign Up" page in the **OutreachVids** application is designed to enable new users to create an account, granting them access to the platform's features. This page performs the following essential functions:
 
@@ -104,7 +104,7 @@ Test Cases in the next link [TestDoc_for_SignUpFlow](https://docs.google.com/spr
 - Implement client-side validation for the sign-up form fields to ensure that all required fields are correctly filled out and that the input data meets the validation criteria
 - Display appropriate error messages for invalid input or failed sign-up attempts.
 
-![](Aspose.Words.4040baa6-0049-4bf4-b1ac-017680cadc96.007.jpeg)
+![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.007.jpeg)
 
 - The<a name="_page5_x92.15_y72.00"></a> migration runs successfully without errors in all environments.
 - Passwords are hashed using the encryption service before being stored in the database.
@@ -112,6 +112,6 @@ Test Cases in the next link [TestDoc_for_SignUpFlow](https://docs.google.com/spr
 - A new /auth/sign-up endpoint is added to the controller.
 - After successful sign-up, the endpoint returns a user object with id, email, fullName, and token, excluding password\_hash and password\_salt.
 
-![](Aspose.Words.4040baa6-0049-4bf4-b1ac-017680cadc96.008.jpeg)
+![](aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.008.jpeg)
 
-[ref1]: Aspose.Words.4040baa6-0049-4bf4-b1ac-017680cadc96.001.png
+[ref1]: aspose.words.4040baa6-0049-4bf4-b1ac-017680cadc96.001.png
