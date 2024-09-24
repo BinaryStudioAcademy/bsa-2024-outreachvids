@@ -4,6 +4,7 @@ import {
     ArrowLeftIcon,
     ArrowRightIcon,
     CheckCircleIcon,
+    ChevronDownIcon,
     CloseIcon,
     DeleteIcon,
     DownloadIcon,
@@ -24,6 +25,7 @@ import {
     Font,
     ForwardStep,
     House,
+    Image,
     Pause,
     Pen,
     Play,
@@ -32,11 +34,13 @@ import {
     Stop,
     T,
     TableColumns,
+    VideoCamera,
     VolumeHigh,
     VolumeOff,
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
+    CHEVRON_DOWN: ChevronDownIcon,
     PEN: Pen,
     HOME: House,
     LOG_OUT: RightFromBracket,
@@ -69,6 +73,8 @@ const IconName = {
     LOGO_TEXT: LogoText,
     DELETE: DeleteIcon,
     WARNING: WarningIcon,
+    VIDEO_CAMERA: VideoCamera,
+    IMAGE: Image,
     CIRCLE: Circle,
     ARROW_BACK: ArrowBackIcon,
 } as const;

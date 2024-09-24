@@ -1,7 +1,9 @@
-import { type AvatarData } from '~/common/services/azure-ai/avatar-video/types/types.js';
-
 import { ScriptProcessor } from '../services/script-processor.service.js';
-import { type Scene, type Script } from '../types/types.js';
+import {
+    type Scene,
+    type SceneForRenderAvatar,
+    type Script,
+} from '../types/types.js';
 
 function distributeScriptsToScenes({
     scenes,
@@ -9,7 +11,7 @@ function distributeScriptsToScenes({
 }: {
     scenes: Scene[];
     scripts: Script[];
-}): AvatarData[] {
+}): SceneForRenderAvatar[] {
     const processor = new ScriptProcessor(scenes, scripts);
     return processor.distributeScriptsToScenes();
 }
