@@ -53,7 +53,7 @@ const Studio: React.FC = () => {
         selectVideoDataById(state, locationState?.id),
     );
 
-    const { scenes, scripts, videoName, videoId, scriptPlayer } =
+    const { scenes, scripts, videoName, videoId, scriptPlayer, videoSize } =
         useAppSelector(({ studio }) => studio);
 
     const playerReference = useRef<PlayerRef>(null);
@@ -71,7 +71,6 @@ const Studio: React.FC = () => {
     }, [dispatch]);
 
     const handleSubmit = useCallback(() => {
-        // TODO: REPLACE LOGIC WITH MULTIPLE SCENES
         const scene = scenes[0];
         const script = scripts[0];
 
@@ -130,6 +129,8 @@ const Studio: React.FC = () => {
                 composition: {
                     scenes,
                     scripts: getVoicesConfigs(scripts),
+                    // TODO : CHANGE TO ENUM
+                    videoOrientation: videoSize,
                 },
                 name: videoName,
             }),
@@ -148,7 +149,7 @@ const Studio: React.FC = () => {
                     title: NotificationTitle.VIDEO_SAVE_FAILED,
                 });
             });
-    }, [dispatch, scenes, scripts, videoId, videoName]);
+    }, [dispatch, scenes, scripts, videoId, videoName, videoSize]);
 
     const handleAudioEnd = useCallback((): void => {
         dispatch(studioActions.playScript({ isPlaying: false }));
