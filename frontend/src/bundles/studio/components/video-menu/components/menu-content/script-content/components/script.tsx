@@ -22,6 +22,8 @@ import { PlayIconNames } from '~/bundles/studio/enums/play-icon-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type ScriptWithIcon as ScriptT } from '~/bundles/studio/types/types.js';
 
+import styles from './styles.module.css';
+
 type Properties = ScriptT & { handleChangeVoice: (scriptId: string) => void };
 
 const Script: React.FC<Properties> = ({
@@ -141,6 +143,7 @@ const Script: React.FC<Properties> = ({
                 w="full"
             >
                 <EditablePreview
+                    className={styles['no-scrollbar']}
                     h="full"
                     w="full"
                     p="8px 16px"
@@ -149,6 +152,7 @@ const Script: React.FC<Properties> = ({
                     borderColor="background.600"
                 />
                 <EditableTextarea
+                    className={styles['no-scrollbar']}
                     h="full"
                     p="8px 16px"
                     resize="none"
