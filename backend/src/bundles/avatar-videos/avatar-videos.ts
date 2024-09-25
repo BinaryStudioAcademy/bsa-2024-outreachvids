@@ -8,12 +8,14 @@ import {
 import { videoService } from '../videos/videos.js';
 import { AvatarVideoController } from './avatar-videos.controller.js';
 import { AvatarVideoService } from './avatar-videos.service.js';
+import { SceneService } from './scenes.service.js';
+
+const scenesService = new SceneService({ azureAIService, fileService });
 
 const avatarVideoService = new AvatarVideoService({
-    azureAIService,
-    fileService,
     videoService,
     remotionService,
+    scenesService,
 });
 
 const avatarVideoController = new AvatarVideoController(

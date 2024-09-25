@@ -10,10 +10,16 @@ type SceneAvatarValidation = {
     url: z.ZodString;
 };
 
+type SceneBackground = {
+    color: z.ZodOptional<z.ZodString>;
+    url: z.ZodOptional<z.ZodString>;
+};
+
 type SceneValidation = {
     id: z.ZodString;
     duration: z.ZodNumber;
     avatar: typeof avatarSchema;
+    background: z.ZodOptional<typeof backgroundSchema>;
 };
 
 type ScriptValidation = {
@@ -22,9 +28,10 @@ type ScriptValidation = {
     voiceName: z.ZodString;
 };
 
-type Composition = {
+type CompositionSchema = {
     scenes: z.ZodArray<typeof sceneSchema>;
     scripts: z.ZodArray<typeof scriptSchema>;
+    videoOrientation: z.ZodEnum<['landscape', 'portrait']>;
 };
 
 type GenerateAvatarVideoRequestValidationDto = {
@@ -48,6 +55,11 @@ const avatarSchema = z.object<SceneAvatarValidation>({
     }),
 });
 
+const backgroundSchema = z.object<SceneBackground>({
+    color: z.string().min(1).optional(),
+    url: z.string().url().optional(),
+});
+
 const sceneSchema = z.object<SceneValidation>({
     duration: z.number().min(1, {
         message: VideoValidationMessage.DURATION_REQUIRED,
@@ -56,6 +68,7 @@ const sceneSchema = z.object<SceneValidation>({
         message: VideoValidationMessage.ID_REQUIRED,
     }),
     avatar: avatarSchema,
+    background: backgroundSchema.optional(),
 });
 
 const scriptSchema = z
@@ -93,13 +106,14 @@ const scriptSchema = z
         },
     );
 
-const compositionSchema = z.object<Composition>({
+const compositionSchema = z.object<CompositionSchema>({
     scenes: z.array(sceneSchema).min(1, {
         message: VideoValidationMessage.SCENES_REQUIRED,
     }),
     scripts: z.array(scriptSchema).min(1, {
         message: VideoValidationMessage.SCRIPTS_REQUIRED,
     }),
+    videoOrientation: z.enum(['landscape', 'portrait']),
 });
 
 const createVideo = z.object<GenerateAvatarVideoRequestValidationDto>({
