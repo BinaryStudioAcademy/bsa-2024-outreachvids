@@ -1,1 +1,1 @@
-export { sanitizeJsonString } from './sanitize-json-string/sanitize-json-string.js';
+export { sanitizeJsonString } from './sanitize-json-string.js';
