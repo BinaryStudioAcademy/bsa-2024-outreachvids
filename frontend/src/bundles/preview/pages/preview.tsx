@@ -17,6 +17,7 @@ const Preview: React.FC<Properties> = ({ jwt }) => {
         const fetchUrl = async (): Promise<void> => {
             try {
                 const result = await dispatch(getUrl(jwt)).unwrap();
+
                 setUrl(result);
             } finally {
                 setLoading(false);

@@ -20,7 +20,7 @@ class PublicVideosApi extends BaseHttpApi {
 
         const headers = new Headers();
         headers.append('video_token', jwt.replaceAll('~', '.'));
-        
+
         const options = {
             method: HTTPMethod.GET,
             contentType: ContentType.JSON,
@@ -29,10 +29,10 @@ class PublicVideosApi extends BaseHttpApi {
         };
 
         const response = await this.load(
-            this.getFullEndpoint(`/public-video${VideosApiPath.ROOT}`, {}),
+            this.getFullEndpoint(`${VideosApiPath.ROOT}`, {}),
             options,
         );
-        
+
         if (!response.ok) {
             throw new Error(`Failed to get video ID JWT: ${response.statusText}`);
         }        

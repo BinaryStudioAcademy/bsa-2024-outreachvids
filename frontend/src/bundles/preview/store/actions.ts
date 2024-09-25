@@ -6,6 +6,7 @@ const getUrl = createAsyncThunk<Promise<string>, string, AsyncThunkConfig>(
     'preview/create-video-url',
     (payload, { extra }) => {
         const { publicVideosApi } = extra;
+
         return publicVideosApi.getVideoUrlFromJWT(payload);
     },
 );
