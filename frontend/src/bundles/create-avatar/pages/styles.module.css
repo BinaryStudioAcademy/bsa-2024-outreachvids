@@ -1,11 +1,13 @@
 .container {
     background-color: var(--chakra-colors-background-50);
-    height: calc(100vh - 75px);
-    padding: 50px;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
 .inner-container {
     max-width: 870px;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 10vh;
 }
