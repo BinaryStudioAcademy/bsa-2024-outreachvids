@@ -1,13 +1,19 @@
 import { type UpdateVideoRequestDto } from '~/bundles/videos/types/types.js';
 import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoModel } from '~/bundles/videos/video.model.js';
+import { type ImageService } from '~/common/services/image/image.service.js';
 import { type Repository } from '~/common/types/types.js';
 
 class VideoRepository implements Repository {
     private videoModel: typeof VideoModel;
+    private imageService: ImageService;
 
-    public constructor(videoModel: typeof VideoModel) {
+    public constructor(
+        videoModel: typeof VideoModel,
+        imageService: ImageService,
+    ) {
         this.videoModel = videoModel;
+        this.imageService = imageService;
     }
 
     public async findById(id: string): Promise<VideoEntity | null> {
@@ -58,7 +64,9 @@ class VideoRepository implements Repository {
 
         if (payload.composition) {
             data.composition = payload.composition;
-            data.previewUrl = payload.composition.scenes[0]?.avatar?.url ?? '';
+            data.previewUrl = await this.imageService.generatePreview(
+                payload.composition,
+            );
         }
 
         if (payload.name) {

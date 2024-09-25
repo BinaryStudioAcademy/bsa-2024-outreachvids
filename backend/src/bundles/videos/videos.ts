@@ -6,7 +6,7 @@ import { VideoModel } from './video.model.js';
 import { VideoRepository } from './video.repository.js';
 import { VideoService } from './video.service.js';
 
-const videoRepository = new VideoRepository(VideoModel);
+const videoRepository = new VideoRepository(VideoModel, imageService);
 const videoService = new VideoService(
     videoRepository,
     fileService,
