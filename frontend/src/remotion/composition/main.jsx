@@ -1,9 +1,9 @@
 // Using .js extension to avoid TypeScript issues with Remotion's rendering process.
 import { AbsoluteFill, Video, Series } from 'remotion';
-
+import { videoOrientation as videoOrientationValue } from './enums/enums.js';
 import styles from './styles.module.css';
 
-const Main = ({ scenes }) => {
+const Main = ({ scenes, videoOrientation }) => {
     return (
         <AbsoluteFill>
             <Series>
@@ -14,7 +14,12 @@ const Main = ({ scenes }) => {
                             durationInFrames={scene.durationInFrames}
                         >
                             <Video
-                                className={styles['avatar']}
+                                className={
+                                    videoOrientation ===
+                                    videoOrientationValue.PORTRAIT
+                                        ? styles['avatar-portrait']
+                                        : styles['avatar-landscape']
+                                }
                                 src={scene.avatar.url}
                             />
                             {scene?.background?.url && (

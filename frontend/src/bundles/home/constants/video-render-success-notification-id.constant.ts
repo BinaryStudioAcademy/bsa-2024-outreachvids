@@ -1,0 +1,3 @@
+const VIDEO_RENDER_SUCCESS_NOTIFICATION_ID = 'video-render-success';
+
+export { VIDEO_RENDER_SUCCESS_NOTIFICATION_ID };
