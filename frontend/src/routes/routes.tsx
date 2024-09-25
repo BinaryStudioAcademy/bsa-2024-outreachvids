@@ -7,6 +7,7 @@ import { CreateAvatar } from '~/bundles/create-avatar/pages/create-avatar.js';
 import { Home } from '~/bundles/home/pages/home.js';
 import { MyAvatar } from '~/bundles/my-avatar/pages/my-avatar.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
+import { Voices } from '~/bundles/voices/pages/voices.js';
 
 const routes = [
     {
@@ -42,6 +43,14 @@ const routes = [
                 element: (
                     <ProtectedRoute>
                         <MyAvatar />
+                    </ProtectedRoute>
+                ),
+            },
+            {
+                path: AppRoute.VOICES,
+                element: (
+                    <ProtectedRoute>
+                        <Voices />
                     </ProtectedRoute>
                 ),
             },

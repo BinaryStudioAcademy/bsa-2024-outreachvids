@@ -12,7 +12,7 @@ import {
     WarningIcon,
 } from '@chakra-ui/icons';
 
-import { Logo, LogoText, OpenAi } from './custom-icons/custom-icons.js';
+import { Logo, LogoText, OpenAi, Voice } from './custom-icons/custom-icons.js';
 import {
     BackwardStep,
     CircleUser,
@@ -73,6 +73,7 @@ const IconName = {
     WARNING: WarningIcon,
     VIDEO_CAMERA: VideoCamera,
     IMAGE: Image,
+    VOICE: Voice,
 } as const;
 
 export { IconName };
