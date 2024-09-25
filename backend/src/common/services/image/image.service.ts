@@ -1,12 +1,20 @@
 import { type FileService } from '~/common/services/file/file.service.js';
 
+import { type ImageApi } from './image-base.js';
 import { type Composition } from './types/types.js';
+
+type Constructor = {
+    fileService: FileService;
+    imageApi: ImageApi;
+};
 
 class ImageService {
     private fileService: FileService;
+    private imageApi: ImageApi;
 
-    public constructor(fileService: FileService) {
+    public constructor({ fileService, imageApi }: Constructor) {
         this.fileService = fileService;
+        this.imageApi = imageApi;
     }
 
     public generatePreview(composition: Composition): string {
