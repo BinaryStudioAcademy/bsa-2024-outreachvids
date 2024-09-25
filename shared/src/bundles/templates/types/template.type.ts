@@ -1,4 +1,4 @@
-import { type Composition } from '../../avatar-videos/types/composition.type.js';
+import { type Composition } from 'shared';
 
 type Template = {
     id: string;
