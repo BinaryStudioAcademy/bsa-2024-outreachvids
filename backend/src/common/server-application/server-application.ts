@@ -26,7 +26,6 @@ const apiV1 = new BaseServerAppApi(
     ...speechController.routes,
     ...avatarVideoController.routes,
     ...publicVideoController.routes,
-
 );
 
 const serverApp = new BaseServerApp({

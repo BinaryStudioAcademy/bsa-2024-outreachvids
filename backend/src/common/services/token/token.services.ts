@@ -18,7 +18,7 @@ class TokenService {
     }
 
     public async createVideoIdToken(videoId: string): Promise<string> {
-        const jwt =  await new SignJWT({ videoId })
+        const jwt = await new SignJWT({ videoId })
             .setProtectedHeader({ alg: 'HS256' })
             .sign(this.secretKey);
         return jwt.replaceAll('.', '~');

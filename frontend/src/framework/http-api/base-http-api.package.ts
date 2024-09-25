@@ -53,7 +53,7 @@ class BaseHttpApi implements HttpApi {
             keepAlive = false,
             customHeaders,
         } = options;
-        
+
         const headers = await this.getHeaders(contentType, hasAuth);
         if (customHeaders) {
             for (const [key, value] of customHeaders) {

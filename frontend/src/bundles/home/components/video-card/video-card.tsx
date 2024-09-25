@@ -103,14 +103,17 @@ const VideoCard: React.FC<Properties> = ({
                 const token = await jwt;
                 const url = createVideoUrl(token);
                 await navigator.clipboard.writeText(url);
-                notificationService.success({ message: 'Url copied to clipboard', id : 'url-copied', title : 'Success' });
+                notificationService.success({
+                    message: 'Url copied to clipboard',
+                    id: 'url-copied',
+                    title: 'Success',
+                });
             })
             .catch((error) => {
                 throw new Error(`Failed to get video ID JWT: ${error}`);
             });
-
     }, [dispatch, id]);
-    
+
     return (
         <Box borderRadius="8px" bg="white" padding="7px">
             <Box

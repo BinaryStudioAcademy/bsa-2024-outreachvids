@@ -1,4 +1,4 @@
-import { deleteVideo, getJwt, loadUserVideos, } from './actions.js';
+import { deleteVideo, getJwt, loadUserVideos } from './actions.js';
 import { actions } from './slice.js';
 
 const allActions = {

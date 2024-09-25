@@ -6,9 +6,7 @@ import { VideoValidationMessage } from './enums/enums.js';
 
 class PublicVideoService {
     private videoRepository: VideoRepository;
-    public constructor(
-        videoRepository: VideoRepository,
-    ) {
+    public constructor(videoRepository: VideoRepository) {
         this.videoRepository = videoRepository;
     }
 

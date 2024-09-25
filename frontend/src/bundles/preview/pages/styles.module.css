@@ -1,5 +1,5 @@
 .video-player {
-    height:50vh;
+    height: 50vh;
     width: 90vh;
     position: relative;
     background-color: var(--chakra-colors-background-600);

@@ -17,7 +17,6 @@ class PublicVideosApi extends BaseHttpApi {
     }
 
     public async getVideoUrlFromJWT(jwt: string): Promise<string> {
-
         const headers = new Headers();
         headers.append('video_token', jwt.replaceAll('~', '.'));
 
@@ -34,10 +33,12 @@ class PublicVideosApi extends BaseHttpApi {
         );
 
         if (!response.ok) {
-            throw new Error(`Failed to get video ID JWT: ${response.statusText}`);
-        }        
+            throw new Error(
+                `Failed to get video ID JWT: ${response.statusText}`,
+            );
+        }
         return await response.text();
-}
+    }
 }
 
 export { PublicVideosApi };

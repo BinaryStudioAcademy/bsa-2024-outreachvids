@@ -197,7 +197,7 @@ class VideoController extends BaseController {
         };
     }
 
-        /**
+    /**
      * @swagger
      * /videos/{id}/share:
      *    get:

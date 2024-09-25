@@ -24,7 +24,7 @@ class PublicVideoController extends BaseController {
             handler: (options) => this.findUrlByToken(options),
         });
     }
-    
+
     private async findUrlByToken(
         options: ApiHandlerOptions,
     ): Promise<ApiHandlerResponse> {
@@ -33,9 +33,11 @@ class PublicVideoController extends BaseController {
 
         return {
             status: HTTPCode.OK,
-            payload: await this.publicVideoService.findUrlByToken(videoTokenHeader ?? ''),
+            payload: await this.publicVideoService.findUrlByToken(
+                videoTokenHeader ?? '',
+            ),
         };
     }
-}   
+}
 
 export { PublicVideoController };

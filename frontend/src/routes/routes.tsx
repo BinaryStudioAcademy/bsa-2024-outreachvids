@@ -60,10 +60,8 @@ const routes = [
             },
             {
                 path: `${AppRoute.PREVIEW}/:jwt`,
-                element: (
-                    <PreviewWrapper />
-                ),
-            }
+                element: <PreviewWrapper />,
+            },
         ],
     },
 ];

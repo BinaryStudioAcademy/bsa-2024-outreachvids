@@ -17,4 +17,4 @@ const publicVideosApi = new PublicVideosApi({
     http,
 });
 
-export { publicVideosApi,videosApi };
+export { publicVideosApi, videosApi };
