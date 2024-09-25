@@ -1,3 +1,5 @@
+import { type UpdateTemplateRequestDto } from 'shared';
+
 import { type Repository } from '~/common/types/types.js';
 
 import { TemplateEntity } from './templates.entity.js';
@@ -60,8 +62,16 @@ class TemplateRepository implements Repository {
         return TemplateEntity.initialize(item);
     }
 
-    public update(): ReturnType<Repository['update']> {
-        return Promise.resolve(null);
+    public async update(
+        id: string,
+        payload: UpdateTemplateRequestDto,
+    ): Promise<TemplateEntity | null> {
+        const updatedItem = await this.templateModel
+            .query()
+            .patchAndFetchById(id, payload)
+            .execute();
+
+        return updatedItem ? TemplateEntity.initialize(updatedItem) : null;
     }
 
     public async delete(id: string): ReturnType<Repository['delete']> {
