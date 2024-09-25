@@ -1,3 +1,0 @@
-const MIN_SCRIPT_DURATION = 10;
-
-export { MIN_SCRIPT_DURATION };

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { MIN_SCENE_DURATION } from '~/bundles/studio/constants/constants.js';
+import { DEFAULT_SCENE_DURATION } from '~/bundles/studio/constants/constants.js';
 import { RowNames } from '~/bundles/studio/enums/enums.js';
 import {
     type addSceneRequest,
@@ -13,7 +13,7 @@ import { calculateTotalMilliseconds } from './helpers.js';
 const addScene = ({ scenes, rangeEnd }: addSceneRequest): addSceneResponse => {
     const scene = {
         id: uuidv4(),
-        duration: MIN_SCENE_DURATION,
+        duration: DEFAULT_SCENE_DURATION,
     };
     const updatedcenes = [...scenes, scene];
 

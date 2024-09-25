@@ -1,6 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { MIN_SCRIPT_DURATION } from '~/bundles/studio/constants/constants.js';
+import {
+    DEFAULT_SCRIPT_DURATION,
+    DEFAULT_VOICE,
+} from '~/bundles/studio/constants/constants.js';
 import { PlayIconNames, RowNames } from '~/bundles/studio/enums/enums.js';
 import {
     type addScriptRequest,
@@ -15,13 +18,12 @@ const addScript = ({
     text,
     scripts,
     rangeEnd,
-    voice,
 }: addScriptRequest): addScriptResponse => {
     const script: Script = {
         id: uuidv4(),
-        duration: MIN_SCRIPT_DURATION,
+        duration: DEFAULT_SCRIPT_DURATION,
         text: text,
-        voice: voice,
+        voice: DEFAULT_VOICE,
         iconName: PlayIconNames.READY,
         url: null,
     };

@@ -15,6 +15,7 @@ import {
     type VideoScript,
 } from '~/bundles/common/types/types.js';
 import {
+    DEFAULT_SCENE_DURATION,
     DEFAULT_VOICE,
     MIN_SCENE_DURATION,
 } from '~/bundles/studio/constants/constants.js';
@@ -108,7 +109,7 @@ const initialState: State = {
         elapsedTime: 0,
     },
     range: { start: 0, end: minutesToMilliseconds(1) },
-    scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
+    scenes: [{ id: uuidv4(), duration: DEFAULT_SCENE_DURATION }],
     scripts: [],
     isVideoScriptsGenerationReady: false,
     isVideoScriptsGenerationPending: false,
@@ -141,7 +142,6 @@ const { reducer, actions, name } = createSlice({
                 text: payload,
                 scripts,
                 rangeEnd: range.end,
-                voice: DEFAULT_VOICE,
             });
 
             ui.selectedItem = selectedItem;
@@ -215,7 +215,11 @@ const { reducer, actions, name } = createSlice({
                     return item;
                 }
 
-                const duration = millisecondsToSeconds(span.end - span.start);
+                let duration = millisecondsToSeconds(span.end - span.start);
+
+                if (duration < MIN_SCENE_DURATION) {
+                    duration = MIN_SCENE_DURATION;
+                }
 
                 return {
                     ...item,
@@ -349,6 +353,23 @@ const { reducer, actions, name } = createSlice({
                 };
             });
         },
+        removeBackgroundFromScene(state) {
+            const selectedItem = state.ui.selectedItem;
+            if (!selectedItem || selectedItem.type !== RowNames.SCENE) {
+                return;
+            }
+
+            state.scenes = state.scenes.map((scene) => {
+                if (scene.id !== selectedItem.id) {
+                    return scene;
+                }
+
+                return {
+                    ...scene,
+                    background: {},
+                };
+            });
+        },
         setMenuActiveItem(
             state,
             action: PayloadAction<ValueOf<typeof MenuItems> | null>,
@@ -441,7 +462,6 @@ const { reducer, actions, name } = createSlice({
                         text: description,
                         scripts,
                         rangeEnd: range.end,
-                        voice: DEFAULT_VOICE,
                     });
                     scripts.push(script);
                     range.end = rangeEnd;
