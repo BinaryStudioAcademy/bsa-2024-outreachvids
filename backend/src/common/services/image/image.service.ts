@@ -2,6 +2,7 @@ import sharp from 'sharp';
 
 import { type FileService } from '~/common/services/file/file.service.js';
 
+import { PREVIEW_HEIGHT, PREVIEW_WIDTH } from './constants/constants.js';
 import { type ImageApi } from './image-base.js';
 import { type Composition } from './types/types.js';
 
@@ -54,18 +55,15 @@ class ImageService {
         avatar: Buffer,
         background: Buffer,
     ): Promise<Buffer> {
-        const finalWidth = 1920;
-        const finalHeight = 1080;
-
         const resizedBackground = await sharp(background)
-            .resize(finalWidth, finalHeight, {
+            .resize(PREVIEW_WIDTH, PREVIEW_HEIGHT, {
                 fit: 'cover',
                 position: 'center',
             })
             .toBuffer();
 
         const resizedAvatar = await sharp(avatar)
-            .resize(finalWidth, finalHeight, {
+            .resize(PREVIEW_WIDTH, PREVIEW_HEIGHT, {
                 fit: 'inside',
                 position: 'bottom',
             })
