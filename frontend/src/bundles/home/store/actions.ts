@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
+    type GenerateSpeechRequestDto,
+    type GenerateSpeechResponseDto,
     type GetVoicesResponseDto,
     type VideoGetAllResponseDto,
 } from '~/bundles/home/types/types.js';
@@ -37,4 +39,14 @@ const loadVoices = createAsyncThunk<
     return speechApi.loadVoices();
 });
 
-export { deleteVideo, loadUserVideos, loadVoices };
+const generateScriptSpeechPreview = createAsyncThunk<
+    GenerateSpeechResponseDto,
+    GenerateSpeechRequestDto,
+    AsyncThunkConfig
+>(`${sliceName}/generate-script-speech-preview`, (payload, { extra }) => {
+    const { speechApi } = extra;
+
+    return speechApi.generateScriptSpeech(payload);
+});
+
+export { deleteVideo, generateScriptSpeechPreview, loadUserVideos, loadVoices };

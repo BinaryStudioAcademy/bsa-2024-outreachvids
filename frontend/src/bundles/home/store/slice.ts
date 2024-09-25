@@ -10,16 +10,26 @@ import {
 
 import { deleteVideo, loadUserVideos, loadVoices } from './actions.js';
 
+type VoicePlayer = {
+    isPlaying: boolean;
+    url: string | null;
+};
+
 type State = {
     dataStatus: ValueOf<typeof DataStatus>;
     videos: Array<VideoGetAllItemResponseDto> | [];
     voices: Voice[];
+    voicePlayer: VoicePlayer;
 };
 
 const initialState: State = {
     dataStatus: DataStatus.IDLE,
     videos: [],
     voices: [],
+    voicePlayer: {
+        isPlaying: false,
+        url: null,
+    },
 };
 
 const { reducer, actions, name } = createSlice({
@@ -33,6 +43,9 @@ const { reducer, actions, name } = createSlice({
                     ? { ...voice, isLiked: !isLiked }
                     : voice;
             });
+        },
+        playVoice(state, action: PayloadAction<Partial<VoicePlayer>>) {
+            state.voicePlayer = { ...state.voicePlayer, ...action.payload };
         },
     },
     extraReducers(builder) {

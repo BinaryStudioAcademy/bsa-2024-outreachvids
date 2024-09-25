@@ -14,7 +14,7 @@ type Properties = {
     isPlaying: boolean;
     audioUrl: string;
     onAudioEnd: () => void;
-    onSetDuration: (duration: number) => void;
+    onSetDuration?: (duration: number) => void;
 };
 
 const AudioPlayer: React.FC<Properties> = ({
@@ -41,7 +41,7 @@ const AudioPlayer: React.FC<Properties> = ({
         getAudioData(audioUrl)
             .then(({ durationInSeconds }) => {
                 setDurationInFrames(Math.round(durationInSeconds * FPS));
-                onSetDuration(durationInSeconds);
+                onSetDuration && onSetDuration(durationInSeconds);
             })
             .catch(() => {
                 setDurationInFrames(1);

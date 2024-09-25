@@ -18,7 +18,6 @@ import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { actions as homeActions } from '~/bundles/home/store/home.js';
 import { type Voice } from '~/bundles/home/types/types.js';
 import { Control } from '~/bundles/studio/components/control/control.js';
-import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 type Properties = {
     voice: Voice;
@@ -29,10 +28,11 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useAppDispatch();
 
-    const text = 'Sample text';
+    const text =
+        'Hello, I can handle video speech for you, choose me if you like it!';
 
     const { isPlaying: playerIsPlaying, url: playerUrl } = useAppSelector(
-        ({ studio }) => studio.scriptPlayer,
+        ({ home }) => home.voicePlayer,
     );
 
     const isPlaying = useMemo(
@@ -46,14 +46,12 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
                 return;
             }
             if (url) {
-                dispatch(
-                    studioActions.playScript({ isPlaying: !isPlaying, url }),
-                );
+                dispatch(homeActions.playVoice({ isPlaying: !isPlaying, url }));
                 return;
             }
             setIsLoading(true);
             void dispatch(
-                studioActions.generateScriptSpeechPreview({
+                homeActions.generateScriptSpeechPreview({
                     scriptId: uuidv4(),
                     text,
                     voiceName: voice.shortName,
@@ -64,7 +62,7 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
                     setUrl(audioUrl);
                     setIsLoading(false);
                     dispatch(
-                        studioActions.playScript({
+                        homeActions.playVoice({
                             isPlaying: true,
                             url: audioUrl,
                         }),
