@@ -1,4 +1,4 @@
-import { type Composition } from '../../avatar-videos/types/types.js';
+import { type Composition } from 'shared';
 
 type CreateVideoRequestDto = {
     name: string;
