@@ -89,13 +89,7 @@ class AvatarVideoController extends BaseController {
             ? this.avatarVideoService.updateVideo({ ...videoPayload, videoId })
             : this.avatarVideoService.createVideo({ ...videoPayload, userId }));
 
-        const scenesConfigs =
-            this.avatarVideoService.getScenesConfigs(composition);
-
-        await this.avatarVideoService.submitAvatarsConfigs(
-            scenesConfigs,
-            videoRecord.id,
-        );
+        await this.avatarVideoService.renderVideo(composition, videoRecord.id);
 
         return {
             payload: { status: ResponseStatus.SUBMITTED },

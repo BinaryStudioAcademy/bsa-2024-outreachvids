@@ -96,11 +96,13 @@ const renderAvatar = createAsyncThunk<
     AsyncThunkConfig
 >(`${sliceName}/render-avatar`, (_, { extra, getState }) => {
     const { avatarVideosApi } = extra;
-    const { scripts, scenes, videoName, videoId } = getState().studio;
+    const { scripts, scenes, videoName, videoId, videoSize } =
+        getState().studio;
     return avatarVideosApi.renderVideo({
         composition: {
             scenes,
             scripts: getVoicesConfigs(scripts),
+            videoOrientation: videoSize,
         },
         name: videoName,
         ...(videoId && { videoId }),

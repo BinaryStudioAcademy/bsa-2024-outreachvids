@@ -62,6 +62,7 @@ const Studio: React.FC = () => {
         scenes,
         scripts,
         videoName,
+        videoSize,
         videoId,
         scriptPlayer,
         isVideoScriptsGenerationReady,
@@ -157,6 +158,8 @@ const Studio: React.FC = () => {
                 composition: {
                     scenes,
                     scripts: getVoicesConfigs(scripts),
+                    // TODO : CHANGE TO ENUM
+                    videoOrientation: videoSize,
                 },
                 name: videoName,
             }),
@@ -175,7 +178,7 @@ const Studio: React.FC = () => {
                     title: NotificationTitle.VIDEO_SAVE_FAILED,
                 });
             });
-    }, [dispatch, scenes, scripts, videoId, videoName]);
+    }, [dispatch, scenes, scripts, videoId, videoName, videoSize]);
 
     const handleAudioEnd = useCallback((): void => {
         dispatch(studioActions.playScript({ isPlaying: false }));
