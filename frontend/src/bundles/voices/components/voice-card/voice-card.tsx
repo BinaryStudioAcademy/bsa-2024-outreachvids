@@ -15,9 +15,10 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
+import { actions as homeActions } from '~/bundles/home/store/home.js';
+import { type Voice } from '~/bundles/home/types/types.js';
 import { Control } from '~/bundles/studio/components/control/control.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
-import { type Voice } from '~/bundles/studio/types/types.js';
 
 type Properties = {
     voice: Voice;
@@ -81,9 +82,9 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
             isLoading,
         ],
     );
-    // const handleCardClick = useCallback((): void => {
-    //     onClick(voice, url);
-    // }, [onClick, voice, url]);
+    const handleLikeClick = useCallback((): void => {
+        dispatch(homeActions.toogleVoiceLike(voice.shortName));
+    }, [voice, dispatch]);
 
     const iconComponent = useMemo(() => {
         if (isLoading) {
@@ -96,10 +97,7 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
     }, [isPlaying, isLoading, url]);
 
     return (
-        <Card
-            cursor="pointer"
-            // onClick={handleCardClick}
-        >
+        <Card cursor="pointer">
             <CardBody>
                 <HStack>
                     <Control
@@ -108,9 +106,21 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
                         icon={iconComponent}
                         onClick={handlePlayClick}
                     />
-                    <Text variant="body1" color={'text.default'}>
+                    <Text variant="body1" color={'text.default'} flexGrow={1}>
                         {voice.name}
                     </Text>
+                    <Control
+                        label={voice.isLiked ? 'Unlike' : 'Like'}
+                        size={IconSize.LARGE}
+                        icon={
+                            voice.isLiked
+                                ? IconName.HEART_FILL
+                                : IconName.HEART_OUTLINE
+                        }
+                        onClick={handleLikeClick}
+                        variant="ghost"
+                        iconColor="brand.secondary.600"
+                    />
                 </HStack>
             </CardBody>
         </Card>

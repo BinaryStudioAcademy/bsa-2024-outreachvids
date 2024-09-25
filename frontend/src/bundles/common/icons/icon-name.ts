@@ -22,6 +22,8 @@ import {
     FileLines,
     Font,
     ForwardStep,
+    HeartFill,
+    HeartOutline,
     House,
     Image,
     Pause,
@@ -74,6 +76,8 @@ const IconName = {
     VIDEO_CAMERA: VideoCamera,
     IMAGE: Image,
     VOICE: Voice,
+    HEART_FILL: HeartFill,
+    HEART_OUTLINE: HeartOutline,
 } as const;
 
 export { IconName };

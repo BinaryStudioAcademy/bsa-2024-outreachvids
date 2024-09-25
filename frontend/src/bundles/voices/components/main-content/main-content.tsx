@@ -9,6 +9,7 @@ import {
     useAppDispatch,
     useAppSelector,
     useEffect,
+    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import { loadVoices } from '~/bundles/home/store/actions.js';
 import { VoiceSection } from '~/bundles/voices/components/components.js';
@@ -21,6 +22,11 @@ const MainContent: React.FC = () => {
     const { isCollapsed } = useCollapse();
 
     const { voices, dataStatus } = useAppSelector(({ home }) => home);
+
+    const myVoices = useMemo(
+        () => voices.filter((voice) => voice.isLiked),
+        [voices],
+    );
 
     useEffect(() => {
         void dispatch(loadVoices());
@@ -35,7 +41,7 @@ const MainContent: React.FC = () => {
                 <Loader />
             </Overlay>
 
-            <VoiceSection voices={voices} title={VoicesSections.MY_VOICES} />
+            <VoiceSection voices={myVoices} title={VoicesSections.MY_VOICES} />
             <VoiceSection voices={voices} title={VoicesSections.VOICES} />
         </Box>
     );

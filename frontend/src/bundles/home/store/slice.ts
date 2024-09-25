@@ -1,3 +1,4 @@
+import { type PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/bundles/common/enums/enums.js';
@@ -24,7 +25,16 @@ const initialState: State = {
 const { reducer, actions, name } = createSlice({
     initialState,
     name: 'home',
-    reducers: {},
+    reducers: {
+        toogleVoiceLike(state, action: PayloadAction<string>) {
+            state.voices = state.voices.map((voice) => {
+                const { shortName, isLiked } = voice;
+                return shortName === action.payload
+                    ? { ...voice, isLiked: !isLiked }
+                    : voice;
+            });
+        },
+    },
     extraReducers(builder) {
         builder.addCase(loadUserVideos.pending, (state) => {
             state.dataStatus = DataStatus.PENDING;
@@ -53,7 +63,10 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(loadVoices.fulfilled, (state, action) => {
-            state.voices = action.payload.items;
+            state.voices = action.payload.items.map((voice) => ({
+                ...voice,
+                isLiked: false,
+            }));
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(loadVoices.rejected, (state) => {
