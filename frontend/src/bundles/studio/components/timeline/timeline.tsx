@@ -1,10 +1,12 @@
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { type PlayerRef } from '@remotion/player';
+import { secondsToMilliseconds } from 'date-fns';
 import {
     type DragEndEvent,
     type DragMoveEvent,
     type Range,
     type ResizeEndEvent,
+    type ResizeMoveEvent,
     TimelineContext,
 } from 'dnd-timeline';
 import { type RefObject } from 'react';
@@ -14,7 +16,10 @@ import {
     useAppSelector,
     useCallback,
 } from '~/bundles/common/hooks/hooks.js';
-import { DND_ACTIVATION_DISTANCE_PIXELS } from '~/bundles/studio/constants/constants.js';
+import {
+    DND_ACTIVATION_DISTANCE_PIXELS,
+    MIN_SCENE_DURATION,
+} from '~/bundles/studio/constants/constants.js';
 import { RowNames } from '~/bundles/studio/enums/row-names.enum.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
@@ -53,6 +58,42 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
                     span: updatedSpan,
                 }),
             );
+        },
+        [dispatch],
+    );
+
+    const handleResizing = useCallback(
+        (event: ResizeMoveEvent): void => {
+            const activeItem = event.active.data.current;
+            const activeItemType = activeItem['type'] as RowType;
+
+            const updatedSpan = activeItem.getSpanFromResizeEvent?.(event);
+
+            if (
+                !updatedSpan ||
+                activeItemType === RowNames.SCRIPT ||
+                activeItemType === RowNames.BUTTON
+            ) {
+                return;
+            }
+
+            if (
+                updatedSpan.end - updatedSpan.start <
+                secondsToMilliseconds(MIN_SCENE_DURATION)
+            ) {
+                updatedSpan.end =
+                    updatedSpan.start +
+                    secondsToMilliseconds(MIN_SCENE_DURATION);
+
+                const activeItemId = event.active.id as string;
+
+                dispatch(
+                    studioActions.resizeScene({
+                        id: activeItemId,
+                        span: updatedSpan,
+                    }),
+                );
+            }
         },
         [dispatch],
     );
@@ -149,6 +190,7 @@ const Timeline: React.FC<Properties> = ({ playerRef }) => {
         <TimelineContext
             range={range}
             onDragEnd={handleDragEnd}
+            onResizeMove={handleResizing}
             onResizeEnd={handleResizeEnd}
             onRangeChanged={handleRangeChanged}
             onDragMove={handleDragMove}
