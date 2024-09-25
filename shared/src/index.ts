@@ -49,6 +49,12 @@ export {
     SpeechApiPath,
 } from './bundles/speech/speech.js';
 export {
+    type CreateTemplateRequestDto,
+    type CreateTemplateResponseDto,
+    type GetTemplatesResponseDto,
+    type Template,
+} from './bundles/templates/types/types.js';
+export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserGetCurrentResponseDto,
