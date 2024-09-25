@@ -12,6 +12,7 @@ export {
     type VideoCodec,
     type VideoFormat,
     AvatarVideosApiPath,
+    compositionValidationSchema,
     renderAvatarVideoValidationSchema,
 } from './bundles/avatar-videos/avatar-videos.js';
 export {
@@ -51,9 +52,14 @@ export {
 export {
     type CreateTemplateRequestDto,
     type CreateTemplateResponseDto,
+    type GetTemplateRequestDto,
     type GetTemplatesResponseDto,
     type Template,
-} from './bundles/templates/types/types.js';
+    type UpdateTemplateRequestDto,
+    createTemplateValidationSchema,
+    TemplateValidationErrorMessage,
+    updateTemplateValidationSchema,
+} from './bundles/templates/templates.js';
 export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
