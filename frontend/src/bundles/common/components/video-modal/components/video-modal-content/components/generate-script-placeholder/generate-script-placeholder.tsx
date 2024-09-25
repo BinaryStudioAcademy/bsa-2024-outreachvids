@@ -18,7 +18,6 @@ import {
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
-import { type VideoScript } from '~/bundles/common/types/types.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { GenerateScriptPlaceholderContent } from '../generate-script-placeholder-content/generate-script-placeholder-content.js';
@@ -26,21 +25,20 @@ import { GenerateScriptScene } from '../generate-script-scene/generate-script-sc
 import styles from './styles.module.css';
 
 type Properties = {
-    videoScripts: VideoScript[];
     onClose: () => void;
 };
 
-const GenerateScriptPlaceholder: React.FC<Properties> = ({
-    videoScripts,
-    onClose,
-}) => {
+const GenerateScriptPlaceholder: React.FC<Properties> = ({ onClose }) => {
     const dispatch = useAppDispatch();
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [isScriptAdded, setIsScriptAdded] = useState(false);
-    const { dataStatus, avatars } = useAppSelector(({ chat, studio }) => ({
-        dataStatus: chat.dataStatus,
-        avatars: studio.avatars,
-    }));
+    const { dataStatus, avatars, videoScripts } = useAppSelector(
+        ({ chat, studio }) => ({
+            dataStatus: chat.dataStatus,
+            videoScripts: chat.videoScripts,
+            avatars: studio.avatars,
+        }),
+    );
 
     const renderLoadingState = (): React.ReactNode => (
         <Box mt="100px">

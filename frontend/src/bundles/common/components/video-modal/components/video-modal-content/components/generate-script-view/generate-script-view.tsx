@@ -27,11 +27,10 @@ type Properties = {
 };
 const GenerateScriptView: React.FC<Properties> = ({ onClose }) => {
     const dispatch = useAppDispatch();
-    const { messages, videoScripts } = useAppSelector(({ chat }) => ({
+    const { messages } = useAppSelector(({ chat }) => ({
         messages: chat.messages.filter(
             (message) => message.sender === MessageSender.AI,
         ),
-        videoScripts: chat.videoScripts,
     }));
 
     const handleGenerateVideoScriptSubmit = useCallback(
@@ -72,10 +71,7 @@ const GenerateScriptView: React.FC<Properties> = ({ onClose }) => {
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />
-                            <GenerateScriptPlaceholder
-                                videoScripts={videoScripts}
-                                onClose={onClose}
-                            />
+                            <GenerateScriptPlaceholder onClose={onClose} />
                         </HStack>
                     </TabPanel>
                 </TabPanels>
