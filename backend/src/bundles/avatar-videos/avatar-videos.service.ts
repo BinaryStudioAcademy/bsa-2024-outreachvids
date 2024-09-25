@@ -1,9 +1,11 @@
 import { type VideoGetAllItemResponseDto } from 'shared';
 import { HTTPCode, HttpError } from 'shared';
 
+import { AvatarVideoEvent } from '~/common/enums/enums.js';
 import { type AzureAIService } from '~/common/services/azure-ai/azure-ai.service.js';
 import { type FileService } from '~/common/services/file/file.service.js';
 import { type RemotionService } from '~/common/services/remotion/remotion.service.js';
+import { socketEvent } from '~/common/socket/socket.js';
 
 import { type VideoService } from '../videos/video.service.js';
 import { REQUEST_DELAY } from './constants/constnats.js';
@@ -212,8 +214,8 @@ class AvatarVideoService {
             await this.remotionService.getRemotionRenderProgress(renderId);
 
         if (url) {
-            // TODO: NOTIFY USER
             await this.updateVideoRecord(videoRecordId, url);
+            socketEvent.emitNotification(AvatarVideoEvent.RENDER_SUCCESS);
         }
 
         await this.removeGeneratedAvatars(scenesWithSavedAvatars);

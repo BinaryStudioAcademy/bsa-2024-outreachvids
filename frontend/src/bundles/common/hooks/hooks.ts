@@ -5,6 +5,7 @@ export { useAppSelector } from './use-app-selector/use-app-selector.hook.js';
 export { useFormField } from './use-form-field/use-form-field.hook.js';
 export {
     useCallback,
+    useContext,
     useEffect,
     useLayoutEffect,
     useMemo,
