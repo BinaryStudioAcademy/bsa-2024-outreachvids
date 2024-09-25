@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { Preview } from '~/bundles/preview/pages/preview.js';
 
 const PreviewWrapper: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
-    return <Preview id={id ?? ''} />;
+    const { jwt } = useParams<{ jwt: string }>();
+    return <Preview jwt={jwt ?? ''} />;
 };
 
 export { PreviewWrapper };

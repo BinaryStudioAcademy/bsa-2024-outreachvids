@@ -1,20 +1,40 @@
-import { Box, Header , VideoPlayer } from '~/bundles/common/components/components.js';
+import { Box, Header, Loader, VideoPlayer } from '~/bundles/common/components/components.js';
+import { useAppDispatch, useEffect, useState } from '~/bundles/common/hooks/hooks.js';
 
+import { getUrl } from '../store/actions.js';
 import styles from './styles.module.css';
 
 type Properties = {
-    id: string;
+    jwt: string;
 };
 
-const Preview: React.FC<Properties> = ({ id }) => {
-   
+const Preview: React.FC<Properties> = ({ jwt }) => {
+    const dispatch = useAppDispatch();
+    const [url, setUrl] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchUrl = async (): Promise<void> => {
+            try {
+                const result = await dispatch(getUrl(jwt)).unwrap();
+                setUrl(result);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUrl().catch(error => {throw new Error(error); });
+    }, [dispatch, jwt]);
+
+    if (loading) {
+        return <Loader />;
+    }
+
     return (
-        <Box
-        >
-            <Header/>
-            {id}
+        <Box>
+            <Header />
             <VideoPlayer
-                videoSource={'https://d19jw8gcwb6nqj.cloudfront.net/renders/b5kc5agqwx/out.mp4'}
+                videoSource={url}
                 className={styles['video-player'] ?? ''}
                 playerWidth="100%"
                 playerHeight="100%"

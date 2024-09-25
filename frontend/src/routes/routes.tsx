@@ -59,7 +59,7 @@ const routes = [
                 element: <NotFound />,
             },
             {
-                path: `${AppRoute.PREVIEW}/:id`,
+                path: `${AppRoute.PREVIEW}/:jwt`,
                 element: (
                     <PreviewWrapper />
                 ),
