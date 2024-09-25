@@ -1,17 +1,16 @@
 import { type RemotionAvatarScene } from '~/common/services/remotion/type/types.js';
 
 import { FPS } from '../constants/fps.js';
-import { type GeneratedAvatarData } from '../types/types.js';
+import { type SceneWithGeneratedAvatar } from '../types/types.js';
 
 const generatedAvatarToRemotionScene = (
-    generatedAvatars: GeneratedAvatarData[],
+    scenesWithGeneratedAvatars: SceneWithGeneratedAvatar[],
 ): RemotionAvatarScene[] => {
-    return generatedAvatars.map((avatar) => {
+    return scenesWithGeneratedAvatars.map((scene) => {
         return {
-            id: avatar.id,
-            url: avatar.url,
+            ...scene,
             durationInFrames: Math.round(
-                (avatar.durationInMilliseconds / 1000) * FPS,
+                (scene.durationInMilliseconds / 1000) * FPS,
             ),
         };
     });

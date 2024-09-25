@@ -1,0 +1,15 @@
+.none-item {
+    background-color: var(--chakra-colors-background-700);
+    border-radius: 7px;
+    border-width: 1px;
+    border-color: transparent;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+}
+
+.none-item:hover {
+    background-color: var(--chakra-colors-background-600);
+    border-color: var(--chakra-colors-brand-secondary-300);
+    cursor: pointer;
+}

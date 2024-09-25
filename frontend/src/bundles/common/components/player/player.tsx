@@ -9,6 +9,7 @@ import { VideoComponent } from '~/bundles/studio/components/components.js';
 import {
     ASPECT_RATIO_LANDSCAPE,
     ASPECT_RATIO_PORTRAIT,
+    FPS,
     MIN_DURATION_IN_FRAMES,
 } from './constants/constants.js';
 import { LandscapeStyle, PortraitStyle } from './styles/styles.js';
@@ -34,8 +35,8 @@ const Player: React.FC<Properties> = ({ playerRef }) => {
         };
     }, [scenes, scripts]);
 
-    const durationInFrames = scenes.reduce(
-        (sum, scene) => sum + scene.duration,
+    const durationInFrames = scripts.reduce(
+        (sum, script) => sum + Math.round(script.duration),
         0,
     );
 
@@ -59,7 +60,7 @@ const Player: React.FC<Properties> = ({ playerRef }) => {
                 component={VideoComponent}
                 inputProps={inputProperties}
                 durationInFrames={
-                    durationInFrames * 30 || MIN_DURATION_IN_FRAMES
+                    durationInFrames * FPS || MIN_DURATION_IN_FRAMES
                 }
                 compositionWidth={size.width}
                 compositionHeight={size.height}

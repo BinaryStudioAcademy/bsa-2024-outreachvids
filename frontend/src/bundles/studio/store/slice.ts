@@ -9,9 +9,10 @@ import {
     type VideoPreview as VideoPreviewT,
 } from '~/bundles/common/types/types.js';
 import {
+    DEFAULT_SCENE_DURATION,
+    DEFAULT_SCRIPT_DURATION,
     DEFAULT_VOICE,
     MIN_SCENE_DURATION,
-    MIN_SCRIPT_DURATION,
 } from '~/bundles/studio/constants/constants.js';
 
 import { type MenuItems, PlayIconNames, RowNames } from '../enums/enums.js';
@@ -59,6 +60,11 @@ type DestinationPointerActionPayload = ItemActionPayload & {
     type: RowType;
 };
 
+type BackgroundPayload = {
+    value: string;
+    isValueImage: boolean;
+};
+
 type ScriptPlayer = {
     isPlaying: boolean;
     url: string | null;
@@ -97,7 +103,7 @@ const initialState: State = {
         elapsedTime: 0,
     },
     range: { start: 0, end: minutesToMilliseconds(1) },
-    scenes: [{ id: uuidv4(), duration: MIN_SCENE_DURATION }],
+    scenes: [{ id: uuidv4(), duration: DEFAULT_SCENE_DURATION }],
     scripts: [],
     selectedScriptId: null,
     videoSize: VideoPreview.LANDSCAPE,
@@ -124,7 +130,7 @@ const { reducer, actions, name } = createSlice({
         addScript(state, action: PayloadAction<string>) {
             const script = {
                 id: uuidv4(),
-                duration: MIN_SCRIPT_DURATION,
+                duration: DEFAULT_SCRIPT_DURATION,
                 text: action.payload,
                 voice: DEFAULT_VOICE,
                 iconName: PlayIconNames.READY,
@@ -189,7 +195,7 @@ const { reducer, actions, name } = createSlice({
         addScene(state) {
             const scene = {
                 id: uuidv4(),
-                duration: MIN_SCENE_DURATION,
+                duration: DEFAULT_SCENE_DURATION,
             };
             state.ui.selectedItem = { id: scene.id, type: RowNames.SCENE };
             state.scenes.push(scene);
@@ -207,7 +213,11 @@ const { reducer, actions, name } = createSlice({
                     return item;
                 }
 
-                const duration = millisecondsToSeconds(span.end - span.start);
+                let duration = millisecondsToSeconds(span.end - span.start);
+
+                if (duration < MIN_SCENE_DURATION) {
+                    duration = MIN_SCENE_DURATION;
+                }
 
                 return {
                     ...item,
@@ -315,6 +325,46 @@ const { reducer, actions, name } = createSlice({
                     avatar: {
                         ...action.payload,
                     },
+                };
+            });
+        },
+        addBackgroundToScene(state, action: PayloadAction<BackgroundPayload>) {
+            const selectedItem = state.ui.selectedItem;
+            if (!selectedItem || selectedItem.type !== RowNames.SCENE) {
+                return;
+            }
+
+            state.scenes = state.scenes.map((scene) => {
+                if (scene.id !== selectedItem.id) {
+                    return scene;
+                }
+
+                const { isValueImage, value } = action.payload;
+
+                const newBackground = isValueImage
+                    ? { url: value }
+                    : { color: value };
+
+                return {
+                    ...scene,
+                    background: newBackground,
+                };
+            });
+        },
+        removeBackgroundFromScene(state) {
+            const selectedItem = state.ui.selectedItem;
+            if (!selectedItem || selectedItem.type !== RowNames.SCENE) {
+                return;
+            }
+
+            state.scenes = state.scenes.map((scene) => {
+                if (scene.id !== selectedItem.id) {
+                    return scene;
+                }
+
+                return {
+                    ...scene,
+                    background: {},
                 };
             });
         },

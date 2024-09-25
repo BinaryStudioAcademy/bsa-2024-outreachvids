@@ -1,11 +1,16 @@
-import { type AvatarData } from '~/common/services/azure-ai/avatar-video/types/types.js';
+import { v4 as uuidv4 } from 'uuid';
 
-import { type Scene, type SceneAvatar, type Script } from '../types/types.js';
+import {
+    type Scene,
+    type SceneAvatar,
+    type SceneForRenderAvatar,
+    type Script,
+} from '../types/types.js';
 
 class ScriptProcessor {
     private scenes: Scene[];
     private scripts: Script[];
-    private result: AvatarData[] = [];
+    private result: SceneForRenderAvatar[] = [];
     private sceneIndex: number = 0;
     private sceneRemainder: number = 0;
     private accumulatedText: string = '';
@@ -62,16 +67,22 @@ class ScriptProcessor {
     private addSceneResult({
         text,
         voice,
+        scene,
     }: {
         text: string;
         voice: string;
+        scene: Scene;
     }): void {
         if (text && this.currentAvatar) {
             this.result.push({
-                text,
-                voice,
-                name: this.currentAvatar.name,
-                style: this.currentAvatar.style,
+                ...scene,
+                id: uuidv4(),
+                avatar: {
+                    name: this.currentAvatar.name,
+                    style: this.currentAvatar.style,
+                    text,
+                    voice,
+                },
             });
         }
     }
@@ -88,12 +99,13 @@ class ScriptProcessor {
     private processRemainingScript(script: Script): void {
         const lastResult = this.result.at(-1);
 
-        if (lastResult && lastResult.voice === script.voiceName) {
-            lastResult.text += ' ' + this.scriptTextRemainder;
+        if (lastResult && lastResult.avatar.voice === script.voiceName) {
+            lastResult.avatar.text += ' ' + this.scriptTextRemainder;
         } else {
             this.addSceneResult({
                 text: this.scriptTextRemainder,
                 voice: script.voiceName,
+                scene: this.scenes[this.sceneIndex] as Scene,
             });
         }
     }
@@ -115,6 +127,7 @@ class ScriptProcessor {
                 this.addSceneResult({
                     text: this.accumulatedText,
                     voice: this.currentVoiceName,
+                    scene: this.scenes[this.sceneIndex] as Scene,
                 });
                 this.accumulatedText = '';
                 this.currentVoiceName = script.voiceName;
@@ -141,6 +154,7 @@ class ScriptProcessor {
                 this.addSceneResult({
                     text: this.accumulatedText.trim(),
                     voice: this.currentVoiceName,
+                    scene: this.scenes[this.sceneIndex] as Scene,
                 });
 
                 this.accumulatedText = '';
@@ -150,7 +164,7 @@ class ScriptProcessor {
         }
     }
 
-    public distributeScriptsToScenes(): AvatarData[] {
+    public distributeScriptsToScenes(): SceneForRenderAvatar[] {
         for (const script of this.scripts) {
             this.processScriptForScene(script);
 
@@ -163,6 +177,7 @@ class ScriptProcessor {
             this.addSceneResult({
                 text: this.accumulatedText.trim(),
                 voice: this.currentVoiceName ?? '',
+                scene: this.scenes[this.sceneIndex] as Scene,
             });
         }
 

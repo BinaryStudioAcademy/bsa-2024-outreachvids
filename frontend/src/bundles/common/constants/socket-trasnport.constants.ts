@@ -1,0 +1,3 @@
+const SOCKET_TRANSPORT_WEBSOCKETS = 'websocket';
+
+export { SOCKET_TRANSPORT_WEBSOCKETS };

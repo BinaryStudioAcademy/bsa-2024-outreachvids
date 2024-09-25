@@ -1,4 +1,5 @@
-export { type GeneratedAvatarData } from './generated-avatar.type.js';
+export { type SceneForRenderAvatar } from './scene-for-render-avatar.type.js';
+export { type SceneWithGeneratedAvatar } from './scene-with-generated-avatar.type.js';
 export {
     type Composition,
     type RenderAvatarResponseDto,

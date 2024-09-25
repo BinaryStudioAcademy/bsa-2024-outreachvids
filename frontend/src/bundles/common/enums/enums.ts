@@ -1,4 +1,5 @@
 export { AppRoute } from './app-route.enum.js';
+export { AvatarVideoEvent } from './avatar-video-event.enum.js';
 export { DataStatus } from './data-status.enum.js';
 export { DOMEvent } from './dom-event.enum.js';
 export { VideoPreview } from './video-preview.enum.js';
