@@ -2,6 +2,7 @@ import { type Span } from 'dnd-timeline';
 
 import { Box, Flex } from '~/bundles/common/components/components.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { useTimelineItem } from '~/bundles/studio/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
@@ -46,7 +47,7 @@ const Item: React.FC<Properties> = ({
     return (
         <Box
             ref={setNodeRef}
-            {...listeners}
+            {...(type !== RowNames.BUTTON && listeners)}
             {...attributes}
             style={itemStyle}
             zIndex={isDragging ? '100' : 'auto'}
