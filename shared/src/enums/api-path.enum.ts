@@ -8,6 +8,7 @@ const ApiPath = {
     CHAT: '/chat',
     SPEECH: '/speech',
     AVATAR_VIDEO: '/avatar-video',
+    TEMPLATES: '/templates',
 } as const;
 
 export { ApiPath };
