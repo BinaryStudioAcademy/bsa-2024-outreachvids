@@ -1,3 +1,5 @@
+import sharp from 'sharp';
+
 import { type FileService } from '~/common/services/file/file.service.js';
 
 import { type ImageApi } from './image-base.js';
@@ -17,12 +19,27 @@ class ImageService {
         this.imageApi = imageApi;
     }
 
-    public generatePreview(composition: Composition): string {
+    public async generatePreview(composition: Composition): Promise<string> {
         const avatarImage = composition.scenes[0]?.avatar?.url ?? '';
         const background = composition.scenes[0]?.background;
 
         if (background?.url) {
-            // TODO: combine avatar and bg
+            const avatarImageBuffer =
+                await this.imageApi.getImageBuffer(avatarImage);
+            const backgroundImageBuffer = await this.imageApi.getImageBuffer(
+                background.url,
+            );
+
+            const previewBuffer = await this.composeImages(
+                avatarImageBuffer,
+                backgroundImageBuffer,
+            );
+
+            const fileName = `preview_${Date.now()}.jpg`;
+
+            await this.fileService.uploadFile(previewBuffer, fileName);
+
+            return this.fileService.getCloudFrontFileUrl(fileName);
         }
 
         if (background?.color) {
@@ -31,6 +48,32 @@ class ImageService {
         }
 
         return avatarImage;
+    }
+
+    private async composeImages(
+        avatar: Buffer,
+        background: Buffer,
+    ): Promise<Buffer> {
+        const finalWidth = 1920;
+        const finalHeight = 1080;
+
+        const resizedBackground = await sharp(background)
+            .resize(finalWidth, finalHeight, {
+                fit: 'cover',
+                position: 'center',
+            })
+            .toBuffer();
+
+        const resizedAvatar = await sharp(avatar)
+            .resize(finalWidth, finalHeight, {
+                fit: 'inside',
+                position: 'bottom',
+            })
+            .toBuffer();
+
+        return await sharp(resizedBackground)
+            .composite([{ input: resizedAvatar, blend: 'over' }])
+            .toBuffer();
     }
 }
 

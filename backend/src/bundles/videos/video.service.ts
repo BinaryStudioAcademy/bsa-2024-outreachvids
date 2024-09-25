@@ -60,7 +60,7 @@ class VideoService implements Service {
     public async create(
         payload: CreateVideoRequestDto & { userId: string },
     ): Promise<VideoGetAllItemResponseDto> {
-        const previewUrl = this.imageService.generatePreview(
+        const previewUrl = await this.imageService.generatePreview(
             payload.composition,
         );
 
