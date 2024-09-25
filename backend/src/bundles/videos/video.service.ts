@@ -89,11 +89,10 @@ class VideoService implements Service {
 
         if (url) {
             const renderIdMatch = url.match(/renders\/([^/]+)/);
+            const renderId = renderIdMatch?.[1];
 
-            if (renderIdMatch && renderIdMatch[1]) {
-                await this.remotionService.deleteRenderedVideo(
-                    renderIdMatch[1],
-                );
+            if (renderId) {
+                await this.remotionService.deleteRenderedVideo(renderId);
             }
         }
 
