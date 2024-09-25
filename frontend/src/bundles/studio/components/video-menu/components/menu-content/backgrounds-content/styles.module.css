@@ -1,27 +1,15 @@
-.image-item {
-    height: 100px;
+.none-item {
     background-color: var(--chakra-colors-background-700);
     border-radius: 7px;
     border-width: 1px;
     border-color: transparent;
     transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
 }
 
-.color-item {
-    border-radius: 7px;
-    height: 80px;
-    border-width: 1px;
-    border-color: transparent;
-    transition: all 0.3s ease;
-}
-
-.image-item:hover {
+.none-item:hover {
     background-color: var(--chakra-colors-background-600);
-    border-color: var(--chakra-colors-brand-secondary-300);
-    cursor: pointer;
-}
-
-.color-item:hover {
     border-color: var(--chakra-colors-brand-secondary-300);
     cursor: pointer;
 }

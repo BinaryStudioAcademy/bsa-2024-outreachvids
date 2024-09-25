@@ -1,3 +1,3 @@
-const MIN_SCENE_DURATION = 15;
+const MIN_SCENE_DURATION = 1;
 
 export { MIN_SCENE_DURATION };

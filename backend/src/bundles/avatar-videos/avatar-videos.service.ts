@@ -1,6 +1,8 @@
 import { type VideoGetAllItemResponseDto, HTTPCode, HttpError } from 'shared';
 
+import { AvatarVideoEvent } from '~/common/enums/enums.js';
 import { type RemotionService } from '~/common/services/remotion/remotion.service.js';
+import { socketEvent } from '~/common/socket/socket.js';
 
 import { type VideoService } from '../videos/video.service.js';
 import { RenderVideoErrorMessage } from './enums/enums.js';
@@ -129,6 +131,7 @@ class AvatarVideoService {
         if (url) {
             // TODO: NOTIFY USER
             await this.videoService.update(videoRecordId, { url });
+            socketEvent.emitNotification(AvatarVideoEvent.RENDER_SUCCESS);
         }
 
         await this.scenesService.clearAvatars(compositionForRender.scenes);

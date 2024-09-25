@@ -2,6 +2,7 @@ import { type Span } from 'dnd-timeline';
 
 import { Box, Flex } from '~/bundles/common/components/components.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
+import { RowNames } from '~/bundles/studio/enums/enums.js';
 import { useTimelineItem } from '~/bundles/studio/hooks/hooks.js';
 import { type RowType } from '~/bundles/studio/types/types.js';
 
@@ -13,9 +14,19 @@ type Properties = {
     span: Span;
     children: React.ReactNode;
     onClick?: React.MouseEventHandler<HTMLElement>;
+    onResizeStart?: () => void;
+    onResizeEnd?: () => void;
 };
 
-const Item: React.FC<Properties> = ({ id, type, span, children, onClick }) => {
+const Item: React.FC<Properties> = ({
+    id,
+    type,
+    span,
+    children,
+    onClick,
+    onResizeStart = (): void => {},
+    onResizeEnd = (): void => {},
+}) => {
     const selectedItem = useAppSelector(({ studio }) => studio.ui.selectedItem);
 
     const {
@@ -29,12 +40,14 @@ const Item: React.FC<Properties> = ({ id, type, span, children, onClick }) => {
         id,
         span,
         data: { type },
+        onResizeEnd,
+        onResizeStart,
     });
 
     return (
         <Box
             ref={setNodeRef}
-            {...listeners}
+            {...(type !== RowNames.BUTTON && listeners)}
             {...attributes}
             style={itemStyle}
             zIndex={isDragging ? '100' : 'auto'}
