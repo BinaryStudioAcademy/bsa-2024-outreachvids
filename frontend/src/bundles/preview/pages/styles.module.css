@@ -1,6 +1,22 @@
 .video-player {
-    height: 1000px;
-    width: 1000px;
+    height:50vh;
+    width: 90vh;
     position: relative;
-    background-color: var(--chakra-colors-gray-200);
+    background-color: var(--chakra-colors-background-600);
+}
+.loader-box {
+    background-color: var(--chakra-colors-background-900);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.back-box {
+    background-color: var(--chakra-colors-background-600);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    z-index: 0;
 }
