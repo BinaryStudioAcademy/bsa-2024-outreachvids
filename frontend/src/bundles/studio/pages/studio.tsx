@@ -1,5 +1,6 @@
 import { type PlayerRef } from '@remotion/player';
 
+import { AudioPlayer } from '~/bundles/common/components/audio-player/audio-player.js';
 import {
     Box,
     Button,
@@ -28,7 +29,6 @@ import {
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
-import { AudioPlayer } from '../components/audio-player/audio-player.js';
 import {
     PlayerControls,
     Timeline,
