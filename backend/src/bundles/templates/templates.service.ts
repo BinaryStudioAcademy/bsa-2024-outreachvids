@@ -1,6 +1,7 @@
 import { HTTPCode, HttpError } from '~/common/http/http.js';
 import { type Service } from '~/common/types/types.js';
 
+import { type UpdateVideoRequestDto } from '../videos/types/types.js';
 import { templateErrorMessage } from './enums/enums.js';
 import { TemplateEntity } from './templates.entity.js';
 import { type TemplateRepository } from './templates.repository.js';
@@ -8,9 +9,10 @@ import {
     type CreateTemplateRequestDto,
     type CreateTemplateResponseDto,
     type GetTemplatesResponseDto,
+    type Template,
 } from './types/types.js';
 
-class TemplatesService implements Service {
+class TemplateService implements Service {
     private templateRepository: TemplateRepository;
 
     public constructor(templateRepository: TemplateRepository) {
@@ -66,8 +68,40 @@ class TemplatesService implements Service {
         return user.toObject();
     }
 
-    public update(): ReturnType<Service['update']> {
-        return Promise.resolve(null);
+    public async updateTemplate(
+        id: string,
+        payload: UpdateVideoRequestDto,
+        userId: string,
+    ): Promise<Template> {
+        const template = await this.findById(id);
+
+        if (template?.userId !== userId) {
+            throw new HttpError({
+                message: templateErrorMessage.YOU_CAN_NOT_DELETE_THIS_TEMPLATE,
+                status: HTTPCode.BAD_REQUEST,
+            });
+        }
+
+        return await this.update(id, payload);
+    }
+
+    public async update(
+        id: string,
+        payload: UpdateVideoRequestDto,
+    ): Promise<Template> {
+        const updatedTemplate = await this.templateRepository.update(
+            id,
+            payload,
+        );
+
+        if (!updatedTemplate) {
+            throw new HttpError({
+                message: templateErrorMessage.TEMPLATE_DOES_NOT_EXIST,
+                status: HTTPCode.NOT_FOUND,
+            });
+        }
+
+        return updatedTemplate.toObject();
     }
 
     public async deleteTemplate(
@@ -101,4 +135,4 @@ class TemplatesService implements Service {
     }
 }
 
-export { TemplatesService };
+export { TemplateService };
