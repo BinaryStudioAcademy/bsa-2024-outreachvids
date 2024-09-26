@@ -10,21 +10,27 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 
 import { Consent, Instruction } from '../components/components.js';
+import { Steps } from '../enums/steps.js';
 import styles from './styles.module.css';
 
 const CreateAvatar: React.FC = () => {
-    const steps = useMemo(() => ['Instructions', 'Upload', 'Consent'], []);
-    const [step, setStep] = useState<string>('Instructions');
+    const steps = useMemo(
+        () => [Steps.INSTRUCTIONS, Steps.UPLOAD, Steps.CONSENT],
+        [],
+    );
+    const [step, setStep] = useState<(typeof Steps)[keyof typeof Steps]>(
+        Steps.INSTRUCTIONS,
+    );
 
     const renderStepContent = (step: string): JSX.Element | null => {
         switch (step) {
-            case 'Instructions': {
+            case Steps.INSTRUCTIONS: {
                 return <Instruction onClickNext={nextStep} />;
             }
-            case 'Upload': {
+            case Steps.UPLOAD: {
                 return <UploadVideo onClickNext={nextStep} />;
             }
-            case 'Consent': {
+            case Steps.CONSENT: {
                 return <Consent />;
             }
             default: {

@@ -24,7 +24,9 @@ type Properties = {
 
 const Stepper: React.FC<Properties> = ({ steps, currentStep, onClickBack }) => {
     const activeStepIndex = steps.indexOf(currentStep);
-    const progressPercent = (activeStepIndex / (steps.length - 1)) * 100;
+    const MAX_PERCENT = 100;
+    const progressPercent =
+        (activeStepIndex / (steps.length - 1)) * MAX_PERCENT;
 
     const backButton = (
         <IconButton
