@@ -4,7 +4,7 @@ import { type FileService } from '~/common/services/file/file.service.js';
 
 import { PREVIEW_HEIGHT, PREVIEW_WIDTH } from './constants/constants.js';
 import { type ImageApi } from './image-base.js';
-import { type Composition } from './types/types.js';
+import { type Scene } from './types/types.js';
 
 type Constructor = {
     fileService: FileService;
@@ -20,9 +20,9 @@ class ImageService {
         this.imageApi = imageApi;
     }
 
-    public async generatePreview(composition: Composition): Promise<string> {
-        const avatarImage = composition.scenes[0]?.avatar?.url ?? '';
-        const background = composition.scenes[0]?.background;
+    public async generatePreview(scene: Scene): Promise<string> {
+        const avatarImage = scene.avatar?.url ?? '';
+        const background = scene.background;
 
         if (background?.url) {
             const backgroundImageBuffer = await this.imageApi.getImageBuffer(

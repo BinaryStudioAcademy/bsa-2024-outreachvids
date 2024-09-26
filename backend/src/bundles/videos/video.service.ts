@@ -8,6 +8,7 @@ import { type Service } from '~/common/types/types.js';
 import { VideoValidationMessage } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
+    type Scene,
     type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
@@ -61,7 +62,7 @@ class VideoService implements Service {
         payload: CreateVideoRequestDto & { userId: string },
     ): Promise<VideoGetAllItemResponseDto> {
         const previewUrl = await this.imageService.generatePreview(
-            payload.composition,
+            payload.composition.scenes[0] as Scene,
         );
 
         const video = await this.videoRepository.create(
