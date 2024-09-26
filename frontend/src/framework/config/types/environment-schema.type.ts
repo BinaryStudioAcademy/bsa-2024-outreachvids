@@ -10,7 +10,7 @@ type EnvironmentSchema = {
         SOCKET_ORIGIN_URL: string;
     };
     DEPLOYMENT: {
-        URL: string;
+        PUBLIC_URL: string;
     };
 };
 

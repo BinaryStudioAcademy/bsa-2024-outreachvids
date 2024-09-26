@@ -21,7 +21,7 @@ class BaseConfig implements Config {
                 ] as string,
             },
             DEPLOYMENT: {
-                URL: import.meta.env['DEPLOYMENT_URL'] as string,
+                PUBLIC_URL: import.meta.env['PUBLIC_URL'] as string,
             },
         };
     }
