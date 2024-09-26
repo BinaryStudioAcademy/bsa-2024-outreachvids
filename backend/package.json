@@ -55,6 +55,7 @@
         "pino": "9.3.2",
         "pino-pretty": "10.3.1",
         "shared": "*",
+        "sharp": "0.33.5",
         "socket.io": "4.7.5",
         "swagger-jsdoc": "6.2.8",
         "tiktoken": "1.0.16"

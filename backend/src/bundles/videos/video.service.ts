@@ -2,11 +2,13 @@ import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoRepository } from '~/bundles/videos/video.repository.js';
 import { HTTPCode, HttpError } from '~/common/http/http.js';
 import { type FileService } from '~/common/services/file/file.service.js';
+import { type ImageService } from '~/common/services/image/image.service.js';
 import { type Service } from '~/common/types/types.js';
 
 import { VideoValidationMessage } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
+    type Scene,
     type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
@@ -15,13 +17,16 @@ import {
 class VideoService implements Service {
     private videoRepository: VideoRepository;
     private fileService: FileService;
+    private imageService: ImageService;
 
     public constructor(
         videoRepository: VideoRepository,
         fileService: FileService,
+        imageService: ImageService,
     ) {
         this.videoRepository = videoRepository;
         this.fileService = fileService;
+        this.imageService = imageService;
     }
 
     public async findById(id: string): Promise<VideoGetAllItemResponseDto> {
@@ -56,11 +61,15 @@ class VideoService implements Service {
     public async create(
         payload: CreateVideoRequestDto & { userId: string },
     ): Promise<VideoGetAllItemResponseDto> {
+        const previewUrl = await this.imageService.generatePreview(
+            payload.composition.scenes[0] as Scene,
+        );
+
         const video = await this.videoRepository.create(
             VideoEntity.initializeNew({
                 name: payload.name,
                 composition: payload.composition,
-                previewUrl: payload.composition?.scenes[0]?.avatar?.url ?? '',
+                previewUrl,
                 userId: payload.userId,
             }),
         );

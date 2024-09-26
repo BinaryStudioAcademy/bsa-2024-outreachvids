@@ -1,0 +1,3 @@
+const LAST_ELEMENT_INDEX = -1;
+
+export { LAST_ELEMENT_INDEX };
