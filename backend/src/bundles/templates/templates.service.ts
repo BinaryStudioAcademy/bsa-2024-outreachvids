@@ -77,7 +77,7 @@ class TemplateService implements Service {
 
         if (template?.userId !== userId) {
             throw new HttpError({
-                message: templateErrorMessage.YOU_CAN_NOT_DELETE_THIS_TEMPLATE,
+                message: templateErrorMessage.YOU_CAN_NOT_UPDATE_THIS_TEMPLATE,
                 status: HTTPCode.BAD_REQUEST,
             });
         }
