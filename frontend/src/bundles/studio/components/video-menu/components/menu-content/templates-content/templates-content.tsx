@@ -1,4 +1,6 @@
 import {
+    Box,
+    Loader,
     SimpleGrid,
     Tab,
     TabList,
@@ -7,32 +9,58 @@ import {
     Tabs,
     Text,
 } from '~/bundles/common/components/components.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
+import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
+import {
+    useAppDispatch,
+    useAppSelector,
+    useEffect,
+} from '~/bundles/common/hooks/hooks.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
 import { TemplateCard } from './components/components.js';
 
 const TemplatesContent: React.FC = () => {
+    const dispatch = useAppDispatch();
+
+    const { templates, dataStatus } = useAppSelector(({ studio }) => studio);
+
+    useEffect(() => {
+        if (templates.public.length === EMPTY_VALUE) {
+            void dispatch(studioActions.loadPublicTemplates());
+        }
+    }, [dispatch, templates]);
+
     return (
         <Tabs>
             <TabList>
                 <Tab>Templates</Tab>
                 <Tab>My templates</Tab>
             </TabList>
-            <TabPanels>
-                <TabPanel>
-                    <SimpleGrid columns={2} spacingX="13px" spacingY="10px">
-                        <TemplateCard imageSource="https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727352836443.jpg" />
-                        <TemplateCard imageSource="https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727353097406.jpg" />
-                        <TemplateCard imageSource="https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727353044738.jpg" />
-                        <TemplateCard imageSource="https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727352905018.jpg" />
-                        <TemplateCard imageSource="https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727352956648.jpg" />
-                    </SimpleGrid>
-                </TabPanel>
-                <TabPanel>
-                    <Text color="typography.600" variant="body1">
-                        You have no templates yet.
-                    </Text>
-                </TabPanel>
-            </TabPanels>
+
+            {dataStatus === DataStatus.PENDING ? (
+                <Box mt="100px">
+                    <Loader />
+                </Box>
+            ) : (
+                <TabPanels>
+                    <TabPanel>
+                        <SimpleGrid columns={2} spacingX="13px" spacingY="10px">
+                            {templates.public.map((template) => (
+                                <TemplateCard
+                                    key={template.id}
+                                    imageSource={template.previewUrl}
+                                />
+                            ))}
+                        </SimpleGrid>
+                    </TabPanel>
+                    <TabPanel>
+                        <Text color="typography.600" variant="body1">
+                            You have no templates yet.
+                        </Text>
+                    </TabPanel>
+                </TabPanels>
+            )}
         </Tabs>
     );
 };
