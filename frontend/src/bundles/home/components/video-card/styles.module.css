@@ -42,3 +42,9 @@
     border-radius: 4px;
     padding: 2px 8px;
 }
+
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

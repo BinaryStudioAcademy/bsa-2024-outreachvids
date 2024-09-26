@@ -1,5 +1,6 @@
 import {
     faBackwardStep,
+    faCircle,
     faCircleUser,
     faCloudArrowDown,
     faCloudArrowUp,
@@ -45,9 +46,11 @@ const VolumeOff = convertIcon(faVolumeOff);
 const Stop = convertIcon(faStop);
 const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
+const Circle = convertIcon(faCircle);
 
 export {
     BackwardStep,
+    Circle,
     CircleUser,
     CloudArrowDown,
     CloudArrowUp,

@@ -1,8 +1,8 @@
 import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoRepository } from '~/bundles/videos/video.repository.js';
 import { HTTPCode, HttpError } from '~/common/http/http.js';
-import { type FileService } from '~/common/services/file/file.service.js';
 import { type ImageService } from '~/common/services/image/image.service.js';
+import { type RemotionService } from '~/common/services/remotion/remotion.service.js';
 import { type Service } from '~/common/types/types.js';
 
 import { VideoValidationMessage } from './enums/enums.js';
@@ -16,16 +16,16 @@ import {
 
 class VideoService implements Service {
     private videoRepository: VideoRepository;
-    private fileService: FileService;
+    private remotionService: RemotionService;
     private imageService: ImageService;
 
     public constructor(
         videoRepository: VideoRepository,
-        fileService: FileService,
+        remotionService: RemotionService,
         imageService: ImageService,
     ) {
         this.videoRepository = videoRepository;
-        this.fileService = fileService;
+        this.remotionService = remotionService;
         this.imageService = imageService;
     }
 
@@ -94,9 +94,16 @@ class VideoService implements Service {
     }
 
     public async delete(id: string): Promise<boolean> {
-        const { name } = await this.findById(id);
+        const { url } = await this.findById(id);
 
-        await this.fileService.deleteFile(name);
+        if (url) {
+            const renderIdMatch = url.match(/renders\/([^/]+)/);
+            const renderId = renderIdMatch?.[1];
+
+            if (renderId) {
+                await this.remotionService.deleteRenderedVideo(renderId);
+            }
+        }
 
         const isVideoDeleted = await this.videoRepository.delete(id);
 

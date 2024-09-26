@@ -182,7 +182,11 @@ const VideoCard: React.FC<Properties> = ({
             </Box>
 
             <Box padding="7px 10px 5px 5px">
-                <Text variant="button" color="typography.900">
+                <Text
+                    variant="button"
+                    color="typography.900"
+                    className={styles['card-title']}
+                >
                     {name}
                 </Text>
                 <Flex justify="space-between">
