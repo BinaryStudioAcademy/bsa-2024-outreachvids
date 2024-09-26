@@ -105,6 +105,20 @@ const Sidebar: React.FC<Properties> = ({ children }) => {
                             label="My Avatar"
                         />
                     </Link>
+                    <Link to={AppRoute.TEMPLATES}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.TEMPLATES)}
+                            icon={
+                                <Icon
+                                    as={IconName.TEMPLATE}
+                                    boxSize={5}
+                                    color={activeIconPage(AppRoute.TEMPLATES)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="Templates"
+                        />
+                    </Link>
                 </Box>
                 <Spacer />
                 <SidebarItem
