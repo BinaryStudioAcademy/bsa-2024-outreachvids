@@ -4,6 +4,7 @@ import {
     generateScriptSpeechPreview,
     loadAvatars,
     loadPublicTemplates,
+    loadUserTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,
@@ -22,6 +23,7 @@ const allActions = {
     saveVideo,
     updateVideo,
     loadPublicTemplates,
+    loadUserTemplates,
 };
 
 export { allActions as actions };

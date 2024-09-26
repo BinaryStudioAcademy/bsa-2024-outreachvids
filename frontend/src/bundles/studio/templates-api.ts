@@ -29,6 +29,19 @@ class TemplatesApi extends BaseHttpApi {
 
         return response.json<GetTemplatesResponseDto>();
     }
+
+    public async loadUserTemplates(): Promise<GetTemplatesResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(TemplateApiPath.USER, {}),
+            {
+                method: HTTPMethod.GET,
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+
+        return response.json<GetTemplatesResponseDto>();
+    }
 }
 
 export { TemplatesApi };

@@ -42,6 +42,7 @@ import {
     generateScriptSpeechPreview,
     loadAvatars,
     loadPublicTemplates,
+    loadUserTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,
@@ -92,6 +93,7 @@ type State = {
     templates: {
         public: Template[] | [];
         user: Template[] | [];
+        isUserLoaded: boolean;
     };
     ui: {
         destinationPointer: DestinationPointer | null;
@@ -120,6 +122,7 @@ const initialState: State = {
     templates: {
         public: [],
         user: [],
+        isUserLoaded: false,
     },
     ui: {
         destinationPointer: null,
@@ -539,6 +542,19 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(loadPublicTemplates.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
             state.templates.public = [];
+        });
+        builder.addCase(loadUserTemplates.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(loadUserTemplates.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.templates.user = action.payload.items;
+            state.templates.isUserLoaded = true;
+        });
+        builder.addCase(loadUserTemplates.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.templates.user = [];
+            state.templates.isUserLoaded = false;
         });
     },
 });

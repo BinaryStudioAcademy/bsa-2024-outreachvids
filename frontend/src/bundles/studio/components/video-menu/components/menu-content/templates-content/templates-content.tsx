@@ -29,6 +29,9 @@ const TemplatesContent: React.FC = () => {
         if (templates.public.length === EMPTY_VALUE) {
             void dispatch(studioActions.loadPublicTemplates());
         }
+        if (!templates.isUserLoaded) {
+            void dispatch(studioActions.loadUserTemplates());
+        }
     }, [dispatch, templates]);
 
     return (
@@ -55,9 +58,18 @@ const TemplatesContent: React.FC = () => {
                         </SimpleGrid>
                     </TabPanel>
                     <TabPanel>
-                        <Text color="typography.600" variant="body1">
-                            You have no templates yet.
-                        </Text>
+                        {templates.user.length > EMPTY_VALUE ? (
+                            templates.user.map((template) => (
+                                <TemplateCard
+                                    key={template.id}
+                                    imageSource={template.previewUrl}
+                                />
+                            ))
+                        ) : (
+                            <Text color="typography.600" variant="body1">
+                                You have no templates yet.
+                            </Text>
+                        )}
                     </TabPanel>
                 </TabPanels>
             )}

@@ -142,12 +142,23 @@ const loadPublicTemplates = createAsyncThunk<
     return templatesApi.loadPublicTemplates();
 });
 
+const loadUserTemplates = createAsyncThunk<
+    GetTemplatesResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/load-user-templates`, (_, { extra }) => {
+    const { templatesApi } = extra;
+
+    return templatesApi.loadUserTemplates();
+});
+
 export {
     generateAllScriptsSpeech,
     generateScriptSpeech,
     generateScriptSpeechPreview,
     loadAvatars,
     loadPublicTemplates,
+    loadUserTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,
