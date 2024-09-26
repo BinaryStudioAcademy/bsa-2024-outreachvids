@@ -23,8 +23,8 @@ const TimelineView: React.FC<Properties> = ({ playerRef }) => {
 
     return (
         <Box
-            ref={setTimelineRef}
-            style={{ ...style, overflowX: 'visible', minWidth: 'max-content' }}
+            ref={setTimelineRef} 
+            style={{ ...style, overflowX: 'hidden', minWidth: 'max-content', height: '100%' }}
         >
             <TimeAxis markers={timeAxisMarkers} />
             <TimeCursor playerRef={playerRef} />
