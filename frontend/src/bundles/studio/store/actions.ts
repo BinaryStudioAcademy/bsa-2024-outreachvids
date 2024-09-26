@@ -8,6 +8,7 @@ import {
     type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
+    type GetTemplatesResponseDto,
     type GetVoicesResponseDto,
     type RenderAvatarResponseDto,
     type Script,
@@ -131,11 +132,22 @@ const updateVideo = createAsyncThunk<
     return videosApi.updateVideo(payload, videoId as string);
 });
 
+const loadPublicTemplates = createAsyncThunk<
+    GetTemplatesResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/load-public-templates`, (_, { extra }) => {
+    const { templatesApi } = extra;
+
+    return templatesApi.loadPublicTemplates();
+});
+
 export {
     generateAllScriptsSpeech,
     generateScriptSpeech,
     generateScriptSpeechPreview,
     loadAvatars,
+    loadPublicTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,

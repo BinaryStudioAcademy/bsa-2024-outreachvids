@@ -31,6 +31,7 @@ import {
     type RowType,
     type Scene,
     type SceneAvatar,
+    type Template,
     type TimelineItemWithSpan,
     type VideoGetAllItemResponseDto,
     type Voice,
@@ -40,6 +41,7 @@ import {
     generateScriptSpeech,
     generateScriptSpeechPreview,
     loadAvatars,
+    loadPublicTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,
@@ -87,6 +89,10 @@ type State = {
     isDraftSaved: boolean;
     videoId: string | null;
     voices: Voice[];
+    templates: {
+        public: Template[] | [];
+        user: Template[] | [];
+    };
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -111,6 +117,10 @@ const initialState: State = {
     isDraftSaved: true,
     videoId: null,
     voices: [],
+    templates: {
+        public: [],
+        user: [],
+    },
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -518,6 +528,17 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(updateVideo.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
             state.isDraftSaved = false;
+        });
+        builder.addCase(loadPublicTemplates.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(loadPublicTemplates.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.templates.public = action.payload.items;
+        });
+        builder.addCase(loadPublicTemplates.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.templates.public = [];
         });
     },
 });

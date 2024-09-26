@@ -3,6 +3,7 @@ import {
     generateScriptSpeech,
     generateScriptSpeechPreview,
     loadAvatars,
+    loadPublicTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,
@@ -20,6 +21,7 @@ const allActions = {
     renderAvatar,
     saveVideo,
     updateVideo,
+    loadPublicTemplates,
 };
 
 export { allActions as actions };

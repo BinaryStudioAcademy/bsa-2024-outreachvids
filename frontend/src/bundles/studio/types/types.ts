@@ -22,6 +22,7 @@ export {
     type RenderAvatarVideoRequestDto,
     type Scene,
     type SceneAvatar,
+    type Template,
     type VideoGetAllItemResponseDto,
     type Voice,
 } from 'shared';
