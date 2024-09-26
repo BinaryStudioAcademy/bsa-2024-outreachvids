@@ -102,7 +102,8 @@ class VideoService implements Service {
     }
 
     public async getVideoIdToken(id: string): Promise<string> {
-        return await tokenService.createVideoIdToken(id);
+        const token = await tokenService.createToken(id, false);
+        return token.replaceAll('.', '~');
     }
 }
 

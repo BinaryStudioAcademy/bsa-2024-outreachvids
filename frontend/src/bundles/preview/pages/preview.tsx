@@ -25,7 +25,7 @@ type Properties = {
 const Preview: React.FC<Properties> = ({ jwt }) => {
     const dispatch = useAppDispatch();
     const [url, setUrl] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchUrl = async (): Promise<void> => {
@@ -34,7 +34,7 @@ const Preview: React.FC<Properties> = ({ jwt }) => {
 
                 setUrl(result);
             } finally {
-                setLoading(false);
+                setIsLoading(false);
             }
         };
 
@@ -49,7 +49,7 @@ const Preview: React.FC<Properties> = ({ jwt }) => {
         navigate(AppRoute.ROOT);
     }, [navigate]);
 
-    if (loading) {
+    if (isLoading) {
         return (
             <Box className={styles['loader-box']}>
                 <Loader />

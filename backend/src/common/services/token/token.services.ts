@@ -10,18 +10,17 @@ class TokenService {
         this.expirationTime = expirationTime;
     }
 
-    public async createToken(userId: string): Promise<string> {
-        return await new SignJWT({ userId })
-            .setProtectedHeader({ alg: 'HS256' })
-            .setExpirationTime(this.expirationTime)
-            .sign(this.secretKey);
-    }
+    public async createToken(
+        id: string,
+        expires: boolean = true,
+    ): Promise<string> {
+        const jwt = new SignJWT({ id }).setProtectedHeader({ alg: 'HS256' });
 
-    public async createVideoIdToken(videoId: string): Promise<string> {
-        const jwt = await new SignJWT({ videoId })
-            .setProtectedHeader({ alg: 'HS256' })
-            .sign(this.secretKey);
-        return jwt.replaceAll('.', '~');
+        if (expires) {
+            jwt.setExpirationTime(this.expirationTime);
+        }
+
+        return await jwt.sign(this.secretKey);
     }
 
     public async verifyToken(token: string): Promise<TokenPayload | null> {
@@ -33,14 +32,9 @@ class TokenService {
         }
     }
 
-    public async getUserIdFromToken(token: string): Promise<string | null> {
+    public async getIdFromToken(token: string): Promise<string | null> {
         const payload = await this.verifyToken(token);
-        return (payload?.['userId'] as string) || null;
-    }
-
-    public async getVideoIdFromToken(token: string): Promise<string | null> {
-        const payload = await this.verifyToken(token);
-        return (payload?.['videoId'] as string) || null;
+        return (payload?.['id'] as string) ?? null;
     }
 }
 

@@ -11,7 +11,7 @@ class PublicVideoService {
     }
 
     public async findUrlByToken(token: string): Promise<string> {
-        const id = await tokenService.getVideoIdFromToken(token);
+        const id = await tokenService.getIdFromToken(token);
 
         if (!id) {
             this.throwVideoNotFoundError();
