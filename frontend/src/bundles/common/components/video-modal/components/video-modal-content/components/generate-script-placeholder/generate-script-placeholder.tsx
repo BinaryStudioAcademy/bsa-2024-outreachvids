@@ -32,13 +32,13 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ onClose }) => {
     const dispatch = useAppDispatch();
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [isScriptAdded, setIsScriptAdded] = useState(false);
-    const { dataStatus, avatars, videoScripts } = useAppSelector(
-        ({ chat, studio }) => ({
+    const { dataStatus, avatars, videoScripts, videoScriptErrorMessage } =
+        useAppSelector(({ chat, studio }) => ({
             dataStatus: chat.dataStatus,
             videoScripts: chat.videoScripts,
+            videoScriptErrorMessage: chat.videoScriptErrorMessage,
             avatars: studio.avatars,
-        }),
-    );
+        }));
 
     const renderLoadingState = (): React.ReactNode => (
         <Box mt="100px">
@@ -53,6 +53,13 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ onClose }) => {
         />
     );
 
+    const renderErrorMessage = (): React.ReactNode => (
+        <GenerateScriptPlaceholderContent
+            message={videoScriptErrorMessage}
+            icon={IconName.WARNING}
+        />
+    );
+
     const renderScripts = (): React.ReactNode => (
         <>
             {videoScripts.map((videoScript, index) => (
@@ -64,6 +71,9 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ onClose }) => {
     const getContent = (): React.ReactNode => {
         if (dataStatus === DataStatus.PENDING) {
             return renderLoadingState();
+        }
+        if (videoScriptErrorMessage) {
+            return renderErrorMessage();
         }
         if (videoScripts.length === EMPTY_VALUE) {
             return renderEmptyState();

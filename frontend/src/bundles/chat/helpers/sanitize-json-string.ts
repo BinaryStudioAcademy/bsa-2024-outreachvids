@@ -1,6 +1,6 @@
 const sanitizeJsonString = (input: string): string => {
-    const sanitized = input.replaceAll('`', '').replaceAll('json', '');
-    return sanitized.trim();
+    const match = input.match(/\[.*]/s);
+    return match ? match[0].trim() : input.trim();
 };
 
 export { sanitizeJsonString };

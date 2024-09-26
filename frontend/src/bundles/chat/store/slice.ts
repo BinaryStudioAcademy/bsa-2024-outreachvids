@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { DEFAULT_SCENE_TITLE } from '~/bundles/chat/constants/constants.js';
 import { MessageSender } from '~/bundles/chat/enums/enums.js';
 import { sanitizeJsonString } from '~/bundles/chat/helpers/helpers.js';
 import {
@@ -22,12 +21,14 @@ import { deleteChat, sendMessage } from './actions.js';
 type State = {
     messages: Message[];
     videoScripts: VideoScript[];
+    videoScriptErrorMessage: string;
     dataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
     messages: [],
     videoScripts: [],
+    videoScriptErrorMessage: '',
     dataStatus: DataStatus.IDLE,
 };
 
@@ -52,15 +53,12 @@ const { reducer, actions, name } = createSlice({
             try {
                 const sanitizedJson = sanitizeJsonString(lastMessage.text);
                 const videoScripts: VideoScript[] = JSON.parse(sanitizedJson);
-
                 state.videoScripts = videoScripts;
+                state.videoScriptErrorMessage = '';
             } catch {
-                state.videoScripts = [
-                    {
-                        title: DEFAULT_SCENE_TITLE,
-                        description: lastMessage.text,
-                    },
-                ];
+                state.videoScripts = [];
+                state.videoScriptErrorMessage =
+                    'There was an error Generating the Script, please Re-Generate';
             }
         },
     },
@@ -101,6 +99,7 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(deleteChat.fulfilled, (state) => {
             state.messages = [];
             state.videoScripts = [];
+            state.videoScriptErrorMessage = '';
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(deleteChat.rejected, (state) => {
