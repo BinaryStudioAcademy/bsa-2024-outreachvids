@@ -33,9 +33,8 @@ class PublicVideoController extends BaseController {
 
         return {
             status: HTTPCode.OK,
-            payload: await this.publicVideoService.findUrlByToken(
-                videoTokenHeader,
-            ),
+            payload:
+                await this.publicVideoService.findUrlByToken(videoTokenHeader),
         };
     }
 }
