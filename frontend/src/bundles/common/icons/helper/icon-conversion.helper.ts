@@ -1,6 +1,7 @@
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
+    faCircle,
     faCircleUser,
     faCloudArrowDown,
     faCloudArrowUp,
@@ -47,11 +48,13 @@ const VolumeOff = convertIcon(faVolumeOff);
 const Stop = convertIcon(faStop);
 const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
+const Circle = convertIcon(faCircle);
 const HeartFill = convertIcon(faHeart);
 const HeartOutline = convertIcon(faHeartRegular);
 
 export {
     BackwardStep,
+    Circle,
     CircleUser,
     CloudArrowDown,
     CloudArrowUp,
