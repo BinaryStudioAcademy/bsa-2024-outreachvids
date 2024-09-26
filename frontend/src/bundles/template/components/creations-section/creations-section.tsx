@@ -4,7 +4,7 @@ import {
     Flex,
     Heading,
 } from '~/bundles/common/components/components.js';
-import { Dots } from '~/bundles/my-avatar/components/components.js';
+import { Circles, Dots } from '~/bundles/my-avatar/components/components.js';
 import { type Template } from '~/bundles/template/types/types.js';
 
 import { TemplateCard } from '../template-card/template-card.js';
@@ -50,6 +50,7 @@ const CreationsSection: React.FC<Properties> = ({ onClick }) => {
                     maxWidth="340px"
                 >
                     <Box w={{ base: '222px', sm: '222px' }} position="relative">
+                        <Circles/>
                         <Dots />
                         <Button
                             label="Create Your First Template"

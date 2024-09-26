@@ -4,14 +4,23 @@
     justify-content: center;
 }
 
-.background {
-    background-size: cover;
+.image {
+    position: absolute;
+    object-fit: cover;
+    z-index: 2;
     height: 100%;
     width: 100%;
-    justify-content: center;
 }
 
-.image {
+.background {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+}
+
+.avatar {
+    z-index: 3;
     position: absolute;
     object-fit: contain;
     bottom: 0;

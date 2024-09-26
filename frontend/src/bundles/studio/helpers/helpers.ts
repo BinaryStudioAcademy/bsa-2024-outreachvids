@@ -1,3 +1,6 @@
+export { addScene } from './add-scene.js';
+export { addScript } from './add-script.js';
+export { createDefaultAvatarFromRequest } from './create-default-avatar.js';
 export { getDestinationPointerValue } from './get-destination-pointer-value.js';
 export { getElementEnd } from './get-element-end.js';
 export { getNewItemIndexBySpan } from './get-new-item-index.js';
