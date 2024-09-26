@@ -1,4 +1,5 @@
 import {
+    createTemplate,
     generateAllScriptsSpeech,
     generateScriptSpeech,
     generateScriptSpeechPreview,
@@ -24,6 +25,7 @@ const allActions = {
     updateVideo,
     loadPublicTemplates,
     loadUserTemplates,
+    createTemplate,
 };
 
 export { allActions as actions };

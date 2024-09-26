@@ -37,6 +37,7 @@ import {
     type Voice,
 } from '../types/types.js';
 import {
+    createTemplate,
     generateAllScriptsSpeech,
     generateScriptSpeech,
     generateScriptSpeechPreview,
@@ -555,6 +556,16 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.REJECTED;
             state.templates.user = [];
             state.templates.isUserLoaded = false;
+        });
+        builder.addCase(createTemplate.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(createTemplate.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.templates.user = [...state.templates.user, action.payload];
+        });
+        builder.addCase(createTemplate.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
         });
     },
 });

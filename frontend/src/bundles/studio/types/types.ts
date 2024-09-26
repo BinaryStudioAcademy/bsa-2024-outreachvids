@@ -13,6 +13,8 @@ export {
 export {
     type Composition,
     type Script as CompositionScript,
+    type CreateTemplateRequestDto,
+    type CreateTemplateResponseDto,
     type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,

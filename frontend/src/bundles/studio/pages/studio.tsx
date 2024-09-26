@@ -38,6 +38,8 @@ import {
 } from '../components/components.js';
 import {
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
+    TEMPLATE_SAVE_FAILED_NOTOFICATION_ID,
+    TEMPLATE_SAVE_NOTOFICATION_ID,
     VIDEO_SAVE_FAILED_NOTIFICATION_ID,
     VIDEO_SAVE_NOTIFICATION_ID,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
@@ -181,6 +183,24 @@ const Studio: React.FC = () => {
         [dispatch],
     );
 
+    const handleSaveTemplate = useCallback((): void => {
+        void dispatch(studioActions.createTemplate())
+            .then(() => {
+                notificationService.success({
+                    id: TEMPLATE_SAVE_NOTOFICATION_ID,
+                    message: NotificationMessage.TEMPLATE_SAVE,
+                    title: NotificationTitle.TEMPLATE_SAVED,
+                });
+            })
+            .catch(() => {
+                notificationService.error({
+                    id: TEMPLATE_SAVE_FAILED_NOTOFICATION_ID,
+                    message: NotificationMessage.TEMPLATE_SAVE_FAILED,
+                    title: NotificationTitle.TEMPLATE_SAVE_FAILED,
+                });
+            });
+    }, [dispatch]);
+
     const { isPlaying, url } = scriptPlayer;
 
     return (
@@ -223,6 +243,9 @@ const Studio: React.FC = () => {
                                 </MenuItem>
                                 <MenuItem onClick={handleSubmit}>
                                     Submit to render
+                                </MenuItem>
+                                <MenuItem onClick={handleSaveTemplate}>
+                                    Save as template
                                 </MenuItem>
                             </MenuList>
                         </Menu>

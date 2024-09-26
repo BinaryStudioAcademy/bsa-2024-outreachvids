@@ -4,7 +4,11 @@ import { BaseHttpApi } from '~/framework/http-api/http-api.js';
 import { type Storage } from '~/framework/storage/storage.js';
 
 import { TemplateApiPath } from './enums/enums.js';
-import { type GetTemplatesResponseDto } from './types/types.js';
+import {
+    type CreateTemplateRequestDto,
+    type CreateTemplateResponseDto,
+    type GetTemplatesResponseDto,
+} from './types/types.js';
 
 type Constructor = {
     baseUrl: string;
@@ -41,6 +45,22 @@ class TemplatesApi extends BaseHttpApi {
         );
 
         return response.json<GetTemplatesResponseDto>();
+    }
+
+    public async createTemplate(
+        payload: CreateTemplateRequestDto,
+    ): Promise<CreateTemplateResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(TemplateApiPath.ROOT, {}),
+            {
+                method: HTTPMethod.POST,
+                contentType: ContentType.JSON,
+                payload: JSON.stringify(payload),
+                hasAuth: true,
+            },
+        );
+
+        return response.json<CreateTemplateResponseDto>();
     }
 }
 

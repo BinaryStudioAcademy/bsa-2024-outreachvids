@@ -59,12 +59,18 @@ const TemplatesContent: React.FC = () => {
                     </TabPanel>
                     <TabPanel>
                         {templates.user.length > EMPTY_VALUE ? (
-                            templates.user.map((template) => (
-                                <TemplateCard
-                                    key={template.id}
-                                    imageSource={template.previewUrl}
-                                />
-                            ))
+                            <SimpleGrid
+                                columns={2}
+                                spacingX="13px"
+                                spacingY="10px"
+                            >
+                                {templates.user.map((template) => (
+                                    <TemplateCard
+                                        key={template.id}
+                                        imageSource={template.previewUrl}
+                                    />
+                                ))}
+                            </SimpleGrid>
                         ) : (
                             <Text color="typography.600" variant="body1">
                                 You have no templates yet.
