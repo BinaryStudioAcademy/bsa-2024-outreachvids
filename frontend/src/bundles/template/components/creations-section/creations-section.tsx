@@ -50,7 +50,7 @@ const CreationsSection: React.FC<Properties> = ({ onClick }) => {
                     maxWidth="340px"
                 >
                     <Box w={{ base: '222px', sm: '222px' }} position="relative">
-                        <Circles/>
+                        <Circles />
                         <Dots />
                         <Button
                             label="Create Your First Template"
