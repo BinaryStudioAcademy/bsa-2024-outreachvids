@@ -1,0 +1,21 @@
+.complete {
+    background-color: var(--chakra-colors-background-900);
+    display: inline-flex;
+}
+
+.active {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    color: white;
+    border: 2px solid;
+    border-color: var(--chakra-colors-background-600);
+    border-radius: 50%;
+    background-color: var(--chakra-colors-background-900);
+}
+
+.incomplete {
+    color: var(--chakra-colors-background-600);
+    display: inline-flex;
+}
