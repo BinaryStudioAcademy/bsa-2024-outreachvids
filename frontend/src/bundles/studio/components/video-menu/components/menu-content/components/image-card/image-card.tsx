@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 
 type Properties = {
     imageSource: string;
-    onClick: () => void;
+    onClick?: () => void;
 };
 
 const ImageCard: React.FC<Properties> = ({ imageSource, onClick }) => {
