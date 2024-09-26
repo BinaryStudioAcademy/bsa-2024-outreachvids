@@ -2,21 +2,21 @@
     /* WebKit Browsers */
     ::-webkit-scrollbar {
         width: 12px;
-        background-color: #F5F5F5; /* Added background color */
+        background-color: #f5f5f5; /* Added background color */
     }
 
     ::-webkit-scrollbar-track {
         background: #f1f1f1;
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); /* Added box shadow */
         border-radius: 10px; /* Added border radius */
-        background-color: #F5F5F5; /* Added background color */
+        background-color: #f5f5f5; /* Added background color */
     }
 
     ::-webkit-scrollbar-thumb {
         background: #888;
         border-radius: 10px; /* Added border radius */
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); /* Added box shadow */
-        background-color: #F5F5F5; /* Added background color */
+        background-color: #f5f5f5; /* Added background color */
     }
 
     ::-webkit-scrollbar-thumb:hover {

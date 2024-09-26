@@ -222,8 +222,8 @@ const Studio: React.FC = () => {
                 display="flex"
                 flexDirection="column"
                 overflowY={'hidden'}
-            className={styles['scrollableContainer']}
-        >
+                className={styles['scrollableContainer']}
+            >
                 <WarningModal
                     isOpen={isModalOpen}
                     onClose={handleCloseModal}
