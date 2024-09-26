@@ -73,7 +73,21 @@ class ScriptProcessor {
         voice: string;
         scene: Scene;
     }): void {
-        if (text && this.currentAvatar) {
+        if (!text || !this.currentAvatar) {
+            return;
+        }
+
+        const lastScene = this.result.at(-1);
+
+        if (
+            lastScene &&
+            lastScene.avatar.voice === voice &&
+            lastScene.avatar.name === this.currentAvatar.name &&
+            JSON.stringify(lastScene.background) ===
+                JSON.stringify(scene.background)
+        ) {
+            lastScene.avatar.text += ' ' + text;
+        } else {
             this.result.push({
                 ...scene,
                 id: uuidv4(),
