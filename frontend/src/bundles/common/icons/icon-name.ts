@@ -1,5 +1,6 @@
 import {
     AddIcon,
+    ArrowBackIcon,
     ArrowLeftIcon,
     ArrowRightIcon,
     CheckCircleIcon,
@@ -15,6 +16,7 @@ import {
 import { Logo, LogoText, OpenAi } from './custom-icons/custom-icons.js';
 import {
     BackwardStep,
+    Circle,
     CircleUser,
     CloudArrowDown,
     CloudArrowUp,
@@ -73,6 +75,8 @@ const IconName = {
     WARNING: WarningIcon,
     VIDEO_CAMERA: VideoCamera,
     IMAGE: Image,
+    CIRCLE: Circle,
+    ARROW_BACK: ArrowBackIcon,
 } as const;
 
 export { IconName };

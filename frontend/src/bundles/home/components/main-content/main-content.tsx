@@ -11,6 +11,7 @@ import {
     useAppSelector,
     useContext,
     useEffect,
+    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 import {
@@ -23,6 +24,7 @@ import {
 } from '~/bundles/home/enums/enums.js';
 import { VideoGallery } from '~/bundles/home/enums/video-gallery.js';
 import { actions as homeActions } from '~/bundles/home/store/home.js';
+import { type VideoGetAllItemResponseDto } from '~/bundles/home/types/types.js';
 
 import { VideoSection } from '../components.js';
 import styles from './styles.module.css';
@@ -75,6 +77,20 @@ const MainContent: React.FC = () => {
         };
     }, [dispatch, socket]);
 
+    const recentVideos = useMemo(() => {
+        return [...videos].sort(
+            (
+                firstVideo: VideoGetAllItemResponseDto,
+                secondVideo: VideoGetAllItemResponseDto,
+            ) => {
+                return (
+                    new Date(secondVideo.createdAt).getTime() -
+                    new Date(firstVideo.createdAt).getTime()
+                );
+            },
+        );
+    }, [videos]);
+
     return (
         <Box
             className={styles['main-content']}
@@ -84,7 +100,10 @@ const MainContent: React.FC = () => {
                 <Loader />
             </Overlay>
 
-            <VideoSection videos={videos} title={VideoGallery.RECENT_VIDEOS} />
+            <VideoSection
+                videos={recentVideos}
+                title={VideoGallery.RECENT_VIDEOS}
+            />
             <VideoSection videos={videos} title={VideoGallery.VIDEOS} />
         </Box>
     );
