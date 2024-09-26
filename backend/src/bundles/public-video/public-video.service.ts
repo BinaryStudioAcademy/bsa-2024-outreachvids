@@ -23,7 +23,7 @@ class PublicVideoService {
             this.throwVideoNotFoundError();
         }
 
-        const url = video.toObject().url;
+        const { url } = video.toObject();
         if (!url) {
             this.throwVideoNotFoundError();
         }

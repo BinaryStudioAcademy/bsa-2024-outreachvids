@@ -100,7 +100,7 @@ class VideosApi extends BaseHttpApi {
 
     public async getVideoIdJWT(id: string): Promise<string> {
         const response = await this.load(
-            this.getFullEndpoint(`${VideosApiPath.ROOT}${id}/share`, {}),
+            this.getFullEndpoint(`${VideosApiPath.ROOT}${id}${VideosApiPath.SHARE}`, {}),
             {
                 method: HTTPMethod.GET,
                 contentType: ContentType.JSON,

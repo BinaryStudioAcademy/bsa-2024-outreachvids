@@ -110,7 +110,7 @@ class VideoController extends BaseController {
                 ),
         });
         this.addRoute({
-            path: `${VideosApiPath.ID}/share`,
+            path: `${VideosApiPath.ID}${VideosApiPath.SHARE}`,
             method: HTTPMethod.GET,
             handler: (options) => {
                 return this.createVideoIdJWT(

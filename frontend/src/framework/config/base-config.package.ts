@@ -20,6 +20,9 @@ class BaseConfig implements Config {
                     'VITE_APP_SOCKET_ORIGIN_URL'
                 ] as string,
             },
+            DEPLOYMENT: {
+                URL: import.meta.env['DEPLOYMENT_URL'] as string,
+            },
         };
     }
 }

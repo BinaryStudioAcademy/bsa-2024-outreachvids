@@ -9,6 +9,9 @@ type EnvironmentSchema = {
         ORIGIN_URL: string;
         SOCKET_ORIGIN_URL: string;
     };
+    DEPLOYMENT: {
+        URL: string;
+    };
 };
 
 export { type EnvironmentSchema };
