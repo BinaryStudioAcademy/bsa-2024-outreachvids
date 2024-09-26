@@ -6,6 +6,7 @@ import {
     IconButton,
     Link,
     Spacer,
+    Text,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
@@ -106,6 +107,28 @@ const Sidebar: React.FC<Properties> = ({ children }) => {
                         />
                     </Link>
                 </Box>
+
+                <Text color="background.600" mt="30px" fontSize="small">
+                    Assets
+                </Text>
+
+                <Box>
+                    <Link to={AppRoute.AI_AVATARS}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.AI_AVATARS)}
+                            icon={
+                                <Icon
+                                    as={IconName.AI_AVATARS}
+                                    boxSize={4}
+                                    color={activeIconPage(AppRoute.AI_AVATARS)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="AI Avatars"
+                        />
+                    </Link>
+                </Box>
+
                 <Spacer />
                 <SidebarItem
                     color="brand.secondary.600"
