@@ -74,6 +74,7 @@ export {
     TabPanel,
     TabPanels,
     Tabs,
+    Tag,
     Text,
     Tooltip,
     UnorderedList,
