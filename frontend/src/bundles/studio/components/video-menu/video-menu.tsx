@@ -19,6 +19,7 @@ import {
     AvatarsContent,
     BackgroundsContent,
     ScriptContent,
+    TemplatesContent,
 } from './components/menu-content/content.js';
 // import {
 //     AssetsContent,
@@ -66,11 +67,11 @@ const VideoMenu: React.FC = () => {
     // TODO: Uncomment menu items after demo
 
     const menuItems: Record<ValueOf<typeof MenuItems>, MenuItem> = {
-        // templates: {
-        //     label: 'Templates',
-        //     icon: <Icon as={IconName.TEMPLATE} />,
-        //     getContent: () => <TemplatesContent />,
-        // },
+        templates: {
+            label: 'Templates',
+            icon: <Icon as={IconName.TEMPLATE} />,
+            getContent: () => <TemplatesContent />,
+        },
         avatars: {
             label: 'Avatars',
             icon: <Icon as={IconName.AVATAR} />,
