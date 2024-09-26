@@ -3,20 +3,18 @@ import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import { useAppSelector } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
-import { type VideoScript } from '~/bundles/common/types/types.js';
 
 import { GenerateScriptPlaceholderContent } from '../generate-script-placeholder-content/generate-script-placeholder-content.js';
 import { GenerateScriptScene } from '../generate-script-scene/generate-script-scene.js';
 import styles from './styles.module.css';
 
-type Properties = {
-    videoScripts: VideoScript[];
-};
-
-const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
-    const { dataStatus } = useAppSelector(({ chat }) => ({
-        dataStatus: chat.dataStatus,
-    }));
+const GenerateScriptPlaceholder: React.FC = () => {
+    const { dataStatus, videoScripts, videoScriptErrorMessage } =
+        useAppSelector(({ chat }) => ({
+            dataStatus: chat.dataStatus,
+            videoScripts: chat.videoScripts,
+            videoScriptErrorMessage: chat.videoScriptErrorMessage,
+        }));
 
     const renderLoadingState = (): React.ReactNode => (
         <Box mt="100px">
@@ -31,6 +29,13 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
         />
     );
 
+    const renderErrorMessage = (): React.ReactNode => (
+        <GenerateScriptPlaceholderContent
+            message={videoScriptErrorMessage}
+            icon={IconName.WARNING}
+        />
+    );
+
     const renderScripts = (): React.ReactNode => (
         <>
             {videoScripts.map((videoScript, index) => (
@@ -42,6 +47,9 @@ const GenerateScriptPlaceholder: React.FC<Properties> = ({ videoScripts }) => {
     const getContent = (): React.ReactNode => {
         if (dataStatus === DataStatus.PENDING) {
             return renderLoadingState();
+        }
+        if (videoScriptErrorMessage) {
+            return renderErrorMessage();
         }
         if (videoScripts.length === EMPTY_VALUE) {
             return renderEmptyState();
