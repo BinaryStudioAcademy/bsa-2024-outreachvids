@@ -13,7 +13,7 @@ import {
 import { useFormField } from '~/bundles/common/hooks/hooks.js';
 
 type Properties<T extends FormValues> = {
-    label: string;
+    label?: string;
     name: FieldInputProps<T>['name'];
     children: React.ReactNode;
     isRequired?: boolean;
@@ -31,7 +31,7 @@ const Select: React.FC<Properties<FormValues>> = ({
 
     return (
         <FormControl isInvalid={!isValid} isRequired={isRequired}>
-            <FormLabel htmlFor={name}>{label}</FormLabel>
+            {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
             <Field
                 {...field}
                 id={name}

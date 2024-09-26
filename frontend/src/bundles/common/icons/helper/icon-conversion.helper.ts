@@ -9,6 +9,7 @@ import {
     faForwardStep,
     faHouse,
     faImage,
+    faMagnifyingGlass,
     faPause,
     faPen,
     faPlay,
@@ -45,6 +46,7 @@ const VolumeOff = convertIcon(faVolumeOff);
 const Stop = convertIcon(faStop);
 const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
+const Magnifying = convertIcon(faMagnifyingGlass);
 
 export {
     BackwardStep,
@@ -57,6 +59,7 @@ export {
     ForwardStep,
     House,
     Image,
+    Magnifying,
     Pause,
     Pen,
     Play,

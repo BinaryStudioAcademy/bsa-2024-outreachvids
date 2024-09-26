@@ -24,6 +24,7 @@ import {
     ForwardStep,
     House,
     Image,
+    Magnifying,
     Pause,
     Pen,
     Play,
@@ -73,6 +74,7 @@ const IconName = {
     WARNING: WarningIcon,
     VIDEO_CAMERA: VideoCamera,
     IMAGE: Image,
+    MAGNIFYING: Magnifying,
 } as const;
 
 export { IconName };

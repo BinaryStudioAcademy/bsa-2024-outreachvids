@@ -46,6 +46,7 @@ export {
     IconButton,
     Image,
     InputGroup,
+    InputLeftElement,
     InputRightElement,
     Button as LibraryButton,
     Input as LibraryInput,
