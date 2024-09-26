@@ -1,0 +1,3 @@
+const VIDEO_RENDER_FAILED_NOTIFICATION_ID = 'video-render-failed';
+
+export { VIDEO_RENDER_FAILED_NOTIFICATION_ID };
