@@ -17,6 +17,7 @@ import {
     faStop,
     faT,
     faTableColumns,
+    faUserLarge,
     faVideoCamera,
     faVolumeHigh,
     faVolumeOff,
@@ -45,8 +46,10 @@ const VolumeOff = convertIcon(faVolumeOff);
 const Stop = convertIcon(faStop);
 const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
+const AIAvatars = convertIcon(faUserLarge);
 
 export {
+    AIAvatars,
     BackwardStep,
     CircleUser,
     CloudArrowDown,

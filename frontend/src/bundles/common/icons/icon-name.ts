@@ -14,6 +14,7 @@ import {
 
 import { Logo, LogoText, OpenAi } from './custom-icons/custom-icons.js';
 import {
+    AIAvatars,
     BackwardStep,
     CircleUser,
     CloudArrowDown,
@@ -38,6 +39,7 @@ import {
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
+    AI_AVATARS: AIAvatars,
     CHEVRON_DOWN: ChevronDownIcon,
     PEN: Pen,
     HOME: House,
