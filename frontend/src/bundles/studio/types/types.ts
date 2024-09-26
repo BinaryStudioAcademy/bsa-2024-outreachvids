@@ -16,6 +16,7 @@ export {
     type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
+    type GetTemplatesResponseDto,
     type GetVoicesResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,

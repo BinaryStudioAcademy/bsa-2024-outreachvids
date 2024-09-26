@@ -57,6 +57,7 @@ export {
     type Template,
     type UpdateTemplateRequestDto,
     createTemplateValidationSchema,
+    TemplateApiPath,
     TemplateValidationErrorMessage,
     updateTemplateValidationSchema,
 } from './bundles/templates/templates.js';
