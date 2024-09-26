@@ -1,4 +1,7 @@
-import { type UpdateVideoRequestDto } from '~/bundles/videos/types/types.js';
+import {
+    type Scene,
+    type UpdateVideoRequestDto,
+} from '~/bundles/videos/types/types.js';
 import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoModel } from '~/bundles/videos/video.model.js';
 import { type ImageService } from '~/common/services/image/image.service.js';
@@ -65,7 +68,7 @@ class VideoRepository implements Repository {
         if (payload.composition) {
             data.composition = payload.composition;
             data.previewUrl = await this.imageService.generatePreview(
-                payload.composition,
+                payload.composition.scenes[0] as Scene,
             );
         }
 

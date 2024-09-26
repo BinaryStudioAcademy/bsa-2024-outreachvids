@@ -1,1 +1,1 @@
-export { type Composition } from 'shared';
+export { type Scene } from 'shared';
