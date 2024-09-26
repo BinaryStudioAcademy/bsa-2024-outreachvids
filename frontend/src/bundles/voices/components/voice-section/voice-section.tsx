@@ -6,6 +6,7 @@ import {
     SimpleGrid,
     Text,
 } from '~/bundles/common/components/components.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
 import { type Voice } from '~/bundles/home/types/types.js';
 import { VoiceCard } from '~/bundles/voices/components/components.js';
 import { VoicesSections } from '~/bundles/voices/enums/voices-sections.js';
@@ -34,7 +35,7 @@ const VoiceSection: React.FC<Properties> = ({ voices, title }) => {
                 </Badge>
             </Flex>
 
-            {voices.length > 0 ? (
+            {voices.length > EMPTY_VALUE ? (
                 title === VoicesSections.MY_VOICES ? (
                     <Box className={styles['horizontal']}>
                         {voices.map((voice) => (

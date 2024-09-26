@@ -18,6 +18,7 @@ import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { actions as homeActions } from '~/bundles/home/store/home.js';
 import { type Voice } from '~/bundles/home/types/types.js';
 import { Control } from '~/bundles/studio/components/control/control.js';
+import { TEXT_FOR_VOICES } from '~/bundles/voices/constants/constants.js';
 
 type Properties = {
     voice: Voice;
@@ -27,9 +28,6 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
     const [url, setUrl] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useAppDispatch();
-
-    const text =
-        'Hello, I can handle video speech for you, choose me if you like it!';
 
     const { isPlaying: playerIsPlaying, url: playerUrl } = useAppSelector(
         ({ home }) => home.voicePlayer,
@@ -53,7 +51,7 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
             void dispatch(
                 homeActions.generateScriptSpeechPreview({
                     scriptId: uuidv4(),
-                    text,
+                    text: TEXT_FOR_VOICES,
                     voiceName: voice.shortName,
                 }),
             )
@@ -69,16 +67,7 @@ const VoiceCard: React.FC<Properties> = ({ voice }) => {
                     );
                 });
         },
-        [
-            dispatch,
-            text,
-            url,
-            voice,
-            isPlaying,
-            setUrl,
-            setIsLoading,
-            isLoading,
-        ],
+        [dispatch, url, voice, isPlaying, setUrl, setIsLoading, isLoading],
     );
     const handleLikeClick = useCallback((): void => {
         dispatch(homeActions.toogleVoiceLike(voice.shortName));

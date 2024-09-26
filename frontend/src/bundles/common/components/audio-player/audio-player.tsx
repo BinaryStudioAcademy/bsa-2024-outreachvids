@@ -41,7 +41,9 @@ const AudioPlayer: React.FC<Properties> = ({
         getAudioData(audioUrl)
             .then(({ durationInSeconds }) => {
                 setDurationInFrames(Math.round(durationInSeconds * FPS));
-                onSetDuration && onSetDuration(durationInSeconds);
+                if (onSetDuration) {
+                    onSetDuration(durationInSeconds);
+                }
             })
             .catch(() => {
                 setDurationInFrames(1);
