@@ -55,7 +55,7 @@ const VideoModalContent: React.FC<Properties> = ({ onClose }) => {
                     <VideoPreview onClose={onClose} />
                 </TabPanel>
                 <TabPanel p="0px 24px">
-                    <GenerateScriptView />
+                    <GenerateScriptView onClose={onClose} />
                 </TabPanel>
             </TabPanels>
         </Tabs>

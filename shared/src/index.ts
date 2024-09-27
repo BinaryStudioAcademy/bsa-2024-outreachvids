@@ -12,6 +12,7 @@ export {
     type VideoCodec,
     type VideoFormat,
     AvatarVideosApiPath,
+    compositionValidationSchema,
     renderAvatarVideoValidationSchema,
 } from './bundles/avatar-videos/avatar-videos.js';
 export {
@@ -49,6 +50,17 @@ export {
     SpeechApiPath,
 } from './bundles/speech/speech.js';
 export {
+    type CreateTemplateRequestDto,
+    type CreateTemplateResponseDto,
+    type GetTemplateRequestDto,
+    type GetTemplatesResponseDto,
+    type Template,
+    type UpdateTemplateRequestDto,
+    createTemplateValidationSchema,
+    TemplateValidationErrorMessage,
+    updateTemplateValidationSchema,
+} from './bundles/templates/templates.js';
+export {
     type UserGetAllItemResponseDto,
     type UserGetAllResponseDto,
     type UserGetCurrentResponseDto,
@@ -77,7 +89,12 @@ export {
     VideosApiPath,
     VideoValidationMessage,
 } from './bundles/videos/videos.js';
-export { EMPTY_VALUE, LAST_ELEMENT_INDEX } from './constants/constants.js';
+export {
+    EMPTY_VALUE,
+    FIRST_INDEX,
+    LAST_ELEMENT_INDEX,
+    LAST_INDEX_OFFSET,
+} from './constants/constants.js';
 export {
     ApiPath,
     AppEnvironment,

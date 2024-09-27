@@ -13,7 +13,7 @@ import {
     WarningIcon,
 } from '@chakra-ui/icons';
 
-import { Logo, LogoText, OpenAi } from './custom-icons/custom-icons.js';
+import { Logo, LogoText, OpenAi, Voice } from './custom-icons/custom-icons.js';
 import {
     BackwardStep,
     Circle,
@@ -25,8 +25,11 @@ import {
     FileLines,
     Font,
     ForwardStep,
+    HeartFill,
+    HeartOutline,
     House,
     Image,
+    Magnifying,
     Pause,
     Pen,
     Play,
@@ -79,6 +82,10 @@ const IconName = {
     CIRCLE: Circle,
     ARROW_BACK: ArrowBackIcon,
     COPY: Copy,
+    VOICE: Voice,
+    HEART_FILL: HeartFill,
+    HEART_OUTLINE: HeartOutline,
+    MAGNIFYING: Magnifying,
 } as const;
 
 export { IconName };

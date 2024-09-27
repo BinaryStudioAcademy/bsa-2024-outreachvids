@@ -1,5 +1,6 @@
 import { type PlayerRef } from '@remotion/player';
 
+import { AudioPlayer } from '~/bundles/common/components/audio-player/audio-player.js';
 import {
     Box,
     Button,
@@ -7,10 +8,12 @@ import {
     Header,
     Icon,
     LibraryButton,
+    Loader,
     Menu,
     MenuButton,
     MenuItem,
     MenuList,
+    Overlay,
     Player,
     VStack,
 } from '~/bundles/common/components/components.js';
@@ -28,7 +31,6 @@ import {
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
 
-import { AudioPlayer } from '../components/audio-player/audio-player.js';
 import {
     PlayerControls,
     Timeline,
@@ -44,7 +46,11 @@ import {
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
-import { getVoicesConfigs, scenesExceedScripts } from '../helpers/helpers.js';
+import {
+    areAllScenesWithAvatar,
+    getVoicesConfigs,
+    scenesExceedScripts,
+} from '../helpers/helpers.js';
 import { selectVideoDataById } from '../store/selectors.js';
 import { actions as studioActions } from '../store/studio.js';
 
@@ -56,8 +62,16 @@ const Studio: React.FC = () => {
         selectVideoDataById(state, locationState?.id),
     );
 
-    const { scenes, scripts, videoName, videoId, scriptPlayer, videoSize } =
-        useAppSelector(({ studio }) => studio);
+    const {
+        scenes,
+        scripts,
+        videoName,
+        videoSize,
+        videoId,
+        scriptPlayer,
+        isVideoScriptsGenerationReady,
+        isVideoScriptsGenerationPending,
+    } = useAppSelector(({ studio }) => studio);
 
     const playerReference = useRef<PlayerRef>(null);
     const dispatch = useAppDispatch();
@@ -83,15 +97,14 @@ const Studio: React.FC = () => {
 
     const handleConfirmSubmit = useCallback(() => {
         // TODO: REPLACE LOGIC WITH MULTIPLE SCENES
-        const scene = scenes[0];
+
         const script = scripts[0];
-        if (!scene?.avatar || !script) {
-            notificationService.warn({
+        if (!areAllScenesWithAvatar(scenes) || !script) {
+            return notificationService.warn({
                 id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
                 message: NotificationMessage.SCRIPT_AND_AVATAR_ARE_REQUIRED,
                 title: NotificationTitle.SCRIPT_AND_AVATAR_ARE_REQUIRED,
             });
-            return;
         }
 
         void dispatch(studioActions.generateAllScriptsSpeech())
@@ -148,7 +161,6 @@ const Studio: React.FC = () => {
                 composition: {
                     scenes,
                     scripts: getVoicesConfigs(scripts),
-                    // TODO : CHANGE TO ENUM
                     videoOrientation: videoSize,
                 },
                 name: videoName,
@@ -181,75 +193,98 @@ const Studio: React.FC = () => {
         [dispatch],
     );
 
+    useEffect(() => {
+        if (isVideoScriptsGenerationReady) {
+            dispatch(studioActions.setVideoScriptToPending());
+            dispatch(studioActions.generateAllScriptsSpeech())
+                .then(() => {
+                    dispatch(
+                        studioActions.recalculateScenesDurationForScript(),
+                    );
+                })
+                .catch(() => {})
+                .finally(() => {
+                    dispatch(studioActions.setVideoScriptToComplete());
+                });
+        }
+    }, [dispatch, isVideoScriptsGenerationReady]);
+
     const { isPlaying, url } = scriptPlayer;
 
     return (
-        <Box
-            minHeight="100vh"
-            height="100%"
-            position="relative"
-            display="flex"
-            flexDirection="column"
-        >
-            <WarningModal
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-                onSubmit={handleConfirmSubmit}
-            />
-            <Header
-                center={
-                    <Button
-                        variant="primaryOutlined"
-                        label="Resize"
-                        width="135px"
-                        onClick={handleResize}
-                    />
-                }
-                right={
-                    <Flex gap="10px">
-                        <VideoNameInput />
-                        <Menu>
-                            <MenuButton
-                                variant="primaryOutlined"
-                                as={LibraryButton}
-                                rightIcon={<Icon as={IconName.CHEVRON_DOWN} />}
-                                flexShrink={0}
-                            >
-                                Submit
-                            </MenuButton>
-                            <MenuList>
-                                <MenuItem onClick={handleSaveDraft}>
-                                    Save draft
-                                </MenuItem>
-                                <MenuItem onClick={handleSubmit}>
-                                    Submit to render
-                                </MenuItem>
-                            </MenuList>
-                        </Menu>
-                    </Flex>
-                }
-            />
-
-            <VideoMenu />
-            <Box flex="1 1 auto">
-                <Player playerRef={playerReference} />
-            </Box>
-
-            <VStack alignItems="stretch">
-                <PlayerControls playerRef={playerReference} />
-                <Box overflowY="auto">
-                    <Timeline playerRef={playerReference} />
-                </Box>
-            </VStack>
-            {url && (
-                <AudioPlayer
-                    isPlaying={isPlaying}
-                    audioUrl={url}
-                    onAudioEnd={handleAudioEnd}
-                    onSetDuration={handleSetScriptDuration}
+        <>
+            <Overlay isOpen={isVideoScriptsGenerationPending}>
+                <Loader />
+            </Overlay>
+            <Box
+                minHeight="100vh"
+                height="100%"
+                position="relative"
+                display="flex"
+                flexDirection="column"
+            >
+                <WarningModal
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    onSubmit={handleConfirmSubmit}
                 />
-            )}
-        </Box>
+                <Header
+                    center={
+                        <Button
+                            variant="primaryOutlined"
+                            label="Resize"
+                            width="135px"
+                            onClick={handleResize}
+                        />
+                    }
+                    right={
+                        <Flex gap="10px">
+                            <VideoNameInput />
+                            <Menu>
+                                <MenuButton
+                                    variant="primaryOutlined"
+                                    as={LibraryButton}
+                                    rightIcon={
+                                        <Icon as={IconName.CHEVRON_DOWN} />
+                                    }
+                                    flexShrink={0}
+                                >
+                                    Submit
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem onClick={handleSaveDraft}>
+                                        Save draft
+                                    </MenuItem>
+                                    <MenuItem onClick={handleSubmit}>
+                                        Submit to render
+                                    </MenuItem>
+                                </MenuList>
+                            </Menu>
+                        </Flex>
+                    }
+                />
+
+                <VideoMenu />
+                <Box flex="1 1 auto">
+                    <Player playerRef={playerReference} />
+                </Box>
+
+                <VStack alignItems="stretch">
+                    <PlayerControls playerRef={playerReference} />
+                    <Box overflowY="auto">
+                        <Timeline playerRef={playerReference} />
+                    </Box>
+                </VStack>
+                {url && (
+                    <AudioPlayer
+                        isPlaying={isPlaying}
+                        audioUrl={url}
+                        onAudioEnd={handleAudioEnd}
+                        onSetDuration={handleSetScriptDuration}
+                    />
+                )}
+            </Box>
+        </>
     );
 };
 

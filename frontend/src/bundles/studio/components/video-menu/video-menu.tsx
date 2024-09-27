@@ -28,7 +28,10 @@ import {
 import { type MenuItem } from './types/types.js';
 
 const VideoMenu: React.FC = () => {
-    const activeItem = useAppSelector(({ studio }) => studio.ui.menuActiveItem);
+    const { selectedItem, activeItem } = useAppSelector(({ studio }) => ({
+        selectedItem: studio.ui.selectedItem,
+        activeItem: studio.ui.menuActiveItem,
+    }));
 
     const dispatch = useAppDispatch();
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -54,8 +57,6 @@ const VideoMenu: React.FC = () => {
         setIsChatOpen(false);
     }, []);
 
-    const { selectedItem } = useAppSelector(({ studio }) => studio.ui);
-
     useEffect(() => {
         if (selectedItem?.type === 'script') {
             setActiveItem('script');
@@ -64,7 +65,6 @@ const VideoMenu: React.FC = () => {
     }, [selectedItem, setActiveItem, dispatch]);
 
     // TODO: Uncomment menu items after demo
-
     const menuItems: Record<ValueOf<typeof MenuItems>, MenuItem> = {
         // templates: {
         //     label: 'Templates',

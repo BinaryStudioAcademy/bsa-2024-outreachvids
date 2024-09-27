@@ -1,0 +1,14 @@
+.play-button {
+    position: absolute;
+    background-color: white;
+    top: 5px;
+    right: 5px;
+}
+
+.preview-image {
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}

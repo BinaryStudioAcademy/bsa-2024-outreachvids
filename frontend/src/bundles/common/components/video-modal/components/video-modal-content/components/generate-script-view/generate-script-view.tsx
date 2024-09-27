@@ -22,7 +22,10 @@ import { GenerateScriptForm } from '../generate-script-form/generate-script-form
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
 import styles from './styles.module.css';
 
-const GenerateScriptView: React.FC = () => {
+type Properties = {
+    onClose: () => void;
+};
+const GenerateScriptView: React.FC<Properties> = ({ onClose }) => {
     const dispatch = useAppDispatch();
     const { messages } = useAppSelector(({ chat }) => ({
         messages: chat.messages.filter(
@@ -68,7 +71,7 @@ const GenerateScriptView: React.FC = () => {
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />
-                            <GenerateScriptPlaceholder />
+                            <GenerateScriptPlaceholder onClose={onClose} />
                         </HStack>
                     </TabPanel>
                 </TabPanels>
