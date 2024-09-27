@@ -83,6 +83,7 @@ class ScriptProcessor {
             lastScene &&
             lastScene.avatar.voice === voice &&
             lastScene.avatar.name === this.currentAvatar.name &&
+            lastScene.avatar.style === this.currentAvatar.style &&
             JSON.stringify(lastScene.background) ===
                 JSON.stringify(scene.background)
         ) {
