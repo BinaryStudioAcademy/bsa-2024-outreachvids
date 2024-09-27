@@ -1,6 +1,7 @@
 import {
-    deleteVideo,     generateScriptSpeechPreview,
-getJwt,
+    deleteVideo,
+    generateScriptSpeechPreview,
+    getJwt,
     loadUserVideos,
 } from './actions.js';
 import { actions } from './slice.js';

@@ -57,4 +57,10 @@ const generateScriptSpeechPreview = createAsyncThunk<
     return speechApi.generateScriptSpeech(payload);
 });
 
-export { deleteVideo, generateScriptSpeechPreview, getJwt, loadUserVideos, loadVoices };
+export {
+    deleteVideo,
+    generateScriptSpeechPreview,
+    getJwt,
+    loadUserVideos,
+    loadVoices,
+};
