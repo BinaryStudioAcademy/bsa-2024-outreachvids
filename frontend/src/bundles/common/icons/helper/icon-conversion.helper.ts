@@ -7,6 +7,7 @@ import {
     faFileLines,
     faFont,
     faForwardStep,
+    faHeart,
     faHouse,
     faImage,
     faPause,
@@ -47,6 +48,7 @@ const Stop = convertIcon(faStop);
 const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
 const AIAvatars = convertIcon(faUserLarge);
+const Heart = convertIcon(faHeart);
 
 export {
     AIAvatars,
@@ -58,6 +60,7 @@ export {
     FileLines,
     Font,
     ForwardStep,
+    Heart,
     House,
     Image,
     Pause,

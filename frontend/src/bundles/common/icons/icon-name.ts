@@ -23,6 +23,7 @@ import {
     FileLines,
     Font,
     ForwardStep,
+    Heart,
     House,
     Image,
     Pause,
@@ -75,6 +76,7 @@ const IconName = {
     WARNING: WarningIcon,
     VIDEO_CAMERA: VideoCamera,
     IMAGE: Image,
+    HEART: Heart,
 } as const;
 
 export { IconName };
