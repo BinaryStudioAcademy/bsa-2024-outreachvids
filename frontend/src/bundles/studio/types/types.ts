@@ -18,14 +18,18 @@ export {
 export {
     type Composition,
     type Script as CompositionScript,
+    type CreateTemplateRequestDto,
+    type CreateTemplateResponseDto,
     type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
+    type GetTemplatesResponseDto,
     type GetVoicesResponseDto,
     type RenderAvatarResponseDto,
     type RenderAvatarVideoRequestDto,
     type Scene,
     type SceneAvatar,
+    type Template,
     type VideoGetAllItemResponseDto,
     type Voice,
 } from 'shared';

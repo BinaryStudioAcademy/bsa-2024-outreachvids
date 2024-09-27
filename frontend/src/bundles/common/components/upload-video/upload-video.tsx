@@ -5,7 +5,10 @@ import { VideoPlayer } from '../video-player/video-player.js';
 import { CheckboxForm, VideoDropzone } from './components/components.js';
 import styles from './styles.module.css';
 
-const UploadVideo: React.FC = () => {
+type UploadVideoProperties = {
+    onClickNext: () => void;
+};
+const UploadVideo: React.FC<UploadVideoProperties> = ({ onClickNext }) => {
     const [videoSource, setVideoSource] = useState<string | null>(null);
 
     const handleRemoveVideo = useCallback(() => {
@@ -38,7 +41,11 @@ const UploadVideo: React.FC = () => {
                         onRemoveVideo={handleRemoveVideo}
                         onSetVideo={handleSetVideo}
                     />
-                    <Button width="222px" label="Next step" />
+                    <Button
+                        width="222px"
+                        label="Next step"
+                        onClick={onClickNext}
+                    />
                 </>
             )}
         </Flex>

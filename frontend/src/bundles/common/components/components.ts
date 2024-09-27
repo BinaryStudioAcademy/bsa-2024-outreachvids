@@ -1,3 +1,4 @@
+export { AudioPlayer } from './audio-player/audio-player.js';
 export { Button } from './button/button.js';
 export { ComponentsProvider } from './components-provider/components-provider.js';
 export { Header } from './header/header.js';
@@ -47,6 +48,7 @@ export {
     IconButton,
     Image,
     InputGroup,
+    InputLeftElement,
     InputRightElement,
     Button as LibraryButton,
     Input as LibraryInput,

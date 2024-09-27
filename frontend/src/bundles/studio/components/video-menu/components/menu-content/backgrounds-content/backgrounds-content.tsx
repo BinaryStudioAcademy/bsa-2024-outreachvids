@@ -14,7 +14,7 @@ import backgroundColors from '~/bundles/studio/data/bg-colors.json';
 import backgroundImages from '~/bundles/studio/data/bg-images.json';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
-import { ColorCard, ImageCard } from './components/components.js';
+import { BackgroundImageCard, ColorCard } from './components/components.js';
 import styles from './styles.module.css';
 
 const BackgroundsContent: React.FC = () => {
@@ -43,7 +43,7 @@ const BackgroundsContent: React.FC = () => {
                             </Flex>
 
                             {backgroundImages.map((imageSource, index) => (
-                                <ImageCard
+                                <BackgroundImageCard
                                     key={index}
                                     imageSource={imageSource}
                                 />

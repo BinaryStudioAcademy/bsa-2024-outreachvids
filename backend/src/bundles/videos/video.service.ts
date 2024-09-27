@@ -1,12 +1,15 @@
 import { VideoEntity } from '~/bundles/videos/video.entity.js';
 import { type VideoRepository } from '~/bundles/videos/video.repository.js';
 import { HTTPCode, HttpError } from '~/common/http/http.js';
+import { type ImageService } from '~/common/services/image/image.service.js';
 import { type RemotionService } from '~/common/services/remotion/remotion.service.js';
+import { tokenService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
 import { VideoValidationMessage } from './enums/enums.js';
 import {
     type CreateVideoRequestDto,
+    type Scene,
     type UpdateVideoRequestDto,
     type VideoGetAllItemResponseDto,
     type VideoGetAllResponseDto,
@@ -15,13 +18,15 @@ import {
 class VideoService implements Service {
     private videoRepository: VideoRepository;
     private remotionService: RemotionService;
-
+    private imageService: ImageService;
     public constructor(
         videoRepository: VideoRepository,
         remotionService: RemotionService,
+        imageService: ImageService,
     ) {
         this.videoRepository = videoRepository;
         this.remotionService = remotionService;
+        this.imageService = imageService;
     }
 
     public async findById(id: string): Promise<VideoGetAllItemResponseDto> {
@@ -56,11 +61,15 @@ class VideoService implements Service {
     public async create(
         payload: CreateVideoRequestDto & { userId: string },
     ): Promise<VideoGetAllItemResponseDto> {
+        const previewUrl = await this.imageService.generatePreview(
+            payload.composition.scenes[0] as Scene,
+        );
+
         const video = await this.videoRepository.create(
             VideoEntity.initializeNew({
                 name: payload.name,
                 composition: payload.composition,
-                previewUrl: payload.composition?.scenes[0]?.avatar?.url ?? '',
+                previewUrl,
                 userId: payload.userId,
             }),
         );
@@ -106,6 +115,11 @@ class VideoService implements Service {
         }
 
         return isVideoDeleted;
+    }
+
+    public async getVideoIdToken(id: string): Promise<string> {
+        const token = await tokenService.createToken(id, false);
+        return token.replaceAll('.', '~');
     }
 }
 

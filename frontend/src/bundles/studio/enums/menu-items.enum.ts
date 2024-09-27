@@ -1,6 +1,6 @@
 // TODO: Uncomment menu items after demo
 const MenuItems = {
-    // TEMPLATES: 'templates',
+    TEMPLATES: 'templates',
     AVATARS: 'avatars',
     SCRIPT: 'script',
     // TEXT: 'text',

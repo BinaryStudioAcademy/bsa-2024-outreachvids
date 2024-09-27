@@ -5,9 +5,11 @@ import { type UpdateVideoRequestDto } from 'shared';
 import { type AsyncThunkConfig } from '~/bundles/common/types/types.js';
 import {
     type AvatarGetAllResponseDto,
+    type CreateTemplateResponseDto,
     type CreateVideoRequestDto,
     type GenerateSpeechRequestDto,
     type GenerateSpeechResponseDto,
+    type GetTemplatesResponseDto,
     type GetVoicesResponseDto,
     type RenderAvatarResponseDto,
     type Script,
@@ -131,11 +133,52 @@ const updateVideo = createAsyncThunk<
     return videosApi.updateVideo(payload, videoId as string);
 });
 
+const loadPublicTemplates = createAsyncThunk<
+    GetTemplatesResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/load-public-templates`, (_, { extra }) => {
+    const { templatesApi } = extra;
+
+    return templatesApi.loadPublicTemplates();
+});
+
+const loadUserTemplates = createAsyncThunk<
+    GetTemplatesResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/load-user-templates`, (_, { extra }) => {
+    const { templatesApi } = extra;
+
+    return templatesApi.loadUserTemplates();
+});
+
+const createTemplate = createAsyncThunk<
+    CreateTemplateResponseDto,
+    undefined,
+    AsyncThunkConfig
+>(`${sliceName}/create-template`, (_, { extra, getState }) => {
+    const { templatesApi } = extra;
+    const { scripts, scenes, videoName, videoSize } = getState().studio;
+
+    return templatesApi.createTemplate({
+        composition: {
+            scenes,
+            scripts: getVoicesConfigs(scripts),
+            videoOrientation: videoSize,
+        },
+        name: videoName,
+    });
+});
+
 export {
+    createTemplate,
     generateAllScriptsSpeech,
     generateScriptSpeech,
     generateScriptSpeechPreview,
     loadAvatars,
+    loadPublicTemplates,
+    loadUserTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,

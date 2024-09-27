@@ -1,5 +1,7 @@
 import { type PlayerRef } from '@remotion/player';
+import { useBlocker } from 'react-router-dom';
 
+import { AudioPlayer } from '~/bundles/common/components/audio-player/audio-player.js';
 import {
     Box,
     Button,
@@ -29,8 +31,11 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
+import {
+    UnsavedWarningContent,
+    WarningContent,
+} from '~/bundles/studio/components/warning-modal/components/components.js';
 
-import { AudioPlayer } from '../components/audio-player/audio-player.js';
 import {
     PlayerControls,
     Timeline,
@@ -40,15 +45,25 @@ import {
 } from '../components/components.js';
 import {
     SCRIPT_AND_AVATAR_ARE_REQUIRED,
+    TEMPLATE_SAVE_FAILED_NOTOFICATION_ID,
+    TEMPLATE_SAVE_NOTOFICATION_ID,
     VIDEO_SAVE_FAILED_NOTIFICATION_ID,
     VIDEO_SAVE_NOTIFICATION_ID,
     VIDEO_SUBMIT_FAILED_NOTIFICATION_ID,
     VIDEO_SUBMIT_NOTIFICATION_ID,
 } from '../constants/constants.js';
 import { NotificationMessage, NotificationTitle } from '../enums/enums.js';
-import { getVoicesConfigs, scenesExceedScripts } from '../helpers/helpers.js';
-import { selectVideoDataById } from '../store/selectors.js';
+import {
+    areAllScenesWithAvatar,
+    getVoicesConfigs,
+    scenesExceedScripts,
+} from '../helpers/helpers.js';
+import {
+    selectTemplateDataById,
+    selectVideoDataById,
+} from '../store/selectors.js';
 import { actions as studioActions } from '../store/studio.js';
+import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
     const { state: locationState } = useLocation();
@@ -56,6 +71,10 @@ const Studio: React.FC = () => {
 
     const videoData = useAppSelector((state) =>
         selectVideoDataById(state, locationState?.id),
+    );
+
+    const templateData = useAppSelector((state) =>
+        selectTemplateDataById(state, locationState?.templateId),
     );
 
     const {
@@ -67,6 +86,8 @@ const Studio: React.FC = () => {
         scriptPlayer,
         isVideoScriptsGenerationReady,
         isVideoScriptsGenerationPending,
+        isDraftSaved,
+        isSubmitToRender,
     } = useAppSelector(({ studio }) => studio);
 
     const playerReference = useRef<PlayerRef>(null);
@@ -85,7 +106,10 @@ const Studio: React.FC = () => {
         if (videoData) {
             void dispatch(studioActions.loadVideoData(videoData));
         }
-    }, [dispatch, videoData]);
+        if (templateData) {
+            void dispatch(studioActions.loadTemplate(templateData));
+        }
+    }, [dispatch, templateData, videoData]);
 
     const handleResize = useCallback(() => {
         dispatch(studioActions.changeVideoSize());
@@ -93,15 +117,14 @@ const Studio: React.FC = () => {
 
     const handleConfirmSubmit = useCallback(() => {
         // TODO: REPLACE LOGIC WITH MULTIPLE SCENES
-        const scene = scenes[0];
+
         const script = scripts[0];
-        if (!scene?.avatar || !script) {
-            notificationService.warn({
+        if (!areAllScenesWithAvatar(scenes) || !script) {
+            return notificationService.warn({
                 id: SCRIPT_AND_AVATAR_ARE_REQUIRED,
                 message: NotificationMessage.SCRIPT_AND_AVATAR_ARE_REQUIRED,
                 title: NotificationTitle.SCRIPT_AND_AVATAR_ARE_REQUIRED,
             });
-            return;
         }
 
         void dispatch(studioActions.generateAllScriptsSpeech())
@@ -115,7 +138,6 @@ const Studio: React.FC = () => {
                     message: NotificationMessage.VIDEO_SUBMITTED,
                     title: NotificationTitle.VIDEO_SUBMITTED,
                 });
-                navigate(AppRoute.ROOT);
             })
             .catch(() => {
                 notificationService.error({
@@ -124,7 +146,7 @@ const Studio: React.FC = () => {
                     title: NotificationTitle.VIDEO_SUBMIT_FAILED,
                 });
             });
-    }, [dispatch, navigate, scenes, scripts]);
+    }, [dispatch, scenes, scripts]);
 
     const handleSubmit = useCallback(() => {
         if (scenesExceedScripts(scenes, scripts)) {
@@ -158,7 +180,6 @@ const Studio: React.FC = () => {
                 composition: {
                     scenes,
                     scripts: getVoicesConfigs(scripts),
-                    // TODO : CHANGE TO ENUM
                     videoOrientation: videoSize,
                 },
                 name: videoName,
@@ -191,6 +212,24 @@ const Studio: React.FC = () => {
         [dispatch],
     );
 
+    const handleSaveTemplate = useCallback((): void => {
+        void dispatch(studioActions.createTemplate())
+            .then(() => {
+                notificationService.success({
+                    id: TEMPLATE_SAVE_NOTOFICATION_ID,
+                    message: NotificationMessage.TEMPLATE_SAVE,
+                    title: NotificationTitle.TEMPLATE_SAVED,
+                });
+            })
+            .catch(() => {
+                notificationService.error({
+                    id: TEMPLATE_SAVE_FAILED_NOTOFICATION_ID,
+                    message: NotificationMessage.TEMPLATE_SAVE_FAILED,
+                    title: NotificationTitle.TEMPLATE_SAVE_FAILED,
+                });
+            });
+    }, [dispatch]);
+
     useEffect(() => {
         if (isVideoScriptsGenerationReady) {
             dispatch(studioActions.setVideoScriptToPending());
@@ -209,6 +248,26 @@ const Studio: React.FC = () => {
 
     const { isPlaying, url } = scriptPlayer;
 
+    const blocker = useBlocker(
+        ({ currentLocation, nextLocation }) =>
+            !(isDraftSaved || isSubmitToRender) &&
+            currentLocation.pathname !== nextLocation.pathname,
+    );
+
+    const handleCloseUnsavedChangesModal = useCallback(() => {
+        blocker.reset?.();
+    }, [blocker]);
+
+    const handleSubmitUnsavedChangesModal = useCallback(() => {
+        blocker.proceed?.();
+    }, [blocker]);
+
+    useEffect(() => {
+        if (isSubmitToRender) {
+            navigate(AppRoute.ROOT);
+        }
+    }, [navigate, isSubmitToRender]);
+
     return (
         <>
             <Overlay isOpen={isVideoScriptsGenerationPending}>
@@ -220,12 +279,24 @@ const Studio: React.FC = () => {
                 position="relative"
                 display="flex"
                 flexDirection="column"
+                overflowY={'hidden'}
+                className={styles['scrollableContainer']}
             >
+                <WarningModal isOpen={isModalOpen} onClose={handleCloseModal}>
+                    <WarningContent
+                        onCancel={handleCloseModal}
+                        onSubmit={handleConfirmSubmit}
+                    />
+                </WarningModal>
                 <WarningModal
-                    isOpen={isModalOpen}
-                    onClose={handleCloseModal}
-                    onSubmit={handleConfirmSubmit}
-                />
+                    isOpen={blocker.state === 'blocked'}
+                    onClose={handleCloseUnsavedChangesModal}
+                >
+                    <UnsavedWarningContent
+                        onCancel={handleCloseUnsavedChangesModal}
+                        onSubmit={handleSubmitUnsavedChangesModal}
+                    />
+                </WarningModal>
                 <Header
                     center={
                         <Button
@@ -255,6 +326,9 @@ const Studio: React.FC = () => {
                                     </MenuItem>
                                     <MenuItem onClick={handleSubmit}>
                                         Submit to render
+                                    </MenuItem>
+                                    <MenuItem onClick={handleSaveTemplate}>
+                                        Save as template
                                     </MenuItem>
                                 </MenuList>
                             </Menu>

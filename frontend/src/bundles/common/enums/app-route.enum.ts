@@ -7,6 +7,9 @@ const AppRoute = {
     ANY: '*',
     CREATE_AVATAR: '/create-avatar',
     AI_AVATARS: '/ai-avatars',
+    PREVIEW: '/preview',
+    VOICES: '/voices',
+    TEMPLATES: '/templates',
 } as const;
 
 export { AppRoute };

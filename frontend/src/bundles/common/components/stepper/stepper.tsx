@@ -19,17 +19,22 @@ import styles from './styles.module.css';
 type Properties = {
     steps: string[];
     currentStep: string;
+    onClickBack?: () => void;
 };
+const MAX_PERCENT = 100;
 
-const Stepper: React.FC<Properties> = ({ steps, currentStep }) => {
+const Stepper: React.FC<Properties> = ({ steps, currentStep, onClickBack }) => {
     const activeStepIndex = steps.indexOf(currentStep);
-    const progressPercent = (activeStepIndex / (steps.length - 1)) * 100;
+
+    const progressPercent =
+        (activeStepIndex / (steps.length - 1)) * MAX_PERCENT;
 
     const backButton = (
         <IconButton
             variant="ghostIcon"
             aria-label="back"
             icon={<Icon as={IconName.ARROW_BACK} boxSize={4} />}
+            onClick={onClickBack}
         />
     );
 

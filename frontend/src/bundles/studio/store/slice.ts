@@ -40,15 +40,19 @@ import {
     type Scene,
     type SceneAvatar,
     type SelectedItem,
+    type Template,
     type TimelineItemWithSpan,
     type VideoGetAllItemResponseDto,
     type Voice,
 } from '../types/types.js';
 import {
+    createTemplate,
     generateAllScriptsSpeech,
     generateScriptSpeech,
     generateScriptSpeechPreview,
     loadAvatars,
+    loadPublicTemplates,
+    loadUserTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,
@@ -91,8 +95,14 @@ type State = {
     videoSize: VideoPreviewT;
     videoName: string;
     isDraftSaved: boolean;
+    isSubmitToRender: boolean;
     videoId: string | null;
     voices: Voice[];
+    templates: {
+        public: Template[] | [];
+        user: Template[] | [];
+        isUserLoaded: boolean;
+    };
     ui: {
         destinationPointer: DestinationPointer | null;
         selectedItem: SelectedItem | null;
@@ -117,8 +127,14 @@ const initialState: State = {
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
     isDraftSaved: true,
+    isSubmitToRender: false,
     videoId: null,
     voices: [],
+    templates: {
+        public: [],
+        user: [],
+        isUserLoaded: false,
+    },
     ui: {
         destinationPointer: null,
         selectedItem: null,
@@ -422,6 +438,7 @@ const { reducer, actions, name } = createSlice({
 
             state.videoName = name;
             state.videoId = id;
+            state.videoSize = composition.videoOrientation;
             state.scenes = composition.scenes;
             state.scripts = composition.scripts.map(
                 (script: CompositionScript) => {
@@ -457,6 +474,27 @@ const { reducer, actions, name } = createSlice({
             }
 
             style.isLiked = !style.isLiked;
+        },
+        loadTemplate(state, action: PayloadAction<Template>) {
+            const { composition, name } = action.payload;
+
+            (state.videoName = name),
+                (state.videoSize = composition.videoOrientation),
+                (state.scenes = composition.scenes),
+                (state.scripts = composition.scripts.map(
+                    (script: CompositionScript) => {
+                        const voice = state.voices.find(
+                            (voice) => voice.name === script.voiceName,
+                        );
+
+                        return {
+                            ...script,
+                            iconName: PlayIconNames.READY,
+                            voice: voice ?? DEFAULT_VOICE,
+                            url: null,
+                        };
+                    },
+                ));
         },
         addGeneratedVideoScript(
             state,
@@ -607,6 +645,7 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(renderAvatar.fulfilled, (state) => {
+            state.isSubmitToRender = true;
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(renderAvatar.rejected, (state) => {
@@ -635,6 +674,40 @@ const { reducer, actions, name } = createSlice({
         builder.addCase(updateVideo.rejected, (state) => {
             state.dataStatus = DataStatus.REJECTED;
             state.isDraftSaved = false;
+        });
+        builder.addCase(loadPublicTemplates.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(loadPublicTemplates.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.templates.public = action.payload.items;
+        });
+        builder.addCase(loadPublicTemplates.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.templates.public = [];
+        });
+        builder.addCase(loadUserTemplates.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(loadUserTemplates.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.templates.user = action.payload.items;
+            state.templates.isUserLoaded = true;
+        });
+        builder.addCase(loadUserTemplates.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
+            state.templates.user = [];
+            state.templates.isUserLoaded = false;
+        });
+        builder.addCase(createTemplate.pending, (state) => {
+            state.dataStatus = DataStatus.PENDING;
+        });
+        builder.addCase(createTemplate.fulfilled, (state, action) => {
+            state.dataStatus = DataStatus.FULFILLED;
+            state.templates.user = [...state.templates.user, action.payload];
+        });
+        builder.addCase(createTemplate.rejected, (state) => {
+            state.dataStatus = DataStatus.REJECTED;
         });
     },
 });

@@ -68,6 +68,22 @@ class VideosApi extends BaseHttpApi {
         return await response.json<VideoGetAllItemResponseDto>();
     }
 
+    public async getVideo(
+        payload: UpdateVideoRequestDto,
+        id: string,
+    ): Promise<VideoGetAllItemResponseDto> {
+        const response = await this.load(
+            this.getFullEndpoint(VideosApiPath.ID, { id }),
+            {
+                method: HTTPMethod.GET,
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+
+        return await response.json<VideoGetAllItemResponseDto>();
+    }
+
     public async deleteVideo(id: string): Promise<void> {
         const response = await this.load(
             this.getFullEndpoint(`${VideosApiPath.ROOT}${id}`, {}),
@@ -80,6 +96,27 @@ class VideosApi extends BaseHttpApi {
         );
 
         await response.json<boolean>();
+    }
+
+    public async getVideoIdJWT(id: string): Promise<string> {
+        const response = await this.load(
+            this.getFullEndpoint(
+                `${VideosApiPath.ROOT}${id}${VideosApiPath.SHARE}`,
+                {},
+            ),
+            {
+                method: HTTPMethod.GET,
+                contentType: ContentType.JSON,
+                hasAuth: true,
+            },
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Failed to get video ID JWT: ${response.statusText}`,
+            );
+        }
+        return await response.text();
     }
 }
 

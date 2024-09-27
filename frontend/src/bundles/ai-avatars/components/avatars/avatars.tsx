@@ -1,7 +1,13 @@
 import { EMPTY_LENGTH } from '~/bundles/ai-avatars/constants/constants.js';
 import { avatarsMapper } from '~/bundles/ai-avatars/helpers/helpers.js';
 import { useFilterAvatarStyle } from '~/bundles/ai-avatars/hooks/use-filter-avatar-style.hook.js';
-import { Box, Heading } from '~/bundles/common/components/components.js';
+import {
+    Box,
+    Heading,
+    Loader,
+    Overlay,
+} from '~/bundles/common/components/components.js';
+import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import {
     useAppDispatch,
     useAppForm,
@@ -15,7 +21,7 @@ import { AvatarsSection } from '../components.js';
 
 const Avatars: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { avatars } = useAppSelector(({ studio }) => studio);
+    const { avatars, dataStatus } = useAppSelector(({ studio }) => studio);
 
     const form = useAppForm<{ style: string }>({
         initialValues: { style: '' },
@@ -45,6 +51,9 @@ const Avatars: React.FC = () => {
                 p="25px"
                 minH="calc(100vh - 75px)"
             >
+                <Overlay isOpen={dataStatus === DataStatus.PENDING}>
+                    <Loader />
+                </Overlay>
                 <Heading color="typography.900" variant="H3">
                     AI Avatars
                 </Heading>

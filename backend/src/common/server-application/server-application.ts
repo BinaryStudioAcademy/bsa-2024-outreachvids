@@ -3,7 +3,9 @@ import { avatarVideoController } from '~/bundles/avatar-videos/avatar-videos.js'
 import { avatarController } from '~/bundles/avatars/avatars.js';
 import { chatController } from '~/bundles/chat/chat.js';
 import { notificationController } from '~/bundles/notifications/notifications.js';
+import { publicVideoController } from '~/bundles/public-video/public-videos.js';
 import { speechController } from '~/bundles/speech/speech.js';
+import { templateController } from '~/bundles/templates/templates.js';
 import { userController } from '~/bundles/users/users.js';
 import { videoController } from '~/bundles/videos/videos.js';
 import { config } from '~/common/config/config.js';
@@ -24,6 +26,8 @@ const apiV1 = new BaseServerAppApi(
     ...chatController.routes,
     ...speechController.routes,
     ...avatarVideoController.routes,
+    ...publicVideoController.routes,
+    ...templateController.routes,
 );
 
 const serverApp = new BaseServerApp({

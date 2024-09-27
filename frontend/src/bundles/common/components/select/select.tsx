@@ -31,7 +31,7 @@ const Select: React.FC<Properties<FormValues>> = ({
 
     return (
         <FormControl isInvalid={!isValid} isRequired={isRequired}>
-            <FormLabel htmlFor={name}>{label}</FormLabel>
+            {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
             <Field
                 {...field}
                 id={name}

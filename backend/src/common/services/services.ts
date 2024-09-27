@@ -5,6 +5,8 @@ import { AzureAIService } from './azure-ai/azure-ai.service.js';
 import { textToSpeechApi } from './azure-ai/text-to-speech/text-to-speech.js';
 import { CryptService } from './crypt/crypt.service.js';
 import { FileService } from './file/file.service.js';
+import { imageApi } from './image/image.js';
+import { ImageService } from './image/image.service.js';
 import { OpenAIService } from './open-ai/open-ai.service.js';
 import { RemotionService } from './remotion/remotion.service.js';
 import { TokenService } from './token/token.services.js';
@@ -23,11 +25,13 @@ const azureAIService = new AzureAIService({
 const secretKey = config.ENV.TOKEN.SECRET_KEY;
 const expirationTime = config.ENV.TOKEN.EXPIRATION_TIME;
 const tokenService = new TokenService(secretKey, expirationTime);
+const imageService = new ImageService({ fileService, imageApi });
 
 export {
     azureAIService,
     cryptService,
     fileService,
+    imageService,
     openAIService,
     remotionService,
     tokenService,

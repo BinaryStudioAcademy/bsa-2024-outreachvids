@@ -106,11 +106,44 @@ const Sidebar: React.FC<Properties> = ({ children }) => {
                             label="My Avatar"
                         />
                     </Link>
+                    <Link to={AppRoute.TEMPLATES}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.TEMPLATES)}
+                            icon={
+                                <Icon
+                                    as={IconName.TEMPLATE}
+                                    boxSize={5}
+                                    color={activeIconPage(AppRoute.TEMPLATES)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="Templates"
+                        />
+                    </Link>
+                    {isCollapsed ? (
+                        <Text color="background.600" variant="caption">
+                            Assets
+                        </Text>
+                    ) : (
+                        <Text color="background.600" variant="bodySmall">
+                            Assets
+                        </Text>
+                    )}
+                    <Link to={AppRoute.VOICES}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.VOICES)}
+                            icon={
+                                <Icon
+                                    as={IconName.VOICE}
+                                    boxSize={5}
+                                    color={activeIconPage(AppRoute.VOICES)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="AI Voices"
+                        />
+                    </Link>
                 </Box>
-
-                <Text color="background.600" mt="30px" fontSize="small">
-                    Assets
-                </Text>
 
                 <Box>
                     <Link to={AppRoute.AI_AVATARS}>

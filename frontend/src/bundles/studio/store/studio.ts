@@ -1,8 +1,11 @@
 import {
+    createTemplate,
     generateAllScriptsSpeech,
     generateScriptSpeech,
     generateScriptSpeechPreview,
     loadAvatars,
+    loadPublicTemplates,
+    loadUserTemplates,
     loadVoices,
     renderAvatar,
     saveVideo,
@@ -20,6 +23,9 @@ const allActions = {
     renderAvatar,
     saveVideo,
     updateVideo,
+    loadPublicTemplates,
+    loadUserTemplates,
+    createTemplate,
 };
 
 export { allActions as actions };

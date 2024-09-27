@@ -1,9 +1,11 @@
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
     faCircle,
     faCircleUser,
     faCloudArrowDown,
     faCloudArrowUp,
+    faCopy,
     faEllipsisVertical,
     faFileLines,
     faFont,
@@ -11,6 +13,7 @@ import {
     faHeart,
     faHouse,
     faImage,
+    faMagnifyingGlass,
     faPause,
     faPen,
     faPlay,
@@ -51,6 +54,10 @@ const Image = convertIcon(faImage);
 const AIAvatars = convertIcon(faUserLarge);
 const Heart = convertIcon(faHeart);
 const Circle = convertIcon(faCircle);
+const Copy = convertIcon(faCopy);
+const HeartFill = convertIcon(faHeart);
+const HeartOutline = convertIcon(faHeartRegular);
+const Magnifying = convertIcon(faMagnifyingGlass);
 
 export {
     AIAvatars,
@@ -59,13 +66,17 @@ export {
     CircleUser,
     CloudArrowDown,
     CloudArrowUp,
+    Copy,
     EllipsisVertical,
     FileLines,
     Font,
     ForwardStep,
     Heart,
+    HeartFill,
+    HeartOutline,
     House,
     Image,
+    Magnifying,
     Pause,
     Pen,
     Play,
