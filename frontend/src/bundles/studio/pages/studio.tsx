@@ -58,6 +58,7 @@ import {
     selectVideoDataById,
 } from '../store/selectors.js';
 import { actions as studioActions } from '../store/studio.js';
+import styles from './styles.module.css';
 
 const Studio: React.FC = () => {
     const { state: locationState } = useLocation();
@@ -252,6 +253,8 @@ const Studio: React.FC = () => {
                 position="relative"
                 display="flex"
                 flexDirection="column"
+                overflowY={'hidden'}
+                className={styles['scrollableContainer']}
             >
                 <WarningModal
                     isOpen={isModalOpen}
