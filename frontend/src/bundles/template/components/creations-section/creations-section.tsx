@@ -10,14 +10,12 @@ import { type Template } from '~/bundles/template/types/types.js';
 import { TemplateCard } from '../template-card/template-card.js';
 import styles from './styles.module.css';
 
-//TODO: Change with the backend information
-const templates: Template[] = [];
-
 type Properties = {
     onClick: () => void;
+    templates: Template[];
 };
 
-const CreationsSection: React.FC<Properties> = ({ onClick }) => {
+const CreationsSection: React.FC<Properties> = ({ onClick, templates }) => {
     return (
         <Box padding="17px 0">
             <Flex alignItems="center" marginBottom="9px">
