@@ -28,6 +28,7 @@ import {
     HeartOutline,
     House,
     Image,
+    Magnifying,
     Pause,
     Pen,
     Play,
@@ -82,6 +83,7 @@ const IconName = {
     VOICE: Voice,
     HEART_FILL: HeartFill,
     HEART_OUTLINE: HeartOutline,
+    MAGNIFYING: Magnifying,
 } as const;
 
 export { IconName };

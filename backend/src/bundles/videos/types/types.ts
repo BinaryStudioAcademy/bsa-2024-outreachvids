@@ -1,5 +1,6 @@
 export {
     type CreateVideoRequestDto,
+    type Scene,
     type UpdateVideoRequestDto,
     type UserGetCurrentResponseDto,
     type VideoGetAllItemResponseDto,

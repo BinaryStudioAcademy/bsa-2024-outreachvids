@@ -12,6 +12,7 @@ import {
     faHeart,
     faHouse,
     faImage,
+    faMagnifyingGlass,
     faPause,
     faPen,
     faPlay,
@@ -51,6 +52,7 @@ const Image = convertIcon(faImage);
 const Circle = convertIcon(faCircle);
 const HeartFill = convertIcon(faHeart);
 const HeartOutline = convertIcon(faHeartRegular);
+const Magnifying = convertIcon(faMagnifyingGlass);
 
 export {
     BackwardStep,
@@ -66,6 +68,7 @@ export {
     HeartOutline,
     House,
     Image,
+    Magnifying,
     Pause,
     Pen,
     Play,

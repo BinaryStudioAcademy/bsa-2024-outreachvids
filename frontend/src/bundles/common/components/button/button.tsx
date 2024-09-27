@@ -11,6 +11,7 @@ type Properties = {
     isDisabled?: boolean;
     className?: string | undefined;
     onClick?: () => void;
+    leftIcon?: React.ReactElement;
 } & ChakraProperties;
 
 const Button: React.FC<Properties> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<Properties> = ({
     size = 'md',
     isDisabled = false,
     className,
+    leftIcon,
     onClick,
     ...ChakraProperties
 }) => (
@@ -31,6 +33,7 @@ const Button: React.FC<Properties> = ({
         isDisabled={isDisabled}
         className={className}
         onClick={onClick}
+        {...(leftIcon ? { leftIcon } : {})}
         {...ChakraProperties}
     >
         {label}
