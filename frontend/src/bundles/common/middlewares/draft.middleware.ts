@@ -14,6 +14,8 @@ const CHANGE_DRAFT_ACTIONS = new Set<string>([
     studioActions.resizeScene.type,
     studioActions.setVideoName.type,
     studioActions.setVideoSize.type,
+    studioActions.addBackgroundToScene.type,
+    studioActions.loadTemplate.type,
 ]);
 
 const isChangeDraftAction = (action: Action): boolean => {
