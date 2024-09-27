@@ -22,11 +22,11 @@ const avoidListItems = [
     'Hand gestures above the chest or pointing gestures',
 ];
 
-type InstructionProperties = {
+type Properties = {
     onClickNext: () => void;
 };
 
-const Instruction: React.FC<InstructionProperties> = ({ onClickNext }) => {
+const Instruction: React.FC<Properties> = ({ onClickNext }) => {
     return (
         <Flex className={styles['flex-container']}>
             <Flex className={styles['inner-flex']}>
