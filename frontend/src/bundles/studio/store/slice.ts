@@ -91,6 +91,7 @@ type State = {
     videoSize: VideoPreviewT;
     videoName: string;
     isDraftSaved: boolean;
+    isSubmitToRender: boolean;
     videoId: string | null;
     voices: Voice[];
     ui: {
@@ -117,6 +118,7 @@ const initialState: State = {
     videoSize: VideoPreview.LANDSCAPE,
     videoName: 'Untitled Video',
     isDraftSaved: true,
+    isSubmitToRender: false,
     videoId: null,
     voices: [],
     ui: {
@@ -587,6 +589,7 @@ const { reducer, actions, name } = createSlice({
             state.dataStatus = DataStatus.PENDING;
         });
         builder.addCase(renderAvatar.fulfilled, (state) => {
+            state.isSubmitToRender = true;
             state.dataStatus = DataStatus.FULFILLED;
         });
         builder.addCase(renderAvatar.rejected, (state) => {
