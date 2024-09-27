@@ -1,9 +1,8 @@
 import { type Composition } from 'shared';
 
-type CreateVideoRequestDto = {
+type CreateTemplateRequestDto = {
     name: string;
-    url?: string;
     composition: Composition;
 };
 
-export { type CreateVideoRequestDto };
+export { type CreateTemplateRequestDto };

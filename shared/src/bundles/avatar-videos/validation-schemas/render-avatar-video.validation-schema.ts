@@ -130,4 +130,4 @@ const renderAvatarVideo = z.object<GenerateAvatarVideoRequestValidationDto>({
     videoId: z.string().uuid().optional(),
 });
 
-export { renderAvatarVideo };
+export { compositionSchema, renderAvatarVideo };
