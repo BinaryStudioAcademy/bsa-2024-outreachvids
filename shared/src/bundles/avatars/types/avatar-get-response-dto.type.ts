@@ -7,6 +7,7 @@ type AvatarGetResponseDto = {
         imgUrl: string;
         style: string;
         gestures: string[];
+        isLiked?: boolean;
     }[];
 };
 
