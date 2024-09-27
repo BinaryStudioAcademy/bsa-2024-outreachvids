@@ -1,5 +1,5 @@
 import { logger } from '~/common/logger/logger.js';
-import { fileService, imageService } from '~/common/services/services.js';
+import { imageService, remotionService } from '~/common/services/services.js';
 
 import { VideoController } from './video.controller.js';
 import { VideoModel } from './video.model.js';
@@ -9,7 +9,7 @@ import { VideoService } from './video.service.js';
 const videoRepository = new VideoRepository(VideoModel, imageService);
 const videoService = new VideoService(
     videoRepository,
-    fileService,
+    remotionService,
     imageService,
 );
 const videoController = new VideoController(logger, videoService);

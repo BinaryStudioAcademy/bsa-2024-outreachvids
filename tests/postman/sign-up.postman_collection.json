@@ -1,0 +1,198 @@
+{
+    "info": {
+        "_postman_id": "f35cf8ce-30f2-4764-9644-c62617dc465c",
+        "name": "sign-up / QA",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "6120163"
+    },
+    "item": [
+        {
+            "name": "sign-up-1",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Save token\", function () {",
+                            "    pm.environment.set(\"access_token\", pm.response.json().token);",
+                            "});",
+                            "",
+                            "pm.test(\"Save email\", function () {",
+                            "    pm.environment.set(\"save_email\", pm.response.json().email);",
+                            "});",
+                            "",
+                            "pm.test(\"Save username\", function () {",
+                            "    pm.environment.set(\"save_fullName\", pm.response.json().fullName);",
+                            "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"fullName\": \"name lastname\",\n  \"email\": \"{{$randomUserName}}@example.com\",\n  \"password\": \"string\",\n  \"confirmPassword\": \"string\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/v1/auth/sign-up",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "v1", "auth", "sign-up"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "sign-up-2",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Save token\", function () {",
+                            "    pm.environment.set(\"access_token\", pm.response.json().token);",
+                            "});",
+                            "",
+                            "pm.test(\"Save email\", function () {",
+                            "    pm.environment.set(\"save_email\", pm.response.json().email);",
+                            "});",
+                            "",
+                            "pm.test(\"Save username\", function () {",
+                            "    pm.environment.set(\"save_fullName\", pm.response.json().fullName);",
+                            "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"fullName\": \"name lastname\",\n  \"email\": \"{{save_email}}\",\n  \"password\": \"string\",\n  \"confirmPassword\": \"string\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/v1/auth/sign-up",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "v1", "auth", "sign-up"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "sign-up-3",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Save token\", function () {",
+                            "    pm.environment.set(\"access_token\", pm.response.json().token);",
+                            "});",
+                            "",
+                            "pm.test(\"Save email\", function () {",
+                            "    pm.environment.set(\"save_email\", pm.response.json().email);",
+                            "});",
+                            "",
+                            "pm.test(\"Save username\", function () {",
+                            "    pm.environment.set(\"save_fullName\", pm.response.json().fullName);",
+                            "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "{{access_token}}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"fullName\": \"name lastname\",\n  \"email\": \"users@example.com\",\n  \"password\": \"string\",\n  \"confirmPassword\": \"string\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/signup",
+                    "host": ["{{base_url}}"],
+                    "path": ["signup"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "sign-up-4",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Save token\", function () {",
+                            "    pm.environment.set(\"access_token\", pm.response.json().token);",
+                            "});",
+                            "",
+                            "pm.test(\"Save email\", function () {",
+                            "    pm.environment.set(\"save_email\", pm.response.json().email);",
+                            "});",
+                            "",
+                            "pm.test(\"Save username\", function () {",
+                            "    pm.environment.set(\"save_fullName\", pm.response.json().fullName);",
+                            "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"fullName\": \"name lastname\",\n  \"email\": \"test@example.com\",\n  \"password\": \"string\",\n  \"confirmPassword\": \"string\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:3000/api/v1/auth/sign-up",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "3000",
+                    "path": ["api", "v1", "auth", "sign-up"]
+                }
+            },
+            "response": []
+        }
+    ]
+}
