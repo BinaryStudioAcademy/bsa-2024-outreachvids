@@ -13,9 +13,9 @@ import {
 import { useFormField } from '~/bundles/common/hooks/hooks.js';
 
 type Properties<T extends FormValues> = {
-    label?: string;
     name: FieldInputProps<T>['name'];
     children: React.ReactNode;
+    label?: string;
     isRequired?: boolean;
     placeholder?: string;
 };

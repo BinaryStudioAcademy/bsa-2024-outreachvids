@@ -6,6 +6,7 @@ const AppRoute = {
     MY_AVATAR: '/my-avatar',
     ANY: '*',
     CREATE_AVATAR: '/create-avatar',
+    AI_AVATARS: '/ai-avatars',
     PREVIEW: '/preview',
     VOICES: '/voices',
     TEMPLATES: '/templates',

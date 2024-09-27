@@ -15,6 +15,7 @@ import {
 
 import { Logo, LogoText, OpenAi, Voice } from './custom-icons/custom-icons.js';
 import {
+    AIAvatars,
     BackwardStep,
     Circle,
     CircleUser,
@@ -25,6 +26,7 @@ import {
     FileLines,
     Font,
     ForwardStep,
+    Heart,
     HeartFill,
     HeartOutline,
     House,
@@ -44,6 +46,7 @@ import {
 } from './helper/icon-conversion.helper.js';
 
 const IconName = {
+    AI_AVATARS: AIAvatars,
     CHEVRON_DOWN: ChevronDownIcon,
     PEN: Pen,
     HOME: House,
@@ -79,6 +82,7 @@ const IconName = {
     WARNING: WarningIcon,
     VIDEO_CAMERA: VideoCamera,
     IMAGE: Image,
+    HEART: Heart,
     CIRCLE: Circle,
     ARROW_BACK: ArrowBackIcon,
     COPY: Copy,

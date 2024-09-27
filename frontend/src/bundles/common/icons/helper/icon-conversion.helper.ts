@@ -22,6 +22,7 @@ import {
     faStop,
     faT,
     faTableColumns,
+    faUserLarge,
     faVideoCamera,
     faVolumeHigh,
     faVolumeOff,
@@ -50,6 +51,8 @@ const VolumeOff = convertIcon(faVolumeOff);
 const Stop = convertIcon(faStop);
 const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
+const AIAvatars = convertIcon(faUserLarge);
+const Heart = convertIcon(faHeart);
 const Circle = convertIcon(faCircle);
 const Copy = convertIcon(faCopy);
 const HeartFill = convertIcon(faHeart);
@@ -57,6 +60,7 @@ const HeartOutline = convertIcon(faHeartRegular);
 const Magnifying = convertIcon(faMagnifyingGlass);
 
 export {
+    AIAvatars,
     BackwardStep,
     Circle,
     CircleUser,
@@ -67,6 +71,7 @@ export {
     FileLines,
     Font,
     ForwardStep,
+    Heart,
     HeartFill,
     HeartOutline,
     House,

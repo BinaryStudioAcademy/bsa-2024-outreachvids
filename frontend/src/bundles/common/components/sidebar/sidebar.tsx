@@ -144,6 +144,24 @@ const Sidebar: React.FC<Properties> = ({ children }) => {
                         />
                     </Link>
                 </Box>
+
+                <Box>
+                    <Link to={AppRoute.AI_AVATARS}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.AI_AVATARS)}
+                            icon={
+                                <Icon
+                                    as={IconName.AI_AVATARS}
+                                    boxSize={4}
+                                    color={activeIconPage(AppRoute.AI_AVATARS)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="AI Avatars"
+                        />
+                    </Link>
+                </Box>
+
                 <Spacer />
                 <SidebarItem
                     color="brand.secondary.600"

@@ -455,6 +455,26 @@ const { reducer, actions, name } = createSlice({
                 },
             );
         },
+        avatarLikeToggle(
+            state,
+            action: PayloadAction<{ avatarId: string; image: string }>,
+        ) {
+            const { avatarId, image } = action.payload;
+
+            const avatar = state.avatars.find(({ id }) => id === avatarId);
+
+            if (!avatar) {
+                return;
+            }
+
+            const style = avatar.styles.find(({ imgUrl }) => imgUrl === image);
+
+            if (!style) {
+                return;
+            }
+
+            style.isLiked = !style.isLiked;
+        },
         loadTemplate(state, action: PayloadAction<Template>) {
             const { composition, name } = action.payload;
 

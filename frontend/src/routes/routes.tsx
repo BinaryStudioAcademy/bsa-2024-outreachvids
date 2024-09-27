@@ -1,4 +1,5 @@
 import { App } from '~/app/app.js';
+import { AIAvatars } from '~/bundles/ai-avatars/pages/ai-avatars.js';
 import { Auth } from '~/bundles/auth/pages/auth.js';
 import { ProtectedRoute } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
@@ -61,6 +62,14 @@ const routes = [
                 element: (
                     <ProtectedRoute>
                         <CreateAvatar />
+                    </ProtectedRoute>
+                ),
+            },
+            {
+                path: AppRoute.AI_AVATARS,
+                element: (
+                    <ProtectedRoute>
+                        <AIAvatars />
                     </ProtectedRoute>
                 ),
             },
