@@ -21,7 +21,7 @@ type Parameters<T extends FormValues = FormValues> = {
     initialValues: T;
     mode?: ValueOf<typeof ValidationMode>;
     validationSchema?: ValidationSchema;
-    onSubmit: FormConfig<T>['onSubmit'];
+    onSubmit?: FormConfig<T>['onSubmit'];
 };
 
 type ReturnValue<T extends FormValues = FormValues> = ReturnType<
@@ -32,7 +32,9 @@ const useAppForm = <T extends FormValues = FormValues>({
     initialValues,
     mode = 'onSubmit',
     validationSchema,
-    onSubmit,
+    onSubmit = (values: T): void => {
+        values;
+    },
 }: Parameters<T>): ReturnValue<T> => {
     const validateOnBlur =
         mode === ValidationMode.ALL ? true : mode === ValidationMode.ON_BLUR;

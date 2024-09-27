@@ -6,6 +6,7 @@ const AppRoute = {
     MY_AVATAR: '/my-avatar',
     ANY: '*',
     CREATE_AVATAR: '/create-avatar',
+    TEMPLATES: '/templates',
 } as const;
 
 export { AppRoute };

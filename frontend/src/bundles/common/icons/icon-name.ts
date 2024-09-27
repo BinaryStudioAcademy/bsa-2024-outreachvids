@@ -26,6 +26,7 @@ import {
     ForwardStep,
     House,
     Image,
+    Magnifying,
     Pause,
     Pen,
     Play,
@@ -77,6 +78,7 @@ const IconName = {
     IMAGE: Image,
     CIRCLE: Circle,
     ARROW_BACK: ArrowBackIcon,
+    MAGNIFYING: Magnifying,
 } as const;
 
 export { IconName };

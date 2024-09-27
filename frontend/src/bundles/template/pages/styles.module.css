@@ -1,0 +1,8 @@
+.container {
+    height: calc(100vh - 75px);
+    padding: 25px;
+    flex-direction: column;
+    overflow: auto;
+    scrollbar-width: thin;
+    clip-path: inset(0 round 0 0.75rem 0 0);
+}
