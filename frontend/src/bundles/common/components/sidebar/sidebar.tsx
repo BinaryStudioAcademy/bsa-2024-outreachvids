@@ -6,6 +6,7 @@ import {
     IconButton,
     Link,
     Spacer,
+    Text,
 } from '~/bundles/common/components/components.js';
 import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
@@ -103,6 +104,43 @@ const Sidebar: React.FC<Properties> = ({ children }) => {
                             }
                             isCollapsed={isCollapsed}
                             label="My Avatar"
+                        />
+                    </Link>
+                    <Link to={AppRoute.TEMPLATES}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.TEMPLATES)}
+                            icon={
+                                <Icon
+                                    as={IconName.TEMPLATE}
+                                    boxSize={5}
+                                    color={activeIconPage(AppRoute.TEMPLATES)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="Templates"
+                        />
+                    </Link>
+                    {isCollapsed ? (
+                        <Text color="background.600" variant="caption">
+                            Assets
+                        </Text>
+                    ) : (
+                        <Text color="background.600" variant="bodySmall">
+                            Assets
+                        </Text>
+                    )}
+                    <Link to={AppRoute.VOICES}>
+                        <SidebarItem
+                            bg={activeButtonPage(AppRoute.VOICES)}
+                            icon={
+                                <Icon
+                                    as={IconName.VOICE}
+                                    boxSize={5}
+                                    color={activeIconPage(AppRoute.VOICES)}
+                                />
+                            }
+                            isCollapsed={isCollapsed}
+                            label="AI Voices"
                         />
                     </Link>
                 </Box>

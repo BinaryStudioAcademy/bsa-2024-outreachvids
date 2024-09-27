@@ -2,6 +2,7 @@ import { type PlayerRef } from '@remotion/player';
 import { secondsToMilliseconds } from 'date-fns';
 import { type RefObject } from 'react';
 
+import { FPS } from '~/bundles/common/components/audio-player/constants/constants.js';
 import { Flex, Spinner } from '~/bundles/common/components/components.js';
 import {
     useAppDispatch,
@@ -16,7 +17,6 @@ import { setItemsSpan } from '~/bundles/studio/helpers/set-items-span.js';
 import { selectTotalDuration } from '~/bundles/studio/store/selectors.js';
 import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
-import { FPS } from '../audio-player/constants/constants.js';
 import { Control } from '../components.js';
 import { TimeDisplay } from './components/components.js';
 

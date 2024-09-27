@@ -50,7 +50,7 @@ const Item: React.FC<Properties> = ({
             {...(type !== RowNames.BUTTON && listeners)}
             {...attributes}
             style={itemStyle}
-            zIndex={isDragging ? '100' : 'auto'}
+            zIndex={isDragging || selectedItem?.id === id ? '100' : 'auto'}
             onClick={onClick}
             data-id={id}
         >

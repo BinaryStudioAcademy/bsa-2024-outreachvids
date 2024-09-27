@@ -1,5 +1,6 @@
 export { addScene } from './add-scene.js';
 export { addScript } from './add-script.js';
+export { areAllScenesWithAvatar } from './are-all-scenes-with-scenes.helper.js';
 export { createDefaultAvatarFromRequest } from './create-default-avatar.js';
 export { getDestinationPointerValue } from './get-destination-pointer-value.js';
 export { getElementEnd } from './get-element-end.js';
