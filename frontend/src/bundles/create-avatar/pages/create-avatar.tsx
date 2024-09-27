@@ -3,9 +3,11 @@ import {
     Stepper,
     UploadVideo,
 } from '~/bundles/common/components/components.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
 import {
     useCallback,
     useMemo,
+    useNavigate,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 
@@ -14,6 +16,7 @@ import { Steps } from '../enums/steps.js';
 import styles from './styles.module.css';
 
 const CreateAvatar: React.FC = () => {
+    const navigate = useNavigate();
     const steps = useMemo(
         () => [Steps.INSTRUCTIONS, Steps.UPLOAD, Steps.CONSENT],
         [],
@@ -56,8 +59,10 @@ const CreateAvatar: React.FC = () => {
             if (previousStep) {
                 setStep(previousStep);
             }
+        } else {
+            navigate(AppRoute.ROOT);
         }
-    }, [step, steps]);
+    }, [step, steps, navigate]);
 
     return (
         <Box className={styles['container']}>
