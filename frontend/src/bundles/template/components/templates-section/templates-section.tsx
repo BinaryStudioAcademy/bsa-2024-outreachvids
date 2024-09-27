@@ -8,32 +8,41 @@ import {
     Input,
     InputGroup,
     InputLeftElement,
+    Loader,
+    Overlay,
     Select,
     SimpleGrid,
 } from '~/bundles/common/components/components.js';
+import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
+import { DataStatus } from '~/bundles/common/enums/data-status.enum.js';
 import {
+    useAppDispatch,
     useAppForm,
+    useAppSelector,
     useCallback,
+    useEffect,
     useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
+import { actions as studioActions } from '~/bundles/studio/store/studio.js';
 
-import { type Template } from '../../types/template.type.js';
 import { TemplateCard } from '../template-card/template-card.js';
 import { DEFAULT_TEMPLATE_PAYLOAD } from './constants.js';
 
-//TODO Change with the backend information
-const templates: Template[] = [
-    {
-        id: '1',
-        name: 'My first avatar video',
-        url: 'https://d19jw8gcwb6nqj.cloudfront.net/renders/2ymzogrn5a/out.mp4',
-        previewUrl:
-            'https://s3-alpha-sig.figma.com/img/f5bc/ae04/08301b8c7727dcf6209bc655b0dd7133?Expires=1728259200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=n5c0QxXVFRbXTmwIakB5EoU6FRSafJV4WqXFLHI6hp3XlikD8TfwCzovoEAxxj4WYBrm2k371A-NaX1PWZdVQbEYKzVT0ZtcXR8eRO39vQ0ZBFQL8J4Vdqps-XJc3Dau4im97u3wb-mrweKhwlDHiI9xN-~3-7Gk7nM6EYjfaVQU9T5j9-zP5RSqE3PBDTjZlpnIgCDhkTVFmWb6n2O3XZ3X85uKVl-6R0dLYkhv2qux~r1gespYmw3KQJesUpix5P3hsxpzk~WkiANM6dudib9Yapk2wG6u6ULIE1rtgjPNm6myG1bWV0dX0jEAsabMNn95WmelSEK6Pq3Q4fGrRg__',
-    },
-];
-
 const TemplatesSection: React.FC = () => {
+    const dispatch = useAppDispatch();
+
+    const { templates, dataStatus } = useAppSelector(({ studio }) => studio);
+
+    useEffect(() => {
+        if (templates.public.length === EMPTY_VALUE) {
+            void dispatch(studioActions.loadPublicTemplates());
+        }
+        if (!templates.isUserLoaded) {
+            void dispatch(studioActions.loadUserTemplates());
+        }
+    }, [dispatch, templates]);
+
     const [selectedFormat, setSelectedFormat] = useState<
         'landscape' | 'portrait' | null
     >(null);
@@ -52,6 +61,10 @@ const TemplatesSection: React.FC = () => {
 
     return (
         <Box padding="17px 0">
+            <Overlay isOpen={dataStatus === DataStatus.PENDING}>
+                <Loader />
+            </Overlay>
+
             <Flex
                 alignItems="center"
                 marginBottom="9px"
@@ -121,7 +134,10 @@ const TemplatesSection: React.FC = () => {
                 </Flex>
             </Flex>
             <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
-                {templates.map(({ id, ...template }) => (
+                {templates.public.map(({ id, ...template }) => (
+                    <TemplateCard key={id} {...template} />
+                ))}
+                {templates.user.map(({ id, ...template }) => (
                     <TemplateCard key={id} {...template} />
                 ))}
             </SimpleGrid>
