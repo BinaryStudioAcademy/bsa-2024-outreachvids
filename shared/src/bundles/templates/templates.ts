@@ -1,4 +1,7 @@
-export { TemplateValidationErrorMessage } from './enums/enums.js';
+export {
+    TemplateApiPath,
+    TemplateValidationErrorMessage,
+} from './enums/enums.js';
 export {
     type CreateTemplateRequestDto,
     type CreateTemplateResponseDto,

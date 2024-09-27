@@ -1,0 +1,3 @@
+const TEMPLATE_SAVE_NOTOFICATION_ID = 'template-save';
+
+export { TEMPLATE_SAVE_NOTOFICATION_ID };

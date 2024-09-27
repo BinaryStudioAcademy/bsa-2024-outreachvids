@@ -7,7 +7,7 @@ import { ApiPath } from '~/common/enums/enums.js';
 import { HTTPCode, HTTPMethod } from '~/common/http/http.js';
 import { type Logger } from '~/common/logger/logger.js';
 
-import { templateApiPath } from './enums/enums.js';
+import { TemplateApiPath } from './enums/enums.js';
 import { type TemplateService } from './templates.service.js';
 import {
     type CreateTemplateRequestDto,
@@ -111,7 +111,7 @@ class TemplateController extends BaseController {
         this.templateService = templateService;
 
         this.addRoute({
-            path: templateApiPath.USER,
+            path: TemplateApiPath.USER,
             method: HTTPMethod.GET,
             handler: (options) =>
                 this.findAllByUser(
@@ -122,7 +122,7 @@ class TemplateController extends BaseController {
         });
 
         this.addRoute({
-            path: templateApiPath.PUBLIC,
+            path: TemplateApiPath.PUBLIC,
             method: HTTPMethod.GET,
             handler: () => {
                 return this.findPublicTemplates();
@@ -130,7 +130,7 @@ class TemplateController extends BaseController {
         });
 
         this.addRoute({
-            path: templateApiPath.ID,
+            path: TemplateApiPath.ID,
             method: HTTPMethod.GET,
             handler: (options) => {
                 return this.findById(
@@ -142,7 +142,7 @@ class TemplateController extends BaseController {
         });
 
         this.addRoute({
-            path: templateApiPath.ROOT,
+            path: TemplateApiPath.ROOT,
             method: HTTPMethod.POST,
             validation: {
                 body: createTemplateValidationSchema,
@@ -156,7 +156,7 @@ class TemplateController extends BaseController {
         });
 
         this.addRoute({
-            path: templateApiPath.ID,
+            path: TemplateApiPath.ID,
             method: HTTPMethod.PATCH,
             validation: {
                 body: updateTemplateValidationSchema,
@@ -172,7 +172,7 @@ class TemplateController extends BaseController {
         });
 
         this.addRoute({
-            path: templateApiPath.ID,
+            path: TemplateApiPath.ID,
             method: HTTPMethod.DELETE,
             handler: (options) =>
                 this.delete(

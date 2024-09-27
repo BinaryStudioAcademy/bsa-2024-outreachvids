@@ -1,0 +1,3 @@
+const TEMPLATE_SAVE_FAILED_NOTOFICATION_ID = 'template-save-failed';
+
+export { TEMPLATE_SAVE_FAILED_NOTOFICATION_ID };

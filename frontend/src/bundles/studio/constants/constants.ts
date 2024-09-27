@@ -10,6 +10,8 @@ export { MIN_SCENE_DURATION } from './min-scene-duration.constant.js';
 export { NEW_SCRIPT_TEXT } from './new-script-text.constant.js';
 export { SCRIPT_AND_AVATAR_ARE_REQUIRED } from './script-and-avatar-are-required.constant.js';
 export { SKIP_TO_PREV_SCENE_THRESHOLD } from './skip-to-previous-scene-threshold.constant.js';
+export { TEMPLATE_SAVE_FAILED_NOTOFICATION_ID } from './template-save-failed-notification-id.js';
+export { TEMPLATE_SAVE_NOTOFICATION_ID } from './template-save-notification-id.js';
 export { VIDEO_SAVE_FAILED_NOTIFICATION_ID } from './video-save-failed-notification-id.js';
 export { VIDEO_SAVE_NOTIFICATION_ID } from './video-save-notification-id.js';
 export { VIDEO_SUBMIT_FAILED_NOTIFICATION_ID } from './video-submit-failed-id.constant.js';

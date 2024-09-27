@@ -5,6 +5,7 @@ import { storage } from '~/framework/storage/storage.js';
 import { AvatarVideosApi } from './avatar-videos-api.js';
 import { AvatarsApi } from './avatars-api.js';
 import { SpeechApi } from './speech-api.js';
+import { TemplatesApi } from './templates-api.js';
 
 const avatarVideosApi = new AvatarVideosApi({
     baseUrl: config.ENV.API.ORIGIN_URL,
@@ -24,4 +25,10 @@ const speechApi = new SpeechApi({
     http,
 });
 
-export { avatarsApi, avatarVideosApi, speechApi };
+const templatesApi = new TemplatesApi({
+    baseUrl: config.ENV.API.ORIGIN_URL,
+    storage,
+    http,
+});
+
+export { avatarsApi, avatarVideosApi, speechApi, templatesApi };

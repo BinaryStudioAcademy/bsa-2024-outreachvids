@@ -21,6 +21,7 @@ import {
     avatarsApi,
     avatarVideosApi,
     speechApi,
+    templatesApi,
 } from '~/bundles/studio/studio.js';
 import { userApi } from '~/bundles/users/users.js';
 import { type Config } from '~/framework/config/config.js';
@@ -41,6 +42,7 @@ type ExtraArguments = {
     speechApi: typeof speechApi;
     avatarVideosApi: typeof avatarVideosApi;
     chatApi: typeof chatApi;
+    templatesApi: typeof templatesApi;
     storage: typeof storage;
 };
 
@@ -86,6 +88,7 @@ class Store {
             speechApi,
             avatarVideosApi,
             chatApi,
+            templatesApi,
             storage,
         };
     }

@@ -6,32 +6,34 @@ import {
     Image,
     Text,
 } from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import {
+    useCallback,
+    useNavigate,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
-import { PlayerModal } from '~/bundles/home/components/player-modal/player-modal.js';
 import { DeleteWarning } from '~/bundles/home/components/video-card/components/delete-warning.js';
 
 import styles from './styles.module.css';
 
 type Properties = {
+    id: string;
     name: string;
-    url: string | null;
     previewUrl: string;
 };
 
-const TemplateCard: React.FC<Properties> = ({ name, url, previewUrl }) => {
-    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+const TemplateCard: React.FC<Properties> = ({ id, name, previewUrl }) => {
+    const navigate = useNavigate();
     const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
 
-    const handleIconClick = useCallback(() => {
-        if (url) {
-            return setIsVideoModalOpen(true);
-        }
-    }, [url]);
-
-    const handleVideoModalClose = useCallback(() => {
-        setIsVideoModalOpen(false);
-    }, []);
+    const handleIconClick = useCallback((): void => {
+        navigate(AppRoute.STUDIO, {
+            state: {
+                templateId: id,
+            },
+        });
+    }, [id, navigate]);
 
     const handleWarningModalClose = useCallback(() => {
         setIsWarningModalOpen(false);
@@ -57,16 +59,11 @@ const TemplateCard: React.FC<Properties> = ({ name, url, previewUrl }) => {
 
                 <IconButton
                     size="xs"
-                    aria-label={url ? 'Play video' : 'Edit video'}
+                    aria-label={'Edit template'}
                     _groupHover={{ opacity: 1 }}
                     onClick={handleIconClick}
                     className={styles['play-button']}
-                    icon={
-                        <Icon
-                            as={url ? IconName.PLAY : IconName.PEN}
-                            color="background.600"
-                        />
-                    }
+                    icon={<Icon as={IconName.PEN} color="background.600" />}
                 />
             </Box>
 
@@ -86,14 +83,6 @@ const TemplateCard: React.FC<Properties> = ({ name, url, previewUrl }) => {
             >
                 Advertisement
             </Badge>
-
-            {url && (
-                <PlayerModal
-                    videoUrl={url}
-                    isOpen={isVideoModalOpen}
-                    onClose={handleVideoModalClose}
-                />
-            )}
 
             <DeleteWarning
                 isOpen={isWarningModalOpen}
