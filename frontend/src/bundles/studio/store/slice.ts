@@ -406,6 +406,7 @@ const { reducer, actions, name } = createSlice({
 
             state.videoName = name;
             state.videoId = id;
+            state.videoSize = composition.videoOrientation;
             state.scenes = composition.scenes;
             state.scripts = composition.scripts.map(
                 (script: CompositionScript) => {
@@ -421,6 +422,27 @@ const { reducer, actions, name } = createSlice({
                     };
                 },
             );
+        },
+        loadTemplate(state, action: PayloadAction<Template>) {
+            const { composition, name } = action.payload;
+
+            (state.videoName = name),
+                (state.videoSize = composition.videoOrientation),
+                (state.scenes = composition.scenes),
+                (state.scripts = composition.scripts.map(
+                    (script: CompositionScript) => {
+                        const voice = state.voices.find(
+                            (voice) => voice.name === script.voiceName,
+                        );
+
+                        return {
+                            ...script,
+                            iconName: PlayIconNames.READY,
+                            voice: voice ?? DEFAULT_VOICE,
+                            url: null,
+                        };
+                    },
+                ));
         },
     },
     extraReducers(builder) {

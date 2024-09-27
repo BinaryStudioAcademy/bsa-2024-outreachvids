@@ -52,7 +52,7 @@ const TemplatesContent: React.FC = () => {
                             {templates.public.map((template) => (
                                 <TemplateCard
                                     key={template.id}
-                                    imageSource={template.previewUrl}
+                                    template={template}
                                 />
                             ))}
                         </SimpleGrid>
@@ -67,7 +67,7 @@ const TemplatesContent: React.FC = () => {
                                 {templates.user.map((template) => (
                                     <TemplateCard
                                         key={template.id}
-                                        imageSource={template.previewUrl}
+                                        template={template}
                                     />
                                 ))}
                             </SimpleGrid>
