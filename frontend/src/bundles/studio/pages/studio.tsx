@@ -1,4 +1,5 @@
 import { type PlayerRef } from '@remotion/player';
+import { useBlocker } from 'react-router-dom';
 
 import { AudioPlayer } from '~/bundles/common/components/audio-player/audio-player.js';
 import {
@@ -30,6 +31,10 @@ import {
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { notificationService } from '~/bundles/common/services/services.js';
+import {
+    UnsavedWarningContent,
+    WarningContent,
+} from '~/bundles/studio/components/warning-modal/components/components.js';
 
 import {
     PlayerControls,
@@ -81,6 +86,8 @@ const Studio: React.FC = () => {
         scriptPlayer,
         isVideoScriptsGenerationReady,
         isVideoScriptsGenerationPending,
+        isDraftSaved,
+        isSubmitToRender,
     } = useAppSelector(({ studio }) => studio);
 
     const playerReference = useRef<PlayerRef>(null);
@@ -131,7 +138,6 @@ const Studio: React.FC = () => {
                     message: NotificationMessage.VIDEO_SUBMITTED,
                     title: NotificationTitle.VIDEO_SUBMITTED,
                 });
-                navigate(AppRoute.ROOT);
             })
             .catch(() => {
                 notificationService.error({
@@ -140,7 +146,7 @@ const Studio: React.FC = () => {
                     title: NotificationTitle.VIDEO_SUBMIT_FAILED,
                 });
             });
-    }, [dispatch, navigate, scenes, scripts]);
+    }, [dispatch, scenes, scripts]);
 
     const handleSubmit = useCallback(() => {
         if (scenesExceedScripts(scenes, scripts)) {
@@ -242,6 +248,26 @@ const Studio: React.FC = () => {
 
     const { isPlaying, url } = scriptPlayer;
 
+    const blocker = useBlocker(
+        ({ currentLocation, nextLocation }) =>
+            !(isDraftSaved || isSubmitToRender) &&
+            currentLocation.pathname !== nextLocation.pathname,
+    );
+
+    const handleCloseUnsavedChangesModal = useCallback(() => {
+        blocker.reset?.();
+    }, [blocker]);
+
+    const handleSubmitUnsavedChangesModal = useCallback(() => {
+        blocker.proceed?.();
+    }, [blocker]);
+
+    useEffect(() => {
+        if (isSubmitToRender) {
+            navigate(AppRoute.ROOT);
+        }
+    }, [navigate, isSubmitToRender]);
+
     return (
         <>
             <Overlay isOpen={isVideoScriptsGenerationPending}>
@@ -256,11 +282,21 @@ const Studio: React.FC = () => {
                 overflowY={'hidden'}
                 className={styles['scrollableContainer']}
             >
+                <WarningModal isOpen={isModalOpen} onClose={handleCloseModal}>
+                    <WarningContent
+                        onCancel={handleCloseModal}
+                        onSubmit={handleConfirmSubmit}
+                    />
+                </WarningModal>
                 <WarningModal
-                    isOpen={isModalOpen}
-                    onClose={handleCloseModal}
-                    onSubmit={handleConfirmSubmit}
-                />
+                    isOpen={blocker.state === 'blocked'}
+                    onClose={handleCloseUnsavedChangesModal}
+                >
+                    <UnsavedWarningContent
+                        onCancel={handleCloseUnsavedChangesModal}
+                        onSubmit={handleSubmitUnsavedChangesModal}
+                    />
+                </WarningModal>
                 <Header
                     center={
                         <Button
