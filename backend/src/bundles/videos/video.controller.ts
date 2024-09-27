@@ -109,6 +109,17 @@ class VideoController extends BaseController {
                     }>,
                 ),
         });
+        this.addRoute({
+            path: `${VideosApiPath.ID}${VideosApiPath.SHARE}`,
+            method: HTTPMethod.GET,
+            handler: (options) => {
+                return this.createVideoIdJWT(
+                    options as ApiHandlerOptions<{
+                        params: VideoGetOneRequestDto;
+                    }>,
+                );
+            },
+        });
     }
 
     /**
@@ -183,6 +194,43 @@ class VideoController extends BaseController {
         return {
             status: HTTPCode.OK,
             payload: await this.videoService.findById(options.params.id),
+        };
+    }
+
+    /**
+     * @swagger
+     * /videos/{id}/share:
+     *    get:
+     *      parameters:
+     *        - in: path
+     *          name: id
+     *          required: true
+     *          schema:
+     *            type: string
+     *            format: uuid
+     *          description: The video id
+     *      description: Create a JWT for the video id
+     *      security:
+     *       - bearerAuth: []
+     *      responses:
+     *        200:
+     *          description: Successful operation
+     *          content:
+     *            application/json:
+     *              schema:
+     *                type: object
+     *                properties:
+     *                  token:
+     *                    type: string
+     */
+    private async createVideoIdJWT(
+        options: ApiHandlerOptions<{
+            params: VideoGetOneRequestDto;
+        }>,
+    ): Promise<ApiHandlerResponse> {
+        return {
+            status: HTTPCode.OK,
+            payload: await this.videoService.getVideoIdToken(options.params.id),
         };
     }
 

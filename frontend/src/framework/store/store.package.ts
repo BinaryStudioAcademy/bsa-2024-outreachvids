@@ -9,7 +9,7 @@ import { authApi } from '~/bundles/auth/auth.js';
 import { reducer as authReducer } from '~/bundles/auth/store/auth.js';
 import { chatApi } from '~/bundles/chat/chat.js';
 import { reducer as chatReducer } from '~/bundles/chat/store/chat.js';
-import { videosApi } from '~/bundles/common/api/api.js';
+import { publicVideosApi, videosApi } from '~/bundles/common/api/api.js';
 import { AppEnvironment } from '~/bundles/common/enums/enums.js';
 import {
     draftMiddleware,
@@ -44,6 +44,7 @@ type ExtraArguments = {
     chatApi: typeof chatApi;
     templatesApi: typeof templatesApi;
     storage: typeof storage;
+    publicVideosApi: typeof publicVideosApi;
 };
 
 class Store {
@@ -90,6 +91,7 @@ class Store {
             chatApi,
             templatesApi,
             storage,
+            publicVideosApi,
         };
     }
 }

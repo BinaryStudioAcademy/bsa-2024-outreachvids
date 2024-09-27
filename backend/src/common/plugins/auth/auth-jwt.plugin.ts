@@ -31,7 +31,7 @@ const authenticateJWT = fp<Options>((fastify, { routesWhiteList }, done) => {
 
         const [, token] = authHeader.split(' ');
 
-        const userId = await tokenService.getUserIdFromToken(token as string);
+        const userId = await tokenService.getIdFromToken(token as string);
 
         if (!userId) {
             throw new HttpError({

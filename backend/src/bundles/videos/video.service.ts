@@ -3,6 +3,7 @@ import { type VideoRepository } from '~/bundles/videos/video.repository.js';
 import { HTTPCode, HttpError } from '~/common/http/http.js';
 import { type ImageService } from '~/common/services/image/image.service.js';
 import { type RemotionService } from '~/common/services/remotion/remotion.service.js';
+import { tokenService } from '~/common/services/services.js';
 import { type Service } from '~/common/types/types.js';
 
 import { VideoValidationMessage } from './enums/enums.js';
@@ -18,7 +19,6 @@ class VideoService implements Service {
     private videoRepository: VideoRepository;
     private remotionService: RemotionService;
     private imageService: ImageService;
-
     public constructor(
         videoRepository: VideoRepository,
         remotionService: RemotionService,
@@ -115,6 +115,11 @@ class VideoService implements Service {
         }
 
         return isVideoDeleted;
+    }
+
+    public async getVideoIdToken(id: string): Promise<string> {
+        const token = await tokenService.createToken(id, false);
+        return token.replaceAll('.', '~');
     }
 }
 

@@ -29,6 +29,14 @@ const deleteVideo = createAsyncThunk<Promise<void>, string, AsyncThunkConfig>(
     },
 );
 
+const getJwt = createAsyncThunk<Promise<string>, string, AsyncThunkConfig>(
+    `${sliceName}/create-video-url`,
+    (payload, { extra }) => {
+        const { videosApi } = extra;
+        return videosApi.getVideoIdJWT(payload);
+    },
+);
+
 const loadVoices = createAsyncThunk<
     GetVoicesResponseDto,
     undefined,
@@ -49,4 +57,10 @@ const generateScriptSpeechPreview = createAsyncThunk<
     return speechApi.generateScriptSpeech(payload);
 });
 
-export { deleteVideo, generateScriptSpeechPreview, loadUserVideos, loadVoices };
+export {
+    deleteVideo,
+    generateScriptSpeechPreview,
+    getJwt,
+    loadUserVideos,
+    loadVoices,
+};

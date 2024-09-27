@@ -6,6 +6,7 @@ import { NotFound } from '~/bundles/common/pages/not-found/not-found.js';
 import { CreateAvatar } from '~/bundles/create-avatar/pages/create-avatar.js';
 import { Home } from '~/bundles/home/pages/home.js';
 import { MyAvatar } from '~/bundles/my-avatar/pages/my-avatar.js';
+import { PreviewWrapper } from '~/bundles/preview/components/preview-wrapper.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
 import { Templates } from '~/bundles/template/pages/templates.js';
 import { Voices } from '~/bundles/voices/pages/voices.js';
@@ -74,6 +75,10 @@ const routes = [
             {
                 path: AppRoute.ANY,
                 element: <NotFound />,
+            },
+            {
+                path: `${AppRoute.PREVIEW}/:jwt`,
+                element: <PreviewWrapper />,
             },
         ],
     },

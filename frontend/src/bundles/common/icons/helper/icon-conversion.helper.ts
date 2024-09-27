@@ -5,6 +5,7 @@ import {
     faCircleUser,
     faCloudArrowDown,
     faCloudArrowUp,
+    faCopy,
     faEllipsisVertical,
     faFileLines,
     faFont,
@@ -50,6 +51,7 @@ const Stop = convertIcon(faStop);
 const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
 const Circle = convertIcon(faCircle);
+const Copy = convertIcon(faCopy);
 const HeartFill = convertIcon(faHeart);
 const HeartOutline = convertIcon(faHeartRegular);
 const Magnifying = convertIcon(faMagnifyingGlass);
@@ -60,6 +62,7 @@ export {
     CircleUser,
     CloudArrowDown,
     CloudArrowUp,
+    Copy,
     EllipsisVertical,
     FileLines,
     Font,

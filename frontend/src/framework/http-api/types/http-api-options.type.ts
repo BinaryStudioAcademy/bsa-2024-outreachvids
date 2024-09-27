@@ -11,6 +11,7 @@ type HTTPApiOptions = Omit<
     payload?: HttpOptions['payload'];
     credentials?: HttpOptions['credentials'];
     keepAlive?: HttpOptions['keepAlive'];
+    customHeaders?: HttpOptions['headers'];
 };
 
 export { type HTTPApiOptions };

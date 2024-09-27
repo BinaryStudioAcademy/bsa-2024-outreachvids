@@ -51,9 +51,15 @@ class BaseHttpApi implements HttpApi {
             hasAuth,
             credentials = 'same-origin',
             keepAlive = false,
+            customHeaders,
         } = options;
 
         const headers = await this.getHeaders(contentType, hasAuth);
+        if (customHeaders) {
+            for (const [key, value] of customHeaders) {
+                headers.append(key, value);
+            }
+        }
 
         const response = await this.http.load(path, {
             method,
