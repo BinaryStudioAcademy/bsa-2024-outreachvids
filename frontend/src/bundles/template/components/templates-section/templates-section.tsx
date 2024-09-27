@@ -135,10 +135,10 @@ const TemplatesSection: React.FC = () => {
             </Flex>
             <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
                 {templates.public.map(({ id, ...template }) => (
-                    <TemplateCard key={id} {...template} />
+                    <TemplateCard key={id} {...template} id={id} />
                 ))}
                 {templates.user.map(({ id, ...template }) => (
-                    <TemplateCard key={id} {...template} />
+                    <TemplateCard key={id} {...template} id={id} />
                 ))}
             </SimpleGrid>
         </Box>

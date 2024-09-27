@@ -53,7 +53,10 @@ import {
     getVoicesConfigs,
     scenesExceedScripts,
 } from '../helpers/helpers.js';
-import { selectVideoDataById } from '../store/selectors.js';
+import {
+    selectTemplateDataById,
+    selectVideoDataById,
+} from '../store/selectors.js';
 import { actions as studioActions } from '../store/studio.js';
 
 const Studio: React.FC = () => {
@@ -62,6 +65,10 @@ const Studio: React.FC = () => {
 
     const videoData = useAppSelector((state) =>
         selectVideoDataById(state, locationState?.id),
+    );
+
+    const templateData = useAppSelector((state) =>
+        selectTemplateDataById(state, locationState?.templateId),
     );
 
     const {
@@ -91,7 +98,10 @@ const Studio: React.FC = () => {
         if (videoData) {
             void dispatch(studioActions.loadVideoData(videoData));
         }
-    }, [dispatch, videoData]);
+        if (templateData) {
+            void dispatch(studioActions.loadTemplate(templateData));
+        }
+    }, [dispatch, templateData, videoData]);
 
     const handleResize = useCallback(() => {
         dispatch(studioActions.changeVideoSize());

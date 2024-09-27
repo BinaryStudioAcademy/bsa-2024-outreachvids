@@ -6,21 +6,34 @@ import {
     Image,
     Text,
 } from '~/bundles/common/components/components.js';
-import { useCallback, useState } from '~/bundles/common/hooks/hooks.js';
+import { AppRoute } from '~/bundles/common/enums/enums.js';
+import {
+    useCallback,
+    useNavigate,
+    useState,
+} from '~/bundles/common/hooks/hooks.js';
 import { IconName } from '~/bundles/common/icons/icons.js';
 import { DeleteWarning } from '~/bundles/home/components/video-card/components/delete-warning.js';
 
 import styles from './styles.module.css';
 
 type Properties = {
+    id: string;
     name: string;
     previewUrl: string;
 };
 
-const TemplateCard: React.FC<Properties> = ({ name, previewUrl }) => {
+const TemplateCard: React.FC<Properties> = ({ id, name, previewUrl }) => {
+    const navigate = useNavigate();
     const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
 
-    const handleIconClick = useCallback((): void => {}, []);
+    const handleIconClick = useCallback((): void => {
+        navigate(AppRoute.STUDIO, {
+            state: {
+                templateId: id,
+            },
+        });
+    }, [id, navigate]);
 
     const handleWarningModalClose = useCallback(() => {
         setIsWarningModalOpen(false);

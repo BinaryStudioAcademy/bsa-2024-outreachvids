@@ -35,7 +35,7 @@ const CreationsSection: React.FC<Properties> = ({ onClick }) => {
                             marginRight="20px"
                             width="250px"
                         >
-                            <TemplateCard {...template} />
+                            <TemplateCard {...template} id={id} />
                         </Box>
                     ))}
                 </Box>
