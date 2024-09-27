@@ -8,7 +8,7 @@ const templatesSeed = [
         name: 'Landscape with Max',
         user_id: null,
         preview_url:
-            'https://speech.microsoft.com/assets/avatar/max/max-business-thumbnail.png',
+            'https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727352836443.jpg',
         composition: {
             scenes: [
                 {
@@ -40,7 +40,7 @@ const templatesSeed = [
         name: 'Portrait with Lori',
         user_id: null,
         preview_url:
-            'https://speech.microsoft.com/assets/avatar/lori/lori-casual-thumbnail.png',
+            'https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727352905018.jpg',
         composition: {
             scenes: [
                 {
@@ -72,7 +72,7 @@ const templatesSeed = [
         name: 'Landscape with Harry and Max',
         user_id: null,
         preview_url:
-            'https://speech.microsoft.com/assets/avatar/harry/harry-casual-thumbnail.png',
+            'https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727352956648.jpg',
         composition: {
             scenes: [
                 {
@@ -123,7 +123,7 @@ const templatesSeed = [
         name: 'Portrait with Lisa',
         user_id: null,
         preview_url:
-            'https://speech.microsoft.com/assets/avatar/lisa/lisa-casual-sitting-thumbnail.png',
+            'https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727353044738.jpg',
         composition: {
             scenes: [
                 {
@@ -155,7 +155,7 @@ const templatesSeed = [
         name: 'Landscape with Jeff',
         user_id: null,
         preview_url:
-            'https://speech.microsoft.com/assets/avatar/jeff/jeff-formal-thumbnail-bg.png',
+            'https://d2tm5q3cg1nlwf.cloudfront.net/preview_1727353097406.jpg',
         composition: {
             scenes: [
                 {

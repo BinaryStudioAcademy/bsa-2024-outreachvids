@@ -1,7 +1,11 @@
 import { HTTPCode, HttpError } from '~/common/http/http.js';
+import { type ImageService } from '~/common/services/image/image.service.js';
 import { type Service } from '~/common/types/types.js';
 
-import { type UpdateVideoRequestDto } from '../videos/types/types.js';
+import {
+    type Scene,
+    type UpdateVideoRequestDto,
+} from '../videos/types/types.js';
 import { templateErrorMessage } from './enums/enums.js';
 import { TemplateEntity } from './templates.entity.js';
 import { type TemplateRepository } from './templates.repository.js';
@@ -14,9 +18,14 @@ import {
 
 class TemplateService implements Service {
     private templateRepository: TemplateRepository;
+    private imageService: ImageService;
 
-    public constructor(templateRepository: TemplateRepository) {
+    public constructor(
+        templateRepository: TemplateRepository,
+        imageService: ImageService,
+    ) {
         this.templateRepository = templateRepository;
+        this.imageService = imageService;
     }
 
     public async findById(id: string): Promise<TemplateEntity | null> {
@@ -54,7 +63,9 @@ class TemplateService implements Service {
         const { composition, name, userId } = payload;
 
         // TODO: CREATE PREVIEW
-        const compositionPreviewUrl = composition.scenes[0]?.avatar?.url ?? '';
+        const compositionPreviewUrl = await this.imageService.generatePreview(
+            composition.scenes[0] as Scene,
+        );
 
         const user = await this.templateRepository.create(
             TemplateEntity.initializeNew({
@@ -70,7 +81,7 @@ class TemplateService implements Service {
 
     public async updateTemplate(
         id: string,
-        payload: UpdateVideoRequestDto,
+        payload: UpdateVideoRequestDto & { previewUrl?: string },
         userId: string,
     ): Promise<Template> {
         const template = await this.findById(id);
@@ -80,6 +91,12 @@ class TemplateService implements Service {
                 message: templateErrorMessage.YOU_CAN_NOT_UPDATE_THIS_TEMPLATE,
                 status: HTTPCode.BAD_REQUEST,
             });
+        }
+
+        if (payload.composition) {
+            payload.previewUrl = await this.imageService.generatePreview(
+                payload.composition.scenes[0] as Scene,
+            );
         }
 
         return await this.update(id, payload);
