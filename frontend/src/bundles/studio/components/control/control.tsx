@@ -11,6 +11,7 @@ type Properties = {
     label: string;
     size: IconSizeT;
     icon: ElementType;
+    iconColor?: string;
     onClick?: (event: React.MouseEvent) => void;
     width?: string;
     height?: string;
@@ -22,6 +23,7 @@ const Control: React.FC<Properties> = ({
     label,
     size,
     icon,
+    iconColor,
     onClick = (): void => {},
     width,
     height,
@@ -37,7 +39,9 @@ const Control: React.FC<Properties> = ({
                 {...(height && { height })}
                 size={size}
                 variant={variant}
-                icon={<Icon as={icon} />}
+                icon={
+                    <Icon as={icon} {...(iconColor && { color: iconColor })} />
+                }
                 onClick={onClick}
             />
         </Tooltip>

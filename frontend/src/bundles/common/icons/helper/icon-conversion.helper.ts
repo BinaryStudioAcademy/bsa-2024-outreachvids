@@ -1,3 +1,4 @@
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
     faCircle,
@@ -8,6 +9,7 @@ import {
     faFileLines,
     faFont,
     faForwardStep,
+    faHeart,
     faHouse,
     faImage,
     faMagnifyingGlass,
@@ -48,6 +50,8 @@ const Stop = convertIcon(faStop);
 const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
 const Circle = convertIcon(faCircle);
+const HeartFill = convertIcon(faHeart);
+const HeartOutline = convertIcon(faHeartRegular);
 const Magnifying = convertIcon(faMagnifyingGlass);
 
 export {
@@ -60,6 +64,8 @@ export {
     FileLines,
     Font,
     ForwardStep,
+    HeartFill,
+    HeartOutline,
     House,
     Image,
     Magnifying,

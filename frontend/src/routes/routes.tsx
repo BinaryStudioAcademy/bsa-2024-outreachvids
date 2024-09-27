@@ -8,6 +8,7 @@ import { Home } from '~/bundles/home/pages/home.js';
 import { MyAvatar } from '~/bundles/my-avatar/pages/my-avatar.js';
 import { Studio } from '~/bundles/studio/pages/studio.js';
 import { Templates } from '~/bundles/template/pages/templates.js';
+import { Voices } from '~/bundles/voices/pages/voices.js';
 
 const routes = [
     {
@@ -43,6 +44,14 @@ const routes = [
                 element: (
                     <ProtectedRoute>
                         <MyAvatar />
+                    </ProtectedRoute>
+                ),
+            },
+            {
+                path: AppRoute.VOICES,
+                element: (
+                    <ProtectedRoute>
+                        <Voices />
                     </ProtectedRoute>
                 ),
             },
