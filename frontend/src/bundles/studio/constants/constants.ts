@@ -1,11 +1,12 @@
 export { ADD_BUTTON_PADDING_MILLISECONDS } from './add-button-padding-milliseconds.js';
+export { DEFAULT_SCENE_DURATION } from './default-scene-duration.constant.js';
+export { DEFAULT_SCRIPT_DURATION } from './default-script-duration.constant.js';
 export { DEFAULT_VIDEO_NAME } from './default-video-name.js';
 export { DEFAULT_VOICE } from './default-voice-name.constant.js';
 export { DND_ACTIVATION_DISTANCE_PIXELS } from './dnd-activation-distance-pixels.constant.js';
 export { GROW_COEFFICIENT } from './grow-coefficient.js';
 export { MAX_SCENES_BEFORE_RESIZE } from './max-scenes-before-resize.js';
 export { MIN_SCENE_DURATION } from './min-scene-duration.constant.js';
-export { MIN_SCRIPT_DURATION } from './min-script-duration.constant.js';
 export { NEW_SCRIPT_TEXT } from './new-script-text.constant.js';
 export { SCRIPT_AND_AVATAR_ARE_REQUIRED } from './script-and-avatar-are-required.constant.js';
 export { SKIP_TO_PREV_SCENE_THRESHOLD } from './skip-to-previous-scene-threshold.constant.js';

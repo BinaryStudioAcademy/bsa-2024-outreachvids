@@ -8,6 +8,7 @@ import {
     useAppSelector,
     useCallback,
     useMemo,
+    useState,
 } from '~/bundles/common/hooks/hooks.js';
 import { IconName, IconSize } from '~/bundles/common/icons/icons.js';
 import { Control } from '~/bundles/studio/components/components.js';
@@ -23,6 +24,7 @@ import { Item, Row } from '../components.js';
 import styles from './styles.module.css';
 
 const ScenesRow: React.FC = () => {
+    const [isResizing, setIsResizing] = useState(false);
     const scenes = useAppSelector(({ studio }) => studio.scenes);
     const scenesWithSpan = useMemo(() => setItemsSpan(scenes), [scenes]);
     const { pixelsToValue } = useTimelineContext();
@@ -70,6 +72,14 @@ const ScenesRow: React.FC = () => {
         [dispatch],
     );
 
+    const handleResizing = useCallback((): void => {
+        setIsResizing(true);
+    }, []);
+
+    const handleResizingEnd = useCallback((): void => {
+        setIsResizing(false);
+    }, []);
+
     return (
         <Row
             id={RowNames.SCENE}
@@ -82,6 +92,8 @@ const ScenesRow: React.FC = () => {
                     type={RowNames.SCENE}
                     {...item}
                     onClick={handleItemClick}
+                    onResizeEnd={handleResizingEnd}
+                    onResizeStart={handleResizing}
                 >
                     <Badge
                         className={styles['scene-badge']}
@@ -118,22 +130,24 @@ const ScenesRow: React.FC = () => {
                 </Item>
             ))}
 
-            <Item
-                type={RowNames.BUTTON}
-                id="Add scene button"
-                span={{ start: scenesEnd, end: buttonEnd }}
-            >
-                <Control
-                    label="Add a scene"
-                    size={IconSize.LARGE}
-                    icon={IconName.ADD}
-                    variant="light"
-                    height="100%"
-                    width="100%"
-                    isRound={false}
-                    onClick={handleAddClick}
-                />
-            </Item>
+            {!isResizing && (
+                <Item
+                    type={RowNames.BUTTON}
+                    id="Add scene button"
+                    span={{ start: scenesEnd, end: buttonEnd }}
+                >
+                    <Control
+                        label="Add a scene"
+                        size={IconSize.LARGE}
+                        icon={IconName.ADD}
+                        variant="light"
+                        height="100%"
+                        width="100%"
+                        isRound={false}
+                        onClick={handleAddClick}
+                    />
+                </Item>
+            )}
         </Row>
     );
 };

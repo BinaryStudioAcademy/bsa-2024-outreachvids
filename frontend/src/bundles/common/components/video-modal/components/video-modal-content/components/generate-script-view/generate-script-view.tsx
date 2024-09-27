@@ -10,25 +10,22 @@ import {
     TabPanels,
     Tabs,
 } from '~/bundles/common/components/components.js';
-import {
-    getVideoScriptMessageFromPayload,
-    sanitizeJsonString,
-} from '~/bundles/common/components/video-modal/components/video-modal-content/helpers/helpers.js';
-import { EMPTY_VALUE } from '~/bundles/common/constants/constants.js';
+import { getVideoScriptMessageFromPayload } from '~/bundles/common/components/video-modal/components/video-modal-content/helpers/helpers.js';
 import {
     useAppDispatch,
     useAppSelector,
     useCallback,
-    useMemo,
 } from '~/bundles/common/hooks/hooks.js';
-import { type VideoScript } from '~/bundles/common/types/video-script.type.js';
 import { type GenerateVideoScriptRequestDto } from '~/bundles/video-scripts/video-scripts.js';
 
 import { GenerateScriptForm } from '../generate-script-form/generate-script-form.js';
 import { GenerateScriptPlaceholder } from '../generate-script-placeholder/generate-script-placeholder.js';
 import styles from './styles.module.css';
 
-const GenerateScriptView: React.FC = () => {
+type Properties = {
+    onClose: () => void;
+};
+const GenerateScriptView: React.FC<Properties> = ({ onClose }) => {
     const dispatch = useAppDispatch();
     const { messages } = useAppSelector(({ chat }) => ({
         messages: chat.messages.filter(
@@ -41,34 +38,14 @@ const GenerateScriptView: React.FC = () => {
             const sendMessageRequest: GenerateTextRequestDto = {
                 message: getVideoScriptMessageFromPayload(payload, messages),
             };
-            void dispatch(chatActions.sendMessage(sendMessageRequest));
+            void dispatch(chatActions.sendMessage(sendMessageRequest)).then(
+                () => {
+                    dispatch(chatActions.generateVideoScript());
+                },
+            );
         },
         [messages, dispatch],
     );
-
-    const lastGeneratedScript: VideoScript[] = useMemo(() => {
-        if (!messages || messages.length === EMPTY_VALUE) {
-            return [];
-        }
-
-        const lastMessage = messages.at(-1);
-        if (!lastMessage) {
-            return [];
-        }
-
-        try {
-            const sanitizedJson = sanitizeJsonString(lastMessage.text);
-            const videoScripts: VideoScript[] = JSON.parse(sanitizedJson);
-            return videoScripts;
-        } catch {
-            return [
-                {
-                    title: 'Scene',
-                    description: lastMessage.text,
-                },
-            ];
-        }
-    }, [messages]);
 
     return (
         <>
@@ -94,9 +71,7 @@ const GenerateScriptView: React.FC = () => {
                             <GenerateScriptForm
                                 onSubmit={handleGenerateVideoScriptSubmit}
                             />
-                            <GenerateScriptPlaceholder
-                                videoScripts={lastGeneratedScript}
-                            />
+                            <GenerateScriptPlaceholder onClose={onClose} />
                         </HStack>
                     </TabPanel>
                 </TabPanels>

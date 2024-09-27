@@ -23,7 +23,7 @@ const Header: React.FC<Properties> = ({ left, center, right }) => {
                 </Box>
             )}
             <Box className={styles['center']}>{center}</Box>
-            <Box className={styles['right']}>{right}</Box>
+            {right && <Box className={styles['right']}>{right}</Box>};
         </Flex>
     );
 };

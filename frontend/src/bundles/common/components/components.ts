@@ -13,6 +13,7 @@ export { ProtectedRoute } from './protected-route/protected-route.js';
 export { RouterProvider } from './router-provider/router-provider.js';
 export { Select } from './select/select.js';
 export { Sidebar } from './sidebar/sidebar.js';
+export { Stepper } from './stepper/stepper.js';
 export { Textarea } from './textarea/textarea.js';
 export { UploadVideo } from './upload-video/upload-video.js';
 export { VideoModal } from './video-modal/video-modal.js';
@@ -51,6 +52,7 @@ export {
     Input as LibraryInput,
     Link as LibraryLink,
     Modal as LibraryModal,
+    Stepper as LibraryStepper,
     ListItem,
     Menu,
     MenuButton,
@@ -61,6 +63,7 @@ export {
     ModalCloseButton,
     ModalContent,
     ModalOverlay,
+    Progress,
     SimpleGrid,
     Slider,
     SliderFilledTrack,
@@ -69,6 +72,9 @@ export {
     Spacer,
     Spinner,
     Stack,
+    Step,
+    StepIndicator,
+    StepStatus,
     Tab,
     TabList,
     TabPanel,

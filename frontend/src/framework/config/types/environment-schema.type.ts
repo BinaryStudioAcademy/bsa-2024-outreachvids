@@ -7,6 +7,7 @@ type EnvironmentSchema = {
     };
     API: {
         ORIGIN_URL: string;
+        SOCKET_ORIGIN_URL: string;
     };
 };
 

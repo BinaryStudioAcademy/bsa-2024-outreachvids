@@ -1,5 +1,6 @@
 import {
     faBackwardStep,
+    faCircle,
     faCircleUser,
     faCloudArrowDown,
     faCloudArrowUp,
@@ -49,10 +50,12 @@ const VideoCamera = convertIcon(faVideoCamera);
 const Image = convertIcon(faImage);
 const AIAvatars = convertIcon(faUserLarge);
 const Heart = convertIcon(faHeart);
+const Circle = convertIcon(faCircle);
 
 export {
     AIAvatars,
     BackwardStep,
+    Circle,
     CircleUser,
     CloudArrowDown,
     CloudArrowUp,
