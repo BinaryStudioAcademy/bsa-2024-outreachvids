@@ -3,6 +3,7 @@ type AvatarMapped = {
     name: string;
     style: string;
     imgUrl: string;
+    isLiked: boolean | undefined;
 };
 
 export { type AvatarMapped };
