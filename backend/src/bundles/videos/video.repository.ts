@@ -21,8 +21,7 @@ class VideoRepository implements Repository {
 
     public async findById(id: string): Promise<VideoEntity | null> {
         const video = await this.videoModel.query().findById(id).execute();
-        // eslint-disable-next-line no-console
-        console.log(video);
+
         return video ? VideoEntity.initialize(video) : null;
     }
 
