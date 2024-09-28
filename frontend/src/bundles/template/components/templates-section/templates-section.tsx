@@ -21,6 +21,7 @@ import { type Template } from '~/bundles/template/types/types.js';
 
 import { TemplateCard } from '../template-card/template-card.js';
 import { DEFAULT_TEMPLATE_PAYLOAD } from './constants.js';
+import styles from './styles.module.css';
 
 type Properties = {
     templates: Template[];
@@ -113,7 +114,11 @@ const TemplatesSection: React.FC<Properties> = ({ templates }) => {
                     </FormProvider>
                 </Flex>
             </Flex>
-            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
+            <SimpleGrid
+                minChildWidth="200px"
+                spacing="20px"
+                className={styles['grid']}
+            >
                 {templates.map(({ id, ...template }) => (
                     <TemplateCard key={id} {...template} id={id} />
                 ))}

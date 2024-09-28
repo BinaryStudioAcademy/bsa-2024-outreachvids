@@ -9,3 +9,7 @@
     background-color: white;
     color: #4a4a4a;
 }
+
+.grid {
+    grid-template-columns: repeat(auto-fit, 250px);
+}

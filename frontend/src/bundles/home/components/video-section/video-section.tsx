@@ -49,7 +49,7 @@ const VideoSection: React.FC<Properties> = ({ videos, title }) => {
                         ))}
                     </Box>
                 ) : (
-                    <SimpleGrid spacing="20px" minChildWidth="250px">
+                    <SimpleGrid spacing="20px" className={styles['grid']}>
                         {videos.map(({ id, ...video }) => (
                             <VideoCard key={id} id={id} {...video} />
                         ))}
