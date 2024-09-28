@@ -40,10 +40,21 @@ const AvatarCard: React.FC<Properties> = ({
     }, [dispatch, id, image]);
 
     return (
-        <Card size="sm" borderRadius="lg" boxShadow="none" maxW="500px">
-            <CardBody>
-                <Box bg="background.50" borderRadius="md" position="relative">
-                    <Image src={image} alt="AI generated avatar image" />
+        <Card size="sm" borderRadius="lg" boxShadow="none" maxW="250px">
+            <CardBody position="relative" role="group">
+                <Flex
+                    bg="background.50"
+                    borderRadius="md"
+                    position="relative"
+                    justifyContent="center"
+                >
+                    <Image
+                        objectFit="cover"
+                        objectPosition="top"
+                        height="155px"
+                        src={image}
+                        alt="AI generated avatar image"
+                    />
                     <IconButton
                         aria-label="favorite button"
                         icon={<Icon as={IconName.HEART} boxSize={5} />}
@@ -54,7 +65,7 @@ const AvatarCard: React.FC<Properties> = ({
                         right="0"
                         onClick={handleLike}
                     />
-                </Box>
+                </Flex>
                 <Box p="5px 0">
                     <Text color="typography.900" fontWeight="600">
                         {name}

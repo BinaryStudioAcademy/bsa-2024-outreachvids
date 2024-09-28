@@ -14,6 +14,7 @@ import {
 } from '~/bundles/common/components/components.js';
 
 import { AvatarCard } from '../components.js';
+import styles from './styles.module.css';
 
 type Properties = {
     subtitle: string;
@@ -62,11 +63,7 @@ const AvatarsSection: React.FC<Properties> = ({ subtitle, avatars, form }) => {
                     Pick your favorites avatars to show them here!
                 </Text>
             ) : (
-                <SimpleGrid
-                    minChildWidth="300px"
-                    justifyItems="center"
-                    spacing="40px"
-                >
+                <SimpleGrid className={styles['grid']} spacing="40px">
                     {avatars.map(({ id, imgUrl, name, style, isLiked }) => (
                         <AvatarCard
                             key={`${id}-${style}`}
