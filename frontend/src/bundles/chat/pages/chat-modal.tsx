@@ -52,7 +52,7 @@ const ChatModal: React.FC<Properties> = ({
                 <Chat
                     messages={messages}
                     onSendMessage={handleSendMessage}
-                    headerTitle="AI assistant"
+                    headerTitle="AI Assistant"
                     headerComment="Your secret to crafting compelling scripts effortlessly!"
                 />
             </ModalContent>
