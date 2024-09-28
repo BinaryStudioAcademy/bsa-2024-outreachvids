@@ -30,7 +30,8 @@ class PublicVideoController extends BaseController {
     ): Promise<ApiHandlerResponse> {
         const headers = options.headers as Record<string, { value: string }>;
         const videoTokenHeader = headers['video_token']?.toString() ?? '';
-
+        // eslint-disable-next-line no-console
+        console.log(videoTokenHeader);
         return {
             status: HTTPCode.OK,
             payload:
