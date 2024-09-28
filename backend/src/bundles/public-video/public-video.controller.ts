@@ -28,6 +28,8 @@ class PublicVideoController extends BaseController {
     private async findUrlByToken(
         options: ApiHandlerOptions,
     ): Promise<ApiHandlerResponse> {
+        // eslint-disable-next-line no-console
+        console.log(options, 'options');
         const headers = options.headers as Record<string, { value: string }>;
         const videoTokenHeader = headers['video_token']?.toString() ?? '';
         // eslint-disable-next-line no-console
