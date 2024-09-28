@@ -50,10 +50,7 @@ const VoiceSection: React.FC<Properties> = ({ voices, title }) => {
                         ))}
                     </Box>
                 ) : (
-                    <SimpleGrid
-                        columns={{ sm: 2, md: 3, lg: 4 }}
-                        spacing="20px"
-                    >
+                    <SimpleGrid className={styles['grid']} spacing="20px">
                         {voices.map((voice) => (
                             <VoiceCard voice={voice} key={voice.shortName} />
                         ))}

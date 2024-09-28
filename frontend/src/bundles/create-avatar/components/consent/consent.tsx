@@ -13,7 +13,7 @@ const Consent: React.FC = () => {
     return (
         <Flex className={styles['flex-container']}>
             <Text variant={'title'} color={'background.600'} marginTop={'2vh'}>
-                Concent
+                Consent
             </Text>
             <Text variant={'body1'} color="typography.600" mb={3}>
                 To prevent misuse of technology, we just need to confirm the

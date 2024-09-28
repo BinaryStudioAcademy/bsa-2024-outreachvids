@@ -44,7 +44,7 @@ const TemplateCard: React.FC<Properties> = ({ id, name, previewUrl }) => {
     }, [handleWarningModalClose]);
 
     return (
-        <Box borderRadius="8px" bg="white" padding="7px">
+        <Box borderRadius="8px" bg="white" maxWidth="250px" padding="7px">
             <Box
                 position="relative"
                 role="group"

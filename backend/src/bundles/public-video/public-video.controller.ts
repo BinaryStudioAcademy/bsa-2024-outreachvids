@@ -36,11 +36,8 @@ class PublicVideoController extends BaseController {
             body: { id: string };
         }>,
     ): Promise<ApiHandlerResponse> {
-        // eslint-disable-next-line no-console
-        console.log(options.body, 'options.body');
         const jwt = options.body.id;
-        // eslint-disable-next-line no-console
-        console.log(jwt, 'jwt');
+
         return {
             status: HTTPCode.OK,
             payload: await this.publicVideoService.findUrlByToken(jwt),

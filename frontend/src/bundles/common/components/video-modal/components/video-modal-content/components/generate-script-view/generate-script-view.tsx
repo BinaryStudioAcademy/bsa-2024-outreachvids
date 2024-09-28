@@ -50,7 +50,7 @@ const GenerateScriptView: React.FC<Properties> = ({ onClose }) => {
     return (
         <>
             <Heading className={styles['script-view-heading']} variant="H3">
-                Use Open AI to draft your video script
+                Use our AI Assistant to draft your video script
             </Heading>
             <Tabs variant="unstyled" size="sm">
                 <TabList className={styles['script-view-tab-list']}>
