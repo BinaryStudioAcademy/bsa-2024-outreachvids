@@ -13,7 +13,7 @@ const WHITE_ROUTES = [
     },
     {
         path: `/api/v1${ApiPath.PUBLIC_VIDEO}/`,
-        method: HTTPMethod.GET,
+        method: HTTPMethod.POST,
     },
     {
         path: /\/v1\/documentation\/.*/,
