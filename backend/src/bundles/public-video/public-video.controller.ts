@@ -20,24 +20,30 @@ class PublicVideoController extends BaseController {
 
         this.addRoute({
             path: PublicVideosApiPath.ROOT,
-            method: HTTPMethod.GET,
-            handler: (options) => this.findUrlByToken(options),
+            method: HTTPMethod.POST,
+            handler: (options) => {
+                return this.findUrlByToken(
+                    options as ApiHandlerOptions<{
+                        body: { id: string };
+                    }>,
+                );
+            },
         });
     }
 
     private async findUrlByToken(
-        options: ApiHandlerOptions,
+        options: ApiHandlerOptions<{
+            body: { id: string };
+        }>,
     ): Promise<ApiHandlerResponse> {
         // eslint-disable-next-line no-console
-        console.log(options, 'options');
-        const headers = options.headers as Record<string, { value: string }>;
-        const videoTokenHeader = headers['video_token']?.toString() ?? '';
+        console.log(options.body, 'options.body');
+        const jwt = options.body.id;
         // eslint-disable-next-line no-console
-        console.log(videoTokenHeader);
+        console.log(jwt, 'jwt');
         return {
             status: HTTPCode.OK,
-            payload:
-                await this.publicVideoService.findUrlByToken(videoTokenHeader),
+            payload: await this.publicVideoService.findUrlByToken(jwt),
         };
     }
 }

@@ -17,17 +17,13 @@ class PublicVideosApi extends BaseHttpApi {
     }
 
     public async getVideoUrlFromJWT(jwt: string): Promise<string> {
-        const headers = new Headers();
-        headers.append('video_token', jwt.replaceAll('~', '.'));
-
-        // eslint-disable-next-line no-console
-        console.log('headers', headers.get('video_token'));
+        const updatedJwt = jwt.replaceAll('~', '.');
 
         const options = {
-            method: HTTPMethod.GET,
+            method: HTTPMethod.POST,
             contentType: ContentType.JSON,
             hasAuth: true,
-            customHeaders: headers,
+            payload: JSON.stringify({ id: updatedJwt }),
         };
 
         const response = await this.load(
