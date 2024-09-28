@@ -43,7 +43,11 @@ class VideoService implements Service {
     }
 
     public async findByUserId(userId: string): Promise<VideoGetAllResponseDto> {
+        // eslint-disable-next-line no-console
+        console.log(userId);
         const items = await this.videoRepository.findByUserId(userId);
+        // eslint-disable-next-line no-console
+        console.log(items);
 
         return {
             items: items.map((it) => it.toObject()),

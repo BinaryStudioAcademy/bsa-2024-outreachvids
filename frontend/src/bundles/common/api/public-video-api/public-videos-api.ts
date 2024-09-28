@@ -18,7 +18,11 @@ class PublicVideosApi extends BaseHttpApi {
 
     public async getVideoUrlFromJWT(jwt: string): Promise<string> {
         const headers = new Headers();
+        // eslint-disable-next-line no-console
+        console.log('JWT in api', jwt);
         headers.append('video_token', jwt.replaceAll('~', '.'));
+        // eslint-disable-next-line no-console
+        console.log('headers', headers);
 
         const options = {
             method: HTTPMethod.GET,
