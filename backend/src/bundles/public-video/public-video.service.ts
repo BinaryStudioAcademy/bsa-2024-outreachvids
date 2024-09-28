@@ -11,20 +11,8 @@ class PublicVideoService {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public async findUrlByToken(token: any): Promise<string> {
-        let id;
-
-        // eslint-disable-next-line no-console
-        console.log(token, 'find url by token');
-        if (token.id) {
-            id = token.id;
-            // eslint-disable-next-line no-console
-            console.log('id from token', id);
-        } else {
-            id = await tokenService.getIdFromToken(token);
-            // eslint-disable-next-line no-console
-            console.log('id from else', id);
-        }
+    public async findUrlByToken(token: string): Promise<string> {
+        const id = await tokenService.getIdFromToken(token);
 
         if (!id) {
             this.throwVideoNotFoundError();
