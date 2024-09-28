@@ -34,6 +34,8 @@ class TokenService {
 
     public async getIdFromToken(token: string): Promise<string | null> {
         const payload = await this.verifyToken(token);
+        // eslint-disable-next-line no-console
+        console.log(payload);
         return (payload?.['id'] as string) ?? null;
     }
 }

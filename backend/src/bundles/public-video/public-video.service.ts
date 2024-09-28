@@ -10,6 +10,7 @@ class PublicVideoService {
         this.videoRepository = videoRepository;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public async findUrlByToken(token: string): Promise<string> {
         const id = await tokenService.getIdFromToken(token);
 
