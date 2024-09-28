@@ -21,7 +21,7 @@ class PublicVideosApi extends BaseHttpApi {
         headers.append('video_token', jwt.replaceAll('~', '.'));
 
         // eslint-disable-next-line no-console
-        console.log('headers', headers);
+        console.log('headers', headers.get('video_token'));
 
         const options = {
             method: HTTPMethod.GET,
