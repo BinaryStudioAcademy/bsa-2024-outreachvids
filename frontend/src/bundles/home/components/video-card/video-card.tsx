@@ -115,7 +115,7 @@ const VideoCard: React.FC<Properties> = ({
     }, [dispatch, id]);
 
     return (
-        <Box borderRadius="8px" bg="white" padding="7px">
+        <Box borderRadius="8px" maxWidth={'250px'} bg="white" padding="7px">
             <Box
                 position="relative"
                 role="group"
